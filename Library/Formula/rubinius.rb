@@ -17,7 +17,7 @@ class Rubinius < Formula
     # Set to stop Rubinius messing with our prefix.
     ENV["RELEASE"] = "1"
 
-    ruby = "/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby"
+    ruby = "/usr/bin/ruby"
 
     system ruby, "./configure",
                 "--skip-system", # download and use the prebuilt LLVM
