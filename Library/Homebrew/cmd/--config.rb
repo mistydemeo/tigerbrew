@@ -80,7 +80,7 @@ module Homebrew extend self
   end
 
   def hardware
-    "CPU: #{Hardware.cores_as_words}-core #{Hardware.bits}-bit #{Hardware.intel_family}"
+    "CPU: #{Hardware.cores_as_words}-core #{Hardware.bits}-bit #{Hardware.any_family}"
   end
 
   def kernel
