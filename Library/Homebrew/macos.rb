@@ -12,6 +12,7 @@ module MacOS extend self
     elsif version == :lion then :lion
     elsif version == :snow_leopard then :snowleopard
     elsif version == :leopard then :leopard
+    elsif version == :tiger then :tiger
     else nil
     end
   end
