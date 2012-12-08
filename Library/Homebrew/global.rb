@@ -5,6 +5,7 @@ require 'extend/string'
 require 'utils'
 require 'exceptions'
 require 'set'
+require 'extend/tiger' if RUBY_VERSION == '1.8.2'
 
 ARGV.extend(HomebrewArgvExtension)
 
