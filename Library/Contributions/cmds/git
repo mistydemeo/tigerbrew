@@ -34,7 +34,7 @@ end
 brew_version = File.expand_path("#{D}/../../../bin/#{F}")
 exec brew_version, *ARGV if File.executable? brew_version
 
-`/usr/bin/which -a #{F} 2>/dev/null`.split("\n").each do |path|
+`$HOMEBREW_PREFIX/which -a #{F} 2>/dev/null`.split("\n").each do |path|
   exec path, *ARGV
 end
 

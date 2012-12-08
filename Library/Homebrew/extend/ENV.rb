@@ -463,10 +463,10 @@ class << ENV
         EOS
       end
 
-    elsif `/usr/bin/which gfortran`.chuzzle
+    elsif `#{HOMEBREW_PREFIX}/which gfortran`.chuzzle
       ohai "Using Homebrew-provided fortran compiler."
       puts "This may be changed by setting the FC environment variable."
-      self['FC'] = `/usr/bin/which gfortran`.chomp
+      self['FC'] = `#{HOMEBREW_PREFIX}/which gfortran`.chomp
       self['F77'] = self['FC']
 
       fc_flag_vars.each {|key| self[key] = cflags}
