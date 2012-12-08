@@ -11,3 +11,10 @@ class Object
 	end
 end
 
+module Enumerable
+	def one?(&block)
+		return map.size == 1 unless block
+		select(&block).size == 1
+	end
+end
+
