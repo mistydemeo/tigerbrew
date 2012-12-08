@@ -312,6 +312,8 @@ module HomebrewEnvExtension
 
   # Sets architecture-specific flags for every environment variable
   # given in the list `flags`.
+  # Sets architecture-specific flags for every environment variable
+  # given in the list `flags`.
   def set_cpu_flags flags, default, map = {}
     cflags =~ %r{(-Xarch_i386 )-march=}
     xarch = $1.to_s
@@ -319,6 +321,7 @@ module HomebrewEnvExtension
     remove flags, %r{( -Xclang \S+)+}
     remove flags, %r{-mssse3}
     remove flags, %r{-msse4(\.\d)?}
+   if Hardware.cpu_type == :intel
     append flags, xarch unless xarch.empty?
 
     if ARGV.build_bottle?
@@ -327,6 +330,25 @@ module HomebrewEnvExtension
       # Don't set -msse3 and older flags because -march does that for us
       append flags, '-march=' + map.fetch(Hardware.intel_family, default)
     end
+   else
+    case Hardware.ppc_family
+    when :powerpc_603ev
+      append flags, '-mcpu=603e'
+      append flags, '-mtune=603e'
+    else
+      cpu_type = Hardware.ppc_family.to_s.split('_').last
+      append flags, "-mcpu=#{cpu_type}"
+      append flags, "-mtune=#{cpu_type}"
+    end
+    # For 10.4 we need to add system paths for /usr/X11R6 since some
+    # non-X libraries have been installed there that are normally found
+    # in /usr on 10.5 and later systems (e.g. expat)
+    if MACOS_VERSION == 10.4
+      append flags, '-isystem /usr/X11R6/include'
+      append 'CPPFLAGS', '-isystem /usr/X11R6/include'
+      append 'LDFLAGS', '-L/usr/X11R6/lib'
+    end
+   end
 
     # not really a 'CPU' cflag, but is only used with clang
     remove flags, '-Qunused-arguments'
