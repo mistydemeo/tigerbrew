@@ -152,7 +152,7 @@ def puts_columns items, star_items=[]
 end
 
 def which cmd
-  path = `#{HOMEBREW_PREFIX}/which #{cmd} 2>/dev/null`.chomp
+  path = `#{HOMEBREW_PREFIX}/bin/which #{cmd} 2>/dev/null`.chomp
   if path.empty?
     nil
   else
