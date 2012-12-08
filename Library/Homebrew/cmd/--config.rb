@@ -97,7 +97,7 @@ module Homebrew extend self
     puts "OS X: #{MACOS_FULL_VERSION}-#{kernel}"
     puts "Xcode: #{describe_xcode}"
     puts "CLT: #{describe_clt}" if MacOS::Xcode.version.to_f >= 4.3
-    puts "/usr/bin/ruby:\n  #{RUBY_VERSION}-#{RUBY_PATCHLEVEL}" if RUBY_VERSION.to_f != 1.8
+    puts "/usr/bin/ruby:\n  #{RUBY_VERSION}" if RUBY_VERSION.to_f != 1.8
 
     unless MacOS.compilers_standard?
       puts "GCC-4.0: build #{gcc_40}" if gcc_40
@@ -136,7 +136,7 @@ module Homebrew extend self
     ponk = macports_or_fink_installed?
     puts "MacPorts or Fink? #{ponk}" if ponk
     puts "X11: #{describe_x11}"
-    puts "System Ruby: #{RUBY_VERSION}-#{RUBY_PATCHLEVEL}"
+    puts "System Ruby: #{RUBY_VERSION}"
     puts "Perl: #{describe_perl}"
     puts "Python: #{describe_python}"
     puts "Ruby: #{describe_ruby}"
