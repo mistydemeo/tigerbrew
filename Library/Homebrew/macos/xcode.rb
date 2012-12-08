@@ -19,6 +19,7 @@ module MacOS::Xcode extend self
 
   def latest_version
     case MacOS.version
+      when 10.4 then "2.5"
       when 10.5 then "3.1.4"
       when 10.6 then "3.2.6"
     else
@@ -92,6 +93,12 @@ module MacOS::Xcode extend self
 
     raise unless which "xcodebuild"
     `xcodebuild -version 2>/dev/null` =~ /Xcode (\d(\.\d)*)/
+    if $1.nil?
+      `xcodebuild -version 2>/dev/null` =~ /DevToolsCore-(\d+.\d+)/
+
+      # kind of a hack but I don't know what other versions I might encounter
+      return "2.5" if $1 == "798.0"
+		end
     raise if $1.nil? or not $?.success?
     $1
   rescue
