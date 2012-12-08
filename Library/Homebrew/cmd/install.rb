@@ -25,14 +25,14 @@ module Homebrew extend self
     install_formulae ARGV.formulae
   end
 
-  def check_ppc
-    case Hardware.cpu_type when :ppc, :dunno
-      abort <<-EOS.undent
-        Sorry, Homebrew does not support your computer's CPU architecture.
-        For PPC support, see: http://github.com/sceaga/homebrew/tree/powerpc
-        EOS
-    end
-  end
+#  def check_ppc
+#    case Hardware.cpu_type when :ppc, :dunno
+#      abort <<-EOS.undent
+#        Sorry, Homebrew does not support your computer's CPU architecture.
+#        For PPC support, see: http://github.com/sceaga/homebrew/tree/powerpc
+#        EOS
+#    end
+#  end
 
   def check_writable_install_location
     raise "Cannot write to #{HOMEBREW_CELLAR}" if HOMEBREW_CELLAR.exist? and not HOMEBREW_CELLAR.writable_real?
@@ -66,7 +66,7 @@ module Homebrew extend self
   end
 
   def perform_preinstall_checks
-    check_ppc
+    # check_ppc
     check_writable_install_location
     check_xcode
     check_macports
