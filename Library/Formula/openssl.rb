@@ -16,7 +16,13 @@ class Openssl < Formula
                shared
              ]
 
-    args << (MacOS.prefer_64_bit? ? "darwin64-x86_64-cc" : "darwin-i386-cc")
+    if Hardware.cpu_type == :intel
+      args << (MacOS.prefer_64_bit? ? "darwin64-x86_64-cc" : "darwin-i386-cc")
+    else
+      args << (MacOS.prefer_64_bit? ? "darwin-ppc64-cc" : "darwin-ppc-cc")
+    end
+    # build error from ASM; see https://trac.macports.org/ticket/33741
+    args << "no-asm" if MacOS.version == :tiger
 
     system "perl", *args
 
