@@ -17,12 +17,23 @@ class Git < Formula
 
   head 'https://github.com/git/git.git'
 
+  # system tar has odd permissions errors
+  depends_on 'gnu-tar' if MacOS.version == :tiger
   depends_on 'pcre' if build.include? 'with-pcre'
 
   option 'with-blk-sha1', 'Compile with the block-optimized SHA1 implementation'
   option 'with-pcre', 'Compile with the PCRE library'
 
   def install
+    if MacOS.version == :tiger
+      tar = Formula.factory('gnu-tar')
+      tab = Tab.for_keg tar.installed_prefix
+      tar_name = tab.used_options.include?('--default-names') ? tar.bin/'tar' : tar.bin/'gtar'
+      inreplace 'Makefile' do |s|
+        s.change_make_var! 'TAR', tar_name.to_s
+      end
+    end
+
     # If these things are installed, tell Git build system to not use them
     ENV['NO_FINK'] = '1'
     ENV['NO_DARWIN_PORTS'] = '1'
