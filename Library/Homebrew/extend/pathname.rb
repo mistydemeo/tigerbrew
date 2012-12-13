@@ -397,6 +397,19 @@ class Pathname
     end
   end
 
+  # This seems absolutely insane. Tiger's ruby (1.8.2) deals with
+  # symlinked directores in nonsense ways.
+  # Pathname#unlink checks whether the target is a file or a directory,
+  # and calls the appropriate File or Dir method as appropriate.
+  # So far so good.
+  # On the other hand, if the target is a) a directory, and b) a
+  # symlink, then Pathname will redirect to Dir.unlink, which will
+  # then treat the symlink as a *file* and raise Errno::EISDIR.
+  alias :oldunlink :unlink
+  def unlink
+    symlink? ? File.unlink(to_s) : oldunlink
+  end
+
 end
 
 # sets $n and $d so you can observe creation of stuff

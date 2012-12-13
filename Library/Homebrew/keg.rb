@@ -155,7 +155,8 @@ class Keg < Pathname
   def optlink
     from = HOMEBREW_PREFIX/:opt/fname
     if from.symlink?
-      from.delete
+      # Tiger's ruby has serious issues with Pathname#unlink
+      File.delete(from.to_s)
     elsif from.directory?
       from.rmdir
     elsif from.exist?
