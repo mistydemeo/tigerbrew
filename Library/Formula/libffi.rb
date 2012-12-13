@@ -9,7 +9,6 @@ class Libffi < Formula
   keg_only :provided_by_osx, "Some formulae require a newer version of libffi."
 
   def install
-    ENV.universal_binary
     system "./configure", "--prefix=#{prefix}", "--disable-debug", "--disable-dependency-tracking"
     system "make install"
   end
