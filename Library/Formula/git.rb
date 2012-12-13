@@ -24,6 +24,11 @@ class Git < Formula
   option 'with-blk-sha1', 'Compile with the block-optimized SHA1 implementation'
   option 'with-pcre', 'Compile with the PCRE library'
 
+  # git tries to use the -rpath linker command, which isn't valid on OS X
+  def patches
+    "https://trac.macports.org/export/100394/trunk/dports/devel/git-core/files/patch-Makefile.diff"
+  end
+
   def install
     if MacOS.version == :tiger
       tar = Formula.factory('gnu-tar')
