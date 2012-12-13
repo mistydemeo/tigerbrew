@@ -30,6 +30,9 @@ class Git < Formula
   end
 
   def install
+    # git's index-pack will segfault unless compiled without optimization
+    ENV.no_optimization if MacOS.version == :tiger
+
     if MacOS.version == :tiger
       tar = Formula.factory('gnu-tar')
       tab = Tab.for_keg tar.installed_prefix
