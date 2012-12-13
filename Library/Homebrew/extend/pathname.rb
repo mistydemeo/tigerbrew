@@ -230,8 +230,15 @@ class Pathname
   end
 
   def sha2
-    require 'digest/sha2'
-    incremental_hash(Digest::SHA2)
+    openssl = Formula.factory('openssl')
+    if MacOS.version == :tiger
+      raise "You must `brew install openssl` to compute sha256 hashes on Tiger" unless openssl.installed?
+      str = `#{openssl.bin}/openssl dgst -sha256 #{self}`.chomp
+      str.match(/= ((\d|[a-z])+)/).captures.first
+    else
+      require 'digest/sha2'
+      incremental_hash(Digest::SHA2)
+    end
   end
   alias_method :sha256, :sha2
 
