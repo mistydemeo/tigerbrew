@@ -307,7 +307,7 @@ end
 def check_access_usr_local
   return unless HOMEBREW_PREFIX.to_s == '/usr/local'
 
-  unless Pathname('/usr/local').writable_real? then <<-EOS.undent
+  unless Pathname.new('/usr/local').writable_real? then <<-EOS.undent
     The /usr/local directory is not writable.
     Even if this directory was writable when you installed Homebrew, other
     software may change permissions on this directory. Some versions of the
