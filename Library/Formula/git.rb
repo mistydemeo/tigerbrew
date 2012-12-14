@@ -19,6 +19,7 @@ class Git < Formula
 
   # system tar has odd permissions errors
   depends_on 'gnu-tar' if MacOS.version == :tiger
+  depends_on 'curl' if MacOS.version < :snow_leopard
   depends_on 'pcre' if build.include? 'with-pcre'
 
   option 'with-blk-sha1', 'Compile with the block-optimized SHA1 implementation'
@@ -50,6 +51,7 @@ class Git < Formula
     ENV['NO_GETTEXT'] = '1'
     ENV['PERL_PATH'] = which 'perl' # workaround for users of perlbrew
     ENV['PYTHON_PATH'] = which 'python' # python can be brewed or unbrewed
+    ENV['CURLDIR'] = Formula.factory('curl').opt_prefix if MacOS.version < :snow_leopard
 
     # Clean XCode 4.x installs don't include Perl MakeMaker
     ENV['NO_PERL_MAKEMAKER'] = '1' if MacOS.version >= :lion
