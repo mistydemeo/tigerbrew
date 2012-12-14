@@ -6,7 +6,7 @@ class Curl < Formula
   sha256 '78dce7cfff51ec5725442b92c00550b4e0ca2f45ad242223850a312cd9160509'
 
   keg_only :provided_by_osx,
-            "The libcurl provided by Leopard is too old for CouchDB to use."
+    "The libcurl shipped before Snow Leopard is too old for CouchDB to use."
 
   option 'with-ssh', 'Build with scp and sftp support'
   option 'with-libmetalink', 'Build with Metalink support'
@@ -14,6 +14,7 @@ class Curl < Formula
   depends_on 'pkg-config' => :build
   depends_on 'libssh2' if build.include? 'with-ssh'
   depends_on 'libmetalink' if build.include? 'with-libmetalink'
+  depends_on 'openssl' if MacOS.version < :snow_leopard
 
   def install
     args = %W[
@@ -24,6 +25,20 @@ class Curl < Formula
 
     args << "--with-libssh2" if build.include? 'with-ssh'
     args << "--with-libmetalink" if build.include? 'with-libmetalink'
+
+    # Tiger/Leopard ship with a horrendously outdated set of certs,
+    # breaking any software that relies on curl, e.g. git
+    if MacOS.version < :snow_leopard
+      require 'open-uri'
+
+      args << "--with-ca-bundle=#{share}/curl/curl-ca-bundle.crt"
+      # don't use a subformula for this as it changes constantly
+      begin
+        (share/"curl/curl-ca-bundle.crt").write open('http://curl.haxx.se/ca/cacert.pem').read
+      rescue
+        raise "Could not download certificates. Please check your internet connection."
+      end
+    end
 
     system "./configure", *args
     system "make install"
