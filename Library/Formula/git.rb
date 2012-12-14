@@ -18,7 +18,7 @@ class Git < Formula
   head 'https://github.com/git/git.git'
 
   # system tar has odd permissions errors
-  depends_on 'gnu-tar' if MacOS.version == :tiger
+  depends_on 'gnu-tar' => :build if MacOS.version == :tiger
   depends_on 'curl' if MacOS.version < :snow_leopard
   depends_on 'pcre' if build.include? 'with-pcre'
 
