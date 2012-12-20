@@ -12,6 +12,9 @@ class Glib < Formula
   depends_on 'xz' => :build
   depends_on 'gettext'
   depends_on 'libffi'
+  # the version of zlib which comes with Tiger does not
+  # export some symbols glib expects
+  depends_on 'homebrew/dupes/zlib' if MacOS.version == :tiger
 
   fails_with :llvm do
     build 2334
