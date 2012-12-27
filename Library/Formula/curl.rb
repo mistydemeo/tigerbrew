@@ -10,11 +10,14 @@ class Curl < Formula
 
   option 'with-ssh', 'Build with scp and sftp support'
   option 'with-libmetalink', 'Build with Metalink support'
+  option 'with-ares', 'Build with C-Ares async DNS support'
+  option 'with-ssl', 'Build with Homebrew OpenSSL instead of the system version'
 
   depends_on 'pkg-config' => :build
   depends_on 'libssh2' if build.include? 'with-ssh'
   depends_on 'libmetalink' if build.include? 'with-libmetalink'
-  depends_on 'openssl' if MacOS.version < :snow_leopard
+  depends_on 'c-ares' if build.include? 'with-ares'
+  depends_on 'openssl' if build.include?('with-ssl') || MacOS.version < :snow_leopard
 
   def install
     args = %W[
@@ -25,6 +28,8 @@ class Curl < Formula
 
     args << "--with-libssh2" if build.include? 'with-ssh'
     args << "--with-libmetalink" if build.include? 'with-libmetalink'
+    args << "--enable-ares=#{Formula.factory("c-ares").opt_prefix}" if build.include? 'with-ares'
+    args << "--with-ssl=#{Formula.factory("openssl").opt_prefix}" if build.include?('with-ssl') || MacOS.version < :snow_leopard
 
     # Tiger/Leopard ship with a horrendously outdated set of certs,
     # breaking any software that relies on curl, e.g. git
