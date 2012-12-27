@@ -40,6 +40,18 @@ I am completely willing to help you if something doesn't work, though. Just writ
 
 Man, I have no idea. Backporting stuff to Tiger is challenging enough, I have a feeling Panther's going to need even more attention. If you have a Panther machine and you really, really want Homebrew... give it a try I guess? Probably you'll need to put a lot of work into making it work.
 
+### How do I switch from homebrew?
+
+Run these commands from your terminal. You must have git installed.
+
+```
+cd `brew --repository`
+git remote rm origin
+git remote add origin https://github.com/mistydemeo/tigerbrew.git
+git fetch origin
+git reset --hard origin/master
+```
+
 ### Something broke!
 
 Many of the formulae in the repository are currently untested on Tiger and/or PowerPC. If something doesn't work, report a bug (or submit a pull request!) and we'll get it working.
