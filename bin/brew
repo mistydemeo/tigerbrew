@@ -88,7 +88,7 @@ begin
       ENV["HOMEBREW_#{e}"] = Object.const_get "HOMEBREW_#{e}"
     end
     exec "brew-#{cmd}", *ARGV
-  elsif require? `#{HOMEBREW_PREFIX}/bin/which brew-#{cmd}.rb`
+  elsif require? which("brew-#{cmd}.rb").to_s
     exit 0
   elsif require? HOMEBREW_REPOSITORY/"Library/Homebrew/cmd"/cmd
     Homebrew.send cmd.to_s.gsub('-', '_').downcase
