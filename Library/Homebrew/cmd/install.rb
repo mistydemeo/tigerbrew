@@ -25,15 +25,6 @@ module Homebrew extend self
     install_formulae ARGV.formulae
   end
 
-#  def check_ppc
-#    case Hardware.cpu_type when :ppc, :dunno
-#      abort <<-EOS.undent
-#        Sorry, Homebrew does not support your computer's CPU architecture.
-#        For PPC support, see: http://github.com/sceaga/homebrew/tree/powerpc
-#        EOS
-#    end
-#  end
-
   def check_writable_install_location
     raise "Cannot write to #{HOMEBREW_CELLAR}" if HOMEBREW_CELLAR.exist? and not HOMEBREW_CELLAR.writable_real?
     raise "Cannot write to #{HOMEBREW_PREFIX}" unless HOMEBREW_PREFIX.writable_real? or HOMEBREW_PREFIX.to_s == '/usr/local'
