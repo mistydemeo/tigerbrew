@@ -142,7 +142,7 @@ class Formula
   def plist; nil; end
   alias :startup_plist :plist
   # plist name, i.e. the name of the launchd service
-  def plist_name; 'homebrew.mxcl.'+name end
+  def plist_name; 'tigerbrew.mistydemeo.'+name end
   def plist_path; prefix+(plist_name+'.plist') end
   def plist_manual; self.class.plist_manual end
   def plist_startup; self.class.plist_startup end
@@ -424,8 +424,8 @@ class Formula
     if path.realpath.to_s =~ %r{#{HOMEBREW_REPOSITORY}/Library/Taps/(\w+)-(\w+)}
       "#$1/#$2"
     else
-      # remotely installed formula are not mxcl/master but this will do for now
-      "mxcl/master"
+      # remotely installed formula are not mistydemeo/master but this will do for now
+      "mistydemeo/master"
     end
   end
 

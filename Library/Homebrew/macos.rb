@@ -202,7 +202,7 @@ module MacOS extend self
         Homebrew doesn't know what compiler versions ship with your version of
         Xcode. Please `brew update` and if that doesn't help, file an issue with
         the output of `brew --config`:
-          https://github.com/mxcl/homebrew/issues
+          https://github.com/mistydemeo/tigerbrew/issues
 
         Thanks!
         EOS

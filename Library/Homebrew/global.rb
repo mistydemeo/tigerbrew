@@ -10,7 +10,7 @@ require 'extend/tiger' if RUBY_VERSION == '1.8.2'
 ARGV.extend(HomebrewArgvExtension)
 
 HOMEBREW_VERSION = '0.9.3'
-HOMEBREW_WWW = 'http://mxcl.github.com/homebrew/'
+HOMEBREW_WWW = 'https://github.com/mistydemeo/tigerbrew'
 
 def cache
   if ENV['HOMEBREW_CACHE']
@@ -86,7 +86,7 @@ end
 
 require 'metafiles'
 FORMULA_META_FILES = Metafiles.new
-ISSUES_URL = "https://github.com/mxcl/homebrew/wiki/troubleshooting"
+ISSUES_URL = "https://github.com/mistydemeo/tigerbrew/wiki/troubleshooting"
 HOMEBREW_PULL_URL_REGEX = 'https:\/\/github.com\/\w+\/homebrew(-\w+)?\/(pull\/(\d+)|commit\/\w{4,40})'
 
 unless ARGV.include? "--no-compat" or ENV['HOMEBREW_NO_COMPAT']

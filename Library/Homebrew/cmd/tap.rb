@@ -116,7 +116,7 @@ class Pathname
     when %r{^#{HOMEBREW_LIBRARY}/Taps/([a-z\-_]+)-(\w+)/(.+)}
       "#$1/#$2/#{File.basename($3, '.rb')}"
     when %r{^#{HOMEBREW_LIBRARY}/Formula/(.+)}
-      "mxcl/master/#{File.basename($1, '.rb')}"
+      "mistydemeo/master/#{File.basename($1, '.rb')}"
     else
       nil
     end

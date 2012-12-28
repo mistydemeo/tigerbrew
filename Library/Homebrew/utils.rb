@@ -250,7 +250,7 @@ module GitHub extend self
 
     issues = []
 
-    uri = URI.parse("https://api.github.com/legacy/issues/search/mxcl/homebrew/open/#{name}")
+    uri = URI.parse("https://api.github.com/legacy/issues/search/mistydemeo/tigerbrew/open/#{name}")
 
     open uri do |f|
       MultiJson.decode(f.read)['issues'].each do |issue|
@@ -269,7 +269,7 @@ module GitHub extend self
     require 'vendor/multi_json'
 
     query = rx.source.delete('.*').gsub('\\', '')
-    uri = URI.parse("https://api.github.com/legacy/issues/search/mxcl/homebrew/open/#{query}")
+    uri = URI.parse("https://api.github.com/legacy/issues/search/mistydemeo/tigerbrew/open/#{query}")
 
     open uri do |f|
       MultiJson.decode(f.read)['issues'].each do |pull|
