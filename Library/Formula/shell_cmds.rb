@@ -17,7 +17,6 @@ class ShellCmds < Formula
     time true uname users what whereis which yes].each do |tool|
       cd tool do
         if fbsdids.include? tool
-          # inreplace "#{tool}.c", /^__FBSDID.+$/, ""
           inreplace "#{tool}.c", "__FBSDID", "__RCSID"
         end
         system "make", tool
