@@ -72,9 +72,6 @@ def git
     ENV['GIT']
   elsif Kernel.system '/usr/bin/which -s git'
     'git'
-  else
-    s = `xcrun -find git 2>/dev/null`.chomp
-    s if $? and not s.empty?
   end
 end
 
