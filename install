@@ -80,7 +80,11 @@ end
 Dir.chdir "/usr"
 
 ####################################################################### script
-abort "MacOS too old, see: https://gist.github.com/1144389" if macos_version < 10.4
+abort <<-EOABORT if macos_version < 10.4
+MacOS versions older than 10.4 are not supported.
+But feel free to try to add support for older versions and submit fixes
+if you can get it to work!
+EOABORT
 abort "Don't run this as root!" if Process.uid == 0
 abort <<-EOABORT unless `groups`.split.include? "admin"
 This script requires the user #{ENV['USER']} to be an Administrator. If this
