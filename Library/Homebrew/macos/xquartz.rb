@@ -36,6 +36,9 @@ module MacOS::XQuartz extend self
   end
 
   def provided_by_apple?
+    # Tiger X11 has no bundle id, but this old directory is only from Apple
+    return true if prefix.to_s == "/usr/X11R6"
+
     [FORGE_BUNDLE_ID, APPLE_BUNDLE_ID].find do |id|
       MacOS.app_with_bundle_id(id)
     end == APPLE_BUNDLE_ID
