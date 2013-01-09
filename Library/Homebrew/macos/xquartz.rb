@@ -47,6 +47,9 @@ module MacOS::XQuartz extend self
       Pathname.new('/opt/X11')
     elsif Pathname.new('/usr/X11/lib/libpng.dylib').exist?
       Pathname.new('/usr/X11')
+    # X11 doesn't include libpng on Tiger
+    elsif File.exist?('/usr/X11R6/lib/libX11.dylib')
+      Pathname.new('/usr/X11R6')
     end
   end
 
