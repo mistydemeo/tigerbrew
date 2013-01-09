@@ -66,6 +66,9 @@ module MacOS extend self
   end
 
   def sdk_path(v = version)
+    # The 10.4 SDK doesn't follow the normal naming scheme
+    v = '10.4u' if v == :tiger
+
     (@sdk_path ||= {}).fetch(v.to_s) do
       @sdk_path[v.to_s] = begin
         opts = []
