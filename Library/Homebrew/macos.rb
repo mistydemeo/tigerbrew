@@ -96,8 +96,10 @@ module MacOS extend self
           :clang
         elsif Xcode.version >= "4.2"
           :llvm
-        else
+        elsif locate('gcc-4.2')
           :gcc
+        else
+          :gcc_4_0
         end
     end
   end
