@@ -35,7 +35,8 @@ module MacOS extend self
 
         paths = %W[#{xcrun_path}
                    #{dev_tools_path}/#{tool}
-                   #{xctoolchain_path}/usr/bin/#{tool}]
+                   #{xctoolchain_path}/usr/bin/#{tool}
+                   #{HOMEBREW_PREFIX}/bin/#{tool}]
         paths.map { |p| Pathname.new(p) }.find { |p| p.executable? }
       end
     end
