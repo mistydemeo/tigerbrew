@@ -21,6 +21,8 @@ module MacOS::XQuartz extend self
         when 10.7 then "2.6.3"
         else :dunno
         end
+      elsif prefix.to_s == "/usr/X11R6" && MacOS.version == :tiger
+        "1.1.3"
       else
         # Finally, try to find it via pkgutil. This is slow, and only works
         # for the upstream XQuartz package, so use it as a last resort.
