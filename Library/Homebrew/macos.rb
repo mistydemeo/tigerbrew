@@ -87,7 +87,8 @@ module MacOS extend self
 
   def default_compiler
     case default_cc
-      when /^gcc/ then :gcc
+      when /^gcc-4.0/ then :gcc_4_0
+      when /^gcc-4.2/ then :gcc
       when /^llvm/ then :llvm
       when "clang" then :clang
       else
