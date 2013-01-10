@@ -6,7 +6,6 @@ class Mad < Formula
   sha1 'cac19cd00e1a907f3150cc040ccc077783496d76'
 
   def install
-    fpm = MacOS.prefer_64_bit? ? '64bit': 'intel'
     system "./configure", "--disable-debugging", "--enable-fpm=#{fpm}", "--prefix=#{prefix}"
     system "make", "CFLAGS=#{ENV.cflags}", "LDFLAGS=#{ENV.ldflags}", "install"
     (lib+'pkgconfig/mad.pc').write mad_pc
@@ -27,5 +26,13 @@ Conflicts:
 Libs: -L${libdir} -lmad -lm
 Cflags: -I${includedir}
     EOS
+  end
+
+  def fpm
+    if Hardware.cpu_type == :intel
+      MacOS.prefer_64_bit? ? '64bit': 'intel'
+    elsif Hardware.cpu_type == :ppc
+      MacOS.prefer_64_bit? ? 'ppc64' : 'ppc'
+    end
   end
 end
