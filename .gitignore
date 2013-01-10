@@ -10,4 +10,5 @@
 .DS_Store
 /Library/LinkedKegs
 /Library/Taps
+.*.swp
 /Library/Formula/.gitignore
