@@ -12,6 +12,12 @@ Paste this into a terminal prompt:
 ruby -e "$(curl -fsSkL raw.github.com/mistydemeo/tigerbrew/go)"
 ```
 
+You'll also want to make sure that /usr/local/bin and /usr/local/sbin are in your PATH. (Unlike later Mac OS versions, /usr/local/bin isn't in the default PATH.) If you use bash as your shell, add this line to your ~/.bash_profile:
+
+```sh
+export PATH=/usr/local/sbin:/usr/local/bin:$PATH
+```
+
 What Packages Are Available?
 ----------------------------
 1. You can [browse the Formula directory on GitHub][formula].
@@ -48,12 +54,6 @@ git remote rm origin
 git remote add origin https://github.com/mistydemeo/tigerbrew.git
 git fetch origin
 git reset --hard origin/master
-```
-
-You'll also want to make sure that /usr/local/bin and /usr/local/sbin are in your PATH. (Unlike later Mac OS versions, /usr/local/bin isn't in the default PATH.) If you use bash as your shell, add this line to your ~/.bash_profile:
-
-```
-export PATH=/usr/local/sbin:/usr/local/bin:$PATH
 ```
 
 ### Something broke!
