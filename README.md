@@ -50,6 +50,12 @@ git fetch origin
 git reset --hard origin/master
 ```
 
+You'll also want to make sure that /usr/local/bin and /usr/local/sbin are in your PATH. (Unlike later Mac OS versions, /usr/local/bin isn't in the default PATH.) If you use bash as your shell, add this line to your ~/.bash_profile:
+
+```
+export PATH=/usr/local/sbin:/usr/local/bin:$PATH
+```
+
 ### Something broke!
 
 Many of the formulae in the repository are currently untested on Tiger and/or PowerPC. If something doesn't work, report a bug (or submit a pull request!) and we'll get it working.
