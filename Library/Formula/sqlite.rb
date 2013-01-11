@@ -34,6 +34,11 @@ class Sqlite < Formula
     ENV.append 'CPPFLAGS', "-DSQLITE_ENABLE_COLUMN_METADATA"
     ENV.append 'CPPFLAGS', "-DSQLITE_ENABLE_STAT3"
 
+    # prevent 'undefined symbol _OSAtomicCompareAndSwapPtrBarrier' error
+    if MacOS.version == :tiger
+      ENV.append 'CPPFLAGS', "-DSQLITE_WITHOUT_ZONEMALLOC"
+    end
+
     ENV.universal_binary if build.universal?
 
     system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking", "--enable-dynamic-extensions"
