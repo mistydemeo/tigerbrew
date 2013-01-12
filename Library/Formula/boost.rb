@@ -74,6 +74,10 @@ class Boost < Formula
     #   /usr/local/lib/libboost_system-mt.dylib (compatibility version 0.0.0, current version 0.0.0)
     inreplace 'tools/build/v2/tools/darwin.jam', '-install_name "', "-install_name \"#{HOMEBREW_PREFIX}/lib/"
 
+    # boost will try to use cc, even if we'd rather it use, say, gcc-4.2
+    inreplace 'tools/build/v2/engine/build.sh', 'BOOST_JAM_CC=cc', "BOOST_JAM_CC=#{ENV.cc}"
+    inreplace 'tools/build/v2/engine/build.jam', 'toolset darwin cc', "toolset darwin #{ENV.cc}"
+
     # Force boost to compile using the appropriate GCC version
     open("user-config.jam", "a") do |file|
       file.write "using darwin : : #{ENV.cxx} ;\n"
@@ -100,6 +104,9 @@ class Boost < Formula
             "--user-config=user-config.jam",
             "threading=multi",
             "install"]
+
+    # Macports does this
+    args << "--disable-long-double" if Hardware.cpu_type == :ppc
 
     if MacOS.version >= :lion and build.include? 'with-c++11'
       args << "toolset=clang" << "cxxflags=-std=c++11"
