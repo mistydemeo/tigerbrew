@@ -91,7 +91,8 @@ module MacOS extend self
 
   def default_compiler
     case default_cc
-      when /^gcc-4.0/ then :gcc_4_0
+      # Tiger comes with gcc 4.0 by default, but 4.2 is a better primary compiler
+      when /^gcc-4.0/ then locate('gcc-4.2') ? :gcc : :gcc_4_0
       when /^gcc-4.2/ then :gcc
       when /^llvm/ then :llvm
       when "clang" then :clang
