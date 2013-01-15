@@ -111,10 +111,6 @@ class Subversion < Formula
     cause "core.c:1: error: bad value (native) for -march= switch"
   end if build_perl? or build_python? or build_ruby?
 
-  def apr_bin
-    superbin or "/usr/bin"
-  end
-
   def install
     # We had weird issues with "make" apparently hanging on first run: https://github.com/mxcl/homebrew/issues/13226
     ENV.deparallelize
@@ -138,7 +134,7 @@ class Subversion < Formula
     # Don't mess with Apache modules (since we're not sudo)
     args = ["--disable-debug",
             "--prefix=#{prefix}",
-            "--with-apr=#{apr_bin}",
+            "--with-apr=#{HOMEBREW_PREFIX}",
             "--with-ssl",
             "--with-zlib=/usr",
             "--with-sqlite=#{Formula.factory('sqlite').opt_prefix}",
