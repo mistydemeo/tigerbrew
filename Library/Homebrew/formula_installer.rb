@@ -20,13 +20,13 @@ class FormulaInstaller
     @ignore_deps = ARGV.ignore_deps? || ARGV.interactive?
     @install_bottle = install_bottle? ff
 
+    @@attempted ||= Set.new
+
     check_install_sanity
   end
 
   def check_install_sanity
-    @@attempted ||= Set.new
     raise FormulaInstallationAlreadyAttemptedError, f if @@attempted.include? f
-    @@attempted << f
 
     if f.installed?
       msg = "#{f}-#{f.installed_version} already installed"
@@ -116,6 +116,8 @@ class FormulaInstaller
 
     oh1 "Installing #{Tty.green}#{f}#{Tty.reset}" if show_header
 
+    @@attempted << f
+
     if install_bottle
       pour
     else
@@ -152,7 +154,12 @@ class FormulaInstaller
       check_infopages
     end
 
-    Caveats.print f
+    c = Caveats.new(f)
+
+    unless c.empty?
+      @show_summary_heading = true
+      ohai 'Caveats', c.caveats
+    end
   end
 
   def finish
@@ -173,7 +180,7 @@ class FormulaInstaller
     install_plist
     fix_install_names
 
-    ohai "Summary - #{f.name}" if ARGV.verbose? or show_summary_heading
+    ohai "Summary" if ARGV.verbose? or show_summary_heading
     print "🍺  " if MacOS.version >= :lion
     print "#{f.prefix}: #{f.prefix.abv}"
     print ", built in #{pretty_duration build_time}" if build_time
