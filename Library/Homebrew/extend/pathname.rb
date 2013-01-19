@@ -230,10 +230,14 @@ class Pathname
   end
 
   def sha2
-    openssl = Formula.factory('openssl')
     if MacOS.version == :tiger
-      raise "You must `brew install openssl` to compute sha256 hashes on Tiger" unless openssl.installed?
-      str = `#{openssl.bin}/openssl dgst -sha256 #{self}`.chomp
+      openssl = Formula.factory('openssl')
+      openssl_bin = openssl.opt_prefix/'bin/openssl'
+
+      if !openssl.installed? || !(openssl_bin.exist? && `#{openssl_bin} dgst -h 2>&1` =~ /sha256/)
+        raise "You must `brew install openssl` to compute sha256 hashes on Tiger"
+      end
+      str = `#{openssl_bin} dgst -sha256 #{self}`.chomp
       str.match(/= ((\d|[a-z])+)/).captures.first
     else
       require 'digest/sha2'
