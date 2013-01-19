@@ -8,17 +8,15 @@ class Serf < Formula
   option :universal
 
   depends_on :libtool
-
-  def apr_bin
-    superbin or "/usr/bin"
-  end
+  depends_on 'apr'
+  depends_on 'apr-util'
 
   def install
     ENV.universal_binary if build.universal?
     system "./configure", "--disable-debug",
                           "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--with-apr=#{apr_bin}"
+                          "--with-apr=#{HOMEBREW_PREFIX}"
     system "make install"
   end
 end
