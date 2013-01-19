@@ -19,6 +19,8 @@ class Curl < Formula
   depends_on 'c-ares' if build.include? 'with-ares'
   depends_on 'openssl' if build.include?('with-ssl') || MacOS.version < :snow_leopard
 
+  depends_on 'curl-ca-bundle' if MacOS.version < :snow_leopard
+
   def install
     args = %W[
       --disable-debug
@@ -33,17 +35,7 @@ class Curl < Formula
 
     # Tiger/Leopard ship with a horrendously outdated set of certs,
     # breaking any software that relies on curl, e.g. git
-    if MacOS.version < :snow_leopard
-      require 'open-uri'
-
-      args << "--with-ca-bundle=#{share}/curl/curl-ca-bundle.crt"
-      # don't use a subformula for this as it changes constantly
-      begin
-        (share/"curl/curl-ca-bundle.crt").write open('http://curl.haxx.se/ca/cacert.pem').read
-      rescue
-        raise "Could not download certificates. Please check your internet connection."
-      end
-    end
+    args << "--with-ca-bundle=#{HOMEBREW_PREFIX}/share/ca-bundle.crt" if MacOS.version < :snow_leopard
 
     system "./configure", *args
     system "make install"
