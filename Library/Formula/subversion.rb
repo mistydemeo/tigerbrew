@@ -70,6 +70,9 @@ class Subversion < Formula
   depends_on 'sqlite'
   depends_on 'serf'
 
+  depends_on 'homebrew/dupes/apr' if MacOS.version < :leopard
+  depends_on 'homebrew/dupes/apr-util' if MacOS.version < :leopard
+
   if build.universal?
     depends_on UniversalNeon.new
     depends_on UniversalSqlite.new
@@ -106,7 +109,11 @@ class Subversion < Formula
   end if build_perl? or build_python? or build_ruby?
 
   def apr_bin
-    superbin or "/usr/bin"
+    if MacOS.version < :leopard
+      Formula.factory('apr').opt_prefix/'bin'
+    else
+      superbin or "/usr/bin"
+    end
   end
 
   def install
