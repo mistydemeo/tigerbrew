@@ -69,6 +69,13 @@ class Git < Formula
                    "LDFLAGS=#{ENV.ldflags}",
                    "install"
 
+
+    # the current linker options result in linking against curl at the wrong path
+    # TODO build and use a new ld which should avoid this problem
+    system "install_name_tool", libexec/"git-core/git-remote-https",
+      "-change", "#{HOMEBREW_PREFIX}/lib/libcurl.4.dylib",
+      Formula.factory('curl').opt_prefix/"lib/libcurl.4.dylib"
+
     # Install the OS X keychain credential helper
     cd 'contrib/credential/osxkeychain' do
       system "make", "CC=#{ENV.cc}",
