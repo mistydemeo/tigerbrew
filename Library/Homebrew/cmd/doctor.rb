@@ -370,6 +370,21 @@ def check_access_share
   'fail during the link step.'
 end
 
+def check_access_logs
+  folder = Pathname.new('~/Library/Logs/Homebrew')
+  if folder.exist? and not folder.writable_real?
+    <<-EOS.undent
+      #{folder} isn't writable.
+      This can happen if you "sudo make install" software that isn't managed
+      by Homebrew.
+
+      Homebrew writes debugging logs to this location.
+
+      You should probably `chown` #{folder}
+    EOS
+  end
+end
+
 def check_usr_bin_ruby
   if /^1\.9/.match RUBY_VERSION
     <<-EOS.undent
@@ -857,7 +872,7 @@ end
 def check_missing_deps
   return unless HOMEBREW_CELLAR.exist?
   s = Set.new
-  Homebrew.missing_deps(Homebrew.installed_brews).each do |_, deps|
+  Homebrew.missing_deps(Formula.installed).each do |_, deps|
     s.merge deps
   end
 

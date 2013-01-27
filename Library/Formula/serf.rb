@@ -10,6 +10,7 @@ class Serf < Formula
   depends_on 'homebrew/dupes/apr' if MacOS.version < :leopard
   depends_on 'homebrew/dupes/apr-util' if MacOS.version < :leopard
   depends_on :libtool
+  depends_on 'sqlite'
 
   def apr_bin
     if MacOS.version < :leopard
