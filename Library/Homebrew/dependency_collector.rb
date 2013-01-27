@@ -71,6 +71,7 @@ private
       # Xcode no longer provides autotools or some other build tools
       Dependency.new(spec.to_s, tag) unless MacOS::Xcode.provides_autotools?
     when :libpng, :freetype, :pixman, :fontconfig, :cairo
+      # 10.8 doesn't come with X11, 10.4's X11 doesn't include these libs
       if MacOS.version >= :mountain_lion || MacOS.version < :leopard
         Dependency.new(spec.to_s, tag)
       else
