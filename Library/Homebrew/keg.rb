@@ -64,7 +64,10 @@ class Keg < Pathname
   def lock
     # ruby 1.8.2 doesn't implement flock
     # TODO backport the flock feature and reenable it
-    yield if MacOS.version == :tiger
+    if MacOS.version == :tiger
+      yield
+      return
+    end
 
     HOMEBREW_CACHE_FORMULA.mkpath
     path = HOMEBREW_CACHE_FORMULA/"#{fname}.brewing"
