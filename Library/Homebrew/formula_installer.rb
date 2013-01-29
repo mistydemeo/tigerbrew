@@ -492,6 +492,10 @@ class FormulaInstaller
   end
 
   def lock
+    # ruby 1.8.2 doesn't implement flock
+    # TODO backport the flock feature and reenable it
+    return if MacOS.version == :tiger
+
     if (@@locked ||= []).empty?
       f.recursive_dependencies.each do |dep|
         @@locked << dep.to_formula

@@ -229,6 +229,10 @@ class Formula
   end
 
   def lock
+    # ruby 1.8.2 doesn't implement flock
+    # TODO backport the flock feature and reenable it
+    return if MacOS.version == :tiger
+
     HOMEBREW_CACHE_FORMULA.mkpath
     lockpath = HOMEBREW_CACHE_FORMULA/"#{@name}.brewing"
     @lockfile = lockpath.open(File::RDWR | File::CREAT)
