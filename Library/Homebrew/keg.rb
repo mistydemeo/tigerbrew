@@ -77,6 +77,7 @@ class Keg < Pathname
     end
     yield
   ensure
+    return if MacOS.version == :tiger
     file.flock(File::LOCK_UN)
     file.close
   end
