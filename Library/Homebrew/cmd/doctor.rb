@@ -756,10 +756,18 @@ def check_the_git_origin
   return unless which "git"
   return if check_for_git_origin
 
+  if MacOS.version == :tiger or MacOS.version == :leopard
+    canonical_repo = 'https://github.com/mistydemeo/tigerbrew.git'
+    canonical_suffix = /mistydemeo\/tigerbrew(\.git)?$/
+  else
+    canonical_repo = 'https://github.com/mxcl/homebrew.git'
+    canonical_suffix = /mxcl\/homebrew(\.git)?$/
+  end
+
   HOMEBREW_REPOSITORY.cd do
     origin = `git config --get remote.origin.url`.chomp
 
-    unless origin =~ /mxcl\/homebrew(\.git)?$/ then <<-EOS.undent
+    unless origin =~ canonical_suffix then <<-EOS.undent
       Suspicious git origin remote found.
 
       With a non-standard origin, Homebrew won't pull updates from
@@ -768,7 +776,7 @@ def check_the_git_origin
 
       Unless you have compelling reasons, consider setting the
       origin remote to point at the main repository, located at:
-        https://github.com/mxcl/homebrew.git
+        #{canonical_repo}
       EOS
     end
   end
