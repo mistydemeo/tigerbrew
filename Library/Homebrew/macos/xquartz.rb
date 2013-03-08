@@ -32,7 +32,11 @@ module MacOS::XQuartz extend self
   end
 
   def latest_version
-    "2.7.4"
+    if MacOS.version == :leopard
+      "2.1.6"
+    else
+      "2.7.4"
+    end
   end
 
   def provided_by_apple?
