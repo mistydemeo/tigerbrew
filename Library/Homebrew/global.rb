@@ -1,3 +1,4 @@
+require 'rbconfig'
 require 'extend/fileutils'
 require 'extend/pathname'
 require 'extend/ARGV'
@@ -74,6 +75,8 @@ else
   OS_VERSION = RUBY_PLATFORM
   MACOS = false
 end
+
+RUBY_BIN = Config::CONFIG["bindir"]
 
 HOMEBREW_USER_AGENT = "Homebrew #{HOMEBREW_VERSION} (Ruby #{RUBY_VERSION}; #{OS_VERSION})"
 
