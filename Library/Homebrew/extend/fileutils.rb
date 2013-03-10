@@ -81,4 +81,13 @@ module FileUtils extend self
     end
   end
 
+  RUBY_BIN = MacOS.version < :leopard ? '/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin' : '/usr/bin/ruby'
+
+  def rake *args
+    system "#{RUBY_BIN}/rake", *args
+  end
+
+  def ruby *args
+    system "#{RUBY_BIN}/ruby", *args
+  end
 end

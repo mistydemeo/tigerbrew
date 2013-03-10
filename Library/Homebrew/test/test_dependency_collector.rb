@@ -24,6 +24,11 @@ class DependencyCollectorTests < Test::Unit::TestCase
     assert_equal 2, @d.find_dependency('bar').tags.length
   end
 
+  def test_add_returns_created_dep
+    ret = @d.add 'foo'
+    assert_equal Dependency.new('foo'), ret
+  end
+
   def test_dependency_tags
     assert Dependency.new('foo', :build).build?
     assert Dependency.new('foo', [:build, :optional]).optional?
@@ -75,6 +80,45 @@ class DependencyCollectorTests < Test::Unit::TestCase
     dep = @d.find_requirement(X11Dependency)
     assert_equal '2.5.1', dep.min_version
     assert dep.optional?
+  end
+
+  def test_libltdl_not_build_dep
+    MacOS::Xcode.stubs(:provides_autotools?).returns(false)
+    dep = @d.build(:libltdl)
+    assert_equal Dependency.new("libtool"), dep
+    assert !dep.build?
+  end
+
+  def test_autotools_dep_no_system_autotools
+    MacOS::Xcode.stubs(:provides_autotools?).returns(false)
+    dep = @d.build(:libtool)
+    assert_equal Dependency.new("libtool"), dep
+    assert dep.build?
+  end
+
+  def test_autotools_dep_system_autotools
+    MacOS::Xcode.stubs(:provides_autotools?).returns(true)
+    assert_nil @d.build(:libtool)
+  end
+
+  def test_x11_proxy_dep_mountain_lion
+    MacOS.stubs(:version).returns(MacOS::Version.new(10.8))
+    assert_equal Dependency.new("libpng"), @d.build(:libpng)
+  end
+
+  def test_x11_proxy_dep_lion_or_older
+    MacOS.stubs(:version).returns(MacOS::Version.new(10.7))
+    assert_equal X11Dependency::Proxy.new(:libpng), @d.build(:libpng)
+  end
+end
+
+class LanguageModuleDependencyTests < Test::Unit::TestCase
+  def test_unique_deps_are_not_eql
+    x = LanguageModuleDependency.new(:node, "less")
+    y = LanguageModuleDependency.new(:node, "coffee-script")
+    assert x.hash != y.hash
+    assert !x.eql?(y)
+    assert !y.eql?(x)
   end
 end
 

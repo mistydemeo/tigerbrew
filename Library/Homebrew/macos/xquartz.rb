@@ -19,7 +19,7 @@ module MacOS::XQuartz extend self
         when 10.5 then "2.1.6"
         when 10.6 then "2.3.6"
         when 10.7 then "2.6.3"
-        else :dunno
+        else "dunno"
         end
       # Tiger has a different X11 prefix
       elsif prefix.to_s == "/usr/X11R6" && MacOS.version == :tiger
@@ -51,7 +51,7 @@ module MacOS::XQuartz extend self
   end
 
   # This should really be private, but for compatibility reasons it must
-  # remain public. New code should use MacOS::XQuartz.{bin,lib,include}
+  # remain public. New code should use MacOS::X11.{bin,lib,include}
   # instead, as that accounts for Xcode-only systems.
   def prefix
     @prefix ||= if Pathname.new('/opt/X11/lib/libpng.dylib').exist?

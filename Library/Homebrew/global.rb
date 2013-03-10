@@ -11,7 +11,7 @@ require 'extend/tiger' if RUBY_VERSION == '1.8.2'
 
 ARGV.extend(HomebrewArgvExtension)
 
-HOMEBREW_VERSION = '0.9.3'
+HOMEBREW_VERSION = '0.9.4'
 HOMEBREW_WWW = 'https://github.com/mistydemeo/tigerbrew'
 
 def cache

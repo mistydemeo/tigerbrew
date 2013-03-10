@@ -2,8 +2,8 @@ require 'formula'
 
 class Openssl < Formula
   homepage 'http://openssl.org'
-  url 'http://openssl.org/source/openssl-1.0.1c.tar.gz'
-  sha1 '91b684de947cb021ac61b8c51027cc4b63d894ce'
+  url 'http://openssl.org/source/openssl-1.0.1e.tar.gz'
+  sha1 '3f1b1223c9e8189bfe4e186d86449775bd903460'
 
   keg_only :provided_by_osx,
     "The OpenSSL provided by OS X is too old for some software."
@@ -30,5 +30,12 @@ class Openssl < Formula
     system "make"
     system "make", "test"
     system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
+  end
+
+  def caveats; <<-EOS.undent
+    To install updated CA certs from Mozilla.org:
+
+        brew install curl-ca-bundle
+    EOS
   end
 end

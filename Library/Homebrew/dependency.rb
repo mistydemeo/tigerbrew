@@ -42,15 +42,23 @@ class Dependency
     ARGV.formulae.include?(to_formula) rescue false
   end
 
+  def satisfied?
+    installed? && missing_options.empty?
+  end
+
+  def missing_options
+    options - Tab.for_formula(to_formula).used_options
+  end
+
   def universal!
     tags << 'universal' if to_formula.build.has_option? 'universal'
   end
 
-  # Expand the dependencies of f recursively, optionally yielding
-  # [f, dep] to allow callers to apply arbitrary filters to the list.
-  # The default filter, which is used when a block is not supplied,
-  # omits optionals and recommendeds based on what the dependent has
-  # asked for.
+  # Expand the dependencies of dependent recursively, optionally yielding
+  # [dependent, dep] pairs to allow callers to apply arbitrary filters to
+  # the list.
+  # The default filter, which is applied when a block is not given, omits
+  # optionals and recommendeds based on what the dependent has asked for.
   def self.expand(dependent, &block)
     dependent.deps.map do |dep|
       prune = catch(:prune) do
@@ -67,7 +75,7 @@ class Dependency
     end.flatten.compact.uniq
   end
 
-  # Used to prune dependencies when calling expand_dependencies with a block.
+  # Used to prune dependencies when calling expand with a block.
   def self.prune
     throw(:prune, true)
   end

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'exceptions'
 require 'formula'
 require 'keg'
@@ -6,12 +8,9 @@ require 'bottles'
 require 'caveats'
 
 class FormulaInstaller
-  attr :f
-  attr :tab, true
-  attr :options, true
-  attr :show_summary_heading, true
-  attr :ignore_deps, true
-  attr :show_header, true
+  attr_reader :f
+  attr_accessor :tab, :options, :ignore_deps
+  attr_accessor :show_summary_heading, :show_header
 
   def initialize ff
     @f = ff
@@ -26,7 +25,7 @@ class FormulaInstaller
   end
 
   def pour_bottle?
-    install_bottle?(f) && (tab.used_options.empty? rescue true) && options.empty?
+    (tab.used_options.empty? rescue true) && options.empty? && install_bottle?(f, true)
   end
 
   def check_install_sanity
@@ -93,9 +92,17 @@ class FormulaInstaller
 
     @@attempted << f
 
-    if pour_bottle?
-      pour
-    else
+    poured_bottle = false
+    begin
+      if pour_bottle?
+        pour
+        poured_bottle = true
+      end
+    rescue
+      opoo "Bottle installation failed: building from source."
+    end
+
+    unless poured_bottle
       build
       clean
     end
@@ -104,15 +111,21 @@ class FormulaInstaller
   end
 
   def check_requirements
-    needed_reqs = ARGV.filter_for_dependencies do
-      f.recursive_requirements.reject(&:satisfied?)
+    unsatisfied = ARGV.filter_for_dependencies do
+      f.recursive_requirements do |dependent, req|
+        if req.optional? || req.recommended?
+          Requirement.prune unless dependent.build.with?(req.name)
+        elsif req.build?
+          Requirement.prune if install_bottle?(dependent)
+        end
+
+        Requirement.prune if req.satisfied?
+      end
     end
 
-    needed_reqs.reject!(&:build?) if pour_bottle?
-
-    unless needed_reqs.empty?
-      puts needed_reqs.map(&:message) * "\n"
-      fatals = needed_reqs.select(&:fatal?)
+    unless unsatisfied.empty?
+      puts unsatisfied.map(&:message) * "\n"
+      fatals = unsatisfied.select(&:fatal?)
       raise UnsatisfiedRequirements.new(f, fatals) unless fatals.empty?
     end
   end
@@ -136,23 +149,17 @@ class FormulaInstaller
           if dep.optional? || dep.recommended?
             Dependency.prune unless dependent.build.with?(dep.name)
           elsif dep.build?
-            Dependency.prune if pour_bottle?
+            Dependency.prune if install_bottle?(dependent)
           end
 
           if f.build.universal?
             dep.universal! unless dep.build?
           end
 
-          dep_f = dep.to_formula
-          dep_tab = Tab.for_formula(dep)
-          missing = dep.options - dep_tab.used_options
-
-          if dep.installed?
-            if missing.empty?
-              Dependency.prune
-            else
-              raise "#{f} dependency #{dep} not installed with:\n  #{missing*', '}"
-            end
+          if dep.satisfied?
+            Dependency.prune
+          elsif dep.installed?
+            raise UnsatisfiedDependencyError.new(f, dep)
           end
         end
       end
@@ -222,7 +229,7 @@ class FormulaInstaller
     if f.keg_only?
       begin
         Keg.new(f.prefix).optlink
-      rescue Exception => e
+      rescue Exception
         onoe "Failed to create: #{f.opt_prefix}"
         puts "Things that depend on #{f} will probably not build."
       end
@@ -305,7 +312,7 @@ class FormulaInstaller
 
     Tab.create(f, build_argv).write # INSTALL_RECEIPT.json
 
-  rescue Exception => e
+  rescue Exception
     ignore_interrupts do
       # any exceptions must leave us with nothing installed
       f.prefix.rmtree if f.prefix.directory?

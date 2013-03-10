@@ -26,16 +26,23 @@ class DependencyCollector
     @requirements = ComparableSet.new
   end
 
-  def add spec
-    tag = nil
-    spec, tag = spec.shift if spec.is_a? Hash
+  def add(spec)
+    case dep = build(spec)
+    when Dependency
+      @deps << dep
+    when Requirement
+      @requirements << dep
+    end
+    dep
+  end
 
-    dep = parse_spec(spec, tag)
-    # Some symbol specs are conditional, and resolve to nil if there is no
-    # dependency needed for the current platform.
-    return if dep.nil?
-    # Add dep to the correct bucket
-    (dep.is_a?(Requirement) ? @requirements : @deps) << dep
+  def build(spec)
+    spec, tag = case spec
+                when Hash then spec.shift
+                else spec
+                end
+
+    parse_spec(spec, tag)
   end
 
 private
@@ -56,7 +63,7 @@ private
       spec
     when Class
       if spec < Requirement
-        spec.new
+        spec.new(tag)
       else
         raise "#{spec} is not a Requirement subclass"
       end
@@ -67,30 +74,43 @@ private
 
   def parse_symbol_spec spec, tag
     case spec
-    when :autoconf, :automake, :bsdmake, :libtool
+    when :autoconf, :automake, :bsdmake, :libtool, :libltdl
       # Xcode no longer provides autotools or some other build tools
-      Dependency.new(spec.to_s, tag) unless MacOS::Xcode.provides_autotools?
-    when :libpng, :freetype, :pixman, :fontconfig, :cairo
-      # 10.8 doesn't come with X11, 10.4's X11 doesn't include these libs
-      if MacOS.version >= :mountain_lion || MacOS.version < :leopard
-        Dependency.new(spec.to_s, tag)
-      else
-        X11Dependency.new(tag)
-      end
-    when :x11
-      X11Dependency.new(tag)
-    when :xcode
-      XcodeDependency.new(tag)
-    when :mysql
-      MysqlInstalled.new(tag)
-    when :postgresql
-      PostgresqlInstalled.new(tag)
-    when :tex
-      TeXInstalled.new(tag)
-    when :clt
-      CLTDependency.new(tag)
+      autotools_dep(spec, tag)
+    when *X11Dependency::Proxy::PACKAGES
+      x11_dep(spec, tag)
+    when :cairo, :pixman
+      # We no longer use X11 psuedo-deps for cairo or pixman,
+      # so just return a standard formula dependency.
+      Dependency.new(spec.to_s, tag)
+    when :x11        then X11Dependency.new(spec.to_s, tag)
+    when :xcode      then XcodeDependency.new(tag)
+    when :mysql      then MysqlDependency.new(tag)
+    when :postgresql then PostgresqlDependency.new(tag)
+    when :tex        then TeXDependency.new(tag)
+    when :clt        then CLTDependency.new(tag)
     else
       raise "Unsupported special dependency #{spec}"
+    end
+  end
+
+  def x11_dep(spec, tag)
+    # 10.8 doesn't come with X11, 10.4's X11 doesn't include these libs
+    if MacOS.version >= :mountain_lion || MacOS.version < :leopard
+      Dependency.new(spec.to_s, tag)
+    else
+      X11Dependency::Proxy.for(spec.to_s, tag)
+    end
+  end
+
+  def autotools_dep(spec, tag)
+    case spec
+    when :libltdl then spec, tag = :libtool, Array(tag)
+    else tag = Array(tag) << :build
+    end
+
+    unless MacOS::Xcode.provides_autotools?
+      Dependency.new(spec.to_s, tag)
     end
   end
 end
