@@ -209,7 +209,7 @@ module MacOS extend self
 
     unless STANDARD_COMPILERS.keys.include? xcode
       onoe <<-EOS.undent
-        Homebrew doesn't know what compiler versions ship with your version of
+        Tigerbrew doesn't know what compiler versions ship with your version of
         Xcode. Please `brew update` and if that doesn't help, file an issue with
         the output of `brew --config`:
           https://github.com/mistydemeo/tigerbrew/issues

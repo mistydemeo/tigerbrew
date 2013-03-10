@@ -49,7 +49,7 @@ class OperationInProgressError < RuntimeError
   def initialize name
     message = <<-EOS.undent
       Operation already in progress for #{name}
-      Another active Homebrew process is already using #{name}.
+      Another active Tigerbrew process is already using #{name}.
       Please wait for it to finish or terminate it to continue.
       EOS
 

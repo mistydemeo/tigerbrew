@@ -43,7 +43,7 @@ module Homebrew extend self
     unless MacOS.macports_or_fink.empty?
       opoo "It appears you have MacPorts or Fink installed."
       puts "Software installed with other package managers causes known problems for"
-      puts "Homebrew. If a formula fails to build, uninstall MacPorts/Fink and try again."
+      puts "Tigerbrew. If a formula fails to build, uninstall MacPorts/Fink and try again."
     end
   end
 

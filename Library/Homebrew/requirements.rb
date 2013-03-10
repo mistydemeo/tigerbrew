@@ -14,7 +14,7 @@ class LanguageModuleDependency < Requirement
 
   def message; <<-EOS.undent
     Unsatisfied dependency: #{@module_name}
-    Homebrew does not provide #{@language.to_s.capitalize} dependencies; install with:
+    Tigerbrew does not provide #{@language.to_s.capitalize} dependencies; install with:
       #{command_line} #{@module_name}
     EOS
   end
@@ -69,11 +69,18 @@ class X11Dependency < Requirement
     MacOS::XQuartz.installed? && (@min_version.nil? || @min_version <= MacOS::XQuartz.version)
   end
 
-  def message; <<-EOS.undent
-    Unsatisfied dependency: XQuartz #{@min_version}
-    Homebrew does not package XQuartz. Installers may be found at:
-      https://xquartz.macosforge.org
-    EOS
+  def message
+    if MacOS.version > :tiger then <<-EOS.undent
+      Unsatisfied dependency: XQuartz #{@min_version}
+      Tigerbrew does not package XQuartz. Installers may be found at:
+        https://xquartz.macosforge.org
+      EOS
+    else <<-EOS.undent
+      Unsatisfied dependency: XQuartz #{@min_version}
+      Tigerbrew does not package X11.
+      Please install from your OS X DVD.
+      EOS
+    end
   end
 
   def <=> other
@@ -159,7 +166,7 @@ class MPIDependency < Requirement
         EOS
     else
       <<-EOS.undent
-        Homebrew could not locate working copies of the following MPI compiler
+        Tigerbrew could not locate working copies of the following MPI compiler
         wrappers:
             #{@non_functional.join ', '}
 
@@ -225,7 +232,7 @@ class MysqlInstalled < Requirement
   def message; <<-EOS.undent
     MySQL is required to install.
 
-    You can install this with Homebrew using:
+    You can install this with Tigerbrew using:
       brew install mysql-connector-c
         For MySQL client libraries only.
 
@@ -247,7 +254,7 @@ class PostgresqlInstalled < Requirement
     <<-EOS.undent
       Postgres is required to install.
 
-      You can install this with Homebrew using:
+      You can install this with Tigerbrew using:
         brew install postgres
 
       Or you can use an official installer from:
@@ -269,7 +276,7 @@ class TeXInstalled < Requirement
 
     Make sure that its bin directory is in your PATH before proceeding.
 
-    You may also need to restore the ownership of Homebrew install:
+    You may also need to restore the ownership of Tigerbrew install:
       sudo chown -R $USER `brew --prefix`
     EOS
   end

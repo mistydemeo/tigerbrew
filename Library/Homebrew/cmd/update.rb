@@ -50,7 +50,7 @@ module Homebrew extend self
     if report.empty?
       puts "Already up-to-date."
     else
-      puts "Updated Homebrew from #{master_updater.initial_revision[0,8]} to #{master_updater.current_revision[0,8]}."
+      puts "Updated Tigerbrew from #{master_updater.initial_revision[0,8]} to #{master_updater.current_revision[0,8]}."
       report.dump
     end
   end

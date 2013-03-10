@@ -507,7 +507,7 @@ class << ENV
       end
 
     elsif `#{HOMEBREW_PREFIX}/which gfortran`.chuzzle
-      ohai "Using Homebrew-provided fortran compiler."
+      ohai "Using Tigerbrew-provided fortran compiler."
       puts "This may be changed by setting the FC environment variable."
       self['FC'] = `#{HOMEBREW_PREFIX}/which gfortran`.chomp
       self['F77'] = self['FC']
@@ -522,7 +522,7 @@ This formula requires a fortran compiler, but we could not find one by
 looking at the FC environment variable or searching your PATH for `gfortran`.
 Please take one of the following actions:
 
-  - Decide to use the build of gfortran 4.2.x provided by Homebrew using
+  - Decide to use the build of gfortran 4.2.x provided by Tigerbrew using
         `brew install gfortran`
 
   - Choose another Fortran compiler by setting the FC environment variable:

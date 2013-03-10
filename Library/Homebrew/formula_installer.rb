@@ -401,7 +401,7 @@ class FormulaInstaller
     # Check for man pages that aren't in share/man
     if (f.prefix+'man').directory?
       opoo 'A top-level "man" directory was found.'
-      puts "Homebrew requires that man pages live under share."
+      puts "Tigerbrew requires that man pages live under share."
       puts 'This can often be fixed by passing "--mandir=#{man}" to configure.'
       @show_summary_heading = true
     end
@@ -411,7 +411,7 @@ class FormulaInstaller
     # Check for info pages that aren't in share/info
     if (f.prefix+'info').directory?
       opoo 'A top-level "info" directory was found.'
-      puts "Homebrew suggests that info pages live under share."
+      puts "Tigerbrew suggests that info pages live under share."
       puts 'This can often be fixed by passing "--infodir=#{info}" to configure.'
       @show_summary_heading = true
     end

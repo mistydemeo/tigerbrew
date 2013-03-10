@@ -113,7 +113,7 @@ def check_for_stray_dylibs
   s = <<-EOS.undent
     Unbrewed dylibs were found in /usr/local/lib.
     If you didn't put them there on purpose they could cause problems when
-    building Homebrew formulae, and may need to be deleted.
+    building Tigerbrew formulae, and may need to be deleted.
 
     Unexpected dylibs:
   EOS
@@ -136,7 +136,7 @@ def check_for_stray_static_libs
   s = <<-EOS.undent
     Unbrewed static libraries were found in /usr/local/lib.
     If you didn't put them there on purpose they could cause problems when
-    building Homebrew formulae, and may need to be deleted.
+    building Tigerbrew formulae, and may need to be deleted.
 
     Unexpected static libraries:
   EOS
@@ -156,7 +156,7 @@ def check_for_stray_pcs
   s = <<-EOS.undent
     Unbrewed .pc files were found in /usr/local/lib/pkgconfig.
     If you didn't put them there on purpose they could cause problems when
-    building Homebrew formulae, and may need to be deleted.
+    building Tigerbrew formulae, and may need to be deleted.
 
     Unexpected .pc files:
   EOS
@@ -177,7 +177,7 @@ def check_for_stray_las
   s = <<-EOS.undent
     Unbrewed .la files were found in /usr/local/lib.
     If you didn't put them there on purpose they could cause problems when
-    building Homebrew formulae, and may need to be deleted.
+    building Tigerbrew formulae, and may need to be deleted.
 
     Unexpected .la files:
   EOS
@@ -298,7 +298,7 @@ def __check_subdir_access base
     s = <<-EOS.undent
     Some directories in #{target} aren't writable.
     This can happen if you "sudo make install" software that isn't managed
-    by Homebrew. If a brew tries to add locale information to one of these
+    by Tigerbrew. If a brew tries to add locale information to one of these
     directories, then the install will fail during the link step.
     You should probably `chown` them:
 
@@ -313,7 +313,7 @@ def check_access_usr_local
 
   unless File.writable_real?("/usr/local") then <<-EOS.undent
     The /usr/local directory is not writable.
-    Even if this directory was writable when you installed Homebrew, other
+    Even if this directory was writable when you installed Tigerbrew, other
     software may change permissions on this directory. Some versions of the
     "InstantOn" component of Airfoil are known to do this.
 
@@ -337,7 +337,7 @@ def __check_folder_access base, msg
     <<-EOS.undent
       #{folder} isn't writable.
       This can happen if you "sudo make install" software that isn't managed
-      by Homebrew.
+      by Tigerbrew.
 
       #{msg}
 
@@ -376,9 +376,9 @@ def check_access_logs
     <<-EOS.undent
       #{folder} isn't writable.
       This can happen if you "sudo make install" software that isn't managed
-      by Homebrew.
+      by Tigerbrew.
 
-      Homebrew writes debugging logs to this location.
+      Tigerbrew writes debugging logs to this location.
 
       You should probably `chown` #{folder}
     EOS
@@ -389,8 +389,9 @@ def check_usr_bin_ruby
   if /^1\.9/.match RUBY_VERSION
     <<-EOS.undent
       Ruby version #{RUBY_VERSION} is unsupported.
-      Homebrew is developed and tested on Ruby 1.8.x, and may not work correctly
-      on other Rubies. Patches are accepted as long as they don't break on 1.8.x.
+      Tigerbrew is developed and tested on the Ruby which comes with OS X, and
+      may not work on other Rubies. Patches are accepted as long as they don't
+      break on older versions.
     EOS
   end
 end
@@ -398,8 +399,8 @@ end
 def check_homebrew_prefix
   unless HOMEBREW_PREFIX.to_s == '/usr/local'
     <<-EOS.undent
-      Your Homebrew is not installed to /usr/local
-      You can install Homebrew anywhere you want, but some brews may only build
+      Your Tigerbrew is not installed to /usr/local
+      You can install Tigerbrew anywhere you want, but some brews may only build
       correctly if you install in /usr/local. Sorry!
     EOS
   end
@@ -470,7 +471,7 @@ def check_user_path_1
           out = <<-EOS.undent
             /usr/bin occurs before #{HOMEBREW_PREFIX}/bin
             This means that system-provided programs will be used instead of those
-            provided by Homebrew. The following tools exist at both paths:
+            provided by Tigerbrew. The following tools exist at both paths:
 
                 #{conflicts * "\n                "}
 
@@ -491,7 +492,7 @@ end
 def check_user_path_2
   unless $seen_prefix_bin
     <<-EOS.undent
-      Homebrew's bin was not found in your path.
+      Tigerbrew's bin was not found in your path.
       Consider amending your PATH variable so it contains:
         #{HOMEBREW_PREFIX}/bin
     EOS
@@ -504,7 +505,7 @@ def check_user_path_3
   if sbin.directory? and sbin.children.length > 0
     unless $seen_prefix_sbin
       <<-EOS.undent
-        Homebrew's sbin was not found in your path.
+        Tigerbrew's sbin was not found in your path.
         Consider amending your PATH variable so it contains:
           #{HOMEBREW_PREFIX}/sbin
       EOS
@@ -515,7 +516,7 @@ end
 def check_user_curlrc
   if %w[CURL_HOME HOME].any?{|key| ENV[key] and File.exists? "#{ENV[key]}/.curlrc" } then <<-EOS.undent
     You have a curlrc file
-    If you have trouble downloading packages with Homebrew, then maybe this
+    If you have trouble downloading packages with Tigerbrew, then maybe this
     is the problem? If the following command doesn't work, then try removing
     your curlrc:
       curl http://github.com
@@ -529,14 +530,14 @@ def check_which_pkg_config
 
   mono_config = Pathname.new("/usr/bin/pkg-config")
   if mono_config.exist? && mono_config.realpath.to_s.include?("Mono.framework") then <<-EOS.undent
-    You have a non-Homebrew 'pkg-config' in your PATH:
+    You have a non-Tigerbrew 'pkg-config' in your PATH:
       /usr/bin/pkg-config => #{mono_config.realpath}
 
     This was most likely created by the Mono installer. `./configure` may
     have problems finding brew-installed packages using this other pkg-config.
     EOS
   elsif binary.to_s != "#{HOMEBREW_PREFIX}/bin/pkg-config" then <<-EOS.undent
-    You have a non-Homebrew 'pkg-config' in your PATH:
+    You have a non-Tigerbrew 'pkg-config' in your PATH:
       #{binary}
 
     `./configure` may have problems finding brew-installed packages using
@@ -579,7 +580,7 @@ def check_for_iconv
     else
       s = <<-EOS.undent_________________________________________________________72
           libiconv files detected at a system prefix other than /usr
-          Homebrew doesn't provide a libiconv formula, and expects to link against
+          Tigerbrew doesn't provide a libiconv formula, and expects to link against
           the system version in /usr. libiconv in other prefixes can cause
           compile or link failure, especially if compiled with improper
           architectures. OS X itself never installs anything to /usr/local so
@@ -612,13 +613,13 @@ def check_for_config_scripts
 
   unless config_scripts.empty?
     s = <<-EOS.undent
-      "config" scripts exist outside your system or Homebrew directories.
+      "config" scripts exist outside your system or Tigerbrew directories.
       `./configure` scripts often look for *-config scripts to determine if
       software packages are installed, and what additional flags to use when
       compiling and linking.
 
       Having additional scripts in your path can confuse software installed via
-      Homebrew if the config script overrides a system or Homebrew provided
+      Tigerbrew if the config script overrides a system or Tigerbrew provided
       script of the same name. We found the following "config" scripts:
 
     EOS
@@ -666,14 +667,14 @@ def check_for_symlinked_cellar
   if HOMEBREW_CELLAR.symlink?
     <<-EOS.undent
       Symlinked Cellars can cause problems.
-      Your Homebrew Cellar is a symlink: #{HOMEBREW_CELLAR}
+      Your Tigerbrew Cellar is a symlink: #{HOMEBREW_CELLAR}
                       which resolves to: #{HOMEBREW_CELLAR.realpath}
 
-      The recommended Homebrew installations are either:
+      The recommended Tigerbrew installations are either:
       (A) Have Cellar be a real directory inside of your HOMEBREW_PREFIX
       (B) Symlink "bin/brew" into your prefix, but don't symlink "Cellar".
 
-      Older installations of Homebrew may have created a symlinked Cellar, but this can
+      Older installations of Tigerbrew may have created a symlinked Cellar, but this can
       cause problems when two formula install to locations that are mapped on top of each
       other during the linking step.
     EOS
@@ -710,7 +711,7 @@ end
 def check_for_git
   unless which "git" then <<-EOS.undent
     Git could not be found in your PATH.
-    Homebrew uses Git for several internal functions, and some formulae use Git
+    Tigerbrew uses Git for several internal functions, and some formulae use Git
     checkouts instead of stable tarballs. You may want to install Git:
       brew install git
     EOS
@@ -743,10 +744,10 @@ def check_for_git_origin
     if `git config --get remote.origin.url`.chomp.empty? then <<-EOS.undent
       Missing git origin remote.
 
-      Without a correctly configured origin, Homebrew won't update
-      properly. You can solve this by adding the Homebrew remote:
+      Without a correctly configured origin, Tigerbrew won't update
+      properly. You can solve this by adding the Tigerbrew remote:
         cd #{HOMEBREW_REPOSITORY}
-        git add remote origin https://github.com/mxcl/homebrew.git
+        git add remote origin https://github.com/mistydemeo/tigerbrew.git
       EOS
     end
   end
@@ -759,16 +760,16 @@ def check_the_git_origin
   HOMEBREW_REPOSITORY.cd do
     origin = `git config --get remote.origin.url`.chomp
 
-    unless origin =~ /mxcl\/homebrew(\.git)?$/ then <<-EOS.undent
+    unless origin =~ /mistydemeo\/tigerbrew(\.git)?$/ then <<-EOS.undent
       Suspicious git origin remote found.
 
-      With a non-standard origin, Homebrew won't pull updates from
+      With a non-standard origin, Tigerbrew won't pull updates from
       the main repository. The current git origin is:
         #{origin}
 
       Unless you have compelling reasons, consider setting the
       origin remote to point at the main repository, located at:
-        https://github.com/mxcl/homebrew.git
+        https://github.com/mistydemeo/tigerbrew.git
       EOS
     end
   end
@@ -783,7 +784,7 @@ def check_for_autoconf
     An "autoconf" in your path blocks the Xcode-provided version at:
       #{autoconf}
 
-    This custom autoconf may cause some Homebrew formulae to fail to compile.
+    This custom autoconf may cause some Tigerbrew formulae to fail to compile.
     EOS
   end
 end
@@ -892,9 +893,9 @@ def check_git_status
   HOMEBREW_REPOSITORY.cd do
     unless `git status -s -- Library/Homebrew/ 2>/dev/null`.chomp.empty?
       <<-EOS.undent_________________________________________________________72
-      You have uncommitted modifications to Homebrew
+      You have uncommitted modifications to Tigerbrew
       If this a surprise to you, then you should stash these modifications.
-      Stashing returns Homebrew to a pristine state but can be undone
+      Stashing returns Tigerbrew to a pristine state but can be undone
       should you later need to do so for some reason.
           cd #{HOMEBREW_REPOSITORY}/Library && git stash && git clean -f
       EOS
@@ -908,7 +909,7 @@ def check_for_leopard_ssl
       The version of libcurl provided with Mac OS X Leopard has outdated
       SSL certificates.
 
-      This can cause problems when running Homebrew commands that use Git to
+      This can cause problems when running Tigerbrew commands that use Git to
       fetch over HTTPS, e.g. `brew update` or installing formulae that perform
       Git checkouts.
 
@@ -982,7 +983,7 @@ def check_for_outdated_homebrew
     end
 
     if Time.now.to_i - timestamp > 60 * 60 * 24 then <<-EOS.undent
-      Your Homebrew is outdated
+      Your Tigerbrew is outdated
       You haven't updated for at least 24 hours, this is a long time in brewland!
       EOS
     end
