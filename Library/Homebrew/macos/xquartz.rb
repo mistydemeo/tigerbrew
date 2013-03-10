@@ -21,6 +21,7 @@ module MacOS::XQuartz extend self
         when 10.7 then "2.6.3"
         else :dunno
         end
+      # Tiger has a different X11 prefix
       elsif prefix.to_s == "/usr/X11R6" && MacOS.version == :tiger
         "1.1.3"
       else
