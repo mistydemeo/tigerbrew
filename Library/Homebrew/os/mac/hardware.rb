@@ -14,7 +14,7 @@ module MacOSHardware
     end
   end
 
-  def ppc_family
+  def ppc_model
     # Note: This list is defined in: /usr/include/mach/machine.h
     types = %w[POWERPC_ALL
       POWERPC_601
@@ -30,13 +30,23 @@ module MacOSHardware
       POWERPC_7450]
     type100 = 'POWERPC_970'
     
-    @@ppc_family ||= `/usr/sbin/sysctl -n hw.cpusubtype`.to_i
-    if @@ppc_family == 100
+    @@ppc_model ||= `/usr/sbin/sysctl -n hw.cpusubtype`.to_i
+    if @@ppc_model == 100
       type100.downcase.to_sym
-    elsif @@ppc_family <= 0 or @@ppc_family > types.length
+    elsif @@ppc_model <= 0 or @@ppc_model > types.length
       :dunno
     else
-      types[@@ppc_family].downcase.to_sym
+      types[@@ppc_model].downcase.to_sym
+    end
+  end
+
+  def ppc_family
+    # pre-750 hardware is unsupported by OS X
+    case ppc_model
+    when :powerpc_750 then :g3
+    when :powerpc_7400 then :g4
+    when :powerpc_7450 then :g4e
+    when :powerpc_970 then :g5
     end
   end
 

@@ -336,12 +336,12 @@ module HomebrewEnvExtension
       append flags, '-march=' + map.fetch(Hardware.intel_family, default)
     end
    else
-    case Hardware.ppc_family
+    case Hardware.ppc_model
     when :powerpc_603ev
       append flags, '-mcpu=603e'
       append flags, '-mtune=603e'
     else
-      cpu_type = Hardware.ppc_family.to_s.split('_').last
+      cpu_type = Hardware.ppc_model.to_s.split('_').last
       append flags, "-mcpu=#{cpu_type}"
       append flags, "-mtune=#{cpu_type}"
       # this works around a buggy system header, which otherwise fails
