@@ -6,6 +6,8 @@ class Bison < Formula
   mirror 'http://ftp.gnu.org/gnu/bison/bison-2.7.tar.gz'
   sha1 'aa4f5aa51ee448bac132041df0ce25a800a3661c'
 
+  depends_on 'homebrew/dupes/m4' if MacOS.version < :leopard
+
   keg_only :provided_by_osx, 'Some formulae require a newer version of bison.'
 
   def install
