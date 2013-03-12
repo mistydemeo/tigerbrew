@@ -346,7 +346,7 @@ module HomebrewEnvExtension
       append flags, "-mtune=#{cpu_type}"
       # this works around a buggy system header, which otherwise fails
       # on gcc-4.2
-      append flags, "-faltivec" if MacOS.version == :tiger
+      append flags, "-faltivec" if MacOS.version == :tiger unless Hardware.ppc_family == :g3
     end
     # For 10.4 we need to add system paths for /usr/X11R6 since some
     # non-X libraries have been installed there that are normally found
