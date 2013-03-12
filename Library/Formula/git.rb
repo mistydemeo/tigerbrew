@@ -17,8 +17,14 @@ class Git < Formula
 
   head 'https://github.com/git/git.git'
 
-  # system tar has odd permissions errors
-  depends_on 'gnu-tar' => :build if MacOS.version == :tiger
+  if MacOS.version == :tiger
+    # system tar has odd permissions errors
+    depends_on 'gnu-tar' => :build
+    # Tiger's ld produces bad install-names for a keg-only curl
+    depends_on 'ld64' => :build
+    depends_on 'cctools' => :build
+  end
+
   depends_on 'curl' if MacOS.version < :snow_leopard
   depends_on 'pcre' if build.include? 'with-pcre'
 
@@ -27,10 +33,10 @@ class Git < Formula
 
   depends_on 'pcre' => :optional
 
-  # git tries to use the -rpath linker command, which isn't valid on OS X
   def patches
-    "https://trac.macports.org/export/100394/trunk/dports/devel/git-core/files/patch-Makefile.diff"
-  end
+    # ld64 understands -rpath but rejects it on Tiger
+    'https://trac.macports.org/export/103986/trunk/dports/devel/git-core/files/patch-Makefile.diff'
+  end if MacOS.version == :tiger
 
   def install
     # git's index-pack will segfault unless compiled without optimization
@@ -65,18 +71,13 @@ class Git < Formula
       ENV['LIBPCREDIR'] = HOMEBREW_PREFIX
     end
 
+    ENV['LD'] = Formula.factory('ld64').opt_prefix/'bin/ld'
+
     system "make", "prefix=#{prefix}",
                    "CC=#{ENV.cc}",
                    "CFLAGS=#{ENV.cflags}",
                    "LDFLAGS=#{ENV.ldflags}",
                    "install"
-
-
-    # the current linker options result in linking against curl at the wrong path
-    # TODO build and use a new ld which should avoid this problem
-    system "install_name_tool", libexec/"git-core/git-remote-https",
-      "-change", "#{HOMEBREW_PREFIX}/lib/libcurl.4.dylib",
-      Formula.factory('curl').opt_prefix/"lib/libcurl.4.dylib"
 
     # Install the OS X keychain credential helper
     cd 'contrib/credential/osxkeychain' do
