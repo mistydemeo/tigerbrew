@@ -11,6 +11,7 @@ class Doxygen < Formula
   option 'with-dot', 'Build with dot command support from Graphviz.'
   option 'with-doxywizard', 'Build GUI frontend with qt support.'
 
+  depends_on 'homebrew/dupes/flex' if MacOS.version < :leopard
   depends_on 'graphviz' if build.include? 'with-dot'
   depends_on 'qt' if build.include? 'with-doxywizard'
 
@@ -33,7 +34,13 @@ class Doxygen < Formula
       s.gsub! /c\+\+$/, ENV.cxx
     end
 
-    system "make"
+    args = []
+    if MacOS.version < :leopard
+      # --flex foo doesn't actually work
+      args << "LEX=#{Formula.factory('flex').bin/'flex'}"
+    end
+
+    system "make", *args
     # MAN1DIR, relative to the given prefix
     system "make", "MAN1DIR=share/man/man1", "install"
   end
