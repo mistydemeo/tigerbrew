@@ -8,6 +8,7 @@ class Jq < Formula
   head 'https://github.com/stedolan/jq.git'
 
   depends_on 'bison'
+  depends_on 'flex' => :build if MacOS.version < :leopard
 
   def install
     system "make"
