@@ -20,10 +20,22 @@ class Fftw < Formula
       args << "--disable-fortran" unless which 'gfortran'
     end
 
+    # Decide which SIMD options we need
+    simd_single = []
+    simd_double = []
+
+    if Hardware.cpu_type == :intel
+      simd_single << "--enable-sse"
+      simd_double << "--enable-sse2"
+    elsif Hardware.ppc_family != :g3
+      simd_single << "--enable-altivec" # altivec seems to only work with
+    end
+
     # single precision
     # enable-sse only works with single
+    # similarly altivec only works with single precision
     system "./configure", "--enable-single",
-                          "--enable-sse",
+                          simd_single,
                           *args
     system "make install"
 
@@ -32,7 +44,7 @@ class Fftw < Formula
 
     # double precision
     # enable-sse2 only works with double precision (default)
-    system "./configure", "--enable-sse2", *args
+    system "./configure", simd_double, *args
     system "make install"
 
     # clean up so we can compile the long-double precision variant
