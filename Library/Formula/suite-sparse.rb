@@ -9,7 +9,9 @@ class SuiteSparse < Formula
   option "with-metis", "Compile in metis libraries"
   option "with-openblas", "Use openblas instead of Apple's Accelerate.framework"
 
-  depends_on "tbb" unless build.include? "without-tbb"
+  if Hardware.cpu_type == :intel
+    depends_on "tbb" unless build.include? "without-tbb"
+  end
   # Metis is optional for now because of
   # cholmod_metis.c:164:21: error: use of undeclared identifier 'idxtype'
   depends_on "metis" if build.include? "with-metis"
@@ -28,7 +30,7 @@ class SuiteSparse < Formula
         s.change_make_var! "LAPACK", "$(BLAS)"
       end
 
-      unless build.include? "without-tbb"
+      if Hardware.cpu_type == :ppc or !build.include? "without-tbb"
         s.change_make_var! "SPQR_CONFIG", "-DHAVE_TBB"
         s.change_make_var! "TBB", "-ltbb"
       end
