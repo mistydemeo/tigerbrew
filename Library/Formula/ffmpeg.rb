@@ -22,6 +22,8 @@ class Ffmpeg < Formula
 
   depends_on 'pkg-config' => :build
 
+  # Tiger's make is too old
+  depends_on 'homebrew/dupes/make' => :build if MacOS.version < :leopard
   # manpages won't be built without texi2html
   depends_on 'texi2html' => :build if MacOS.version >= :mountain_lion
   depends_on 'yasm' => :build
@@ -86,6 +88,9 @@ class Ffmpeg < Formula
       args << '--enable-libopenjpeg'
       args << '--extra-cflags=' + %x[pkg-config --cflags libopenjpeg].chomp
     end
+
+    args << "--disable-asm" if MacOS.version < :leopard
+    args << "--disable-altivec" if Hardware.cpu_type != :ppc || Hardware.ppc_family == :g3
 
     # For 32-bit compilation under gcc 4.2, see:
     # http://trac.macports.org/ticket/20938#comment:22
