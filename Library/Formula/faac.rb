@@ -6,6 +6,9 @@ class Faac < Formula
   sha1 'd00b023a3642f81bb1fb13d962a65079121396ee'
 
   def install
+    # This actually breaks faac!
+    ['CFLAGS','CPPFLAGS','CXXFLAGS'].each {|f| ENV.remove f, '-faltivec'}
+
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"
     system "make install"
