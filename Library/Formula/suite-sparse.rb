@@ -5,7 +5,7 @@ class SuiteSparse < Formula
   url 'http://www.cise.ufl.edu/research/sparse/SuiteSparse/SuiteSparse-4.0.2.tar.gz'
   sha1 '46b24a28eef4b040ea5a02d2c43e82e28b7d6195'
 
-  option "without-tbb", "Do not link with tbb (Threading Building Block)"
+  option "without-tbb", "Do not link with tbb (Threading Building Block)" if Hardware.cpu_type == :intel
   option "with-metis", "Compile in metis libraries"
   option "with-openblas", "Use openblas instead of Apple's Accelerate.framework"
 
