@@ -87,8 +87,6 @@ begin
     exec "brew-#{cmd}", *ARGV
   elsif require? which("brew-#{cmd}.rb").to_s
     exit 0
-  elsif require? `/usr/bin/which brew-#{cmd}.rb`
-    exit 0
   else
     onoe "Unknown command: #{cmd}"
     exit 1
