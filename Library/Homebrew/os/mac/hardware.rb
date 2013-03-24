@@ -1,10 +1,20 @@
-module MacOSHardware
+module MacCPUs
+  OPTIMIZATION_FLAGS = {
+    :penryn => '-march=core2 -msse4.1',
+    :core2 => '-march=core2',
+    :core => '-march=prescott',
+    :g3 => '-mcpu=750',
+    :g4 => '-mcpu=7400',
+    :g4e => '-mcpu=7450',
+    :g5 => '-mcpu=970'
+  }
+  def optimization_flags; OPTIMIZATION_FLAGS.dup; end
+
   # These methods use info spewed out by sysctl.
   # Look in <mach/machine.h> for decoding info.
-  def cpu_type
-    @@cpu_type ||= `/usr/sbin/sysctl -n hw.cputype`.to_i
-
-    case @@cpu_type
+  def type
+    @type ||= `/usr/sbin/sysctl -n hw.cputype`.to_i
+    case @type
     when 7
       :intel
     when 18
@@ -14,86 +24,69 @@ module MacOSHardware
     end
   end
 
-  def ppc_model
-    # Note: This list is defined in: /usr/include/mach/machine.h
-    types = %w[POWERPC_ALL
-      POWERPC_601
-      POWERPC_602
-      POWERPC_603
-      POWERPC_603e
-      POWERPC_603ev
-      POWERPC_604
-      POWERPC_604e
-      POWERPC_620
-      POWERPC_750
-      POWERPC_7400
-      POWERPC_7450]
-    type100 = 'POWERPC_970'
-    
-    @@ppc_model ||= `/usr/sbin/sysctl -n hw.cpusubtype`.to_i
-    if @@ppc_model == 100
-      type100.downcase.to_sym
-    elsif @@ppc_model <= 0 or @@ppc_model > types.length
-      :dunno
-    else
-      types[@@ppc_model].downcase.to_sym
+  def family
+    if type == :intel
+      @intel_family ||= `/usr/sbin/sysctl -n hw.cpufamily`.to_i
+      case @intel_family
+      when 0x73d67300 # Yonah: Core Solo/Duo
+        :core
+      when 0x426f69ef # Merom: Core 2 Duo
+        :core2
+      when 0x78ea4fbc # Penryn
+        :penryn
+      when 0x6b5a4cd2 # Nehalem
+        :nehalem
+      when 0x573B5EEC # Arrandale
+        :arrandale
+      when 0x5490B78C # Sandy Bridge
+        :sandybridge
+      when 0x1F65E835 # Ivy Bridge
+        :ivybridge
+      else
+        :dunno
+      end
+    elsif type == :ppc
+      @ppc_family ||= `/usr/sbin/sysctl -n hw.cpusubtype`.to_i
+      case @ppc_family
+      when 9
+        :g3  # PowerPC 750
+      when 10
+        :g4  # PowerPC 7400
+      when 11
+        :g4e # PowerPC 7450
+      when 100
+        :g5  # PowerPC 970
+      else
+        :dunno
+      end
     end
   end
 
-  def ppc_family
-    # pre-750 hardware is unsupported by OS X
-    case ppc_model
-    when :powerpc_750 then :g3
-    when :powerpc_7400 then :g4
-    when :powerpc_7450 then :g4e
-    when :powerpc_970 then :g5
-    end
+  def cores
+    @cores ||= `/usr/sbin/sysctl -n hw.ncpu`.to_i
   end
 
-  def intel_family
-    @@intel_family ||= `/usr/sbin/sysctl -n hw.cpufamily`.to_i
+  def bits
+    return @bits if defined? @bits
 
-    case @@intel_family
-    when 0x73d67300 # Yonah: Core Solo/Duo
-      :core
-    when 0x426f69ef # Merom: Core 2 Duo
-      :core2
-    when 0x78ea4fbc # Penryn
-      :penryn
-    when 0x6b5a4cd2 # Nehalem
-      :nehalem
-    when 0x573B5EEC # Arrandale
-      :arrandale
-    when 0x5490B78C # Sandy Bridge
-      :sandybridge
-    when 0x1F65E835 # Ivy Bridge
-      :ivybridge
-    else
-      :dunno
-    end
+    is_64_bit = sysctl_bool("hw.cpu64bit_capable")
+    @bits ||= is_64_bit ? 64 : 32
   end
 
-  def any_family
-    case self.cpu_type
-    when :intel
-      Hardware.intel_family
-    when :ppc
-      Hardware.ppc_family
-    else
-      :dunno
-    end
+  def altivec?
+    type == :ppc && family != :g3
   end
 
-  def processor_count
-    @@processor_count ||= `/usr/sbin/sysctl -n hw.ncpu`.to_i
+  def sse3?
+    type == :intel
   end
 
-  def is_64_bit?
-    return @@is_64_bit if defined? @@is_64_bit
-    @@is_64_bit = sysctl_bool("hw.cpu64bit_capable")
+  def sse4?
+    type == :intel && (family != :core && family != :core2)
   end
 
-protected
+  protected
+
   def sysctl_bool(property)
     result = nil
     IO.popen("/usr/sbin/sysctl -n #{property} 2>/dev/null") do |f|
