@@ -91,7 +91,7 @@ class Ffmpeg < Formula
     end
 
     args << "--disable-asm" if MacOS.version < :leopard
-    args << "--disable-altivec" if Hardware.cpu_type != :ppc || Hardware.ppc_family == :g3
+    args << "--disable-altivec" unless Hardware::CPU.altivec?
 
     # For 32-bit compilation under gcc 4.2, see:
     # http://trac.macports.org/ticket/20938#comment:22
