@@ -292,7 +292,7 @@ module HomebrewEnvExtension
   # i386 and x86_64 (no PPC)
   def universal_binary
     # TODO: look at adding universal i386/PPC binaries
-    return if Hardware.cpu_type == :ppc
+    return if Hardware::CPU.type == :ppc
 
     append_to_cflags '-arch i386 -arch x86_64'
     replace_in_cflags '-O4', '-O3' # O4 seems to cause the build to fail
@@ -328,7 +328,6 @@ module HomebrewEnvExtension
     remove flags, %r{( -Xclang \S+)+}
     remove flags, %r{-mssse3}
     remove flags, %r{-msse4(\.\d)?}
-   if Hardware.cpu_type == :intel
     append flags, xarch unless xarch.empty?
 
     if ARGV.build_bottle?
@@ -337,28 +336,17 @@ module HomebrewEnvExtension
       # Don't set -msse3 and older flags because -march does that for us
       append flags, map.fetch(Hardware::CPU.family, default)
     end
-   else
-    case Hardware.ppc_model
-    when :powerpc_603ev
-      append flags, '-mcpu=603e'
-      append flags, '-mtune=603e'
-    else
-      cpu_type = Hardware.ppc_model.to_s.split('_').last
-      append flags, "-mcpu=#{cpu_type}"
-      append flags, "-mtune=#{cpu_type}"
-      # this works around a buggy system header, which otherwise fails
-      # on gcc-4.2
-      append flags, "-faltivec" if MacOS.version == :tiger unless Hardware.ppc_family == :g3
-    end
+    # Works around a buggy system header on Tiger
+    append flags, "-faltivec" if MacOS.version == :tiger && Hardware::CPU.altivec?
+
     # For 10.4 we need to add system paths for /usr/X11R6 since some
     # non-X libraries have been installed there that are normally found
     # in /usr on 10.5 and later systems (e.g. expat)
-    if MACOS_VERSION == 10.4
+    if MacOS.version == :tiger && Hardware::CPU.type == :ppc
       append flags, '-isystem /usr/X11R6/include'
       append 'CPPFLAGS', '-isystem /usr/X11R6/include'
       append 'LDFLAGS', '-L/usr/X11R6/lib'
     end
-   end
 
     # not really a 'CPU' cflag, but is only used with clang
     remove flags, '-Qunused-arguments'
