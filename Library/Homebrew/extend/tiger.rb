@@ -7,7 +7,7 @@ class Object
       raise NameError, "`#{ivar}' is not allowed as an instance variable name"
     end
 
-    instance_variable_get(ivar) ? true : false
+    instance_variables.include?(ivar.to_s)
   end
 end
 
