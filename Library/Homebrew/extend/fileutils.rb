@@ -43,7 +43,7 @@ module FileUtils extend self
   # The monkey-patched method here is copied directly from upstream fix.
   if RUBY_VERSION < "1.9.3" or RUBY_PATCHLEVEL < 195
     class Entry_
-      alias_method :old_copy_metadata, :copy_metadata
+      alias_method :old_copy_metadata, :copy_metadata if RUBY_VERSION > "1.8.2"
       def copy_metadata(path)
         st = lstat()
         if !st.symlink?
