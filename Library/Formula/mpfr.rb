@@ -27,7 +27,7 @@ class Mpfr < Formula
   end
 
   def patches
-    "https://gist.github.com/raw/4472199/42c0b207037a133527083d12adc9028b4da429ee/gistfile1.txt"
+    "http://www.mpfr.org/mpfr-3.1.1/allpatches"
   end
 
   def install
@@ -37,7 +37,7 @@ class Mpfr < Formula
     # Note: This logic should match what the GMP formula does.
     if MacOS.prefer_64_bit? and not build.build_32_bit?
       ENV.m64
-      args << "--build=x86_64-apple-darwin"
+      args << (Hardware::CPU.type == :intel) ? "--build=x86_64-apple-darwin" : "--build=ppc64-apple-darwin"
     else
       ENV.m32
       args << "--build=none-apple-darwin"
