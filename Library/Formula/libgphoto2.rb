@@ -10,6 +10,11 @@ class Libgphoto2 < Formula
   depends_on 'libusb-compat'
   depends_on 'libexif' => :optional
 
+  # Fixes http://sourceforge.net/p/gphoto/bugs/935; remove on next release
+  def patches
+    {:p0 => "http://sourceforge.net/p/gphoto/bugs/935/attachment/xx.pat"}
+  end
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}", "CFLAGS=-D_DARWIN_C_SOURCE"
