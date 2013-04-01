@@ -282,11 +282,19 @@ module HomebrewEnvExtension
 
   def m64
     append_to_cflags '-m64'
-    append 'LDFLAGS', '-arch x86_64'
+    if Hardware::CPU.type == :intel
+      append 'LDFLAGS', '-arch x86_64'
+    else
+      append 'LDFLAGS', '-arch ppc64'
+    end
   end
   def m32
     append_to_cflags '-m32'
-    append 'LDFLAGS', '-arch i386'
+    if Hardware::CPU.type == :intel
+      append 'LDFLAGS', '-arch i386'
+    else
+      append 'LDFLAGS', '-arch ppc'
+    end
   end
 
   # i386 and x86_64 (no PPC)
