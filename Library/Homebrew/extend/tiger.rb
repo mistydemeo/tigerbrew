@@ -29,3 +29,9 @@ class Array
     end
   end
 end
+
+module Kernel
+  def Pathname(target)
+    Pathname.new(target)
+  end
+end
