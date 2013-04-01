@@ -65,7 +65,7 @@ Credits
 
 Homebrew is originally by [mxcl][mxcl], a splendid chap. This fork is by @mistydemeo, incorporating some code originally written by @sceaga.
 
-[homebrew]:http://mxcl.github.com/homebrew
+[homebrew]:http://brew.sh
 [wiki]:http://wiki.github.com/mxcl/homebrew
 [mxcl]:http://twitter.com/mxcl
 [formula]:http://github.com/mistydemeo/tigerbrew/tree/master/Library/Formula/

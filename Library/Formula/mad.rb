@@ -8,23 +8,22 @@ class Mad < Formula
   def install
     system "./configure", "--disable-debugging", "--enable-fpm=#{fpm}", "--prefix=#{prefix}"
     system "make", "CFLAGS=#{ENV.cflags}", "LDFLAGS=#{ENV.ldflags}", "install"
-    (lib+'pkgconfig/mad.pc').write mad_pc
+    (lib+'pkgconfig/mad.pc').write pc_file
   end
 
-  def mad_pc
-    return <<-EOS
-prefix=#{HOMEBREW_PREFIX}
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-includedir=${prefix}/include
+  def pc_file; <<-EOS.undent
+    prefix=#{opt_prefix}
+    exec_prefix=${prefix}
+    libdir=${exec_prefix}/lib
+    includedir=${prefix}/include
 
-Name: mad
-Description: MPEG Audio Decoder
-Version: #{@version}
-Requires:
-Conflicts:
-Libs: -L${libdir} -lmad -lm
-Cflags: -I${includedir}
+    Name: mad
+    Description: MPEG Audio Decoder
+    Version: #{version}
+    Requires:
+    Conflicts:
+    Libs: -L${libdir} -lmad -lm
+    Cflags: -I${includedir}
     EOS
   end
 
