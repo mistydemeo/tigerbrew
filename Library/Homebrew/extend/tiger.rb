@@ -18,18 +18,6 @@ module Enumerable
   end
 end
 
-class Array
-  def count(obj=nil)
-    return length if obj.nil? unless block_given?
-
-    if block_given?
-      select {|o| yield(o)}.length
-    else
-      select {|o| o == obj}.length
-    end
-  end
-end
-
 module Kernel
   def Pathname(target)
     Pathname.new(target)
