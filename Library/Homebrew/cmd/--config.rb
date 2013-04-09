@@ -107,7 +107,7 @@ module Homebrew extend self
     puts "OS X: #{MACOS_FULL_VERSION}-#{kernel}"
     puts "Xcode: #{xcode}" if xcode
     puts "CLT: #{clt}" if clt
-    puts "/usr/bin/ruby:\n  #{RUBY_VERSION}" if RUBY_VERSION.to_f != 1.8
+    puts "#{RUBY_PATH}:\n  #{RUBY_VERSION}-#{RUBY_PATCHLEVEL}" if RUBY_VERSION.to_f != 1.8
 
     unless MacOS.compilers_standard?
       puts "GCC-4.0: build #{gcc_40}" if gcc_40
