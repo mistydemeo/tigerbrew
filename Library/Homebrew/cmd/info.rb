@@ -47,7 +47,7 @@ module Homebrew extend self
 
   def github_fork
     if which 'git' and (HOMEBREW_REPOSITORY/".git").directory?
-      if `git remote -v` =~ %r{origin\s+(https?://|git(?:@|://))github.com[:/](.+)/homebrew}
+      if `git remote -v` =~ %r{origin\s+(https?://|git(?:@|://))github.com[:/](.+)/(home|tiger)brew}
         $2
       end
     end
@@ -64,7 +64,7 @@ module Homebrew extend self
       path.parent.cd do
         user = github_fork
       end
-      repo = "homebrew"
+      repo = "tigerbrew"
       path = "Library/Formula/#{path.basename}"
     end
 
