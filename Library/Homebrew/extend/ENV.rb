@@ -123,7 +123,7 @@ module HomebrewEnvExtension
     replace_in_cflags '-O4', '-O3'
     set_cpu_cflags '-march=nocona -mssse3',
       Hardware::CPU.optimization_flags
-    @compiler = :gcc
+    @compiler = :gcc_4_0
   end
   alias_method :gcc_4_0, :gcc_4_0_1
 
