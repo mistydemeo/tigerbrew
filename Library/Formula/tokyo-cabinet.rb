@@ -6,7 +6,10 @@ class TokyoCabinet < Formula
   sha1 '18608ac2e6e469e20d1c36ae1117661bb47901c4'
 
   def install
-    system "./configure", "--prefix=#{prefix}", "--enable-fastest"
+    args = %W[--prefix=#{prefix}]
+    args << "--enable-fastest" unless Hardware::CPU.type == :ppc
+
+    system "./configure", *args
     system "make"
     system "make install"
   end
