@@ -812,6 +812,10 @@ class Formula
     private
 
     def post_depends_on(dep)
+      if dep.is_a? Array
+        return dep.each {|d| post_depends_on(d)}
+      end
+
       # Generate with- or without- options for optional and recommended
       # dependencies and requirements
       name = dep.name.split("/").last # strip any tap prefix

@@ -32,6 +32,8 @@ class DependencyCollector
       @deps << dep
     when Requirement
       @requirements << dep
+    when Array
+      dep.each {|d| add(d)}
     end
     dep
   end
