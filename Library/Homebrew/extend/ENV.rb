@@ -345,7 +345,7 @@ module HomebrewEnvExtension
       append flags, map.fetch(Hardware::CPU.family, default)
     end
     # Works around a buggy system header on Tiger
-    append flags, "-faltivec" if MacOS.version == :tiger && Hardware::CPU.altivec?
+    append flags, "-faltivec" if MacOS.version == :tiger
 
     # For 10.4 we need to add system paths for /usr/X11R6 since some
     # non-X libraries have been installed there that are normally found
