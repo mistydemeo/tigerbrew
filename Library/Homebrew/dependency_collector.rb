@@ -85,6 +85,9 @@ class DependencyCollector
       # We no longer use X11 psuedo-deps for cairo or pixman,
       # so just return a standard formula dependency.
       Dependency.new(spec.to_s, tag)
+    when :ld64
+      # Tiger's ld is too old to properly link some software
+      ld64_deps(spec, tag)
     when :x11        then X11Dependency.new(spec.to_s, tag)
     when :xcode      then XcodeDependency.new(tag)
     when :mysql      then MysqlDependency.new(tag)
@@ -114,6 +117,13 @@ class DependencyCollector
 
     unless MacOS::Xcode.provides_autotools?
       Dependency.new(spec.to_s, tag)
+    end
+  end
+
+  def ld64_deps(spec, tag)
+    if MacOS.version < :leopard
+      # ld64 is always a buildtime dep
+      [ Dependency.new(spec.to_s, :build), LD64Dependency.new ]
     end
   end
 end
