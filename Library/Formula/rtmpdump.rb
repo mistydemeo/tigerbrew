@@ -7,6 +7,9 @@ class Rtmpdump < Formula
 
   head 'git://git.ffmpeg.org/rtmpdump'
 
+  # Tiger's ld fails with:
+  # "common symbols not allowed with MH_DYLIB output format with the -multi_module option"
+  depends_on :ld64
   depends_on 'openssl' if MacOS.version <= :leopard
 
   fails_with :llvm do
