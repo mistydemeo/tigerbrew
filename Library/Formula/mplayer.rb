@@ -10,7 +10,7 @@ class Mplayer < Formula
   option 'with-x', 'Build with X11 support'
   option 'without-osd', 'Build without OSD'
 
-  depends_on 'yasm' => :build
+  depends_on 'yasm' => :build if Hardware.cpu_type == :intel
   depends_on 'xz' => :build
   depends_on 'libcaca' => :optional
   depends_on :x11 if build.include? 'with-x'

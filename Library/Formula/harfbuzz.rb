@@ -8,6 +8,7 @@ class Harfbuzz < Formula
   depends_on 'pkg-config' => :build
   depends_on 'glib'
   depends_on 'icu4c' => :recommended
+  depends_on 'm4' => :build if MacOS.version <= :leopard
 
   # Needs newer fontconfig than XQuartz provides for pango
   depends_on 'fontconfig'

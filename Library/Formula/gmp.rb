@@ -21,6 +21,7 @@ class Gmp < Formula
       ENV.append 'ABI', '32'
     end
 
+    ENV.append_to_cflags "-force_cpusubtype_ALL" if Hardware.cpu_type == :ppc
     system "./configure", "--prefix=#{prefix}", "--enable-cxx"
     system "make"
     system "make check"

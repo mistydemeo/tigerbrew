@@ -83,12 +83,16 @@ class Qt < Formula
       args << "-nomake" << "demos" << "-nomake" << "examples"
     end
 
-    if MacOS.prefer_64_bit? or build.universal?
-      args << '-arch' << 'x86_64'
-    end
+    if Hardware.cpu_type != :ppc
+      if MacOS.prefer_64_bit? or build.universal?
+        args << '-arch' << 'x86_64'
+      end
 
-    if !MacOS.prefer_64_bit? or build.universal?
-      args << '-arch' << 'x86'
+      if !MacOS.prefer_64_bit? or build.universal?
+        args << '-arch' << 'x86'
+      end
+    else
+      args << '-arch' << 'ppc'
     end
 
     if build.with? 'debug-and-release'
