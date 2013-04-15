@@ -45,6 +45,9 @@ class Mplayer < Formula
     ENV['CXXFLAGS'] = ''
     ENV.O1 if ENV.compiler == :llvm
 
+    # we may empty our cflags, but skipping -faltivec is bad news on Tiger
+    ENV.append_to_cflags '-faltivec' if MacOS.version == :tiger
+
     # we disable cdparanoia because homebrew's version is hacked to work on OS X
     # and mplayer doesn't expect the hacks we apply. So it chokes.
     # Specify our compiler to stop ffmpeg from defaulting to gcc.
