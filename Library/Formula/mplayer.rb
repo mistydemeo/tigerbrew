@@ -10,6 +10,8 @@ class Mplayer < Formula
   option 'with-x', 'Build with X11 support'
   option 'without-osd', 'Build without OSD'
 
+  # dupe make needed because of "make: *** virtual memory exhausted.  Stop."
+  depends_on 'homebrew/dupes/make' => :build if MacOS.version < :leopard
   depends_on 'yasm' => :build
   depends_on 'xz' => :build
   depends_on 'libcaca' => :optional
@@ -61,9 +63,12 @@ class Mplayer < Formula
     args << "--disable-x11" unless build.include? 'with-x'
     args << "--enable-caca" if build.with? 'libcaca'
 
+
+    make = MacOS.version < :leopard ? Formula.factory('homebrew/dupes/make').bin/'make' : 'make'
+
     system "./configure", *args
-    system "make"
-    system "make install"
+    system make.to_s
+    system make.to_s, "install"
   end
 
   def test
