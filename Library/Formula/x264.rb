@@ -8,7 +8,8 @@ class X264 < Formula
 
   head 'http://git.videolan.org/git/x264.git', :branch => 'stable'
 
-  depends_on 'yasm' => :build if Hardware::CPU.type == :intel
+  # reports that ASM causes a crash on G3; works on G4
+  depends_on 'yasm' => :build unless Hardware::CPU.family == :g3
 
   option '10-bit', 'Build a 10-bit x264 (default: 8-bit)'
 
@@ -19,7 +20,7 @@ class X264 < Formula
     end
     args = ["--prefix=#{prefix}", "--enable-shared"]
     args << "--bit-depth=10" if build.include? '10-bit'
-    args << "--disable-asm" unless build.with? 'yasm'
+    args << "--disable-asm" if Hardware::CPU.family == :g3
 
     system "./configure", *args
 
