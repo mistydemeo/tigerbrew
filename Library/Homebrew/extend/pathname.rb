@@ -400,7 +400,7 @@ class Pathname
   # We redefine these private methods in order to add the /o modifier to
   # the Regexp literals, which forces string interpolation to happen only
   # once instead of each time the method is called. This is fixed in 1.9+.
-  if RUBY_VERSION <= "1.8.7"
+  if RUBY_VERSION <= "1.8.7" && RUBY_VERSION > "1.8.2"
     alias_method :old_chop_basename, :chop_basename
     def chop_basename(path)
       base = File.basename(path)
