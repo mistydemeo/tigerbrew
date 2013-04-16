@@ -435,9 +435,11 @@ class Pathname
   # On the other hand, if the target is a) a directory, and b) a
   # symlink, then Pathname will redirect to Dir.unlink, which will
   # then treat the symlink as a *file* and raise Errno::EISDIR.
-  alias :oldunlink :unlink
-  def unlink
-    symlink? ? File.unlink(to_s) : oldunlink
+  if RUBY_VERSION <= "1.8.2"
+    alias :oldunlink :unlink
+    def unlink
+      symlink? ? File.unlink(to_s) : oldunlink
+    end
   end
 end
 
