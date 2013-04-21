@@ -15,7 +15,14 @@ class Fontconfig < Formula
   # Patch adapted from Macports patch for 2.9.0 defines sizeof based on __LP64__
   # Fixes universal builds but seems groovy enough to apply in all cases.
   # https://trac.macports.org/browser/trunk/dports/graphics/fontconfig/files/patch-check-arch-at-runtime.diff
-  def patches; DATA; end
+  def patches
+    [
+      DATA,
+      # fontconfig uses OSAtomicCompareAndSwapPtrBarrier, which first appeared in Leopard
+      # patch submitted upstream
+      "https://gist.github.com/mistydemeo/e743e13110b6a7df7559/raw/b9e5c34c67ea89dcfc19bf70b7af2e4f64266381/fcatomic-10.4.diff"
+    ]
+  end
 
   def install
     ENV.universal_binary if build.universal?
