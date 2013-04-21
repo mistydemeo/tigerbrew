@@ -9,6 +9,7 @@ class Libffi < Formula
   keg_only :provided_by_osx, "Some formulae require a newer version of libffi." if MacOS.version > :tiger
 
   def install
+    ENV.deparallelize # https://github.com/mxcl/homebrew/pull/19267
     ENV.universal_binary
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"
