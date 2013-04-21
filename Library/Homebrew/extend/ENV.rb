@@ -344,17 +344,9 @@ module HomebrewEnvExtension
       # Don't set -msse3 and older flags because -march does that for us
       append flags, map.fetch(Hardware::CPU.family, default)
     end
+
     # Works around a buggy system header on Tiger
     append flags, "-faltivec" if MacOS.version == :tiger
-
-    # For 10.4 we need to add system paths for /usr/X11R6 since some
-    # non-X libraries have been installed there that are normally found
-    # in /usr on 10.5 and later systems (e.g. expat)
-    if MacOS.version == :tiger && Hardware::CPU.type == :ppc
-      append flags, '-isystem /usr/X11R6/include'
-      append 'CPPFLAGS', '-isystem /usr/X11R6/include'
-      append 'LDFLAGS', '-L/usr/X11R6/lib'
-    end
 
     # not really a 'CPU' cflag, but is only used with clang
     remove flags, '-Qunused-arguments'
