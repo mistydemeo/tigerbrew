@@ -29,6 +29,9 @@ class Sqlite < Formula
   keg_only :provided_by_osx, "OS X already provides (an older) sqlite3."
 
   def install
+    # sqlite segfaults on PPC Tiger
+    ENV.no_optimization if MacOS.version < :leopard && Hardware::CPU.type == :ppc
+
     ENV.append 'CPPFLAGS', "-DSQLITE_ENABLE_RTREE" unless build.include? "without-rtree"
     ENV.append 'CPPFLAGS', "-DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS" if build.include? "with-fts"
 
