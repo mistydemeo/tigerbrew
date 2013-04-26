@@ -25,10 +25,6 @@ class Mpfr < Formula
       EOS
   end
 
-  def patches
-    "http://www.mpfr.org/mpfr-3.1.1/allpatches"
-  end
-
   def install
     args = ["--disable-dependency-tracking", "--prefix=#{prefix}"]
 
