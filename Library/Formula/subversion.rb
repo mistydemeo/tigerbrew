@@ -19,6 +19,9 @@ class Subversion < Formula
   depends_on 'sqlite'
   depends_on 'serf'
 
+  # use Tigerbrew's version instead of the old one in X11
+  depends_on 'expat' if MacOS.version < :leopard
+  # Tiger's are too old
   depends_on 'homebrew/dupes/apr' if MacOS.version < :leopard
   depends_on 'homebrew/dupes/apr-util' if MacOS.version < :leopard
 
