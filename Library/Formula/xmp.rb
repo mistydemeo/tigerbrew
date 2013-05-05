@@ -9,11 +9,6 @@ class Xmp < Formula
   depends_on :autoconf if build.head?
   depends_on 'libxmp'
 
-  # coreaudio driver assumes little-endian; fixed upstream,
-  # will be in next release
-  # http://sourceforge.net/mailarchive/forum.php?thread_name=CAGfWt5cHP8kdFXKS3K_NZEOg3WYGK0Zk2U6pVPmfnRHT7cx%3DDA%40mail.gmail.com&forum_name=xmp-devel
-  def patches; DATA; end
-
   def install
     system "autoconf" if build.head?
     system "./configure", "--prefix=#{prefix}"
