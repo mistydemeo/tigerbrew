@@ -9,6 +9,7 @@ class SdlImage < Formula
   if MacOS.version < :leopard
     depends_on 'libpng'
     depends_on 'jpeg'
+    depends_on 'tiff' => :optional
   end
 
   option :universal
