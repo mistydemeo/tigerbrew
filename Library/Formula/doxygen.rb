@@ -11,7 +11,7 @@ class Doxygen < Formula
   option 'with-dot', 'Build with dot command support from Graphviz.'
   option 'with-doxywizard', 'Build GUI frontend with qt support.'
 
-  depends_on 'homebrew/dupes/flex' if MacOS.version < :leopard
+  depends_on 'flex' if MacOS.version < :leopard
   depends_on 'graphviz' if build.include? 'with-dot'
   depends_on 'qt' if build.include? 'with-doxywizard'
 
@@ -29,18 +29,30 @@ class Doxygen < Formula
       # gcc doesn't support the flag
       s.gsub! '-Wno-invalid-source-encoding', '' \
         unless ENV.compiler == :clang
+      s.gsub! '-fstack-protector', '' \
+        if ENV.compiler == :gcc_4_0
       # makefiles hardcode both cc and c++
       s.gsub! /cc$/, ENV.cc
       s.gsub! /c\+\+$/, ENV.cxx
     end
 
-    args = []
-    if MacOS.version < :leopard
-      # --flex foo doesn't actually work
-      args << "LEX=#{Formula.factory('flex').bin/'flex'}"
+    # This is a terrible hack; configure finds lex/yacc OK but
+    # one Makefile doesn't get generated with these, so pull
+    # them out of a known good file and cram them into the other.
+    lex = ''
+    yacc = ''
+
+    inreplace 'src/libdoxycfg.t' do |s|
+      lex = s.get_make_var 'LEX'
+      yacc = s.get_make_var 'YACC'
     end
 
-    system "make", *args
+    inreplace 'src/Makefile.libdoxycfg' do |s|
+      s.change_make_var! 'LEX', lex
+      s.change_make_var! 'YACC', yacc
+    end
+
+    system "make"
     # MAN1DIR, relative to the given prefix
     system "make", "MAN1DIR=share/man/man1", "install"
   end
