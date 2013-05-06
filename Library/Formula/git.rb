@@ -26,6 +26,7 @@ class Git < Formula
   end
 
   depends_on 'curl' if MacOS.version < :snow_leopard
+  depends_on :expat
   depends_on 'pcre' if build.include? 'with-pcre'
 
   option 'with-blk-sha1', 'Compile with the block-optimized SHA1 implementation'

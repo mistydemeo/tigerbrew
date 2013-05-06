@@ -88,6 +88,8 @@ class DependencyCollector
     when :ld64
       # Tiger's ld is too old to properly link some software
       ld64_deps(spec, tag)
+    when :expat
+      Dependency.new('expat', tag) if MacOS.version < :leopard
     when :x11        then X11Dependency.new(spec.to_s, tag)
     when :xcode      then XcodeDependency.new(tag)
     when :mysql      then MysqlDependency.new(tag)
