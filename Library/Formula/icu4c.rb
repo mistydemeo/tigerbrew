@@ -18,6 +18,8 @@ class Icu4c < Formula
 
   def install
     ENV.universal_binary if build.universal?
+    # Tiger's libtool chokes if it's passed -w
+    ENV.enable_warnings if MacOS.version < :leopard
 
     ENV.append "LDFLAGS", "-headerpad_max_install_names"
     args = ["--prefix=#{prefix}", "--disable-samples", "--disable-tests", "--enable-static"]
