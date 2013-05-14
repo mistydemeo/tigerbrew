@@ -84,8 +84,10 @@ class Boost < Formula
       bargs << '--without-icu'
     end
 
-    # context is ASM, and boost does not provide a PPC version
-    bargs << "--without-libraries=context" if Hardware.cpu_type == :ppc
+    # The context library is implemented as x86_64 ASM, so it
+    # won't build on PPC or 32-bit builds
+    # see https://github.com/mxcl/homebrew/issues/17646
+    bargs << "--without-libraries=context" if Hardware::CPU.type == :ppc || Hardware::CPU.bits == 32 || build.universal?
 
     boost_layout = (build.include? "use-system-layout") ? "system" : "tagged"
     args = ["--prefix=#{prefix}",
