@@ -7,6 +7,9 @@ class Libxmp < Formula
   head 'git://git.code.sf.net/p/xmp/libxmp'
 
   depends_on :autoconf if build.head?
+  # build tries to pass -compatibility-version, which Tiger's ld doesn't grok
+  # https://github.com/cmatsuoka/libxmp/issues/1
+  depends_on :ld64
 
   def install
     system "autoconf" if build.head?
