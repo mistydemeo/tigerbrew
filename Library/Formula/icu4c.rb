@@ -18,7 +18,7 @@ class Icu4c < Formula
 
   def patches
     # patch submitted upstream: http://bugs.icu-project.org/trac/ticket/9367
-    # eATA
+    DATA
   end if MacOS.version < :leopard
 
   def install
