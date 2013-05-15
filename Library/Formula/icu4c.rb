@@ -16,6 +16,11 @@ class Icu4c < Formula
 
   option :universal
 
+  def patches
+    # patch submitted upstream: http://bugs.icu-project.org/trac/ticket/9367
+    {:p0 => 'https://trac.macports.org/export/106104/trunk/dports/devel/icu/files/patch-common-putil.cpp.diff'}
+  end if MacOS.version < :leopard
+
   def install
     ENV.universal_binary if build.universal?
     # Tiger's libtool chokes if it's passed -w
