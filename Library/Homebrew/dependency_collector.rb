@@ -136,7 +136,7 @@ class DependencyCollector
   def ld64_deps(spec, tag)
     if MacOS.version < :leopard
       # ld64 is always a buildtime dep
-      [ Dependency.new(spec.to_s, :build), LD64Dependency.new ]
+      [ Dependency.new(spec.to_s, [:build]), LD64Dependency.new ]
     end
   end
 end
