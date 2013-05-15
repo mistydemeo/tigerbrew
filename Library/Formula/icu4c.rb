@@ -12,6 +12,9 @@ class Icu4c < Formula
     sha1 'bcb1ab988f67c3d48fb7c5829153c136c16c059b' => :snow_leopard
   end
 
+  # build tries to pass -compatibility-version to ld, which Tiger's ld can't grok
+  depends_on :ld64
+
   keg_only "Conflicts; see: https://github.com/mxcl/homebrew/issues/issue/167"
 
   option :universal
