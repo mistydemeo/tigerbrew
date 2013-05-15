@@ -86,12 +86,12 @@ class DependencyCollector
     when :cairo, :pixman
       # We no longer use X11 psuedo-deps for cairo or pixman,
       # so just return a standard formula dependency.
-      Dependency.new(spec.to_s, tag)
+      Dependency.new(spec.to_s, tags)
     when :ld64
       # Tiger's ld is too old to properly link some software
-      ld64_deps(spec, tag)
+      ld64_deps(spec, tags)
     when :expat
-      Dependency.new('expat', tag) if MacOS.version < :leopard
+      Dependency.new('expat', tags) if MacOS.version < :leopard
     when :x11        then X11Dependency.new(spec.to_s, tag)
     when :xcode      then XcodeDependency.new(tag)
     when :mysql      then MysqlDependency.new(tag)
