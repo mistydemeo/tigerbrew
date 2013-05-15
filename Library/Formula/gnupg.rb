@@ -16,9 +16,11 @@ class Gnupg < Formula
   def install
     inreplace 'g10/keygen.c', 'max=4096', 'max=8192' if build.include? '8192'
 
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
-                          "--disable-asm"
+    args = %W[--disable-dependency-tracking --prefix=#{prefix} --disable-asm]
+    # IDEA tests fail on PowerPC
+    args << "--disable-idea" if Hardware::CPU.type == :ppc
+
+    system "./configure", *args
     system "make", "CFLAGS=#{cflags}"
     system "make check"
 
