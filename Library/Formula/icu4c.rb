@@ -18,7 +18,7 @@ class Icu4c < Formula
 
   def patches
     # patch submitted upstream: http://bugs.icu-project.org/trac/ticket/9367
-    {:p0 => 'https://trac.macports.org/export/106104/trunk/dports/devel/icu/files/patch-common-putil.cpp.diff'}
+    # eATA
   end if MacOS.version < :leopard
 
   def install
@@ -36,3 +36,24 @@ class Icu4c < Formula
     end
   end
 end
+
+__END__
+diff --git a/source/common/putil.cpp b/source/common/putil.cpp
+index 01b0683..69d89d8 100644
+--- a/source/common/putil.cpp
++++ b/source/common/putil.cpp
+@@ -124,6 +124,13 @@
+ #endif
+ 
+ /*
++ * Mac OS X 10.4 doesn't use its localtime_r() declaration in <time.h> if either _ANSI_SOURCE or _POSIX_C_SOURCE is #defined.
++ */
++#if defined(U_TZNAME) && U_PLATFORM_IS_DARWIN_BASED && (defined(_ANSI_SOURCE) || defined(_POSIX_C_SOURCE))
++U_CFUNC struct tm *localtime_r(const time_t *, struct tm *);
++#endif
++
++/*
+  * Only include langinfo.h if we have a way to get the codeset. If we later
+  * depend on more feature, we can test on U_HAVE_NL_LANGINFO.
+  *
+
