@@ -3,6 +3,7 @@ require 'formula'
 class Openssl < Formula
   homepage 'http://openssl.org'
   url 'http://openssl.org/source/openssl-1.0.1e.tar.gz'
+  mirror 'http://mirrors.ibiblio.org/openssl/source/openssl-1.0.1e.tar.gz'
   sha1 '3f1b1223c9e8189bfe4e186d86449775bd903460'
 
   keg_only :provided_by_osx,
