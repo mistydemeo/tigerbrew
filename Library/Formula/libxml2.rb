@@ -6,6 +6,8 @@ class Libxml2 < Formula
   mirror 'http://xmlsoft.org/sources/libxml2-2.9.1.tar.gz'
   sha256 'fd3c64cb66f2c4ea27e934d275904d92cec494a8e8405613780cbc8a71680fdb'
 
+  depends_on :ld64
+
   keg_only :provided_by_osx
 
   option :universal
