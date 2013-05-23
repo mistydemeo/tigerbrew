@@ -134,7 +134,9 @@ class DependencyCollector
   end
 
   def ld64_deps(spec, tag)
-    if MacOS.version < :leopard
+    # experimentally enabling on Leopard to see if this helps with:
+    # https://github.com/mistydemeo/tigerbrew/issues/59
+    if MacOS.version < :snow_leopard
       # ld64 is always a buildtime dep
       [ Dependency.new(spec.to_s, [:build]), LD64Dependency.new ]
     end
