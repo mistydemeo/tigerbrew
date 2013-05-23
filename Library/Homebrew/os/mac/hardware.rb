@@ -6,7 +6,8 @@ module MacCPUs
     :g3 => '-mcpu=750',
     :g4 => '-mcpu=7400',
     :g4e => '-mcpu=7450',
-    :g5 => '-mcpu=970 -m64'
+    :g5 => '-mcpu=970 -arch ppc64',
+    :g5_32 => '-mcpu=970'
   }
   def optimization_flags; OPTIMIZATION_FLAGS.dup; end
 
