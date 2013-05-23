@@ -102,15 +102,21 @@ class Boost < Formula
     # Macports does this
     args << "--disable-long-double" if Hardware.cpu_type == :ppc
 
+    # Homebrew version of the formula assumes x86 only, but we have more
+    # to worry about here
+    arch = if Hardware::CPU.type == :intel
+      MacOS.prefer_64_bit? ? 'x86_64' : 'i386'
+    elsif Hardware::CPU.type == :ppc
+      MacOS.prefer_64_bit? ? 'ppc64' : 'ppc'
+    end
+
     if MacOS.version >= :lion and build.include? 'with-c++11'
       args << "toolset=clang" << "cxxflags=-std=c++11"
       args << "cxxflags=-stdlib=libc++" << "cxxflags=-fPIC"
-      args << "cxxflags=-arch x86_64" if MacOS.prefer_64_bit? or build.universal?
-      args << "cxxflags=-arch i386" if !MacOS.prefer_64_bit? or build.universal?
+      args << "cxxflags=-arch #{arch}"
       args << "linkflags=-stdlib=libc++"
       args << "linkflags=-headerpad_max_install_names"
-      args << "linkflags=-arch x86_64" if MacOS.prefer_64_bit? or build.universal?
-      args << "linkflags=-arch i386" if !MacOS.prefer_64_bit? or build.universal?
+      args << "linkflags=-arch #{arch}"
     end
 
     args << "address-model=32_64" << "architecture=x86" << "pch=off" if build.universal?
