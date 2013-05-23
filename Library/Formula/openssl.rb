@@ -26,7 +26,7 @@ class Openssl < Formula
         args << "darwin-i386-cc"
       end
     else
-      args << (MacOS.prefer_64_bit? ? "darwin-ppc64-cc" : "darwin-ppc-cc")
+      args << (MacOS.prefer_64_bit? ? "darwin64-ppc-cc" : "darwin-ppc-cc")
     end
 
     # build error from ASM; see https://trac.macports.org/ticket/33741
