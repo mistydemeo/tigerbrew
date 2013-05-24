@@ -64,6 +64,16 @@ module HomebrewEnvExtension
       # Others are now at /Applications/Xcode.app/Contents/Developer/usr/bin
       append 'PATH', "#{MacOS.dev_tools_path}", ":"
     end
+
+    # Leopard's ld needs some convincing that it's building 64-bit
+    # See: https://github.com/mistydemeo/tigerbrew/issues/59
+    if MacOS.version == :leopard && MacOS.prefer_64_bit?
+      if Hardware::CPU.type == :intel
+        append 'LDFLAGS', '-arch x86_64'
+      else
+        append 'LDFLAGS', '-arch ppc64'
+      end
+    end
   end
 
   def determine_pkg_config_libdir
