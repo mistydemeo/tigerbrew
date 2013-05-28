@@ -3,7 +3,7 @@
 
 class Object
   def instance_variable_defined?(ivar)
-    if !ivar.to_s =~ /^@/
+    if ivar.to_s !~ /^@/
       raise NameError, "`#{ivar}' is not allowed as an instance variable name"
     end
 
