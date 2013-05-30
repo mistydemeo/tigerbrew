@@ -73,6 +73,11 @@ module HomebrewEnvExtension
       else
         append 'LDFLAGS', '-arch ppc64'
       end
+
+      # Many, many builds are broken thanks to Leopard's buggy ld.
+      # Our ld64 fixes many of those builds, though of course we can't
+      # depend on it already being installed to build itself.
+      ld64 if Formula.factory('ld64').installed?
     end
   end
 
