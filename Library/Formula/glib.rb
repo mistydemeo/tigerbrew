@@ -24,7 +24,12 @@ class Glib < Formula
   def patches
     p = {}
     # https://bugzilla.gnome.org/show_bug.cgi?id=673135 Resolved as wontfix.
-    p[:p1] = "https://raw.github.com/gist/5393707/5a9047ab7838709084b36242a44471b02d036386/glib-configurable-paths.patch"
+    p[:p1] = ["https://raw.github.com/gist/5393707/5a9047ab7838709084b36242a44471b02d036386/glib-configurable-paths.patch",
+      # gobject will not build on ppc64 due to an issue with anonymous unions and 64-bit pointers
+      # See: https://github.com/mistydemeo/tigerbrew/issues/53
+      # https://bugzilla.gnome.org/show_bug.cgi?id=647145
+      # https://trac.macports.org/ticket/31221
+      DATA]
     p[:p0] = "https://trac.macports.org/export/95596/trunk/dports/devel/glib2/files/patch-configure.diff" if build.universal?
     p
   end
@@ -94,3 +99,18 @@ class Glib < Formula
     system "./test"
   end
 end
+
+__END__
+diff --git a/gobject/gtype.h b/gobject/gtype.h
+index 8a1bff2..4474ede 100644
+--- a/gobject/gtype.h
++++ b/gobject/gtype.h
+@@ -1580,7 +1580,7 @@ type_name##_get_type (void) \
+  */
+ #define G_DEFINE_BOXED_TYPE_WITH_CODE(TypeName, type_name, copy_func, free_func, _C_) _G_DEFINE_BOXED_TYPE_BEGIN (TypeName, type_name, copy_func, free_func) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
+
+-#if !defined (__cplusplus) && (__GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 7))
++#if !defined (__cplusplus) && (__GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 7) && !__ppc64__)
+ #define _G_DEFINE_BOXED_TYPE_BEGIN(TypeName, type_name, copy_func, free_func) \
+ GType \
+ type_name##_get_type (void) \
