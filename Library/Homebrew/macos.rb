@@ -207,8 +207,12 @@ module MacOS extend self
     paths.uniq
   end
 
+  # Prefer 64-bit whenever available, except:
+  # * Tiger 64-bit is badly broken, so never build 64-bit there
+  # * Leopard 64-bit is experimental, so only enable on explicit user request
   def prefer_64_bit?
-    Hardware.is_64_bit? and version > :tiger
+    Hardware.is_64_bit? and version > :tiger &&
+      !(MacOS.version == :leopard && !ENV['HOMEBREW_LEOPARD_64_BIT'])
   end
 
   STANDARD_COMPILERS = {

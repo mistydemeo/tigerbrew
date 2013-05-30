@@ -56,7 +56,8 @@ module MacCPUs
       when 11
         :g4e # PowerPC 7450
       when 100
-        :g5  # PowerPC 970
+        # PowerPC 970; build 32-bit always on Tiger, 64-bit on Leopard only on request
+        MacOS.prefer_64_bit? ? :g5 : :g5_32
       else
         :dunno
       end
