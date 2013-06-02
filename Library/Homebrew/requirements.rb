@@ -42,7 +42,7 @@ end
 
 class PostgresqlDependency < Requirement
   fatal true
-  default_formula 'postgres'
+  default_formula 'postgresql'
 
   satisfy { which 'pg_config' }
 
