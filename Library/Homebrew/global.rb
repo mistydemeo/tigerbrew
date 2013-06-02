@@ -97,7 +97,7 @@ end
 require 'metafiles'
 FORMULA_META_FILES = Metafiles.new
 ISSUES_URL = "https://github.com/mistydemeo/tigerbrew/wiki/troubleshooting"
-HOMEBREW_PULL_URL_REGEX = 'https:\/\/github.com\/\w+\/tigerbrew(-\w+)?\/(pull\/(\d+)|commit\/\w{4,40})'
+HOMEBREW_PULL_OR_COMMIT_URL_REGEX = 'https:\/\/github.com\/(\w+)\/tigerbrew(-\w+)?\/(pull\/(\d+)|commit\/\w{4,40})'
 
 require 'compat' unless ARGV.include? "--no-compat" or ENV['HOMEBREW_NO_COMPAT']
 
