@@ -27,8 +27,8 @@ class Fftw < Formula
     if Hardware.cpu_type == :intel
       simd_single << "--enable-sse"
       simd_double << "--enable-sse2"
-    elsif Hardware.ppc_family != :g3
-      simd_single << "--enable-altivec" # altivec seems to only work with
+    elsif Hardware::CPU.type == :ppc && Hardware::CPU.family != :g3
+      simd_single << "--enable-altivec" # altivec seems to only work with single precision
     end
 
     # single precision
