@@ -94,7 +94,13 @@ class Qt < Formula
         args << '-arch' << 'x86'
       end
     else
-      args << '-arch' << 'ppc'
+      if MacOS.prefer_64_bit? or build.universal?
+        args << '-arch' << 'ppc64'
+      end
+
+      if !MacOS.prefer_64_bit? or build.universal?
+        args << '-arch' << 'ppc'
+      end
     end
 
     if build.with? 'debug-and-release'
