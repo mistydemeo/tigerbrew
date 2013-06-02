@@ -12,7 +12,8 @@ class Cairo < Formula
   keg_only :provided_pre_mountain_lion
 
   option :universal
-  option 'without-x', 'Build without X11 support'
+  # Tiger's X11 is simply way too old
+  option 'without-x', 'Build without X11 support' if MacOS.version > :tiger
 
   depends_on 'pkg-config' => :build
   depends_on 'xz'=> :build
@@ -43,7 +44,7 @@ class Cairo < Formula
       args << '--enable-gobject=no'
     end
 
-    args << '--enable-xcb=no' if MacOS.version == :leopard
+    args << '--enable-xcb=no' if MacOS.version <= :leopard
 
     system "./configure", *args
     system "make install"
