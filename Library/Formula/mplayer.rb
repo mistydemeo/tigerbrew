@@ -12,7 +12,7 @@ class Mplayer < Formula
 
   # dupe make needed because of "make: *** virtual memory exhausted.  Stop."
   depends_on 'homebrew/dupes/make' => :build if MacOS.version < :leopard
-  depends_on 'yasm' => :build
+  depends_on 'yasm' => :build if Hardware::CPU.type == :intel
   depends_on 'xz' => :build
   depends_on 'libcaca' => :optional
   depends_on :x11 if build.include? 'with-x'
