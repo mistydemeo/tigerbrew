@@ -11,7 +11,13 @@ class Pth < Formula
     # Note: shared library will not be build with --disable-debug, so don't add that flag
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--mandir=#{man}"
+                          "--mandir=#{man}",
+                          # these flags are the defaults on most platforms, but for some
+                          # reason Leopard/PPC doesn't set them, resulting in test failures
+                          # see: https://github.com/mistydemeo/tigerbrew/issues/39
+                          "--with-mctx-mth=sjlj",
+                          "--with-mctx-dsp=ssjlj",
+                          "--with-mctx-stk=sas"
     system "make"
     system "make test"
     system "make install"
