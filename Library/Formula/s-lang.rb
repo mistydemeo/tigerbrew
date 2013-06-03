@@ -11,8 +11,15 @@ class SLang < Formula
   depends_on 'oniguruma' => :optional
 
   def install
-    pnglib = MacOS::X11.installed? ? MacOS::X11.lib : HOMEBREW_PREFIX/'lib'
-    pnginc = MacOS::X11.installed? ? MacOS::X11.include : HOMEBREW_PREFIX/'include'
+    if MacOS.version > :tiger
+      pnglib = MacOS::X11.installed? ? MacOS::X11.lib : HOMEBREW_PREFIX/'lib'
+      pnginc = MacOS::X11.installed? ? MacOS::X11.include : HOMEBREW_PREFIX/'include'
+    # Tiger needs tigerbrew's libpng; we're not using X11 for this
+    else
+      png = Formula.factory('libpng')
+      pnglib = png.lib
+      pnginc = png.include
+    end
 
     system "./configure", "--prefix=#{prefix}",
                           "--with-pnglib=#{pnglib}",
