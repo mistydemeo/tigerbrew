@@ -65,8 +65,13 @@ Credits
 
 Homebrew is originally by [mxcl][mxcl], a splendid chap. This fork is by @mistydemeo, incorporating some code originally written by @sceaga.
 
+License
+-------
+Code is under the [BSD 2 Clause (NetBSD) license][license].
+
 [homebrew]:http://brew.sh
 [wiki]:http://wiki.github.com/mxcl/homebrew
 [mxcl]:http://twitter.com/mxcl
 [formula]:http://github.com/mistydemeo/tigerbrew/tree/master/Library/Formula/
 [braumeister]:http://braumeister.org
+[license]:https://github.com/mxcl/homebrew/tree/master/Library/Homebrew/LICENSE
