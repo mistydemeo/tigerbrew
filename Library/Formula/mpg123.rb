@@ -12,13 +12,13 @@ class Mpg123 < Formula
             '--with-default-audio=coreaudio',
             '--with-module-suffix=.so']
 
-    if MacOS::CPU.type == :intel
+    if Hardware::CPU.type == :intel
       if MacOS.prefer_64_bit?
         args << "--with-cpu=x86-64"
       else
         args << "--with-cpu=sse_alone"
       end
-    elsif MacOS::CPU.type == :ppc
+    elsif Hardware::CPU.type == :ppc
       args << "--with-cpu=altivec" if Hardware::CPU.altivec?
     end
 
