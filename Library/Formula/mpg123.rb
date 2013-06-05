@@ -19,7 +19,7 @@ class Mpg123 < Formula
         args << "--with-cpu=sse_alone"
       end
     elsif MacOS::CPU.type == :ppc
-      args << "--with-cpu=altivec" unless MacOS::CPU.family == :g3
+      args << "--with-cpu=altivec" if Hardware::CPU.altivec?
     end
 
     system "./configure", *args
