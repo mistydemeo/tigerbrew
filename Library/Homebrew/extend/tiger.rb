@@ -16,12 +16,6 @@ module Enumerable
     return map.size == 1 unless block
     select(&block).size == 1
   end
-
-  # used in Linkapps; see https://github.com/mistydemeo/tigerbrew/issues/80
-  def max_by(&block)
-    maxed = map(&block)
-    self[maxed.index(maxed.max)]
-  end
 end
 
 module Kernel
