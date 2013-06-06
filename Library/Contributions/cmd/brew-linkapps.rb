@@ -15,7 +15,7 @@ HOMEBREW_CELLAR.subdirs.each do |rack|
 
   keg = kegs.detect(&:linked?) || kegs.max_by(&:version)
 
-  Dir["#{keg}/*.app", "#{keg}/bin/*.app", "#{keg}/libexec/*.app"].each do |app|
+  Dir["#{keg}{/,/bin/,/libexec/}*.app"].each do |app|
     puts "Linking #{app}"
     app_name = File.basename(app)
     target = "#{TARGET_DIR}/#{app_name}"
