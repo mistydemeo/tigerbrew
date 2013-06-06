@@ -743,7 +743,7 @@ def check_git_origin
         cd #{HOMEBREW_REPOSITORY}
         git add remote origin https://github.com/mistydemeo/tigerbrew.git
       EOS
-    elsif origin !~ /mxcl\/tigerbrew(\.git)?$/ then <<-EOS.undent
+    elsif origin !~ /mistydemeo\/tigerbrew(\.git)?$/ then <<-EOS.undent
       Suspicious git origin remote found.
 
       With a non-standard origin, Tigerbrew won't pull updates from
