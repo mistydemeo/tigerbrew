@@ -2,6 +2,7 @@ require 'dependency'
 require 'dependencies'
 require 'requirement'
 require 'requirements'
+require 'requirements/ld64_dependency'
 require 'set'
 
 ## A dependency is a formula that another formula needs to install.
@@ -87,9 +88,6 @@ class DependencyCollector
       # We no longer use X11 psuedo-deps for cairo or pixman,
       # so just return a standard formula dependency.
       Dependency.new(spec.to_s, tags)
-    when :ld64
-      # Tiger's ld is too old to properly link some software
-      ld64_deps(spec, tags)
     when :expat
       Dependency.new('expat', tags) if MacOS.version < :leopard
     when :x11        then X11Dependency.new(spec.to_s, tags)
@@ -103,6 +101,8 @@ class DependencyCollector
     when :python     then PythonInstalled.new(tags)
     when :python2    then PythonInstalled.new("2", tags)
     when :python3    then PythonInstalled.new("3", tags)
+    # Tiger's ld is too old to properly link some software
+    when :ld64       then LD64Dependency.new if MacOS.version < :leopard
     else
       raise "Unsupported special dependency #{spec}"
     end
@@ -133,15 +133,6 @@ class DependencyCollector
       end
 
       Dependency.new(spec.to_s, tags)
-    end
-  end
-
-  def ld64_deps(spec, tag)
-    # experimentally enabling on Leopard to see if this helps with:
-    # https://github.com/mistydemeo/tigerbrew/issues/59
-    if MacOS.version < :snow_leopard
-      # ld64 is always a buildtime dep
-      [ Dependency.new(spec.to_s, [:build]), LD64Dependency.new ]
     end
   end
 end
