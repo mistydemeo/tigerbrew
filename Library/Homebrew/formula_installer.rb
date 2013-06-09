@@ -79,12 +79,7 @@ class FormulaInstaller
     end
 
     unless ignore_deps
-      # HACK: If readline is present in the dependency tree, it will clash
-      # with the stdlib's Readline module when the debugger is loaded
-      if f.recursive_dependencies.any? { |d| d.name == "readline" } and ARGV.debug?
-        ENV['HOMEBREW_NO_READLINE'] = '1'
-      end
-
+      perform_readline_hack
       check_requirements
       install_dependencies
     end
@@ -104,6 +99,7 @@ class FormulaInstaller
         tab.write
       end
     rescue
+      raise if ARGV.homebrew_developer?
       opoo "Bottle installation failed: building from source."
     end
 
@@ -115,6 +111,14 @@ class FormulaInstaller
     f.post_install
 
     opoo "Nothing was installed to #{f.prefix}" unless f.installed?
+  end
+
+  # HACK: If readline is present in the dependency tree, it will clash
+  # with the stdlib's Readline module when the debugger is loaded
+  def perform_readline_hack
+    if f.recursive_dependencies.any? { |d| d.name == "readline" } && ARGV.debug?
+      ENV['HOMEBREW_NO_READLINE'] = '1'
+    end
   end
 
   def check_requirements
@@ -402,8 +406,14 @@ class FormulaInstaller
   end
 
   def pour
-    fetched, downloader = f.fetch, f.downloader
-    f.verify_download_integrity(fetched) unless downloader.local_bottle_path
+    downloader = f.downloader
+    if downloader.local_bottle_path
+      downloader = LocalBottleDownloadStrategy.new f,
+                     downloader.local_bottle_path
+    else
+      fetched = f.fetch
+      f.verify_download_integrity fetched
+    end
     HOMEBREW_CELLAR.cd do
       downloader.stage
     end
