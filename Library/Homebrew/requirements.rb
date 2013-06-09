@@ -1,5 +1,4 @@
 require 'requirement'
-require 'requirements/conflict_requirement'
 require 'requirements/language_module_dependency'
 require 'requirements/ld64_dependency'
 require 'requirements/x11_dependency'
