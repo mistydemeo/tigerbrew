@@ -16,6 +16,8 @@ class Libxmp < Formula
   def install
     system "autoconf" if build.head?
     system "./configure", "--prefix=#{prefix}"
+    # see https://github.com/cmatsuoka/libxmp/issues/2; fixed in next release
+    inreplace 'Makefile', '-dynamiclib', '$(LDFLAGS) -dynamiclib'
     system "make install"
   end
 end
