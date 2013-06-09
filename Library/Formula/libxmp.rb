@@ -10,6 +10,8 @@ class Libxmp < Formula
   # build tries to pass -compatibility-version, which Tiger's ld doesn't grok
   # https://github.com/cmatsuoka/libxmp/issues/1
   depends_on :ld64
+  # a bug in gnumake 3.80 causes the build to instantly fail
+  depends_on 'homebrew/dupes/make' => :build if MacOS.version < :leopard
 
   def install
     system "autoconf" if build.head?
