@@ -38,7 +38,7 @@ class Git < Formula
 
   def patches
     # ld64 understands -rpath but rejects it on Tiger
-    'https://trac.macports.org/export/103986/trunk/dports/devel/git-core/files/patch-Makefile.diff'
+    'https://trac.macports.org/export/106975/trunk/dports/devel/git-core/files/patch-Makefile.diff'
   end if MacOS.version == :tiger
 
   def install
