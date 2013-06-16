@@ -343,13 +343,7 @@ module HomebrewEnvExtension
 
   # Sets architecture-specific flags for every environment variable
   # given in the list `flags`.
-<<<<<<< HEAD
-  # Sets architecture-specific flags for every environment variable
-  # given in the list `flags`.
-  def set_cpu_flags flags, default, map = {}
-=======
   def set_cpu_flags flags, default=DEFAULT_FLAGS, map=Hardware::CPU.optimization_flags
->>>>>>> mxcl/master
     cflags =~ %r{(-Xarch_i386 )-march=}
     xarch = $1.to_s
     remove flags, %r{(-Xarch_i386 )?-march=\S*}
