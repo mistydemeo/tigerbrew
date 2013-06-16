@@ -8,6 +8,9 @@ class Nettle < Formula
   depends_on 'gmp'
 
   def install
+    # see https://github.com/mistydemeo/tigerbrew/issues/89
+    ENV.enable_warnings if ENV.compiler == :gcc_4_0
+
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--enable-shared"
