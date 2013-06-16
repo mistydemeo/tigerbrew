@@ -12,6 +12,8 @@ class Mutt < Formula
   option "with-ignore-thread-patch", "Apply ignore-thread patch"
   option "with-pgp-verbose-mime-patch", "Apply PGP verbose mime patch"
 
+  # the system version doesn't work reliably for sending mail
+  depends_on 'cyrus-sasl' if MacOS.version < :leopard
   depends_on 'tokyo-cabinet'
   depends_on 'slang' if build.include? 'with-slang'
 
