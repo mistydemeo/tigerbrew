@@ -108,7 +108,6 @@ class CurlDownloadStrategy < AbstractDownloadStrategy
     when :bzip2
       safe_system '/usr/bin/tar', 'xjf', @tarball_path
       chdir
-    when :compress, :tar
     when :gzip_only
       with_system_path { safe_system 'gunzip', '-f', @tarball_path }
     when :compress, :tar
