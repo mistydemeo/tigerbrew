@@ -62,7 +62,7 @@ class DependencyCollector
     when Class
       parse_class_spec(spec, tags)
     else
-      raise TypeError, "Unsupported type #{spec.class} for #{spec}"
+      raise TypeError, "Unsupported type #{spec.class} for #{spec.inspect}"
     end
   end
 
@@ -99,6 +99,7 @@ class DependencyCollector
     when :mysql      then MysqlDependency.new(tags)
     when :postgresql then PostgresqlDependency.new(tags)
     when :fortran    then FortranDependency.new(tags)
+    when :mpi        then MPIDependency.new(*tags)
     when :tex        then TeXDependency.new(tags)
     when :clt        then CLTDependency.new(tags)
     when :arch       then ArchRequirement.new(tags)
@@ -108,7 +109,7 @@ class DependencyCollector
     # Tiger's ld is too old to properly link some software
     when :ld64       then LD64Dependency.new if MacOS.version < :leopard
     else
-      raise "Unsupported special dependency #{spec}"
+      raise "Unsupported special dependency #{spec.inspect}"
     end
   end
 
@@ -116,7 +117,7 @@ class DependencyCollector
     if spec < Requirement
       spec.new(tags)
     else
-      raise TypeError, "#{spec} is not a Requirement subclass"
+      raise TypeError, "#{spec.inspect} is not a Requirement subclass"
     end
   end
 
