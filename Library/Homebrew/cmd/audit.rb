@@ -145,10 +145,14 @@ class FormulaAuditor
 
       case dep.name
       when *BUILD_TIME_DEPS
-        # Build deps should be tagged
-        problem <<-EOS.undent unless dep.tags.any? || f.name =~ /automake/ && dep.name == 'autoconf'
-        #{dep} dependency should be "depends_on '#{dep}' => :build"
-        EOS
+        # TODO: this should really be only dep.build? but maybe some formula
+        # depends on the current behavior to be audit-clean?
+        next if dep.tags.any?
+        next if f.name =~ /automake/ && dep.name == 'autoconf'
+        # This is actually a libltdl dep that gets converted to a non-build time
+        # libtool dep, but I don't of a good way to encode this in the dep object
+        next if f.name == 'imagemagick' && dep.name == 'libtool'
+        problem %{#{dep} dependency should be "depends_on '#{dep}' => :build"}
       when "git", "ruby", "emacs", "mercurial"
         problem <<-EOS.undent
           Don't use #{dep} as a dependency. We allow non-Homebrew
@@ -272,7 +276,7 @@ class FormulaAuditor
         problem "Invalid or missing #{spec} version"
       else
         version_text = s.version unless s.version.detected_from_url?
-        version_url = Version.parse(s.url)
+        version_url = Version.detect(s.url, s.specs)
         if version_url.to_s == version_text.to_s && s.version.instance_of?(Version)
           problem "#{spec} version #{version_text} is redundant with version scanned from URL"
         end

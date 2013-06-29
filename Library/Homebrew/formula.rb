@@ -348,13 +348,15 @@ class Formula
   end
 
   def self.installed
-    HOMEBREW_CELLAR.children.map{ |rack| factory(rack.basename) rescue nil }.compact
+    # `rescue nil` is here to skip kegs with no corresponding formulae
+    HOMEBREW_CELLAR.children.map{ |rack| factory(rack.basename.to_s) rescue nil }.compact
   end
 
   def self.aliases
     Dir["#{HOMEBREW_REPOSITORY}/Library/Aliases/*"].map{ |f| File.basename f }.sort
   end
 
+  # TODO - document what this returns and why
   def self.canonical_name name
     # if name includes a '/', it may be a tap reference, path, or URL
     if name.include? "/"
