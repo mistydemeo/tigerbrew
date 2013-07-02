@@ -1,4 +1,5 @@
 require 'requirement'
+require 'requirements/fortran_dependency'
 require 'requirements/language_module_dependency'
 require 'requirements/x11_dependency'
 require 'requirements/mpi_dependency'
