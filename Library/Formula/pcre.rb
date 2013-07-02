@@ -8,6 +8,12 @@ class Pcre < Formula
 
   option :universal
 
+  # See https://github.com/mistydemeo/tigerbrew/issues/93
+  fails_with :gcc do
+    build 5553
+    cause "One test failure on G4"
+  end
+
   fails_with :llvm do
     build 2326
     cause "Bus error in ld on SL 10.6.4"
@@ -16,13 +22,17 @@ class Pcre < Formula
   def install
     ENV.universal_binary if build.universal?
 
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
-                          "--enable-utf8",
-                          "--enable-unicode-properties",
-                          "--enable-pcregrep-libz",
-                          "--enable-pcregrep-libbz2",
-                          "--enable-jit"
+    args = [ "--disable-dependency-tracking",
+              "--prefix=#{prefix}",
+              "--enable-utf8",
+              "--enable-unicode-properties",
+              "--enable-pcregrep-libz",
+              "--enable-pcregrep-libbz2" ]
+
+    # JIT fails tests very badly on PPC right now
+    args << "--enable-jit" unless Hardware::CPU.type == :ppc
+
+    system "./configure", *args
     system "make"
     ENV.deparallelize
     system "make test"
