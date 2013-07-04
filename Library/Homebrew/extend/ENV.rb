@@ -360,7 +360,12 @@ module HomebrewEnvExtension
     end
 
     # Works around a buggy system header on Tiger
-    append flags, "-faltivec" if MacOS.version == :tiger
+    if MacOS.version == :tiger and Hardware::CPU.type == :ppc
+      append flags, "-faltivec"
+    end
+    # This really should be '-maltivec' and is so in FSF gcc.
+    # It also produces code which cannot be translated by Rosetta.
+    # Which header file is the culprit? Can we patch and add (-isystem or -B)?
 
     # not really a 'CPU' cflag, but is only used with clang
     remove flags, '-Qunused-arguments'
