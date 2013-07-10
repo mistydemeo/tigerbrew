@@ -34,6 +34,11 @@ def system *args
   abort "Failed during: #{args.shell_s}" unless Kernel.system *args
 end
 
+def which cmd
+  dir = ENV['PATH'].split(':').find {|p| File.executable? File.join(p, cmd)}
+  File.join(dir, cmd) unless dir.nil?
+end
+
 def sudo *args
   args = if args.length > 1
     args.unshift "/usr/bin/sudo"
@@ -70,7 +75,7 @@ end
 def git
   @git ||= if ENV['GIT'] and File.executable? ENV['GIT']
     ENV['GIT']
-  elsif Kernel.system '/usr/bin/which -s git'
+  elsif which 'git'
     'git'
   end
 
