@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 # This script installs to /usr/local only. To install elsewhere you can just
-# untar https://github.com/mxcl/homebrew/tarball/master anywhere you like or
+# untar https://github.com/mistydemeo/tigerbrew/tarball/master anywhere you like or
 # change the value of HOMEBREW_PREFIX.
 HOMEBREW_PREFIX = '/usr/local'
 
@@ -149,7 +149,7 @@ Dir.chdir HOMEBREW_PREFIX do
   if git
     # we do it in four steps to avoid merge errors when reinstalling
     system git, "init", "-q"
-    system git, "remote", "add", "origin", "https://github.com/mxcl/homebrew"
+    system git, "remote", "add", "origin", "https://github.com/mistydemeo/tigerbrew"
 
     args = git, "fetch", "origin", "master:refs/remotes/origin/master", "-n"
     args << "--depth=1" if ARGV.include? "--fast"
