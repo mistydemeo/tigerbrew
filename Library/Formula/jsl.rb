@@ -2,10 +2,15 @@ require 'formula'
 
 class Jsl < Formula
   homepage 'http://www.javascriptlint.com/'
-  url 'http://www.javascriptlint.com/download/jsl-0.3.0-mac.tar.gz'
-  sha1 'a6dd106a05ee81130a27a49d29233afeb8796ab0'
+  url 'http://www.javascriptlint.com/download/jsl-0.3.0-src.tar.gz'
+  sha1 'f27ec18d1dd325f895bc1682d7be8872c213a986'
 
   def install
-    bin.install 'jsl'
+    cd 'src' do
+      system 'make -f Makefile.ref'
+      cd 'Darwin_DBG.OBJ' do
+        bin.install 'jsl'
+      end
+    end
   end
 end
