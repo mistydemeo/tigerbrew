@@ -31,7 +31,8 @@ class Boost < Formula
   option :universal
   option 'with-icu', 'Build regexp engine with icu support'
   option 'with-c++11', 'Compile using Clang, std=c++11 and stdlib=libc++' if MacOS.version >= :lion
-  option 'use-system-layout', 'Use system layout instead of tagged'
+  option 'without-single', 'Disable building single-threading variant'
+  option 'without-static', 'Disable building static library variant'
 
   depends_on :python => :recommended
   depends_on UniversalPython if build.universal? and build.with? "python"
@@ -103,21 +104,24 @@ class Boost < Formula
     # The context library is implemented as x86_64 ASM, so it
     # won't build on PPC or 32-bit builds
     # see https://github.com/mxcl/homebrew/issues/17646
-    bargs << "--without-libraries=context" if Hardware::CPU.type == :ppc || Hardware::CPU.bits == 32 || build.universal?
+    if Hardware::CPU.type == :ppc || Hardware::CPU.bits == 32 || build.universal?
+      bargs << "--without-libraries=context"
+      # The coroutine library depends on the context library.
+      bargs << "--without-libraries=coroutine"
+    end
 
     # Boost.Log cannot be built using Apple GCC at the moment. Disabled
     # on such systems.
     bargs << "--without-libraries=log" if MacOS.version <= :snow_leopard
 
-    boost_layout = (build.include? "use-system-layout") ? "system" : "tagged"
     args = ["--prefix=#{prefix}",
             "--libdir=#{lib}",
             "-d2",
             "-j#{ENV.make_jobs}",
-            "--layout=#{boost_layout}",
+            "--layout=tagged",
             "--user-config=user-config.jam",
-            "threading=multi",
             "install"]
+
 
     # Macports does this
     args << "--disable-long-double" if Hardware.cpu_type == :ppc
@@ -128,6 +132,17 @@ class Boost < Formula
       MacOS.prefer_64_bit? ? 'x86_64' : 'i386'
     elsif Hardware::CPU.type == :ppc
       MacOS.prefer_64_bit? ? 'ppc64' : 'ppc'
+
+    if build.include? 'without-single'
+      args << "threading=multi"
+    else
+      args << "threading=multi,single"
+    end
+
+    if build.include? 'without-static'
+      args << "link=shared"
+    else
+      args << "link=shared,static"
     end
 
     if MacOS.version >= :lion and build.with? 'c++11'

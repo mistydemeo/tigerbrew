@@ -13,7 +13,6 @@ class Libxml2 < Formula
   keg_only :provided_by_osx
 
   option :universal
-  option 'with-python', 'Build Python bindings'
 
   if build.head?
     depends_on :python => :recommended # satisfied by Python 2.6+
@@ -22,7 +21,11 @@ class Libxml2 < Formula
     depends_on :libtool
   else
     # 2.9.1 cannot build with Python 2.6: https://github.com/mxcl/homebrew/issues/20249
-    depends_on PythonInstalled.new("2.7") if build.with? 'python'
+    if MacOS.version <= :snow_leopard
+      depends_on :python => ["2.7", :optional]
+    else
+      depends_on :python => ["2.7", :recommended]
+    end
   end
 
   fails_with :llvm do
@@ -73,11 +76,11 @@ class Libxml2 < Formula
     end
   end
 
-  def test
+  test do
     if build.with? 'python'
       system python, '-c', "import libxml2"
     else
-      puts "No tests beacuse build --wtihout-python."
+      puts "No tests because built --without-python."
       true
     end
   end
