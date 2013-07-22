@@ -132,6 +132,7 @@ class Boost < Formula
       MacOS.prefer_64_bit? ? 'x86_64' : 'i386'
     elsif Hardware::CPU.type == :ppc
       MacOS.prefer_64_bit? ? 'ppc64' : 'ppc'
+    end
 
     if build.include? 'without-single'
       args << "threading=multi"
