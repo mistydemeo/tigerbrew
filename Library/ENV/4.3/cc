@@ -5,6 +5,11 @@ require 'pathname'
 require 'set'
 require 'stringio'
 
+if RUBY_VERSION < "1.8.7"
+  $:.unshift("#{ENV['HOMEBREW_PREFIX']}/Library/Homebrew")
+  require 'vendor/backports/enumerator'
+end
+
 class Logger
   def initialize
     @io = StringIO.new
