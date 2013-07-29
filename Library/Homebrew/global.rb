@@ -68,7 +68,7 @@ end
 HOMEBREW_LOGS = Pathname.new('~/Library/Logs/Homebrew/').expand_path
 
 RbConfig = Config if RUBY_VERSION < "1.8.6" # different module name on Tiger
-RUBY_BIN = Pathname.new("#{RbConfig::CONFIG['bindir']}")
+RUBY_BIN = Pathname.new(RbConfig::CONFIG['bindir'])
 RUBY_PATH = RUBY_BIN + RbConfig::CONFIG['ruby_install_name']
 # concatenating an extra string concats a '/' on Tiger. Really.
 RUBY_PATH += RbConfig::CONFIG['EXEEXT'] unless RUBY_VERSION < "1.8.6"
