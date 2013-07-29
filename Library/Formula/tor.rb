@@ -7,6 +7,12 @@ class Tor < Formula
 
   depends_on 'libevent'
 
+  # See https://github.com/mistydemeo/tigerbrew/issues/105
+  fails_with :gcc do
+    build 5553
+    cause "linking fails with: /usr/bin/ld: can't locate file for: -lssp_nonshared"
+  end
+
   def install
     system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
     system "make install"
