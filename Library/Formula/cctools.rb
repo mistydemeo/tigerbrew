@@ -33,6 +33,8 @@ class Cctools < Formula
   end
 
   def install
+    ENV.j1 # see https://github.com/mistydemeo/tigerbrew/issues/102
+
     chmod 0755, 'libmacho/Makefile'
     inreplace 'libmacho/Makefile', '@PREFIX@', prefix
 
