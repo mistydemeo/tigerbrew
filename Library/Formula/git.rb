@@ -27,14 +27,13 @@ class Git < Formula
 
   depends_on 'curl' if MacOS.version < :snow_leopard
   depends_on :expat
+  depends_on 'gettext' => :optional
+  depends_on 'openssl' if MacOS.version < :leopard
   depends_on 'pcre' if build.include? 'with-pcre'
+  depends_on :python
 
   option 'with-blk-sha1', 'Compile with the block-optimized SHA1 implementation'
   option 'without-completions', 'Disable bash/zsh completions from "contrib" directory'
-
-  depends_on :python
-  depends_on 'pcre' => :optional
-  depends_on 'gettext' => :optional
 
   def patches
     # ld64 understands -rpath but rejects it on Tiger
@@ -62,6 +61,7 @@ class Git < Formula
     ENV['PYTHON_PATH'] = python.binary if python
     ENV['PERL_PATH'] = which 'perl'
     ENV['CURLDIR'] = Formula.factory('curl').opt_prefix if MacOS.version < :snow_leopard
+    ENV['NO_APPLE_COMMON_CRYPTO'] = '1' if MacOS.version < :leopard
 
     unless quiet_system ENV['PERL_PATH'], '-e', 'use ExtUtils::MakeMaker'
       ENV['NO_PERL_MAKEMAKER'] = '1'
