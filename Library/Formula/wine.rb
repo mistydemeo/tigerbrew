@@ -10,15 +10,20 @@ class WineMono < Formula
   sha1 'dd349e72249ce5ff981be0e9dae33ac4a46a9f60'
 end
 
-# NOTE: when updating Wine, please check Wine-Gecko and Wine-Mono for updates
-#  http://wiki.winehq.org/Gecko
-#  http://wiki.winehq.org/Mono
+# NOTE: When updating Wine, please check Wine-Gecko and Wine-Mono for updates too:
+# http://wiki.winehq.org/Gecko
+# http://wiki.winehq.org/Mono
 class Wine < Formula
   homepage 'http://winehq.org/'
   url 'http://downloads.sourceforge.net/project/wine/Source/wine-1.6.tar.bz2'
   sha256 'e1f130efbdcbfa211ca56ee03357ccd17a31443889b4feebdcb88248520b42ae'
 
   head 'git://source.winehq.org/git/wine.git'
+
+  devel do
+    url 'http://downloads.sourceforge.net/project/wine/Source/wine-1.7.0.tar.bz2'
+    sha256 '0106ba3c8f0699cc7ae6edfcf505f7709c9e6d963bf32ff9c690607def9d4d77'
+  end
 
   env :std
 
@@ -35,13 +40,24 @@ class Wine < Formula
   depends_on 'jpeg'
   depends_on 'libicns'
   depends_on 'libtiff'
-  depends_on 'little-cms'
+  depends_on 'little-cms' unless build.devel?
+  depends_on 'little-cms2' if build.devel?
   depends_on 'sane-backends'
   depends_on 'libgphoto2'
 
   fails_with :llvm do
     build 2336
     cause 'llvm-gcc does not respect force_align_arg_pointer'
+  end
+
+  fails_with :clang do
+    build 421
+    cause 'error: invalid operand for instruction lretw'
+  end
+
+  def patches
+    # http://bugs.winehq.org/show_bug.cgi?id=34188
+    ['http://bugs.winehq.org/attachment.cgi?id=45477']
   end
 
   # the following libraries are currently not specified as dependencies, or not built as 32-bit:
@@ -114,22 +130,29 @@ class Wine < Formula
     (bin/'wine').write(wine_wrapper)
   end
 
-  def caveats; <<-EOS.undent
-    You may want to get winetricks:
-      brew install winetricks
+  def caveats
+    s = <<-EOS.undent
+      You may want to get winetricks:
+        brew install winetricks
 
-    By default Wine uses a native Mac driver. To switch to the X11 driver, use
-    regedit to set the "graphics" key under "HKCU\Software\Wine\Drivers" to
-    "x11" (or use winetricks).
-
-    For best results with X11, install the latest version of XQuartz:
-      http://xquartz.macosforge.org/
-
-    The current version of Wine contains a partial implementation of dwrite.dll
-    which may cause text rendering issues in applications such as Steam.
-    We recommend that you run winecfg, add an override for dwrite in the
-    Libraries tab, and edit the override mode to "disable". See:
-      http://bugs.winehq.org/show_bug.cgi?id=31374
+      The current version of Wine contains a partial implementation of dwrite.dll
+      which may cause text rendering issues in applications such as Steam.
+      We recommend that you run winecfg, add an override for dwrite in the
+      Libraries tab, and edit the override mode to "disable". See:
+        http://bugs.winehq.org/show_bug.cgi?id=31374
     EOS
+
+    unless build.without? 'x11'
+      s += <<-EOS.undent
+
+        By default Wine uses a native Mac driver. To switch to the X11 driver, use
+        regedit to set the "graphics" key under "HKCU\Software\Wine\Drivers" to
+        "x11" (or use winetricks).
+
+        For best results with X11, install the latest version of XQuartz:
+          http://xquartz.macosforge.org/
+      EOS
+    end
+    return s
   end
 end

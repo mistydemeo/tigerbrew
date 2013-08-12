@@ -46,7 +46,9 @@ class Rpm < Formula
   def install
     args = %W[
         --prefix=#{prefix}
+        --localstatedir=#{var}
         --with-path-cfg=#{etc}/rpm
+        --with-extra-path-macros=#{lib}/rpm/macros.*
         --disable-openmp
         --disable-nls
         --disable-dependency-tracking
@@ -57,6 +59,7 @@ class Rpm < Formula
         --with-lua
         --with-syck
         --without-apidocs
+        varprefix=#{var}
     ]
 
     system 'glibtoolize -if' # needs updated ltmain.sh
