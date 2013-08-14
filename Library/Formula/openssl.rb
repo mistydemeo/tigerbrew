@@ -58,6 +58,8 @@ class Openssl < Formula
     system "mv", "-f", "#{osx_cert_pem}.tmp", osx_cert_pem
   end
 
+  # This method of fetching the system certs doesn't work on Tiger,
+  # and is of questionable utility on Leopard too.
   def post_install
     openssldir.mkpath
 
@@ -68,5 +70,12 @@ class Openssl < Formula
       write_pem_file
       openssldir.install_symlink 'osx_cert.pem' => 'cert.pem'
     end
-  end
+  end if MacOS.version > :leopard
+
+  def caveats; <<-EOS.undent
+    To install updated CA certs from Mozilla.org:
+
+        brew install curl-ca-bundle
+    EOS
+  end if MacOS.version <= :leopard
 end
