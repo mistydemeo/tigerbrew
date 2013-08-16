@@ -200,6 +200,14 @@ module MacOS extend self
       !(MacOS.version == :leopard && !ENV['HOMEBREW_LEOPARD_64_BIT'])
   end
 
+  def preferred_arch
+    @preferred_arch ||= if prefer_64_bit? 
+      Hardware::CPU.arch_64_bit
+    else
+      Hardware::CPU.arch_32_bit
+    end
+  end
+
   STANDARD_COMPILERS = {
     "2.5" => { :gcc_40_build => 5370 },
     "3.1.4" => { :gcc_40_build => 5493, :gcc_42_build => 5577 },

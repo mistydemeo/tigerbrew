@@ -11,12 +11,7 @@ class Uwsgi < Formula
 
   def install
     python do
-      arch = if Hardware::CPU.type == :intel
-        MacOS.prefer_64_bit? ? 'x86_64' : 'i386'
-      elsif Hardware::CPU.type == :ppc
-        MacOS.prefer_64_bit? ? 'ppc64' : 'ppc'
-      end
-      %w{CFLAGS LDFLAGS}.each { |e| ENV.append e, "-arch #{arch}" }
+      %w{CFLAGS LDFLAGS}.each { |e| ENV.append e, "-arch #{MacOS.preferred_arch}" }
 
       system python, "uwsgiconfig.py", "--build"
       bin.install "uwsgi"
