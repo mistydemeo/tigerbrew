@@ -27,6 +27,12 @@ class Cmake < Formula
 
   head 'http://cmake.org/cmake.git'
 
+  # See: https://gist.github.com/shirleyallan/6261775
+  fails_with :gcc do
+    build 5553
+    cause "/Developer/SDKs/MacOSX10.4u.sdk/usr/include/stdarg.h:4:25: error: stdarg.h: No such file or directory"
+  end
+
   bottle do
     sha1 '024d5263bce0f7f36bde4579ce6fc9be9d55fd72' => :mountain_lion
     sha1 'bfcc7c9925aea56bd5ce883ed8ca391c27144551' => :lion
