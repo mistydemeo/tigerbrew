@@ -54,7 +54,7 @@ class Subversion < Formula
     if MacOS.version < :leopard
       Formula.factory('apr').opt_prefix/'bin'
     else
-      superbin or "/usr/bin"
+      Superenv.bin or "/usr/bin"
     end
   end
 

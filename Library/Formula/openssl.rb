@@ -19,7 +19,7 @@ class Openssl < Formula
                shared
              ]
 
-    if Hardware.cpu_type == :intel
+    if Hardware::CPU.type == :intel
       if MacOS.prefer_64_bit?
         args << "darwin64-x86_64-cc" << "enable-ec_nistp_64_gcc_128"
       else
@@ -29,12 +29,21 @@ class Openssl < Formula
       args << (MacOS.prefer_64_bit? ? "darwin64-ppc-cc" : "darwin-ppc-cc")
     end
 
+    # Pardon the crazy indent, this is meant to match the Homebrew version
+    if MacOS.prefer_64_bit? && Hardware::CPU.type == :intel
+      # -O3 is used under stdenv, which results in test failures when using clang
+      inreplace 'Configure',
+        %{"darwin64-x86_64-cc","cc:-arch x86_64 -O3},
+        %{"darwin64-x86_64-cc","cc:-arch x86_64 -Os}
+    end
+
+
     # build error from ASM; see https://trac.macports.org/ticket/33741
     args << "no-asm" if MacOS.version == :tiger
 
     system "perl", *args
 
-    ENV.deparallelize # Parallel compilation fails
+    ENV.deparallelize
     system "make"
     system "make", "test"
     system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
