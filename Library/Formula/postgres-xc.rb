@@ -35,7 +35,6 @@ class PostgresXc < Formula
             "--prefix=#{prefix}",
             "--datadir=#{share}/#{name}",
             "--docdir=#{doc}",
-            "--enable-thread-safety",
             "--with-bonjour",
             "--with-gssapi",
             "--with-krb5",
@@ -43,6 +42,9 @@ class PostgresXc < Formula
             "--with-libxml",
             "--with-libxslt"]
 
+    # Postgres fails during configure on Tiger if thread-safety is enabled
+    # https://gist.github.com/shirleyallan/6282644
+    args << "--enable-thread-safety" unless MacOS.version < :leopard
     args << "--with-ossp-uuid" unless build.without? 'ossp-uuid'
     args << "--with-python" if build.with? 'python'
     args << "--with-perl" unless build.include? 'no-perl'
