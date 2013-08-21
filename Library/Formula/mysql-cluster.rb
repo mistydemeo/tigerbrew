@@ -6,6 +6,8 @@ class MysqlCluster < Formula
   sha1 '593588df751ba154fbe2d36d96dd57257c9846b3'
 
   depends_on 'cmake' => :build
+  # otherwise linking fails with multiple definitions of symbol
+  depends_on :ld64
   depends_on 'pidof' unless MacOS.version >= :mountain_lion
 
   option :universal

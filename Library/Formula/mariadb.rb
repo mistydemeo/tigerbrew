@@ -11,6 +11,8 @@ class Mariadb < Formula
   end
 
   depends_on 'cmake' => :build
+  # otherwise linking fails with multiple definitions of symbol
+  depends_on :ld64
   depends_on 'pidof' unless MacOS.version >= :mountain_lion
 
   option :universal

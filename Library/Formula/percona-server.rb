@@ -7,6 +7,8 @@ class PerconaServer < Formula
   sha1 '5508a47d5f834adc306bceb8cc60a48797441e15'
 
   depends_on 'cmake' => :build
+  # otherwise linking fails with multiple definitions of symbol
+  depends_on :ld64
   depends_on 'readline'
   depends_on 'pidof'
 
