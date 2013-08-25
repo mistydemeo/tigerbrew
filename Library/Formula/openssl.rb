@@ -22,6 +22,13 @@ class Openssl < Formula
     if Hardware::CPU.type == :intel
       if MacOS.prefer_64_bit?
         args << "darwin64-x86_64-cc" << "enable-ec_nistp_64_gcc_128"
+
+        # -O3 is used under stdenv, which results in test failures when using clang
+        inreplace 'Configure',
+          %{"darwin64-x86_64-cc","cc:-arch x86_64 -O3},
+          %{"darwin64-x86_64-cc","cc:-arch x86_64 -Os}
+
+        setup_makedepend_shim
       else
         args << "darwin-i386-cc"
       end
@@ -29,24 +36,26 @@ class Openssl < Formula
       args << (MacOS.prefer_64_bit? ? "darwin64-ppc-cc" : "darwin-ppc-cc")
     end
 
-    # Pardon the crazy indent, this is meant to match the Homebrew version
-    if MacOS.prefer_64_bit? && Hardware::CPU.type == :intel
-      # -O3 is used under stdenv, which results in test failures when using clang
-      inreplace 'Configure',
-        %{"darwin64-x86_64-cc","cc:-arch x86_64 -O3},
-        %{"darwin64-x86_64-cc","cc:-arch x86_64 -Os}
-    end
-
-
     # build error from ASM; see https://trac.macports.org/ticket/33741
     args << "no-asm" if MacOS.version == :tiger
 
     system "perl", *args
 
     ENV.deparallelize
+    system "make", "depend" if MacOS.prefer_64_bit? && Hardware::CPU.type == :intel
     system "make"
     system "make", "test"
     system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
+  end
+
+  def setup_makedepend_shim
+    path = buildpath/"brew/makedepend"
+    path.write <<-EOS.undent
+      #!/bin/sh
+      exec "#{ENV.cc}" -M "$@"
+      EOS
+    path.chmod 0755
+    ENV.prepend_path 'PATH', path.parent
   end
 
   def openssldir

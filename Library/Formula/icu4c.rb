@@ -30,7 +30,6 @@ class Icu4c < Formula
     # Tiger's libtool chokes if it's passed -w
     ENV.enable_warnings if MacOS.version < :leopard
 
-    ENV.append "LDFLAGS", "-headerpad_max_install_names"
     args = ["--prefix=#{prefix}", "--disable-samples", "--disable-tests", "--enable-static"]
     args << "--with-library-bits=64" if MacOS.prefer_64_bit?
     cd "source" do
