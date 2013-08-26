@@ -5,6 +5,8 @@ class Uwsgi < Formula
   url 'https://projects.unbit.it/downloads/uwsgi-1.9.14.tar.gz'
   sha1 '81e89b96f627c2d2c94224c2403cbd09fefa32f0'
 
+  # See https://github.com/unbit/uwsgi/issues/334
+  depends_on :ld64
   depends_on :python
   depends_on 'pcre'
   depends_on 'libyaml'
