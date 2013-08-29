@@ -28,6 +28,10 @@ class Sqlite < Formula
 
   keg_only :provided_by_osx, "OS X provides an older sqlite3."
 
+  # sqlite won't compile on Tiger due to missing function;
+  # patch submitted upstream: http://thread.gmane.org/gmane.comp.db.sqlite.general/83257
+  def patches; DATA; end if MacOS.version < :leopard
+
   def install
     # sqlite segfaults on Tiger/PPC with our gcc-4.2
     # obviously we need a newer GCC stat!
@@ -39,10 +43,6 @@ class Sqlite < Formula
     # enable these options by default
     ENV.append 'CPPFLAGS', "-DSQLITE_ENABLE_COLUMN_METADATA"
     ENV.append 'CPPFLAGS', "-DSQLITE_ENABLE_STAT3"
-
-    # prevent 'undefined symbol _OSAtomicCompareAndSwapPtrBarrier' error
-    # see: http://comments.gmane.org/gmane.comp.db.sqlite.general/71258
-    ENV.append 'CPPFLAGS', "-DSQLITE_WITHOUT_ZONEMALLOC" if MacOS.version == :tiger
 
     ENV.universal_binary if build.universal?
 
@@ -84,3 +84,54 @@ class Sqlite < Formula
     end
   end
 end
+
+__END__
+--- sqlite3.c.orig  2013-08-27 18:37:13.000000000 -0700
++++ sqlite3.c 2013-08-27 21:25:45.000000000 -0700
+@@ -15685,6 +15685,7 @@
+ #include <sys/sysctl.h>
+ #include <malloc/malloc.h>
+ #include <libkern/OSAtomic.h>
++
+ static malloc_zone_t* _sqliteZone_;
+ #define SQLITE_MALLOC(x) malloc_zone_malloc(_sqliteZone_, (x))
+ #define SQLITE_FREE(x) malloc_zone_free(_sqliteZone_, (x));
+@@ -15692,6 +15693,29 @@
+ #define SQLITE_MALLOCSIZE(x) \
+         (_sqliteZone_ ? _sqliteZone_->size(_sqliteZone_,x) : malloc_size(x))
+ 
++/*
++** If compiling for Mac OS X 10.4, the OSAtomicCompareAndSwapPtrBarrier
++** function will not be available, but individual 32-bit and 64-bit
++** versions will.
++*/
++
++#ifdef __MAC_OS_X_MIN_REQUIRED
++# include <AvailabilityMacros.h>
++#elif defined(__IPHONE_OS_MIN_REQUIRED)
++# include <Availability.h>
++#endif
++
++typedef int fc_atomic_int_t;
++#if (MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_4 || __IPHONE_VERSION_MIN_REQUIRED >= 20100)
++# define fc_atomic_ptr_cmpexch(O,N,P) OSAtomicCompareAndSwapPtrBarrier ((void *) (O), (void *) (N), (void **) (P))
++#else
++# if __ppc64__ || __x86_64__
++#  define fc_atomic_ptr_cmpexch(O,N,P) OSAtomicCompareAndSwap64Barrier ((int64_t) (O), (int64_t) (N), (int64_t*) (P))
++# else
++#  define fc_atomic_ptr_cmpexch(O,N,P) OSAtomicCompareAndSwap32Barrier ((int32_t) (O), (int32_t) (N), (int32_t*) (P))
++# endif
++#endif
++
+ #else /* if not __APPLE__ */
+ 
+ /*
+@@ -15852,7 +15876,7 @@
+     malloc_zone_t* newzone = malloc_create_zone(4096, 0);
+     malloc_set_zone_name(newzone, "Sqlite_Heap");
+     do{
+-      success = OSAtomicCompareAndSwapPtrBarrier(NULL, newzone, 
++      success = fc_atomic_ptr_cmpexch(NULL, newzone, 
+                                  (void * volatile *)&_sqliteZone_);
+     }while(!_sqliteZone_);
+     if( !success ){
