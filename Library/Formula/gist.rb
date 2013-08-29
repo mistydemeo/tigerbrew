@@ -6,6 +6,9 @@ class Gist < Formula
   sha1 '4c88ac3550833154beab134d7ccc9ec8330ad281'
   head 'https://github.com/defunkt/gist.git'
 
+  # rake wasn't shipped with Ruby back in 1.8.2
+  depends_on :macos => :leopard
+
   def install
     rake "install", "prefix=#{prefix}"
   end
