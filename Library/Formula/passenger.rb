@@ -6,6 +6,8 @@ class Passenger < Formula
   sha1 '44ef5775dd66a61a739f139c147b0aed83e144bb'
   head 'https://github.com/phusion/passenger.git'
 
+  # rake wasn't shipped with Ruby back in 1.8.2
+  depends_on :macos => :leopard
   depends_on 'curl'
 
   def install

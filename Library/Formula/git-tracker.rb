@@ -7,6 +7,9 @@ class GitTracker < Formula
 
   head 'https://github.com/stevenharman/git_tracker.git'
 
+  # rake wasn't shipped with Ruby back in 1.8.2
+  depends_on :macos => :leopard
+
   def install
     rake 'standalone:install', "prefix=#{prefix}"
   end

@@ -6,6 +6,9 @@ class Hub < Formula
   sha1 'e29d158c65a10ef3889f4af438bf1fb50fbd0536'
   head 'https://github.com/github/hub.git'
 
+  # rake wasn't shipped with Ruby back in 1.8.2
+  depends_on :macos => :leopard
+
   def install
     rake "install", "prefix=#{prefix}"
     bash_completion.install 'etc/hub.bash_completion.sh'
