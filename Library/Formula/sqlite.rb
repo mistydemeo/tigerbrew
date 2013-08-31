@@ -86,8 +86,8 @@ class Sqlite < Formula
 end
 
 __END__
---- sqlite3.c.orig  2013-08-27 18:37:13.000000000 -0700
-+++ sqlite3.c 2013-08-27 21:25:45.000000000 -0700
+--- a/sqlite3.c  2013-08-27 18:37:13.000000000 -0700
++++ b/sqlite3.c 2013-08-27 21:25:45.000000000 -0700
 @@ -15685,6 +15685,7 @@
  #include <sys/sysctl.h>
  #include <malloc/malloc.h>
