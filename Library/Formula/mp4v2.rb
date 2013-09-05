@@ -11,6 +11,9 @@ class Mp4v2 < Formula
     version 'r479'
   end
 
+  # Uses -current_version flag that Tiger's ld doesn't know
+  depends_on :ld64
+
   def patches
     # Fixes compile error on Lion w/Clang using a patch from svn:
     # http://code.google.com/p/mp4v2/source/detail?r=442
