@@ -2,8 +2,11 @@ require 'formula'
 
 class Appswitch < Formula
   homepage 'http://web.sabi.net/nriley/software/'
-  url 'http://web.sabi.net/nriley/software/appswitch-1.1.1.tar.gz'
-  sha1 'df5535adadfcf219c60d28397b99627ae7be3148'
+  url 'http://web.sabi.net/nriley/software/appswitch-1.1.tar.gz'
+  sha1 'e62b142927386c905a70e00d3647cfcd1d06955b'
+
+  # This isn't the latest version of appswitch, but it is the latest
+  # version that will work on PPC with Tiger/Leopard.
 
   def install
     # Because the tarball always comes with a precompiled binary and because
