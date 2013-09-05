@@ -7,6 +7,9 @@ class Gnupg2 < Formula
 
   option '8192', 'Build with support for private keys of up to 8192 bits'
 
+  # /usr/bin/ld: multiple definitions of symbol _memrchr
+  # https://github.com/mistydemeo/tigerbrew/issues/107
+  depends_on :ld64
   depends_on 'libgpg-error'
   depends_on 'libgcrypt'
   depends_on 'libksba'
