@@ -7,6 +7,9 @@ class Openvpn < Formula
   sha256 '20bda3f9debb9a52db262aecddfa4e814050a9404a9106136b7e3b6f7ef36ffc'
 
   depends_on 'lzo'
+  # default configuration uses sha256, which isn't compatible with
+  # Tiger's OpenSSL
+  depends_on 'openssl' if MacOS.version < :leopard
 
   def install
     # pam_appl header is installed in a different location on Leopard
