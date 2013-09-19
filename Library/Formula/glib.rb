@@ -23,8 +23,10 @@ class Glib < Formula
 
   def patches
     p = {}
-    # https://bugzilla.gnome.org/show_bug.cgi?id=673135 Resolved as wontfix.
-    p[:p1] = ["https://raw.github.com/gist/5393707/5a9047ab7838709084b36242a44471b02d036386/glib-configurable-paths.patch",
+    # https://bugzilla.gnome.org/show_bug.cgi?id=673135 Resolved as wontfix,
+    # but needed to fix an assumption about the location of the d-bus machine
+    # id file.
+    p[:p1] = ["https://gist.github.com/jacknagel/5393707/raw/5a9047ab7838709084b36242a44471b02d036386/glib-configurable-paths.patch",
       # gobject will not build on ppc64 due to an issue with anonymous unions and 64-bit pointers
       # See: https://github.com/mistydemeo/tigerbrew/issues/53
       # https://bugzilla.gnome.org/show_bug.cgi?id=647145
@@ -44,6 +46,7 @@ class Glib < Formula
     args = %W[
       --disable-maintainer-mode
       --disable-dependency-tracking
+      --disable-silent-rules
       --disable-dtrace
       --disable-modular-tests
       --disable-libelf
