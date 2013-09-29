@@ -14,7 +14,7 @@ require 'rbconfig'
 
 ARGV.extend(HomebrewArgvExtension)
 
-HOMEBREW_VERSION = '0.9.4'
+HOMEBREW_VERSION = '0.9.5'
 HOMEBREW_WWW = 'https://github.com/mistydemeo/tigerbrew'
 
 def cache

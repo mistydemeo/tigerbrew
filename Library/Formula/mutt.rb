@@ -11,6 +11,9 @@ class Mutt < Formula
     resource 'html' do
       url 'http://dev.mutt.org/doc/manual.html', :using => :nounzip
     end
+
+    depends_on :autoconf
+    depends_on :automake
   end
 
   option "with-debug", "Build with debug option enabled"
@@ -21,10 +24,6 @@ class Mutt < Formula
   option "with-pgp-verbose-mime-patch", "Apply PGP verbose mime patch"
   option "with-confirm-attachment-patch", "Apply confirm attachment patch"
 
-  if build.head?
-    depends_on :autoconf
-    depends_on :automake
-  end
 
   # mutt can't compile against Tiger's system version
   depends_on 'cyrus-sasl' if MacOS.version < :leopard

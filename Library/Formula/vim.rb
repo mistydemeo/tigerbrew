@@ -26,7 +26,6 @@ class Vim < Formula
     option "without-#{language}", "Build vim without #{language} support"
   end
 
-  depends_on :hg => :build if build.head?
   depends_on :python => :recommended
 
   def install

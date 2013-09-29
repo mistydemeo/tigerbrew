@@ -14,6 +14,8 @@ class Git < Formula
 
   option 'with-blk-sha1', 'Compile with the block-optimized SHA1 implementation'
   option 'without-completions', 'Disable bash/zsh completions from "contrib" directory'
+  option 'with-brewed-openssl', "Build with Homebrew OpenSSL instead of the system version" if MacOS.version < :leopard
+  option 'with-brewed-curl', "Use Homebrew's version of cURL library" if MacOS.version < :snow_leopard
 
   if MacOS.version == :tiger
     # system tar has odd permissions errors
@@ -23,17 +25,16 @@ class Git < Formula
     depends_on 'cctools' => :build
   end
 
-  depends_on 'curl' if MacOS.version < :snow_leopard
+  if MacOS.version < :snow_leopard
+    depends_on 'curl' if MacOS.version < :snow_leopard
+  else
+    depends_on 'curl' => 'with-darwinssl' if build.with? 'brewed-curl'
+  end
   depends_on :expat
   depends_on 'gettext' => :optional
-  depends_on 'openssl' if MacOS.version < :leopard
+  depends_on 'openssl' if MacOS.version < :leopard || build.with?('brewed-openssl')
   depends_on 'pcre' if build.include? 'with-pcre'
   depends_on :python
-
-  def patches
-    # ld64 understands -rpath but rejects it on Tiger
-    'https://trac.macports.org/export/106975/trunk/dports/devel/git-core/files/patch-Makefile.diff'
-  end if MacOS.version == :tiger
 
   resource 'man' do
     url 'http://git-core.googlecode.com/files/git-manpages-1.8.4.tar.gz'
@@ -44,6 +45,11 @@ class Git < Formula
     url 'http://git-core.googlecode.com/files/git-htmldocs-1.8.4.tar.gz'
     sha1 'f130398eb623c913497ef51a6e61d916fe7e31c8'
   end
+
+  def patches
+    # ld64 understands -rpath but rejects it on Tiger
+    'https://trac.macports.org/export/106975/trunk/dports/devel/git-core/files/patch-Makefile.diff'
+  end if MacOS.version == :tiger
 
   def install
     # git's index-pack will segfault unless compiled without optimization
