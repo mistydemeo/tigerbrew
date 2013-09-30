@@ -26,12 +26,7 @@ class Glib < Formula
     # https://bugzilla.gnome.org/show_bug.cgi?id=673135 Resolved as wontfix,
     # but needed to fix an assumption about the location of the d-bus machine
     # id file.
-    p[:p1] = ["https://gist.github.com/jacknagel/6700436/raw/a94f21a9c5ccd10afa0a61b11455c880640f3133/glib-configurable-paths.patch",
-      # gobject will not build on ppc64 due to an issue with anonymous unions and 64-bit pointers
-      # See: https://github.com/mistydemeo/tigerbrew/issues/53
-      # https://bugzilla.gnome.org/show_bug.cgi?id=647145
-      # https://trac.macports.org/ticket/31221
-      DATA]
+    p[:p1] = "https://gist.github.com/jacknagel/6700436/raw/a94f21a9c5ccd10afa0a61b11455c880640f3133/glib-configurable-paths.patch"
     p[:p0] = "https://trac.macports.org/export/111532/trunk/dports/devel/glib2/files/patch-configure.diff" if build.universal?
     p
   end
