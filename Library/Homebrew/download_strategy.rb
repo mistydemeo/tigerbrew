@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'utils/json'
+require 'erb'
 
 class AbstractDownloadStrategy
   attr_reader :name, :resource
@@ -31,6 +32,14 @@ class AbstractDownloadStrategy
 
   def quiet_safe_system *args
     safe_system(*expand_safe_system_args(args))
+  end
+
+  def checkout_name(tag)
+    if name.empty? || name == '__UNKNOWN__'
+      "#{ERB::Util.url_encode(@url)}--#{tag}"
+    else
+      "#{name}--#{tag}"
+    end
   end
 
   # All download strategies are expected to implement these methods
@@ -304,13 +313,11 @@ class SubversionDownloadStrategy < AbstractDownloadStrategy
     super
     @@svn ||= 'svn'
 
-    if name.to_s.empty? || name == '__UNKNOWN__'
-      raise NotImplementedError, "strategy requires a name parameter"
+    if ARGV.build_head?
+      @co = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("svn-HEAD")}")
     else
-      @co = Pathname.new("#{HOMEBREW_CACHE}/#{name}--svn")
+      @co = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("svn")}")
     end
-
-    @co = Pathname.new(@co.to_s + '-HEAD') if ARGV.build_head?
   end
 
   def cached_location
@@ -416,12 +423,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   def initialize name, resource
     super
     @@git ||= 'git'
-
-    if name.to_s.empty? || name == '__UNKNOWN__'
-      raise NotImplementedError, "strategy requires a name parameter"
-    else
-      @clone = Pathname.new("#{HOMEBREW_CACHE}/#{name}--git")
-    end
+    @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("git")}")
   end
 
   def cached_location
@@ -568,13 +570,7 @@ end
 class CVSDownloadStrategy < AbstractDownloadStrategy
   def initialize name, resource
     super
-
-    if name.to_s.empty? || name == '__UNKNOWN__'
-      raise NotImplementedError, "strategy requires a name parameter"
-    else
-      @unique_token = "#{name}--cvs"
-      @co = Pathname.new("#{HOMEBREW_CACHE}/#{@unique_token}")
-    end
+    @co = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("cvs")}")
   end
 
   def cached_location; @co; end
@@ -591,7 +587,7 @@ class CVSDownloadStrategy < AbstractDownloadStrategy
     unless @co.exist?
       Dir.chdir HOMEBREW_CACHE do
         safe_system '/usr/bin/cvs', '-d', url, 'login'
-        safe_system '/usr/bin/cvs', '-d', url, 'checkout', '-d', @unique_token, mod
+        safe_system '/usr/bin/cvs', '-d', url, 'checkout', '-d', checkout_name("cvs"), mod
       end
     else
       puts "Updating #{@co}"
@@ -624,12 +620,7 @@ end
 class MercurialDownloadStrategy < AbstractDownloadStrategy
   def initialize name, resource
     super
-
-    if name.to_s.empty? || name == '__UNKNOWN__'
-      raise NotImplementedError, "strategy requires a name parameter"
-    else
-      @clone = Pathname.new("#{HOMEBREW_CACHE}/#{name}--hg")
-    end
+    @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("hg")}")
   end
 
   def cached_location; @clone; end
@@ -684,12 +675,7 @@ end
 class BazaarDownloadStrategy < AbstractDownloadStrategy
   def initialize name, resource
     super
-
-    if name.to_s.empty? || name == '__UNKNOWN__'
-      raise NotImplementedError, "strategy requires a name parameter"
-    else
-      @clone = Pathname.new("#{HOMEBREW_CACHE}/#{name}--bzr")
-    end
+    @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("bzr")}")
   end
 
   def cached_location; @clone; end
@@ -737,11 +723,7 @@ end
 class FossilDownloadStrategy < AbstractDownloadStrategy
   def initialize name, resource
     super
-    if name.to_s.empty? || name == '__UNKNOWN__'
-      raise NotImplementedError, "strategy requires a name parameter"
-    else
-      @clone = Pathname.new("#{HOMEBREW_CACHE}/#{name}--fossil")
-    end
+    @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("fossil")}")
   end
 
   def cached_location; @clone; end

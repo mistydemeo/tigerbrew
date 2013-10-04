@@ -18,7 +18,6 @@ class Mariadb < Formula
   option :universal
   option 'with-tests', 'Keep test when installing'
   option 'with-bench', 'Keep benchmark app when installing'
-  option 'client-only', 'Install only client tools'
   option 'with-embedded', 'Build the embedded server'
   option 'with-libedit', 'Compile with editline wrapper instead of readline'
   option 'with-archive-storage-engine', 'Compile with the ARCHIVE storage engine enabled'
@@ -58,9 +57,6 @@ class Mariadb < Formula
       -DDEFAULT_COLLATION=utf8_general_ci
       -DINSTALL_SYSCONFDIR=#{etc}
     ]
-
-    # Client only
-    cmake_args << "-DWITHOUT_SERVER=1" if build.include? 'client-only'
 
     # Build the embedded server
     cmake_args << "-DWITH_EMBEDDED_SERVER=ON" if build.include? 'with-embedded'
