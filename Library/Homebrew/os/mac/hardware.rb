@@ -60,8 +60,9 @@ module MacCPUs
       when 11
         :g4e # PowerPC 7450
       when 100
-        # PowerPC 970; build 32-bit always on Tiger, 64-bit on Leopard only on request
-        MacOS.prefer_64_bit? ? :g5 : :g5_32
+        # This is the only 64-bit PPC CPU type, so it's useful
+        # to distinguish in `brew --config` output and in bottle tags
+        MacOS.prefer_64_bit? ? :g5_64 : :g5  # PowerPC 970
       else
         :dunno
       end
