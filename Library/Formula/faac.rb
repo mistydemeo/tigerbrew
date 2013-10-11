@@ -8,6 +8,9 @@ class Faac < Formula
   # Tiger's ld gives "ld: unknown flag: -compatibility_version"
   depends_on :ld64
 
+  # gcc 4.0 can't parse faac's mp4v2/mp4.h
+  fails_with :gcc_4_0
+
   def install
     # This actually breaks faac!
     ['CFLAGS','CPPFLAGS','CXXFLAGS'].each {|f| ENV.remove f, '-faltivec'}
