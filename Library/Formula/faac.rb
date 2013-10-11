@@ -9,6 +9,7 @@ class Faac < Formula
   depends_on :ld64
 
   # gcc 4.0 can't parse faac's mp4v2/mp4.h
+  # e.g.: https://gist.github.com/shirleyallan/6920853
   fails_with :gcc_4_0
 
   def install
