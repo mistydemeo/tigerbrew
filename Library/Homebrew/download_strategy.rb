@@ -9,8 +9,6 @@ class AbstractDownloadStrategy
     @name = name
     @resource = resource
     @url  = resource.url
-    specs = resource.specs
-    @spec, @ref = specs.dup.shift unless specs.empty?
   end
 
   def expand_safe_system_args args
@@ -34,6 +32,22 @@ class AbstractDownloadStrategy
     safe_system(*expand_safe_system_args(args))
   end
 
+  # All download strategies are expected to implement these methods
+  def fetch; end
+  def stage; end
+  def cached_location; end
+end
+
+class VCSDownloadStrategy < AbstractDownloadStrategy
+  def initialize name, resource
+    super
+    @ref_type, @ref = destructure_spec_hash(resource.specs)
+  end
+
+  def destructure_spec_hash(spec)
+    spec.each { |o| return o }
+  end
+
   def checkout_name(tag)
     if name.empty? || name == '__UNKNOWN__'
       "#{ERB::Util.url_encode(@url)}--#{tag}"
@@ -42,10 +56,9 @@ class AbstractDownloadStrategy
     end
   end
 
-  # All download strategies are expected to implement these methods
-  def fetch; end
-  def stage; end
-  def cached_location; end
+  def cached_location
+    @clone
+  end
 end
 
 class CurlDownloadStrategy < AbstractDownloadStrategy
@@ -167,10 +180,10 @@ class CurlDownloadStrategy < AbstractDownloadStrategy
   end
 
   def chdir
-    entries=Dir['*']
+    entries = Dir['*']
     case entries.length
-      when 0 then raise "Empty archive"
-      when 1 then Dir.chdir entries.first rescue nil
+    when 0 then raise "Empty archive"
+    when 1 then Dir.chdir entries.first rescue nil
     end
   end
 
@@ -304,56 +317,53 @@ class S3DownloadStrategy < CurlDownloadStrategy
       s3url = obj.public_url
     end
 
-    curl s3url, '-C', downloaded_size, '-o', @temporary_path
+    curl s3url, '-C', downloaded_size, '-o', temporary_path
   end
 end
 
-class SubversionDownloadStrategy < AbstractDownloadStrategy
+class SubversionDownloadStrategy < VCSDownloadStrategy
   def initialize name, resource
     super
     @@svn ||= 'svn'
 
     if ARGV.build_head?
-      @co = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("svn-HEAD")}")
+      @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("svn-HEAD")}")
     else
-      @co = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("svn")}")
+      @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("svn")}")
     end
   end
 
-  def cached_location
-    @co
-  end
-
   def repo_valid?
-    @co.join(".svn").directory?
+    @clone.join(".svn").directory?
   end
 
   def fetch
     @url.sub!(/^svn\+/, '') if @url =~ %r[^svn\+http://]
     ohai "Checking out #{@url}"
 
-    if @co.exist? and not repo_valid?
+    if @clone.exist? and not repo_valid?
       puts "Removing invalid SVN repo from cache"
-      @co.rmtree
+      @clone.rmtree
     end
 
-    if @spec == :revision
-      fetch_repo @co, @url, @ref
-    elsif @spec == :revisions
+    case @ref_type
+    when :revision
+      fetch_repo @clone, @url, @ref
+    when :revisions
       # nil is OK for main_revision, as fetch_repo will then get latest
-      main_revision = @ref.delete :trunk
-      fetch_repo @co, @url, main_revision, true
+      main_revision = @ref[:trunk]
+      fetch_repo @clone, @url, main_revision, true
 
       get_externals do |external_name, external_url|
-        fetch_repo @co+external_name, external_url, @ref[external_name], true
+        fetch_repo @clone+external_name, external_url, @ref[external_name], true
       end
     else
-      fetch_repo @co, @url
+      fetch_repo @clone, @url
     end
   end
 
   def stage
-    quiet_safe_system @@svn, 'export', '--force', @co, Dir.pwd
+    quiet_safe_system @@svn, 'export', '--force', @clone, Dir.pwd
   end
 
   def shell_quote str
@@ -419,15 +429,11 @@ class UnsafeSubversionDownloadStrategy < SubversionDownloadStrategy
   end
 end
 
-class GitDownloadStrategy < AbstractDownloadStrategy
+class GitDownloadStrategy < VCSDownloadStrategy
   def initialize name, resource
     super
     @@git ||= 'git'
     @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("git")}")
-  end
-
-  def cached_location
-    @clone
   end
 
   def fetch
@@ -435,7 +441,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
 
     if @clone.exist? && repo_valid?
       puts "Updating #@clone"
-      Dir.chdir(@clone) do
+      @clone.cd do
         config_repo
         update_repo
         checkout
@@ -453,9 +459,9 @@ class GitDownloadStrategy < AbstractDownloadStrategy
 
   def stage
     dst = Dir.getwd
-    Dir.chdir @clone do
-      if @spec and @ref
-        ohai "Checking out #@spec #@ref"
+    @clone.cd do
+      if @ref_type and @ref
+        ohai "Checking out #@ref_type #@ref"
       else
         reset
       end
@@ -476,7 +482,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   end
 
   def support_depth?
-    @spec != :revision and host_supports_depth?
+    @ref_type != :revision and host_supports_depth?
   end
 
   def host_supports_depth?
@@ -495,7 +501,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
     args = %w{clone}
     args << '--depth' << '1' if support_depth?
 
-    case @spec
+    case @ref_type
     when :branch, :tag then args << '--branch' << @ref
     end
 
@@ -503,7 +509,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   end
 
   def refspec
-    case @spec
+    case @ref_type
     when :branch then "+refs/heads/#@ref:refs/remotes/origin/#@ref"
     when :tag    then "+refs/tags/#@ref:refs/tags/#@ref"
     else              "+refs/heads/master:refs/remotes/origin/master"
@@ -516,7 +522,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   end
 
   def update_repo
-    unless @spec == :tag && has_ref?
+    unless @ref_type == :tag && has_ref?
       quiet_safe_system @@git, 'fetch', 'origin'
     end
   end
@@ -527,7 +533,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   end
 
   def checkout_args
-    ref = case @spec
+    ref = case @ref_type
           when :branch, :tag, :revision then @ref
           else `git symbolic-ref refs/remotes/origin/HEAD`.strip.split("/").last
           end
@@ -542,7 +548,7 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   end
 
   def reset_args
-    ref = case @spec
+    ref = case @ref_type
           when :branch then "origin/#@ref"
           when :revision, :tag then @ref
           else "origin/HEAD"
@@ -567,13 +573,11 @@ class GitDownloadStrategy < AbstractDownloadStrategy
   end
 end
 
-class CVSDownloadStrategy < AbstractDownloadStrategy
+class CVSDownloadStrategy < VCSDownloadStrategy
   def initialize name, resource
     super
-    @co = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("cvs")}")
+    @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("cvs")}")
   end
-
-  def cached_location; @co; end
 
   def fetch
     ohai "Checking out #{@url}"
@@ -584,19 +588,19 @@ class CVSDownloadStrategy < AbstractDownloadStrategy
     # cvs -d :pserver:anoncvs@www.gccxml.org:/cvsroot/GCC_XML co gccxml
     mod, url = split_url(@url)
 
-    unless @co.exist?
-      Dir.chdir HOMEBREW_CACHE do
+    unless @clone.exist?
+      HOMEBREW_CACHE.cd do
         safe_system '/usr/bin/cvs', '-d', url, 'login'
         safe_system '/usr/bin/cvs', '-d', url, 'checkout', '-d', checkout_name("cvs"), mod
       end
     else
-      puts "Updating #{@co}"
-      Dir.chdir(@co) { safe_system '/usr/bin/cvs', 'up' }
+      puts "Updating #{@clone}"
+      @clone.cd { safe_system '/usr/bin/cvs', 'up' }
     end
   end
 
   def stage
-    FileUtils.cp_r Dir[@co+"{.}"], Dir.pwd
+    FileUtils.cp_r Dir[@clone+"{.}"], Dir.pwd
 
     require 'find'
     Find.find(Dir.pwd) do |path|
@@ -617,20 +621,18 @@ class CVSDownloadStrategy < AbstractDownloadStrategy
   end
 end
 
-class MercurialDownloadStrategy < AbstractDownloadStrategy
+class MercurialDownloadStrategy < VCSDownloadStrategy
   def initialize name, resource
     super
     @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("hg")}")
   end
-
-  def cached_location; @clone; end
 
   def hgpath
     # #{HOMEBREW_PREFIX}/share/python/hg is deprecated, but we levae it in for a while
     @path ||= %W[
       #{which("hg")}
       #{HOMEBREW_PREFIX}/bin/hg
-      #{Formula.factory('mercurial').opt_prefix}/bin/hg
+      #{HOMEBREW_PREFIX}/opt/mercurial/bin/hg
       #{HOMEBREW_PREFIX}/share/python/hg
       ].find { |p| File.executable? p }
   end
@@ -660,10 +662,10 @@ class MercurialDownloadStrategy < AbstractDownloadStrategy
   end
 
   def stage
-    dst=Dir.getwd
-    Dir.chdir @clone do
-      if @spec and @ref
-        ohai "Checking out #{@spec} #{@ref}"
+    dst = Dir.getwd
+    @clone.cd do
+      if @ref_type and @ref
+        ohai "Checking out #{@ref_type} #{@ref}"
         safe_system hgpath, 'archive', '--subrepos', '-y', '-r', @ref, '-t', 'files', dst
       else
         safe_system hgpath, 'archive', '--subrepos', '-y', '-t', 'files', dst
@@ -672,13 +674,11 @@ class MercurialDownloadStrategy < AbstractDownloadStrategy
   end
 end
 
-class BazaarDownloadStrategy < AbstractDownloadStrategy
+class BazaarDownloadStrategy < VCSDownloadStrategy
   def initialize name, resource
     super
     @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("bzr")}")
   end
-
-  def cached_location; @clone; end
 
   def bzrpath
     @path ||= %W[
@@ -720,13 +720,11 @@ class BazaarDownloadStrategy < AbstractDownloadStrategy
   end
 end
 
-class FossilDownloadStrategy < AbstractDownloadStrategy
+class FossilDownloadStrategy < VCSDownloadStrategy
   def initialize name, resource
     super
     @clone = Pathname.new("#{HOMEBREW_CACHE}/#{checkout_name("fossil")}")
   end
-
-  def cached_location; @clone; end
 
   def fossilpath
     @path ||= %W[
@@ -749,8 +747,8 @@ class FossilDownloadStrategy < AbstractDownloadStrategy
   def stage
     # TODO: The 'open' and 'checkout' commands are very noisy and have no '-q' option.
     safe_system fossilpath, 'open', @clone
-    if @spec and @ref
-      ohai "Checking out #{@spec} #{@ref}"
+    if @ref_type and @ref
+      ohai "Checking out #{@ref_type} #{@ref}"
       safe_system fossilpath, 'checkout', @ref
     end
   end
