@@ -35,6 +35,14 @@ end
 # This notably breaks brew-deps. 1.8.7 more sensibly uses define_method.
 # This method is backported exactly from 1.8.7's definition.
 class OpenStruct
+  def modifiable
+    if self.frozen?
+      raise TypeError, "can't modify frozen #{self.class}", caller(2)
+    end
+    @table
+  end
+  protected :modifiable
+
   def new_ostruct_member(name)
     name = name.to_sym
     unless self.respond_to?(name)
