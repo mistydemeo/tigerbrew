@@ -33,10 +33,6 @@ class Doxygen < Formula
                   tmake/lib/macosx-c++/tmake.conf
                   tmake/lib/macosx-intel-c++/tmake.conf
                   tmake/lib/macosx-uni-c++/tmake.conf ] do |s|
-      # otherwise clang may use up large amounts of RAM while
-      # processing localization files
-      # gcc doesn't support the flag
-      s.gsub! '-Wno-invalid-source-encoding', '' unless ENV.compiler == :clang
       s.gsub! '-fstack-protector', '' if ENV.compiler == :gcc_4_0
 
       # makefiles hardcode both cc and c++
