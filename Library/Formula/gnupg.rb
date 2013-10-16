@@ -7,9 +7,6 @@ class Gnupg < Formula
 
   option '8192', 'Build with support for private keys of up to 8192 bits'
 
-  # fixes IDEA tests on PPC; should be fixed in next release
-  def patches; DATA; end
-
   def cflags
     cflags = ENV.cflags.to_s
     cflags += ' -std=gnu89 -fheinous-gnu-extensions' if ENV.compiler == :clang
