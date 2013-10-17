@@ -20,7 +20,7 @@ class Ruby < Formula
   depends_on 'readline' => :recommended
   depends_on 'gdbm' => :optional
   depends_on 'libyaml'
-  depends_on 'openssl' if MacOS.version >= :mountain_lion
+  depends_on 'openssl' if MacOS.version >= :mountain_lion || MacOS.version < :leopard
   depends_on :x11 if build.with? 'tcltk'
 
   fails_with :llvm do
@@ -41,7 +41,7 @@ class Ruby < Formula
     # version (0.9.8r 8 Feb 2011) that ships with the system.
     # See discussion https://github.com/sstephenson/ruby-build/issues/304
     # and https://github.com/mxcl/homebrew/pull/18054
-    if MacOS.version >= :mountain_lion
+    if MacOS.version >= :mountain_lion || MacOS.version < :leopard
       args << "--with-openssl-dir=#{Formula.factory('openssl').opt_prefix}"
     end
 
