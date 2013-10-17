@@ -14,6 +14,7 @@ class Serf < Formula
 
   option :universal
 
+  depends_on :ld64
   depends_on 'homebrew/dupes/apr' if MacOS.version < :leopard
   depends_on 'homebrew/dupes/apr-util' if MacOS.version < :leopard
   depends_on :libtool
@@ -28,7 +29,14 @@ class Serf < Formula
 
   def install
     ENV.universal_binary if build.universal?
-    system "scons", "PREFIX=#{prefix}", "GSSAPI=/usr"
+    args = %W[PREFIX=#{prefix} GSSAPI=/usr CC=#{ENV.cc}
+              CFLAGS=#{ENV.cflags} LINKFLAGS=#{ENV.ldflags}]
+    if MacOS.version < :leopard
+      args << "APR=#{Formula.factory('apr').opt_prefix}/bin/apr-1-config"
+      args << "APU=#{Formula.factory('apr-util').opt_prefix}/bin/apu-1-config"
+    end
+
+    system "scons", *args
     system "scons install"
   end
 end
