@@ -29,6 +29,7 @@ class Serf < Formula
 
   def install
     ENV.universal_binary if build.universal?
+    # scons ignores our compiler and flags unless explicitly passed
     args = %W[PREFIX=#{prefix} GSSAPI=/usr CC=#{ENV.cc}
               CFLAGS=#{ENV.cflags} LINKFLAGS=#{ENV.ldflags}]
     if MacOS.version < :leopard
