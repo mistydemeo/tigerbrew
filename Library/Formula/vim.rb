@@ -15,6 +15,7 @@ class Vim < Formula
 
   option "override-system-vi", "Override system vi"
   option "disable-nls", "Build vim without National Language Support (translated messages, keymaps)"
+  option "with-client-server", "Enable client/server mode"
 
   LANGUAGES_OPTIONAL = %w(lua mzscheme perl tcl)
   LANGUAGES_DEFAULT  = %w(ruby python)
@@ -28,10 +29,14 @@ class Vim < Formula
 
   depends_on :python => :recommended
   depends_on 'lua' => :optional
+  depends_on 'gtk+' if build.with? 'client-server'
 
-  # vim uses the obsolete Apple-only -no-cpp-precomp flag, which
+  # First patch: vim uses the obsolete Apple-only -no-cpp-precomp flag, which
   # FSF GCC can't understand; reported upstream:
   # https://groups.google.com/forum/#!topic/vim_dev/X5yG3-IiUp8
+  #
+  # Second patch: includes Mac OS X version macros not included by default on 10.9
+  # Reported upstream: https://groups.google.com/forum/#!topic/vim_mac/5kVAMSPb6uU
   def patches; DATA; end
 
   def install
@@ -59,6 +64,13 @@ class Vim < Formula
       end
     end
 
+    if build.with? 'client-server'
+      opts << '--enable-gui=gtk2'
+    else
+      opts << "--enable-gui=no"
+      opts << "--without-x"
+    end
+
     # XXX: Please do not submit a pull request that hardcodes the path
     # to ruby: vim can be compiled against 1.8.x or 1.9.3-p385 and up.
     # If you have problems with vim because of ruby, ensure a compatible
@@ -70,8 +82,6 @@ class Vim < Formula
     # when calling "make install".
     system "./configure", "--prefix=#{HOMEBREW_PREFIX}",
                           "--mandir=#{man}",
-                          "--enable-gui=no",
-                          "--without-x",
                           "--enable-multibyte",
                           "--with-tlib=ncurses",
                           "--enable-cscope",
@@ -123,3 +133,17 @@ index d7d4f2a..7015d7b 100755
  esac
  
 
+diff --git a/src/os_mac.h b/src/os_mac.h
+index 78b79c2..54009ab 100644
+--- a/src/os_mac.h
++++ b/src/os_mac.h
+@@ -16,6 +16,9 @@
+ # define OPAQUE_TOOLBOX_STRUCTS 0
+ #endif
+ 
++/* Include MAC_OS_X_VERSION_* macros */
++#include <AvailabilityMacros.h>
++
+ /*
+  * Macintosh machine-dependent things.
+  *

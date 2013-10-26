@@ -13,6 +13,7 @@ class Curl < Formula
   option 'with-ares', 'Build with C-Ares async DNS support'
   option 'with-ssl', 'Build with Homebrew OpenSSL instead of the system version'
   option 'with-darwinssl', 'Build with Secure Transport for SSL support'
+  option 'with-gssapi', 'Build with GSSAPI/Kerberos authentication support.'
 
   depends_on 'pkg-config' => :build
 
@@ -34,6 +35,7 @@ class Curl < Formula
     args << "--enable-ares=#{Formula.factory("c-ares").opt_prefix}" if build.with? 'ares'
     args << "--with-ssl=#{Formula.factory("openssl").opt_prefix}" if build.with?('ssl') || MacOS.version < :snow_leopard
     args << "--with-darwinssl" if build.with? 'darwinssl'
+    args << "--with-gssapi" if build.with? 'gssapi'
 
     # Tiger/Leopard ship with a horrendously outdated set of certs,
     # breaking any software that relies on curl, e.g. git

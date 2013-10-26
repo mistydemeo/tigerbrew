@@ -42,7 +42,7 @@ module Homebrew extend self
   def clt
     if instance_variable_defined?(:@clt)
       @clt
-    elsif MacOS::CLT.installed? && MacOS::Xcode.version.to_f >= 4.3
+    elsif MacOS::CLT.installed? && MacOS::Xcode.version >= "4.3"
       @clt = MacOS::CLT.version
     end
   end
@@ -112,7 +112,7 @@ module Homebrew extend self
     unless MacOS.compilers_standard?
       puts "GCC-4.0: build #{gcc_40}" if gcc_40
       puts "GCC-4.2: build #{gcc_42}" if gcc_42
-      puts "LLVM-GCC: #{llvm ? "build #{llvm}" : "N/A"}"
+      puts "LLVM-GCC: build #{llvm}"  if llvm
       puts "Clang: #{clang ? "#{clang} build #{clang_build}" : "N/A"}"
     end
 
@@ -141,7 +141,7 @@ module Homebrew extend self
     puts "CLT: #{clt}" if clt
     puts "GCC-4.0: build #{gcc_40}" if gcc_40
     puts "GCC-4.2: build #{gcc_42}" if gcc_42
-    puts "LLVM-GCC: #{llvm ? "build #{llvm}" : "N/A"}"
+    puts "LLVM-GCC: build #{llvm}"  if llvm
     puts "Clang: #{clang ? "#{clang} build #{clang_build}" : "N/A"}"
     puts "MacPorts/Fink: #{macports_or_fink}" if macports_or_fink
     puts "X11: #{describe_x11}"
