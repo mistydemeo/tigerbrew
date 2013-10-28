@@ -19,6 +19,7 @@ class Icu4c < Formula
   keg_only "Conflicts; see: https://github.com/mxcl/homebrew/issues/issue/167"
 
   option :universal
+  option :cxx11
 
   def patches
     # patch submitted upstream: http://bugs.icu-project.org/trac/ticket/9367
@@ -29,6 +30,8 @@ class Icu4c < Formula
     ENV.universal_binary if build.universal?
     # Tiger's libtool chokes if it's passed -w
     ENV.enable_warnings if MacOS.version < :leopard
+
+    ENV.cxx11 if build.cxx11?
 
     args = ["--prefix=#{prefix}", "--disable-samples", "--disable-tests", "--enable-static"]
     args << "--with-library-bits=64" if MacOS.prefer_64_bit?
