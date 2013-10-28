@@ -209,7 +209,11 @@ module OS
     end
 
     def prefer_64_bit?
-      Hardware::CPU.is_64_bit? and version > :leopard
+      if ENV['HOMEBREW_PREFER_64_BIT'] && MacOS.version == :leopard
+        Hardware::CPU.is_64_bit?
+      else
+        Hardware::CPU.is_64_bit? and version > :leopard
+      end
     end
 
     def preferred_arch
