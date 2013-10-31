@@ -31,6 +31,8 @@ class Subversion < Formula
 
   # use Tigerbrew's version instead of the old one in X11
   depends_on :expat
+  # serf needs this
+  depends_on :ld64
   # Tiger's are too old
   depends_on 'homebrew/dupes/apr' if MacOS.version < :leopard
   depends_on 'homebrew/dupes/apr-util' if MacOS.version < :leopard
@@ -86,6 +88,12 @@ class Subversion < Formula
       args = %W[PREFIX=#{serf_prefix} GSSAPI=/usr CC=#{ENV.cc}
                 CFLAGS=#{ENV.cflags} LINKFLAGS=#{ENV.ldflags}]
       args << "OPENSSL=#{Formula.factory('openssl').opt_prefix}" if build.with? 'brewed-openssl'
+
+      if MacOS.version < :leopard
+        args << "APR=#{Formula.factory('apr').opt_prefix}/bin/apr-1-config"
+        args << "APU=#{Formula.factory('apr-util').opt_prefix}/bin/apu-1-config"
+      end
+
       system "scons", *args
       system "scons install"
     end
