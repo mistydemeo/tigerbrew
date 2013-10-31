@@ -31,8 +31,6 @@ class Subversion < Formula
 
   # use Tigerbrew's version instead of the old one in X11
   depends_on :expat
-  # serf needs this
-  depends_on :ld64
   # Tiger's are too old
   depends_on 'homebrew/dupes/apr' if MacOS.version < :leopard
   depends_on 'homebrew/dupes/apr-util' if MacOS.version < :leopard
@@ -45,6 +43,7 @@ class Subversion < Formula
   depends_on 'swig' if build.include? 'perl' or build.include? 'python' or build.include? 'python'
 
   # For Serf
+  depends_on :ld64
   depends_on 'scons' => :build
   depends_on 'openssl' if build.with? 'brewed-openssl'
 
