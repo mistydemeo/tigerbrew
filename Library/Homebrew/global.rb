@@ -66,7 +66,7 @@ else
   HOMEBREW_REPOSITORY+"Cellar"
 end
 
-HOMEBREW_LOGS = Pathname.new('~/Library/Logs/Homebrew/').expand_path
+HOMEBREW_LOGS = Pathname.new(ENV['HOMEBREW_LOGS'] || '~/Library/Logs/Homebrew/').expand_path
 
 RbConfig = Config if RUBY_VERSION < "1.8.6" # different module name on Tiger
 RUBY_BIN = Pathname.new(RbConfig::CONFIG['bindir'])
