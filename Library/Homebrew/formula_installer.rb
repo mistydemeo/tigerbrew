@@ -499,11 +499,13 @@ class FormulaInstaller
   def audit_bin
     print_check_output(check_PATH(f.bin)) unless f.keg_only?
     print_check_output(check_non_executables(f.bin))
+    print_check_output(check_generic_executables(f.bin))
   end
 
   def audit_sbin
     print_check_output(check_PATH(f.sbin)) unless f.keg_only?
     print_check_output(check_non_executables(f.sbin))
+    print_check_output(check_generic_executables(f.sbin))
   end
 
   def audit_lib
@@ -552,7 +554,7 @@ end
 
 class Formula
   def keg_only_text
-    s = "This formula is keg-only: so it was not symlinked into #{HOMEBREW_PREFIX}."
+    s = "This formula is keg-only, so it was not symlinked into #{HOMEBREW_PREFIX}."
     s << "\n\n#{keg_only_reason.to_s}"
     if lib.directory? or include.directory?
       s <<
