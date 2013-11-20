@@ -9,7 +9,7 @@ Installation
 Paste this into a terminal prompt:
 
 ```sh
-ruby -e "$(curl -fsSkL raw.github.com/mistydemeo/tigerbrew/go)"
+ruby -e "$(curl -fsSkL raw.github.com/mistydemeo/tigerbrew/go/install)"
 ```
 
 You'll also want to make sure that /usr/local/bin and /usr/local/sbin are in your PATH. (Unlike later Mac OS versions, /usr/local/bin isn't in the default PATH.) If you use bash as your shell, add this line to your ~/.bash_profile:
