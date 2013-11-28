@@ -10,8 +10,8 @@ class Ffmpeg < Formula
   # This is actually the new stable, not a devel release,
   # but not everything builds with it yet - notably gpac
   devel do
-    url 'http://ffmpeg.org/releases/ffmpeg-2.1.tar.bz2'
-    sha1 'b8336772bfa957ca4943831f26aa99e4f30688d5'
+    url 'http://ffmpeg.org/releases/ffmpeg-2.1.1.tar.bz2'
+    sha1 'e7a5b2d7f702c4e9ca69e23c6d3527f93de0d1bd'
   end
 
   option "without-x264", "Disable H.264 encoder"
@@ -59,6 +59,7 @@ class Ffmpeg < Formula
   depends_on 'opus' => :optional
   depends_on 'frei0r' => :optional
   depends_on 'libcaca' => :optional
+  depends_on 'libquvi' => :optional if build.devel?
 
   def install
     args = ["--prefix=#{prefix}",
@@ -96,6 +97,7 @@ class Ffmpeg < Formula
     args << "--enable-libopus" if build.with? 'opus'
     args << "--enable-frei0r" if build.with? 'frei0r'
     args << "--enable-libcaca" if build.with? 'libcaca'
+    args << "--enable-libquvi" if build.with? 'libquvi'
 
     if build.with? 'openjpeg'
       args << '--enable-libopenjpeg'
@@ -107,7 +109,7 @@ class Ffmpeg < Formula
 
     # For 32-bit compilation under gcc 4.2, see:
     # http://trac.macports.org/ticket/20938#comment:22
-    ENV.append_to_cflags "-mdynamic-no-pic" if Hardware.is_32_bit? && Hardware.cpu_type == :intel && ENV.compiler == :clang
+    ENV.append_to_cflags "-mdynamic-no-pic" if Hardware.is_32_bit? && Hardware::CPU.intel? && ENV.compiler == :clang
 
     system "./configure", *args
 
