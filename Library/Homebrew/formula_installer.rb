@@ -17,6 +17,7 @@ class FormulaInstaller
   attr_reader :f
   attr_accessor :tab, :options, :ignore_deps
   attr_accessor :show_summary_heading, :show_header
+  attr_reader :unsatisfied_deps
 
   def initialize ff
     @f = ff
@@ -24,6 +25,7 @@ class FormulaInstaller
     @ignore_deps = ARGV.ignore_deps? || ARGV.interactive?
     @options = Options.new
     @tab = Tab.dummy_tab(ff)
+    @unsatisfied_deps = []
 
     @@attempted ||= Set.new
 
@@ -100,11 +102,7 @@ class FormulaInstaller
 
     check_conflicts
 
-    unless ignore_deps
-      perform_readline_hack
-      check_requirements
-      install_dependencies
-    end
+    compute_and_install_dependencies unless ignore_deps
 
     if ARGV.build_bottle? && (arch = ARGV.bottle_arch) && !Hardware::CPU.optimization_flags.include?(arch)
       raise "Unrecognized architecture for --bottle-arch: #{arch}"
@@ -139,7 +137,7 @@ class FormulaInstaller
     build_bottle_preinstall if ARGV.build_bottle?
 
     unless @poured_bottle
-      install_dependencies if @pour_failed && !ignore_deps
+      compute_and_install_dependencies if @pour_failed and not ignore_deps
       build
       clean
     end
@@ -174,6 +172,12 @@ class FormulaInstaller
     raise FormulaConflictError.new(f, conflicts) unless conflicts.empty?
   end
 
+  def compute_and_install_dependencies
+    perform_readline_hack
+    check_requirements
+    install_dependencies
+  end
+
   def check_requirements
     unsatisfied = ARGV.filter_for_dependencies do
       f.recursive_requirements do |dependent, req|
@@ -184,7 +188,7 @@ class FormulaInstaller
         elsif req.satisfied?
           Requirement.prune
         elsif req.default_formula?
-          dependent.deps << req.to_dependency
+          unsatisfied_deps << req.to_dependency
           Requirement.prune
         else
           puts "#{dependent}: #{req.message}"
@@ -234,25 +238,23 @@ class FormulaInstaller
     f.recursive_dependencies.select { |d| deps.include? d }
   end
 
-  def effective_deps
-    @effective_deps ||= filter_deps
-  end
-
   def install_dependencies
-    @effective_deps = nil if @pour_failed
+    unsatisfied_deps.concat(filter_deps)
 
-    if effective_deps.length > 1
-      oh1 "Installing dependencies for #{f}: #{Tty.green}#{effective_deps*", "}#{Tty.reset}"
+    if unsatisfied_deps.length > 1
+      oh1 "Installing dependencies for #{f}: #{Tty.green}#{unsatisfied_deps*", "}#{Tty.reset}"
     end
 
-    effective_deps.each do |dep|
+    unsatisfied_deps.each do |dep|
       if dep.requested?
        install_dependency(dep)
       else
         ARGV.filter_for_dependencies { install_dependency(dep) }
       end
     end
-    @show_header = true unless effective_deps.empty?
+    @show_header = true unless unsatisfied_deps.empty?
+  ensure
+    unsatisfied_deps.clear
   end
 
   def install_dependency dep
@@ -371,7 +373,6 @@ class FormulaInstaller
         read.close
         exec(*args)
       rescue Exception => e
-        write.flush
         Marshal.dump(e, write)
         write.close
         exit! 1
@@ -379,7 +380,6 @@ class FormulaInstaller
     end
 
     ignore_interrupts(:quietly) do # the fork will receive the interrupt and marshall it back
-      write.flush
       write.close
       Process.wait
       data = read.read
@@ -435,17 +435,12 @@ class FormulaInstaller
   end
 
   def fix_install_names
-    Keg.new(f.prefix).fix_install_names(:keg_only => f.keg_only?)
-    if @poured_bottle and f.bottle
-      old_prefix = f.bottle.prefix
-      new_prefix = HOMEBREW_PREFIX.to_s
-      old_cellar = f.bottle.cellar
-      new_cellar = HOMEBREW_CELLAR.to_s
+    keg = Keg.new(f.prefix)
+    keg.fix_install_names(:keg_only => f.keg_only?)
 
-      if old_prefix != new_prefix or old_cellar != new_cellar
-        Keg.new(f.prefix).relocate_install_names \
-          old_prefix, new_prefix, old_cellar, new_cellar, :keg_only => f.keg_only?
-      end
+    if @poured_bottle
+      keg.relocate_install_names Keg::PREFIX_PLACEHOLDER, HOMEBREW_PREFIX.to_s,
+        Keg::CELLAR_PLACEHOLDER, HOMEBREW_CELLAR.to_s, :keg_only => f.keg_only?
     end
   rescue Exception => e
     onoe "Failed to fix install names"
