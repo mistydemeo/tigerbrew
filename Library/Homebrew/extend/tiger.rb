@@ -54,3 +54,13 @@ class OpenStruct
     name
   end
 end
+
+class String
+  def rpartition(separator)
+    if ind = rindex(separator)
+      [slice(0, ind), separator, slice(ind+1, -1) || '']
+    else
+      ['', '', dup]
+    end
+  end
+end
