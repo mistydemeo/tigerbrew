@@ -28,7 +28,7 @@ class Git < Formula
   end
 
   if MacOS.version < :snow_leopard
-    depends_on 'curl' if MacOS.version < :snow_leopard
+    depends_on 'curl'
   else
     depends_on 'curl' => 'with-darwinssl' if build.with? 'brewed-curl'
   end
