@@ -50,17 +50,6 @@ class Git < Formula
   end
 
   def patches
-    if MacOS.version >= :mavericks
-      # Allow using PERLLIB_EXTRA to find Subversion Perl bindings location
-      # in the CLT/Xcode. Should be included in Git 1.8.6.
-      # https://git.kernel.org/cgit/git/git.git/commit/?h=next&id=07981d
-      # https://git.kernel.org/cgit/git/git.git/commit/?h=next&id=0386dd
-      ['https://git.kernel.org/cgit/git/git.git/patch/?id=07981d',
-       'https://git.kernel.org/cgit/git/git.git/patch/?id=0386dd']
-    end
-  end
-
-  def patches
     # ld64 understands -rpath but rejects it on Tiger
     'https://trac.macports.org/export/106975/trunk/dports/devel/git-core/files/patch-Makefile.diff'
   end if MacOS.version == :tiger
