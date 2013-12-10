@@ -15,10 +15,6 @@ class Bison < Formula
 
   keg_only :provided_by_osx, 'Some formulae require a newer version of bison.'
 
-  # Disable perl -f flag, which Tiger's perl doesn't recognize.
-  # Applied upstream: http://lists.gnu.org/archive/html/bug-bison/2013-08/msg00010.html
-  def patches; DATA; end
-
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"
