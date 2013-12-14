@@ -249,7 +249,7 @@ def paths
 end
 
 module GitHub extend self
-  ISSUES_URI = URI.parse("https://api.github.com/legacy/issues/search/mistydemeo/tiger/open/")
+  ISSUES_URI = URI.parse("https://api.github.com/legacy/issues/search/mistydemeo/tigerbrew/open/")
 
   Error = Class.new(StandardError)
 
