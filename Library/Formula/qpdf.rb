@@ -5,8 +5,8 @@ class Qpdf < Formula
   url 'http://downloads.sourceforge.net/project/qpdf/qpdf/5.1.0/qpdf-5.1.0.tar.gz'
   sha1 'a2aafad5c49efb62e98e6895bb96ca423179bf43'
 
+  depends_on 'homebrew/dupes/make' => :build if MacOS.version == :tiger
   depends_on 'pcre'
-  depends_on 'homebrew/dupes/make' if MacOS.version == :tiger
 
   def install
     # find Homebrew's libpcre
