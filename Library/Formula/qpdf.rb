@@ -6,6 +6,7 @@ class Qpdf < Formula
   sha1 'a2aafad5c49efb62e98e6895bb96ca423179bf43'
 
   depends_on 'pcre'
+  depends_on 'homebrew/dupes/make' if MacOS.version == :tiger
 
   def install
     # find Homebrew's libpcre
