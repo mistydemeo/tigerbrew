@@ -17,7 +17,7 @@ class Icu4c < Formula
   # build tries to pass -compatibility-version to ld, which Tiger's ld can't grok
   depends_on :ld64
 
-  keg_only "Conflicts; see: https://github.com/mxcl/homebrew/issues/issue/167"
+  keg_only "Conflicts; see: https://github.com/Homebrew/homebrew/issues/issue/167"
 
   option :universal
   option :cxx11

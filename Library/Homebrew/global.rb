@@ -67,8 +67,10 @@ else
 end
 
 HOMEBREW_LOGS = Pathname.new(ENV['HOMEBREW_LOGS'] || '~/Library/Logs/Homebrew/').expand_path
+HOMEBREW_TEMP = Pathname.new(ENV.fetch('HOMEBREW_TEMP', '/tmp'))
 
 RbConfig = Config if RUBY_VERSION < "1.8.6" # different module name on Tiger
+
 RUBY_BIN = Pathname.new(RbConfig::CONFIG['bindir'])
 RUBY_PATH = RUBY_BIN + RbConfig::CONFIG['ruby_install_name']
 # concatenating an extra string concats a '/' on Tiger. Really.
