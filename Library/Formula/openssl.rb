@@ -2,7 +2,7 @@ require 'formula'
 
 class Openssl < Formula
   homepage 'http://openssl.org'
-  url 'http://openssl.org/source/openssl-1.0.1e.tar.gz'
+  url 'http://www.openssl.org/source/openssl-1.0.1e.tar.gz'
   mirror 'http://mirrors.ibiblio.org/openssl/source/openssl-1.0.1e.tar.gz'
   # This has to be an sha1 because Tiger's system openssl doesn't do sha256;
   # we depend on Homebrew's openssl to calculate sha256 hashes

@@ -261,7 +261,7 @@ class Test
     dependencies = dependencies.join(' ')
     formula_object = Formula.factory(formula)
     requirements = formula_object.recursive_requirements
-    unsatisfied_requirements = requirements.reject {|r| r.satisfied?}
+    unsatisfied_requirements = requirements.reject {|r| r.satisfied? or r.default_formula?}
     unless unsatisfied_requirements.empty?
       puts "#{Tty.blue}==>#{Tty.white} SKIPPING: #{formula}#{Tty.reset}"
       unsatisfied_requirements.each {|r| puts r.message}
@@ -474,7 +474,7 @@ if ARGV.include? "--junit"
       failure = testcase.add_element 'failure' if step.failed?
       if step.has_output?
         # Remove invalid XML CData characters from step output.
-        output = REXML::CData.new step.output.gsub(/\000\00c\e/, '')
+        output = REXML::CData.new step.output.delete("\000\f\e")
         if step.passed?
           system_out = testcase.add_element 'system-out'
           system_out.text = output
