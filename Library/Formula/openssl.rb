@@ -2,11 +2,11 @@ require 'formula'
 
 class Openssl < Formula
   homepage 'http://openssl.org'
-  url 'http://www.openssl.org/source/openssl-1.0.1e.tar.gz'
-  mirror 'http://mirrors.ibiblio.org/openssl/source/openssl-1.0.1e.tar.gz'
+  url 'https://www.openssl.org/source/openssl-1.0.1f.tar.gz'
+  mirror 'http://mirrors.ibiblio.org/openssl/source/openssl-1.0.1f.tar.gz'
   # This has to be an sha1 because Tiger's system openssl doesn't do sha256;
   # we depend on Homebrew's openssl to calculate sha256 hashes
-  sha1 '3f1b1223c9e8189bfe4e186d86449775bd903460'
+  sha1 '9ef09e97dfc9f14ac2c042f3b7e301098794fc0f'
 
   keg_only :provided_by_osx,
     "The OpenSSL provided by OS X is too old for some software."
@@ -88,6 +88,7 @@ class Openssl < Formula
       write_pem_file
       openssldir.install_symlink 'osx_cert.pem' => 'cert.pem'
     end
+<<<<<<< HEAD
   end if MacOS.version > :leopard
 
   def caveats; <<-EOS.undent
@@ -96,4 +97,17 @@ class Openssl < Formula
         brew install curl-ca-bundle
     EOS
   end if MacOS.version <= :leopard
+=======
+  end
+
+  test do
+    (testpath/'testfile.txt').write("This is a test file")
+    expected_checksum = "91b7b0b1e27bfbf7bc646946f35fa972c47c2d32"
+    system "#{bin}/openssl", 'dgst', '-sha1', '-out', 'checksum.txt', 'testfile.txt'
+    open("checksum.txt") do |f|
+      checksum = f.read(100).split("=").last.strip
+      assert_equal checksum, expected_checksum
+    end
+  end
+>>>>>>> Homebrew/master
 end

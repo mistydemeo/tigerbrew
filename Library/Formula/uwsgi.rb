@@ -7,16 +7,13 @@ class Uwsgi < Formula
 
   # See https://github.com/unbit/uwsgi/issues/334
   depends_on :ld64
-  depends_on :python
   depends_on 'pcre'
   depends_on 'libyaml'
 
   def install
-    python do
-      %w{CFLAGS LDFLAGS}.each { |e| ENV.append e, "-arch #{MacOS.preferred_arch}" }
+    %w{CFLAGS LDFLAGS}.each { |e| ENV.append e, "-arch #{MacOS.preferred_arch}" }
 
-      system python, "uwsgiconfig.py", "--build"
-      bin.install "uwsgi"
-    end
+    system "python", "uwsgiconfig.py", "--build"
+    bin.install "uwsgi"
   end
 end

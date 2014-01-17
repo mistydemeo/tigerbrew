@@ -19,6 +19,7 @@ Writing formulae
 Please read:
 
 * [Formula Cookbook](https://github.com/Homebrew/homebrew/wiki/Formula-Cookbook)
+* [Ruby Style Guide](https://github.com/styleguide/ruby)
 
 Tigerbrew guidelines
 --------------------

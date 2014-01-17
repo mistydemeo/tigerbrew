@@ -30,10 +30,10 @@ class Nginx < Formula
   skip_clean 'logs'
 
   def passenger_config_args
-    passenger_root = `passenger-config --root`.chomp
+    nginx_ext = `passenger-config --nginx-addon-dir`.chomp
 
-    if File.directory?(passenger_root)
-      return "--add-module=#{passenger_root}/ext/nginx"
+    if File.directory?(nginx_ext)
+      return "--add-module=#{nginx_ext}"
     end
 
     puts "Unable to install nginx with passenger support. The passenger"
@@ -125,7 +125,7 @@ class Nginx < Formula
   def passenger_caveats; <<-EOS.undent
 
     To activate Phusion Passenger, add this to #{etc}/nginx/nginx.conf:
-      passenger_root #{HOMEBREW_PREFIX}/opt/passenger/libexec
+      passenger_root #{HOMEBREW_PREFIX}/opt/passenger/libexec/lib/phusion_passenger/locations.ini
       passenger_ruby /usr/bin/ruby
     EOS
   end

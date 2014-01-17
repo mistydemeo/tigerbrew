@@ -25,6 +25,9 @@ class Pcre < Formula
     args = [ "--disable-dependency-tracking",
               "--prefix=#{prefix}",
               "--enable-utf8",
+              "--enable-pcre8",
+              "--enable-pcre16",
+              "--enable-pcre32",
               "--enable-unicode-properties",
               "--enable-pcregrep-libz",
               "--enable-pcregrep-libbz2" ]
