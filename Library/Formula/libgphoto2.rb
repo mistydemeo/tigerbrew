@@ -17,7 +17,6 @@ class Libgphoto2 < Formula
   end
 
   def install
-    ENV.libxml2 # https://sourceforge.net/p/gphoto/bugs/957/; check at 2.5.3
     ENV.universal_binary if build.universal?
 
     system "./configure", "--disable-dependency-tracking",
