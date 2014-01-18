@@ -106,5 +106,4 @@ class Openssl < Formula
       assert_equal checksum, expected_checksum
     end
   end
->>>>>>> Homebrew/master
 end
