@@ -88,7 +88,6 @@ class Openssl < Formula
       write_pem_file
       openssldir.install_symlink 'osx_cert.pem' => 'cert.pem'
     end
-<<<<<<< HEAD
   end if MacOS.version > :leopard
 
   def caveats; <<-EOS.undent
@@ -96,8 +95,6 @@ class Openssl < Formula
 
         brew install curl-ca-bundle
     EOS
-  end if MacOS.version <= :leopard
-=======
   end
 
   test do
