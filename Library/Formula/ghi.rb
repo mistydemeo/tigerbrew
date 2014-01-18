@@ -5,6 +5,8 @@ class Ghi < Formula
   url 'https://github.com/stephencelis/ghi/archive/0.9.0.20131120.tar.gz'
   sha1 '7d1b245f22f78338ec3c5d1696af80b1437c3c7a'
 
+  depends_on 'homebrew/dupes/less' if MacOS.version == :tiger
+
   def install
     bin.install "ghi"
     man1.install "man/ghi.1"
