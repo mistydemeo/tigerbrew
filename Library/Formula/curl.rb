@@ -42,11 +42,6 @@ class Curl < Formula
     args << "--with-libssh2" if build.with? 'ssh'
     args << "--with-libmetalink" if build.with? 'libmetalink'
     args << "--enable-ares=#{Formula.factory("c-ares").opt_prefix}" if build.with? 'ares'
-<<<<<<< HEAD
-    args << "--with-ssl=#{Formula.factory("openssl").opt_prefix}" if build.with?('ssl') || MacOS.version < :snow_leopard
-    args << "--with-darwinssl" if build.with? 'darwinssl'
-=======
->>>>>>> Homebrew/master
     args << "--with-gssapi" if build.with? 'gssapi'
 
     # Tiger/Leopard ship with a horrendously outdated set of certs,
