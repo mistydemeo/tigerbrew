@@ -17,8 +17,6 @@ class Libgphoto2 < Formula
   end
 
   def install
-    ENV.universal_binary if build.universal?
-
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}", "CFLAGS=-D_DARWIN_C_SOURCE"
     system "make install"
