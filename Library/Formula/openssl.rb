@@ -8,6 +8,12 @@ class Openssl < Formula
   # we depend on Homebrew's openssl to calculate sha256 hashes
   sha1 '9ef09e97dfc9f14ac2c042f3b7e301098794fc0f'
 
+  bottle do
+    sha1 "2687c0abb5e23d765bbd0024a010e36b05a8939e" => :mavericks
+    sha1 "dcaee2f1e51e8d0da7614e6dab4fc334f736d0de" => :mountain_lion
+    sha1 "4fabb39f5db46e8e62bf0b05e0133cd7e717860a" => :lion
+  end
+
   keg_only :provided_by_osx,
     "The OpenSSL provided by OS X is too old for some software."
 
