@@ -20,6 +20,16 @@ class John < Formula
     ENV.deparallelize
     arch = MacOS.prefer_64_bit? ? '64' : 'sse2'
     target = "macosx-x86-#{arch}"
+    if Hardware::CPU.ppc?
+      if MacOS.prefer_64_bit?
+        arch = 'ppc64'
+      else
+        arch = 'ppc32'
+        arch += '-altivec' if Hardware::CPU.altivec?
+      end
+
+      target = "macos-#{arch}"
+    end
 
     cd 'src' do
       inreplace 'Makefile' do |s|
