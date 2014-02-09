@@ -30,6 +30,16 @@ class JohnJumbo < Formula
     arch += '-opencl'
 
     target = "macosx-x86-#{arch}"
+    if Hardware::CPU.ppc?
+      if MacOS.prefer_64_bit?
+        arch = 'ppc64'
+      else
+        arch = 'ppc32'
+        arch += '-altivec' if Hardware::CPU.altivec?
+      end
+
+      target = "macos-#{arch}"
+    end
 
     cd 'src' do
       inreplace 'Makefile' do |s|
