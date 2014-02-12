@@ -290,7 +290,7 @@ module GitHub extend self
 
   def issues_matching(query)
     uri = ISSUES_URI.dup
-    uri.query = "q=#{uri_escape(query)}+repo:mistydemeo/tigerbrew&per_page=100"
+    uri.query = "q=#{uri_escape(query)}+repo:mistydemeo/tigerbrew+in:title&per_page=100"
     open(uri) { |json| json["items"] }
   end
 
@@ -304,14 +304,8 @@ module GitHub extend self
   end
 
   def issues_for_formula name
-    # bit basic as depends on the issue at github having the exact name of the
-    # formula in it. Which for stuff like objective-caml is unlikely. So we
-    # really should search for aliases too.
-
-    name = f.name if Formula === name
-
     # don't include issues that just refer to the tool in their body
-    issues_matching(name).select {|issue| issue['title'].include? name }
+    issues_matching(name).select { |issue| issue["state"] == "open" }
   end
 
   def find_pull_requests rx
@@ -321,7 +315,7 @@ module GitHub extend self
     query = rx.source.delete('.*').gsub('\\', '')
 
     open_or_closed_prs = issues_matching(query).select do |issue|
-      rx === issue["title"] && issue["pull_request"]["html_url"]
+      issue["pull_request"]["html_url"]
     end
 
     open_prs = open_or_closed_prs.select {|i| i["state"] == "open" }
