@@ -37,6 +37,7 @@ class Mutt < Formula
   depends_on 'cyrus-sasl' if MacOS.version < :leopard
   depends_on 'tokyo-cabinet'
   depends_on 's-lang' => :optional
+  depends_on 'gpgme' => :optional
 
   def patches
     urls = [
@@ -74,6 +75,7 @@ class Mutt < Formula
             # unpriviledged user)
             "--with-homespool=.mbox"]
     args << "--with-slang" if build.with? 's-lang'
+    args << "--enable-gpgme" if build.with? 'gpgme'
 
     if build.with? 'debug'
       args << "--enable-debug"
