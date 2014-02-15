@@ -50,7 +50,7 @@ class Git < Formula
   def patches
     p = []
     # ld64 understands -rpath but rejects it on Tiger
-    p << 'https://trac.macports.org/export/106975/trunk/dports/devel/git-core/files/patch-Makefile.diff'
+    p << 'https://trac.macports.org/export/106975/trunk/dports/devel/git-core/files/patch-Makefile.diff' if MacOS.version < :leopard
 
     if MacOS.version >= :mavericks and not build.head?
       # Allow using PERLLIB_EXTRA to find Subversion Perl bindings location
