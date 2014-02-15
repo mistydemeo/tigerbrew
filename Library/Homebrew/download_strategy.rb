@@ -480,7 +480,7 @@ class GitDownloadStrategy < VCSDownloadStrategy
     %r{http://llvm\.org},
   ]
 
-  def initialize name, resources
+  def initialize name, resource
     super
     @shallow = resource.specs.fetch(:shallow) { true }
   end
