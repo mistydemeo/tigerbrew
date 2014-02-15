@@ -7,6 +7,7 @@ class Glib < Formula
 
   option :universal
   option 'test', 'Build a debug build and run tests. NOTE: Not all tests succeed yet'
+  option 'with-static', 'Build glib with a static archive.'
 
   depends_on 'pkg-config' => :build
   depends_on 'gettext'
@@ -55,6 +56,8 @@ class Glib < Formula
       --localstatedir=#{var}
       --with-gio-module-dir=#{HOMEBREW_PREFIX}/lib/gio/modules
     ]
+
+    args << '--enable-static' if build.with? 'static'
 
     system "./configure", *args
 
