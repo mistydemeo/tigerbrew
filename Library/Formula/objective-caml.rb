@@ -8,6 +8,7 @@ class ObjectiveCaml < Formula
   head 'http://caml.inria.fr/svn/ocaml/trunk', :using => :svn
 
   depends_on :x11 if MacOS::X11.installed?
+  depends_on :ld64
 
   bottle do
     sha1 'cba09036b0ddc87f04675f3ceaac2c46b99dcb20' => :mountain_lion
