@@ -23,6 +23,7 @@ class Coq < Formula
   head 'git://scm.gforge.inria.fr/coq/coq.git'
 
   depends_on 'homebrew/dupes/make' => :build if MacOS.version < :leopard
+  depends_on :ld64 # needs -no_compact_unwind
   depends_on TransitionalMode
   depends_on 'objective-caml'
   depends_on 'camlp5'
