@@ -5,6 +5,7 @@ class Camlp5 < Formula
   url 'http://pauillac.inria.fr/~ddr/camlp5/distrib/src/camlp5-6.11.tgz'
   sha1 '4649a2850869d624182bfb5a02f60800ae35b935'
 
+  depends_on :ld64 # uses -no_compact_unwind
   depends_on 'objective-caml'
 
   option 'strict', 'Compile in strict mode'
