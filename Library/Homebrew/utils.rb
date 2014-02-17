@@ -251,9 +251,37 @@ end
 module GitHub extend self
   ISSUES_URI = URI.parse("https://api.github.com/search/issues")
 
-  Error = Class.new(StandardError)
-  RateLimitExceededError = Class.new(Error)
+  Error = Class.new(RuntimeError)
   HTTPNotFoundError = Class.new(Error)
+
+  class RateLimitExceededError < Error
+    def initialize(reset, error)
+      super <<-EOS.undent
+        GitHub #{error}
+        Try again in #{pretty_ratelimit_reset(reset)}, or create an API token:
+          https://github.com/settings/applications
+        and then set HOMEBREW_GITHUB_API_TOKEN.
+        EOS
+    end
+
+    def pretty_ratelimit_reset(reset)
+      if (seconds = Time.at(reset) - Time.now) > 180
+        "%d minutes %d seconds" % [seconds / 60, seconds % 60]
+      else
+        "#{seconds} seconds"
+      end
+    end
+  end
+
+  class AuthenticationFailedError < Error
+    def initialize(error)
+      super <<-EOS.undent
+        GitHub #{error}
+        HOMEBREW_GITHUB_API_TOKEN may be invalid or expired, check:
+          https://github.com/settings/applications
+        EOS
+    end
+  end
 
   def open url, headers={}, &block
     # This is a no-op if the user is opting out of using the GitHub API.
@@ -271,21 +299,28 @@ module GitHub extend self
       yield Utils::JSON.load(f.read)
     end
   rescue OpenURI::HTTPError => e
-    if e.io.meta['x-ratelimit-remaining'].to_i <= 0
-      raise RateLimitExceededError, <<-EOS.undent, e.backtrace
-        GitHub #{Utils::JSON.load(e.io.read)['message']}
-        You may want to create an API token: https://github.com/settings/applications
-        and then set HOMEBREW_GITHUB_API_TOKEN.
-        EOS
-    elsif e.io.status.first == "404"
-      raise HTTPNotFoundError, e.message, e.backtrace
-    else
-      raise Error, e.message, e.backtrace
-    end
+    handle_api_error(e)
   rescue SocketError, OpenSSL::SSL::SSLError => e
     raise Error, "Failed to connect to: #{url}\n#{e.message}", e.backtrace
   rescue Utils::JSON::Error => e
     raise Error, "Failed to parse JSON response\n#{e.message}", e.backtrace
+  end
+
+  def handle_api_error(e)
+    if e.io.meta["x-ratelimit-remaining"].to_i <= 0
+      reset = e.io.meta.fetch("x-ratelimit-reset").to_i
+      error = Utils::JSON.load(e.io.read)["message"]
+      raise RateLimitExceededError.new(reset, error)
+    end
+
+    case e.io.status.first
+    when "401", "403"
+      raise AuthenticationFailedError.new(e.message)
+    when "404"
+      raise HTTPNotFoundError, e.message, e.backtrace
+    else
+      raise Error, e.message, e.backtrace
+    end
   end
 
   def issues_matching(query, qualifiers={})
