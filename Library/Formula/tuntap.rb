@@ -2,9 +2,15 @@ require 'formula'
 
 class Tuntap < Formula
   homepage 'http://tuntaposx.sourceforge.net/'
-  url 'git://git.code.sf.net/p/tuntaposx/code', :tag => 'release_20111101'
+
+  # 20111101 dropped support for PowerPC, but still runs on 10.4
+  # 20090913 is the last release that supports PowerPC at all.
+  tag = Hardware::CPU.ppc? ? 'release_20090913' : 'release_20111101'
+  url 'git://git.code.sf.net/p/tuntaposx/code', :tag => tag
 
   head 'git://git.code.sf.net/p/tuntaposx/code', :branch => 'master'
+
+  depends_on :arch => :intel if build.head?
 
   def install
     ENV.j1 # to avoid race conditions (can't open: ../tuntap.o)
