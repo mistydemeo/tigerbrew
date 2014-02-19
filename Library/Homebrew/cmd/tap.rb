@@ -109,6 +109,9 @@ module Homebrew extend self
   end
 
   def private_tap?(user, repo)
+    # Can't use Github API on old Ruby versions
+    return false if RUBY_VERSION < '1.8.7'
+
     GitHub.private_repo?(user, "homebrew-#{repo}")
   rescue GitHub::HTTPNotFoundError => e
     true
