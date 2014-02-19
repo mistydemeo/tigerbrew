@@ -7,6 +7,8 @@ class Pianobar < Formula
 
   head 'https://github.com/PromyLOPh/pianobar.git'
 
+  # See https://github.com/mistydemeo/tigerbrew/issues/174
+  depends_on 'homebrew/dupes/make' => :build if MacOS.version < :leopard
   depends_on 'pkg-config' => :build
   depends_on 'libao'
   depends_on 'mad'
