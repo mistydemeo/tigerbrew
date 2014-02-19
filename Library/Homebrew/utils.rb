@@ -288,7 +288,9 @@ module GitHub extend self
 
   def open url, headers={}, &block
     # This is a no-op if the user is opting out of using the GitHub API.
-    return if ENV['HOMEBREW_NO_GITHUB_API']
+    # Also disabled for older Ruby versions, which will either
+    # not support HTTPS in open-uri or not have new enough certs.
+    return if ENV['HOMEBREW_NO_GITHUB_API'] || RUBY_VERSION < '1.8.7'
 
     require 'net/https' # for exception classes below
 
@@ -361,7 +363,8 @@ module GitHub extend self
   end
 
   def print_pull_requests_matching(query)
-    return if ENV['HOMEBREW_NO_GITHUB_API']
+    # Disabled on older Ruby versions - see above
+    return if ENV['HOMEBREW_NO_GITHUB_API'] || RUBY_VERSION < '1.8.7'
     puts "Searching pull requests..."
 
     open_or_closed_prs = issues_matching(query, :type => "pr")
