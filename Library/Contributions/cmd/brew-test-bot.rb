@@ -274,7 +274,9 @@ class Test
       test "brew install apple-gcc42"
     end
 
-    test "brew fetch #{dependencies}" unless dependencies.empty?
+    deps_fetch_options = " "
+    deps_fetch_options << " --force" if ARGV.include? '--cleanup'
+    test "brew fetch#{deps_fetch_options} #{dependencies}" unless dependencies.empty?
     formula_fetch_options = " "
     formula_fetch_options << " --build-bottle" unless ARGV.include? '--no-bottle'
     formula_fetch_options << " --force" if ARGV.include? '--cleanup'
@@ -335,8 +337,6 @@ class Test
     @category = __method__
     force_flag = ''
     if ARGV.include? '--cleanup'
-      test 'brew cleanup -s'
-      test "rm -vrf #{HOMEBREW_CACHE}/*"
       test 'git clean --force -dx'
       force_flag = '-f'
     end
@@ -445,7 +445,7 @@ if ARGV.include? '--ci-pr-upload' or ARGV.include? '--ci-testing-upload'
 
   remote = "git@github.com:BrewTestBot/homebrew.git"
   tag = pr ? "pr-#{pr}" : "testing-#{number}"
-  safe_system "git push --force #{remote} :refs/tags/#{tag}"
+  safe_system "git push --force #{remote} master:master :refs/tags/#{tag}"
 
   path = "/home/frs/project/m/ma/machomebrew/Bottles/"
   url = "BrewTestBot,machomebrew@frs.sourceforge.net:#{path}"
@@ -523,6 +523,11 @@ if ARGV.include? "--email"
   File.open EMAIL_SUBJECT_FILE, 'w' do |file|
     file.write email_subject
   end
+end
+
+if ARGV.include? "--cleanup"
+  safe_system "brew cleanup -s"
+  safe_system "rm -vrf #{HOMEBREW_CACHE}/*"
 end
 
 exit any_errors ? 0 : 1
