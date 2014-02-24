@@ -113,7 +113,7 @@ module Homebrew extend self
     return false if RUBY_VERSION < '1.8.7'
 
     GitHub.private_repo?(user, "homebrew-#{repo}")
-  rescue GitHub::HTTPNotFoundError => e
+  rescue GitHub::HTTPNotFoundError
     true
   rescue GitHub::Error
     false

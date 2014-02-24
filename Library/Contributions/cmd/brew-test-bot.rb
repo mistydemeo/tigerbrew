@@ -5,6 +5,7 @@
 # Options:
 # --keep-logs:    Write and keep log files under ./brewbot/
 # --cleanup:      Clean the Homebrew directory. Very dangerous. Use with care.
+# --clean-cache:  Remove all cached downloads. Use with care.
 # --skip-setup:   Don't check the local system is setup correctly.
 # --junit:        Generate a JUnit XML test results file.
 # --email:        Generate an email subject file.
@@ -274,9 +275,7 @@ class Test
       test "brew install apple-gcc42"
     end
 
-    deps_fetch_options = " "
-    deps_fetch_options << " --force" if ARGV.include? '--cleanup'
-    test "brew fetch#{deps_fetch_options} #{dependencies}" unless dependencies.empty?
+    test "brew fetch #{dependencies}" unless dependencies.empty?
     formula_fetch_options = " "
     formula_fetch_options << " --build-bottle" unless ARGV.include? '--no-bottle'
     formula_fetch_options << " --force" if ARGV.include? '--cleanup'
@@ -329,7 +328,7 @@ class Test
     git 'am --abort 2>/dev/null'
     git 'rebase --abort 2>/dev/null'
     git 'reset --hard'
-    git 'checkout -f master'
+    git 'checkout -f master 2>/dev/null'
     git 'clean --force -dx'
   end
 
@@ -348,6 +347,7 @@ class Test
     if ARGV.include? '--cleanup'
       test 'git reset --hard'
       git 'stash pop 2>/dev/null'
+      test 'brew cleanup'
     end
 
     FileUtils.rm_rf @brewbot_root unless ARGV.include? "--keep-logs"
@@ -525,9 +525,7 @@ if ARGV.include? "--email"
   end
 end
 
-if ARGV.include? "--cleanup"
-  safe_system "brew cleanup -s"
-  safe_system "rm -vrf #{HOMEBREW_CACHE}/*"
-end
+
+safe_system "rm -rf #{HOMEBREW_CACHE}/*" if ARGV.include? "--clean-cache"
 
 exit any_errors ? 0 : 1

@@ -13,6 +13,7 @@ Writing formulae
 ----------------
 Please read:
 
+* [Code of Conduct](https://github.com/Homebrew/homebrew/blob/master/CODEOFCONDUCT.md)
 * [Formula Cookbook](https://github.com/Homebrew/homebrew/wiki/Formula-Cookbook)
 * [Ruby Style Guide](https://github.com/styleguide/ruby)
 
