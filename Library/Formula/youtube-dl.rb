@@ -2,8 +2,8 @@ require 'formula'
 
 class YoutubeDl < Formula
   homepage 'http://rg3.github.io/youtube-dl/'
-  url 'https://yt-dl.org/downloads/2014.02.24/youtube-dl-2014.02.24.tar.gz'
-  sha1 'f9065de654e00e3b8daed0a454f7f65789f89067'
+  url 'https://yt-dl.org/downloads/2014.02.25/youtube-dl-2014.02.25.tar.gz'
+  sha1 '8af4c222d451e30ba59d3da916b31789e7879e22'
 
   depends_on 'rtmpdump' => :optional
 
@@ -18,7 +18,7 @@ class YoutubeDl < Formula
     "To use post-processing options, `brew install ffmpeg`."
   end
 
-  def test
+  test do
     system "#{bin}/youtube-dl", '--simulate', 'http://www.youtube.com/watch?v=he2a4xK8ctk'
   end
 end
