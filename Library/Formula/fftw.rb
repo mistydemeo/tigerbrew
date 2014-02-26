@@ -13,6 +13,7 @@ class Fftw < Formula
   end
 
   option "with-fortran", "Enable Fortran bindings"
+  option :universal
 
   depends_on :fortran => :optional
 
@@ -37,6 +38,8 @@ class Fftw < Formula
     elsif Hardware::CPU.altivec?
       simd_single << "--enable-altivec" # altivec seems to only work with single precision
     end
+
+    ENV.universal_binary if build.universal?
 
     # single precision
     # enable-sse only works with single
