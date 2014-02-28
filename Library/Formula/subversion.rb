@@ -86,7 +86,7 @@ class Subversion < Formula
       # scons ignores our compiler and flags unless explicitly passed
       args = %W[PREFIX=#{serf_prefix} GSSAPI=/usr CC=#{ENV.cc}
                 CFLAGS=#{ENV.cflags} LINKFLAGS=#{ENV.ldflags}]
-      args << "OPENSSL=#{Formula.factory('openssl').opt_prefix}" if build.with? 'brewed-openssl'
+      args << "OPENSSL=#{Formula["openssl"].opt_prefix}" if build.with? 'brewed-openssl'
 
       if MacOS.version < :leopard
         args << "APR=#{Formula.factory('apr').opt_prefix}/bin/apr-1-config"
@@ -135,7 +135,7 @@ class Subversion < Formula
             "--prefix=#{prefix}",
             "--with-apr=#{apr_bin}",
             "--with-zlib=/usr",
-            "--with-sqlite=#{Formula.factory('sqlite').opt_prefix}",
+            "--with-sqlite=#{Formula["sqlite"].opt_prefix}",
             "--with-serf=#{serf_prefix}",
             "--disable-mod-activation",
             "--disable-nls",
