@@ -28,7 +28,7 @@ class Faac < Formula
 
     # libtool ignores our LDFLAGS :(
     inreplace "libtool" do |s|
-      s.change_make_var! 'wl', "-B#{Formula.factory('ld64').bin}/ -Wl,"
+      s.change_make_var! 'wl', "-B#{Formula['ld64'].bin}/ -Wl,"
     end if MacOS.version < :leopard
 
     system "make install"

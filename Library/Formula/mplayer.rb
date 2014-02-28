@@ -68,7 +68,7 @@ class Mplayer < Formula
     args << "--enable-caca" if build.with? 'libcaca'
 
 
-    make = MacOS.version < :leopard ? Formula.factory('homebrew/dupes/make').bin/'make' : 'make'
+    make = MacOS.version < :leopard ? Formula['homebrew/dupes/make'].bin/'make' : 'make'
 
     system "./configure", *args
     system make.to_s

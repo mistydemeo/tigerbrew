@@ -57,7 +57,7 @@ class Git < Formula
     ENV.no_optimization if MacOS.version == :tiger
 
     if MacOS.version == :tiger
-      tar = Formula.factory('gnu-tar')
+      tar = Formula['gnu-tar']
       tab = Tab.for_keg tar.installed_prefix
       tar_name = tab.used_options.include?('--default-names') ? tar.bin/'tar' : tar.bin/'gtar'
       inreplace 'Makefile' do |s|
@@ -72,7 +72,7 @@ class Git < Formula
     ENV['NO_R_TO_GCC_LINKER'] = '1' # pass arguments to LD correctly
     ENV['PYTHON_PATH'] = which 'python'
     ENV['PERL_PATH'] = which 'perl'
-    ENV['CURLDIR'] = Formula.factory('curl').opt_prefix if MacOS.version < :snow_leopard
+    ENV['CURLDIR'] = Formula['curl'].opt_prefix if MacOS.version < :snow_leopard
     ENV['NO_APPLE_COMMON_CRYPTO'] = '1' if MacOS.version < :leopard
 
     if MacOS.version >= :mavericks and MacOS.dev_tools_prefix
@@ -90,7 +90,7 @@ class Git < Formula
       ENV['LIBPCREDIR'] = Formula['pcre'].opt_prefix
     end
 
-    ENV['LD'] = Formula.factory('ld64').opt_prefix/'bin/ld'
+    ENV['LD'] = Formula['ld64'].opt_prefix/'bin/ld'
     ENV['NO_GETTEXT'] = '1' unless build.with? 'gettext'
 
     system "make", "prefix=#{prefix}",
