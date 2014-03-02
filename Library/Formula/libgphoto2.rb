@@ -5,6 +5,8 @@ class Libgphoto2 < Formula
   url 'http://downloads.sourceforge.net/project/gphoto/libgphoto/2.5.1/libgphoto2-2.5.1.tar.bz2'
   sha1 '22ea99af344ca712db4d87a506ca2fc34c70e61a'
 
+  option :universal
+
   depends_on 'pkg-config' => :build
   depends_on :libtool => :run
   depends_on 'libusb-compat'
