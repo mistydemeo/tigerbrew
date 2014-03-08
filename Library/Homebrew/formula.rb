@@ -10,6 +10,7 @@ require 'build_options'
 require 'formulary'
 require 'software_spec'
 require 'install_renamed'
+require 'pkg_version'
 
 class Formula
   include FileUtils
@@ -18,6 +19,7 @@ class Formula
 
   attr_reader :name, :path, :homepage, :build
   attr_reader :stable, :bottle, :devel, :head, :active_spec
+  attr_reader :pkg_version, :revision
 
   # The current working directory during builds and tests.
   # Will only be non-nil inside #stage and #test.
@@ -34,6 +36,7 @@ class Formula
     @name = name
     @path = path
     @homepage = self.class.homepage
+    @revision = self.class.revision || 0
 
     set_spec :stable
     set_spec :devel
@@ -46,13 +49,23 @@ class Formula
       unless bottle.checksum.nil? || bottle.checksum.empty?
         @bottle = bottle
         bottle.url ||= bottle_url(self, bottle.current_tag)
-        bottle.version = stable.version
+        bottle.version = PkgVersion.new(stable.version, revision)
       end
     end
 
     @active_spec = determine_active_spec
     validate_attributes :url, :name, :version
     @build = determine_build_options
+
+    # TODO: @pkg_version is already set for bottles, since constructing it
+    # requires passing in the active_spec version. This should be fixed by
+    # making the bottle an attribute of SoftwareSpec rather than a separate
+    # spec itself.
+    if active_spec == bottle
+      @pkg_version = bottle.version
+    else
+      @pkg_version = PkgVersion.new(version, revision)
+    end
 
     @pin = FormulaPin.new(self)
 
@@ -150,9 +163,13 @@ class Formula
     Keg.new(installed_prefix).version
   end
 
-  def prefix(v=version)
+  # The directory in the cellar that the formula is installed to.
+  # This directory contains the formula's name and version.
+  def prefix(v=pkg_version)
     Pathname.new("#{HOMEBREW_CELLAR}/#{name}/#{v}")
   end
+  # The parent of the prefix; the named directory in the cellar containing all
+  # installed versions of this software
   def rack; prefix.parent end
 
   def bin;     prefix+'bin'     end
@@ -197,9 +214,22 @@ class Formula
   def plist_manual; self.class.plist_manual end
   def plist_startup; self.class.plist_startup end
 
+  # A stable path for this formula, when installed. Contains the formula name
+  # but no version number. Only the active version will be linked here if
+  # multiple versions are installed.
+  #
+  # This is the prefered way to refer a formula in plists or from another
+  # formula, as the path is stable even when the software is updated.
   def opt_prefix
     Pathname.new("#{HOMEBREW_PREFIX}/opt/#{name}")
   end
+
+  def opt_bin;     opt_prefix+'bin'     end
+  def opt_include; opt_prefix+'include' end
+  def opt_lib;     opt_prefix+'lib'     end
+  def opt_libexec; opt_prefix+'libexec' end
+  def opt_sbin;    opt_prefix+'sbin'    end
+  def opt_share;   opt_prefix+'share'   end
 
   # Can be overridden to selectively disable bottles from formulae.
   # Defaults to true so overridden version does not have to check if bottles
@@ -662,7 +692,7 @@ class Formula
   class << self
 
     attr_reader :keg_only_reason, :cc_failures
-    attr_rw :homepage, :plist_startup, :plist_manual
+    attr_rw :homepage, :plist_startup, :plist_manual, :revision
 
     def specs
       @specs ||= [stable, devel, head, bottle].freeze

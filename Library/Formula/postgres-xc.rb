@@ -48,13 +48,13 @@ class PostgresXc < Formula
     # Postgres fails during configure on Tiger if thread-safety is enabled
     # https://gist.github.com/shirleyallan/6282644
     args << "--enable-thread-safety" unless MacOS.version < :leopard
-    args << "--with-ossp-uuid" unless build.without? 'ossp-uuid'
+    args << "--with-ossp-uuid" if build.with? 'ossp-uuid'
     args << "--with-python" if build.with? 'python'
     args << "--with-perl" unless build.include? 'no-perl'
     args << "--enable-dtrace" if build.include? 'enable-dtrace'
     args << "ARCHFLAGS='-arch x86_64'"
 
-    unless build.without? 'ossp-uuid'
+    if build.with? 'ossp-uuid'
       ENV.append 'CFLAGS', `uuid-config --cflags`.strip
       ENV.append 'LDFLAGS', `uuid-config --ldflags`.strip
       ENV.append 'LIBS', `uuid-config --libs`.strip
@@ -169,7 +169,7 @@ class PostgresXc < Formula
       <string>#{plist_name(name)}</string>
       <key>ProgramArguments</key>
       <array>
-        <string>#{opt_prefix}/bin/gtm</string>
+        <string>#{opt_bin}/gtm</string>
         <string>-D</string>
         <string>#{var}/postgres-xc/#{name}</string>
         <string>-l</string>
@@ -197,7 +197,7 @@ class PostgresXc < Formula
       <string>#{plist_name(name)}</string>
       <key>ProgramArguments</key>
       <array>
-        <string>#{opt_prefix}/bin/gtm_proxy</string>
+        <string>#{opt_bin}/gtm_proxy</string>
         <string>-D</string>
         <string>#{var}/postgres-xc/#{name}</string>
         <string>-n</string>
@@ -231,7 +231,7 @@ class PostgresXc < Formula
       <string>#{plist_name(name)}</string>
       <key>ProgramArguments</key>
       <array>
-        <string>#{opt_prefix}/bin/postgres</string>
+        <string>#{opt_bin}/postgres</string>
         <string>-i</string>
         <string>-C</string>
         <string>-D</string>
@@ -261,7 +261,7 @@ class PostgresXc < Formula
       <string>#{plist_name(name)}</string>
       <key>ProgramArguments</key>
       <array>
-        <string>#{opt_prefix}/bin/postgres</string>
+        <string>#{opt_bin}/postgres</string>
         <string>-i</string>
         <string>-X</string>
         <string>-D</string>
