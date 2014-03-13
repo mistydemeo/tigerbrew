@@ -14,6 +14,8 @@ class Openssl < Formula
     sha1 "4fabb39f5db46e8e62bf0b05e0133cd7e717860a" => :lion
   end
 
+  depends_on "makedepend" => :build if MacOS.prefer_64_bit?
+
   keg_only :provided_by_osx,
     "The OpenSSL provided by OS X is too old for some software."
 
@@ -29,14 +31,6 @@ class Openssl < Formula
     if Hardware::CPU.type == :intel
       if MacOS.prefer_64_bit?
         args << "darwin64-x86_64-cc" << "enable-ec_nistp_64_gcc_128"
-
-        # -O3 is used under stdenv, which results in test failures when using clang
-        inreplace 'Configure',
-          %{"darwin64-x86_64-cc","cc:-arch x86_64 -O3},
-          %{"darwin64-x86_64-cc","cc:-arch x86_64 -Os}
-
-        inreplace "util/domd", %{expr "$MAKEDEPEND" : '.*gcc$' > /dev/null}, %{true}
-        inreplace "util/domd", %{${MAKEDEPEND}}, ENV.cc
       else
         args << "darwin-i386-cc"
       end
