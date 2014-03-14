@@ -364,7 +364,7 @@ module GitHub extend self
 
   def print_pull_requests_matching(query)
     # Disabled on older Ruby versions - see above
-    return if ENV['HOMEBREW_NO_GITHUB_API'] || RUBY_VERSION < '1.8.7'
+    return [] if ENV['HOMEBREW_NO_GITHUB_API'] || RUBY_VERSION < '1.8.7'
     puts "Searching pull requests..."
 
     open_or_closed_prs = issues_matching(query, :type => "pr")
