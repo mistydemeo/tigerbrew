@@ -22,7 +22,6 @@ class Cairo < Formula
   option 'without-x', 'Build without X11 support' if MacOS.version > :tiger
 
   depends_on 'pkg-config' => :build
-  depends_on 'xz'=> :build
   # harfbuzz requires cairo-ft to build
   depends_on :freetype
   depends_on :fontconfig
