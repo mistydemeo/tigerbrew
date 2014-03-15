@@ -78,7 +78,7 @@ class Postgresql < Formula
 
   def post_install
     unless File.exist? "#{var}/postgres"
-      system "#{bin}/initdb", "#{var}/postgres", '-E', 'utf8'
+      system "#{bin}/initdb", "#{var}/postgres"
     end
   end
 
