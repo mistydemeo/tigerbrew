@@ -32,20 +32,18 @@ module HomebrewArgvExtension
       raise NoSuchKegError.new(rack.basename.to_s) if not rack.directory? or dirs.empty?
 
       linked_keg_ref = HOMEBREW_REPOSITORY/"Library/LinkedKegs"/name
+      opt_prefix = HOMEBREW_PREFIX/"opt"/name
 
-      if not linked_keg_ref.symlink?
-        if dirs.length == 1
-          Keg.new(dirs.first)
-        else
-          prefix = Formula.factory(canonical_name).prefix
-          if prefix.directory?
-            Keg.new(prefix)
-          else
-            raise MultipleVersionsInstalledError.new(name)
-          end
-        end
-      else
+      if opt_prefix.symlink? && opt_prefix.directory?
+        Keg.new(opt_prefix.realpath)
+      elsif linked_keg_ref.symlink? && linked_keg_ref.directory?
         Keg.new(linked_keg_ref.realpath)
+      elsif dirs.length == 1
+        Keg.new(dirs.first)
+      elsif (prefix = Formula.factory(canonical_name).prefix).directory?
+        Keg.new(prefix)
+      else
+        raise MultipleVersionsInstalledError.new(name)
       end
     end
   rescue FormulaUnavailableError
