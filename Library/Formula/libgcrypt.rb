@@ -27,6 +27,10 @@ class Libgcrypt < Formula
     cause "basic test fails"
   end
 
+  # Otherwise PPC darwin will attempt to build x86-only code and blow up
+  # Reported upstream: https://bugs.g10code.com/gnupg/issue1616
+  def patches; DATA; end
+
   def install
     ENV.universal_binary if build.universal?
 
@@ -48,3 +52,22 @@ class Libgcrypt < Formula
     system "make install"
   end
 end
+
+__END__
+diff --git a/mpi/config.links b/mpi/config.links
+index 0217d35..f5bfea3 100644
+--- a/mpi/config.links
++++ b/mpi/config.links
+@@ -44,7 +44,11 @@ echo '/* created by config.links - do not edit */' >./mpi/asm-syntax.h
+ echo "/* Host: ${host} */" >>./mpi/asm-syntax.h
+
+ case "${host}" in
+-    powerpc-apple-darwin*          | \
++    powerpc-apple-darwin*)
++       echo '/* No working assembler modules available */' >>./mpi/asm-syntax.h
++       path=""
++       mpi_cpu_arch="ppc"
++       ;;
+     i[34567]86*-*-openbsd[12]*     | \
+     i[34567]86*-*-openbsd3.[0123]*)
+        echo '/* No working assembler modules available */' >>./mpi/asm-syntax.h
