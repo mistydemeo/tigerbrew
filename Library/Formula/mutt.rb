@@ -32,9 +32,9 @@ class Mutt < Formula
   option "with-pgp-verbose-mime-patch", "Apply PGP verbose mime patch"
   option "with-confirm-attachment-patch", "Apply confirm attachment patch"
 
-
   # mutt can't compile against Tiger's system version
   depends_on 'cyrus-sasl' if MacOS.version < :leopard
+  depends_on 'openssl'
   depends_on 'tokyo-cabinet'
   depends_on 's-lang' => :optional
   depends_on 'gpgme' => :optional
@@ -62,7 +62,7 @@ class Mutt < Formula
     args = ["--disable-dependency-tracking",
             "--disable-warnings",
             "--prefix=#{prefix}",
-            "--with-ssl",
+            "--with-ssl=#{Formula['openssl'].opt_prefix}",
             "--with-sasl",
             "--with-gss",
             "--enable-imap",
