@@ -30,20 +30,6 @@ More Documentation
 FAQ
 ---
 
-### Why "experimental"?
-
-This fork is brand-new - I started it a few weeks ago. Most of the essential functionality should be working now, but there's still a lot that hasn't been tested. You can help out by trying it out and reporting anything that doesn't currently work.
-
-### Does it work with Leopard? How about Intel?
-
-The only hardware I have to test with is a PowerPC PowerBook with Tiger. I'd *love* to support Leopard and Intel processors, but since I don't have the hardware I can't proactively work to support them.
-
-I am completely willing to help you if something doesn't work, though. Just write up a bug report and I'll see if I can get it fixed.
-
-### How about Panther (or older)?
-
-Man, I have no idea. Backporting stuff to Tiger is challenging enough, I have a feeling Panther's going to need even more attention. If you have a Panther machine and you really, really want Homebrew... give it a try I guess? Probably you'll need to put a lot of work into making it work.
-
 ### How do I switch from homebrew?
 
 Run these commands from your terminal. You must have git installed.
@@ -58,7 +44,7 @@ git reset --hard origin/master
 
 ### Something broke!
 
-Many of the formulae in the repository are currently untested on Tiger and/or PowerPC. If something doesn't work, report a bug (or submit a pull request!) and we'll get it working.
+Many of the formulae in the repository have been tested, but there are still many that haven't been testd on Tiger and/or PowerPC yet. If something doesn't work, report a bug (or submit a pull request!) and we'll get it working.
 
 Credits
 -------
