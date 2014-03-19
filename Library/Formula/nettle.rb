@@ -13,6 +13,7 @@ class Nettle < Formula
   end
 
   depends_on 'gmp'
+  depends_on 'openssl' if MacOS.version < :snow_leopard
 
   def install
     # see https://github.com/mistydemeo/tigerbrew/issues/89
