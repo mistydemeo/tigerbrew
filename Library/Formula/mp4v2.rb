@@ -2,8 +2,16 @@ require 'formula'
 
 class Mp4v2 < Formula
   homepage 'http://code.google.com/p/mp4v2/'
-  url 'https://mp4v2.googlecode.com/files/mp4v2-1.9.1.tar.bz2'
-  sha1 'c62d00e99b65efce16accd83c501fb8a57206aa8'
+
+  stable do
+    url "https://mp4v2.googlecode.com/files/mp4v2-1.9.1.tar.bz2"
+    sha1 "c62d00e99b65efce16accd83c501fb8a57206aa8"
+
+    # Fixes compile error on Lion w/Clang using a patch from svn:
+    # http://code.google.com/p/mp4v2/source/detail?r=442
+    # It is inline because there's no direct link to the raw patch.
+    patch :DATA
+  end
 
   devel do
     url 'https://mp4v2.googlecode.com/files/mp4v2-trunk-r479.tar.bz2'
@@ -13,13 +21,6 @@ class Mp4v2 < Formula
 
   # Uses -current_version flag that Tiger's ld doesn't know
   depends_on :ld64
-
-  def patches
-    # Fixes compile error on Lion w/Clang using a patch from svn:
-    # http://code.google.com/p/mp4v2/source/detail?r=442
-    # It is inline because there's no direct link to the raw patch.
-    DATA unless build.devel?
-  end
 
   def install
     system "./configure", "--disable-debug", "--prefix=#{prefix}"
