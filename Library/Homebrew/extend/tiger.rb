@@ -71,7 +71,7 @@ end
 class ERB
   module Util
     def url_encode(s)
-      s.to_s.b.gsub(/[^a-zA-Z0-9_\-.]/n) { |m|
+      s.to_s.gsub(/[^a-zA-Z0-9_\-.]/n) { |m|
         sprintf("%%%02X", m.unpack("C")[0])
       }
     end
