@@ -64,3 +64,19 @@ class String
     end
   end
 end
+
+# Used in ExternalPatch#owner= in patch.rb
+# Definition taken from Ruby 2.0, should be compatible
+# with 1.8.6 and 1.8.7.
+class ERB
+  module Util
+    def url_encode(s)
+      s.to_s.b.gsub(/[^a-zA-Z0-9_\-.]/n) { |m|
+        sprintf("%%%02X", m.unpack("C")[0])
+      }
+    end
+    alias u url_encode
+    module_function :u
+    module_function :url_encode
+  end
+end
