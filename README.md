@@ -44,7 +44,7 @@ git reset --hard origin/master
 
 ### Something broke!
 
-Many of the formulae in the repository have been tested, but there are still many that haven't been tested on Tiger and/or PowerPC yet. If something doesn't work, report a bug (or submit a pull request!) and we'll get it working.
+Many of the formulae in the repository have been tested, but there are still many that haven't been tested on Tiger and/or PowerPC yet. If something doesn't work, [report a bug][issues] (or submit a [pull request][prs]!) and we'll get it working.
 
 Credits
 -------
@@ -67,4 +67,6 @@ We accept tips through [Gittip][tip].
 [mxcl]:http://twitter.com/mxcl
 [formula]:https://github.com/mistydemeo/tigerbrew
 [license]:https://github.com/mistydemeo/tigerbrew/blob/master/Library/Homebrew/LICENSE
+[issues]:https://github.com/mistydemeo/tigerbrew/issues
+[prs]:https://github.com/mistydemeo/tigerbrew/pulls
 [tip]:https://www.gittip.com/mistydemeo/
