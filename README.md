@@ -62,10 +62,9 @@ We accept tips through [Gittip][tip].
 <script data-gittip-username="mistydemeo"
         src="//gttp.co/v1.js"></script>
 
-[home]:http://brew.sh
-[wiki]:http://wiki.github.com/Homebrew/homebrew
+[Homebrew]:http://brew.sh
+[wiki]:https://github.com/mistydemeo/tigerbrew/wiki
 [mxcl]:http://twitter.com/mxcl
-[formula]:http://github.com/Homebrew/homebrew/tree/master/Library/Formula/
-[braumeister]:http://braumeister.org
-[license]:https://github.com/Homebrew/homebrew/tree/master/Library/Homebrew/LICENSE
+[formula]:https://github.com/mistydemeo/tigerbrew
+[license]:https://github.com/mistydemeo/tigerbrew/blob/master/Library/Homebrew/LICENSE
 [tip]:https://www.gittip.com/mistydemeo/
