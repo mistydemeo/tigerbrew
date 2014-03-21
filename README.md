@@ -44,7 +44,7 @@ git reset --hard origin/master
 
 ### Something broke!
 
-Many of the formulae in the repository have been tested, but there are still many that haven't been testd on Tiger and/or PowerPC yet. If something doesn't work, report a bug (or submit a pull request!) and we'll get it working.
+Many of the formulae in the repository have been tested, but there are still many that haven't been tested on Tiger and/or PowerPC yet. If something doesn't work, report a bug (or submit a pull request!) and we'll get it working.
 
 Credits
 -------
