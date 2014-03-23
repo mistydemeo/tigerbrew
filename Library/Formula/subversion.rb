@@ -64,7 +64,7 @@ class Subversion < Formula
 
   def apr_bin
     if MacOS.version < :leopard
-      Formula['apr'].opt_prefix/'bin'
+      Formula['apr'].opt_bin
     else
       Superenv.bin or "/usr/bin"
     end
@@ -87,8 +87,8 @@ class Subversion < Formula
       args << "OPENSSL=#{Formula["openssl"].opt_prefix}" if build.with? 'brewed-openssl'
 
       if MacOS.version < :leopard
-        args << "APR=#{Formula['apr'].opt_prefix}/bin/apr-1-config"
-        args << "APU=#{Formula['apr-util'].opt_prefix}/bin/apu-1-config"
+        args << "APR=#{Formula['apr'].opt_bin}/apr-1-config"
+        args << "APU=#{Formula['apr-util'].opt_bin}/apu-1-config"
       end
 
       scons *args
