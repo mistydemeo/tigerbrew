@@ -150,7 +150,8 @@ module OS
       end
 
       def provides_autotools?
-        version < "4.3"
+        # Xcode 2.5's autotools are too old to rely on at this point
+        (version < "4.3") && (version > "2.5")
       end
 
       def provides_gcc?
