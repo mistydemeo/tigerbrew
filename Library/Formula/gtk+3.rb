@@ -6,6 +6,7 @@ class Gtkx3 < Formula
   sha256 'b7e9de15385031cff43897e7e59f6692eaabf500f36eef80e6b9d6486ad49427'
 
   depends_on :x11 => '2.5' # needs XInput2, introduced in libXi 1.3
+  depends_on :macos => :leopard # Tiger's X11 is too old
   depends_on 'pkg-config' => :build
   depends_on 'glib'
   depends_on 'jpeg'

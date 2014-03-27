@@ -21,6 +21,7 @@ class Gtkx < Formula
   depends_on 'atk'
   depends_on 'cairo'
   depends_on :x11 => '2.3.6'
+  depends_on :macos => :leopard # Tiger's X11 is too old
 
   fails_with :llvm do
     build 2326
