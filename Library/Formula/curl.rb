@@ -8,6 +8,8 @@ class Curl < Formula
 
   keg_only :provided_by_osx
 
+  option 'with-idn', 'Build with support for Internationalized Domain Names'
+  option 'with-rtmp', 'Build with RTMP support'
   option 'with-ssh', 'Build with scp and sftp support'
   option 'with-ares', 'Build with C-Ares async DNS support'
   option 'with-gssapi', 'Build with GSSAPI/Kerberos authentication support.'
@@ -20,11 +22,12 @@ class Curl < Formula
   end
 
   depends_on 'pkg-config' => :build
-
+  depends_on 'libidn' if build.with? 'idn'
   depends_on 'libmetalink' => :optional
   depends_on 'libssh2' if build.with? 'ssh'
   depends_on 'c-ares' if build.with? 'ares'
   depends_on 'curl-ca-bundle' if MacOS.version < :snow_leopard
+  depends_on 'rtmpdump' if build.with? 'rtmp'
 
   def install
     args = %W[
@@ -39,10 +42,18 @@ class Curl < Formula
       args << "--with-darwinssl"
     end
 
-    args << "--with-libssh2" if build.with? 'ssh'
-    args << "--with-libmetalink" if build.with? 'libmetalink'
-    args << "--enable-ares=#{Formula["c-ares"].opt_prefix}" if build.with? 'ares'
-    args << "--with-gssapi" if build.with? 'gssapi'
+    args << (build.with?("ssh") ? "--with-libssh2" : "--without-libssh2")
+    args << (build.with?("idn") ? "--with-libidn" : "--without-libidn")
+    args << (build.with?("libmetalink") ? "--with-libmetalink" : "--without-libmetalink")
+    args << (build.with?("gssapi") ? "--with-gssapi" : "--without-gssapi")
+    args << (build.with?("rtmp") ? "--with-librtmp" : "--without-librtmp")
+    args << (build.with?("gssapi") ? "--with-gssapi" : "--without-gssapi")
+
+    if build.with? "ares"
+      args << "--enable-ares=#{Formula["c-ares"].opt_prefix}"
+    else
+      args << "--disable-ares"
+    end
 
     # Tiger/Leopard ship with a horrendously outdated set of certs,
     # breaking any software that relies on curl, e.g. git
