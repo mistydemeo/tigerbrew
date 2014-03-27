@@ -55,16 +55,6 @@ class OpenStruct
   end
 end
 
-class String
-  def rpartition(separator)
-    if ind = rindex(separator)
-      [slice(0, ind), separator, slice(ind+1, -1) || '']
-    else
-      ['', '', dup]
-    end
-  end
-end
-
 # Used in ExternalPatch#owner= in patch.rb
 # Definition taken from Ruby 2.0, should be compatible
 # with 1.8.6 and 1.8.7.
