@@ -131,6 +131,10 @@ class Postgresql < Formula
     </plist>
     EOS
   end
+
+  test do
+    system "#{bin}/initdb", testpath
+  end
 end
 
 
