@@ -373,4 +373,7 @@ module Stdenv
       Hardware::CPU.cores
     end
   end
+
+  # This method does nothing in stdenv since there's no arg refurbishment
+  def refurbish_args; end
 end
