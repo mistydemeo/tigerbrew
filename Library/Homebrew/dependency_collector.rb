@@ -141,8 +141,6 @@ class DependencyCollector
   end
 
   def autotools_dep(spec, tags)
-    return if MacOS::Xcode.provides_autotools?
-
     if spec == :libltdl
       spec = :libtool
       tags << :run
@@ -175,7 +173,7 @@ class DependencyCollector
     when strategy <= BazaarDownloadStrategy
       Dependency.new("bazaar", tags)
     when strategy <= CVSDownloadStrategy
-      Dependency.new("cvs", tags) unless MacOS::Xcode.provides_cvs?
+      Dependency.new("cvs", tags) if MacOS.version >= :mavericks || !MacOS::Xcode.provides_cvs?
     when strategy < AbstractDownloadStrategy
       # allow unknown strategies to pass through
     else

@@ -16,9 +16,7 @@ class Autoconf < Formula
   # Tiger's m4 is too old.
   depends_on 'homebrew/dupes/m4' if MacOS.version == :tiger
 
-  if MacOS::Xcode.provides_autotools? or File.file? "/usr/bin/autoconf"
-    keg_only "Xcode (up to and including 4.2) provides (a rather old) Autoconf."
-  end
+  keg_only :provided_until_xcode43
 
   def install
     ENV['PERL'] = '/usr/bin/perl'

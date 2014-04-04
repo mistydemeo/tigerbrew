@@ -401,8 +401,6 @@ class Pathname
         #!/bin/bash
         exec "#{target}" "$@"
       EOS
-      # +x here so this will work during post-install as well
-      (self+target.basename()).chmod 0644
     end
   end
 
@@ -433,8 +431,6 @@ class Pathname
       #!/bin/bash
       exec java #{java_opts} -jar #{target_jar} "$@"
     EOS
-    # +x here so this will work during post-install as well
-    (self+script_name).chmod 0644
   end
 
   def install_metafiles from=nil

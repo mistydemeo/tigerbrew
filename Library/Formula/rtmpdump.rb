@@ -13,7 +13,7 @@ class Rtmpdump < Formula
   # Tiger's ld fails with:
   # "common symbols not allowed with MH_DYLIB output format with the -multi_module option"
   depends_on :ld64
-  depends_on 'openssl' if MacOS.version <= :leopard
+  depends_on 'openssl'
 
   fails_with :llvm do
     build '2336'
@@ -28,6 +28,7 @@ class Rtmpdump < Formula
                    "MANDIR=#{man}",
                    "SYS=darwin",
                    "prefix=#{prefix}",
+                   "sbindir=#{bin}",
                    "install"
   end
 end
