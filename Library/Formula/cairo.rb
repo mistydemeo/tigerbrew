@@ -28,7 +28,7 @@ class Cairo < Formula
   depends_on 'libpng'
   depends_on 'pixman'
   depends_on 'glib'
-  depends_on :x11 if build.with? 'x'
+  depends_on :x11 => :recommended
 
   def install
     ENV.universal_binary if build.universal?
@@ -37,12 +37,12 @@ class Cairo < Formula
       --disable-dependency-tracking
       --prefix=#{prefix}
       --enable-gobject=yes
+      --with-x
     ]
 
-    if build.without? 'x'
-      args << '--enable-xlib=no' << '--enable-xlib-xrender=no'
-    else
-      args << '--with-x'
+    if build.without? "x11"
+      args.delete "--with-x"
+      args << "--enable-xlib=no" << "--enable-xlib-xrender=no"
     end
 
     args << '--enable-xcb=no' if MacOS.version <= :leopard
