@@ -23,7 +23,7 @@ class Tenfourfox < Formula
   sha1 sh1
 
   def install
-    prefix.install Dir['../*.app']
+    prefix.install Dir['TenFourFox*.app']
   end
 
   def caveats; <<-EOS.undent
