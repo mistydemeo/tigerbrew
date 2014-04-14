@@ -25,10 +25,4 @@ class Tenfourfox < Formula
   def install
     prefix.install Dir['TenFourFox*.app']
   end
-
-  def caveats; <<-EOS.undent
-    After installation, run `brew linkapps` to link
-    TenFourFox into your ~/Applications folder.
-    EOS
-  end
 end
