@@ -2,22 +2,24 @@ require 'formula'
 
 class Tenfourfox < Formula
   homepage 'http://www.floodgap.com/software/tenfourfox/'
-  urlbase = 'https://tenfourfox.googlecode.com/files/TenFourFox'
-  version '17.0.8'
+  urlbase = 'https://downloads.sourceforge.net/tenfourfox/'
+  version '24.4.0'
 
   depends_on :arch => :ppc
 
   urls = {
-    :g3 => ['G3', 'de4b8f748ee45fb79eeb7ddefc76d86358c75c73'],
-    :g4 => ['7400', '6796698a20544674192eff9d1b43116a5482444a'],
-    :g4e => ['7450', '25b24609cce270a52c403894194f31c81e481e5f'],
-    :g5 => ['G5', '6e87393f681c0e0b17eb27b6f1f97a7242d0ae4b']
+    :g3 => ['G3', '3a1c28b2c203d1d832028184efc15f48679cbb6f'],
+    :g4 => ['7400', '1c3bcf7b47e77de9184c63a3f150b3cb53d1ef32'],
+    :g4e => ['7450', '720eaec75df7ad6a95d4ebe94ad178b1861ac146'],
+    # There aren't separate 32/64-bit binaries
+    :g5 => ['G5', '3136fb68a05ade518359f537b4bb1927827a86e7'],
+    :g5_64 => ['G5', '3136fb68a05ade518359f537b4bb1927827a86e7']
   }
 
   # Formula needs a URL and sha1 even if it can't be installed
   prefix, sh1 = urls[Hardware::CPU.family] || urls[:g3]
 
-  url urlbase+prefix+'-'+version+'.app.zip'
+  url urlbase+version+'/TenFourFox'+prefix+'-'+version+'.app.zip'
   sha1 sh1
 
   devel do
