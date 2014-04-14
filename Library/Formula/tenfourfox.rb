@@ -22,21 +22,6 @@ class Tenfourfox < Formula
   url urlbase+version+'/TenFourFox'+prefix+'-'+version+'.app.zip'
   sha1 sh1
 
-  devel do
-    version '22.0.1'
-    urls = {
-      :g3 => ['G3', '5763489450e835d558f128f622f030a7e944ca7c'],
-      :g4 => ['7400', '663e2f7acd42decd01def4ac11c8d839f8659f81'],
-      :g4e => ['7450', '044692f35c30384634ec4589a5c76bd7f2311b85'],
-      :g5 => ['G5', '90cb141bd7a126eadca941f1be6ae5daa32a8366']
-    }
-
-    prefix, sh1 = urls[Hardware::CPU.family] || urls[:g3]
-
-    url urlbase+prefix+'-'+version+'.app.zip'
-    sha1 sh1
-  end
-
   def install
     prefix.install Dir['../*.app']
   end
