@@ -129,6 +129,7 @@ module OS
           else case `xcodebuild -version 2>/dev/null`
             when /DevToolsCore-515.0/ then "2.0"
             when /DevToolsCore-798.0/ then "2.5"
+            end
           end
         end
       end
