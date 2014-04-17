@@ -89,6 +89,13 @@ module OS
           if File.file? path
             `#{path} -version 2>/dev/null` =~ /Xcode (\d(\.\d)*)/
             return $1 if $1
+
+            # Xcode 2.x's xcodebuild has a different version string
+            `#{path} -version 2>/dev/null` =~ /DevToolsCore-(\d+\.\d)/
+            case $1
+            when "515.0" then return "2.0"
+            when "798.0" then return "2.5"
+            end
           end
         end
 
@@ -126,10 +133,7 @@ module OS
           when 42      then "4.6"
           when 50      then "5.0"
           when 51      then "5.1"
-          else case `xcodebuild -version 2>/dev/null`
-            when /DevToolsCore-515.0/ then "2.0"
-            when /DevToolsCore-798.0/ then "2.5"
-            end
+          else "5.1"
           end
         end
       end
