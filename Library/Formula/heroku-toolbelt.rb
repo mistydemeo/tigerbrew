@@ -18,4 +18,9 @@ class HerokuToolbelt < Formula
   test do
     system "#{bin}/heroku", "version"
   end
+
+  def caveats; <<-EOS.undent
+    heroku-toolbelt requires an installation of Ruby 1.9 or greater.
+    EOS
+  end
 end
