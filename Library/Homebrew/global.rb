@@ -1,6 +1,7 @@
 require 'rbconfig'
 require 'extend/module'
 require 'extend/fileutils'
+require 'extend/hash'
 require 'extend/pathname'
 require 'extend/ARGV'
 require 'extend/string'
