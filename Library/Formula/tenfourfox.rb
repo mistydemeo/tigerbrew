@@ -3,17 +3,17 @@ require 'formula'
 class Tenfourfox < Formula
   homepage 'http://www.floodgap.com/software/tenfourfox/'
   urlbase = 'https://downloads.sourceforge.net/tenfourfox/'
-  version '24.4.0'
+  version '24.5.0'
 
   depends_on :arch => :ppc
 
   urls = {
-    :g3 => ['G3', '3a1c28b2c203d1d832028184efc15f48679cbb6f'],
-    :g4 => ['7400', '1c3bcf7b47e77de9184c63a3f150b3cb53d1ef32'],
-    :g4e => ['7450', '720eaec75df7ad6a95d4ebe94ad178b1861ac146'],
+    :g3 => ['G3', '52164ae84ae5dde0f4b6876b75965d04b6667010'],
+    :g4 => ['7400', 'd151431f3fb9836669efc89be2dacdd030e98157'],
+    :g4e => ['7450', '4bd546f39c016ff453e9183b6e2485c5e72b11b2'],
     # There aren't separate 32/64-bit binaries
-    :g5 => ['G5', '3136fb68a05ade518359f537b4bb1927827a86e7'],
-    :g5_64 => ['G5', '3136fb68a05ade518359f537b4bb1927827a86e7']
+    :g5 => ['G5', '6e2ed867bf8b8bea9d71244772bc8e3463cc245a'],
+    :g5_64 => ['G5', '6e2ed867bf8b8bea9d71244772bc8e3463cc245a']
   }
 
   # Formula needs a URL and sha1 even if it can't be installed
