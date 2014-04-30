@@ -23,6 +23,7 @@ class Mysql < Formula
 
   # otherwise linking fails with multiple definitions of symbol
   depends_on :ld64
+  depends_on 'cmake' => :build
   depends_on 'pidof' unless MacOS.version >= :mountain_lion
   depends_on 'openssl'
 
