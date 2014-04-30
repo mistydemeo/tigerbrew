@@ -91,8 +91,8 @@ HOMEBREW_USER_AGENT = "Homebrew #{HOMEBREW_VERSION} (Ruby #{RUBY_VERSION}; #{OS_
 
 HOMEBREW_CURL_ARGS = '-f#LA'
 
-HOMEBREW_TAP_FORMULA_REGEX = %r{^(\w+)/(\w+)/([^/]+)$}
-HOMEBREW_TAP_DIR_REGEX = %r{#{HOMEBREW_LIBRARY}/Taps/(\w+)-(\w+)}
+HOMEBREW_TAP_FORMULA_REGEX = %r{^([\w_-]+)/([\w_-]+)/([\w_-]+)$}
+HOMEBREW_TAP_DIR_REGEX = %r{#{HOMEBREW_LIBRARY}/Taps/([\w_-]+)/([\w_-]+)}
 HOMEBREW_TAP_PATH_REGEX = Regexp.new(HOMEBREW_TAP_DIR_REGEX.source \
                                      + %r{/(.*)}.source)
 

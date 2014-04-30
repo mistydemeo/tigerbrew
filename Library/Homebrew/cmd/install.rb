@@ -84,7 +84,6 @@ module Homebrew extend self
     # check_ppc
     check_writable_install_location
     check_xcode
-    check_macports
     check_cellar
   end
 
@@ -112,5 +111,6 @@ module Homebrew extend self
     opoo e.message
   rescue CannotInstallFormulaError => e
     ofail e.message
+    check_macports
   end
 end

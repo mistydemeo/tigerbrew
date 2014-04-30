@@ -54,35 +54,14 @@ class Openssl < Formula
     etc/"openssl"
   end
 
-  def cert_pem
-    openssldir/"cert.pem"
-  end
-
-  def osx_cert_pem
-    openssldir/"osx_cert.pem"
-  end
-
-  def write_pem_file
+  def post_install
     keychains = %w[
       /Library/Keychains/System.keychain
       /System/Library/Keychains/SystemRootCertificates.keychain
     ]
 
-    osx_cert_pem.atomic_write `security find-certificate -a -p #{keychains.join(" ")}`
-  end
-
-  # This method of fetching the system certs doesn't work on Tiger,
-  # and is of questionable utility on Leopard too.
-  def post_install
     openssldir.mkpath
-
-    if cert_pem.exist?
-      write_pem_file
-    else
-      cert_pem.unlink if cert_pem.symlink?
-      write_pem_file
-      openssldir.install_symlink 'osx_cert.pem' => 'cert.pem'
-    end
+    (openssldir/"cert.pem").atomic_write `security find-certificate -a -p #{keychains.join(" ")}`
   end if MacOS.version > :leopard
 
   def caveats; <<-EOS.undent
