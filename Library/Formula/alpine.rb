@@ -10,7 +10,7 @@ class Alpine < Formula
   patch do
     url "https://trac.macports.org/export/89747/trunk/dports/mail/alpine/files/alpine-osx-10.6.patch"
     sha1 "8cc6b95b6aba844ceef8454868b8f2c205de9792"
-  end
+  end if MacOS.version > :leopard
 
   # Fails to build against Tcl 8.6; reported upstream:
   # http://mailman2.u.washington.edu/pipermail/alpine-info/2013-September/005291.html
