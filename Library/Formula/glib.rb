@@ -5,6 +5,8 @@ class Glib < Formula
   url "http://ftp.gnome.org/pub/gnome/sources/glib/2.40/glib-2.40.0.tar.xz"
   sha256 "0d27f195966ecb1995dcce0754129fd66ebe820c7cd29200d264b02af1aa28b5"
 
+  revision 1
+
   bottle do
     sha1 "85f199d88dd10459de8752a42bd25a6092046d14" => :mavericks
     sha1 "6c7aada5d49452943a59949ae71a51a8dce627b3" => :mountain_lion
@@ -53,6 +55,13 @@ class Glib < Formula
     url "https://gist.githubusercontent.com/jacknagel/9726139/raw/9d5635480d96d6b5c717d2c0d5d24de38b68ffbd/universal.patch"
     sha1 "7f38cab550571b39989275362995ade214b44490"
   end if build.universal?
+
+  # Fixes g_get_monotonic_time on non-Intel Macs; submitted upstream:
+  # https://bugzilla.gnome.org/show_bug.cgi?id=728123
+  patch do
+    url "https://bug728123.bugzilla-attachments.gnome.org/attachment.cgi?id=275596"
+    sha1 "5637d98e1c7bbfa8824e60612976a8c13d0c0fb6"
+  end
 
   def install
     ENV.universal_binary if build.universal?
