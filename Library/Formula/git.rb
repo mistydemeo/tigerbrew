@@ -75,8 +75,8 @@ class Git < Formula
     ENV['CURLDIR'] = Formula['curl'].opt_prefix if MacOS.version < :snow_leopard
     ENV['NO_APPLE_COMMON_CRYPTO'] = '1' if MacOS.version < :leopard
 
-    if MacOS.version >= :mavericks and MacOS.dev_tools_prefix
-      ENV['PERLLIB_EXTRA'] = "#{MacOS.dev_tools_prefix}/Library/Perl/5.16/darwin-thread-multi-2level"
+    if MacOS.version >= :mavericks
+      ENV['PERLLIB_EXTRA'] = "#{MacOS.active_developer_dir}/Library/Perl/5.16/darwin-thread-multi-2level"
     end
 
     unless quiet_system ENV['PERL_PATH'], '-e', 'use ExtUtils::MakeMaker'
