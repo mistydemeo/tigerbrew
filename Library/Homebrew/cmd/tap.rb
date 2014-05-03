@@ -3,7 +3,7 @@ module Homebrew extend self
   def tap
     if ARGV.empty?
       each_tap do |user, repo|
-        puts "#{user.basename}/#{repo.basename.sub("homebrew-", "")}" if (repo/".git").directory?
+        puts "#{user.basename}/#{repo.basename.to_s.sub("homebrew-", "")}" if (repo/".git").directory?
       end
     elsif ARGV.first == "--repair"
       repair_taps
