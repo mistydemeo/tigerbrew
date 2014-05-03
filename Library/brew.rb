@@ -11,9 +11,8 @@ if ARGV == %w{--prefix}
 end
 
 require 'pathname'
-HOMEBREW_LIBRARY_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("Library/Homebrew").to_s
-$:.unshift(HOMEBREW_LIBRARY_PATH + '/vendor')
-$:.unshift(HOMEBREW_LIBRARY_PATH)
+HOMEBREW_LIBRARY_PATH = Pathname.new(__FILE__).realpath.dirname.parent.join("Library", "Homebrew")
+$:.unshift(HOMEBREW_LIBRARY_PATH.to_s)
 require 'global'
 
 if ARGV.help?
@@ -56,7 +55,7 @@ Dir.getwd rescue abort "The current working directory doesn't exist, cannot proc
 
 
 def require? path
-  require path.to_s.chomp
+  require path
 rescue LoadError => e
   # HACK :( because we should raise on syntax errors but
   # not if the file doesn't exist. TODO make robust!
@@ -94,15 +93,16 @@ begin
   end
 
   # Add contributed commands to PATH before checking.
-  ENV['PATH'] += ":#{HOMEBREW_CONTRIB}/cmd"
-  if require? HOMEBREW_REPOSITORY/"Library/Homebrew/cmd"/cmd
+  ENV['PATH'] += "#{File::PATH_SEPARATOR}#{HOMEBREW_CONTRIB}/cmd"
+
+  if require? HOMEBREW_LIBRARY_PATH.join("cmd", cmd)
     Homebrew.send cmd.to_s.gsub('-', '_').downcase
   elsif which "brew-#{cmd}"
     %w[CACHE CELLAR LIBRARY_PATH PREFIX REPOSITORY].each do |e|
-      ENV["HOMEBREW_#{e}"] = Object.const_get "HOMEBREW_#{e}"
+      ENV["HOMEBREW_#{e}"] = Object.const_get("HOMEBREW_#{e}").to_s
     end
     exec "brew-#{cmd}", *ARGV
-  elsif require? which("brew-#{cmd}.rb").to_s
+  elsif require? which("brew-#{cmd}.rb")
     exit Homebrew.failed? ? 1 : 0
   else
     onoe "Unknown command: #{cmd}"

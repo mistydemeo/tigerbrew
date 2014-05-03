@@ -37,6 +37,9 @@ module OS
     end
 
     def active_developer_dir
+      # xcode-select was introduced in Xcode 3 on Leopard
+      return "/Developer" if MacOS.version < :leopard
+
       @active_developer_dir ||= `xcode-select -print-path 2>/dev/null`.strip
     end
 
