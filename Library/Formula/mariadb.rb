@@ -38,6 +38,13 @@ class Mariadb < Formula
     EOSTRING
   end if Hardware::CPU.ppc?
 
+  # A few places try to use the __powerpc__ macro to determine if the CPU
+  # is PPC; on OS X, only __ppc__ and __POWERPC__ are defined.
+  patch :p1 do
+    url "https://gist.githubusercontent.com/anonymous/fc7966c10a78fe7909e2/raw/4107fa5dab01eea21731e959171064fd35d48694/-"
+    sha1 "805c1b396c1a7de9f3189fd50dd5f88132394854"
+  end if Hardware::CPU.ppc?
+
   def install
     # Don't hard-code the libtool path. See:
     # https://github.com/Homebrew/homebrew/issues/20185
