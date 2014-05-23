@@ -22,11 +22,6 @@ class Libgcrypt < Formula
     sha1 '136f636673b5c9d040f8a55f59b430b0f1c97d7a'
   end if build.universal?
 
-  fails_with :clang do
-    build 77
-    cause "basic test fails"
-  end
-
   # Otherwise PPC darwin will attempt to build x86-only code and blow up
   # Reported upstream: https://bugs.g10code.com/gnupg/issue1616
   def patches; DATA; end
@@ -34,12 +29,10 @@ class Libgcrypt < Formula
   def install
     ENV.universal_binary if build.universal?
 
-    ENV.append 'CFLAGS', '-std=gnu89 -fheinous-gnu-extensions' if ENV.compiler == :clang
-
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--disable-asm",
-                          "--with-gpg-error-prefix=#{HOMEBREW_PREFIX}"
+                          "--with-gpg-error-prefix=#{Formula["libgpg-error"].opt_prefix}"
 
     if build.universal?
       buildpath.install resource('config.h.ed')
@@ -47,7 +40,7 @@ class Libgcrypt < Formula
     end
 
     # Parallel builds work, but only when run as separate steps
-    system "make", "CFLAGS=#{ENV.cflags}"
+    system "make"
     system "make check"
     system "make install"
   end
