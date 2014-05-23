@@ -30,6 +30,14 @@ class Mariadb < Formula
   conflicts_with 'mysql-connector-c',
     :because => 'both install MySQL client libraries'
 
+  fails_with :gcc_4_0
+  fails_with :gcc do
+    cause <<-EOSTRING.undent
+    The __sync_lock_test_and_set atomic builtin does not work as MariaDB
+    expects on PowerPC.
+    EOSTRING
+  end if Hardware::CPU.ppc?
+
   def install
     # Don't hard-code the libtool path. See:
     # https://github.com/Homebrew/homebrew/issues/20185
