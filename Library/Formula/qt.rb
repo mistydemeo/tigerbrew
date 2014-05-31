@@ -22,21 +22,6 @@ class Qt < Formula
   depends_on "d-bus" => :optional
   depends_on "mysql" => :optional
 
-  odie 'qt: --with-qtdbus has been renamed to --with-d-bus' if build.with? "qtdbus"
-  odie 'qt: --with-demos-examples is no longer supported' if build.with? "demos-examples"
-  odie 'qt: --with-debug-and-release is no longer supported' if build.with? "debug-and-release"
-
-  def patches
-    {
-      :p0 => [
-        # Fixes WebCore on PPC targets
-        'http://trac.macports.org/export/96486/trunk/dports/aqua/qt4-mac/files/patch-src_3rdparty_webkit_Source_WebCore_WebCore.pro.diff',
-        # Ditto, for QtWebKit
-        'http://trac.macports.org/export/96486/trunk/dports/aqua/qt4-mac/files/patch-src_3rdparty_webkit_Source_WebKit_qt_QtWebKit.pro.diff'
-      ]
-    }
-  end
-
   def install
     ENV.universal_binary if build.universal?
 

@@ -59,6 +59,7 @@ Donations
 ---------
 We accept tips through [Gittip][tip].
 
+<<<<<<< HEAD
 [![Gittip](http://img.shields.io/gittip/mistydemeo.svg)](https://www.gittip.com/mistydemeo/)
 
 [Homebrew]:http://brew.sh
@@ -69,3 +70,20 @@ We accept tips through [Gittip][tip].
 [issues]:https://github.com/mistydemeo/tigerbrew/issues
 [prs]:https://github.com/mistydemeo/tigerbrew/pulls
 [tip]:https://www.gittip.com/mistydemeo/
+=======
+[![Gittip](http://img.shields.io/gittip/Homebrew.svg)](https://www.gittip.com/Homebrew/)
+
+[home]:http://brew.sh
+[wiki]:https://github.com/Homebrew/homebrew/wiki
+[mistydemeo]:https://github.com/mistydemeo
+[adamv]:https://github.com/adamv
+[jacknagel]:https://github.com/jacknagel
+[mikemcquaid]:https://github.com/mikemcquaid
+[asparagui]:https://github.com/asparagui
+[mxcl]:https://github.com/mxcl
+[formula]:https://github.com/Homebrew/homebrew/tree/master/Library/Formula/
+[braumeister]:http://braumeister.org
+[brew-desc]: https://github.com/telemachus/homebrew-desc
+[license]:https://github.com/Homebrew/homebrew/tree/master/LICENSE.txt
+[tip]:https://www.gittip.com/Homebrew/
+>>>>>>> Homebrew/master

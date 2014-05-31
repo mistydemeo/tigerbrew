@@ -56,8 +56,6 @@ class Boost < Formula
     end
   end
 
-  odie 'boost: --with-c++11 has been renamed to --c++11' if build.with? 'c++11'
-
   stable do
     # Patches boost::atomic for LLVM 3.4 as it is used on OS X 10.9 with Xcode 5.1
     # https://github.com/Homebrew/homebrew/issues/27396
@@ -178,7 +176,7 @@ class Boost < Formula
     s = ''
     # ENV.compiler doesn't exist in caveats. Check library availability
     # instead.
-    if Dir.glob("#{lib}/libboost_log*").empty?
+    if Dir["#{lib}/libboost_log*"].empty?
       s += <<-EOS.undent
 
       Building of Boost.Log is disabled because it requires newer GCC or Clang.
