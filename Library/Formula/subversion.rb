@@ -23,21 +23,20 @@ class Subversion < Formula
     sha1 'eafc8317d7a9c77d4db9ce1e5c71a33822f57c3a'
   end
 
-  depends_on 'pkg-config' => :build
+  # use Tigerbrew's version instead of the old one in X11
+  depends_on :expat
+  # Tiger's are too old
+  depends_on "homebrew/dupes/apr" if MacOS.version < :leopard
+  depends_on "homebrew/dupes/apr-util" if MacOS.version < :leopard
+
+  depends_on "pkg-config" => :build
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
 
   # Always build against Homebrew versions instead of system versions for consistency.
   depends_on 'sqlite'
   depends_on :python => :optional
-
-  # use Tigerbrew's version instead of the old one in X11
-  depends_on :expat
-  # Tiger's are too old
-  depends_on 'homebrew/dupes/apr' if MacOS.version < :leopard
-  depends_on 'homebrew/dupes/apr-util' if MacOS.version < :leopard
-
-  depends_on :autoconf
-  depends_on :automake
-  depends_on :libtool
 
   # Bindings require swig
   depends_on 'swig' if build.include? 'perl' or build.with? 'python' or build.include? 'ruby'

@@ -10,7 +10,7 @@ class ObjectiveCaml < Formula
   revision 1
 
   depends_on :ld64
-  depends_on :x11
+  depends_on :x11 => :recommended
 
   bottle do
     revision 3
@@ -20,7 +20,7 @@ class ObjectiveCaml < Formula
   end
 
   # recent versions of clang fail with a hard error if -fno-defer-pop
-  # is specified, and older versions warn.  This patch fixes the OCaml
+  # is specified, and older versions warn. This patch fixes the OCaml
   # configure script to not pass this option on recent MacOS versions.
   # See http://caml.inria.fr/mantis/view.php?id=6346 for upstream bug.
   patch :DATA

@@ -7,10 +7,10 @@ class Plustache < Formula
 
   # rake wasn't shipped with Ruby back in 1.8.2
   depends_on :macos => :leopard
-  depends_on 'autoconf' => :build
-  depends_on 'automake' => :build
-  depends_on :libtool
-  depends_on 'boost'
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
+  depends_on "boost"
 
   def install
     system "autoreconf", "--force", "--install"

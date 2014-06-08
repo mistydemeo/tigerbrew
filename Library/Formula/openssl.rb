@@ -2,19 +2,20 @@ require 'formula'
 
 class Openssl < Formula
   homepage 'http://openssl.org'
-  url 'https://www.openssl.org/source/openssl-1.0.1g.tar.gz'
-  mirror 'http://mirrors.ibiblio.org/openssl/source/openssl-1.0.1g.tar.gz'
+  url 'https://www.openssl.org/source/openssl-1.0.1h.tar.gz'
+  mirror 'http://mirrors.ibiblio.org/openssl/source/openssl-1.0.1h.tar.gz'
   # This has to be an sha1 because Tiger's system openssl doesn't do sha256;
   # we depend on Homebrew's openssl to calculate sha256 hashes
-  sha1 'b28b3bcb1dc3ee7b55024c9f795be60eb3183e3c'
+  sha1 'b2239599c8bf8f7fc48590a55205c26abe560bf8'
 
   bottle do
-    sha1 "d8c38bb2fe4dfd8930ea02f87d4b958a2a33b051" => :mavericks
-    sha1 "536d1e6bd5e1321eb603b4ed1ad131ea86a2794c" => :mountain_lion
-    sha1 "f12f352e67e5b131c1935040f8d2ca24107ebfca" => :lion
+    sha1 "b9a5aee69f10ecd9df78c5e83372ec89f8a3236a" => :mavericks
+    sha1 "c0f0823d7047c0fc3371d9674a86815b85356b21" => :mountain_lion
+    sha1 "9195012d2ce64a26afdf596c8c7fef83ce74da2a" => :lion
   end
 
   option :universal
+  option "without-check", "Skip build-time tests (not recommended)"
 
   depends_on "makedepend" => :build
 
@@ -69,7 +70,7 @@ class Openssl < Formula
       system "perl", "./Configure", *(configure_args + arch_args[arch])
       system "make", "depend"
       system "make"
-      system "make", "test"
+      system "make", "test" if build.with? "check"
 
       if build.universal?
         cp Dir["*.?.?.?.dylib", "*.a", "apps/openssl"], dir

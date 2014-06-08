@@ -1,38 +1,25 @@
 class Metafiles
+  EXTENSIONS = %w[.md .html .rtf .txt]
+  BASENAMES = %w[
+    about authors changelog changes copying copyright history license licence
+    news notes notice readme todo
+  ]
 
-  def initialize
-    @exts = %w[.md .html .rtf .txt]
-    @metafiles = %w[
-      about authors changelog changes copying copyright history license
-      licence news notes notice readme todo]
+  def self.list?(file)
+    return false if %w[.DS_Store INSTALL_RECEIPT.json].include?(file)
+    !copy?(file)
   end
 
-  def + other
-    @metafiles + other
-  end
+  def self.copy?(path)
+    path = path.to_s.downcase
+    ext  = File.extname(path)
 
-  def should_copy? file
-    include? file
-  end
-
-  def should_list? file
-    return false if %w[.DS_Store INSTALL_RECEIPT.json].include? file
-    not include? file
-  end
-
-  private
-
-  def include? p
-    p = p.to_s # Might be a pathname
-    p = p.downcase
-    path = Pathname.new(p)
-    if @exts.include? path.extname
-      p = path.basename(path.extname)
+    if EXTENSIONS.include?(ext)
+      basename = File.basename(path, ext)
     else
-      p = path.basename
+      basename = File.basename(path)
     end
-    p = p.to_s
-    return @metafiles.include? p
-  end
 
+    return BASENAMES.include?(basename)
+  end
 end

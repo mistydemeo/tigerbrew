@@ -11,16 +11,9 @@ class HtopOsx < Formula
     sha1 "ffed10bd7a4a6649120d8db66ac7b0daf686b982" => :lion
   end
 
-  if MacOS.version > :tiger
-    depends_on :autoconf
-    depends_on :automake
-    depends_on :libtool
-  else
-    # can't build with system versions on 10.4
-    depends_on 'autoconf' => :build
-    depends_on 'automake' => :build
-    depends_on 'libtool' => :build
-  end
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
 
   def install
     # Otherwise htop will segfault when resizing the terminal
