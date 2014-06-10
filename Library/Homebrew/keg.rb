@@ -248,7 +248,7 @@ class Keg < Pathname
   end
 
   def optlink
-    from = HOMEBREW_PREFIX/:opt/fname
+    from = HOMEBREW_PREFIX.join("opt", fname)
     if from.symlink?
       # Tiger's ruby has serious issues with Pathname#unlink
       File.delete(from.to_s)

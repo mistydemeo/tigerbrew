@@ -72,10 +72,14 @@ HOMEBREW_TEMP = Pathname.new(ENV.fetch('HOMEBREW_TEMP', '/tmp'))
 
 RbConfig = Config if RUBY_VERSION < "1.8.6" # different module name on Tiger
 
-RUBY_BIN = Pathname.new(RbConfig::CONFIG['bindir'])
-RUBY_PATH = RUBY_BIN + RbConfig::CONFIG['ruby_install_name']
-# concatenating an extra string concats a '/' on Tiger. Really.
-RUBY_PATH += RbConfig::CONFIG['EXEEXT'] unless RUBY_VERSION < "1.8.6"
+if RbConfig.respond_to?(:ruby)
+  RUBY_PATH = Pathname.new(RbConfig.ruby)
+else
+  RUBY_PATH = Pathname.new(RbConfig::CONFIG["bindir"]).join(
+    RbConfig::CONFIG["ruby_install_name"] + RbConfig::CONFIG["EXEEXT"]
+  )
+end
+RUBY_BIN = RUBY_PATH.dirname
 
 if RUBY_PLATFORM =~ /darwin/
   MACOS_FULL_VERSION = `/usr/bin/sw_vers -productVersion`.chomp

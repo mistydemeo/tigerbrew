@@ -332,7 +332,7 @@ class Pathname
   end
 
   def find_formula
-    [self/:Formula, self/:HomebrewFormula, self].each do |d|
+    [join("Formula"), join("HomebrewFormula"), self].each do |d|
       if d.exist?
         d.children.each do |pn|
           yield pn if pn.extname == ".rb"
@@ -389,7 +389,7 @@ class Pathname
   def install_metafiles from=Pathname.pwd
     Pathname(from).children.each do |p|
       next if p.directory?
-      next unless Metafiles.copy?(p)
+      next unless Metafiles.copy?(p.basename.to_s)
       # Some software symlinks these files (see help2man.rb)
       filename = p.resolved_path
       # Some software links metafiles together, so by the time we iterate to one of them
@@ -435,6 +435,13 @@ class Pathname
       end
     end
     private :prepend_prefix
+  elsif RUBY_VERSION == "2.0.0"
+    # https://bugs.ruby-lang.org/issues/9915
+    prepend Module.new {
+      def inspect
+        super.force_encoding(@path.encoding)
+      end
+    }
   end
 
   # This seems absolutely insane. Tiger's ruby (1.8.2) deals with
