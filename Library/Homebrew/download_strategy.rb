@@ -370,7 +370,7 @@ end
 
 class SubversionDownloadStrategy < VCSDownloadStrategy
   def cache_tag
-    ARGV.build_head? ? "svn-HEAD" : "svn"
+    resource.version.head? ? "svn-HEAD" : "svn"
   end
 
   def repo_valid?
