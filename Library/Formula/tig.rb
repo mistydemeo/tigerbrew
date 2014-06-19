@@ -3,6 +3,12 @@ require 'formula'
 class Tig < Formula
   homepage 'http://jonas.nitro.dk/tig/'
 
+  # Tiger's make doesn't support $(abspath)
+  depends_on 'make' => :build if MacOS.version == :tiger
+
+  depends_on 'readline' if MacOS.version == :tiger
+  depends_on 'ncurses' if MacOS.version == :tiger
+
   stable do
     url "http://jonas.nitro.dk/tig/releases/tig-2.0.2.tar.gz"
     sha1 "de01c3a52952172e42ae642d97a55505d7e09efd"
