@@ -5,6 +5,8 @@ class Faad2 < Formula
   url 'https://downloads.sourceforge.net/project/faac/faad2-src/faad2-2.7/faad2-2.7.tar.bz2'
   sha1 'b0e80481d27ae9faf9e46c8c8dfb617a0adb91b5'
 
+  depends_on :ld64
+
   bottle do
     cellar :any
     sha1 "1252c1b867b418fe2243ba8b30e43a7ac5c91bf1" => :mavericks
