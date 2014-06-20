@@ -33,6 +33,7 @@ class Mpd < Formula
   depends_on "libid3tag"
   depends_on "sqlite"
   depends_on "libsamplerate"
+  depends_on :ld64
 
   needs :cxx11
 
