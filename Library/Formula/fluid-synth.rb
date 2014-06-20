@@ -12,13 +12,14 @@ class FluidSynth < Formula
   
   patch :DATA if MacOS.version == :tiger
 
+  fails_with :gcc do
+    build 5553
+    cause "/Developer/SDKs/MacOSX10.4u.sdk/usr/include/float.h:8:24: error: float.h: No such file or directory"
+  end
+
   def install
     mkdir 'build' do
-      if MacOS.version == :tiger
-        system "cmake", "..", "-Denable-framework=OFF", "-DLIB_SUFFIX=", "-DCMAKE_C_COMPILER=gcc-4.0", "-DCMAKE_CXX_COMPILER=g++-4.0", "-DCMAKE_C_FLAGS=-fno-common", *std_cmake_args
-      else
-        system "cmake", "..", "-Denable-framework=OFF", "-DLIB_SUFFIX=", *std_cmake_args
-      end
+      system "cmake", "..", "-Denable-framework=OFF", "-DLIB_SUFFIX=", *std_cmake_args
       system "make install"
     end
   end
@@ -54,4 +55,3 @@ index d7c22e3..ebb9c88 100644
  #include <CoreAudio/AudioHardware.h>
 -- 
 2.0.0
-
