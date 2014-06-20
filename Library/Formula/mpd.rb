@@ -54,6 +54,8 @@ class Mpd < Formula
 
   depends_on "libvorbis" if build.with? "vorbis" # Vorbis support
 
+  patch :DATA if Hardware::CPU.type == :ppc
+
   def install
     # mpd specifies -std=gnu++0x, but clang appears to try to build
     # that against libstdc++ anyway, which won't work.
@@ -112,3 +114,19 @@ class Mpd < Formula
     EOS
   end
 end
+__END__
+diff --git a/src/system/ByteOrder.hxx b/src/system/ByteOrder.hxx
+index 8beda61..c4ef83a 100644
+--- a/src/system/ByteOrder.hxx
++++ b/src/system/ByteOrder.hxx
+@@ -36,7 +36,7 @@
+ /* well-known little-endian */
+ #  define IS_LITTLE_ENDIAN true
+ #  define IS_BIG_ENDIAN false
+-#elif defined(__MIPSEB__)
++#elif defined(__MIPSEB__) || defined(__ppc__) || defined(__ppc64__)
+ /* well-known big-endian */
+ #  define IS_LITTLE_ENDIAN false
+ #  define IS_BIG_ENDIAN true
+--
+2.0.0
