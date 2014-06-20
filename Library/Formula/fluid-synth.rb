@@ -9,6 +9,7 @@ class FluidSynth < Formula
   depends_on 'cmake' => :build
   depends_on 'glib'
   depends_on 'libsndfile' => :optional
+  depends_on :ld64
   
   patch :DATA if MacOS.version == :tiger
 
