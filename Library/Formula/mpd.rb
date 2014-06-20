@@ -55,7 +55,7 @@ class Mpd < Formula
 
   depends_on "libvorbis" if build.with? "vorbis" # Vorbis support
 
-  patch :DATA if Hardware::CPU.type == :ppc
+  patch :DATA if Hardware::CPU.ppc?
 
   def install
     # mpd specifies -std=gnu++0x, but clang appears to try to build
