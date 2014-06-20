@@ -93,6 +93,10 @@ class Mpd < Formula
     args << "--disable-lame-encoder" if build.without? "lame"
     args << "--disable-soundcloud" if build.without? "yajl"
     args << "--enable-vorbis-encoder" if build.with? "vorbis"
+    # OpenAL headers on Tiger are broken with GCC >= 4.2
+    args << "--disable-openal" if MacOS.version == :tiger
+    # fix compile error against glib
+    args << "CPPFLAGS=-fpermissive"
 
     system "./configure", *args
     system "make"
