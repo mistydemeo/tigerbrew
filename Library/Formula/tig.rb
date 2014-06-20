@@ -4,7 +4,7 @@ class Tig < Formula
   homepage 'http://jonas.nitro.dk/tig/'
 
   # Tiger's make doesn't support $(abspath)
-  depends_on 'make' => :build if MacOS.version == :tiger
+  depends_on 'homebrew/dupes/make' => :build if MacOS.version == :tiger
 
   depends_on 'readline' if MacOS.version == :tiger
   depends_on 'ncurses' if MacOS.version == :tiger
