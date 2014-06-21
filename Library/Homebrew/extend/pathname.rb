@@ -468,6 +468,25 @@ class Pathname
       symlink? ? File.unlink(to_s) : oldunlink
     end
   end
+
+  # Not defined in Ruby 1.8.2. Definition taken from 1.8.7.
+  def sub(pattern, *rest, &block)
+    if block
+      path = @path.sub(pattern, *rest) {|*args|
+        begin
+          old = Thread.current[:pathname_sub_matchdata]
+          Thread.current[:pathname_sub_matchdata] = $~
+          eval("$~ = Thread.current[:pathname_sub_matchdata]", block.binding)
+        ensure
+          Thread.current[:pathname_sub_matchdata] = old
+        end
+        yield(*args)
+      }
+    else
+      path = @path.sub(pattern, *rest)
+    end
+    self.class.new(path)
+  end unless method_defined?(:sub)
 end
 
 module ObserverPathnameExtension
