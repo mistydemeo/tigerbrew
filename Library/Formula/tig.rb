@@ -7,7 +7,7 @@ class Tig < Formula
   depends_on 'homebrew/dupes/make' => :build if MacOS.version == :tiger
 
   depends_on 'readline' if MacOS.version == :tiger
-  depends_on 'ncurses' if MacOS.version == :tiger
+  depends_on 'homebrew/dupes/ncurses' if MacOS.version == :tiger
 
   stable do
     url "http://jonas.nitro.dk/tig/releases/tig-2.0.2.tar.gz"
