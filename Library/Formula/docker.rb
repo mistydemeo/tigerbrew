@@ -2,12 +2,12 @@ require "formula"
 
 class Docker < Formula
   homepage "http://docker.io"
-  url "https://github.com/dotcloud/docker.git", :tag => "v1.0.0"
+  url "https://github.com/dotcloud/docker.git", :tag => "v1.1.0"
 
   bottle do
-    sha1 "ff9ca100ffcbf521cc4abad2a6a6a9569dd5a52b" => :mavericks
-    sha1 "ec28d7907015be6898bbfee7c8c85b6ee030c6e1" => :mountain_lion
-    sha1 "b9621863233b248d3efe059dcca271ed1769ada6" => :lion
+    sha1 "f53dac0e65bb425aedd1ef196189d8b63a7f6d4a" => :mavericks
+    sha1 "b31d4d5e8bf01bc50ebcd24f411941d73077961f" => :mountain_lion
+    sha1 "d3df625e3dbf3d40b2953932a33fbf2be661a075" => :lion
   end
 
   option "without-completions", "Disable bash/zsh completions"
@@ -18,7 +18,6 @@ class Docker < Formula
     ENV["GIT_DIR"] = cached_download/".git"
     ENV["AUTO_GOPATH"] = "1"
     ENV["DOCKER_CLIENTONLY"] = "1"
-    ENV["CGO_ENABLED"] = "0"
 
     system "hack/make.sh", "dynbinary"
     bin.install "bundles/#{version}/dynbinary/docker-#{version}" => "docker"

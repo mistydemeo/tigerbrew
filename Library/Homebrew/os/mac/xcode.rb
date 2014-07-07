@@ -155,6 +155,8 @@ module OS
       STANDALONE_PKG_ID = "com.apple.pkg.DeveloperToolsCLILeo"
       FROM_XCODE_PKG_ID = "com.apple.pkg.DeveloperToolsCLI"
       MAVERICKS_PKG_ID = "com.apple.pkg.CLTools_Executables"
+      # Used for Yosemite and Mavericks CLT since June 2014.
+      MAVERICKS_NEW_PKG_ID = "com.apple.pkg.CLTools_Base"
       MAVERICKS_PKG_PATH = "/Library/Developer/CommandLineTools"
 
       # Returns true even if outdated tools are installed, e.g.
@@ -193,7 +195,7 @@ module OS
         # at all on Tiger, so just count it as installed if Xcode is installed
         return MacOS::Xcode.version if MacOS::Xcode.installed? && MacOS::Xcode.version < "3.0"
 
-        [MAVERICKS_PKG_ID, STANDALONE_PKG_ID, FROM_XCODE_PKG_ID].find do |id|
+        [MAVERICKS_NEW_PKG_ID, MAVERICKS_PKG_ID, STANDALONE_PKG_ID, FROM_XCODE_PKG_ID].find do |id|
           version = MacOS.pkgutil_info(id)[/version: (.+)$/, 1]
           return version if version
         end

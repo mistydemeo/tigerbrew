@@ -90,10 +90,10 @@ class Pathname
 
   # we assume this pathname object is a file obviously
   alias_method :old_write, :write if method_defined?(:write)
-  def write content
+  def write(content, *open_args)
     raise "Will not overwrite #{to_s}" if exist?
     dirname.mkpath
-    File.open(self, 'w') {|f| f.write content }
+    open("w", *open_args) { |f| f.write(content) }
   end
 
   # NOTE always overwrites
@@ -284,9 +284,8 @@ class Pathname
     raise ChecksumMismatchError.new(self, expected, actual) unless expected == actual
   end
 
-  if '1.9' <= RUBY_VERSION
-    alias_method :to_str, :to_s
-  end
+  # FIXME eliminate the places where we rely on this method
+  alias_method :to_str, :to_s unless method_defined?(:to_str)
 
   def cd
     Dir.chdir(self){ yield }
@@ -359,6 +358,7 @@ class Pathname
       opoo "tried to write exec scripts to #{self} for an empty list of targets"
       return
     end
+    mkpath
     targets.each do |target|
       target = Pathname.new(target) # allow pathnames or strings
       (self+target.basename()).write <<-EOS.undent
@@ -372,6 +372,7 @@ class Pathname
   def write_env_script target, env
     env_export = ''
     env.each {|key, value| env_export += "#{key}=\"#{value}\" "}
+    dirname.mkpath
     self.write <<-EOS.undent
     #!/bin/bash
     #{env_export}exec "#{target}" "$@"
@@ -390,6 +391,7 @@ class Pathname
 
   # Writes an exec script that invokes a java jar
   def write_jar_script target_jar, script_name, java_opts=""
+    mkpath
     (self+script_name).write <<-EOS.undent
       #!/bin/bash
       exec java #{java_opts} -jar #{target_jar} "$@"

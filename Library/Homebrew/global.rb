@@ -29,23 +29,20 @@ def cache
     if home_cache.directory? and home_cache.writable_real?
       home_cache
     else
-      root_cache = Pathname.new("/Library/Caches/Homebrew")
-      class << root_cache
-        alias :oldmkpath :mkpath
+      Pathname.new("/Library/Caches/Homebrew").extend Module.new {
         def mkpath
           unless exist?
-            oldmkpath
-            chmod 0777
+            super
+            chmod 0775
           end
         end
-      end
-      root_cache
+      }
     end
   end
 end
 
 HOMEBREW_CACHE = cache
-undef cache # we use a function to prevent adding home_cache to the global scope
+undef cache
 
 # Where brews installed via URL are cached
 HOMEBREW_CACHE_FORMULA = HOMEBREW_CACHE+"Formula"
@@ -97,8 +94,9 @@ HOMEBREW_CURL_ARGS = '-f#LA'
 
 require 'tap_constants'
 
-module Homebrew extend self
+module Homebrew
   include FileUtils
+  extend self
 
   attr_accessor :failed
   alias_method :failed?, :failed

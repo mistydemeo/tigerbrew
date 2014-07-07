@@ -99,6 +99,12 @@ module MacCPUs
     end
   end
 
+  def features
+    @features ||= `/usr/sbin/sysctl -n machdep.cpu.features`.split(" ").map do |s|
+      s.downcase.intern
+    end
+  end
+
   def aes?
     sysctl_bool('hw.optional.aes')
   end
@@ -135,10 +141,7 @@ module MacCPUs
 
   def sysctl_bool(property)
     (@properties ||= {}).fetch(property) do
-      result = nil
-      IO.popen("/usr/sbin/sysctl -n '#{property}' 2>/dev/null") do |f|
-        result = f.gets.to_i # should be 0 or 1
-      end
+      result = Utils.popen_read("/usr/sbin/sysctl", "-n", property, &:gets).to_i
       # sysctl call succeded and printed 1
       @properties[property] = $?.success? && result == 1
     end

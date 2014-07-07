@@ -5,7 +5,7 @@ require "cmd/tap"
 require "formula_installer"
 require "hardware"
 
-module Homebrew extend self
+module Homebrew
   def install
     raise FormulaUnspecifiedError if ARGV.named.empty?
 
@@ -23,6 +23,21 @@ module Homebrew extend self
         install_tap $1, $2
       end
     end unless ARGV.force?
+
+    ARGV.formulae.each do |f|
+      # Building head-only without --HEAD is an error
+      if not ARGV.build_head? and f.stable.nil?
+        raise CannotInstallFormulaError, <<-EOS.undent
+        #{f} is a head-only formula
+        Install with `brew install --HEAD #{f.name}`
+        EOS
+      end
+
+      # Building stable-only with --HEAD is an error
+      if ARGV.build_head? and f.head.nil?
+        raise CannotInstallFormulaError, "No head is defined for #{f.name}"
+      end
+    end
 
     perform_preinstall_checks
 
