@@ -16,6 +16,7 @@ Please read:
 * [Code of Conduct](https://github.com/Homebrew/homebrew/blob/master/CODEOFCONDUCT.md)
 * [Formula Cookbook](https://github.com/Homebrew/homebrew/wiki/Formula-Cookbook)
 * [Ruby Style Guide](https://github.com/styleguide/ruby)
+* [How To Open a Homebrew Pull Request (and get it merged)](https://github.com/Homebrew/homebrew/wiki/How-To-Open-a-Homebrew-Pull-Request-(and-get-it-merged))
 
 Tigerbrew guidelines
 --------------------
