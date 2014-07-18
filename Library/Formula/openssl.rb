@@ -17,7 +17,7 @@ class Openssl < Formula
   option :universal
   option "without-check", "Skip build-time tests (not recommended)"
 
-  depends_on "makedepend" => :build
+  depends_on "makedepend" => :build if MacOS.prefer_64_bit?
 
   keg_only :provided_by_osx,
     "The OpenSSL provided by OS X is too old for some software."
@@ -27,7 +27,7 @@ class Openssl < Formula
       :x86_64 => %w[darwin64-x86_64-cc enable-ec_nistp-64_gcc_128],
       :i386   => %w[darwin-i386-cc],
       :ppc    => %w[darwin-ppc-cc],
-      :ppc64  => %w[darwin64-ppc-cc]
+      :ppc64  => %w[darwin64-ppc-cc enable-ec_nistp-64_gcc_128]
     }
   end
 
@@ -68,7 +68,7 @@ class Openssl < Formula
 
       ENV.deparallelize
       system "perl", "./Configure", *(configure_args + arch_args[arch])
-      system "make", "depend"
+      system "make", "depend" if MacOS.prefer_64_bit?
       system "make"
       system "make", "test" if build.with? "check"
 
