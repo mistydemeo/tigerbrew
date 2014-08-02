@@ -46,7 +46,8 @@ class Libxml2 < Formula
 
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--without-python"
+                          "--without-python",
+                          "--without-lzma"
     system "make"
     ENV.deparallelize
     system "make install"
