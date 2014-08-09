@@ -59,7 +59,7 @@ Donations
 ---------
 We accept tips through [Gittip][tip].
 
-[![Gittip](http://img.shields.io/gittip/mistydemeo.svg)](https://www.gittip.com/mistydemeo/)
+[![Gittip](http://img.shields.io/gittip/mistydemeo.svg?style=flat)](https://www.gittip.com/mistydemeo/)
 
 [Homebrew]:http://brew.sh
 [wiki]:https://github.com/mistydemeo/tigerbrew/wiki
