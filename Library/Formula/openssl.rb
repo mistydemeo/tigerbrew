@@ -2,17 +2,16 @@ require 'formula'
 
 class Openssl < Formula
   homepage 'http://openssl.org'
-  url 'https://www.openssl.org/source/openssl-1.0.1h.tar.gz'
-  mirror 'http://mirrors.ibiblio.org/openssl/source/openssl-1.0.1h.tar.gz'
+  url 'https://www.openssl.org/source/openssl-1.0.1i.tar.gz'
+  mirror 'http://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-1.0.1i.tar.gz'
   # This has to be an sha1 because Tiger's system openssl doesn't do sha256;
   # we depend on Homebrew's openssl to calculate sha256 hashes
-  sha1 'b2239599c8bf8f7fc48590a55205c26abe560bf8'
+  sha1 '74eed314fa2c93006df8d26cd9fc630a101abd76'
 
   bottle do
-    revision 1
-    sha1 "0b776dc04ed4fcc5398c073b0de75aea22935229" => :mavericks
-    sha1 "3cdffa0876d8cb93e78d5b397a217b1815ae5abf" => :mountain_lion
-    sha1 "017742db0d6daf60936acebeda63daf99c32160d" => :lion
+    sha1 "601d7e8ec3c031bc74f577be840a31030000999e" => :mavericks
+    sha1 "6d387d9ca1d3ca3a3e1e8ff070b695ef38c9fee6" => :mountain_lion
+    sha1 "250bbc9ec053ca94e7fd83d9e21b6ae9d2b75f68" => :lion
   end
 
   option :universal

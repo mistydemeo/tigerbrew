@@ -159,7 +159,7 @@ class FormulaInstaller
         @poured_bottle = true
 
         stdlibs = Keg.new(f.prefix).detect_cxx_stdlibs
-        stdlib_in_use = CxxStdlib.new(stdlibs.first, MacOS.default_compiler)
+        stdlib_in_use = CxxStdlib.create(stdlibs.first, MacOS.default_compiler)
         begin
           stdlib_in_use.check_dependencies(f, f.recursive_dependencies)
         rescue IncompatibleCxxStdlibs => e
@@ -515,8 +515,9 @@ class FormulaInstaller
 
     ignore_interrupts(:quietly) do # the child will receive the interrupt and marshal it back
       write.close
+      thr = Thread.new { read.read }
       Process.wait(pid)
-      data = read.read
+      data = thr.value
       read.close
       raise Marshal.load(data) unless data.nil? or data.empty?
       raise Interrupt if $?.exitstatus == 130
