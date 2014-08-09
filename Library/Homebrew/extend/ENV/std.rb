@@ -313,6 +313,12 @@ module Stdenv
     remove flags, %r{-msse4(\.\d)?}
     append flags, xarch unless xarch.empty?
     append flags, map.fetch(effective_arch, default)
+
+    # Works around a buggy system header on Tiger
+    append flags, "-faltivec" if MacOS.version == :tiger
+
+    # not really a 'CPU' cflag, but is only used with clang
+    remove flags, '-Qunused-arguments'
   end
 
   def effective_arch
@@ -326,12 +332,6 @@ module Stdenv
     else
       Hardware::CPU.family
     end
-
-    # Works around a buggy system header on Tiger
-    append flags, "-faltivec" if MacOS.version == :tiger
-
-    # not really a 'CPU' cflag, but is only used with clang
-    remove flags, '-Qunused-arguments'
   end
 
   def set_cpu_cflags default=DEFAULT_FLAGS, map=Hardware::CPU.optimization_flags
