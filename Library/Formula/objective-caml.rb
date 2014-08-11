@@ -25,6 +25,12 @@ class ObjectiveCaml < Formula
   # See http://caml.inria.fr/mantis/view.php?id=6346 for upstream bug.
   patch :DATA
 
+  # Removes -no_compact_unwind, which wasn't available in Leopard's ld
+  patch :p1 do
+    url "https://gist.githubusercontent.com/anonymous/1f3cf8cd60be707ab3b9/raw/2d46e20089892c2a87c04627733c6b7bbb1004fc/-"
+    sha1 "1576b98b1b175e4299193e357cddd81422545b6f"
+  end if MacOS.version < :snow_leopard
+
   def install
     system "./configure", "--prefix", HOMEBREW_PREFIX,
                           "--mandir", man,
