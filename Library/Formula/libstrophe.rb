@@ -2,15 +2,15 @@ require "formula"
 
 class Libstrophe < Formula
   homepage "http://strophe.im/libstrophe/"
-  url "https://github.com/strophe/libstrophe/archive/0.8.5.tar.gz"
-  sha1 "11f80abb8e578c5bc446ff94603e7e0f560547f7"
+  url "https://github.com/strophe/libstrophe/archive/0.8.6.tar.gz"
+  sha1 "fc30c78945cb075a636cff8c76be671c8a364eb0"
   head "https://github.com/strophe/libstrophe.git"
 
   bottle do
     cellar :any
-    sha1 "541e0c27a82f39b71eb95bb17169b36f9ffed8c0" => :mavericks
-    sha1 "73e49037a4553f90d846a73c6aad1301921f4848" => :mountain_lion
-    sha1 "a74416c594d17598e4acaea5aea74247c57900bd" => :lion
+    sha1 "556ea839a05d6cde40358ca5a2a54c4efbd198eb" => :mavericks
+    sha1 "ffb4d4ccb4d334c9d032fa602a7c6714c7925ceb" => :mountain_lion
+    sha1 "fa2b24f8b3bdb025c85314ff5ac9b0acb9474eee" => :lion
   end
 
   depends_on "autoconf" => :build

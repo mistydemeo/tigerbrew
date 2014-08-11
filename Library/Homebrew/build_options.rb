@@ -1,10 +1,6 @@
 require 'options'
 
-# This class holds the build-time options defined for a Formula,
-# and provides named access to those options during install.
 class BuildOptions
-  include Enumerable
-
   attr_accessor :args
   attr_accessor :universal
 
@@ -16,18 +12,6 @@ class BuildOptions
   def initialize_copy(other)
     super
     @args = other.args.dup
-  end
-
-  def empty?
-    @options.empty?
-  end
-
-  def each(*args, &block)
-    @options.each(*args, &block)
-  end
-
-  def as_flags
-    @options.as_flags
   end
 
   def include? name

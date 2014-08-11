@@ -239,9 +239,9 @@ class FormulaInstaller
     raise UnsatisfiedRequirements.new(f, fatals) unless fatals.empty?
   end
 
-  def install_requirement_default_formula?(req)
+  def install_requirement_default_formula?(req, build)
     return false unless req.default_formula?
-    return false if req.optional?
+    return false if build.without?(req)
     return true unless req.satisfied?
     pour_bottle? || build_bottle?
   end
@@ -262,7 +262,7 @@ class FormulaInstaller
           Requirement.prune
         elsif req.build? && dependent != f && install_bottle_for_dep?(dependent, build)
           Requirement.prune
-        elsif install_requirement_default_formula?(req)
+        elsif install_requirement_default_formula?(req, build)
           dep = req.to_dependency
           deps.unshift(dep)
           formulae.unshift(dep.to_formula)
@@ -461,7 +461,7 @@ class FormulaInstaller
     when f.devel then args << "--devel"
     end
 
-    f.build.each do |opt, _|
+    f.options.each do |opt|
       name  = opt.name[/\A(.+)=\z$/, 1]
       value = ARGV.value(name)
       args << "--#{name}=#{value}" if name && value
