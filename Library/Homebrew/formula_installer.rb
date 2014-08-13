@@ -241,7 +241,7 @@ class FormulaInstaller
 
   def install_requirement_default_formula?(req, build)
     return false unless req.default_formula?
-    return false if build.without?(req)
+    return false if build.without?(req) && (req.recommended? || req.optional?)
     return true unless req.satisfied?
     pour_bottle? || build_bottle?
   end
@@ -303,15 +303,9 @@ class FormulaInstaller
   end
 
   def effective_build_options_for(dependent, inherited_options=[])
-    if dependent == f
-      build = dependent.build.dup
-      build.args |= options
-      build
-    else
-      build = dependent.build.dup
-      build.args |= inherited_options
-      build
-    end
+    args  = dependent.build.used_options
+    args |= dependent == f ? options : inherited_options
+    BuildOptions.new(args, dependent.options)
   end
 
   def inherited_options_for(dep)
@@ -716,7 +710,7 @@ end
 
 class Formula
   def keg_only_text
-    s = "This formula is keg-only, so it was not symlinked into #{HOMEBREW_PREFIX}."
+    s = "This formula is keg-only, which means it was not symlinked into #{HOMEBREW_PREFIX}."
     s << "\n\n#{keg_only_reason.to_s}"
     if lib.directory? or include.directory?
       s <<

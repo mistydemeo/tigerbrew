@@ -78,15 +78,17 @@ class Git < Formula
     ENV['CURLDIR'] = Formula['curl'].opt_prefix if MacOS.version < :snow_leopard
     ENV['NO_APPLE_COMMON_CRYPTO'] = '1' if MacOS.version < :leopard
 
+    perl_version = /\d\.\d+/.match(`perl --version`)
+
     if build.with? 'brewed-svn'
-      ENV["PERLLIB_EXTRA"] = "#{Formula["subversion"].prefix}/Library/Perl/5.16/darwin-thread-multi-2level"
+      ENV["PERLLIB_EXTRA"] = "#{Formula["subversion"].prefix}/Library/Perl/#{perl_version}/darwin-thread-multi-2level"
     elsif MacOS.version >= :mavericks
       ENV["PERLLIB_EXTRA"] = %W{
         #{MacOS.active_developer_dir}
         /Library/Developer/CommandLineTools
         /Applications/Xcode.app/Contents/Developer
       }.uniq.map { |p|
-        "#{p}/Library/Perl/5.16/darwin-thread-multi-2level"
+        "#{p}/Library/Perl/#{perl_version}/darwin-thread-multi-2level"
       }.join(":")
     end
 
