@@ -7,28 +7,23 @@ class GnuTar < Formula
   sha1 "cd30a13bbfefb54b17e039be7c43d2592dd3d5d0"
 
   bottle do
-    sha1 "3df9bf4cfa0fc347996ee8877b20b3b6062046a4" => :mavericks
-    sha1 "43a8b742e543f64f42042df26505adaff1860b21" => :mountain_lion
-    sha1 "8f68e3ef6195270056223f15b011d7249684480d" => :lion
+    revision 1
+    sha1 "9bb446adc443bee53702301fd131b51993306cfb" => :mavericks
+    sha1 "6d9b3b71d490d599b15d313e61262cc9303b773a" => :mountain_lion
+    sha1 "e53b6fbcd67091197bacf96d032877d31bcbf649" => :lion
   end
-
-  # autoconf/automake can be removed when the patch is merged upstream.
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
 
   # Fix for xattrs bug causing build failures on OS X:
   # https://lists.gnu.org/archive/html/bug-tar/2014-08/msg00001.html
   patch :p1 do
-    url "https://raw.githubusercontent.com/DomT4/patch-mayhem/master/0001-xattrs-fix-bug-in-configure.patch"
-    sha1 "d8d9f9f5862fa1c1468a914e609daaf57accf3d2"
+    url "https://gist.githubusercontent.com/mistydemeo/10fbae8b8441359ba86d/raw/e5c183b72036821856f9e82b46fba6185e10e8b9/gnutar-configure-xattrs.patch"
+    sha1 "55d570de077eb1dd30b1e499484f28636fbda882"
   end
 
   def install
     args = ["--prefix=#{prefix}", "--mandir=#{man}"]
     args << "--program-prefix=g"
 
-    # autoreconf can be removed when the patch is merged upstream.
-    system "autoreconf"
     system "./configure", *args
     system "make", "install"
 
