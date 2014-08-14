@@ -40,6 +40,7 @@ class Mpd < Formula
   depends_on "libid3tag"
   depends_on "sqlite"
   depends_on "libsamplerate"
+  depends_on :ld64
 
   needs :cxx11
 
@@ -61,6 +62,8 @@ class Mpd < Formula
   depends_on "opus" => :optional        # Opus support
 
   depends_on "libvorbis" if build.with? "vorbis" # Vorbis support
+
+  patch :DATA if Hardware::CPU.ppc?
 
   def install
     # mpd specifies -std=gnu++0x, but clang appears to try to build
@@ -99,6 +102,10 @@ class Mpd < Formula
     args << "--disable-lame-encoder" if build.without? "lame"
     args << "--disable-soundcloud" if build.without? "yajl"
     args << "--enable-vorbis-encoder" if build.with? "vorbis"
+    # OpenAL headers on Tiger are broken with GCC >= 4.2
+    args << "--disable-openal" if MacOS.version == :tiger
+    # fix compile error against glib
+    args << "CPPFLAGS=-fpermissive"
 
     system "./configure", *args
     system "make"
@@ -120,3 +127,19 @@ class Mpd < Formula
     EOS
   end
 end
+__END__
+diff --git a/src/system/ByteOrder.hxx b/src/system/ByteOrder.hxx
+index 8beda61..c4ef83a 100644
+--- a/src/system/ByteOrder.hxx
++++ b/src/system/ByteOrder.hxx
+@@ -36,7 +36,7 @@
+ /* well-known little-endian */
+ #  define IS_LITTLE_ENDIAN true
+ #  define IS_BIG_ENDIAN false
+-#elif defined(__MIPSEB__)
++#elif defined(__MIPSEB__) || defined(__ppc__) || defined(__ppc64__)
+ /* well-known big-endian */
+ #  define IS_LITTLE_ENDIAN false
+ #  define IS_BIG_ENDIAN true
+--
+2.0.0
