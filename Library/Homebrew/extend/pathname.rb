@@ -474,6 +474,7 @@ class Pathname
     def unlink
       symlink? ? File.unlink(to_s) : oldunlink
     end
+    alias :delete :unlink
   end
 
   # Not defined in Ruby 1.8.2. Definition taken from 1.8.7.
