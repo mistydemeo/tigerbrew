@@ -15,6 +15,7 @@ class Libgsf < Formula
   depends_on 'intltool' => :build
   depends_on 'gettext'
   depends_on 'glib'
+  depends_on "libxml2" if MacOS.version < :snow_leopard
 
   def install
     system "./configure", "--disable-dependency-tracking",
