@@ -6,6 +6,8 @@ class Ninja < Formula
   sha1 "c5a3af39f6d7ee3a30263f34091c046964d442f0"
   head "https://github.com/martine/ninja.git"
 
+  depends_on :python => :build if MacOS.version < :snow_leopard
+
   def install
     system "python", "bootstrap.py"
     bin.install "ninja"
