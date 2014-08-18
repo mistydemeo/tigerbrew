@@ -17,6 +17,9 @@ class Gmp < Formula
   option '32-bit'
   option :cxx11
 
+  # https://github.com/mistydemeo/tigerbrew/issues/212
+  env :std
+
   def install
     ENV.cxx11 if build.cxx11?
     args = ["--prefix=#{prefix}", "--enable-cxx"]
