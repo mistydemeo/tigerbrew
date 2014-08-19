@@ -20,10 +20,20 @@ class Tmux < Formula
     depends_on "libtool" => :build
   end
 
+  # Fix build on Tiger - osdep includes a header not present until Leopard
+  resource "osdep" do
+    url "https://trac.macports.org/export/124113/trunk/dports/sysutils/tmux/files/osdep-darwin.8.c"
+    sha1 "be1dc421d7f13137be028e35423ef81351ea6886"
+  end if MacOS.version < :leopard
+
   depends_on 'pkg-config' => :build
   depends_on 'libevent'
 
   def install
+    resource("osdep").stage do
+      buildpath.install "osdep-darwin.8.c" => "osdep-darwin.c"
+    end if MacOS.version < :leopard
+
     system "sh", "autogen.sh" if build.head?
 
     ENV.append "LDFLAGS", '-lresolv'
