@@ -13,9 +13,10 @@ class Isl < Formula
 
   bottle do
     cellar :any
-    sha1 "2d878327e26853c0f17004787233ddee9060f788" => :mavericks
-    sha1 "42550979c1911f818a4a124b263be08cc094bcdf" => :mountain_lion
-    sha1 "08c5044ae3bbaf9e6cf5d6329addf886430696bb" => :lion
+    sha1 "e522eac2eac7628af23d5982867efdc656f4b9a7" => :tiger_g3
+    sha1 "b75c971058946c3a261a7cb807fc032644b8337b" => :tiger_altivec
+    sha1 "13905e3263d3b3218aaa590bb767a0de5653ff14" => :leopard_g3
+    sha1 "5a48c443a0a3a67335843346217138073fdf074c" => :leopard_altivec
   end
 
   head do
