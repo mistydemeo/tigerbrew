@@ -7,9 +7,10 @@ class Expat < Formula
 
   bottle do
     cellar :any
-    sha1 "2d12120ed9ff4835d8c5c31ef1699629dc0f480a" => :mavericks
-    sha1 "f2158bd85b4f592df187d2819635dd868b58e023" => :mountain_lion
-    sha1 "9be7ecfc6f4e2e58361af84e303214b842c652b7" => :lion
+    sha1 "f6ead982ec2d00eec6772cb6cc2c4b246fb11c5e" => :tiger_g3
+    sha1 "4e8738f61c4cdb18b9278c3fc9c9e9a5e56371ab" => :tiger_altivec
+    sha1 "a196b61b812943c1687a88b593a35c650c8bdec3" => :leopard_g3
+    sha1 "b9de95ab617c38d84197294dc018c1056fd82f4b" => :leopard_altivec
   end
 
   option :universal
