@@ -10,6 +10,14 @@ class Cctools < Formula
   url 'http://www.opensource.apple.com/tarballs/cctools/cctools-806.tar.gz'
   sha1 'e4f9a7ee0eef930e81d50b6b7300b8ddc1c7b341'
 
+  bottle do
+    sha1 "0a1b8d858d2057ad85a1bd8fa9de934e54223c3f" => :tiger_g3
+    sha1 "049866feb149128c031c37521f7be166435c6c15" => :tiger_g4e
+    sha1 "6ec31fb6615accabf3a3defebd367e5cc7f78ffa" => :tiger_altivec
+    sha1 "fc953e9dec74facebed0319911690769621dff09" => :leopard_g3
+    sha1 "e51879f08bc81e9d1f59ba8333c5f3292ef62548" => :leopard_altivec
+  end
+
   depends_on 'cctools-headers' => :build
   depends_on 'ld64' => :build
 
