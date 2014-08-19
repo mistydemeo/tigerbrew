@@ -23,6 +23,13 @@ class Ld64 < Formula
   url 'http://opensource.apple.com/tarballs/ld64/ld64-97.17.tar.gz'
   sha1 '7c1d816c2fec02e558f4a528d16d8161f0e379b5'
 
+  bottle do
+    sha1 "841c863b95d9585a97a6e4d4e7f8cdc38f41f617" => :tiger_g3
+    sha1 "5a42d849b7231d0b5985514ed5e77aa424048853" => :tiger_altivec
+    sha1 "9c32cb4c189dd8c05f5fed54eb05cf7b2220653d" => :leopard_g3
+    sha1 "28728a210881f5b6949c3305e932eed9109b3a10" => :leopard_altivec
+  end
+
   resource "makefile" do
     url "https://trac.macports.org/export/123511/trunk/dports/devel/ld64/files/Makefile-97", :using => :nounzip
     sha1 "581688eb31a44b406dfb7476a770d2cff190f2bd"
