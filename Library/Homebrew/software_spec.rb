@@ -212,7 +212,7 @@ end
 class BottleSpecification
   DEFAULT_PREFIX = "/usr/local".freeze
   DEFAULT_CELLAR = "/usr/local/Cellar".freeze
-  DEFAULT_ROOT_URL = "https://ia902307.us.archive.org/31/items/tigerbrew/".freeze
+  DEFAULT_ROOT_URL = "https://ia902307.us.archive.org/31/items/tigerbrew".freeze
 
   attr_rw :root_url, :prefix, :cellar, :revision
   attr_reader :checksum, :collector
