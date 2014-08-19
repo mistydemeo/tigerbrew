@@ -10,9 +10,10 @@ class Mpfr < Formula
 
   bottle do
     cellar :any
-    sha1 "ae9062f1736202e1e6324dbb74f6074d672708e8" => :mavericks
-    sha1 "6f4e0967728cb9ff5fad9de53dc38eb1648eee8e" => :mountain_lion
-    sha1 "63efa4c854ede1a352d73756d242514e042c8e2e" => :lion
+    sha1 "692ace59c0d2cb38251a894dd55e0caa829b197f" => :tiger_g3
+    sha1 "cc5e421db4068fa85d58c0fcca28e6f03463c6ff" => :tiger_altivec
+    sha1 "46dde17c859453421481fe8a811ec755b8909db6" => :leopard_g3
+    sha1 "77cdc8e0ad4568e6b793b9d313c73662a880c1ea" => :leopard_altivec
   end
 
   # http://www.mpfr.org/mpfr-current/allpatches
