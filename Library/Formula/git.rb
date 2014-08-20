@@ -62,7 +62,10 @@ class Git < Formula
 
   def install
     # git's index-pack will segfault unless compiled without optimization
-    ENV.no_optimization if MacOS.version == :tiger
+    # with the Tigerbrew apple-gcc42 on Tiger
+    if MacOS.version < :leopard && ENV.compiler == :gcc
+      ENV.no_optimization
+    end
 
     if MacOS.version == :tiger
       tar = Formula['gnu-tar']
