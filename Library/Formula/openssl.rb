@@ -9,9 +9,10 @@ class Openssl < Formula
   sha1 '74eed314fa2c93006df8d26cd9fc630a101abd76'
 
   bottle do
-    sha1 "601d7e8ec3c031bc74f577be840a31030000999e" => :mavericks
-    sha1 "6d387d9ca1d3ca3a3e1e8ff070b695ef38c9fee6" => :mountain_lion
-    sha1 "250bbc9ec053ca94e7fd83d9e21b6ae9d2b75f68" => :lion
+    sha1 "2ce06eae6acc18420aafe1a0df213d4ef2ca5300" => :tiger_g3
+    sha1 "1d2aaeb9cd4125e381fedd0f5cd2bd79e28f17af" => :tiger_altivec
+    sha1 "bd6db0aa38a1e8672b8f201c8e6a63d77019e901" => :leopard_g3
+    sha1 "a641c4e662d104e5c78d0a0224143e51883f0d7e" => :leopard_altivec
   end
 
   option :universal
