@@ -103,7 +103,11 @@ module Homebrew
 
     ruby_version = MacOS.version >= "10.9" ? "2.0" : "1.8"
     if RUBY_VERSION[/\d\.\d/] != ruby_version
-      f.puts "#{RUBY_PATH}:\n  #{RUBY_VERSION}-#{RUBY_PATCHLEVEL}"
+      if defined? RUBY_PATCHLEVEL
+        f.puts "#{RUBY_PATH}:\n  #{RUBY_VERSION}-#{RUBY_PATCHLEVEL}"
+      else
+        f.puts "#{RUBY_PATH}:\n  #{RUBY_VERSION}"
+      end
     end
 
     unless MacOS.compilers_standard?
