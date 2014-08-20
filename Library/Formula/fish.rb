@@ -13,6 +13,13 @@ class Fish < Formula
     depends_on 'doxygen' => :build
   end
 
+  bottle do
+    sha1 "d75e3e0f0ff294ca60281236a6d3c18746256515" => :tiger_g3
+    sha1 "ac86ecc892592d98a7b005518c1e1c42653f412a" => :tiger_altivec
+    sha1 "1212335fe762804fc342c3b967a55d3bee8d902b" => :leopard_g3
+    sha1 "5ec405893b0c242b04bb6036bfa906b006bd285f" => :leopard_altivec
+  end
+
   skip_clean 'share/doc'
 
   def install
