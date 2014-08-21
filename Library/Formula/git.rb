@@ -8,10 +8,11 @@ class Git < Formula
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
+    revision 1
     sha1 "70612b9767aeded194f860d443fbcd71ae92acc6" => :tiger_g3
     sha1 "7a4eac341599c230543a0708c74287bc88a07048" => :tiger_altivec
-    sha1 "f1eb1f53930274573ea9e3fd2b1cac6d78cb8a3a" => :leopard_g3
-    sha1 "30a59077a1c6bbbac521f37a1d2d5c3a17b8a325" => :leopard_altivec
+    sha1 "1f5e01b0156ae68d6184e5b370c28493a4a6d858" => :leopard_g3
+    sha1 "051c23bb0f8dc13adff24ae29e04dd47eeff0e72" => :leopard_altivec
   end
 
   resource "man" do
