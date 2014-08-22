@@ -19,6 +19,18 @@ class Libtorrent < Formula
     cause "Causes segfaults at startup/at random."
   end
 
+  # https://trac.macports.org/ticket/27289
+  if MacOS.version < :snow_leopard
+    fails_with :gcc_4_0
+    fails_with :gcc
+    fails_with :llvm
+  end
+
+  patch :p0 do
+    url "https://trac.macports.org/export/124274/trunk/dports/net/libtorrent/files/no_posix_memalign.patch"
+    sha1 "c507b74290f16f933da0a648645945e938a8e36d"
+  end
+
   def install
     # Currently can't build against libc++; see:
     # https://github.com/mxcl/homebrew/issues/23483
