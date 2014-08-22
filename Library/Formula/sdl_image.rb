@@ -15,16 +15,8 @@ class SdlImage < Formula
 
   depends_on 'pkg-config' => :build
   depends_on 'sdl'
-
-  # Mandatory for the common image backend
-  if MacOS.version < :leopard
-    depends_on 'libpng'
-    depends_on 'jpeg'
-  else
-    depends_on 'jpeg'    => :recommended
-    depends_on 'libpng'  => :recommended
-  end
-
+  depends_on 'jpeg'    => :recommended
+  depends_on 'libpng'  => :recommended
   depends_on 'libtiff' => :recommended
   depends_on 'webp'    => :recommended
 
@@ -33,14 +25,19 @@ class SdlImage < Formula
   def install
     ENV.universal_binary if build.universal?
 
-    # current Mac backend only works on Leopard or newer
-    ENV.append_to_cflags '-DSDL_IMAGE_USE_COMMON_BACKEND' if MacOS.version < :leopard
-
     inreplace 'SDL_image.pc.in', '@prefix@', HOMEBREW_PREFIX
 
-    system "./configure", "--prefix=#{prefix}",
-                          "--disable-dependency-tracking",
-                          "--disable-sdltest"
+    args = %W[
+      --prefix=#{prefix}
+      --disable-dependency-tracking
+      --disable-sdltest
+    ]
+
+    # OS X frameworks for loading images don't work on Leopard and lower
+    # https://github.com/mistydemeo/tigerbrew/issues/236
+    args << "--disable-imageio" if MacOS.version < :snow_leopard
+
+    system "./configure", *args
     system "make install"
   end
 end
