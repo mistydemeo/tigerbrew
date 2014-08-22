@@ -26,6 +26,7 @@ class Libtorrent < Formula
     fails_with :llvm
   end
 
+  # posix_memalign unavailable before Snow Leopard
   patch :p0 do
     url "https://trac.macports.org/export/124274/trunk/dports/net/libtorrent/files/no_posix_memalign.patch"
     sha1 "c507b74290f16f933da0a648645945e938a8e36d"
