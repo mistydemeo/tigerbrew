@@ -15,6 +15,19 @@ class Rtorrent < Formula
     cause "Causes segfaults at startup/at random."
   end
 
+  # https://trac.macports.org/ticket/27289
+  if MacOS.version < :snow_leopard
+    fails_with :gcc_4_0
+    fails_with :gcc
+    fails_with :llvm
+  end
+
+  # posix_memalign unavailable before Snow Leopard
+  patch :p0 do
+    url "https://trac.macports.org/export/124274/trunk/dports/net/libtorrent/files/no_posix_memalign.patch"
+    sha1 "c507b74290f16f933da0a648645945e938a8e36d"
+  end
+
   def install
     # Commented out since we're now marked as failing with clang - adamv
     # ENV.libstdcxx if ENV.compiler == :clang
