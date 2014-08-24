@@ -4,11 +4,12 @@ class Python3 < Formula
   homepage 'https://www.python.org/'
   url 'https://python.org/ftp/python/3.4.1/Python-3.4.1.tgz'
   sha1 'e8c1bd575a6ccc2a75f79d9d094a6a29d3802f5d'
+  revision 1
 
   bottle do
-    sha1 "e86f7aede6e519a426e326f5020dc780ee39f05e" => :mavericks
-    sha1 "ad0bdc7fbf3f5079d134405fc83465634e07c40d" => :mountain_lion
-    sha1 "942f16fe68c47b267c958eca67f3754b412bd10d" => :lion
+    sha1 "c5c73be8677f650f901ca0800f0531ec32d017ff" => :mavericks
+    sha1 "6999a1ab90c356846f8c00a418eb50d715337a71" => :mountain_lion
+    sha1 "a77e3d700c22d3b0e9a3071384db458eabf876fb" => :lion
   end
 
   VER='3.4'  # The <major>.<minor> is used so often.
@@ -177,8 +178,7 @@ class Python3 < Formula
       # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
       cflags += " -isysroot #{MacOS.sdk_path}"
       ldflags += " -isysroot #{MacOS.sdk_path}"
-      # Same zlib.h-not-found-bug as in env :std (see below)
-      args << "CPPFLAGS=-I#{MacOS.sdk_path}/usr/include"
+      args << "CPPFLAGS=-I#{MacOS.sdk_path}/usr/include" # find zlib
       if build.without? 'brewed-tk'
         cflags += " -I#{MacOS.sdk_path}/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers"
       end

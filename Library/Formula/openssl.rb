@@ -36,6 +36,7 @@ class Openssl < Formula
     args = %W[
       --prefix=#{prefix}
       --openssldir=#{openssldir}
+      no-ssl2
       zlib-dynamic
       shared
       enable-cms
