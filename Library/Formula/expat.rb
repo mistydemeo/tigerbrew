@@ -13,7 +13,7 @@ class Expat < Formula
     sha1 "b9de95ab617c38d84197294dc018c1056fd82f4b" => :leopard_altivec
   end
 
-  keg_only :provided_by_osx, "OS X includes Expat 1.5."
+  keg_only :provided_by_osx, "OS X includes Expat 1.5." if MacOS.version > :tiger
 
   option :universal
 
