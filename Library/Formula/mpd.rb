@@ -94,6 +94,11 @@ class Mpd < Formula
       --enable-osx
     ]
 
+    # Newer GCCs can't read the headers in the OS OpenAL on
+    # Leopard and older.
+    # https://github.com/mistydemeo/tigerbrew/issues/229
+    args << "--disable-openal" if MacOS.version < :snow_leopard
+
     args << "--disable-mad"
     args << "--disable-curl" if MacOS.version <= :leopard
 
