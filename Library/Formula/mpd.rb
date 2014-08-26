@@ -35,6 +35,10 @@ class Mpd < Formula
     option "with-libwrap", "Build with libwrap (TCP Wrappers) support (buggy)"
   end
 
+  # Fixes detecting endianness on OS X; upstream commit:
+  # http://git.musicpd.org/cgit/master/mpd.git/commit/src/system/ByteOrder.hxx?id=c38f29ce561a5c79a82c1c60c34ef88b5ded0660
+  patch :DATA
+
   depends_on "pkg-config" => :build
   depends_on "glib"
   depends_on "libid3tag"
@@ -120,3 +124,26 @@ class Mpd < Formula
     EOS
   end
 end
+
+__END__
+diff --git a/src/system/ByteOrder.hxx b/src/system/ByteOrder.hxx
+index 8beda61..42181fe 100644
+--- a/src/system/ByteOrder.hxx
++++ b/src/system/ByteOrder.hxx
+@@ -40,6 +40,16 @@
+ /* well-known big-endian */
+ #  define IS_LITTLE_ENDIAN false
+ #  define IS_BIG_ENDIAN true
++#elif defined(__APPLE__)
++/* compile-time check for MacOS */
++#  include <machine/endian.h>
++#  if BYTE_ORDER == LITTLE_ENDIAN
++#    define IS_LITTLE_ENDIAN true
++#    define IS_BIG_ENDIAN false
++#  else
++#    define IS_LITTLE_ENDIAN false
++#    define IS_BIG_ENDIAN true
++#  endif
+ #else
+ /* generic compile-time check */
+ #  include <endian.h>
