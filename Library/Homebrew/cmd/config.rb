@@ -137,7 +137,14 @@ module Homebrew
     f.puts "Clang: #{clang ? "#{clang} build #{clang_build}" : "N/A"}"
     f.puts "MacPorts/Fink: #{macports_or_fink}" if macports_or_fink
     f.puts "X11: #{describe_x11}"
-    f.puts "System Ruby: #{RUBY_VERSION}-#{RUBY_PATCHLEVEL}"
+
+    if defined? RUBY_PATCHLEVEL
+      system_ruby = "#{RUBY_VERSION}-#{RUBY_PATCHLEVEL}"
+    else
+      system_ruby = RUBY_VERSION
+    end
+
+    f.puts "System Ruby: #{system_ruby}"
     f.puts "Perl: #{describe_perl}"
     f.puts "Python: #{describe_python}"
     f.puts "Ruby: #{describe_ruby}"
