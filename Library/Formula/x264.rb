@@ -43,12 +43,8 @@ class X264 < Formula
     elsif Formula["gpac"].installed?
       args << "--disable-lsmash"
     end
-<<<<<<< HEAD
-    args << "--bit-depth=10" if build.include? '10-bit'
-    args << "--disable-asm" if Hardware::CPU.family == :g3
-=======
     args << "--bit-depth=10" if build.include? "10-bit"
->>>>>>> Homebrew/master
+    args << "--disable-asm" if Hardware::CPU.family == :g3
 
     # For running version.sh correctly
     buildpath.install_symlink cached_download/".git"
