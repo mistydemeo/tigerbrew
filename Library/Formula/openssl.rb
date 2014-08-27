@@ -9,10 +9,11 @@ class Openssl < Formula
   sha1 '74eed314fa2c93006df8d26cd9fc630a101abd76'
 
   bottle do
-    sha1 "2ce06eae6acc18420aafe1a0df213d4ef2ca5300" => :tiger_g3
-    sha1 "1d2aaeb9cd4125e381fedd0f5cd2bd79e28f17af" => :tiger_altivec
-    sha1 "bd6db0aa38a1e8672b8f201c8e6a63d77019e901" => :leopard_g3
-    sha1 "a641c4e662d104e5c78d0a0224143e51883f0d7e" => :leopard_altivec
+    revision 2
+    sha1 "cf3717878139dd0add994f962d479ab58080d19f" => :tiger_g3
+    sha1 "97d8cc02c147e579f7ad6d8f2f461a31e349f247" => :tiger_altivec
+    sha1 "4957d4bdb889011e5498bdd4c91d9c057e695e05" => :leopard_g3
+    sha1 "2ae5bab8a7005f0b6a36db08d674ae2c63868c00" => :leopard_altivec
   end
 
   option :universal
@@ -36,6 +37,7 @@ class Openssl < Formula
     args = %W[
       --prefix=#{prefix}
       --openssldir=#{openssldir}
+      no-ssl2
       zlib-dynamic
       shared
       enable-cms

@@ -5,11 +5,12 @@ class Python < Formula
   head "http://hg.python.org/cpython", :using => :hg, :branch => "2.7"
   url "http://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz"
   sha1 "511960dd78451a06c9df76509635aeec05b2051a"
+  revision 1
 
   bottle do
-    sha1 "11c4ad33f1a0ec2a9dee025f246e67a0783e8bdb" => :mavericks
-    sha1 "522a99761335205b29f348dd9861dc6630a29a35" => :mountain_lion
-    sha1 "07ba7ee28c2d6a6d8fcc613b27574090f0e2f27e" => :lion
+    sha1 "68a2b3065bf0c5dfd6992856984a92f93448d7cf" => :mavericks
+    sha1 "b19e492d3fc8f3483bbe61412d3f9dcb1cf0d0c2" => :mountain_lion
+    sha1 "ece2bcd6389858f8874b27bf78c4ef0cf57a321a" => :lion
   end
 
   option :universal
@@ -37,6 +38,14 @@ class Python < Formula
   resource "pip" do
     url "https://pypi.python.org/packages/source/p/pip/pip-1.5.6.tar.gz"
     sha1 "e6cd9e6f2fd8d28c9976313632ef8aa8ac31249e"
+  end
+
+  # Patch for pyport.h macro issue
+  # http://bugs.python.org/issue10910
+  # https://trac.macports.org/ticket/44288
+  patch do
+    url "http://bugs.python.org/file30805/issue10910-workaround.txt"
+    sha1 "9926640cb7c8e273e4b451469a2b13d4b9df5ba3"
   end
 
   # Patch to disable the search for Tk.framework, since Homebrew's Tk is
@@ -210,8 +219,7 @@ class Python < Formula
       # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
       cflags += " -isysroot #{MacOS.sdk_path}"
       ldflags += " -isysroot #{MacOS.sdk_path}"
-      # Same zlib.h-not-found-bug as in env :std (see below)
-      args << "CPPFLAGS=-I#{MacOS.sdk_path}/usr/include"
+      args << "CPPFLAGS=-I#{MacOS.sdk_path}/usr/include" # find zlib
       # For the Xlib.h, Python needs this header dir with the system Tk
       if build.without? "brewed-tk"
         cflags += " -I#{MacOS.sdk_path}/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers"

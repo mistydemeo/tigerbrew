@@ -13,6 +13,8 @@ class Expat < Formula
     sha1 "b9de95ab617c38d84197294dc018c1056fd82f4b" => :leopard_altivec
   end
 
+  keg_only :provided_by_osx, "OS X includes Expat 1.5." if MacOS.version > :tiger
+
   option :universal
 
   def install
@@ -21,9 +23,5 @@ class Expat < Formula
                           "--prefix=#{prefix}",
                           "--mandir=#{man}"
     system "make install"
-  end
-
-  def caveats
-    "Note that OS X has Expat 1.5 installed in /usr already."
   end
 end

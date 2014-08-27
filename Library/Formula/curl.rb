@@ -5,13 +5,14 @@ class Curl < Formula
   url 'http://curl.haxx.se/download/curl-7.37.1.tar.gz'
   mirror 'ftp://ftp.sunet.se/pub/www/utilities/curl/curl-7.37.1.tar.gz'
   sha256 'a32492a38c10a097344892f5fd2041e54698cb909696852311b1161e4aa979f3'
+  revision 1
 
   bottle do
     cellar :any
-    sha1 "72d693e02e3b08f78effc412536fd3821ae23cd3" => :tiger_g3
-    sha1 "9899a771f80857af96594839a574d240844bfa25" => :tiger_altivec
-    sha1 "df312a05f4d4a600213817cb7afd6d7afdadc7b4" => :leopard_g3
-    sha1 "438405e417a7c900249ff3469ede3332c38d9d59" => :leopard_altivec
+    sha1 "ffeb3b46f0d8c1dab1673f76b1315e916927c6ea" => :tiger_g3
+    sha1 "8caa6577a9aca6f4e7bd2ae3da556499d036a07b" => :tiger_altivec
+    sha1 "3151b227168988c91a14b5aa4256204e0af45c44" => :leopard_g3
+    sha1 "11e8c7e5362072036073a8feb9f8be94498933c5" => :leopard_altivec
   end
 
   keg_only :provided_by_osx
