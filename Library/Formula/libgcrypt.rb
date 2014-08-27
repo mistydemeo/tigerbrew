@@ -21,7 +21,7 @@ class Libgcrypt < Formula
     url "http://trac.macports.org/export/113198/trunk/dports/devel/libgcrypt/files/config.h.ed"
     version "113198"
     sha1 "136f636673b5c9d040f8a55f59b430b0f1c97d7a"
-  end if build.universal?
+  end
 
   # Otherwise PPC darwin will attempt to build x86-only code and blow up
   # Reported upstream: https://bugs.g10code.com/gnupg/issue1616
