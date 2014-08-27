@@ -36,8 +36,8 @@ class Boost < Formula
     cellar :any
     sha1 "274d9ca3b630623c766693853bbfb30158472057" => :tiger_g3
     sha1 "e02738ab1ca15063d548a2bf9d9d9de90f534c4f" => :tiger_altivec
-    sha1 "277d5cff8fdcf163a5bfae6eefe2946a2f329744" => :leopard_g3
-    sha1 "3e69906676fbe670e3b852ac9df4ea7a265e5613" => :leopard_altivec
+    sha1 "3e69906676fbe670e3b852ac9df4ea7a265e5613" => :leopard_g3
+    sha1 "277d5cff8fdcf163a5bfae6eefe2946a2f329744" => :leopard_altivec
   end
 
   env :userpaths
