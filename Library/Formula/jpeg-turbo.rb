@@ -10,6 +10,11 @@ class JpegTurbo < Formula
 
   keg_only "libjpeg-turbo is not linked to prevent conflicts with the standard libjpeg."
 
+  # Big-endian code in md5.c uses byteswapping functions that only exist on
+  # Linux; this defines macros to replace them with their OS X equivalents.
+  # https://github.com/mistydemeo/tigerbrew/issues/76
+  patch :DATA
+
   def install
     cp Dir["#{Formula["libtool"].opt_share}/libtool/config/config.*"], buildpath
     args = ["--disable-dependency-tracking", "--prefix=#{prefix}", "--with-jpeg8", "--mandir=#{man}"]
@@ -32,3 +37,22 @@ class JpegTurbo < Formula
                               test_jpg
   end
 end
+
+__END__
+diff --git a/md5/md5.c b/md5/md5.c
+index 7193e95..6ef2023 100644
+--- a/md5/md5.c
++++ b/md5/md5.c
+@@ -38,6 +38,12 @@ static void MD5Transform(unsigned int [4], const unsigned char [64]);
+ #define Decode memcpy
+ #else 
+ 
++#ifdef __APPLE__
++#include <libkern/OSByteOrder.h>
++#define le32toh(x) OSSwapLittleToHostInt32(x)
++#define htole32(x) OSSwapHostToLittleInt32(x)
++#endif
++
+ /*
+  * Encodes input (unsigned int) into output (unsigned char). Assumes len is
+  * a multiple of 4.
