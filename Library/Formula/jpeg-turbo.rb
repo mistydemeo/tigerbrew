@@ -13,6 +13,7 @@ class JpegTurbo < Formula
   # Big-endian code in md5.c uses byteswapping functions that only exist on
   # Linux; this defines macros to replace them with their OS X equivalents.
   # https://github.com/mistydemeo/tigerbrew/issues/76
+  # Submitted upstream: https://sourceforge.net/p/libjpeg-turbo/patches/65/
   patch :DATA
 
   def install
