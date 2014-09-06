@@ -33,6 +33,12 @@ class X264 < Formula
   end
 
   def install
+    # On Darwin/PPC x264 always uses -fastf,
+    # which isn't supported by FSF GCC.
+    if ![:gcc, :llvm, :gcc_4_0].include? ENV.compiler
+      inreplace "configure", "-fastf", ""
+    end
+    
     args = %W[
       --prefix=#{prefix}
       --enable-shared
