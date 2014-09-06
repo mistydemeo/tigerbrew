@@ -68,6 +68,12 @@ class Gcc < Formula
     version.to_s.slice(/\d\.\d/)
   end
 
+  # Fix 10.10 issues: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=61407
+  patch do
+    url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=33180"
+    sha1 "def0cb036a255175db86f106e2bb9dd66d19b702"
+  end
+
   def install
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
@@ -179,6 +185,16 @@ class Gcc < Formula
     ext = File.extname(file)
     base = File.basename(file, ext)
     File.rename file, "#{dir}/#{base}-#{suffix}#{ext}"
+  end
+
+  def caveats
+    if build.with?("multilib") then <<-EOS.undent
+      GCC has been built with multilib support. Notably, OpenMP may not work:
+        https://gcc.gnu.org/bugzilla/show_bug.cgi?id=60670
+      If you need OpenMP support you may want to
+        brew reinstall gcc --without-multilib
+      EOS
+    end
   end
 
   test do

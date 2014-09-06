@@ -307,7 +307,7 @@ module GitHub extend self
     # not support HTTPS in open-uri or not have new enough certs.
     return if ENV['HOMEBREW_NO_GITHUB_API'] || RUBY_VERSION < '1.8.7'
 
-    require 'net/https' # for exception classes below
+    safely_load_net_https
 
     default_headers = {
       "User-Agent" => HOMEBREW_USER_AGENT,
@@ -404,5 +404,25 @@ module GitHub extend self
   def private_repo?(user, repo)
     uri = URI.parse("https://api.github.com/repos/#{user}/#{repo}")
     open(uri) { |json| json["private"] }
+  end
+
+  private
+
+  # If the zlib formula is loaded, TypeError will be raised when we try to load
+  # net/https. This monkeypatch prevents that and lets Net::HTTP fall back to
+  # the non-gzip codepath.
+  def safely_load_net_https
+    return if defined?(Net::HTTP)
+    if defined?(Zlib) && RUBY_VERSION >= "1.9"
+      require "net/protocol"
+      http = Class.new(Net::Protocol) do
+        def self.require(lib)
+          raise LoadError if lib == "zlib"
+          super
+        end
+      end
+      Net.const_set(:HTTP, http)
+    end
+    require "net/https"
   end
 end

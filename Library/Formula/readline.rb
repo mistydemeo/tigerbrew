@@ -15,7 +15,7 @@ class Readline < Formula
     sha1 "869e70984bde0afad0bf38d7c0647c62aeed9eab" => :leopard_altivec
   end
 
-  keg_only <<-EOS
+  keg_only :shadowed_by_osx, <<-EOS
 OS X provides the BSD libedit library, which shadows libreadline.
 In order to prevent conflicts when programs look for libreadline we are
 defaulting this GNU Readline installation to keg-only.
