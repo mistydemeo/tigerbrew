@@ -261,7 +261,7 @@ class Formula
         # so load any deps before this point! And exit asap afterwards
         yield self
       ensure
-        cp Dir["config.log", "CMakeCache.txt"], HOMEBREW_LOGS+name
+        cp Dir["{config.log,CMakeCache.txt}"], HOMEBREW_LOGS+name
       end
     end
   end
