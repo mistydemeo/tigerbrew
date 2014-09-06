@@ -20,6 +20,7 @@ class X264 < Formula
     sha1 "f25f0a7c3ae891c2a229614da345774f93d9e1b7" => :lion
   end
 
+  depends_on :ld64
   # reports that ASM causes a crash on G3; works on G4
   depends_on "yasm" => :build unless Hardware::CPU.family == :g3
 
