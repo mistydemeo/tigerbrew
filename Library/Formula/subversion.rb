@@ -27,8 +27,10 @@ class Subversion < Formula
   # use Tigerbrew's version instead of the old one in X11
   depends_on :expat
   # Tiger's are too old
-  depends_on "homebrew/dupes/apr" if MacOS.version < :leopard
-  depends_on "homebrew/dupes/apr-util" if MacOS.version < :leopard
+  if MacOS.version < :leopard
+    depends_on "homebrew/apache/apr"
+    depends_on "homebrew/apache/apr-util"
+  end
 
   depends_on "pkg-config" => :build
   depends_on "autoconf" => :build
