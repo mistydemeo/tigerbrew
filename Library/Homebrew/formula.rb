@@ -11,9 +11,11 @@ require 'install_renamed'
 require 'pkg_version'
 
 class Formula
+  # :startdoc:
   include FileUtils
   include Utils::Inreplace
   extend Enumerable
+  # :stopdoc:
 
   attr_reader :name, :path
   attr_reader :stable, :devel, :head, :active_spec
@@ -110,8 +112,8 @@ class Formula
     active_spec.option_defined?(name)
   end
 
-  def fails_with?(compiler)
-    active_spec.fails_with?(compiler)
+  def compiler_failures
+    active_spec.compiler_failures
   end
 
   # if the dir is there, but it's empty we consider it not installed
@@ -137,6 +139,8 @@ class Formula
     require 'keg'
     Keg.new(installed_prefix).version
   end
+
+  # :startdoc:
 
   # The directory in the cellar that the formula is installed to.
   # This directory contains the formula's name and version.
@@ -250,6 +254,8 @@ class Formula
     false
   end
 
+  # :stopdoc:
+
   # yields self with current working directory set to the uncompressed tarball
   def brew
     validate_attributes :name, :version
@@ -315,6 +321,8 @@ class Formula
     "#<#{self.class.name}: #{path}>"
   end
 
+  # :startdoc:
+
   # Standard parameters for CMake builds.
   # Using Build Type "None" tells cmake to use our CFLAGS,etc. settings.
   # Setting it to Release would ignore our flags.
@@ -332,6 +340,8 @@ class Formula
       -Wno-dev
     ]
   end
+
+  # :stopdoc:
 
   # Deprecated
   def python(options={}, &block)
@@ -473,22 +483,26 @@ class Formula
     active_spec.verify_download_integrity(fn)
   end
 
-  def test
+  def run_test
     self.build = Tab.for_formula(self)
-    ret = nil
     mktemp do
       @testpath = Pathname.pwd
-      ret = instance_eval(&self.class.test)
-      @testpath = nil
+      test
     end
-    ret
+  ensure
+    @testpath = nil
   end
 
   def test_defined?
     false
   end
 
+  def test
+  end
+
   protected
+
+  # :startdoc:
 
   # Pretty titles the command and buffers stdout/stderr
   # Throws if there's an error
@@ -545,12 +559,14 @@ class Formula
         log.puts
         require 'cmd/config'
         Homebrew.dump_build_config(log)
-        raise BuildError.new(self, cmd, args)
+        raise BuildError.new(self, cmd, args, ENV.to_hash)
       end
     ensure
-      log.close unless log.closed?
+      log.close
     end
   end
+
+  # :stopdoc:
 
   private
 
@@ -571,6 +587,7 @@ class Formula
 
     $stdout.reopen(out)
     $stderr.reopen(out)
+    out.close
     args.collect!{|arg| arg.to_s}
     exec(cmd, *args) rescue nil
     puts "Failed to execute: #{cmd}"
@@ -589,7 +606,7 @@ class Formula
     active_spec.add_legacy_patches(patches)
     return if patchlist.empty?
 
-    active_spec.patches.grep(DATAPatch).each { |p| p.path = path }
+    active_spec.patches.grep(DATAPatch) { |p| p.path = path }
 
     active_spec.patches.select(&:external?).each do |patch|
       patch.verify_download_integrity(patch.fetch)
@@ -768,9 +785,8 @@ class Formula
     end
 
     def test &block
-      return @test unless block_given?
       define_method(:test_defined?) { true }
-      @test = block
+      define_method(:test, &block)
     end
   end
 end

@@ -67,7 +67,10 @@ class Postgresql < Formula
     args << "--enable-thread-safety" unless MacOS.version < :leopard
     args << "--with-python" if build.with? 'python'
     args << "--with-perl" unless build.include? 'no-perl'
-    args << "--with-tcl" unless build.include? 'no-tcl'
+    if !build.include? "no-tcl"
+      args << "--with-tcl"
+      args << "--with-tclconfig=#{MacOS.sdk_path}/usr/lib"
+    end
     args << "--enable-dtrace" if build.include? 'enable-dtrace'
 
     if build.with?("ossp-uuid")
@@ -81,8 +84,7 @@ class Postgresql < Formula
     end
 
     if build.build_32_bit?
-      ENV.append 'CFLAGS', "-arch #{MacOS.preferred_arch}"
-      ENV.append 'LDFLAGS', "-arch #{MacOS.preferred_arch}"
+      ENV.append %w{CFLAGS LDFLAGS}, "-arch #{Hardware::CPU.arch_32_bit}"
     end
 
     system "./configure", *args

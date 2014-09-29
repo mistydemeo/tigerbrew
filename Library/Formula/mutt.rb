@@ -104,6 +104,6 @@ class Mutt < Formula
     system "make"
     system "make", "install"
 
-    (share/"doc/mutt").install resource("html") if build.head?
+    doc.install resource("html") if build.head?
   end
 end
