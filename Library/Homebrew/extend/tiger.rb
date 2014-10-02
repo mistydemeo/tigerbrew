@@ -70,3 +70,19 @@ class ERB
     module_function :url_encode
   end
 end
+
+# Dir.glob accepts an array for its first argument in newer rubies,
+# in which case it returns the results for all patterns as a single array.
+class Dir
+  class << self
+    alias :oldglob :glob
+    def glob(args, flags=0, &block)
+      if args.is_a? String
+        return oldglob(args, flags, &block)
+      end
+
+      args.map {|p| oldglob(p, flags, &block)}.flatten
+    end
+  end
+end
+
