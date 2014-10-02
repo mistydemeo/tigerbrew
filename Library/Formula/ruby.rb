@@ -6,10 +6,10 @@ class Ruby < Formula
   sha256 "36ce72f84ae4129f6cc66e33077a79d87b018ea7bf1dbc3d353604bf006f76d6"
 
   bottle do
-    url "57dbee1f66119d0c7a76a206554149cbf06f3d1d" => :tiger_g3
-    url "57dbee1f66119d0c7a76a206554149cbf06f3d1d" => :tiger_altivec
-    url "7b53204e6861a5418bb247c87eaa631735bc95d6" => :leopard_g3
-    url "122e712eb99b8bf5a19679f4f1b17978c5f3598a" => :leopard_altivec
+    sha1 "57dbee1f66119d0c7a76a206554149cbf06f3d1d" => :tiger_g3
+    sha1 "57dbee1f66119d0c7a76a206554149cbf06f3d1d" => :tiger_altivec
+    sha1 "7b53204e6861a5418bb247c87eaa631735bc95d6" => :leopard_g3
+    sha1 "122e712eb99b8bf5a19679f4f1b17978c5f3598a" => :leopard_altivec
   end
 
   head do
