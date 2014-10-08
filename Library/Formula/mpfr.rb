@@ -6,20 +6,16 @@ class Mpfr < Formula
   url "http://ftpmirror.gnu.org/mpfr/mpfr-3.1.2.tar.bz2"
   mirror "http://ftp.gnu.org/gnu/mpfr/mpfr-3.1.2.tar.bz2"
   sha1 "46d5a11a59a4e31f74f73dd70c5d57a59de2d0b4"
-  version "3.1.2-p8"
+  version "3.1.2-p10"
 
   bottle do
     cellar :any
-    sha1 "692ace59c0d2cb38251a894dd55e0caa829b197f" => :tiger_g3
-    sha1 "cc5e421db4068fa85d58c0fcca28e6f03463c6ff" => :tiger_altivec
-    sha1 "46dde17c859453421481fe8a811ec755b8909db6" => :leopard_g3
-    sha1 "77cdc8e0ad4568e6b793b9d313c73662a880c1ea" => :leopard_altivec
   end
 
   # http://www.mpfr.org/mpfr-current/allpatches
   patch do
-    url "https://gist.githubusercontent.com/jacknagel/7f276cd60149a1ffc9a7/raw/0f2c24423ceda0dae996e2333f395c7115db33ec/mpfr-3.1.2-8.diff"
-    sha1 "047c96dcfb86f010972dedae088a3e67eaaecb8a"
+    url "https://gist.githubusercontent.com/jacknagel/7f276cd60149a1ffc9a7/raw/39116c674a8c340fef880a393d7c7bdc6d73c59e/mpfr-3.1.2-p10.diff"
+    sha1 "c101708c6f7d86a3f7309c2e046d907ac36d6aa4"
   end
 
   depends_on "gmp"
