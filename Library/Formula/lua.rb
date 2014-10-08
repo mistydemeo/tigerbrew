@@ -32,6 +32,12 @@ class Lua < Formula
     sha1 "b9a0044eb3c422f8405798c900ce31587156c7dd"
   end if build.with? "sigaction"
 
+  # Tiger requires an extra header to get off_t on Tiger
+  patch do
+    url "https://gist.githubusercontent.com/mistydemeo/8e6fdf696a60eeb496ce/raw/9d286fd209728d815a426fb785c31eb1b2638a99/lua-offt.diff"
+    sha1 "80b42119163f84a883425afca3139dcf5f2018fb"
+  end if MacOS.version < :leopard
+
   def install
     ENV.universal_binary if build.universal?
 
