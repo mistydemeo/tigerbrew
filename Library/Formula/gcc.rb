@@ -68,10 +68,10 @@ class Gcc < Formula
     version.to_s.slice(/\d\.\d/)
   end
 
-  # Fix 10.10 issues: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=61407
+  # Fix 10.10 issues: https://gcc.gnu.org/viewcvs/gcc?view=revision&revision=215251
   patch do
-    url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=33180"
-    sha1 "def0cb036a255175db86f106e2bb9dd66d19b702"
+    url "https://raw.githubusercontent.com/DomT4/scripts/6c0e48921/Homebrew_Resources/Gcc/gcc1010.diff"
+    sha1 "083ec884399218584aec76ab8f2a0db97c12a3ba"
   end
 
   def install
@@ -129,7 +129,7 @@ class Gcc < Formula
     args << "--disable-nls" if build.without? "nls"
 
     if build.with?("java") || build.with?("all-languages")
-      args << "--with-ecj-jar=#{Formula["ecj"].opt_prefix}/share/java/ecj.jar"
+      args << "--with-ecj-jar=#{Formula["ecj"].opt_share}/java/ecj.jar"
     end
 
     if build.without?("multilib") || !MacOS.prefer_64_bit?
@@ -158,8 +158,6 @@ class Gcc < Formula
     # Handle conflicts between GCC formulae and avoid interfering
     # with system compilers.
     # Since GCC 4.8 libffi stuff are no longer shipped.
-    # Rename libiberty.a.
-    Dir.glob(prefix/"**/libiberty.*") { |file| add_suffix file, version_suffix }
     # Rename man7.
     Dir.glob(man7/"*.7") { |file| add_suffix file, version_suffix }
     # Even when suffixes are appended, the info pages conflict when

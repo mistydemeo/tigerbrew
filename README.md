@@ -58,9 +58,9 @@ Code is under the [BSD 2 Clause (NetBSD) license][license].
 
 Donations
 ---------
-We accept tips through [Gittip][tip].
+We accept tips through [Gratipay][tip].
 
-[![Gittip](http://img.shields.io/gittip/mistydemeo.svg?style=flat)](https://www.gittip.com/mistydemeo/)
+[![Gratipay](http://img.shields.io/gratipay/mistydemeo.svg?style=flat)](https://www.gittip.com/mistydemeo/)
 
 [Homebrew]:http://brew.sh
 [wiki]:https://github.com/mistydemeo/tigerbrew/wiki
@@ -69,4 +69,4 @@ We accept tips through [Gittip][tip].
 [license]:https://github.com/mistydemeo/tigerbrew/blob/master/Library/Homebrew/LICENSE
 [issues]:https://github.com/mistydemeo/tigerbrew/issues
 [prs]:https://github.com/mistydemeo/tigerbrew/pulls
-[tip]:https://www.gittip.com/mistydemeo/
+[tip]:https://www.gratipay.com/mistydemeo/

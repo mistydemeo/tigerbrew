@@ -2,16 +2,12 @@ require "formula"
 
 class Sqlite < Formula
   homepage "http://sqlite.org/"
-  url "http://sqlite.org/2014/sqlite-autoconf-3080600.tar.gz"
-  version "3.8.6"
-  sha1 "c4b2911bc4a6e1dc2b411aa21d8c4f524113eb64"
+  url "http://sqlite.org/2014/sqlite-autoconf-3080700.tar.gz"
+  version "3.8.7"
+  sha1 "8b773b006db46f3ffcbabe065e927823d13bf5c0"
 
   bottle do
     cellar :any
-    sha1 "0a79b74adaccdeab8a889490e990815c0444cfc5" => :tiger_g3
-    sha1 "14f4accb11e0c05db4197cd53f46e2a650f0185e" => :tiger_altivec
-    sha1 "8a1871ad002197f7f705c1e4af5d98a22cc77d49" => :leopard_g3
-    sha1 "93b0812980f876a28f543465d009cbd9936f4b09" => :leopard_altivec
   end
 
   keg_only :provided_by_osx, "OS X provides an older sqlite3."

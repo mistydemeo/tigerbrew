@@ -4,7 +4,11 @@ class Hub < Formula
   homepage 'http://hub.github.com/'
   url 'https://github.com/github/hub/archive/v1.12.2.tar.gz'
   sha1 '65359d3dcc8e1a0986aab3726f6047bfb9df3d7c'
-  head 'https://github.com/github/hub.git', :branch => '1.12-stable'
+
+  head do
+    url "https://github.com/github/hub.git", :branch => "master"
+    depends_on "go" => :build
+  end
 
   # rake wasn't shipped with Ruby back in 1.8.2
   depends_on :macos => :leopard
@@ -12,9 +16,12 @@ class Hub < Formula
   option 'without-completions', 'Disable bash/zsh completions'
 
   def install
-    ENV['GIT_DIR'] = cached_download/'.git' if build.head?
-
-    rake "install", "prefix=#{prefix}"
+    if build.head?
+      system "script/build"
+      bin.install "hub"
+    else
+      rake "install", "prefix=#{prefix}"
+    end
 
     if build.with? 'completions'
       bash_completion.install 'etc/hub.bash_completion.sh'

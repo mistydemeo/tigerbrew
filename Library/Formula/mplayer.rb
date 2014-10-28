@@ -30,7 +30,6 @@ class Mplayer < Formula
     patch :DATA
   end
 
-  option 'with-x', 'Build with X11 support'
   option 'without-osd', 'Build without OSD'
 
   # dupe make needed because of "make: *** virtual memory exhausted.  Stop."
@@ -38,9 +37,11 @@ class Mplayer < Formula
   depends_on 'yasm' => :build if Hardware::CPU.type == :intel
   depends_on 'xz' => :build
   depends_on 'libcaca' => :optional
-  depends_on :x11 if build.with? 'x'
+  depends_on :x11 => :optional
 
-  if build.with? 'osd' or build.with? 'x'
+  deprecated_option "with-x" => "with-x11"
+
+  if build.with? 'osd' or build.with? 'x11'
     # These are required for the OSD. We can get them from X11, or we can
     # build our own.
     depends_on "fontconfig"
@@ -75,8 +76,8 @@ class Mplayer < Formula
     ]
 
     args << "--enable-menu" if build.with? 'osd'
-    args << "--disable-x11" if build.without? 'x'
-    args << "--enable-freetype" if build.with?('osd') || build.with?('x')
+    args << "--disable-x11" if build.without? 'x11'
+    args << "--enable-freetype" if build.with?('osd') || build.with?('x11')
     args << "--enable-caca" if build.with? 'libcaca'
 
 

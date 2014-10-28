@@ -1,19 +1,12 @@
-require 'formula'
+require "formula"
 
 class Openssl < Formula
-  homepage 'http://openssl.org'
-  url 'https://www.openssl.org/source/openssl-1.0.1i.tar.gz'
-  mirror 'http://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-1.0.1i.tar.gz'
-  # This has to be an sha1 because Tiger's system openssl doesn't do sha256;
-  # we depend on Homebrew's openssl to calculate sha256 hashes
-  sha1 '74eed314fa2c93006df8d26cd9fc630a101abd76'
+  homepage "https://openssl.org"
+  url "https://www.openssl.org/source/openssl-1.0.1j.tar.gz"
+  mirror "https://raw.githubusercontent.com/DomT4/LibreMirror/master/OpenSSL/openssl-1.0.1j.tar.gz"
+  sha256 "1b60ca8789ba6f03e8ef20da2293b8dc131c39d83814e775069f02d26354edf3"
 
   bottle do
-    revision 2
-    sha1 "cf3717878139dd0add994f962d479ab58080d19f" => :tiger_g3
-    sha1 "97d8cc02c147e579f7ad6d8f2f461a31e349f247" => :tiger_altivec
-    sha1 "4957d4bdb889011e5498bdd4c91d9c057e695e05" => :leopard_g3
-    sha1 "2ae5bab8a7005f0b6a36db08d674ae2c63868c00" => :leopard_altivec
   end
 
   option :universal
@@ -22,7 +15,7 @@ class Openssl < Formula
   depends_on "makedepend" => :build if MacOS.prefer_64_bit?
 
   keg_only :provided_by_osx,
-    "The OpenSSL provided by OS X is too old for some software."
+    "Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries"
 
   def arch_args
     {
@@ -128,9 +121,9 @@ class Openssl < Formula
   end
 
   test do
-    (testpath/'testfile.txt').write("This is a test file")
+    (testpath/"testfile.txt").write("This is a test file")
     expected_checksum = "91b7b0b1e27bfbf7bc646946f35fa972c47c2d32"
-    system "#{bin}/openssl", 'dgst', '-sha1', '-out', 'checksum.txt', 'testfile.txt'
+    system "#{bin}/openssl", "dgst", "-sha1", "-out", "checksum.txt", "testfile.txt"
     open("checksum.txt") do |f|
       checksum = f.read(100).split("=").last.strip
       assert_equal checksum, expected_checksum

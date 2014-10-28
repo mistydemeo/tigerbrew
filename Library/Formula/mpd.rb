@@ -2,14 +2,13 @@ require 'formula'
 
 class Mpd < Formula
   homepage "http://www.musicpd.org/"
-  url "http://www.musicpd.org/download/mpd/0.18/mpd-0.18.16.tar.xz"
-  sha1 "ef510446e858fadf20d36fa2c1bed6f35a51e613"
-  revision 1
+  url "http://www.musicpd.org/download/mpd/0.19/mpd-0.19.1.tar.xz"
+  sha1 "68f1ff43a2dd4de913d6c979db504dc2955f5737"
 
   bottle do
-    sha1 "4190b0d49b5590835e956f101e17861e468b7fbe" => :mavericks
-    sha1 "1a7620942795359541772b42c1681f854606677e" => :mountain_lion
-    sha1 "e19dc0265a30fb57c676a5a08a56be91c2b1d6fb" => :lion
+    sha1 "5ae7e75ccb454ec5bb7ac78266346168132ead1e" => :yosemite
+    sha1 "917c7d262cb096cbb7ee81a66558ccba79b99c80" => :mavericks
+    sha1 "88426fd9b9264fcfe2c5f31298e1844105e7850c" => :mountain_lion
   end
 
   head do
@@ -27,21 +26,13 @@ class Mpd < Formula
   option "with-yajl", "Build with yajl support (for playing from soundcloud)"
   option "with-opus", "Build with opus support (for Opus encoding and decoding)"
 
-  if MacOS.version < :lion
-    option "with-libwrap", "Build with libwrap (TCP Wrappers) support"
-  elsif MacOS.version == :lion
-    option "with-libwrap", "Build with libwrap (TCP Wrappers) support (buggy)"
-  end
-
-  # Fixes detecting endianness on OS X; upstream commit:
-  # http://git.musicpd.org/cgit/master/mpd.git/commit/src/system/ByteOrder.hxx?id=c38f29ce561a5c79a82c1c60c34ef88b5ded0660
-  patch :DATA
-
   depends_on "pkg-config" => :build
+  depends_on "boost" => :build
   depends_on "glib"
   depends_on "libid3tag"
   depends_on "sqlite"
   depends_on "libsamplerate"
+  depends_on "icu4c"
 
   needs :cxx11
 
@@ -70,16 +61,6 @@ class Mpd < Formula
     # The build is fine with G++.
     ENV.libcxx
 
-    if build.include? "lastfm" or build.include? "libwrap" \
-       or build.include? "enable-soundcloud"
-      opoo "You are using an option that has been replaced."
-      opoo "See this formula's caveats for details."
-    end
-
-    if build.with? "libwrap" and MacOS.version > :lion
-      opoo "Ignoring --with-libwrap: TCP Wrappers were removed in OSX 10.8"
-    end
-
     system "./autogen.sh" if build.head?
 
     args = %W[
@@ -90,6 +71,7 @@ class Mpd < Formula
       --enable-ffmpeg
       --enable-fluidsynth
       --enable-osx
+      --disable-libwrap
     ]
 
     # Newer GCCs can't read the headers in the OS OpenAL on
@@ -102,7 +84,6 @@ class Mpd < Formula
 
     args << "--enable-zzip" if build.with? "libzzip"
     args << "--enable-lastfm" if build.with? "lastfm"
-    args << "--disable-libwrap" if build.without? "libwrap"
     args << "--disable-lame-encoder" if build.without? "lame"
     args << "--disable-soundcloud" if build.without? "yajl"
     args << "--enable-vorbis-encoder" if build.with? "vorbis"
@@ -111,20 +92,6 @@ class Mpd < Formula
     system "make"
     ENV.j1 # Directories are created in parallel, so let"s not do that
     system "make install"
-  end
-
-  def caveats; <<-EOS.undent
-      As of mpd-0.17.4, this formula no longer enables support for streaming
-      output by default. If you want streaming output, you must now specify
-      the --with-libshout, --with-lame, --with-two-lame, and/or --with-flac
-      options explicitly. (Use '--with-libshout --with-lame --with-flac' for
-      the pre-0.17.4 behavior.)
-
-      As of mpd-0.17.4, this formula has renamed options as follows:
-        --lastfm            -> --with-lastfm
-        --libwrap           -> --with-libwrap (unsupported in OSX >= 10.8)
-        --enable-soundcloud -> --with-yajl
-    EOS
   end
 
   plist_options :manual => "mpd"
@@ -152,26 +119,3 @@ class Mpd < Formula
     EOS
   end
 end
-
-__END__
-diff --git a/src/system/ByteOrder.hxx b/src/system/ByteOrder.hxx
-index 8beda61..42181fe 100644
---- a/src/system/ByteOrder.hxx
-+++ b/src/system/ByteOrder.hxx
-@@ -40,6 +40,16 @@
- /* well-known big-endian */
- #  define IS_LITTLE_ENDIAN false
- #  define IS_BIG_ENDIAN true
-+#elif defined(__APPLE__)
-+/* compile-time check for MacOS */
-+#  include <machine/endian.h>
-+#  if BYTE_ORDER == LITTLE_ENDIAN
-+#    define IS_LITTLE_ENDIAN true
-+#    define IS_BIG_ENDIAN false
-+#  else
-+#    define IS_LITTLE_ENDIAN false
-+#    define IS_BIG_ENDIAN true
-+#  endif
- #else
- /* generic compile-time check */
- #  include <endian.h>
