@@ -22,15 +22,11 @@ class Gcc < Formula
   end
 
   homepage "http://gcc.gnu.org"
-  url "http://ftpmirror.gnu.org/gcc/gcc-4.9.1/gcc-4.9.1.tar.bz2"
-  mirror "ftp://gcc.gnu.org/pub/gcc/releases/gcc-4.9.1/gcc-4.9.1.tar.bz2"
-  sha1 "3f303f403053f0ce79530dae832811ecef91197e"
+  url "http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2"
+  mirror "ftp://gcc.gnu.org/pub/gcc/releases/gcc-4.9.2/gcc-4.9.2.tar.bz2"
+  sha1 "79dbcb09f44232822460d80b033c962c0237c6d8"
 
   bottle do
-    sha1 "f824e136d44f1c30b55a7600c5ce130b83fddd7f" => :tiger_g3
-    sha1 "6aff485b8402bb805c1112446d1af64847ce8add" => :tiger_altivec
-    sha1 "dfbfb0a2016ca22b80f077efde33afbca4a31442" => :leopard_g3
-    sha1 "b8b7a6e0b29aa48c1d1d1aef3650464ce4445fc8" => :leopard_altivec
   end
 
   option "with-java", "Build the gcj compiler"
@@ -66,12 +62,6 @@ class Gcc < Formula
 
   def version_suffix
     version.to_s.slice(/\d\.\d/)
-  end
-
-  # Fix 10.10 issues: https://gcc.gnu.org/viewcvs/gcc?view=revision&revision=215251
-  patch do
-    url "https://raw.githubusercontent.com/DomT4/scripts/6c0e48921/Homebrew_Resources/Gcc/gcc1010.diff"
-    sha1 "083ec884399218584aec76ab8f2a0db97c12a3ba"
   end
 
   def install
