@@ -103,7 +103,7 @@ class CompilerSelector
     compilers.each do |compiler|
       case compiler
       when :gnu
-        GNU_GCC_VERSIONS.reverse_each do |v|
+        GNU_GCC_VERSIONS.to_a.reverse.each do |v|
           name = "gcc-4.#{v}"
           version = compiler_version(name)
           yield Compiler.new(name, version) if version
