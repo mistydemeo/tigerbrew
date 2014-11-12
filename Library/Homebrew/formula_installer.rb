@@ -150,29 +150,27 @@ class FormulaInstaller
       raise "Unrecognized architecture for --bottle-arch: #{arch}"
     end
 
+    f.active_spec.deprecated_flags.each do |deprecated_option|
+      old_flag = deprecated_option.old_flag
+      new_flag = deprecated_option.current_flag
+      opoo "#{f.name}: #{old_flag} was deprecated; using #{new_flag} instead!"
+    end
+
     oh1 "Installing #{Tty.green}#{f.name}#{Tty.reset}" if show_header?
 
     @@attempted << f
 
-    begin
-      if pour_bottle? :warn => true
+    if pour_bottle?(:warn => true)
+      begin
         pour
+      rescue => e
+        raise if ARGV.homebrew_developer?
+        @pour_failed = true
+        onoe e.message
+        opoo "Bottle installation failed: building from source."
+      else
         @poured_bottle = true
-
-        CxxStdlib.check_compatibility(
-          f, f.recursive_dependencies,
-          Keg.new(f.prefix), MacOS.default_compiler
-        )
-
-        tab = Tab.for_keg f.prefix
-        tab.poured_from_bottle = true
-        tab.write
       end
-    rescue => e
-      raise e if ARGV.homebrew_developer?
-      @pour_failed = true
-      onoe e.message
-      opoo "Bottle installation failed: building from source."
     end
 
     build_bottle_preinstall if build_bottle?
@@ -378,14 +376,7 @@ class FormulaInstaller
   def caveats
     return if only_deps?
 
-    if ARGV.homebrew_developer? and not f.keg_only?
-      audit_bin
-      audit_sbin
-      audit_lib
-      audit_man
-      audit_info
-      audit_include
-    end
+    audit_installed if ARGV.homebrew_developer? and not f.keg_only?
 
     c = Caveats.new(f)
 
@@ -533,6 +524,7 @@ class FormulaInstaller
         onoe "Failed to create #{f.opt_prefix}"
         puts "Things that depend on #{f.name} will probably not build."
         puts e
+        Homebrew.failed = true
       end
       return
     end
@@ -553,6 +545,7 @@ class FormulaInstaller
       mode = OpenStruct.new(:dry_run => true, :overwrite => true)
       keg.link(mode)
       @show_summary_heading = true
+      Homebrew.failed = true
     rescue Keg::LinkError => e
       onoe "The `brew link` step did not complete successfully"
       puts "The formula built, but is not symlinked into #{HOMEBREW_PREFIX}"
@@ -561,6 +554,7 @@ class FormulaInstaller
       puts "You can try again using:"
       puts "  brew link #{f.name}"
       @show_summary_heading = true
+      Homebrew.failed = true
     rescue Exception => e
       onoe "An unexpected error occurred during the `brew link` step"
       puts "The formula built, but is not symlinked into #{HOMEBREW_PREFIX}"
@@ -568,6 +562,7 @@ class FormulaInstaller
       puts e.backtrace if debug?
       @show_summary_heading = true
       ignore_interrupts { keg.unlink }
+      Homebrew.failed = true
       raise
     end
   end
@@ -579,6 +574,7 @@ class FormulaInstaller
   rescue Exception => e
     onoe "Failed to install plist file"
     ohai e, e.backtrace if debug?
+    Homebrew.failed = true
   end
 
   def fix_install_names(keg)
@@ -593,6 +589,7 @@ class FormulaInstaller
     puts "The formula built, but you may encounter issues using it or linking other"
     puts "formula against it."
     ohai e, e.backtrace if debug?
+    Homebrew.failed = true
     @show_summary_heading = true
   end
 
@@ -603,6 +600,7 @@ class FormulaInstaller
     opoo "The cleaning step did not complete successfully"
     puts "Still, the installation was successful, so we will link it into your prefix"
     ohai e, e.backtrace if debug?
+    Homebrew.failed = true
     @show_summary_heading = true
   end
 
@@ -612,6 +610,7 @@ class FormulaInstaller
     opoo "The post-install step did not complete successfully"
     puts "You can try again using `brew postinstall #{f.name}`"
     ohai e, e.backtrace if debug?
+    Homebrew.failed = true
     @show_summary_heading = true
   end
 
@@ -635,45 +634,28 @@ class FormulaInstaller
       path.cp_path_sub(f.bottle_prefix, HOMEBREW_PREFIX)
     end
     FileUtils.rm_rf f.bottle_prefix
+
+    CxxStdlib.check_compatibility(
+      f, f.recursive_dependencies,
+      Keg.new(f.prefix), MacOS.default_compiler
+    )
+
+    tab = Tab.for_keg(f.prefix)
+    tab.poured_from_bottle = true
+    tab.write
   end
 
-  ## checks
-
-  def print_check_output warning_and_description
-    return unless warning_and_description
-    warning, description = *warning_and_description
-    opoo warning
-    puts description
-    @show_summary_heading = true
+  def audit_check_output(output)
+    if output
+      opoo output
+      @show_summary_heading = true
+    end
   end
 
-  def audit_bin
-    print_check_output(check_PATH(f.bin)) unless f.keg_only?
-    print_check_output(check_non_executables(f.bin))
-    print_check_output(check_generic_executables(f.bin))
-  end
-
-  def audit_sbin
-    print_check_output(check_PATH(f.sbin)) unless f.keg_only?
-    print_check_output(check_non_executables(f.sbin))
-    print_check_output(check_generic_executables(f.sbin))
-  end
-
-  def audit_lib
-    print_check_output(check_jars)
-    print_check_output(check_non_libraries)
-  end
-
-  def audit_man
-    print_check_output(check_manpages)
-  end
-
-  def audit_info
-    print_check_output(check_infopages)
-  end
-
-  def audit_include
-    print_check_output(check_shadowed_headers)
+  def audit_installed
+    audit_check_output(check_PATH(f.bin))
+    audit_check_output(check_PATH(f.sbin))
+    super
   end
 
   private
