@@ -65,6 +65,13 @@ class Gcc < Formula
     MacOS::CLT.installed?
   end
 
+  # Fix bootstrap compilation failure on PPC;
+  # upstream report: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63703
+  patch :p0 do
+    url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=34100&action=diff&context=patch&collapsed=&headers=1&format=raw"
+    sha1 "920ffed68aac26301b20b7a3c6b4bdf494b3800b"
+  end
+
   def version_suffix
     version.to_s.slice(/\d\.\d/)
   end
