@@ -8,8 +8,9 @@ class Subversion < Formula
   revision 1
 
   bottle do
-    sha1 "83f7b25af964b475ad420e3ba61ea9fdf0c2f573" => :tiger_g3
-    sha1 "903909986db0fe483e9a727aa04596500cdaf930" => :tiger_altivec
+    revision 2
+    sha1 "415694a809000f618ffd5b684e459e67653a0ca5" => :tiger_g3
+    sha1 "6e5b78b0cc299dbd78e0bcf5a2b4f3a7f4adebc2" => :tiger_altivec
     sha1 "aa3adab587138a417dc8e5fa51e55580b7ebe81c" => :leopard_g3
     sha1 "0e2b4787dd540ae537b60a6e03bf4535b5a8cff0" => :leopard_altivec
   end
