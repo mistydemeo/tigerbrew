@@ -7,8 +7,9 @@ class CyrusSasl < Formula
   url 'ftp://ftp.cyrusimap.org/cyrus-sasl/OLD-VERSIONS/cyrus-sasl-2.1.22.tar.gz'
   sha1 'd23454ab12054714ab97d229c86cb934ce63fbb1'
 
-  def install
+  keg_only :provided_by_osx
 
+  def install
     system "./configure",
            "--disable-macos-framework",
            "--prefix=#{prefix}"
