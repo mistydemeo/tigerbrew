@@ -1,4 +1,4 @@
-# Contributing to Homebrew
+# Contributing to Tigerbrew
 ## Reporting Bugs
 First, please run `brew update` and `brew doctor`.
 
