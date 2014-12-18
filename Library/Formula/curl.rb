@@ -32,23 +32,14 @@ class Curl < Formula
     depends_on "openssl"
   end
 
-<<<<<<< HEAD
-  depends_on 'pkg-config' => :build
-  depends_on 'libidn' if build.with? 'idn'
-  depends_on 'libmetalink' => :optional
-  depends_on 'libssh2' if build.with? 'ssh'
-  depends_on 'c-ares' if build.with? 'ares'
-  depends_on 'curl-ca-bundle' if MacOS.version < :snow_leopard
-  depends_on 'rtmpdump' if build.with? 'rtmp'
-=======
   depends_on "pkg-config" => :build
   depends_on "libidn" => :optional
   depends_on "rtmpdump" => :optional
   depends_on "libssh2" => :optional
   depends_on "c-ares" => :optional
+  depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
   depends_on "libmetalink" => :optional
   depends_on "libressl" => :optional
->>>>>>> Homebrew/master
 
   def install
     # Throw an error if someone actually tries to rock both SSL choices.
