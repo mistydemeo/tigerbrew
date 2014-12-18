@@ -23,9 +23,15 @@ class Wine < Formula
     end
   end
 
+  bottle do
+    sha1 "348f15e19880888d19d04d2fe4bad42048fe6828" => :yosemite
+    sha1 "69f05602ecde44875cf26297871186aaa0b26cd7" => :mavericks
+    sha1 "a89371854006687b74f4446a52ddb1f68cfafa7e" => :mountain_lion
+  end
+
   devel do
-    url "https://downloads.sourceforge.net/project/wine/Source/wine-1.7.29.tar.bz2"
-    sha256 "ae48190d35533197811eeabed989ed9fd3201c44af917107f35ec0bf75b8de62"
+    url "https://downloads.sourceforge.net/project/wine/Source/wine-1.7.33.tar.bz2"
+    sha256 "e3519d6fa2c0bb91e58da38f14f02607cf366a0154ff1effe528966106d49275"
 
     depends_on "samba" => :optional
     depends_on "gnutls"
@@ -63,14 +69,14 @@ class Wine < Formula
   depends_on 'libgsm' => :optional
 
   resource 'gecko' do
-    url 'https://downloads.sourceforge.net/wine/wine_gecko-2.24-x86.msi', :using => :nounzip
-    version '2.24'
-    sha1 'b4923c0565e6cbd20075a0d4119ce3b48424f962'
+    url 'https://downloads.sourceforge.net/wine/wine_gecko-2.34-x86.msi', :using => :nounzip
+    version '2.34'
+    sha256 '956c26bf302b1864f4d7cb6caee4fc83d4c1281157731761af6395b876e29ca7'
   end
 
   resource 'mono' do
-    url 'https://downloads.sourceforge.net/wine/wine-mono-4.5.2.msi', :using => :nounzip
-    sha256 'd9124edb41ba4418af10eba519dafb25ab4338c567d25ce0eb4ce1e1b4d7eaad'
+    url 'https://downloads.sourceforge.net/wine/wine-mono-4.5.4.msi', :using => :nounzip
+    sha256 '20bced7fee01f25279edf07670c5033d25c2c9834a839e7a20410ce1c611d6f2'
   end
 
   fails_with :llvm do

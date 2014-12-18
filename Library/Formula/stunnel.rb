@@ -2,18 +2,14 @@ require "formula"
 
 class Stunnel < Formula
   homepage "https://www.stunnel.org/"
-  url "ftp://ftp.nluug.nl/pub/networking/stunnel/beta/stunnel-5.07b2.tar.gz"
-  mirror "https://www.stunnel.org/downloads/beta/stunnel-5.07b2.tar.gz"
-  sha256 "e9826952f3a56e0f631c0f8e8372297067de9ca8b05a596007015887c38d226d"
-
-  # Any building-against openssl that has disabled sslv2 for now must use the betas.
-  # This is upstream's recommendation. We should be able to go stable again from 5.07.
-  # https://www.stunnel.org/pipermail/stunnel-users/2014-October/004806.html
+  url "https://www.stunnel.org/downloads/stunnel-5.08.tar.gz"
+  mirror "http://www.usenix.org.uk/mirrors/stunnel/stunnel-5.08.tar.gz"
+  sha256 "830b21d24cd237e96f4d7993be43553d4eba4d3cfa2660faa78dec8d41d314fc"
 
   bottle do
-    sha1 "a4656d453c179052e0ee8368161687e8a0b8181a" => :mavericks
-    sha1 "f00f5b5db306b27e81e6ee1653d8a2fa793b30db" => :mountain_lion
-    sha1 "75563236665d1333ef5a9de3c7c0c6c651d24b68" => :lion
+    sha1 "aab0c4a1dcdfcdfdac9d9b9c06fda6b1933475af" => :yosemite
+    sha1 "4f3e8b4b30793258391cd9b355e15e8f4b3e5f56" => :mavericks
+    sha1 "48d18d655dd0a75a28488cc9c244ee6d99c55849" => :mountain_lion
   end
 
   depends_on "openssl"
@@ -60,7 +56,7 @@ class Stunnel < Formula
                           "--mandir=#{man}",
                           "--disable-libwrap",
                           "--with-ssl=#{Formula["openssl"].opt_prefix}"
-    system "make", "install"
+    system "make", "install", "cert"
   end
 
   def caveats

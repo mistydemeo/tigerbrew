@@ -2,14 +2,10 @@ require "formula"
 
 class Ruby < Formula
   homepage "https://www.ruby-lang.org/"
-  url "http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.4.tar.bz2"
-  sha256 "f37f11a8c75ab9215bb9f61246ef98e0e57e1409f0872e5cf59033edcf5b8d2a"
+  url "http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.5.tar.bz2"
+  sha256 "0241b40f1c731cb177994a50b854fb7f18d4ad04dcefc18acc60af73046fb0a9"
 
   bottle do
-    sha1 "1df9b6c9a6c51cb7f5869127a55d9c1f58dd9e1f" => :tiger_g3
-    sha1 "2188de1e43ca00e0b4f917645bc24ded76ff702b" => :tiger_altivec
-    sha1 "90b9ae7c214a4799caf3de5a568a475d59169ffb" => :leopard_g3
-    sha1 "ebd5cfc54712f8126cbf3c8f84716c851a3e44f4" => :leopard_altivec
   end
 
   head do

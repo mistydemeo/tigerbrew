@@ -25,7 +25,11 @@ class Cmake < Formula
   url "http://www.cmake.org/files/v3.0/cmake-3.0.2.tar.gz"
   sha1 "379472e3578902a1d6f8b68a9987773151d6f21a"
 
-  head "http://cmake.org/cmake.git"
+  head do
+    url "http://cmake.org/cmake.git"
+
+    depends_on "xz" # For LZMA
+  end
 
   # See: https://gist.github.com/shirleyallan/6261775
   fails_with :gcc do
@@ -43,6 +47,8 @@ class Cmake < Formula
 
   option "without-docs", "Don't build man pages"
   depends_on :python => :build if MacOS.version <= :snow_leopard && build.with?("docs")
+
+  depends_on "qt" => :optional
 
   resource "sphinx" do
     url "https://pypi.python.org/packages/source/S/Sphinx/Sphinx-1.2.3.tar.gz"
@@ -74,13 +80,9 @@ class Cmake < Formula
   def install
     if build.with? "docs"
       ENV.prepend_create_path "PYTHONPATH", buildpath+"sphinx/lib/python2.7/site-packages"
-      %w[markupsafe docutils pygments jinja2 sphinx].each do |r|
-        resource(r).stage do
-          pyargs = ["setup.py", "install", "--prefix=#{buildpath}/sphinx"]
-          unless r == "docutils"
-            pyargs << "--single-version-externally-managed" << "--record=installed.txt"
-          end
-          system "python", *pyargs
+      resources.each do |r|
+        r.stage do
+          system "python", *Language::Python.setup_install_args(buildpath/"sphinx")
         end
       end
 
@@ -97,13 +99,17 @@ class Cmake < Formula
       --docdir=/share/doc/cmake
       --mandir=/share/man
     ]
+
     if build.with? "docs"
       args << "--sphinx-man" << "--sphinx-build=#{buildpath}/sphinx/bin/sphinx-build"
     end
 
+    args << "--qt-gui" if build.with? "qt"
+
     system "./bootstrap", *args
     system "make"
     system "make", "install"
+    bin.install_symlink Dir["#{prefix}/CMake.app/Contents/bin/*"] if build.with? "qt"
   end
 
   test do

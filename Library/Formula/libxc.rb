@@ -4,13 +4,13 @@ class Libxc < Formula
   homepage 'http://www.tddft.org/programs/octopus/wiki/index.php/Libxc'
   url 'http://www.tddft.org/programs/octopus/down.php?file=libxc/libxc-2.2.0.tar.gz'
   sha1 '77c3ffe2c664339f3eafbf7642ddeba482b88074'
+  revision 1
 
   bottle do
     cellar :any
-    revision 1
-    sha1 "965d55368d68485a4fc0c2517501b99b41dc772a" => :yosemite
-    sha1 "253d9649431b8dfa61f188877b98f4d4cad83f00" => :mavericks
-    sha1 "021513e19e1b86cd9ef49641bbb102d9f63b0a08" => :mountain_lion
+    sha1 "552995f0f0415f65369e20c02d65ce521289fb2f" => :yosemite
+    sha1 "3b2aea28723d7fc6240582f7363eceb1f71bc4ac" => :mavericks
+    sha1 "92761485a4a6e72b8340c6a4f0ec394a62cfb4b4" => :mountain_lion
   end
 
   depends_on :fortran

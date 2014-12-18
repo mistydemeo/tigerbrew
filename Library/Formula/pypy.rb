@@ -6,10 +6,10 @@ class Pypy < Formula
   sha1 "e2e0bcf8457c0ae5a24f126a60aa921dabfe60fb"
   bottle do
     cellar :any
-    revision 1
-    sha1 "3473464c440ded1e99b5aaa40e5cc740aa3d7ef4" => :yosemite
-    sha1 "9d4eccd93b9af5814ce5d159bc4f16bbaf589418" => :mavericks
-    sha1 "06ee886537c517845fdec289839105c024689007" => :mountain_lion
+    revision 4
+    sha1 "eeabc98df0fc228fb61b7a16f94bedb0230a0ba7" => :yosemite
+    sha1 "bc47bbc0a4988ddf6df0eec8f4acea3ef38902c3" => :mavericks
+    sha1 "fb7fc84ae70bc20947b97946fa93fbcd1e6d9443" => :mountain_lion
   end
 
   revision 2
@@ -19,8 +19,8 @@ class Pypy < Formula
   depends_on "openssl"
 
   resource "setuptools" do
-    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-6.0.2.tar.gz"
-    sha1 "a29a81b7913151697cb15b069844af75d441408f"
+    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-8.0.2.tar.gz"
+    sha1 "bacdf139b210ea6c16ffa98eefa2eb8074dc7869"
   end
 
   resource "pip" do
@@ -40,7 +40,7 @@ class Pypy < Formula
 
     Dir.chdir "pypy/goal" do
       system "python", buildpath/"rpython/bin/rpython",
-             "-Ojit", "--shared", "--cc", ENV["CC"], "--translation-verbose",
+             "-Ojit", "--shared", "--cc", ENV.cc, "--translation-verbose",
              "--make-jobs", ENV.make_jobs, "targetpypystandalone.py"
       system "install_name_tool", "-change", "libpypy-c.dylib", libexec/"lib/libpypy-c.dylib", "pypy-c"
       system "install_name_tool", "-id", opt_libexec/"lib/libpypy-c.dylib", "libpypy-c.dylib"
@@ -60,6 +60,12 @@ class Pypy < Formula
   end
 
   def post_install
+    # Precompile cffi extensions in lib_pypy
+    # list from create_cffi_import_libraries in pypy/tool/release/package.py
+    %w[_sqlite3 _curses syslog gdbm _tkinter].each do |module_name|
+      quiet_system bin/"pypy", "-c", "import #{module_name}"
+    end
+
     # Post-install, fix up the site-packages and install-scripts folders
     # so that user-installed Python software survives minor updates, such
     # as going from 1.7.0 to 1.7.1.
@@ -104,7 +110,7 @@ class Pypy < Formula
     To update setuptools and pip between pypy releases, run:
         #{scripts_folder}/pip install --upgrade setuptools
 
-    See: https://github.com/Homebrew/homebrew/wiki/Homebrew-and-Python
+    See: https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Homebrew-and-Python.md
     EOS
   end
 

@@ -2,18 +2,20 @@ require 'formula'
 
 class Poppler < Formula
   homepage 'http://poppler.freedesktop.org'
-  url 'http://poppler.freedesktop.org/poppler-0.26.5.tar.xz'
-  sha1 '12937666faee80bae397a8338a3357e864d77d53'
+  url 'http://poppler.freedesktop.org/poppler-0.29.0.tar.xz'
+  sha1 'ba3330ab884e6a139ca63dd84d0c1c676f545b5e'
 
   bottle do
-    revision 1
-    sha1 "5f9fb565fd8034bb1a5e451e0a59eda8ec699fe0" => :yosemite
-    sha1 "8635336bb014de922e27242051eb72bda4de89fd" => :mavericks
-    sha1 "c61bc06c5dfc0f34a4a724000a6fb57297d0c27b" => :mountain_lion
+    sha1 "b83e3b7fe032d69343367ceb481a0387e447e565" => :yosemite
+    sha1 "c1693c4f5dddc088b6ea53640610918416d7e08c" => :mavericks
+    sha1 "36ca1676e824fe8532ad6c6e826685c0e39ac808" => :mountain_lion
   end
 
-  option 'with-qt4', 'Build Qt backend'
-  option 'with-lcms2', 'Use color management system'
+  option "with-qt", "Build Qt backend"
+  option "with-little-cms2", "Use color management system"
+
+  deprecated_option "with-qt4" => "with-qt"
+  deprecated_option "with-lcms2" => "with-little-cms2"
 
   depends_on 'pkg-config' => :build
   depends_on 'cairo'
@@ -27,8 +29,8 @@ class Poppler < Formula
   depends_on 'libtiff'
   depends_on 'openjpeg'
 
-  depends_on 'qt' if build.with? 'qt4'
-  depends_on 'little-cms2' if build.with? 'lcms2'
+  depends_on "qt" => :optional
+  depends_on "little-cms2" => :optional
 
   conflicts_with 'pdftohtml', :because => 'both install `pdftohtml` binaries'
 
@@ -50,13 +52,13 @@ class Poppler < Formula
       --enable-introspection=yes
     ]
 
-    if build.with? "qt4"
+    if build.with? "qt"
       args << "--enable-poppler-qt4"
     else
       args << "--disable-poppler-qt4"
     end
 
-    args << "--enable-cms=lcms2" if build.with? "lcms2"
+    args << "--enable-cms=lcms2" if build.with? "little-cms2"
 
     system "./configure", *args
     system "make install"

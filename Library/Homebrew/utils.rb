@@ -42,8 +42,6 @@ class Tty
   end
 end
 
-# :startdoc:
-
 def ohai title, *sput
   title = Tty.truncate(title) if $stdout.tty? && !ARGV.verbose?
   puts "#{Tty.blue}==>#{Tty.white} #{title}#{Tty.reset}"
@@ -72,8 +70,6 @@ def odie error
   onoe error
   exit 1
 end
-
-# :stopdoc:
 
 def pretty_duration s
   return "2 seconds" if s < 3 # avoids the plural problem ;)
@@ -327,7 +323,7 @@ module GitHub extend self
       end
     rescue OpenURI::HTTPError => e
       handle_api_error(e)
-    rescue SocketError, OpenSSL::SSL::SSLError => e
+    rescue EOFError, SocketError, OpenSSL::SSL::SSLError => e
       raise Error, "Failed to connect to: #{url}\n#{e.message}", e.backtrace
     rescue Utils::JSON::Error => e
       raise Error, "Failed to parse JSON response\n#{e.message}", e.backtrace

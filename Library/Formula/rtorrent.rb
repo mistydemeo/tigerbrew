@@ -43,5 +43,7 @@ class Rtorrent < Formula
     system "./configure", *args
     system "make"
     system "make", "install"
+
+    doc.install "doc/rtorrent.rc"
   end
 end

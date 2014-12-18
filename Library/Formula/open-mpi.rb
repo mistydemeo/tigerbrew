@@ -4,21 +4,24 @@ class OpenMpi < Formula
   homepage 'http://www.open-mpi.org/'
   url 'http://www.open-mpi.org/software/ompi/v1.8/downloads/openmpi-1.8.3.tar.bz2'
   sha1 '4be9c5d2a8baee6a80bde94c6485931979a428fe'
+  revision 1
 
   bottle do
-    sha1 "60e953d115aa38e7495c7de774518eda83abb982" => :yosemite
-    sha1 "257dfda61a3a2b75c1d810c25e034b4e8998ff0e" => :mavericks
-    sha1 "6ef00e19f8ceb677ca370c209ef2f1cefd085e09" => :mountain_lion
+    sha1 "5e5b1f1e287aff134069af22d527f32db4b48646" => :yosemite
+    sha1 "3e3a966d4c99486087a4712e45f587739a8d7eac" => :mavericks
+    sha1 "b03989bc09951a9a3f8510f65b65a448017c4a53" => :mountain_lion
   end
 
-  option 'disable-fortran', 'Do not build the Fortran bindings'
-  option 'enable-mpi-thread-multiple', 'Enable MPI_THREAD_MULTIPLE'
+  deprecated_option "disable-fortran" => "without-fortran"
+  deprecated_option "enable-mpi-thread-multiple" => "with-mpi-thread-multiple"
+
+  option "with-mpi-thread-multiple", "Enable MPI_THREAD_MULTIPLE"
   option :cxx11
 
   conflicts_with 'mpich2', :because => 'both install mpi__ compiler wrappers'
   conflicts_with 'lcdf-typetools', :because => 'both install same set of binaries.'
 
-  depends_on :fortran unless build.include? 'disable-fortran'
+  depends_on :fortran => :recommended
   depends_on 'libevent'
 
   def install
@@ -31,13 +34,8 @@ class OpenMpi < Formula
       --enable-ipv6
       --with-libevent=#{Formula["libevent"].opt_prefix}
     ]
-    if build.include? 'disable-fortran'
-      args << '--disable-mpi-f77' << '--disable-mpi-f90'
-    end
-
-    if build.include? 'enable-mpi-thread-multiple'
-      args << '--enable-mpi-thread-multiple'
-    end
+    args << "--disable-mpi-fortran" if build.without? "fortran"
+    args << "--enable-mpi-thread-multiple" if build.with? "mpi-thread-multiple"
 
     system './configure', *args
     system 'make', 'all'

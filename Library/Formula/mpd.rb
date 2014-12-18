@@ -2,13 +2,16 @@ require 'formula'
 
 class Mpd < Formula
   homepage "http://www.musicpd.org/"
-  url "http://www.musicpd.org/download/mpd/0.19/mpd-0.19.1.tar.xz"
-  sha1 "68f1ff43a2dd4de913d6c979db504dc2955f5737"
+
+  stable do
+    url "http://www.musicpd.org/download/mpd/0.19/mpd-0.19.7.tar.xz"
+    sha1 "6f67d8ac14881c2d72c2907c2c1e14c6b2fd04c5"
+  end
 
   bottle do
-    sha1 "5ae7e75ccb454ec5bb7ac78266346168132ead1e" => :yosemite
-    sha1 "917c7d262cb096cbb7ee81a66558ccba79b99c80" => :mavericks
-    sha1 "88426fd9b9264fcfe2c5f31298e1844105e7850c" => :mountain_lion
+    sha1 "7127edb4393da87d22a2d683f18d3abfd3c3c8be" => :yosemite
+    sha1 "3f516ee89d70403d53214993723a46a63c772875" => :mavericks
+    sha1 "cd2705900d74ec5c2fba2c0de1b8c63397c347f2" => :mountain_lion
   end
 
   head do
@@ -22,9 +25,11 @@ class Mpd < Formula
   option "with-lame", "Build with lame support (for MP3 encoding when streaming)"
   option "with-two-lame", "Build with two-lame support (for MP2 encoding when streaming)"
   option "with-flac", "Build with flac support (for Flac encoding when streaming)"
-  option "with-vorbis", "Build with vorbis support (for Ogg encoding)"
+  option "with-libvorbis", "Build with vorbis support (for Ogg encoding)"
   option "with-yajl", "Build with yajl support (for playing from soundcloud)"
   option "with-opus", "Build with opus support (for Opus encoding and decoding)"
+
+  deprecated_option "with-vorbis" => "with-libvorbis"
 
   depends_on "pkg-config" => :build
   depends_on "boost" => :build
@@ -52,8 +57,7 @@ class Mpd < Formula
   depends_on "libzzip" => :optional     # Reading from within ZIPs
   depends_on "yajl" => :optional        # JSON library for SoundCloud
   depends_on "opus" => :optional        # Opus support
-
-  depends_on "libvorbis" if build.with? "vorbis" # Vorbis support
+  depends_on "libvorbis" => :optional
 
   def install
     # mpd specifies -std=gnu++0x, but clang appears to try to build
@@ -86,11 +90,11 @@ class Mpd < Formula
     args << "--enable-lastfm" if build.with? "lastfm"
     args << "--disable-lame-encoder" if build.without? "lame"
     args << "--disable-soundcloud" if build.without? "yajl"
-    args << "--enable-vorbis-encoder" if build.with? "vorbis"
+    args << "--enable-vorbis-encoder" if build.with? "libvorbis"
 
     system "./configure", *args
     system "make"
-    ENV.j1 # Directories are created in parallel, so let"s not do that
+    ENV.j1 # Directories are created in parallel, so let's not do that
     system "make install"
   end
 

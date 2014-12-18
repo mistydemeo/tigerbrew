@@ -2,22 +2,15 @@ require "formula"
 
 class Nzbget < Formula
   homepage "http://nzbget.net/"
-  url "https://downloads.sourceforge.net/project/nzbget/nzbget-stable/13.0/nzbget-13.0.tar.gz"
-  sha1 "dc321ed59f47755bc910cf859f18dab0bf0cc7ff"
-
-  devel do
-    url "https://downloads.sourceforge.net/project/nzbget/nzbget-testing/14.0-r1137/nzbget-14.0-testing-r1137.tar.gz"
-    sha1 "b416a25c4744ca29be24c08ea240ac59bd19f2f4"
-    version "14.0-r1137"
-  end
+  url "https://downloads.sourceforge.net/project/nzbget/nzbget-stable/14.1/nzbget-14.1.tar.gz"
+  sha1 "671c0d0b554643e1b58665004c65519a330766db"
 
   head "https://nzbget.svn.sourceforge.net/svnroot/nzbget/trunk"
 
   bottle do
-    revision 1
-    sha1 "1c3dadeea5e3b2c11c389c47d52b01c178c8dc15" => :mavericks
-    sha1 "cc54cc62edb0a8e46984f182e910113746bcd1c1" => :mountain_lion
-    sha1 "a16304bb423a561ce4a51a808d3c10717f237d51" => :lion
+    sha1 "b8fa821bf43c2c5ccd2842ce0a57ba0131b150bc" => :yosemite
+    sha1 "78df733e6f5983b32dd66a391cb1c6f6b1a8570a" => :mavericks
+    sha1 "ba78b8016b214a18c80499eb3d17a4aa4a45983b" => :mountain_lion
   end
 
   depends_on "pkg-config" => :build

@@ -19,16 +19,15 @@ class Gnuplot < Formula
   end
 
   head do
-    url 'cvs://:pserver:anonymous:@gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot:gnuplot'
+    url ':pserver:anonymous:@gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot:gnuplot', :using => :cvs
 
-    depends_on :autoconf
-    depends_on :automake
-    depends_on :libtool
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
   end
 
   option 'pdf',    'Build the PDF terminal using pdflib-lite'
   option 'wx',     'Build the wxWidgets terminal using pango'
-  option 'with-x', 'Build the X11 terminal'
   option 'qt',     'Build the Qt4 terminal'
   option 'cairo',  'Build the Cairo based terminals'
   option 'nolua',  'Build without the lua/TikZ terminal'
@@ -38,6 +37,8 @@ class Gnuplot < Formula
   option 'latex',  'Build with LaTeX support'
   option 'with-aquaterm', 'Build with AquaTerm support'
 
+  deprecated_option "with-x" => "with-x11"
+
   depends_on 'pkg-config' => :build
   depends_on LuaRequirement unless build.include? 'nolua'
   depends_on 'readline'
@@ -46,7 +47,7 @@ class Gnuplot < Formula
   depends_on "libtiff"
   depends_on "fontconfig"
   depends_on 'pango'       if build.include? 'cairo' or build.include? 'wx'
-  depends_on :x11          if build.with? "x"
+  depends_on :x11 => :optional
   depends_on 'pdflib-lite' if build.include? 'pdf'
   depends_on 'gd'          unless build.include? 'nogd'
   depends_on 'wxmac'       if build.include? 'wx'
@@ -95,7 +96,7 @@ class Gnuplot < Formula
     args << '--without-lisp-files'    if build.without? "emacs"
     args << (build.with?('aquaterm') ? '--with-aquaterm' : '--without-aquaterm')
 
-    if build.with? "x"
+    if build.with? "x11"
       args << "--with-x"
     else
       args << "--without-x"

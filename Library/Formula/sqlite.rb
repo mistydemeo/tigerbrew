@@ -2,16 +2,12 @@ require "formula"
 
 class Sqlite < Formula
   homepage "http://sqlite.org/"
-  url "http://sqlite.org/2014/sqlite-autoconf-3080700.tar.gz"
-  version "3.8.7"
-  sha1 "8b773b006db46f3ffcbabe065e927823d13bf5c0"
+  url "https://www.sqlite.org/2014/sqlite-autoconf-3080704.tar.gz"
+  version "3.8.7.4"
+  sha1 "70ca0b8884a6b145b7f777724670566e2b4f3cde"
 
   bottle do
     cellar :any
-    sha1 "849c8f15ee5b3bc97541ad385296554690046433" => :tiger_g3
-    sha1 "09f7bee14aea1430d41afd075dd198f01b9f9614" => :tiger_altivec
-    sha1 "c5cc40dd6db7b1f92091c11186a4bff1c703d951" => :leopard_g3
-    sha1 "8d3b4f1af210266676d6baf2e00cdd4c0bafca65" => :leopard_altivec
   end
 
   keg_only :provided_by_osx, "OS X provides an older sqlite3."
@@ -33,9 +29,9 @@ class Sqlite < Formula
   end
 
   resource "docs" do
-    url "http://sqlite.org/2014/sqlite-doc-3080600.zip"
-    version "3.8.6"
-    sha1 "8c3d3a9f97b10fb43d6fce61079ed1ab93472913"
+    url "https://www.sqlite.org/2014/sqlite-doc-3080704.zip"
+    version "3.8.7.4"
+    sha1 "734908373118d61338ca020e3c7dcbd1e0ccd985"
   end
 
   # sqlite won't compile on Tiger due to missing function;
