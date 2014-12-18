@@ -6,11 +6,11 @@ class UpnpRouterControl < Formula
   sha1 '4d6b22430f784260fccb2f70c27d0a428b9a753a'
 
   head do
-    url 'bzr://lp:upnp-router-control'
+    url 'lp:upnp-router-control', :using => :bzr
 
-    depends_on :autoconf
-    depends_on :automake
-    depends_on :libtool
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
   end
 
   depends_on 'pkg-config' => :build

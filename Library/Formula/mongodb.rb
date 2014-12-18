@@ -3,29 +3,18 @@ require "formula"
 class Mongodb < Formula
   homepage "https://www.mongodb.org/"
 
-  stable do
-    url "https://fastdl.mongodb.org/src/mongodb-src-r2.6.5.tar.gz"
-    sha1 "f5a68505a0de1152b534d62a8f0147d258d503a0"
-
-    # Review this patch with the next stable release.
-    # Note it is a different patch to the one applied to all builds further below.
-    # This is already fixed in the devel & HEAD builds.
-    if MacOS.version == :yosemite
-      patch do
-        url "https://github.com/mongodb/mongo/commit/759b6e8.diff"
-        sha1 "63d901ac81681fbe8b92dc918954b247990ab2fb"
-      end
-    end
-  end
+  url "https://fastdl.mongodb.org/src/mongodb-src-r2.6.6.tar.gz"
+  sha1 "cffc982ef23b207430e0357f4ce2f18f5460b422"
 
   bottle do
-    revision 2
-    sha1 "e6da509908fdacf9eb0f16e850e0516cd0898072" => :yosemite
-    sha1 "5ab96fe864e725461eea856e138417994f50bb32" => :mavericks
-    sha1 "193e639b7b79fbb18cb2e0a6bbabfbc9b8cbc042" => :mountain_lion
+    sha1 "d3fcb9439978028b32369b02b0588552d1cc8fed" => :yosemite
+    sha1 "d64073327b46e14a223039af734e39611c493cad" => :mavericks
+    sha1 "758d4b7e128a26b2d61a54d93eaf24ed227de682" => :mountain_lion
   end
 
   devel do
+    # This can't be bumped past 2.7.7 until we decide what to do with
+    # https://github.com/Homebrew/homebrew/pull/33652
     url "https://fastdl.mongodb.org/src/mongodb-src-r2.7.7.tar.gz"
     sha1 "ce223f5793bdf5b3e1420b0ede2f2403e9f94e5a"
 
@@ -36,9 +25,6 @@ class Mongodb < Formula
       sha1 "9f9ce609c7692930976690cae68aa4fce1f8bca3"
     end
   end
-
-  # HEAD is currently failing. See https://jira.mongodb.org/browse/SERVER-15555
-  head "https://github.com/mongodb/mongo.git"
 
   option "with-boost", "Compile using installed boost, not the version shipped with mongodb"
 

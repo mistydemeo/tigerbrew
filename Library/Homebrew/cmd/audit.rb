@@ -34,24 +34,13 @@ module Homebrew
   end
 end
 
-# Formula extensions for auditing
-class Formula
-  def head_only?
-    @head and @stable.nil?
-  end
-
-  def text
-    @text ||= FormulaText.new(@path)
-  end
-end
-
 class FormulaText
   def initialize path
     @text = path.open("rb", &:read)
   end
 
   def without_patch
-    @text.split("__END__")[0].strip()
+    @text.split("\n__END__").first
   end
 
   def has_DATA?
@@ -70,7 +59,7 @@ end
 class FormulaAuditor
   include FormulaCellarChecks
 
-  attr_reader :f, :text, :problems
+  attr_reader :formula, :text, :problems
 
   BUILD_TIME_DEPS = %W[
     autoconf
@@ -87,27 +76,27 @@ class FormulaAuditor
     swig
   ]
 
-  def initialize f
-    @f = f
+  def initialize(formula)
+    @formula = formula
     @problems = []
-    @text = f.text.without_patch
-    @specs = %w{stable devel head}.map { |s| f.send(s) }.compact
+    @text = FormulaText.new(formula.path)
+    @specs = %w{stable devel head}.map { |s| formula.send(s) }.compact
   end
 
   def audit_file
-    unless f.path.stat.mode.to_s(8) == "100644"
-      problem "Incorrect file permissions: chmod 644 #{f.path}"
+    unless formula.path.stat.mode == 0100644
+      problem "Incorrect file permissions: chmod 644 #{formula.path}"
     end
 
-    if f.text.has_DATA? and not f.text.has_END?
+    if text.has_DATA? and not text.has_END?
       problem "'DATA' was found, but no '__END__'"
     end
 
-    if f.text.has_END? and not f.text.has_DATA?
+    if text.has_END? and not text.has_DATA?
       problem "'__END__' was found, but 'DATA' is not used"
     end
 
-    unless f.text.has_trailing_newline?
+    unless text.has_trailing_newline?
       problem "File should end with a newline"
     end
   end
@@ -167,7 +156,7 @@ class FormulaAuditor
   end
 
   def audit_conflicts
-    f.conflicts.each do |c|
+    formula.conflicts.each do |c|
       begin
         Formulary.factory(c.name)
       rescue FormulaUnavailableError
@@ -177,7 +166,7 @@ class FormulaAuditor
   end
 
   def audit_urls
-    homepage = f.homepage
+    homepage = formula.homepage
 
     unless homepage =~ %r[^https?://]
       problem "The homepage should start with http or https (URL is #{homepage})."
@@ -266,10 +255,12 @@ class FormulaAuditor
   end
 
   def audit_specs
-    problem "Head-only (no stable download)" if f.head_only?
+    if head_only?(formula) && formula.tap != "homebrew/homebrew-headonly"
+      problem "Head-only (no stable download)"
+    end
 
     %w[Stable Devel HEAD].each do |name|
-      next unless spec = f.send(name.downcase)
+      next unless spec = formula.send(name.downcase)
 
       ra = ResourceAuditor.new(spec).audit
       problems.concat ra.problems.map { |problem| "#{name}: #{problem}" }
@@ -284,17 +275,17 @@ class FormulaAuditor
       spec.patches.select(&:external?).each { |p| audit_patch(p) }
     end
 
-    if f.stable && f.devel
-      if f.devel.version < f.stable.version
-        problem "devel version #{f.devel.version} is older than stable version #{f.stable.version}"
-      elsif f.devel.version == f.stable.version
+    if formula.stable && formula.devel
+      if formula.devel.version < formula.stable.version
+        problem "devel version #{formula.devel.version} is older than stable version #{formula.stable.version}"
+      elsif formula.devel.version == formula.stable.version
         problem "stable and devel versions are identical"
       end
     end
   end
 
   def audit_patches
-    legacy_patches = Patch.normalize_legacy_patches(f.patches).grep(LegacyPatch)
+    legacy_patches = Patch.normalize_legacy_patches(formula.patches).grep(LegacyPatch)
     if legacy_patches.any?
       problem "Use the patch DSL instead of defining a 'patches' method"
       legacy_patches.each { |p| audit_patch(p) }
@@ -558,7 +549,7 @@ class FormulaAuditor
     audit_conflicts
     audit_patches
     audit_text
-    text.split("\n").each_with_index {|line, lineno| audit_line(line, lineno+1) }
+    text.without_patch.split("\n").each_with_index { |line, lineno| audit_line(line, lineno+1) }
     audit_installed
   end
 
@@ -566,6 +557,10 @@ class FormulaAuditor
 
   def problem p
     @problems << p
+  end
+
+  def head_only?(formula)
+    formula.head && formula.stable.nil?
   end
 end
 
@@ -632,7 +627,7 @@ class ResourceAuditor
 
     if using == :ssl3 || using == CurlSSL3DownloadStrategy
       problem "The SSL3 download strategy is deprecated, please choose a different URL"
-    elsif using == CurlUnsafeDownloadStrategy
+    elsif using == CurlUnsafeDownloadStrategy || using == UnsafeSubversionDownloadStrategy
       problem "#{using.name} is deprecated, please choose a different URL"
     end
 

@@ -20,8 +20,7 @@ class Pth < Formula
   def install
     ENV.deparallelize
     # Note: shared library will not be build with --disable-debug, so don't add that flag
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
+    system "./configure", "--prefix=#{prefix}",
                           "--mandir=#{man}",
                           # these flags are the defaults on most platforms, but for some
                           # reason Leopard/PPC doesn't set them, resulting in test failures

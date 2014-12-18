@@ -13,12 +13,12 @@ module OS
         when "10.6"  then "3.2.6"
         when "10.7"  then "4.6.3"
         when "10.8"  then "5.1.1"
-        when "10.9"  then "6.0.1"
-        when "10.10" then "6.1"
+        when "10.9"  then "6.1.1"
+        when "10.10" then "6.1.1"
         else
           # Default to newest known version of Xcode for unreleased OSX versions.
           if MacOS.version > "10.10"
-            "6.1"
+            "6.1.1"
           else
             raise "Mac OS X '#{MacOS.version}' is invalid"
           end
@@ -77,7 +77,7 @@ module OS
 
         %W[#{prefix}/usr/bin/xcodebuild #{which("xcodebuild")}].uniq.each do |path|
           if File.file? path
-            `#{path} -version 2>/dev/null` =~ /Xcode (\d(\.\d)*)/
+            Utils.popen_read(path, "-version") =~ /Xcode (\d(\.\d)*)/
             return $1 if $1
 
             # Xcode 2.x's xcodebuild has a different version string
@@ -168,8 +168,8 @@ module OS
 
       def latest_version
         case MacOS.version
-        when "10.10" then "600.0.54"
-        when "10.9"  then "600.0.51"
+        when "10.10" then "600.0.56"
+        when "10.9"  then "600.0.56"
         when "10.8"  then "503.0.40"
         else
           "425.0.28"

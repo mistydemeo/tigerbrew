@@ -22,15 +22,16 @@ class Gcc < Formula
   end
 
   homepage "http://gcc.gnu.org"
-  url "http://ftpmirror.gnu.org/gcc/gcc-4.9.1/gcc-4.9.1.tar.bz2"
-  mirror "ftp://gcc.gnu.org/pub/gcc/releases/gcc-4.9.1/gcc-4.9.1.tar.bz2"
-  sha1 "3f303f403053f0ce79530dae832811ecef91197e"
+  url "http://ftpmirror.gnu.org/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2"
+  mirror "ftp://gcc.gnu.org/pub/gcc/releases/gcc-4.9.2/gcc-4.9.2.tar.bz2"
+  sha1 "79dbcb09f44232822460d80b033c962c0237c6d8"
+  revision 1
 
   bottle do
-    sha1 "f824e136d44f1c30b55a7600c5ce130b83fddd7f" => :tiger_g3
-    sha1 "6aff485b8402bb805c1112446d1af64847ce8add" => :tiger_altivec
-    sha1 "dfbfb0a2016ca22b80f077efde33afbca4a31442" => :leopard_g3
-    sha1 "b8b7a6e0b29aa48c1d1d1aef3650464ce4445fc8" => :leopard_altivec
+    sha1 "1cd94a5821eb9820a203003cec1da4eb840bc43d" => :tiger_g3
+    sha1 "079d12a6d57175499bc01a6de22bd0d15b8cd71a" => :tiger_altivec
+    sha1 "b9a5329f435b0249fd05862aa25cc6bf6b12c529" => :leopard_g3
+    sha1 "70609f9fbff176f9ebd89430c97df5d2574a2dc5" => :leopard_altivec
   end
 
   option "with-java", "Build the gcj compiler"
@@ -54,6 +55,7 @@ class Gcc < Formula
   end
 
   fails_with :gcc_4_0
+  fails_with :llvm
 
   # GCC bootstraps itself, so it is OK to have an incompatible C++ stdlib
   cxxstdlib_check :skip
@@ -64,14 +66,15 @@ class Gcc < Formula
     MacOS::CLT.installed?
   end
 
-  def version_suffix
-    version.to_s.slice(/\d\.\d/)
+  # Fix bootstrap compilation failure on PPC;
+  # upstream report: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63703
+  patch :p0 do
+    url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=34100&action=diff&context=patch&collapsed=&headers=1&format=raw"
+    sha1 "920ffed68aac26301b20b7a3c6b4bdf494b3800b"
   end
 
-  # Fix 10.10 issues: https://gcc.gnu.org/viewcvs/gcc?view=revision&revision=215251
-  patch do
-    url "https://raw.githubusercontent.com/DomT4/scripts/6c0e48921/Homebrew_Resources/Gcc/gcc1010.diff"
-    sha1 "083ec884399218584aec76ab8f2a0db97c12a3ba"
+  def version_suffix
+    version.to_s.slice(/\d\.\d/)
   end
 
   def install
@@ -94,6 +97,7 @@ class Gcc < Formula
     args = [
       "--build=#{arch}-apple-darwin#{osmajor}",
       "--prefix=#{prefix}",
+      "--libdir=#{lib}/gcc/#{version_suffix}",
       "--enable-languages=#{languages.join(",")}",
       # Make most executables versioned to avoid conflicts.
       "--program-suffix=-#{version_suffix}",
@@ -103,10 +107,6 @@ class Gcc < Formula
       "--with-cloog=#{Formula["cloog"].opt_prefix}",
       "--with-isl=#{Formula["isl"].opt_prefix}",
       "--with-system-zlib",
-      # This ensures lib, libexec, include are sandboxed so that they
-      # don't wander around telling little children there is no Santa
-      # Claus.
-      "--enable-version-specific-runtime-libs",
       "--enable-libstdcxx-time=yes",
       "--enable-stage1-checking",
       "--enable-checking=release",
@@ -138,6 +138,10 @@ class Gcc < Formula
       args << "--enable-multilib"
     end
 
+    # Ensure correct install names when linking against libgcc_s;
+    # see discussion in https://github.com/Homebrew/homebrew/pull/34303
+    inreplace "libgcc/config/t-slibgcc-darwin", "@shlib_slibdir@", "#{HOMEBREW_PREFIX}/lib/gcc/#{version_suffix}"
+
     mkdir "build" do
       unless MacOS::CLT.installed?
         # For Xcode-only systems, we need to tell the sysroot path.
@@ -167,10 +171,10 @@ class Gcc < Formula
     # Rename java properties
     if build.with?("java") || build.with?("all-languages")
       config_files = [
-        "#{lib}/logging.properties",
-        "#{lib}/security/classpath.security",
-        "#{lib}/i386/logging.properties",
-        "#{lib}/i386/security/classpath.security"
+        "#{lib}/gcc/#{version_suffix}/logging.properties",
+        "#{lib}/gcc/#{version_suffix}/security/classpath.security",
+        "#{lib}/gcc/#{version_suffix}/i386/logging.properties",
+        "#{lib}/gcc/#{version_suffix}/i386/security/classpath.security"
       ]
       config_files.each do |file|
         add_suffix file, version_suffix if File.exist? file
@@ -196,6 +200,28 @@ class Gcc < Formula
   end
 
   test do
+    (testpath/"hello-c.c").write <<-EOS.undent
+      #include <stdio.h>
+      int main()
+      {
+        puts("Hello, world!");
+        return 0;
+      }
+    EOS
+    system "#{bin}/gcc-#{version_suffix}", "-o", "hello-c", "hello-c.c"
+    assert_equal "Hello, world!\n", `./hello-c`
+
+    (testpath/"hello-cc.cc").write <<-'EOS'.undent
+      #include <iostream>
+      int main()
+      {
+        std::cout << "Hello, world!\n";
+        return 0;
+      }
+    EOS
+    system "#{bin}/g++-#{version_suffix}", "-o", "hello-cc", "hello-cc.cc"
+    assert_equal "Hello, world!\n", `./hello-cc`
+
     if build.with?("fortran") || build.with?("all-languages")
       fixture = <<-EOS.undent
         integer,parameter::m=10000

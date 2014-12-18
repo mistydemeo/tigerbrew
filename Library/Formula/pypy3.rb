@@ -7,9 +7,10 @@ class Pypy3 < Formula
 
   bottle do
     cellar :any
-    sha1 "91c1ccc5028d0e624f305897774acef91aa90553" => :yosemite
-    sha1 "70dc2d4a2777e4fca94b7eb7a725c3c0b67063ea" => :mavericks
-    sha1 "2712e981287725a7282811b7eb35b14e866ad960" => :mountain_lion
+    revision 3
+    sha1 "d7999dceba153f4cecc6ba5f60916aa3d861dcb3" => :yosemite
+    sha1 "73c695fc641d56732c50395e5228004541b8c8cb" => :mavericks
+    sha1 "cc8b078834920933b7a83c84cc0d7d6e14cd51c9" => :mountain_lion
   end
 
   depends_on :arch => :x86_64
@@ -17,8 +18,8 @@ class Pypy3 < Formula
   depends_on "openssl"
 
   resource "setuptools" do
-    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-6.0.2.tar.gz"
-    sha1 "a29a81b7913151697cb15b069844af75d441408f"
+    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-8.0.2.tar.gz"
+    sha1 "bacdf139b210ea6c16ffa98eefa2eb8074dc7869"
   end
 
   resource "pip" do
@@ -38,7 +39,7 @@ class Pypy3 < Formula
 
     Dir.chdir "pypy/goal" do
       system "python", buildpath/"rpython/bin/rpython",
-             "-Ojit", "--shared", "--cc", ENV["CC"], "--translation-verbose",
+             "-Ojit", "--shared", "--cc", ENV.cc, "--translation-verbose",
              "--make-jobs", ENV.make_jobs, "targetpypystandalone.py"
       system "install_name_tool", "-change", "libpypy-c.dylib", libexec/"lib/libpypy3-c.dylib", "pypy-c"
       system "install_name_tool", "-id", opt_libexec/"lib/libpypy3-c.dylib", "libpypy-c.dylib"
@@ -58,6 +59,12 @@ class Pypy3 < Formula
   end
 
   def post_install
+    # Precompile cffi extensions in lib_pypy
+    # list from create_cffi_import_libraries in pypy/tool/release/package.py
+    %w[_sqlite3 _curses syslog gdbm _tkinter].each do |module_name|
+      quiet_system bin/"pypy3", "-c", "import #{module_name}"
+    end
+
     # Post-install, fix up the site-packages and install-scripts folders
     # so that user-installed Python software survives minor updates, such
     # as going from 1.7.0 to 1.7.1.
@@ -102,7 +109,7 @@ class Pypy3 < Formula
     To update setuptools and pip between pypy3 releases, run:
         #{scripts_folder}/pip install --upgrade setuptools pip
 
-    See: https://github.com/Homebrew/homebrew/wiki/Homebrew-and-Python
+    See: https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Homebrew-and-Python.md
     EOS
   end
 

@@ -1,17 +1,12 @@
 require 'formula'
 
 class Webp < Formula
-  homepage 'http://code.google.com/speed/webp/'
-  url 'https://webp.googlecode.com/files/libwebp-0.4.0.tar.gz'
-  sha1 '326c4b6787a01e5e32a9b30bae76442d18d2d1b6'
-  head 'https://chromium.googlesource.com/webm/libwebp', :branch => 'master'
+  homepage "https://developers.google.com/speed/webp/"
+  url 'http://downloads.webmproject.org/releases/webp/libwebp-0.4.2.tar.gz'
+  sha256 '14d825d7c2ef7d49621bcb6b83466be455585e671ae0a2ebc1f2e07775a1722d'
 
   bottle do
     cellar :any
-    sha1 "cfc09a4de229056b8b29fc010a9faf3d1dddd78b" => :tiger_g3
-    sha1 "61120184fc380a47a8a44fdff85218690595d01c" => :tiger_altivec
-    sha1 "4194ad065f197bb3ef284fc101c45bc032799b42" => :leopard_g3
-    sha1 "1ab5a2d65ceefc4e2b29319801271d0d34895f97" => :leopard_altivec
   end
 
   revision 1

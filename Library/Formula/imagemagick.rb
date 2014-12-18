@@ -5,8 +5,7 @@ class Imagemagick < Formula
   url "http://www.imagemagick.org/download/releases/ImageMagick-6.8.9-8.tar.xz"
   sha256 "27360449c6f3d4cca548d1780ecd5f8313a57a0a83d6d953a5088cc81714e9b0"
 
-  head "https://www.imagemagick.org/subversion/ImageMagick/trunk",
-    :using => UnsafeSubversionDownloadStrategy
+  head "http://www.imagemagick.org/subversion/ImageMagick/trunk"
 
   bottle do
     sha1 "c395c3d14542a6c002fef70dca747f79df7a2df2" => :yosemite
@@ -21,6 +20,7 @@ class Imagemagick < Formula
   option "without-magick-plus-plus", "disable build/install of Magick++"
   option "with-jp2", "Compile with Jpeg2000 support"
   option "enable-hdri", "Compile with HDRI support"
+  option "with-fftw", "Compile with FFTW support"
 
   depends_on "libtool" => :run
 
@@ -42,14 +42,9 @@ class Imagemagick < Formula
   depends_on "ghostscript" => :optional
   depends_on "webp" => :optional
   depends_on "homebrew/versions/openjpeg21" if build.with? "jp2"
+  depends_on "fftw" => :optional
 
   depends_on "xz"
-
-  def pour_bottle?
-    # If libtool is keg-only it currently breaks the bottle.
-    # This is a temporary workaround until we have a better fix.
-    not Formula["libtool"].keg_only?
-  end
 
   skip_clean :la
 
@@ -69,6 +64,7 @@ class Imagemagick < Formula
     args << "--with-gs-font-dir=#{HOMEBREW_PREFIX}/share/ghostscript/fonts" if build.without? "ghostscript"
     args << "--without-magick-plus-plus" if build.without? "magick-plus-plus"
     args << "--enable-hdri=yes" if build.include? "enable-hdri"
+    args << "--enable-fftw=yes" if build.with? "fftw"
 
     if build.with? "quantum-depth-32"
       quantum_depth = 32

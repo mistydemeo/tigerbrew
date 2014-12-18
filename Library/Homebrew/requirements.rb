@@ -6,17 +6,30 @@ require 'requirements/maximum_macos_requirement'
 require 'requirements/mpi_dependency'
 require 'requirements/osxfuse_dependency'
 require 'requirements/python_dependency'
+require 'requirements/tuntap_dependency'
 require 'requirements/unsigned_kext_requirement'
 require 'requirements/x11_dependency'
 
 class XcodeDependency < Requirement
   fatal true
 
-  satisfy(:build_env => false) { MacOS::Xcode.installed? }
+  satisfy(:build_env => false) { xcode_installed_version }
+
+  def initialize(tags)
+    @version = tags.find { |t| tags.delete(t) if /(\d\.)+\d/ === t }
+    super
+  end
+
+  def xcode_installed_version
+    return false unless MacOS::Xcode.installed?
+    return true unless @version
+    MacOS::Xcode.version >= @version
+  end
 
   def message
+    version = " #{@version}" if @version
     message = <<-EOS.undent
-      A full installation of Xcode.app is required to compile this software.
+      A full installation of Xcode.app#{version} is required to compile this software.
       Installing just the Command Line Tools is not sufficient.
     EOS
     if MacOS.version >= :lion
@@ -128,5 +141,29 @@ class JavaDependency < Requirement
 
       Make sure you install both the JRE and JDK.
     EOS
+  end
+end
+
+class AprDependency < Requirement
+  fatal true
+
+  satisfy(:build_env => false) { MacOS::CLT.installed? }
+
+  def message
+    message = <<-EOS.undent
+      Due to packaging problems on Apple's part, software that compiles
+      against APR requires the standalone Command Line Tools.
+    EOS
+    if MacOS.version >= :mavericks
+      message += <<-EOS.undent
+        Run `xcode-select --install` to install them.
+      EOS
+    else
+      message += <<-EOS.undent
+        The standalone package can be obtained from
+        https://developer.apple.com/downloads/,
+        or it can be installed via Xcode's preferences.
+      EOS
+    end
   end
 end
