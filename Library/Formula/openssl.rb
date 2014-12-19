@@ -126,7 +126,8 @@ class Openssl < Formula
 
   test do
     # Make sure the necessary .cnf file exists, otherwise OpenSSL gets moody.
-    assert (HOMEBREW_PREFIX/"etc/openssl/openssl.cnf").exist?,
+    cnf_path = HOMEBREW_PREFIX/"etc/openssl/openssl.cnf"
+    assert cnf_path.exist?,
             "OpenSSL requires the .cnf file for some functionality"
 
     # Check OpenSSL itself functions as expected.
