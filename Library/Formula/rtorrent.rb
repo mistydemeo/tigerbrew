@@ -7,6 +7,7 @@ class Rtorrent < Formula
   revision 1
 
   depends_on "pkg-config" => :build
+  depends_on "curl" if MacOS.version < :snow_leopard
   depends_on "libtorrent"
   depends_on "xmlrpc-c" => :optional
 
