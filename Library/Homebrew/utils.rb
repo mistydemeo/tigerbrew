@@ -145,7 +145,12 @@ def quiet_system cmd, *args
 end
 
 def curl *args
-  curl = Pathname.new '/usr/bin/curl'
+  brewed_curl = Formula["curl"]
+  if brewed_curl.installed?
+    curl = brewed_curl.opt_bin/"curl"
+  else
+    curl = Pathname.new '/usr/bin/curl'
+  end
   raise "#{curl} is not executable" unless curl.exist? and curl.executable?
 
   flags = HOMEBREW_CURL_ARGS
@@ -153,7 +158,7 @@ def curl *args
 
   args = [flags, HOMEBREW_USER_AGENT, *args]
   # See https://github.com/Homebrew/homebrew/issues/6103
-  args << "--insecure" if MacOS.version < "10.6"
+  args << "--insecure" if MacOS.version < "10.6" unless brewed_curl.installed?
   args << "--verbose" if ENV['HOMEBREW_CURL_VERBOSE']
   args << "--silent" unless $stdout.tty?
 
