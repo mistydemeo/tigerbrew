@@ -1,10 +1,12 @@
 # Xcode
 ## Supported Xcode Versions
-Homebrew supports and recommends the latest Xcode and/or Command Line
+Tigerbrew supports and recommends the latest Xcode and/or Command Line
 Tools available for your platform:
 
  OS X  | Xcode | Command Line Tools
  ----- | ----- | ----------------------------
+ 10.4  | 2.5   | N/A
+ 10.5  | 3.1.4 | N/A
  10.6  | 3.2.6 | N/A
  10.7  | 4.6.3 | April 2013
  10.8  | 5.1.1 | April 2014
