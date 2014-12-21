@@ -27,7 +27,7 @@ module Homebrew
     target_file = nil
     Dir["#{SOURCE_PATH}/*.md"].each do |source_file|
       target_file = TARGET_PATH/File.basename(source_file, ".md")
-      safe_system "ronn --roff --pipe --organization='Homebrew' --manual='brew' #{source_file} > #{target_file}"
+      safe_system "ronn --roff --pipe --organization='Tigerbrew' --manual='brew' #{source_file} > #{target_file}"
     end
 
     if ARGV.include?("--verbose") || ARGV.include?("-v")
