@@ -24,7 +24,7 @@ And of course, you can simply `brew link $FORMULA` again afterwards!
 
 
 
-## Install into Homebrew without formulas
+## Install into Tigerbrew without formulas
 
 ```bash
 ./configure --prefix=/usr/local/Cellar/foo/1.2 && make && make install && brew link foo
@@ -52,7 +52,7 @@ ln -s "$(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh" /usr/loca
 
 ## Pre-downloading a file for a formula
 
-Sometimes it's faster to download a file via means other than those strategies that are available as part of Homebrew.  For example, Erlang provides a Torrent that'll let you download at 4–5× the normal HTTP method.  Download the file and drop it in `~/Library/Caches/Homebrew`, but watch the file name.  Homebrew downloads files as <code>{{ formula name }}-{{ version }}</code>.  In the case of Erlang, this requires renaming the file from <code>otp_src_R13B03</code> to <code>erlang-R13B03</code>.
+Sometimes it's faster to download a file via means other than those strategies that are available as part of Tigerbrew.  For example, Erlang provides a Torrent that'll let you download at 4–5× the normal HTTP method.  Download the file and drop it in `~/Library/Caches/Homebrew`, but watch the file name.  Tigerbrew downloads files as <code>{{ formula name }}-{{ version }}</code>.  In the case of Erlang, this requires renaming the file from <code>otp_src_R13B03</code> to <code>erlang-R13B03</code>.
 
 **New:**
 ```bash
@@ -63,9 +63,9 @@ You can also pre-cache the download by using the command `brew fetch formula` wh
 
 
 
-## Using Homebrew behind a proxy
+## Using Tigerbrew behind a proxy
 
-Behind the scenes, Homebrew uses several commands for downloading files (e.g. curl, git, svn).  Many of these tools can download via a proxy.  It's a common (though not universal) convention for these command-line tools to observe getting the proxy parameters from environment variables (e.g. `http_proxy`).  Unfortunately, most tools are inconsistent in their use of these environment parameters (e.g. curl supports `http_proxy`, `HTTPS_PROXY`, `FTP_PROXY`, `GOPHER_PROXY`, `ALL_PROXY`, `NO_PROXY`).
+Behind the scenes, Tigerbrew uses several commands for downloading files (e.g. curl, git, svn).  Many of these tools can download via a proxy.  It's a common (though not universal) convention for these command-line tools to observe getting the proxy parameters from environment variables (e.g. `http_proxy`).  Unfortunately, most tools are inconsistent in their use of these environment parameters (e.g. curl supports `http_proxy`, `HTTPS_PROXY`, `FTP_PROXY`, `GOPHER_PROXY`, `ALL_PROXY`, `NO_PROXY`).
 
 Luckily, for the majority of cases setting `http_proxy` is enough.  You can set this environment variable in several ways (search on the internet for details), but the way I prefer is:
 
@@ -80,7 +80,7 @@ $ http_proxy=http://<proxyhost>:<proxyport>  brew install $FORMULA
 $ http_proxy=http://<user>:<password>@<proxyhost>:<proxyport>  brew install $FORMULA
 ```
 
-**NB:** this technique will also work if you prefer to use `sudo` with Homebrew.  But as `sudo` clears the environment before executing Homebrew, your proxy settings may get lost.
+**NB:** this technique will also work if you prefer to use `sudo` with Tigerbrew.  But as `sudo` clears the environment before executing Tigerbrew, your proxy settings may get lost.
 
 **Workaround:**
 

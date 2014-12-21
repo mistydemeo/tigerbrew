@@ -140,7 +140,7 @@ class FormulaAuditor
           next if dep.build? or dep.run?
           problem %{#{dep} dependency should be "depends_on '#{dep}' => :build"}
         when "git", "ruby", "mercurial"
-          problem "Don't use #{dep} as a dependency. We allow non-Homebrew #{dep} installations."
+          problem "Don't use #{dep} as a dependency. We allow non-Tigerbrew #{dep} installations."
         when 'gfortran'
           problem "Use `depends_on :fortran` instead of `depends_on 'gfortran'`"
         when 'open-mpi', 'mpich2'
@@ -493,7 +493,7 @@ class FormulaAuditor
 
     if line =~ /skip_clean\s+:all/
       problem "`skip_clean :all` is deprecated; brew no longer strips symbols\n" +
-              "\tPass explicit paths to prevent Homebrew from removing empty folders."
+              "\tPass explicit paths to prevent Tigerbrew from removing empty folders."
     end
 
     if line =~ /depends_on [A-Z][\w:]+\.new$/

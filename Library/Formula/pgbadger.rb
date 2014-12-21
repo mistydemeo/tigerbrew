@@ -24,7 +24,7 @@ class Pgbadger < Formula
 
   def caveats; <<-EOS.undent
     You must configure your PostgreSQL server before using pgBadger.
-    Edit postgresql.conf (in #{var}/postgres if you use Homebrew's
+    Edit postgresql.conf (in #{var}/postgres if you use Tigerbrew's
     PostgreSQL), set the following parameters, and restart PostgreSQL:
 
       log_destination = 'stderr'

@@ -1,6 +1,6 @@
 # Interesting Taps & Branches
 A Tap is homebrew-speak for a git repository containing extra formulae.
-Homebrew has the capability to add (and remove) multiple taps to your local installation with the `brew tap` and `brew untap` command. Type `man brew` in your Terminal. The main repository https://github.com/Homebrew/homebrew often called "Homebrew/homebrew" is always built-in.
+Tigerbrew has the capability to add (and remove) multiple taps to your local installation with the `brew tap` and `brew untap` command. Type `man brew` in your Terminal. The main repository https://github.com/mistydemeo/tigerbrew often called "mistydemeo/tigerbrew" is always built-in.
 
 ## Main Taps
 
@@ -44,7 +44,7 @@ Homebrew has the capability to add (and remove) multiple taps to your local inst
     - Precompiled binary formulae.
 
 
-`brew search` looks in these main taps and as well in [Homebrew/homebrew](https://github.com/Homebrew/homebrew). So don't worry about missing stuff. We will add other taps to the search as they become well maintained and popular.
+`brew search` looks in these main taps and as well in [mistydemeo/tigerbrew](https://github.com/mistydemeo/tigerbrew). So don't worry about missing stuff. We will add other taps to the search as they become well maintained and popular.
 
 You can be added as a maintainer for one of the Homebrew organization taps and aid the project! If you are interested write to our list: homebrew@librelist.com. We want your help!
 
@@ -78,10 +78,10 @@ You can be added as a maintainer for one of the Homebrew organization taps and a
     - Experimental Linux version
 
 *   [wilmoore/homebrew-home](https://github.com/wilmoore/homebrew-home)
-    - Homebrew install for those that like to Homebrew @ $HOME (i.e. ~/.homebrew).
+    - Tigerbrew install for those that like to Tigerbrew @ $HOME (i.e. ~/.homebrew).
 
 *   [nddrylliog/homebrew-mingw](https://github.com/nddrylliog/homebrew-mingw)
-    - An experimental port of Homebrew for Windows (with an MSYS/MinGW environment).
+    - An experimental port of Tigerbrew for Windows (with an MSYS/MinGW environment).
 
 
 ## Technical Details

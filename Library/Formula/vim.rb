@@ -85,7 +85,7 @@ class Vim < Formula
                           "--with-tlib=ncurses",
                           "--enable-cscope",
                           "--with-features=huge",
-                          "--with-compiledby=Homebrew",
+                          "--with-compiledby=Tigerbrew",
                           *opts
 
     system "make"

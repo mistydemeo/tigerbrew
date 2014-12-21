@@ -155,7 +155,7 @@ class BuildError < RuntimeError
       puts
       puts "#{Tty.red}READ THIS#{Tty.reset}: #{Tty.em}#{OS::ISSUES_URL}#{Tty.reset}"
       if formula.tap?
-        puts "If reporting this issue please do so at (not Homebrew/homebrew):"
+        puts "If reporting this issue please do so at (not mistydemeo/tigerbrew):"
         puts "  https://github.com/#{formula.tap}/issues"
       end
     else

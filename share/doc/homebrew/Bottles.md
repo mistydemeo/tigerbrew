@@ -1,5 +1,5 @@
 # Bottles
-Bottles are Homebrew's binary packages. They are produced by installing a formula with `brew install --build-bottle $FORMULA` and then bottling it with `brew bottle $FORMULA`. This outputs the bottle DSL which should be inserted into the formula file.
+Bottles are Tigerbrew's binary packages. They are produced by installing a formula with `brew install --build-bottle $FORMULA` and then bottling it with `brew bottle $FORMULA`. This outputs the bottle DSL which should be inserted into the formula file.
 
 ## Bottle Usage
 If a bottle is available and usable it will be downloaded and poured automatically when you `brew install <formula>`. If you wish to disable this you can do it by specifying `--build-from-source` or set `export HOMEBREW_BUILD_FROM_SOURCE=1` environment variable.
@@ -44,11 +44,11 @@ end
 
 ### `root_url`
 Optionally contains the URL root used to calculate bottle URLs.
-By default this is omitted and the Homebrew default bottle URL root is used. This may be useful for taps which wish to provide bottles for their formulae or to cater for a non-default `HOMEBREW_CELLAR`.
+By default this is omitted and the Tigerbrew default bottle URL root is used. This may be useful for taps which wish to provide bottles for their formulae or to cater for a non-default `HOMEBREW_CELLAR`.
 
 ### `cellar`
 Optionally contains the value of `HOMEBREW_CELLAR` in which the bottles were built.
-Most compiled software contains references to its compiled location so cannot be simply relocated anywhere on disk. If this value is `:any` this means that the bottle can be safely installed in any Cellar as it did not contain any references to its installation Cellar. This can be omitted if a bottle is compiled (as all default Homebrew ones are) for the default `HOMEBREW_CELLAR` of `/usr/local/Cellar`
+Most compiled software contains references to its compiled location so cannot be simply relocated anywhere on disk. If this value is `:any` this means that the bottle can be safely installed in any Cellar as it did not contain any references to its installation Cellar. This can be omitted if a bottle is compiled (as all default Tigerbrew ones are) for the default `HOMEBREW_CELLAR` of `/usr/local/Cellar`
 
 ### `prefix`
 Optionally contains the value of `HOMEBREW_PREFIX` in which the bottles were built.

@@ -34,7 +34,7 @@ module Homebrew
     canonical_name = Formulary.canonical_name(detected_name)
 
     odie <<-EOS.undent if detected_name != canonical_name
-      The detected name #{detected_name.inspect} exists in Homebrew as an alias
+      The detected name #{detected_name.inspect} exists in Tigerbrew as an alias
       of #{canonical_name.inspect}. Consider using the canonical name instead:
         brew diy --name=#{canonical_name}
 

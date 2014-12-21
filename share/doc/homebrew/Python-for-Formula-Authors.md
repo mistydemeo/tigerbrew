@@ -1,18 +1,18 @@
 # Introduction
 
-This document explains how to successfully use Python in a Homebrew formula.
+This document explains how to successfully use Python in a Tigerbrew formula.
 
-Homebrew draws a distinction between Python **applications** and Python **libraries**. The difference is that users generally do not care that applications are written in Python; it is unusual that a user would expect to be able to `import foo` after installing an application. Examples of applications are `ansible` and `jrnl`.
+Tigerbrew draws a distinction between Python **applications** and Python **libraries**. The difference is that users generally do not care that applications are written in Python; it is unusual that a user would expect to be able to `import foo` after installing an application. Examples of applications are `ansible` and `jrnl`.
 
 Python libraries exist to be imported from other Python modules; they are often dependencies of Python applications. They are usually no more than incidentally useful from a Terminal.app command line. Examples of libraries are `py2cairo` and the bindings that are installed by `protobuf --with-python`.
 
 Bindings are a special case of libraries that allow Python code to interact with a library or application implemented in another language.
 
-Homebrew is happy to accept applications that are built in Python, whether the apps are available from PyPI or not. Homebrew generally won't accept libraries that can be installed correctly with `pip install foo`. Libraries that can be pip-installed but have several Homebrew dependencies may be appropriate for the [homebrew-python tap](https://github.com/Homebrew/homebrew-python). Bindings may be installed for packages that provide them, especially if equivalent functionality isn't available through pip.
+Tigerbrew is happy to accept applications that are built in Python, whether the apps are available from PyPI or not. Tigerbrew generally won't accept libraries that can be installed correctly with `pip install foo`. Libraries that can be pip-installed but have several Tigerbrew dependencies may be appropriate for the [homebrew-python tap](https://github.com/Homebrew/homebrew-python). Bindings may be installed for packages that provide them, especially if equivalent functionality isn't available through pip.
 
 # Running setup.py
 
-Homebrew provides a helper method, `Language::Python.setup_install_args`, which returns arguments for invoking setup.py. Please use it instead of invoking `setup.py` explicitly. The syntax is:
+Tigerbrew provides a helper method, `Language::Python.setup_install_args`, which returns arguments for invoking setup.py. Please use it instead of invoking `setup.py` explicitly. The syntax is:
 
 ```ruby
 system "python", *Language::Python.setup_install_args(prefix)
@@ -48,13 +48,13 @@ Applications that are compatible with Python 2 **should** use the Apple-provided
 ```ruby
 depends_on :python if MacOS.version <= :snow_leopard
 ```
-No explicit Python dependency is needed on recent OS versions since /usr/bin is always in `PATH` for Homebrew formulæ; on Leopard and older, the python in `PATH` is used if it's at least version 2.7, or else Homebrew's python is installed.
+No explicit Python dependency is needed on recent OS versions since /usr/bin is always in `PATH` for Tigerbrew formulæ; on Leopard and older, the python in `PATH` is used if it's at least version 2.7, or else Tigerbrew's python is installed.
 
-Formulæ for apps that require Python 3 **should** declare an unconditional dependency on `:python3`, which will cause the formula to use the first python3 discovered in `PATH` at install time (or install Homebrew's if there isn't one). These apps **must** work with the current Homebrew python3 formula.
+Formulæ for apps that require Python 3 **should** declare an unconditional dependency on `:python3`, which will cause the formula to use the first python3 discovered in `PATH` at install time (or install Tigerbrew's if there isn't one). These apps **must** work with the current Tigerbrew python3 formula.
 
 ## Installing
 
-Applications should be installed to `libexec`. This prevents the app's Python modules from contaminating the system site-packages, which is important so that pip doesn't try to manage Homebrew-installed packages and because applications' Python dependencies should not be installed to an importable prefix (see below) so `import` won't work anyway.
+Applications should be installed to `libexec`. This prevents the app's Python modules from contaminating the system site-packages, which is important so that pip doesn't try to manage Tigerbrew-installed packages and because applications' Python dependencies should not be installed to an importable prefix (see below) so `import` won't work anyway.
 
 In your formula's `install` method, first set the `PYTHONPATH` environment variable to your package's libexec site-packages directory with:
 ```ruby
@@ -65,7 +65,7 @@ Then, use `system` with `Language::Python.setup_install_args` to invoke `setup.p
 system "python", *Language::Python.setup_install_args(libexec)
 ```
 
-This will have placed the scripts your Python package installs in `libexec/"bin"`, which is not symlinked into Homebrew's prefix. We need to make sure these are installed and we also need to make sure that, when they are invoked, `PYTHONPATH` includes the path where we just installed your package. Do this with:
+This will have placed the scripts your Python package installs in `libexec/"bin"`, which is not symlinked into Tigerbrew's prefix. We need to make sure these are installed and we also need to make sure that, when they are invoked, `PYTHONPATH` includes the path where we just installed your package. Do this with:
 
 ```ruby
 bin.install Dir[libexec/"bin/*"]
@@ -75,9 +75,9 @@ The first line copies all of the executables to bin. The second line writes stub
 
 ## Dependencies
 
-All Python dependencies of applications that are not packaged by Homebrew (and those dependencies' Python dependencies, recursively) **should** be unconditionally downloaded as `Resource`s and installed into the application keg's `libexec/"vendor"` path. This prevents the state of the system Python packages from being affected by installing an app with Homebrew and guarantees that apps use versions of their dependencies that are known to work together. `libexec/"vendor"` is preferred to `libexec` so that formulæ don't accidentally install executables belonging to their dependencies, which can cause linking conflicts.
+All Python dependencies of applications that are not packaged by Tigerbrew (and those dependencies' Python dependencies, recursively) **should** be unconditionally downloaded as `Resource`s and installed into the application keg's `libexec/"vendor"` path. This prevents the state of the system Python packages from being affected by installing an app with Tigerbrew and guarantees that apps use versions of their dependencies that are known to work together. `libexec/"vendor"` is preferred to `libexec` so that formulæ don't accidentally install executables belonging to their dependencies, which can cause linking conflicts.
 
-Each dependency **should** be explicitly installed; please do not rely on setup.py or pip to perform automatic dependency resolution, for the [reasons described here](https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Acceptable-Formulae.md#we-dont-like-install-scripts-that-download-things). This [mkpydeps script](https://github.com/tdsmith/labmisc/blob/master/mkpydeps) may help you generate resource stanzas; to use it, `pip install tl.eggdeps`, install your package with e.g. `pip install foo`, and run `mkpydeps foo` to generate resource stanzas for each of your package's (recursive) dependencies. The resource stanzas are not printed in any useful order. Consult `eggdeps foo` to view your module's dependency graph to decide how to order the resources; the most deeply indented packages should be listed first.
+Each dependency **should** be explicitly installed; please do not rely on setup.py or pip to perform automatic dependency resolution, for the [reasons described here](https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/Acceptable-Formulae.md#we-dont-like-install-scripts-that-download-things). This [mkpydeps script](https://github.com/tdsmith/labmisc/blob/master/mkpydeps) may help you generate resource stanzas; to use it, `pip install tl.eggdeps`, install your package with e.g. `pip install foo`, and run `mkpydeps foo` to generate resource stanzas for each of your package's (recursive) dependencies. The resource stanzas are not printed in any useful order. Consult `eggdeps foo` to view your module's dependency graph to decide how to order the resources; the most deeply indented packages should be listed first.
 
 Set `PYTHONPATH` to include the `libexec/"vendor"` site-packages path with:
 ```ruby
@@ -127,7 +127,7 @@ end
 
 To add an option to a formula to build Python bindings, use `depends_on :python => :recommended` and install the bindings conditionally on `build.with? "python"` in your `install` method.
 
-Python bindings should be optional because if the formula is bottled, any `:recommended` or mandatory dependencies on `:python` are always resolved by installing the Homebrew `python` formula, which will upset users that prefer to use the system Python. This is because we cannot generally create a binary package that works against both versions of Python.
+Python bindings should be optional because if the formula is bottled, any `:recommended` or mandatory dependencies on `:python` are always resolved by installing the Tigerbrew `python` formula, which will upset users that prefer to use the system Python. This is because we cannot generally create a binary package that works against both versions of Python.
 
 ## Dependencies
 
@@ -150,31 +150,31 @@ If the `configure` and `make` scripts do not want to install into the Cellar, so
 1. `cd` into the directory containing the Python bindings
 1. Call `setup.py` with `system` and `Language::Python.setup_install_args` (as described above)
 
-Sometimes we have to `inreplace` a `Makefile` to use our prefix for the python bindings. (`inreplace` is one of Homebrew's helper methods, which greps and edits text files on-the-fly.)
+Sometimes we have to `inreplace` a `Makefile` to use our prefix for the python bindings. (`inreplace` is one of Tigerbrew's helper methods, which greps and edits text files on-the-fly.)
 
 # Libraries
 
 ## Python declarations
 
-Libraries **should** declare a dependency on `:python` or `:python3` as appropriate, which will respectively cause the formula to use the first python or python3 discovered in `PATH` at install time. If a library supports both Python 2.x and Python 3.x, the `:python` dependency **should** be `:recommended` (i.e. built by default) and the :python3 dependency should be `:optional`. Python 2.x libraries **must** function when they are installed against either the system Python or Homebrew Python.
+Libraries **should** declare a dependency on `:python` or `:python3` as appropriate, which will respectively cause the formula to use the first python or python3 discovered in `PATH` at install time. If a library supports both Python 2.x and Python 3.x, the `:python` dependency **should** be `:recommended` (i.e. built by default) and the :python3 dependency should be `:optional`. Python 2.x libraries **must** function when they are installed against either the system Python or Tigerbrew Python.
 
-Formulæ that declare a dependency on `:python` will always be bottled against Homebrew's python, since we cannot in general build binary packages that can be imported from both Pythons. Users can add `--build-from-source` after `brew install` to compile against whichever python is in `PATH`.
+Formulæ that declare a dependency on `:python` will always be bottled against Tigerbrew's python, since we cannot in general build binary packages that can be imported from both Pythons. Users can add `--build-from-source` after `brew install` to compile against whichever python is in `PATH`.
 
 ## Installing
 
-Libraries may be installed to `libexec` and added to `sys.path` by writing a .pth file (named like "homebrew-foo.pth") to the `prefix` site-packages. This simplifies the ensuing drama if pip is accidentally used to upgrade a Homebrew-installed package and prevents the accumulation of stale .pyc files in Homebrew's site-packages.
+Libraries may be installed to `libexec` and added to `sys.path` by writing a .pth file (named like "homebrew-foo.pth") to the `prefix` site-packages. This simplifies the ensuing drama if pip is accidentally used to upgrade a Tigerbrew-installed package and prevents the accumulation of stale .pyc files in Tigerbrew's site-packages.
 
 Most formulas presently just install to `prefix`.
 
 ## Dependencies
 
-The dependencies of libraries must be installed so that they are importable. The principle of minimum surprise suggests that installing a Homebrew library should not alter the other libraries in a user's sys.path. The best way to achieve this is to only install dependencies if they are not already installed. To minimize the potential for linking conflicts, dependencies should be installed to `libexec/"vendor"` and added to `sys.path` by writing a second .pth file (named like "homebrew-foo-dependencies.pth") to the `prefix` site-packages.
+The dependencies of libraries must be installed so that they are importable. The principle of minimum surprise suggests that installing a Tigerbrew library should not alter the other libraries in a user's sys.path. The best way to achieve this is to only install dependencies if they are not already installed. To minimize the potential for linking conflicts, dependencies should be installed to `libexec/"vendor"` and added to `sys.path` by writing a second .pth file (named like "homebrew-foo-dependencies.pth") to the `prefix` site-packages.
 
 The `matplotlib.rb` formula in homebrew-python deploys this strategy.
 
 # Further down the rabbit hole
 
-Additional commentary that explains why Homebrew does some of the things it does.
+Additional commentary that explains why Tigerbrew does some of the things it does.
 
 ## setuptools vs. distutils vs. pip
 
@@ -196,14 +196,14 @@ Distribute (not to be confused with distutils) is an obsolete fork of setuptools
 * upgrades dependencies in sys.path in place
 * writes .pth and site.py files which aren't useful for us and cause link conflicts
 
-setuptools requires that SVEM is used in conjunction with `--record`, which provides a list of files that can later be used to uninstall the package. We don't need or want this because Homebrew can manage uninstallation but since setuptools demands it we comply. The Homebrew convention is to call the record file "installed.txt".
+setuptools requires that SVEM is used in conjunction with `--record`, which provides a list of files that can later be used to uninstall the package. We don't need or want this because Tigerbrew can manage uninstallation but since setuptools demands it we comply. The Tigerbrew convention is to call the record file "installed.txt".
 
 Detecting whether a `setup.py` uses `setup()` from setuptools or distutils is difficult, but we always need to pass this flag to setuptools-based scripts. `pip` faces the same problem that we do and forces `setup()` to use the setuptools version by loading a shim around `setup.py` that imports setuptools before doing anything else. Since setuptools monkey-patches distutils and replaces its `setup` function, this provides a single, consistent interface. We have borrowed this code and use it in `Language::Python.setup_install_args`.
 
 
 ## `--prefix` vs `--root`
 
-setup.py accepts a slightly bewildering array of installation options. The correct switch for Homebrew is `--prefix`, which automatically sets the `--install-foo` family of options using sane POSIX-y values.
+setup.py accepts a slightly bewildering array of installation options. The correct switch for Tigerbrew is `--prefix`, which automatically sets the `--install-foo` family of options using sane POSIX-y values.
 
 `--root` [is used](https://mail.python.org/pipermail/distutils-sig/2010-November/017099.html) when installing into a prefix that will not become part of the final installation location of the files, like when building a .rpm or binary distribution. When using a setup.py-based setuptools, `--root` has the side effect of activating `--single-version-externally-managed`. It is not safe to use `--root` with an empty `--prefix` because the `root` is removed from paths when byte-compiling modules.
 

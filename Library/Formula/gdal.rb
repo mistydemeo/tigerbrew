@@ -17,7 +17,7 @@ class Gdal < Formula
     depends_on 'doxygen' => :build
   end
 
-  option 'complete', 'Use additional Homebrew libraries to provide more drivers.'
+  option 'complete', 'Use additional Tigerbrew libraries to provide more drivers.'
   option 'enable-opencl', 'Build with OpenCL acceleration.'
   option 'enable-armadillo', 'Build with Armadillo accelerated TPS transforms.'
   option 'enable-unsupported', "Allow configure to drag in any library it can find. Invoke this at your own risk."

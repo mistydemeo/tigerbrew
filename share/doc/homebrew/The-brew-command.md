@@ -1,3 +1,3 @@
 # The brew command
-This page has been deprecated in favor of the Homebrew manual (type
+This page has been deprecated in favor of the Tigerbrew manual (type
 `man brew` in Terminal).

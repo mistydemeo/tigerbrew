@@ -74,7 +74,7 @@ class Mariadb < Formula
       -DDEFAULT_CHARSET=utf8
       -DDEFAULT_COLLATION=utf8_general_ci
       -DINSTALL_SYSCONFDIR=#{etc}
-      -DCOMPILATION_COMMENT=Homebrew
+      -DCOMPILATION_COMMENT=Tigerbrew
       -DWITHOUT_TOKUDB=1
     ]
 

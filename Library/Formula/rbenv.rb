@@ -13,7 +13,7 @@ class Rbenv < Formula
   end
 
   def caveats; <<-EOS.undent
-    To use Homebrew's directories rather than ~/.rbenv add to your profile:
+    To use Tigerbrew's directories rather than ~/.rbenv add to your profile:
       export RBENV_ROOT=#{var}/rbenv
 
     To enable shims and autocompletion add to your profile:

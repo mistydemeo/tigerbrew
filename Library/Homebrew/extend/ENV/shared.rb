@@ -228,7 +228,7 @@ module SharedEnvExtension
       if gcc_formula.name == "gcc"
         return if gcc_formula.opt_prefix.exist?
         raise <<-EOS.undent
-        The Homebrew GCC was not installed.
+        The Tigerbrew GCC was not installed.
         You must:
           brew install gcc
         EOS
@@ -236,7 +236,7 @@ module SharedEnvExtension
 
       if !gcc_formula.opt_prefix.exist?
         raise <<-EOS.undent
-        The requested Homebrew GCC, #{gcc_name}, was not installed.
+        The requested Tigerbrew GCC, #{gcc_name}, was not installed.
         You must:
           brew tap homebrew/versions
           brew install #{gcc_name}
@@ -244,7 +244,7 @@ module SharedEnvExtension
       end
     rescue FormulaUnavailableError
       raise <<-EOS.undent
-      Homebrew GCC requested, but formula #{gcc_name} not found!
+      Tigerbrew GCC requested, but formula #{gcc_name} not found!
       You may need to: brew tap homebrew/versions
       EOS
     end

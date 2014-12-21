@@ -19,7 +19,7 @@ class Renameutils < Formula
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--with-packager=Homebrew"
+                          "--with-packager=Tigerbrew"
     system "make"
     ENV.deparallelize # parallel install fails
     system "make install"

@@ -1,12 +1,12 @@
 # Acceptable Formulae
 Some formulae should not go in
-[Homebrew/homebrew](https://github.com/Homebrew/homebrew). But there are
+[mistydemeo/tigerbrew](https://github.com/mistydemeo/tigerbrew). But there are
 additional [Interesting Taps & Branches](Interesting-Taps-&-Branches.md) and anyone can start their
 own!
 
-### We try hard to avoid dupes in Homebrew/homebrew
+### We try hard to avoid dupes in mistydemeo/tigerbrew
 Stuff that comes with OS X or is a library that is provided by
-[RubyGems, CPAN or PyPi](https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Gems,-Eggs-and-Perl-Modules.md)
+[RubyGems, CPAN or PyPi](https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/Gems,-Eggs-and-Perl-Modules.md)
 should not be duplicated. There are good reasons for this:
 
 * Duplicate libraries regularly break builds
@@ -57,7 +57,7 @@ point it to the downloaded archive in order to avoid loading.
 
 ### We don’t like binary formulae
 Our policy is that formulae in the core repository
-([Homebrew/homebrew](https://github.com/Homebrew/homebrew)) must be built
+([mistydemeo/tigerbrew](https://github.com/mistydemeo/tigerbrew)) must be built
 from source. Binary-only formulae should go to
 [Homebrew/homebrew-binary](https://github.com/Homebrew/homebrew-binary).
 

@@ -22,9 +22,9 @@ module Homebrew
 
     Docs
     ----
-    `brew help`, `man brew`, or the Homebrew [docs][].
+    `brew help`, `man brew`, or the Tigerbrew [docs][].
 
-    [docs]:https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/README.md#readme
+    [docs]:https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/README.md#readme
     EOS
 
     puts template if ARGV.verbose?

@@ -19,7 +19,7 @@ class Python3 < Formula
 
   option :universal
   option "quicktest", "Run `make quicktest` after the build"
-  option "with-brewed-tk", "Use Homebrew's Tk (has optional Cocoa and threads support)"
+  option "with-brewed-tk", "Use Tigerbrew's Tk (has optional Cocoa and threads support)"
 
   depends_on "pkg-config" => :build
   depends_on "readline" => :recommended

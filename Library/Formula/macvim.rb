@@ -43,7 +43,7 @@ class Macvim < Formula
       --enable-rubyinterp
       --enable-tclinterp
       --with-tlib=ncurses
-      --with-compiledby=Homebrew
+      --with-compiledby=Tigerbrew
       --with-local-dir=#{HOMEBREW_PREFIX}
     ]
 

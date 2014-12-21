@@ -199,7 +199,7 @@ def check_for_stray_headers
   __check_stray_files "/usr/local/include", "**/*.h", white_list, <<-EOS.undent
     Unbrewed header files were found in /usr/local/include.
     If you didn't put them there on purpose they could cause problems when
-    building Homebrew formulae, and may need to be deleted.
+    building Tigerbrew formulae, and may need to be deleted.
 
     Unexpected header files:
   EOS
@@ -321,7 +321,7 @@ def check_for_osx_gcc_installer
       MacOS.clang_version == "2.1"
     message = <<-EOS.undent
     You seem to have osx-gcc-installer installed.
-    Homebrew doesn't support osx-gcc-installer. It causes many builds to fail and
+    Tigerbrew doesn't support osx-gcc-installer. It causes many builds to fail and
     is an unlicensed distribution of really old Xcode files.
     EOS
     if MacOS.version >= :mavericks
@@ -440,7 +440,7 @@ def check_access_site_packages
     <<-EOS.undent
       #{Language::Python.homebrew_site_packages} isn't writable.
       This can happen if you "sudo pip install" software that isn't managed
-      by Homebrew. If you install a formula with Python modules, the install
+      by Tigerbrew. If you install a formula with Python modules, the install
       will fail during the link step.
 
       You should probably `chown` #{Language::Python.homebrew_site_packages}
@@ -468,7 +468,7 @@ def check_access_cache
       #{HOMEBREW_CACHE} isn't writable.
       This can happen if you ran `brew install` or `brew fetch` as another user.
 
-      Homebrew caches downloaded files to this location.
+      Tigerbrew caches downloaded files to this location.
 
       You should probably `chown` #{HOMEBREW_CACHE}
     EOS
@@ -1005,7 +1005,7 @@ def check_for_library_python
   if File.exist?("/Library/Frameworks/Python.framework") then <<-EOS.undent
     Python is installed at /Library/Frameworks/Python.framework
 
-    Homebrew only supports building against the System-provided Python or a
+    Tigerbrew only supports building against the System-provided Python or a
     brewed Python. In particular, Pythons installed to /Library can interfere
     with other software installs.
     EOS
@@ -1090,7 +1090,7 @@ def check_for_outdated_homebrew
     if Time.now.to_i - timestamp > 60 * 60 * 24 then <<-EOS.undent
       Your Tigerbrew is outdated.
       You haven't updated for at least 24 hours. This is a long time in brewland!
-      To update Homebrew, run `brew update`.
+      To update Tigerbrew, run `brew update`.
       EOS
     end
   end
@@ -1166,10 +1166,10 @@ end
     return unless Language::Python.in_sys_path?("python", homebrew_site_packages)
     user_site_packages = Language::Python.user_site_packages "python"
     <<-EOS.undent
-      Your default Python does not recognize the Homebrew site-packages
+      Your default Python does not recognize the Tigerbrew site-packages
       directory as a special site-packages directory, which means that .pth
       files will not be followed. This means you will not be able to import
-      some modules after installing them with Homebrew, like wxpython. To fix
+      some modules after installing them with Tigerbrew, like wxpython. To fix
       this for the current user, you can run:
 
         mkdir -p #{user_site_packages}

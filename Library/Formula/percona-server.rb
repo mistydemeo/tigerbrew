@@ -73,7 +73,7 @@ class PerconaServer < Formula
       -DDEFAULT_CHARSET=utf8
       -DDEFAULT_COLLATION=utf8_general_ci
       -DSYSCONFDIR=#{etc}
-      -DCOMPILATION_COMMENT=Homebrew
+      -DCOMPILATION_COMMENT=Tigerbrew
       -DWITH_EDITLINE=system
       -DCMAKE_BUILD_TYPE=RelWithDebInfo
     ]

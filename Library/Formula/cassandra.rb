@@ -40,7 +40,7 @@ class Cassandra < Formula
 
   def caveats; <<-EOS.undent
     If you plan to use the CQL shell (cqlsh), you will need the Python CQL library
-    installed. Since Homebrew prefers using pip for Python packages, you can
+    installed. Since Tigerbrew prefers using pip for Python packages, you can
     install that using:
 
       pip install cql

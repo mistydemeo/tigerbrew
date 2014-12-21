@@ -71,7 +71,7 @@ class Sphinx < Formula
 
     Sphinx depends on either MySQL or PostreSQL as a datasource.
 
-    You can install these with Homebrew with:
+    You can install these with Tigerbrew with:
       brew install mysql
         For MySQL server.
 

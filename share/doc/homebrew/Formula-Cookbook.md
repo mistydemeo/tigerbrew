@@ -3,7 +3,7 @@ Making a formula is easy. Just `brew create URL` and then `brew install $FORMULA
 
 We want your formula to be awesome, and the cookbook will tell you how.
 
-## Terminology - Homebrew speak
+## Terminology - Tigerbrew speak
 
 <table>
   <tbody>
@@ -45,9 +45,9 @@ _More general: `brew --prefix` and `brew --repository` instead of `/usr/local` b
 
 ## An Introduction
 
-Did you see `/usr/local/.git`? Homebrew is built on Git. This means you can just do your work in `/usr/local` and merge in upstream changes as you go.
+Did you see `/usr/local/.git`? Tigerbrew is built on Git. This means you can just do your work in `/usr/local` and merge in upstream changes as you go.
 
-Homebrew installs to the `Cellar`, it then symlinks some of the installation into `/usr/local` so that other programs can see what's going on. We suggest you `brew ls` a few of the kegs in your Cellar to see how it is all arranged.
+Tigerbrew installs to the `Cellar`, it then symlinks some of the installation into `/usr/local` so that other programs can see what's going on. We suggest you `brew ls` a few of the kegs in your Cellar to see how it is all arranged.
 
 Packages are installed according to their formulae, which live in `$(brew --repository)/Library/Formula`. Check some out. You can view any formula at anytime; e.g. `brew edit wget`.
 
@@ -55,33 +55,33 @@ Packages are installed according to their formulae, which live in `$(brew --repo
 
 # Basic Instructions
 
-Make sure you run `brew update` before you start. This turns your Homebrew installation into a Git repository.
+Make sure you run `brew update` before you start. This turns your Tigerbrew installation into a Git repository.
 
 Before contributing, make sure your package:
 
 *   meets all our [Acceptable Formulae](Acceptable-Formulae.md) requirements
-*   isn't already in Homebrew (check `brew search $FORMULA`)
+*   isn't already in Tigerbrew (check `brew search $FORMULA`)
 *   isn't in another [Homebrew tap](https://github.com/Homebrew)
-*   isn't already waiting to be merged (check the [issue tracker](http://github.com/Homebrew/homebrew/issues))
+*   isn't already waiting to be merged (check the [issue tracker](http://github.com/mistydemeo/tigerbrew/issues))
 *   is still supported by upstream
 *   has a stable, tagged version (i.e. not just a GitHub repository with no versions)
 
 Make sure you search thoroughly (all aliases!). We don’t want you to waste your time.
 
-Be sure to look over the [contributing guidelines](https://github.com/Homebrew/homebrew/blob/master/CONTRIBUTING.md) as well.
+Be sure to look over the [contributing guidelines](https://github.com/mistydemeo/tigerbrew/blob/master/CONTRIBUTING.md) as well.
 
 
 ## Will we merge your formula?
 
-Probably. But we have rules to keep the quality and goals of Homebrew intact: Please read [Acceptable Formulae](Acceptable-Formulae.md).
+Probably. But we have rules to keep the quality and goals of Tigerbrew intact: Please read [Acceptable Formulae](Acceptable-Formulae.md).
 
 ## Some Quick Examples Before You Get Started
 
-Formulae aren’t that complicated. [etl](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/etl.rb) is as simple as it gets.
+Formulae aren’t that complicated. [etl](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/etl.rb) is as simple as it gets.
 
-And then [Git](http://github.com/Homebrew/homebrew/tree/master/Library/Formula/git.rb) and [flac](http://github.com/Homebrew/homebrew/tree/master/Library/Formula/flac.rb) show more advanced functionality.
+And then [Git](http://github.com/mistydemeo/tigerbrew/tree/master/Library/Formula/git.rb) and [flac](http://github.com/mistydemeo/tigerbrew/tree/master/Library/Formula/flac.rb) show more advanced functionality.
 
-A more complete [cheat-sheet](https://github.com/Homebrew/homebrew/blob/master/Library/Contributions/example-formula.rb) shows almost all the stuff you can use in a Formula.
+A more complete [cheat-sheet](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Contributions/example-formula.rb) shows almost all the stuff you can use in a Formula.
 
 ## Grab the URL
 
@@ -119,7 +119,7 @@ end
 
 **We don’t accept formulae without homepages!**
 
-Homebrew doesn’t have a description field because the homepage is always up to date, and Homebrew is not. That’s way less maintenance for us. Try `brew home qt`.
+Tigerbrew doesn’t have a description field because the homepage is always up to date, and Tigerbrew is not. That’s way less maintenance for us. Try `brew home qt`.
 
 
 ## Check the build system
@@ -133,7 +133,7 @@ Check the package’s `README`. Does the package install with `autotools`, `cmak
 
 ## Check for dependencies
 
-The `README` probably tells you about dependencies. Homebrew or OS X probably already has them. You can check for Homebrew deps with `brew search`. These are the common deps that OS X comes with:
+The `README` probably tells you about dependencies. Tigerbrew or OS X probably already has them. You can check for Tigerbrew deps with `brew search`. These are the common deps that OS X comes with:
 
 * `libexpat`
 * `libGL`
@@ -145,13 +145,13 @@ The `README` probably tells you about dependencies. Homebrew or OS X probably al
 
 There are plenty of others. Check `/usr/lib` to see.
 
-We try to not duplicate libraries and complicated tools in core Homebrew. We dupe some common tools though. But generally, we avoid dupes because it’s one of Homebrew’s foundations. (And it causes build and usage problems!)
+We try to not duplicate libraries and complicated tools in core Tigerbrew. We dupe some common tools though. But generally, we avoid dupes because it’s one of Tigerbrew’s foundations. (And it causes build and usage problems!)
 
-The one special exception is OpenSSL. Anything that uses OpenSSL *should* be built using Homebrew’s shipped OpenSSL and our test bot's post-install audit will warn of this when it is detected. (*Of course, there are exceptions to the exception. Not everything can be forced onto our OpenSSL)*.
+The one special exception is OpenSSL. Anything that uses OpenSSL *should* be built using Tigerbrew’s shipped OpenSSL and our test bot's post-install audit will warn of this when it is detected. (*Of course, there are exceptions to the exception. Not everything can be forced onto our OpenSSL)*.
 
-Because Homebrew’s OpenSSL is `keg_only` to avoid conflicting with the system sometimes formulae need to have environmental variables set or special configuration flags passed to locate our preferred OpenSSL; you can see this mechanism in the [clamav](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/clamav.rb#L28) formula. Usually this is unnecessary because when OpenSSL is specified as a dependency Homebrew temporarily prepends the $PATH with that prefix.
+Because Tigerbrew’s OpenSSL is `keg_only` to avoid conflicting with the system sometimes formulae need to have environmental variables set or special configuration flags passed to locate our preferred OpenSSL; you can see this mechanism in the [clamav](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/clamav.rb#L28) formula. Usually this is unnecessary because when OpenSSL is specified as a dependency Tigerbrew temporarily prepends the $PATH with that prefix.
 
-Homebrew maintains a special [tap that provides other useful dupes](https://github.com/Homebrew/homebrew-dupes).
+Homebrew maintains a special [tap that provides other useful dupes](https://github.com/Homebrew/homebrews-dupes).
 
 *Important:* Since the introduction of `superenv`, `brew --prefix`/bin is NOT on the `$PATH` during formula installation. If you have dependencies at build time, you must specify them and brew will add them to the `$PATH`. You can test around this with `--env=std`.
 
@@ -200,7 +200,7 @@ A Hash specifies a formula dependency with some additional information. Given a 
 
 ## Formulae Revisions
 
-In Homebrew we sometimes accept formulae updates that don’t include a version bump. These include homepage changes, resource updates, new patches or fixing a security issue with a formula.
+In Tigerbrew we sometimes accept formulae updates that don’t include a version bump. These include homepage changes, resource updates, new patches or fixing a security issue with a formula.
 
 Occasionally, these updates require a forced-recompile of the formula itself or its dependents to either ensure formulae continue to function as expected or to close a security issue. This forced-recompile is known as a `revision` and inserted underneath the homepage/url/sha block.
 
@@ -230,7 +230,7 @@ You can double-check which libraries a binary links to with the `otool` command 
 
 ## Specifying gems, Python modules etc. as dependencies
 
-Homebrew doesn’t package already packaged language-specific libraries. These should be installed directly from `gem`/`cpan`/`pip` etc.
+Tigerbrew doesn’t package already packaged language-specific libraries. These should be installed directly from `gem`/`cpan`/`pip` etc.
 
 If you're installing an application then please locally vendor all the language-specific dependencies:
 
@@ -247,7 +247,7 @@ class Foo < Formula
 end
 ```
 
-See [jrnl](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/jrnl.rb) for an example of a formula that does this well. The end-result means the user doesn't have to faff with `pip` or Python and can just run `jrnl`.
+See [jrnl](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/jrnl.rb) for an example of a formula that does this well. The end-result means the user doesn't have to faff with `pip` or Python and can just run `jrnl`.
 
 [This script](https://raw.githubusercontent.com/tdsmith/labmisc/master/mkpydeps) can help you generate resource stanzas for the dependencies of your Python application.
 
@@ -281,11 +281,11 @@ The `test do` block automatically creates and changes to a temporary directory w
 
 We want tests that don't require any user input and test the basic functionality of the application. For example `foo build-foo input.foo` is a good test and (despite their widespread use) `foo --version` and `foo --help` are bad tests. However, a bad test is better than no test at all.
 
-See [cmake](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/cmake.rb) for an example of a formula with a good test. A basic `CMakeLists.txt` file is written CMake uses it to generate Makefiles. This test checks that CMake doesn't e.g. segfault during basic operation.
+See [cmake](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/cmake.rb) for an example of a formula with a good test. A basic `CMakeLists.txt` file is written CMake uses it to generate Makefiles. This test checks that CMake doesn't e.g. segfault during basic operation.
 
 ## Manuals
 
-Homebrew expects to find man pages in `[prefix]/share/man/...`, and not in `[prefix]/man/...`.
+Tigerbrew expects to find man pages in `[prefix]/share/man/...`, and not in `[prefix]/man/...`.
 
 Some software installs to man instead of `share/man`, so check the output and add a `"--mandir=#{man}"` to the `./configure` line if needed.
 
@@ -302,13 +302,13 @@ If you’re not sure about the name check the homepage, and check the Wikipedia 
 
 [ALSO CHECK WHAT DEBIAN CALLS IT!](http://www.debian.org/distrib/packages)
 
-Where Homebrew already has a formula called `foo` we typically do not accept requests to replace that formula with something else also named `foo`. This is to avoid both confusing and surprising users’ expectation.
+Where Tigerbrew already has a formula called `foo` we typically do not accept requests to replace that formula with something else also named `foo`. This is to avoid both confusing and surprising users’ expectation.
 
-When two formulae share an upstream name, e.g. [`AESCrypt`](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/aescrypt.rb) and [`AESCrypt`](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/aescrypt-packetizer.rb) the newer formula must typically adapt the name to avoid conflict with the current formula.
+When two formulae share an upstream name, e.g. [`AESCrypt`](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/aescrypt.rb) and [`AESCrypt`](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/aescrypt-packetizer.rb) the newer formula must typically adapt the name to avoid conflict with the current formula.
 
 If you’re *still* not sure, just commit. We’ll apply some arbitrary rule and make a decision ;)
 
-When importing classes, Homebrew will require the formula and then create an instance of the class. It does this by assuming the formula name can be directly converted to the class name using a `regexp`. The rules are simple:
+When importing classes, Tigerbrew will require the formula and then create an instance of the class. It does this by assuming the formula name can be directly converted to the class name using a `regexp`. The rules are simple:
 
 *   `foo-bar.rb` => `FooBar`
 *   `foobar.rb` => `Foobar`
@@ -320,7 +320,7 @@ Add aliases by creating symlinks in `Library/Aliases`.
 
 ## Audit the formula
 
-You can run `brew audit` to test formulae for adherence to Homebrew house style. This includes warnings for trailing whitespace, preferred URLs for certain source hosts, and a lot of other style issues. Fixing these warnings before committing will make the process a lot smoother for us.
+You can run `brew audit` to test formulae for adherence to Tigerbrew house style. This includes warnings for trailing whitespace, preferred URLs for certain source hosts, and a lot of other style issues. Fixing these warnings before committing will make the process a lot smoother for us.
 
 
 ## Commit
@@ -342,23 +342,23 @@ The established standard for Git commit messages is:
 * two (2) newlines, then
 * explain the commit throughly
 
-At Homebrew, we like to put the name of the formula upfront like so "foobar 7.3 (new formula)".
+At Tigerbrew, we like to put the name of the formula upfront like so "foobar 7.3 (new formula)".
 This may seem crazy short, but you’ll find that forcing yourself to summarise the commit encourages you to be atomic and concise. If you can’t summarise it in 50-80 characters, you’re probably trying to commit two commits as one. For a more thorough explanation, please read Tim Pope’s excellent blog post, [A Note About Git Commit Messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 
 The preferred commit message format for simple version updates is "foobar 7.3".
 
-Ensure you reference any relevant GitHub issue `#12345` in the commit message. Homebrew’s history is the first thing future contributors will look to when trying to understand the current state of formulae they’re interested in.
+Ensure you reference any relevant GitHub issue `#12345` in the commit message. Tigerbrew’s history is the first thing future contributors will look to when trying to understand the current state of formulae they’re interested in.
 
 
 ## Push
 
 Now you just need to push back to GitHub.
 
-If you haven’t forked Homebrew yet, [go to the repo and hit the fork button](http://github.com/Homebrew/homebrew).
+If you haven’t forked Tigerbrew yet, [go to the repo and hit the fork button](http://github.com/mistydemeo/tigerbrew).
 
-If you have already forked Homebrew on Github, then you can manually push (just make sure you have been pulling from the Homebrew/homebrew master):
+If you have already forked Tigerbrew on Github, then you can manually push (just make sure you have been pulling from the mistydemeo/tigerbrew master):
 
-    git push git@github.com:myname/homebrew.git <what-you-called-your-branch>
+    git push git@github.com:myname/tigerbrew.git <what-you-called-your-branch>
 
 Now, please open a Pull Request (on your github repo page) for new and updated brews.
 
@@ -380,7 +380,7 @@ If a commit touches multiple files, or isn’t one logical bug fix, or a file is
 *   Current directory is changed to the stage root (so when you `system make`, it works)
 *   `Formula.install` is called
 *   Anything installed to the keg is cleaned (see later)
-*   The keg is symlinked into Homebrew’s prefix
+*   The keg is symlinked into Tigerbrew’s prefix
 *   Caveats are displayed
 
 
@@ -425,7 +425,7 @@ end
 
 Make sure you modify `s`! This block ignores the returned value.
 
-`inreplace` should be used instead of patches when it is patching something that will never be accepted upstream e.g. make the software’s build system respect Homebrew’s installation hierarchy. If it's Homebrew and MacPorts or OS X specific it should be turned into a patch instead.
+`inreplace` should be used instead of patches when it is patching something that will never be accepted upstream e.g. make the software’s build system respect Tigerbrew’s installation hierarchy. If it's Tigerbrew and MacPorts or OS X specific it should be turned into a patch instead.
 
 If you need modify variables in a Makefile, rather than using `inreplace`, pass them as arguments to make:
 
@@ -543,7 +543,7 @@ class Foo < Formula
 end
 ```
 
-Homebrew understands `git`, `svn`, and `hg` URLs, and has a way to specify `cvs` repositories as a URL as well. You can test whether the `HEAD` is being built with `build.head?`.
+Tigerbrew understands `git`, `svn`, and `hg` URLs, and has a way to specify `cvs` repositories as a URL as well. You can test whether the `HEAD` is being built with `build.head?`.
 
 To use a specific commit, tag, or branch from a repository, specify head with the `:revision`, `:tag`, or `:branch` option, like so:
 
@@ -588,12 +588,12 @@ end
 
 `build` takes a Fixnum (you can find this number in your `brew --config` output). `cause` takes a string, and the use of heredocs is encouraged to improve readability and allow for more comprehensive documentation.
 
-`fails_with` declarations can be used with any of `:gcc`, `:llvm`, and `:clang`. Homebrew will use this information to select a working compiler (if one is available).
+`fails_with` declarations can be used with any of `:gcc`, `:llvm`, and `:clang`. Tigerbrew will use this information to select a working compiler (if one is available).
 
 
 ## Specifying the Download Strategy explicitly
 
-To use one of Homebrew’s built-in download strategies, specify the `:using =>` flag on a `url` or `head`.  For example:
+To use one of Tigerbrew’s built-in download strategies, specify the `:using =>` flag on a `url` or `head`.  For example:
 
 ```ruby
 class Sip < Formula
@@ -603,7 +603,7 @@ class Sip < Formula
   homepage "http://www.riverbankcomputing.co.uk/software/sip"
 ```
 
-The downloaders offered by Homebrew are:
+The downloaders offered by Tigerbrew are:
 
 <table>
   <thead>
@@ -799,7 +799,7 @@ to create the directory structure to the man location.
 
 To install man pages into specific locations, use `man1.install "foo.1", "bar.1"`, `man2.install "foo.2"`, etc.
 
-Note that in the context of Homebrew, `libexec` is reserved for private use by the formula and therefore is not symlinked into `HOMEBREW_PREFIX`.
+Note that in the context of Tigerbrew, `libexec` is reserved for private use by the formula and therefore is not symlinked into `HOMEBREW_PREFIX`.
 
 ### Installation without linking into `/usr/local` (keg-only)
 
@@ -843,7 +843,7 @@ end
 
 Option names should be prefixed with one of the words `with`, `without`, `no`, or a verb in the imperative tense describing the action to be taken. For example, an option to run a test suite should be named `--with-test` or `--with-check` rather than `--test`, and an option to enable a shared library should be named `--enable-shared` rather than `--shared`.
 
-See the [graphviz](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/graphviz.rb) formula for an example.
+See the [graphviz](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/graphviz.rb) formula for an example.
 
 
 ## File level operations
@@ -870,7 +870,7 @@ For example, Ruby 1.9’s gems should be installed to `var/lib/ruby/` so that ge
 
 ### launchd plist files
 
-Homebrew provides two Formula methods for launchd plist files. `plist_name` will return `homebrew.mxcl.<formula>`, and `plist_path` will return, for example, `/usr/local/Cellar/foo/0.1/homebrew.mxcl.foo.plist`.
+Tigerbrew provides two Formula methods for launchd plist files. `plist_name` will return `homebrew.mxcl.<formula>`, and `plist_path` will return, for example, `/usr/local/Cellar/foo/0.1/homebrew.mxcl.foo.plist`.
 
 ## Updating formulae
 
@@ -880,7 +880,7 @@ Check if the formula you are updating is a dependency for any other formulae by 
 
 # Style guide
 
-Homebrew wants to maintain a consistent Ruby style across all formulae based on [Ruby Style Guide](https://github.com/styleguide/ruby). Other formulae may not have been updated to match this guide yet but all new ones should. Also:
+Tigerbrew wants to maintain a consistent Ruby style across all formulae based on [Ruby Style Guide](https://github.com/styleguide/ruby). Other formulae may not have been updated to match this guide yet but all new ones should. Also:
 
 * The order of methods in a formula should be consistent with other formulae (e.g.: `def patches` goes before `def install`)
 * An empty line is required before the `__END__` line
@@ -891,7 +891,7 @@ Homebrew wants to maintain a consistent Ruby style across all formulae based on 
 
 ### Version detection fails
 
-Homebrew tries to automatically determine the version from the URL in order to save on duplication. If the tarball has a funny name though, you may have to assign the version number:
+Tigerbrew tries to automatically determine the version from the URL in order to save on duplication. If the tarball has a funny name though, you may have to assign the version number:
 
 ```ruby
 class Foobar
@@ -919,7 +919,7 @@ class Foo < Formula
 end
 ```
 
-If that fixes it, please open an [issue](http://github.com/Homebrew/homebrew/issues) so that we can fix it for everyone.
+If that fixes it, please open an [issue](http://github.com/mistydemeo/tigerbrew/issues) so that we can fix it for everyone.
 
 ## Still won’t work?
 
@@ -945,11 +945,11 @@ Superenv isolates builds by removing `/usr/local/bin` and all user-PATHs that ar
 
 Some software requires a Fortran compiler. This can be declared by adding `depends_on :fortran` to a formula. `:fortran` is a special dependency that does several things.
 
-First, it looks to see if you have set the `FC` environment variable. If it is set, Homebrew will use this value during compilation. If it is not set, it will check to see if `gfortran` is found in `PATH`. If it is, Homebrew will use its location as the value of `FC`. Otherwise, the `gcc` formula will be treated as a dependency and installed prior to compilation.
+First, it looks to see if you have set the `FC` environment variable. If it is set, Tigerbrew will use this value during compilation. If it is not set, it will check to see if `gfortran` is found in `PATH`. If it is, Tigerbrew will use its location as the value of `FC`. Otherwise, the `gcc` formula will be treated as a dependency and installed prior to compilation.
 
-If you have set `FC` to a custom Fortran compiler, you may additionally set `FCFLAGS` and `FFLAGS`. Alternatively, you can pass `--default-fortran-flags` to `brew install` to use Homebrew's standard `CFLAGS`.
+If you have set `FC` to a custom Fortran compiler, you may additionally set `FCFLAGS` and `FFLAGS`. Alternatively, you can pass `--default-fortran-flags` to `brew install` to use Tigerbrew's standard `CFLAGS`.
 
-When using Homebrew's own gfortran compiler, the standard `CFLAGS` are used and user-supplied values of `FCFLAGS` and `FFLAGS` are ignored for consistency and reproducibility reasons.
+When using Tigerbrew's own gfortran compiler, the standard `CFLAGS` are used and user-supplied values of `FCFLAGS` and `FFLAGS` are ignored for consistency and reproducibility reasons.
 
 
 # How to start over (reset to `master`)?

@@ -1,6 +1,6 @@
 # FAQ
 ### How do I update my local packages?
-First update the formulae and Homebrew itself:
+First update the formulae and Tigerbrew itself:
 
     brew update
 
@@ -28,7 +28,7 @@ To allow that formulae to update again:
     brew unpin $FORMULA
 
 ### How do I uninstall old versions of a formula?
-By default, Homebrew does not uninstall old versions of a formula, so
+By default, Tigerbrew does not uninstall old versions of a formula, so
 over time you will accumulate old versions. To remove them, simply use:
 
     brew cleanup $FORMULA
@@ -43,28 +43,28 @@ to see what would be cleaned up:
 
 <a name="uninstall"></a>
 
-### How do I uninstall Homebrew?
+### How do I uninstall Tigerbrew?
 If you installed to `/usr/local` then you can use the script in [this
 gist](https://gist.github.com/1173223) to uninstall — it will only
-remove Homebrew and the stuff Homebrew installed leaving anything else
+remove Tigerbrew and the stuff Tigerbrew installed leaving anything else
 in `/usr/local` alone.
 
-Provided you haven’t put anything else in Homebrew’s prefix
+Provided you haven’t put anything else in Tigerbrew’s prefix
 (`brew --prefix`), you can generally just `rm -rf` that directory. This
-is because Homebrew won’t touch files outside its prefix.
+is because Tigerbrew won’t touch files outside its prefix.
 
 <a name="uninstall-package"></a>
 
 ### How do I uninstall a formula?
-If you do not uninstall all of the versions that Homebrew has installed,
-Homebrew will continue to attempt to install the newest version it knows
+If you do not uninstall all of the versions that Tigerbrew has installed,
+Tigerbrew will continue to attempt to install the newest version it knows
 about when you do (`brew upgrade`). This can be surprising.
 
 To remove a formula entirely, you may do
 (`brew uninstall formula_name --force`).
 
 Be careful as this is a destructive operation and unfortunately, in
-Homebrew 0.9.5 it seems that Homebrew does not support the `--dry-run`
+Tigerbrew 0.9.5 it seems that Tigerbrew does not support the `--dry-run`
 option.
 
 ### Where does stuff get downloaded?
@@ -82,20 +82,20 @@ including how to set this across reboots. If you’re pre-Mountain Lion,
 [here’s an official
 alternative](http://developer.apple.com/library/mac/#qa/qa1067/_index.html).
 
-### How do I contribute to Homebrew?
-Read everything in https://github.com/Homebrew/homebrew/blob/master/CONTRIBUTING.md.
+### How do I contribute to Tigerbrew?
+Read everything in https://github.com/mistydemeo/tigerbrew/blob/master/CONTRIBUTING.md.
 
 ### Why do you compile everything?
 Projects distribute source tarballs, generally, but if they provide a
-good binary, we’ll use it. Though we don’t always, because Homebrew is
+good binary, we’ll use it. Though we don’t always, because Tigerbrew is
 about **homebrewing**, it’s half the point that you can just
 `brew edit $FORMULA` and change how the formula is compiled to your own
 specification.
 
-Homebrew does provide pre-compiled versions for some formulae. These
+Tigerbrew does provide pre-compiled versions for some formulae. These
 pre-compiled versions are referred to as **bottles** and are available
 at:
-[http://sf.net/projects/machomebrew/files](http://sf.net/projects/machomebrew/files).
+[https://ia902307.us.archive.org/31/items/tigerbrew/](https://ia902307.us.archive.org/31/items/tigerbrew/).
 
 If available, bottled binaries will be used by default except under the
 following conditions:
@@ -179,13 +179,13 @@ creating a separate user account especially for use of Homebrew.
 
 ### Why isn’t a particular command documented?
 
-If it’s not in `man brew`, it’s probably an external command. These are documented [here](https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/External-Commands.md).
+If it’s not in `man brew`, it’s probably an external command. These are documented [here](https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/External-Commands.md).
 
 ### Why haven’t you pulled my pull request?
 If it’s been a while, bump it with a “bump” comment. Sometimes we miss requests and there are plenty of them. Maybe we were thinking on something. It will encourage consideration. In the meantime if you could rebase the pull request so that it can be cherry-picked more easily we will love you for a long time.
 
 ### Can I edit formulae myself?
-Yes! It’s easy! Just `brew edit $FORMULA`. You don’t have to submit modifications back to*Homebrew/homebrew*, just edit the formula as you personally need it and `brew install`. As a bonus `brew update` will merge your changes with upstream so you can still keep the formula up-to-date **with** your personal modifications!
+Yes! It’s easy! Just `brew edit $FORMULA`. You don’t have to submit modifications back to*mistydemeo/tigerbrew*, just edit the formula as you personally need it and `brew install`. As a bonus `brew update` will merge your changes with upstream so you can still keep the formula up-to-date **with** your personal modifications!
 
 ### Can I make new formulae?
 Yes! It’s easy! Just `brew create URL` Homebrew will then open the
@@ -194,7 +194,7 @@ installs, try it: `brew install $FORMULA`. If you come up any issues,
 run the command with the `-d` switch like so: `brew install -d $FORMULA`
 which drops you into a debugging shell.
 
-If you want your new formula to be part of *Homebrew/homebrew* or want
+If you want your new formula to be part of *mistydemeo/tigerbrew* or want
 to learn more about writing formula then please read the [Formula Cookbook](Formula-Cookbook.md).
 
 ### Can I install my own stuff to `/usr/local`?
@@ -238,12 +238,6 @@ brew install …
 ```
 
 Note that brew search still finds formula in taps.
-
-### Homebrew is a poor name, it is generic, why was it chosen?
-mxcl was too concerned with the beer theme and didn’t consider that the
-project may actually prove popular. By the time he realized it was too
-late. However, today, the first google hit for “homebrew” is not beer
-related ;-)
 
 ### What does *keg-only* mean?
 It means the formula is installed only into the Cellar, it is not linked

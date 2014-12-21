@@ -13,7 +13,7 @@ You cloned with git, and your git configuration is set to use Windows line endin
 You don't have a `/usr/bin/ruby` or it is not executable. It's not recommended to let this persist, you'd be surprised how many .apps, tools and scripts expect your OS X provided files and directories to be *unmodified* since OS X was installed.
 
 ### `brew update` complains about untracked working tree files
-After running `brew update`, you receive a git error warning about untracked files or local changes that would be overwritten by a checkout or merge, followed by a list of files inside your Homebrew installation.
+After running `brew update`, you receive a git error warning about untracked files or local changes that would be overwritten by a checkout or merge, followed by a list of files inside your Tigerbrew installation.
 
 This is caused by an old bug in in the `update` code that has long since been fixed. However, the nature of the bug requires that you do the following:
 
@@ -36,14 +36,14 @@ Error: /usr/local/Library/Homebrew/download_strategy.rb:84: invalid multibyte es
 invalid multibyte escape: /^\037\235/
 ```
 
-In the past, Homebrew assumed that `/usr/bin/ruby` was Ruby 1.8. On OS X 10.9, it is now Ruby 2.0. There are various incompatibilities between the two versions, so if you upgrade to OS X 10.9 while using a sufficiently old version of Homebrew, you will encounter errors.
+In the past, Tigerbrew assumed that `/usr/bin/ruby` was Ruby 1.8. On OS X 10.9, it is now Ruby 2.0. There are various incompatibilities between the two versions, so if you upgrade to OS X 10.9 while using a sufficiently old version of Tigerbrew, you will encounter errors.
 
-The incompatibilities have been addressed in more recent versions of Homebrew, and it does not make assumptions about `/usr/bin/ruby`, instead it uses the executable inside OS X's Ruby 1.8 framework.
+The incompatibilities have been addressed in more recent versions of Tigerbrew, and it does not make assumptions about `/usr/bin/ruby`, instead it uses the executable inside OS X's Ruby 1.8 framework.
 
 To recover from this situation, do the following:
 
 ```
-cd /usr/local # your Homebrew prefix
+cd /usr/local # your Tigerbrew prefix
 git fetch origin
 git reset --hard FETCH_HEAD
 brew update
@@ -110,7 +110,7 @@ To solve this, you should remove the problematic formulae with those python bind
   - Now start `python` and try to `import` the module installed by the <problematic_formula>
 
 You can basically use any Python (2.x) for the bindings homebrew provides, but you can't mix.
-Homebrew formulae use a brewed Python if available or, if not so, they use whatever `python` is in your `PATH`.
+Tigerbrew formulae use a brewed Python if available or, if not so, they use whatever `python` is in your `PATH`.
 
 ### Python: `Fatal Python error: PyThreadState_Get: no current thread`
 

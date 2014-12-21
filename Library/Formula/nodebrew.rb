@@ -17,7 +17,7 @@ class Nodebrew < Formula
     Add path:
       export PATH=$HOME/.nodebrew/current/bin:$PATH
 
-    To use Homebrew's directories rather than ~/.nodebrew add to your profile:
+    To use Tigerbrew's directories rather than ~/.nodebrew add to your profile:
       export NODEBREW_ROOT=#{var}/nodebrew
     EOS
   end

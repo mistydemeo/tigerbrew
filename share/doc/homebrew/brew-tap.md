@@ -16,7 +16,7 @@ telemachus/vim
 ```
 
 *   If you run `brew tap` with a single argument, `brew` will attempt to
-    parse the argument into a valid 'username/repo' combination. If the argument is a valid name, then `brew tap` will attempt to clone the repository and symlink all its formulae. (See below for what it means to be a 'valid name'.) After that, `brew` will be able to work on those formulae as if there were in Homebrew's canonical repository. You can install and uninstall them with `brew [un]install`, and the formulae are automatically updated when you run `brew update`. (See below for a few exceptions on names and installation.)
+    parse the argument into a valid 'username/repo' combination. If the argument is a valid name, then `brew tap` will attempt to clone the repository and symlink all its formulae. (See below for what it means to be a 'valid name'.) After that, `brew` will be able to work on those formulae as if there were in mistydemeo/tigerbrew canonical repository. You can install and uninstall them with `brew [un]install`, and the formulae are automatically updated when you run `brew update`. (See below for a few exceptions on names and installation.)
 
 *   In you run `brew tap --repair`, then `brew` will check for dead symlinks
     and relink all valid formulae across all your taps.
@@ -41,6 +41,6 @@ If your tap contains a formula that is also present in master, that's fine, but 
 For example, you can create a tap for an alternative `vim` formula, but in that case when you install from there you must run the command with a more explicit installation target:
 
 ```bash
-brew install vim                 # installs from Homebrew/homebrew
+brew install vim                 # installs from mistydemeo/tigerbrew
 brew install username/repo/vim   # installs from your custom repo
 ```

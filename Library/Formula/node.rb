@@ -107,7 +107,7 @@ class Node < Formula
       EOS
     else
       s += <<-EOS.undent
-        Homebrew has NOT installed npm. If you later install it, you should supplement
+        Tigerbrew has NOT installed npm. If you later install it, you should supplement
         your NODE_PATH with the npm module folder:
           #{HOMEBREW_PREFIX}/lib/node_modules
       EOS

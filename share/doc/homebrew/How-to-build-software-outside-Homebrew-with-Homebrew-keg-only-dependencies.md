@@ -1,4 +1,4 @@
-# How to build software outside Homebrew with Homebrew keg-only dependencies.
+# How to build software outside Tigerbrew with Tigerbrew keg-only dependencies.
 
 ### What does keg-only mean?
 
@@ -6,23 +6,23 @@ See the [FAQ](FAQ.md) on this one. It’s a common question.
 
 As an example:
 
-*OpenSSL isn’t symlinked into my $PATH and non-Homebrew builds can’t find it!*
+*OpenSSL isn’t symlinked into my $PATH and non-Tigerbrew builds can’t find it!*
 
-That’s because Homebrew keeps it locked away in its prefix, accessible only via its opt directory. `keg_only` = Not symlinked into the `$PATH` by default.
+That’s because Tigerbrew keeps it locked away in its prefix, accessible only via its opt directory. `keg_only` = Not symlinked into the `$PATH` by default.
 
-### But how do I get non-Homebrew builds to find those tools?
+### But how do I get non-Tigerbrew builds to find those tools?
 
-A number of people in this situation are either forcefully linking `keg_only` tools with `brew link --force` or moving default system utilities out of the `$PATH` and replacing them with manually-created symlinks to the Homebrew-provided tool.
+A number of people in this situation are either forcefully linking `keg_only` tools with `brew link --force` or moving default system utilities out of the `$PATH` and replacing them with manually-created symlinks to the Tigerbrew-provided tool.
 
-Please, *please* do not remove OS X native tools and forcefully replace them with symlinks back to the Homebrew-provided tool. Homebrew doesn’t enforce `keg_only` onto formulae unless there’s a specific, good reason for doing so, and that reason is usually that forcing that link breaks a whole boat full of builds.
+Please, *please* do not remove OS X native tools and forcefully replace them with symlinks back to the Tigerbrew-provided tool. Tigerbrew doesn’t enforce `keg_only` onto formulae unless there’s a specific, good reason for doing so, and that reason is usually that forcing that link breaks a whole boat full of builds.
 
-It is also incredibly difficult to debug a build failure if you make changes to the Homebrew-provided tools installed that `brew` is unaware of. `brew link --force` deliberately creates a warning in `brew doctor` to let both you and maintainers know that link exists and could be causing issues.
+It is also incredibly difficult to debug a build failure if you make changes to the Tigerbrew-provided tools installed that `brew` is unaware of. `brew link --force` deliberately creates a warning in `brew doctor` to let both you and maintainers know that link exists and could be causing issues.
 
 If you’ve linked something and there’s no problems at all? Awesome, feel free to ignore the `brew doctor` error. But *please* don’t try to go around it. It’s really hard to help you out if we don’t know the full picture, and we *want* to be able to help you if you get stuck.
 
 ### Alright. Stop complaining at me, I get it - but how do I use those tools outside of Homework?
 
-Useful, reliable alternatives exist should you desire to use `keg_only` tools outside of Homebrew’s build processes:
+Useful, reliable alternatives exist should you desire to use `keg_only` tools outside of Tigerbrew’s build processes:
 
 ----
 You can set flags to give configure scripts or Makefiles a nudge in the right direction. An example of flag setting:

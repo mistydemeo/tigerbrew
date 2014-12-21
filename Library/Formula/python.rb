@@ -17,7 +17,7 @@ class Python < Formula
   # More details in: https://github.com/Homebrew/homebrew/pull/32368
   option :universal
   option "quicktest", "Run `make quicktest` after the build (for devs; may fail)"
-  option "with-brewed-tk", "Use Homebrew's Tk (has optional Cocoa and threads support)"
+  option "with-brewed-tk", "Use Tigerbrew's Tk (has optional Cocoa and threads support)"
   option "with-poll", "Enable select.poll, which is not fully implemented on OS X (http://bugs.python.org/issue5154)"
   option "with-dtrace", "Experimental DTrace support (http://bugs.python.org/issue13405)"
 

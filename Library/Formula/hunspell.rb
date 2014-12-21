@@ -23,7 +23,7 @@ class Hunspell < Formula
 
   def caveats; <<-EOS.undent
     Dictionary files (*.aff and *.dic) should be placed in
-    ~/Library/Spelling/ or /Library/Spelling/.  Homebrew itself
+    ~/Library/Spelling/ or /Library/Spelling/.  Tigerbrew itself
     provides no dictionaries for Hunspell, but you can download
     compatible dictionaries from other sources, such as
     https://wiki.openoffice.org/wiki/Dictionaries .

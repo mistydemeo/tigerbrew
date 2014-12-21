@@ -110,11 +110,11 @@ module Homebrew
             need_repair_taps = true
 
             if tapd_basename.count("-") >= 2
-              opoo "Homebrew changed the structure of Taps like <someuser>/<sometap>. "\
+              opoo "Tigerbrew changed the structure of Taps like <someuser>/<sometap>. "\
                 + "So you may need to rename #{HOMEBREW_LIBRARY}/Taps/#{user.downcase}/homebrew-#{repo.downcase} manually."
             end
           else
-            opoo "Homebrew changed the structure of Taps like <someuser>/<sometap>. "\
+            opoo "Tigerbrew changed the structure of Taps like <someuser>/<sometap>. "\
               "#{tapd} is incorrect name format. You may need to rename it like <someuser>/<sometap> manually."
           end
         end
