@@ -14,6 +14,7 @@ class FdkAac < Formula
   end
 
   def install
+    inreplace "libFDK/include/FDK_archdef.h", "__powerpc__", "__POWERPC__"
     system "./autogen.sh" if build.head?
     system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
     system "make install"
