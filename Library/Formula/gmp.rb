@@ -9,7 +9,6 @@ class Gmp < Formula
 
   bottle do
     cellar :any
-    sha1 "6a2a3947b33b35f5aa59f5d21ffdb2af03eadb69" => :tiger_g3
     sha1 "954d513d362b0bda155bd8bf0347a49a93e3f885" => :tiger_altivec
     sha1 "ef404f79249e760443a037cc5f9374df4074f8fc" => :leopard_g3
     sha1 "f6b2011e9b1a6e22ccbb30f6ed94d338063feb30" => :leopard_altivec

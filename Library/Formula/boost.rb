@@ -9,7 +9,6 @@ class Boost < Formula
 
   bottle do
     cellar :any
-    sha1 "94069a1b339cde692ab0bd7ee334eb34647ece25" => :tiger_g3
     sha1 "485964bee47156ea3bd2cb8061b2374de51a9dfa" => :tiger_altivec
     sha1 "7b41432cce2dc6d6bb7d842add99816ede084fe1" => :leopard_g3
     sha1 "8cb391246733289d3ae8b102f131005831c575f4" => :leopard_altivec

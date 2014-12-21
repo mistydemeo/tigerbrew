@@ -10,7 +10,6 @@ class Mpfr < Formula
 
   bottle do
     cellar :any
-    sha1 "66d2d9be6ffd43f346f1511e90dea38b055e2ba9" => :tiger_g3
     sha1 "ab835b23452f2721691f345a50823fed8689f06b" => :tiger_altivec
     sha1 "9569631c8a0775a84c8160a3b08d4d94cba7d914" => :leopard_g3
     sha1 "8e9c522b4bbd83c8d59f0b38e2c36bfdbc6b030d" => :leopard_altivec

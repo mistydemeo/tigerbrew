@@ -6,7 +6,6 @@ class Fish < Formula
   sha1 "8f97f39b92ea7dfef1f464b18e304045bf37546d"
 
   bottle do
-    sha1 "66d57cc03fd7cd7c3b6264c3565b52ed28a87ac4" => :tiger_g3
     sha1 "f03a733864d88f331cc6e89de4108c1e9c7f21ea" => :tiger_altivec
     sha1 "982078f3981f1685d077d3ee76a99b102b730b63" => :leopard_g3
     sha1 "6f53c19d3fa7c59cb5c401c90f535664a350b682" => :leopard_altivec

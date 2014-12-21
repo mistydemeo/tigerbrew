@@ -28,7 +28,6 @@ class Gcc < Formula
   revision 1
 
   bottle do
-    sha1 "1cd94a5821eb9820a203003cec1da4eb840bc43d" => :tiger_g3
     sha1 "079d12a6d57175499bc01a6de22bd0d15b8cd71a" => :tiger_altivec
     sha1 "b9a5329f435b0249fd05862aa25cc6bf6b12c529" => :leopard_g3
     sha1 "70609f9fbff176f9ebd89430c97df5d2574a2dc5" => :leopard_altivec

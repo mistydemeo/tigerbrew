@@ -7,7 +7,6 @@ class Openssl < Formula
   sha1 "cff86857507624f0ad42d922bb6f77c4f1c2b819"
 
   bottle do
-    sha1 "f2bbb168f949e6056fb9920d4a069761621eaa46" => :tiger_g3
     sha1 "cc643d8f5a73a918a94ea54b1f420875345127c0" => :tiger_altivec
     sha1 "a91110cbef41a2511848c315757a15fe5bbe351d" => :leopard_g3
     sha1 "04cc1690af9d7db7ddc8a9afc8bbd9dfee71aa69" => :leopard_altivec

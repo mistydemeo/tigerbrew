@@ -8,7 +8,6 @@ class SdlImage < Formula
 
   bottle do
     cellar :any
-    sha1 "e4b35d75c776e0a61dc91dd38ebed813cf9dacd7" => :tiger_g3
     sha1 "749b98364474c43f58f73b9de1b920b34b0bfdad" => :tiger_altivec
     sha1 "50f4ce105c48cfb33e6c15a6a02d9c512c54d559" => :leopard_g3
     sha1 "e20ee9d975ac83022dd64913654dfc83c36e1561" => :leopard_altivec

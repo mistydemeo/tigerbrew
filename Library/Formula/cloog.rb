@@ -8,7 +8,6 @@ class Cloog < Formula
 
   bottle do
     cellar :any
-    sha1 "7c25f91019649589d0e6b9e03c16428415463c16" => :tiger_g3
     sha1 "e169f6e0745ddcb4ab3460afc4b51ec3dd8bfb28" => :tiger_altivec
     sha1 "f7945f830390060dce393f4137220d599485200e" => :leopard_g3
     sha1 "64402d3c088200a45ee65d0ac4aa37cc968d98d1" => :leopard_altivec
