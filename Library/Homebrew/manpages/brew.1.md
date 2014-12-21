@@ -8,7 +8,7 @@ brew(1) -- The missing package manager for OS X
 
 ## DESCRIPTION
 
-Homebrew is the easiest and most flexible way to install the UNIX tools Apple
+Tigerbrew is the easiest and most flexible way to install the UNIX tools Apple
 didn't include with OS X.
 
 ## ESSENTIAL COMMANDS
@@ -25,7 +25,7 @@ Note that these flags should only appear after a command.
     Uninstall <formula>.
 
   * `update`:
-    Fetch the newest version of Homebrew from GitHub using `git`(1).
+    Fetch the newest version of Tigerbrew from GitHub using `git`(1).
 
   * `list`:
     List all installed formulae.
@@ -39,7 +39,7 @@ Note that these flags should only appear after a command.
 ## COMMANDS
 
   * `audit` [<formulae>]:
-    Check <formulae> for Homebrew coding style violations. This should be
+    Check <formulae> for Tigerbrew coding style violations. This should be
     run before submitting a new formula.
 
     If no <formulae> are provided, all of them are checked.
@@ -54,7 +54,7 @@ Note that these flags should only appear after a command.
     For all installed or specific formulae, remove any older versions from the
     cellar. By default, does not remove out-of-date keg-only brews, as other
     software may link directly to specific versions. In addition old downloads from
-    the Homebrew download-cache are deleted.
+    the Tigerbrew download-cache are deleted.
 
     If `--force` is passed, remove out-of-date keg-only brews as well.
 
@@ -68,13 +68,13 @@ Note that these flags should only appear after a command.
     Show a list of built-in and external commands.
 
   * `config`:
-    Show Homebrew and system configuration useful for debugging. If you file
+    Show Tigerbrew and system configuration useful for debugging. If you file
     a bug report, you will likely be asked for this information if you do not
     provide it.
 
   * `create <URL> [--autotools|--cmake] [--no-fetch] [--set-name <name>] [--set-version <version>]`:
     Generate a formula for the downloadable file at <URL> and open it in the editor.
-    Homebrew will attempt to automatically derive the formula name
+    Tigerbrew will attempt to automatically derive the formula name
     and version, but if it fails, you'll have to make your own template. The wget
     formula serves as a simple example. For a complete cheat-sheet, have a look at
 
@@ -83,7 +83,7 @@ Note that these flags should only appear after a command.
     If `--autotools` is passed, create a basic template for an Autotools-style build.
     If `--cmake` is passed, create a basic template for a CMake-style build.
 
-    If `--no-fetch` is passed, Homebrew will not download <URL> to the cache and
+    If `--no-fetch` is passed, Tigerbrew will not download <URL> to the cache and
     will thus not add the SHA-1 to the formula for you.
 
     The options `--set-name` and `--set-version` each take an argument and allow
@@ -109,10 +109,10 @@ Note that these flags should only appear after a command.
     If `--installed` is passed, show dependencies for all installed formulae.
 
   * `diy [--name=<name>] [--version=<version>]`:
-    Automatically determine the installation prefix for non-Homebrew software.
+    Automatically determine the installation prefix for non-Tigerbrew software.
 
     Using the output from this command, you can install your own software into
-    the Cellar and then link it into Homebrew's prefix with `brew link`.
+    the Cellar and then link it into Tigerbrew's prefix with `brew link`.
 
     The options `--name=<name>` and `--version=<version>` each take an argument
     and allow you to explicitly set the name and version of the package you are
@@ -123,7 +123,7 @@ Note that these flags should only appear after a command.
     if any problems are found.
 
   * `edit`:
-    Open all of Homebrew for editing.
+    Open all of Tigerbrew for editing.
 
   * `edit` <formula>:
     Open <formula> in the editor.
@@ -149,7 +149,7 @@ Note that these flags should only appear after a command.
     version of OS X, even if it would not be used during installation.
 
   * `home`:
-    Open Homebrew's own homepage in a browser.
+    Open Tigerbrew's own homepage in a browser.
 
   * `home` <formula>:
     Open <formula>'s homepage in a browser.
@@ -170,7 +170,7 @@ Note that these flags should only appear after a command.
     information on all installed formulae.
 
     See the docs for examples of using the JSON:
-    <https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Querying-Brew.md>
+    <https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/Querying-Brew.md>
 
   * `install [--debug] [--env=<std|super>] [--ignore-dependencies] [--only-dependencies] [--cc=<compiler>] [--build-from-source] [--devel|--HEAD]` <formula>:
     Install <formula>.
@@ -195,7 +195,7 @@ Note that these flags should only appear after a command.
 
     If `--cc=<compiler>` is passed, attempt to compile using <compiler>.
     <compiler> should be the name of the compiler's executable, for instance
-    `gcc-4.2` for Apple's GCC 4.2, or `gcc-4.9` for a Homebrew-provided GCC
+    `gcc-4.2` for Apple's GCC 4.2, or `gcc-4.9` for a Tigerbrew-provided GCC
     4.9.
 
     If `--build-from-source` is passed, compile from source even if a bottle
@@ -212,27 +212,27 @@ Note that these flags should only appear after a command.
   * `install --interactive [--git]` <formula>:
     Download and patch <formula>, then open a shell. This allows the user to
     run `./configure --help` and otherwise determine how to turn the software
-    package into a Homebrew formula.
+    package into a Tigerbrew formula.
 
-    If `--git` is passed, Homebrew will create a Git repository, useful for
+    If `--git` is passed, Tigerbrew will create a Git repository, useful for
     creating patches to the software.
 
   * `leaves`:
     Show installed formulae that are not dependencies of another installed formula.
 
   * `ln`, `link [--overwrite] [--dry-run] [--force]` <formula>:
-    Symlink all of <formula>'s installed files into the Homebrew prefix. This
+    Symlink all of <formula>'s installed files into the Tigerbrew prefix. This
     is done automatically when you install formula, but can be useful for DIY
     installations.
 
-    If `--overwrite` is passed, Homebrew will delete files which already exist in
+    If `--overwrite` is passed, Tigerbrew will delete files which already exist in
     the prefix while linking.
 
-    If `--dry-run` or `-n` is passed, Homebrew will list all files which would
+    If `--dry-run` or `-n` is passed, Tigerbrew will list all files which would
     be linked or which would be deleted by `brew link --overwrite`, but will not
     actually link or delete any files.
 
-    If `--force` is passed, Homebrew will allow keg-only formulae to be linked.
+    If `--force` is passed, Tigerbrew will allow keg-only formulae to be linked.
 
   * `linkapps [--local]`:
     Find all installed formulae that have compiled `.app`-style "application"
@@ -249,8 +249,8 @@ Note that these flags should only appear after a command.
     Combined with `--verbose`, recursively list the contents of all subdirectories
     in each <formula>'s keg.
 
-    If `--unbrewed` is passed, list all files in the Homebrew prefix not installed
-    by Homebrew.
+    If `--unbrewed` is passed, list all files in the Tigerbrew prefix not installed
+    by Tigerbrew.
 
     If `--versions` is passed, show the version number for installed formulae,
     or only the specified formulae if <formulae> are given. With `--multiple`,
@@ -295,7 +295,7 @@ Note that these flags should only appear after a command.
     issuing the `brew upgrade` command without arguments. See also `unpin`.
 
   * `prune`:
-    Remove dead symlinks from the Homebrew prefix. This is generally not
+    Remove dead symlinks from the Tigerbrew prefix. This is generally not
     needed, but can be useful when doing DIY installations.
 
   * `reinstall` <formula>:
@@ -320,9 +320,9 @@ Note that these flags should only appear after a command.
     Search for <text> in the given package manager's list.
 
   * `sh [--env=std]`:
-    Instantiate a Homebrew build environment. Uses our years-battle-hardened
-    Homebrew build logic to help your `./configure && make && make install`
-    or even your `gem install` succeeed. Especially handy if you run Homebrew
+    Instantiate a Tigerbrew build environment. Uses our years-battle-hardened
+    Tigerbrew build logic to help your `./configure && make && make install`
+    or even your `gem install` succeeed. Especially handy if you run Tigerbrew
     in a Xcode-only configuration since it adds tools like make to your PATH
     which otherwise build-systems would not find.
 
@@ -351,7 +351,7 @@ Note that these flags should only appear after a command.
     Example: `brew install jruby && brew test jruby`
 
   * `unlink` <formula>:
-    Remove symlinks for <formula> from the Homebrew prefix. This can be useful
+    Remove symlinks for <formula> from the Tigerbrew prefix. This can be useful
     for temporarily disabling a formula:
     `brew unlink foo && commands && brew link foo`.
 
@@ -378,7 +378,7 @@ Note that these flags should only appear after a command.
     Remove a tapped repository.
 
   * `update [--rebase]`:
-    Fetch the newest version of Homebrew and all formulae from GitHub using
+    Fetch the newest version of Tigerbrew and all formulae from GitHub using
      `git`(1).
 
     If `--rebase` is specified then `git pull --rebase` is used.
@@ -405,29 +405,29 @@ Note that these flags should only appear after a command.
     `--devel` or `--HEAD`.
 
   * `--cache`:
-    Display Homebrew's download cache. See also `HOMEBREW_CACHE`.
+    Display Tigerbrew's download cache. See also `HOMEBREW_CACHE`.
 
   * `--cache` <formula>:
     Display the file or directory used to cache <formula>.
 
   * `--cellar`:
-    Display Homebrew's Cellar path. *Default:* `/usr/local/Cellar`
+    Display Tigerbrews's Cellar path. *Default:* `/usr/local/Cellar`
 
   * `--cellar` <formula>:
     Display the location in the cellar where <formula> would be installed,
     without any sort of versioned directory as the last path.
 
   * `--env`:
-    Show a summary of the Homebrew build environment.
+    Show a summary of the Tigerbrews build environment.
 
   * `--prefix`:
-    Display Homebrew's install path. *Default:* `/usr/local`
+    Display Tigerbrews's install path. *Default:* `/usr/local`
 
   * `--prefix` <formula>:
     Display the location in the cellar where <formula> is or would be installed.
 
   * `--repository`:
-    Display where Homebrew's `.git` directory is located. For standard installs,
+    Display where Tigerbrews's `.git` directory is located. For standard installs,
     the `prefix` and `repository` are the same directory.
 
   * `--version`:
@@ -435,36 +435,36 @@ Note that these flags should only appear after a command.
 
 ## EXTERNAL COMMANDS
 
-Homebrew, like `git`(1), supports external commands. These are executable
+Tigerbrews, like `git`(1), supports external commands. These are executable
 scripts that reside somewhere in the PATH, named `brew-<cmdname>` or
 `brew-<cmdname>.rb`, which can be invoked like `brew cmdname`. This allows you
-to create your own commands without modifying Homebrew's internals.
+to create your own commands without modifying Tigerbrews's internals.
 
 Instructions for creating your own commands can be found in the docs:
-<https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/External-Commands.md>
+<https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/External-Commands.md>
 
 ## SPECIFYING FORMULAE
 
-Many Homebrew commands accept one or more <formula> arguments. These arguments
+Many Tigerbrew commands accept one or more <formula> arguments. These arguments
 can take several different forms:
 
   * The name of a formula:
     e.g. `git`, `node`, `wget`.
 
   * The fully-qualified name of a tapped formula:
-    Sometimes a formula from a tapped repository may conflict with one in Homebrew/homebrew.
+    Sometimes a formula from a tapped repository may conflict with one in mistydemeo/tigerbrew.
     You can still access these formulae by using a special syntax, e.g.
     `homebrew/dupes/vim` or `homebrew/versions/node4`.
 
   * An arbitrary URL:
     Homebrew can install formulae via URL, e.g.
-    `https://raw.github.com/Homebrew/homebrew/master/Library/Formula/git.rb`.
+    `https://raw.github.com/mistydemeo/tigerbrew/master/Library/Formula/git.rb`.
     The formula file will be cached for later use.
 
 ## ENVIRONMENT
 
   * AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY:
-    When using the S3 download strategy, Homebrew will look in
+    When using the S3 download strategy, Tigerbrew will look in
     these variables for access credentials (see
     <http://docs.aws.amazon.com/fws/1.1/GettingStartedGuide/index.html?AWSCredentials.html>
     to retrieve these access credentials from AWS).  If they are not set,
@@ -479,27 +479,27 @@ can take several different forms:
     If set, and `HOMEBREW_EDITOR` and `VISUAL` are not, use `EDITOR` as the text editor.
 
   * GIT:
-    When using Git, Homebrew will use `GIT` if set,
-    a Homebrew-built Git if installed, or the system-provided binary.
+    When using Git, Tigerbrew will use `GIT` if set,
+    a Tigerbrew-built Git if installed, or the system-provided binary.
 
-    Set this to force Homebrew to use a particular git binary.
+    Set this to force Tigerbrew to use a particular git binary.
 
   * HOMEBREW_BROWSER:
     If set, uses this setting as the browser when opening project homepages,
     instead of the OS default browser.
 
   * HOMEBREW\_BUILD\_FROM\_SOURCE:
-    If set, instructs Homebrew to compile from source even when a formula
+    If set, instructs Tigerbrew to compile from source even when a formula
     provides a bottle.
 
   * HOMEBREW\_CACHE:
-    If set, instructs Homebrew to use the given directory as the download cache.
+    If set, instructs Tigerbrew to use the given directory as the download cache.
 
     *Default:* `~/Library/Caches/Homebrew` if it exists; otherwise,
     `/Library/Caches/Homebrew`.
 
   * HOMEBREW\_CURL\_VERBOSE:
-    If set, Homebrew will pass `--verbose` when invoking `curl`(1).
+    If set, Tigerbrew will pass `--verbose` when invoking `curl`(1).
 
   * HOMEBREW\_DEBUG:
     If set, any commands that can emit debugging information will do so.
@@ -515,14 +515,14 @@ can take several different forms:
     of the formula being brewed.
 
   * HOMEBREW\_DEVELOPER:
-    If set, Homebrew will print warnings that are only relevant to Homebrew
+    If set, Tigerbrew will print warnings that are only relevant to Tigerbrew
     developers (active or budding).
 
   * HOMEBREW\_EDITOR:
-    If set, Homebrew will use this editor when editing a single formula, or
+    If set, Tigerbrew will use this editor when editing a single formula, or
     several formulae in the same directory.
 
-    *NOTE*: `brew edit` will open all of Homebrew as discontinuous files and
+    *NOTE*: `brew edit` will open all of Tigerbrew as discontinuous files and
     directories. TextMate can handle this correctly in project mode, but many
     editors will do strange things in this case.
 
@@ -531,22 +531,22 @@ can take several different forms:
     <https://github.com/settings/applications>. If set, GitHub will allow you a
     greater number of API requests. See
     <http://developer.github.com/v3/#rate-limiting> for more information.
-    Homebrew uses the GitHub API for features such as `brew search`.
+    Tigerbrew uses the GitHub API for features such as `brew search`.
 
   * HOMEBREW\_MAKE\_JOBS:
-    If set, instructs Homebrew to use the value of `HOMEBREW_MAKE_JOBS` as
+    If set, instructs Tigerbrew to use the value of `HOMEBREW_MAKE_JOBS` as
     the number of parallel jobs to run when building with `make`(1).
 
     *Default:* the number of available CPU cores.
 
   * HOMEBREW\_NO\_EMOJI:
-    If set, Homebrew will not print the `HOMEBREW_INSTALL_BADGE` on a
+    If set, Tigerbrew will not print the `HOMEBREW_INSTALL_BADGE` on a
     successful build.
 
-    *Note:* Homebrew will only try to print emoji on Lion or newer.
+    *Note:* Tigerbrew will only try to print emoji on Lion or newer.
 
   * HOMEBREW\_NO\_GITHUB\_API:
-    If set, Homebrew will not use the GitHub API for e.g searches or
+    If set, Tigerbrew will not use the GitHub API for e.g searches or
     fetching relevant issues on a failed install.
 
   * HOMEBREW\_INSTALL\_BADGE:
@@ -554,35 +554,35 @@ can take several different forms:
     Defaults to the beer emoji.
 
   * HOMEBREW\_SOURCEFORGE\_MIRROR:
-    If set, Homebrew will use the value of `HOMEBREW_SOURCEFORGE_MIRROR` to
+    If set, Tigerbrew will use the value of `HOMEBREW_SOURCEFORGE_MIRROR` to
     select a SourceForge mirror for downloading bottles.
 
     *Example:* `export HOMEBREW_SOURCEFORGE_MIRROR='heanet'`
 
   * HOMEBREW\_SVN:
-    When exporting from Subversion, Homebrew will use `HOMEBREW_SVN` if set,
-    a Homebrew-built Subversion if installed, or the system-provided binary.
+    When exporting from Subversion, Tigerbrew will use `HOMEBREW_SVN` if set,
+    a Tigerbrew-built Subversion if installed, or the system-provided binary.
 
-    Set this to force Homebrew to use a particular svn binary.
+    Set this to force Tigerbrew to use a particular svn binary.
 
   * HOMEBREW\_TEMP:
-    If set, instructs Homebrew to use `HOMEBREW_TEMP` as the temporary directory
+    If set, instructs Tigerbrew to use `HOMEBREW_TEMP` as the temporary directory
     for building packages. This may be needed if your system temp directory and
-    Homebrew Prefix are on different volumes, as OS X has trouble moving
+    Tigerbrew Prefix are on different volumes, as OS X has trouble moving
     symlinks across volumes when the target does not yet exist.
 
     This issue typically occurs when using FileVault or custom SSD
     configurations.
 
   * HOMEBREW\_VERBOSE:
-    If set, Homebrew always assumes `--verbose` when running commands.
+    If set, Tigerbrew always assumes `--verbose` when running commands.
 
   * VISUAL:
     If set, and `HOMEBREW_EDITOR` is not, use `VISUAL` as the text editor.
 
 ## USING HOMEBREW BEHIND A PROXY
 
-Homebrew uses several commands for downloading files (e.g. curl, git, svn).
+Tigerbrew uses several commands for downloading files (e.g. curl, git, svn).
 Many of these tools can download via a proxy. It's common for these tools
 to read proxy parameters from environment variables.
 
@@ -597,16 +597,16 @@ If your proxy requires authentication:
 
 ## SEE ALSO
 
-Homebrew Documentation: <https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/>
+Tigerbrew Documentation: <https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/>
 
 `git`(1), `git-log`(1)
 
 ## AUTHORS
 
-Homebrew's current maintainers are Misty De Meo, Adam Vandenberg, Jack Nagel, Mike McQuaid, Brett Koonce and Tim Smith.
+Tigerbrew's current maintainer is Misty De Meo.
 
 Homebrew was originally created by Max Howell.
 
 ## BUGS
 
-See Issues on GitHub: <http://github.com/Homebrew/homebrew/issues>
+See Issues on GitHub: <http://github.com/mistydemeo/tigerbrew/issues>
