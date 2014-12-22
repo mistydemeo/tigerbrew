@@ -38,8 +38,8 @@ class Git < Formula
   depends_on :expat
   depends_on "pcre" => :optional
   depends_on "gettext" => :optional
-  depends_on "openssl" if MacOS.version < :leopard || build.with?("brewed-openssl")
-  depends_on "curl" if MacOS.version < :leopard || build.with?("brewed-curl")
+  depends_on "openssl" if MacOS.version < :snow_leopard || build.with?("brewed-openssl")
+  depends_on "curl" if MacOS.version < :snow_leopard || build.with?("brewed-curl")
   depends_on "go" => :build if build.with? "persistent-https"
   # Trigger an install of swig before subversion, as the "swig" doesn't get pulled in otherwise
   # See https://github.com/Homebrew/homebrew/issues/34554
