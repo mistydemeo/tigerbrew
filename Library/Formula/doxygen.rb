@@ -19,6 +19,7 @@ class Doxygen < Formula
   option "with-doxywizard", "Build GUI frontend with qt support."
   option "with-libclang", "Build with libclang support."
 
+  depends_on :ld64
   depends_on :python => :build if MacOS.version < :snow_leopard
   depends_on 'flex' if MacOS.version < :leopard
   depends_on "graphviz" if build.with? "dot"
