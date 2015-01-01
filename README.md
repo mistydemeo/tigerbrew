@@ -56,12 +56,6 @@ License
 -------
 Code is under the [BSD 2 Clause (NetBSD) license][license].
 
-Donations
----------
-We accept tips through [Gratipay][tip].
-
-[![Gratipay](http://img.shields.io/gratipay/mistydemeo.svg?style=flat)](https://www.gittip.com/mistydemeo/)
-
 [Homebrew]:http://brew.sh
 [wiki]:https://github.com/mistydemeo/tigerbrew/wiki
 [mxcl]:http://twitter.com/mxcl
