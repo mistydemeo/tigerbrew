@@ -146,7 +146,9 @@ end
 
 def curl *args
   brewed_curl = Formula["curl"]
-  if brewed_curl.installed?
+  curl_certs = Formula["curl-ca-bundle"]
+  use_curl = brewed_curl.installed? && curl_certs.installed?
+  if use_curl
     curl = brewed_curl.opt_bin/"curl"
   else
     curl = Pathname.new '/usr/bin/curl'
@@ -158,7 +160,7 @@ def curl *args
 
   args = [flags, HOMEBREW_USER_AGENT, *args]
   # See https://github.com/Homebrew/homebrew/issues/6103
-  args << "--insecure" if MacOS.version < "10.6" unless brewed_curl.installed?
+  args << "--insecure" if MacOS.version < "10.6" unless use_curl
   args << "--verbose" if ENV['HOMEBREW_CURL_VERBOSE']
   args << "--silent" unless $stdout.tty?
 
