@@ -14,9 +14,9 @@ class Cdrtools < Formula
   end
 
   devel do
-    url "https://downloads.sourceforge.net/project/cdrtools/alpha/cdrtools-3.01a25.tar.bz2"
-    version "3.01~a25"
-    sha1 "ef54e81082c795d595e752cec93884f74a9294ca"
+    url "https://downloads.sourceforge.net/project/cdrtools/alpha/cdrtools-3.01a27.tar.bz2"
+    version "3.01~a27"
+    sha1 "cd923377bd7ef15a08aa3bb1aff4e6604c7be7cd"
 
     patch :p0, :DATA
   end
@@ -36,6 +36,10 @@ class Cdrtools < Formula
     end
     (lib/"profiled").rmtree
     man5.rmtree
+  end
+  
+  test do
+    system "#{bin}/cdrecord", "-version"
   end
 end
 
