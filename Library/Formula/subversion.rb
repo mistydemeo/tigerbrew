@@ -84,8 +84,8 @@ class Subversion < Formula
                 OPENSSL=#{Formula["openssl"].opt_prefix}]
 
       if MacOS.version < :leopard || !MacOS::CLT.installed?
-        args << "APR=#{Formula['apr'].opt_bin}"
-        args << "APU=#{Formula['apr-util'].opt_bin}"
+        args << "APR=#{Formula['apr'].opt_prefix}"
+        args << "APU=#{Formula['apr-util'].opt_prefix}"
       end
 
       scons *args
