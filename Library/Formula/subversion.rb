@@ -83,15 +83,9 @@ class Subversion < Formula
                 CFLAGS=#{ENV.cflags} LINKFLAGS=#{ENV.ldflags}
                 OPENSSL=#{Formula["openssl"].opt_prefix}]
 
-<<<<<<< HEAD
-      if MacOS.version < :leopard
+      if MacOS.version < :leopard || !MacOS::CLT.installed?
         args << "APR=#{Formula['apr'].opt_bin}/apr-1-config"
         args << "APU=#{Formula['apr-util'].opt_bin}/apu-1-config"
-=======
-      unless MacOS::CLT.installed?
-        args << "APR=#{Formula["apr"].opt_prefix}"
-        args << "APU=#{Formula["apr-util"].opt_prefix}"
->>>>>>> Homebrew/master
       end
 
       scons *args
