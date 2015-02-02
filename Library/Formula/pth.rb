@@ -1,10 +1,8 @@
-require 'formula'
-
 class Pth < Formula
-  homepage 'http://www.gnu.org/software/pth/'
-  url 'http://ftpmirror.gnu.org/pth/pth-2.0.7.tar.gz'
-  mirror 'http://ftp.gnu.org/gnu/pth/pth-2.0.7.tar.gz'
-  sha1 '9a71915c89ff2414de69fe104ae1016d513afeee'
+  homepage "http://www.gnu.org/software/pth/"
+  url "http://ftpmirror.gnu.org/pth/pth-2.0.7.tar.gz"
+  mirror "http://ftp.gnu.org/gnu/pth/pth-2.0.7.tar.gz"
+  sha1 "9a71915c89ff2414de69fe104ae1016d513afeee"
 
   bottle do
     cellar :any
@@ -29,7 +27,11 @@ class Pth < Formula
                           "--with-mctx-dsp=ssjlj",
                           "--with-mctx-stk=sas"
     system "make"
-    system "make test"
-    system "make install"
+    system "make", "test"
+    system "make", "install"
+  end
+
+  test do
+    system "#{bin}/pth-config", "--all"
   end
 end

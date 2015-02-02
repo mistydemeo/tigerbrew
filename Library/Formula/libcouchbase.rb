@@ -1,15 +1,15 @@
 require 'formula'
 
 class Libcouchbase < Formula
-  homepage 'http://couchbase.com/communities/c'
-  url 'http://packages.couchbase.com/clients/c/libcouchbase-2.4.4.tar.gz'
-  sha1 'eedc67ef4f85fd51b6bc43cb222e07f6d07241a8'
+  homepage 'http://docs.couchbase.com/developer/c-2.4/c-intro.html'
+  url 'http://packages.couchbase.com/clients/c/libcouchbase-2.4.6.tar.gz'
+  sha1 '2a4ce6b0f6a934a3fa3ef697d26ed6c4737aacae'
   head "https://github.com/couchbase/libcouchbase", :using => :git
 
   bottle do
-    sha1 "9bb6e3e3a8e7ea35a9bbed61276ae151646c852f" => :yosemite
-    sha1 "8da9e14594a3565d2746107ac0f00e4cb30f5840" => :mavericks
-    sha1 "b9074a78a2ac0106cb19b8c810980ba7f8ce0005" => :mountain_lion
+    sha1 "82cbd1eb286578eba28b89aa5067702d1310e8bd" => :yosemite
+    sha1 "30623f20fa2570c10daa26d6af9ffbf0c588f50e" => :mavericks
+    sha1 "3e53951f8a67a90c6eb929856d209ec191e38b2a" => :mountain_lion
   end
 
   option :universal

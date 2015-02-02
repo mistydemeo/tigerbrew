@@ -1,14 +1,13 @@
-require "formula"
-
 class Rethinkdb < Formula
   homepage "http://www.rethinkdb.com/"
-  url "http://download.rethinkdb.com/dist/rethinkdb-1.15.2.tgz"
-  sha1 "31c14c764355e555734c7f4479397bd3bd7e0e44"
+  url "http://download.rethinkdb.com/dist/rethinkdb-1.16.0-1.tgz"
+  version "1.16.0-1"
+  sha1 "1f6191bb508f738a1d4365cd90f83ba370e1e018"
 
   bottle do
-    sha1 "2710231d7a0013779e2d61228aa0395e8261611f" => :yosemite
-    sha1 "c8c7f4e2d05535953de0ba229ac3c12ac11de8b9" => :mavericks
-    sha1 "bcbdc4b123365987dd5ce6f6cc0f628302d95e3c" => :mountain_lion
+    sha1 "3dc298350180db14866e03d6aa352e0a721849c7" => :yosemite
+    sha1 "a6c1b294ba467acf13cb060ff0f93d3ffb0b6605" => :mavericks
+    sha1 "45128f51b1a649432d7721c40e17a7413a49938e" => :mountain_lion
   end
 
   depends_on :macos => :lion
@@ -22,10 +21,6 @@ class Rethinkdb < Formula
     build 5666 # GCC 4.2.1
     cause "RethinkDB uses C++0x"
   end
-
-  # boost 1.56 compatibility
-  # https://github.com/rethinkdb/rethinkdb/issues/3044#issuecomment-55478774
-  patch :DATA
 
   def install
     args = ["--prefix=#{prefix}"]
@@ -75,18 +70,9 @@ class Rethinkdb < Formula
     </plist>
     EOS
   end
+
+  test do
+    shell_output("#{bin}/rethinkdb create -d test")
+    assert File.read("test/metadata").start_with?("RethinkDB")
+  end
 end
-__END__
-diff --git a/src/clustering/reactor/reactor_be_primary.cc b/src/clustering/reactor/reactor_be_primary.cc
-index 3f583fc..945f78b 100644
---- a/src/clustering/reactor/reactor_be_primary.cc
-+++ b/src/clustering/reactor/reactor_be_primary.cc
-@@ -290,7 +290,7 @@ void do_backfill(
-
- bool check_that_we_see_our_broadcaster(const boost::optional<boost::optional<broadcaster_business_card_t> > &maybe_a_
-     guarantee(maybe_a_business_card, "Not connected to ourselves\n");
--    return maybe_a_business_card.get();
-+    return static_cast<bool>(maybe_a_business_card.get());
- }
-
- bool reactor_t::attempt_backfill_from_peers(directory_entry_t *directory_entry,

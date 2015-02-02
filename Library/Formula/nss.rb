@@ -2,14 +2,14 @@ require "formula"
 
 class Nss < Formula
   homepage "https://developer.mozilla.org/docs/NSS"
-  url "https://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_3_17_2_RTM/src/nss-3.17.2.tar.gz"
-  sha256 "134929e44e44b968a4883f4ee513a71ae45d55b486cee41ee8e26c3cc84dab8b"
+  url "https://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_3_17_4_RTM/src/nss-3.17.4.tar.gz"
+  sha256 "1d98ad1881a4237ec98cbe472fc851480f0b0e954dfe224d047811fb96ff9d79"
 
   bottle do
     cellar :any
-    sha1 "a95ed894654e8c276746826703461f70dda3b2d5" => :yosemite
-    sha1 "0e88f0e26ad4f57d3cf8ccee7930f278c8bac0c2" => :mavericks
-    sha1 "df5cceadcdf7c37af42c7b7950dd987fb9f47ab5" => :mountain_lion
+    sha1 "889e6e9b0fca634d3a8a33178db763067520d6a7" => :yosemite
+    sha1 "f850ef686c6437b4b690caa577ed1f8716a44303" => :mavericks
+    sha1 "bc980cf76bf8f6c2b7cd0d34fa9cca02bb1c342b" => :mountain_lion
   end
 
   depends_on "nspr"

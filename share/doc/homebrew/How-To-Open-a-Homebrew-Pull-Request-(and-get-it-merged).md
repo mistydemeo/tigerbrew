@@ -4,7 +4,7 @@ The following commands are used by Tigerbrew's contributors to setup a fork of T
 To setup a your own fork of the Tigerbrew repository:
 
 1. Change to the directory containing your Tigerbrew installation with `cd $(brew --repository)`
-2. Fork the Tigerbrew repository on GitHub. This creates a pushable, personal remote repository. This is needed as only Tigerbrew maintainers have push access to the main repository.
+2. [Fork the Tigerbrew repository](https://github.com/mistydemeo/tigerbrew/fork). This creates a pushable, personal remote repository. This is needed as only Tigerbrew maintainers have push access to the main repository.
 3. Add the pushable forked repository with `git remote add YOUR_USERNAME https://github.com/YOUR_USERNAME/homebrew.git`
 
 To make a new branch and submit it for review:

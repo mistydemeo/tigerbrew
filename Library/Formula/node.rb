@@ -1,17 +1,22 @@
-require "formula"
-
 # Note that x.even are stable releases, x.odd are devel releases
 class Node < Formula
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v0.10.33/node-v0.10.33.tar.gz"
-  sha256 "75dc26c33144e6d0dc91cb0d68aaf0570ed0a7e4b0c35f3a7a726b500edd081e"
-  revision 1
+  url "https://nodejs.org/dist/v0.10.36/node-v0.10.36.tar.gz"
+  sha256 "b9d7d1d0294bce46686b13a05da6fc5b1e7743b597544aa888e8e64a9f178c81"
 
   bottle do
-    revision 10
-    sha1 "0b40240c1dd862f6eef91caa8f9ac2ebac43a489" => :yosemite
-    sha1 "7445c2f31208ea044d14b917f6ad40c4cfe61970" => :mavericks
-    sha1 "721ae41d459143c1e3f479533fcf342b196c673c" => :mountain_lion
+    sha1 "ca405f33a5c8e3356a0f477eee43e492e7925927" => :yosemite
+    sha1 "f17dfa5a02a7f83b46f0deb40a4746a1337ffa88" => :mavericks
+    sha1 "b5d7094ed826813b2cc35303bcde8269b1ad9292" => :mountain_lion
+  end
+
+  devel do
+    url "https://nodejs.org/dist/v0.11.15/node-v0.11.15.tar.gz"
+    sha256 "e613d274baa4c99a0518038192491433f7877493a66d8505af263f6310991d01"
+
+    depends_on "pkg-config" => :build
+    depends_on "icu4c" => :optional
+    depends_on "openssl" => :optional
   end
 
   head do
@@ -29,71 +34,94 @@ class Node < Formula
 
   depends_on :python => :build
 
-  # Once we kill off SSLv3 in our OpenSSL consider forcing our OpenSSL
-  # over Node's shipped version with --shared-openssl.
-  # Would allow us quicker security fixes than Node's release schedule.
-  # See https://github.com/joyent/node/issues/3557 for prior discussion.
+  # Once we kill off SSLv3 in our OpenSSL consider making our OpenSSL
+  # an optional dep across the whole range of Node releases.
 
   fails_with :llvm do
     build 2326
   end
 
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-2.1.11.tgz"
-    sha1 "1eed4c04e4c8c745bc721baba1b4fe42f2af140c"
+    url "https://registry.npmjs.org/npm/-/npm-2.3.0.tgz"
+    sha1 "3588ec5c18fb5ac41e5721b0ea8ece3a85ab8b4b"
   end
 
   def install
-    args = %W{--prefix=#{prefix} --without-npm}
+    args = %W[--prefix=#{prefix} --without-npm]
     args << "--debug" if build.with? "debug"
     args << "--without-ssl2" << "--without-ssl3" if build.stable?
 
-    # This should eventually be able to use the system icu4c, but right now
-    # it expects to find this dependency using pkgconfig.
     if build.head?
-      ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["icu4c"].opt_prefix}/lib/pkgconfig"
+      ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["icu4c"].opt_lib}/pkgconfig"
       args << "--with-intl=system-icu"
+    end
+
+    if build.devel?
+      if build.with? "icu4c"
+        ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["icu4c"].opt_lib}/pkgconfig"
+        args << "--with-intl=system-icu"
+      end
+
+      if build.with? "openssl"
+        args << "--shared-openssl"
+      else
+        args << "--without-ssl2" << "--without-ssl3"
+      end
     end
 
     system "./configure", *args
     system "make", "install"
 
-    resource("npm").stage libexec/"npm" if build.with? "npm"
+    if build.with? "npm"
+      resource("npm").stage buildpath/"npm_install"
+
+      # make sure npm can find node
+      ENV.prepend_path "PATH", bin
+
+      # set log level temporarily for npm's `make install`
+      ENV["NPM_CONFIG_LOGLEVEL"] = "verbose"
+
+      cd buildpath/"npm_install" do
+        system "./configure", "--prefix=#{libexec}/npm"
+        system "make", "install"
+      end
+
+      if build.with? "completion"
+        bash_completion.install \
+          buildpath/"npm_install/lib/utils/completion.sh" => "npm"
+      end
+    end
   end
 
   def post_install
     return if build.without? "npm"
 
-    (libexec/"npm").cd { system "make", "uninstall" }
-    Pathname.glob(HOMEBREW_PREFIX/"share/man/*") do |man|
-      next unless man.directory?
-      man.children.each do |file|
-        next unless file.symlink?
-        file.unlink if file.readlink.to_s.include? "/node_modules/npm/man/"
-      end
-    end
-
     node_modules = HOMEBREW_PREFIX/"lib/node_modules"
     node_modules.mkpath
-    cp_r libexec/"npm", node_modules
+    npm_exec = node_modules/"npm/bin/npm-cli.js"
+    # Kill npm but preserve all other modules across node updates/upgrades.
+    rm_rf node_modules/"npm"
+
+    cp_r libexec/"npm/lib/node_modules/npm", node_modules
+    # This symlink doesn't hop into homebrew_prefix/bin automatically so
+    # remove it and make our own. This is a small consequence of our bottle
+    # npm make install workaround. All other installs **do** symlink to
+    # homebrew_prefix/bin correctly. We ln rather than cp this because doing
+    # so mimics npm's normal install.
+    ln_sf npm_exec, "#{HOMEBREW_PREFIX}/bin/npm"
+
+    # Let's do the manpage dance. It's just a jump to the left.
+    # And then a step to the right, with your hand on rm_f.
+    ["man1", "man3", "man5", "man7"].each do |man|
+      # Dirs must exist first: https://github.com/Homebrew/homebrew/issues/35969
+      mkdir_p HOMEBREW_PREFIX/"share/man/#{man}"
+      rm_f Dir[HOMEBREW_PREFIX/"share/man/#{man}/{npm.,npm-,npmrc.}*"]
+      ln_sf Dir[libexec/"npm/share/man/#{man}/npm*"], HOMEBREW_PREFIX/"share/man/#{man}"
+    end
 
     npm_root = node_modules/"npm"
     npmrc = npm_root/"npmrc"
     npmrc.atomic_write("prefix = #{HOMEBREW_PREFIX}\n")
-
-    # set log level temporarily for npm's `make install`
-    ENV["NPM_CONFIG_LOGLEVEL"] = "verbose"
-
-    # make sure npm can find node
-    ENV["PATH"] = "#{opt_bin}:#{ENV["PATH"]}"
-
-    ENV["NPM_CONFIG_USERCONFIG"] = npmrc
-    npm_root.cd { system "make", "install" }
-
-    if build.with? "completion"
-      bash_completion.install_symlink \
-        npm_root/"lib/utils/completion.sh" => "npm"
-    end
   end
 
   def caveats

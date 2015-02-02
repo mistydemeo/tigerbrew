@@ -1,21 +1,19 @@
-require "formula"
-
 class Openssl < Formula
   homepage "https://openssl.org"
-  url "https://www.openssl.org/source/openssl-1.0.1j.tar.gz"
-  mirror "https://raw.githubusercontent.com/DomT4/LibreMirror/master/OpenSSL/openssl-1.0.1j.tar.gz"
-  sha1 "cff86857507624f0ad42d922bb6f77c4f1c2b819"
+  url "https://www.openssl.org/source/openssl-1.0.2.tar.gz"
+  mirror "https://raw.githubusercontent.com/DomT4/LibreMirror/master/OpenSSL/openssl-1.0.2.tar.gz"
+  sha256 "8c48baf3babe0d505d16cfc0cf272589c66d3624264098213db0fb00034728e9"
 
   bottle do
-    sha1 "cc643d8f5a73a918a94ea54b1f420875345127c0" => :tiger_altivec
-    sha1 "a91110cbef41a2511848c315757a15fe5bbe351d" => :leopard_g3
-    sha1 "04cc1690af9d7db7ddc8a9afc8bbd9dfee71aa69" => :leopard_altivec
+    sha1 "0e5844609ea57a7f5361dca42d05578c6cf45643" => :yosemite
+    sha1 "56a6407b6a9179084a760d6f463cd0e6ea083c0e" => :mavericks
+    sha1 "8e36006185156281d487a2b1f04322701d0bef7b" => :mountain_lion
   end
 
   option :universal
   option "without-check", "Skip build-time tests (not recommended)"
 
-  depends_on "makedepend" => :build if MacOS.prefer_64_bit?
+  depends_on "makedepend" => :build
 
   keg_only :provided_by_osx,
     "Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries"
@@ -67,9 +65,12 @@ class Openssl < Formula
 
       ENV.deparallelize
       system "perl", "./Configure", *(configure_args + arch_args[arch])
-      system "make", "depend" if MacOS.prefer_64_bit?
+      system "make", "depend"
       system "make"
-      system "make", "test" if build.with? "check"
+
+      if (MacOS.prefer_64_bit? || arch == MacOS.preferred_arch) && build.with?("check")
+        system "make", "test"
+      end
 
       if build.universal?
         cp Dir["*.?.?.?.dylib", "*.a", "apps/openssl"], dir
@@ -114,19 +115,21 @@ class Openssl < Formula
 
     openssldir.mkpath
     (openssldir/"cert.pem").atomic_write `security find-certificate -a -p #{keychains.join(" ")}`
-  end if MacOS.version > :leopard
+  end
 
   def caveats; <<-EOS.undent
-    To install updated CA certs from Mozilla.org:
+    A CA file has been bootstrapped using certificates from the system
+    keychain. To add additional certificates, place .pem files in
+      #{openssldir}/certs
 
-        brew install curl-ca-bundle
+    and run
+      #{opt_bin}/c_rehash
     EOS
   end
 
   test do
     # Make sure the necessary .cnf file exists, otherwise OpenSSL gets moody.
-    cnf_path = HOMEBREW_PREFIX/"etc/openssl/openssl.cnf"
-    assert cnf_path.exist?,
+    assert (HOMEBREW_PREFIX/"etc/openssl/openssl.cnf").exist?,
             "OpenSSL requires the .cnf file for some functionality"
 
     # Check OpenSSL itself functions as expected.

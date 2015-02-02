@@ -32,7 +32,7 @@ class Couchdb < Formula
     # CouchDB >=1.3.0 supports vendor names and versioning
     # in the welcome message
     inreplace "etc/couchdb/default.ini.tpl.in" do |s|
-      s.gsub! "%package_author_name%", "Homebrew"
+      s.gsub! "%package_author_name%", "Tigerbrew"
       s.gsub! "%version%", "%version%-1"
     end
 
@@ -102,7 +102,7 @@ class Couchdb < Formula
         curl http://127.0.0.1:5984/
 
     The reply should look like:
-        {"couchdb":"Welcome","uuid":"....","version":"#{version}","vendor":{"version":"#{version}-1","name":"Homebrew"}}
+        {"couchdb":"Welcome","uuid":"....","version":"#{version}","vendor":{"version":"#{version}-1","name":"Tigerbrew"}}
     EOS
   end
 end

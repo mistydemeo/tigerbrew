@@ -1,19 +1,17 @@
-require "formula"
-
 class Global < Formula
   homepage "https://www.gnu.org/software/global/"
-  url "http://ftpmirror.gnu.org/global/global-6.3.2.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/global/global-6.3.2.tar.gz"
-  sha1 "46b681a0ccb84c928a67f6901ca60227ad71b5bd"
+  url "http://ftpmirror.gnu.org/global/global-6.3.3.tar.gz"
+  mirror "https://ftp.gnu.org/gnu/global/global-6.3.3.tar.gz"
+  sha1 "2e66fb1529fe1fb2c473507de91814df4eb50b93"
 
   bottle do
-    sha1 "1bce9bd552e38d9cc12eda4998233c20a33321e4" => :mavericks
-    sha1 "907a3a0180b4b4ea6ecc029b864a7ed4c8e1fa21" => :mountain_lion
-    sha1 "254d7f4444b1890b1195f35a6e1f43ed34dace7d" => :lion
+    sha1 "4262d5470592541e62fe7cc81613aa2397cea091" => :yosemite
+    sha1 "79955ca97a91adbd0e7642244ca2a89ffd9c8b0d" => :mavericks
+    sha1 "d4f3c419c93742e2740f268d00a185a8593cf0d8" => :mountain_lion
   end
 
   head do
-    url ":pserver:anonymous:@cvs.savannah.gnu.org:/sources/global:global", :using => :cvs
+    url ":pserver:anonymous:@cvs.savannah.gnu.org:/sources/global", :using => :cvs
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
@@ -46,16 +44,16 @@ class Global < Formula
     end
 
     if build.with? "pygments"
-      ENV.prepend_create_path 'PYTHONPATH', libexec+'lib/python2.7/site-packages'
-      pygments_args = [ "build", "install", "--prefix=#{libexec}" ]
-      resource('pygments').stage { system "python", "setup.py", *pygments_args }
+      ENV.prepend_create_path "PYTHONPATH", libexec+"lib/python2.7/site-packages"
+      pygments_args = %W[build install --prefix=#{libexec}]
+      resource("pygments").stage { system "python", "setup.py", *pygments_args }
     end
 
     system "./configure", *args
-    system "make install"
+    system "make", "install"
 
     if build.with? "pygments"
-      bin.env_script_all_files(libexec+'bin', :PYTHONPATH => ENV['PYTHONPATH'])
+      bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
     end
 
     etc.install "gtags.conf"
@@ -66,12 +64,12 @@ class Global < Formula
     end
   end
   test do
-    (testpath/'test.c').write <<-EOF.undent
+    (testpath/"test.c").write <<-EOF.undent
        int c2func (void) { return 0; }
        void cfunc (void) {int cvar = c2func(); }")
     EOF
-    if build.with? "pygments" or build.with? "exuberant-ctags"
-      (testpath/'test.py').write <<-EOF
+    if build.with?("pygments") || build.with?("exuberant-ctags")
+      (testpath/"test.py").write <<-EOF
         def py2func ():
              return 0
         def pyfunc ():

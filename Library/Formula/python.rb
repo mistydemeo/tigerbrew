@@ -1,5 +1,3 @@
-require "formula"
-
 class Python < Formula
   homepage "https://www.python.org"
   head "https://hg.python.org/cpython", :using => :hg, :branch => "2.7"
@@ -7,10 +5,10 @@ class Python < Formula
   sha1 "7a191bcccb598ccbf2fa6a0edce24a97df3fc0ad"
 
   bottle do
-    revision 5
-    sha1 "b09c3279b03dbff74166196785af1d8c65a18e05" => :yosemite
-    sha1 "fb87d78832b895b2e41886b12a36cb4b77dc72a3" => :mavericks
-    sha1 "348f7cc5b70e3889713c7c48be59df18920198d6" => :mountain_lion
+    revision 9
+    sha1 "b37e77b5fc9432f9b944ca36f8e33758bf751b31" => :yosemite
+    sha1 "1387fd922955e8522c7bcbfa124b80d3d6e4d3ef" => :mavericks
+    sha1 "4e2a3133a9e043f12f9a14c8006b71bc82a831ba" => :mountain_lion
   end
 
   # Please don't add a wide/ucs4 option as it won't be accepted.
@@ -19,7 +17,6 @@ class Python < Formula
   option "quicktest", "Run `make quicktest` after the build (for devs; may fail)"
   option "with-brewed-tk", "Use Tigerbrew's Tk (has optional Cocoa and threads support)"
   option "with-poll", "Enable select.poll, which is not fully implemented on OS X (http://bugs.python.org/issue5154)"
-  option "with-dtrace", "Experimental DTrace support (http://bugs.python.org/issue13405)"
 
   depends_on "pkg-config" => :build
   depends_on "readline" => :recommended
@@ -33,13 +30,13 @@ class Python < Formula
   skip_clean "bin/easy_install", "bin/easy_install-2.7"
 
   resource "setuptools" do
-    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-8.0.2.tar.gz"
-    sha1 "bacdf139b210ea6c16ffa98eefa2eb8074dc7869"
+    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-12.0.5.tar.gz"
+    sha1 "cd49661e090a397d77c690f7f2d06852b7086be9"
   end
 
   resource "pip" do
-    url "https://pypi.python.org/packages/source/p/pip/pip-1.5.6.tar.gz"
-    sha1 "e6cd9e6f2fd8d28c9976313632ef8aa8ac31249e"
+    url "https://pypi.python.org/packages/source/p/pip/pip-6.0.7.tar.gz"
+    sha1 "d2539dcd3d938863c7f6d7197d2f53066c92cf23"
   end
 
   # Patch for pyport.h macro issue
@@ -92,13 +89,8 @@ class Python < Formula
            ]
 
     args << "--without-gcc" if ENV.compiler == :clang
-    args << "--with-dtrace" if build.with? "dtrace"
 
-    if superenv?
-      distutils_fix_superenv(args)
-    else
-      distutils_fix_stdenv
-    end
+    distutils_fix_superenv(args)
 
     if build.universal?
       ENV.universal_binary
@@ -238,29 +230,6 @@ class Python < Formula
               "do_readline = '#{Formula["readline"].opt_lib}/libhistory.dylib'"
   end
 
-  def distutils_fix_stdenv
-    # Python scans all "-I" dirs but not "-isysroot", so we add
-    # the needed includes with "-I" here to avoid this err:
-    #     building dbm using ndbm
-    #     error: /usr/include/zlib.h: No such file or directory
-    ENV.append "CPPFLAGS", "-I#{MacOS.sdk_path}/usr/include" unless MacOS::CLT.installed?
-
-    # Don't use optimizations other than "-Os" here, because Python's distutils
-    # remembers (hint: `python-config --cflags`) and reuses them for C
-    # extensions which can break software (such as scipy 0.11 fails when
-    # "-msse4" is present.)
-    ENV.minimal_optimization
-
-    # We need to enable warnings because the configure.in uses -Werror to detect
-    # "whether gcc supports ParseTuple" (https://github.com/Homebrew/homebrew/issues/12194)
-    ENV.enable_warnings
-    if ENV.compiler == :clang
-      # http://docs.python.org/devguide/setup.html#id8 suggests to disable some Warnings.
-      ENV.append_to_cflags "-Wno-unused-value"
-      ENV.append_to_cflags "-Wno-empty-body"
-    end
-  end
-
   def sitecustomize
     <<-EOF.undent
       # This file is created by Homebrew and is executed on each python startup.
@@ -312,7 +281,7 @@ class Python < Formula
   end
 
   def caveats; <<-EOS.undent
-    Setuptools and Pip have been installed. To update them
+    Setuptools and pip have been installed. To update them
       pip install --upgrade setuptools
       pip install --upgrade pip
 
@@ -332,6 +301,7 @@ class Python < Formula
     system "#{bin}/python", "-c", "import sqlite3"
     # Check if some other modules import. Then the linked libs are working.
     system "#{bin}/python", "-c", "import Tkinter; root = Tkinter.Tk()"
+    system bin/"pip", "list"
   end
 end
 

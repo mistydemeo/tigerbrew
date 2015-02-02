@@ -1,5 +1,3 @@
-require "formula"
-
 class Python3 < Formula
   homepage "https://www.python.org/"
   url "https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tar.xz"
@@ -7,10 +5,10 @@ class Python3 < Formula
   revision 1
 
   bottle do
-    revision 1
-    sha1 "e9c851c8064701e14351b9070e4aa6c464c93585" => :yosemite
-    sha1 "b61b7a4f6ea506a056cd89cb6cc19b40584ef7fd" => :mavericks
-    sha1 "feff5d17e50cceabd8eca1125be5d463897a4ac7" => :mountain_lion
+    revision 4
+    sha1 "bafbd760dc7cdc3e0d782714e866006200f2f128" => :yosemite
+    sha1 "aeff86cffe18f6aea643e90e56032fb272c9612f" => :mavericks
+    sha1 "a27901327dad9d61f50be6e2dbde59116da682e2" => :mountain_lion
   end
 
   VER="3.4"  # The <major>.<minor> is used so often.
@@ -32,6 +30,16 @@ class Python3 < Formula
 
   skip_clean "bin/pip3", "bin/pip-#{VER}"
   skip_clean "bin/easy_install3", "bin/easy_install-#{VER}"
+
+  resource "setuptools" do
+    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-12.0.5.tar.gz"
+    sha1 "cd49661e090a397d77c690f7f2d06852b7086be9"
+  end
+
+  resource "pip" do
+    url "https://pypi.python.org/packages/source/p/pip/pip-6.0.7.tar.gz"
+    sha1 "d2539dcd3d938863c7f6d7197d2f53066c92cf23"
+  end
 
   patch :DATA if build.with? "brewed-tk"
 
@@ -79,11 +87,7 @@ class Python3 < Formula
 
     args << "--without-gcc" if ENV.compiler == :clang
 
-    if superenv?
-      distutils_fix_superenv(args)
-    else
-      distutils_fix_stdenv
-    end
+    distutils_fix_superenv(args)
 
     if build.universal?
       ENV.universal_binary
@@ -132,6 +136,10 @@ class Python3 < Formula
 
     # Remove the site-packages that Python created in its Cellar.
     site_packages_cellar.rmtree
+
+    %w[setuptools pip].each do |r|
+      (libexec/r).install resource(r)
+    end
   end
 
   def post_install
@@ -156,8 +164,20 @@ class Python3 < Formula
     rm_rf Dir["#{site_packages}/setuptools*"]
     rm_rf Dir["#{site_packages}/distribute*"]
 
-    # Install the bundled pip if it's newer than the installed version
-    system bin/"python3", "-m", "ensurepip", "--upgrade"
+    %w[setuptools pip].each do |pkg|
+      (libexec/pkg).cd do
+        system bin/"python3", "-s", "setup.py", "--no-user-cfg", "install",
+               "--force", "--verbose", "--install-scripts=#{bin}",
+               "--install-lib=#{site_packages}"
+      end
+    end
+
+    rm_rf [bin/"pip", bin/"easy_install"]
+
+    # post_install happens after link
+    %W[pip3 pip#{VER} easy_install-#{VER}].each do |e|
+      (HOMEBREW_PREFIX/"bin").install_symlink bin/e
+    end
 
     # And now we write the distutils.cfg
     cfg = prefix/"Frameworks/Python.framework/Versions/#{VER}/lib/python#{VER}/distutils/distutils.cfg"
@@ -193,29 +213,6 @@ class Python3 < Formula
     inreplace "setup.py",
               "do_readline = self.compiler.find_library_file(lib_dirs, 'readline')",
               "do_readline = '#{Formula["readline"].opt_lib}/libhistory.dylib'"
-  end
-
-  def distutils_fix_stdenv
-    # Python scans all "-I" dirs but not "-isysroot", so we add
-    # the needed includes with "-I" here to avoid this err:
-    #     building dbm using ndbm
-    #     error: /usr/include/zlib.h: No such file or directory
-    ENV.append "CPPFLAGS", "-I#{MacOS.sdk_path}/usr/include" unless MacOS::CLT.installed?
-
-    # Don't use optimizations other than "-Os" here, because Python's distutils
-    # remembers (hint: `python3-config --cflags`) and reuses them for C
-    # extensions which can break software (such as scipy 0.11 fails when
-    # "-msse4" is present.)
-    ENV.minimal_optimization
-
-    # We need to enable warnings because the configure.in uses -Werror to detect
-    # "whether gcc supports ParseTuple" (https://github.com/Homebrew/homebrew/issues/12194)
-    ENV.enable_warnings
-    if ENV.compiler == :clang
-      # http://docs.python.org/devguide/setup.html#id8 suggests to disable some Warnings.
-      ENV.append_to_cflags "-Wno-unused-value"
-      ENV.append_to_cflags "-Wno-empty-body"
-    end
   end
 
   def sitecustomize
@@ -299,6 +296,7 @@ class Python3 < Formula
     system "#{bin}/python#{VER}", "-c", "import sqlite3"
     # Check if some other modules import. Then the linked libs are working.
     system "#{bin}/python#{VER}", "-c", "import tkinter; root = tkinter.Tk()"
+    system bin/"pip3", "list"
   end
 end
 

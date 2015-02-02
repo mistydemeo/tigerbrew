@@ -2,13 +2,13 @@ require "formula"
 
 class Openconnect < Formula
   homepage "http://www.infradead.org/openconnect.html"
-  url "ftp://ftp.infradead.org/pub/openconnect/openconnect-7.01.tar.gz"
-  sha1 "69edfa8d4af93ef33e90b21f25f2949d1997c83a"
+  url "ftp://ftp.infradead.org/pub/openconnect/openconnect-7.04.tar.gz"
+  sha1 "1a87bebcc615fd96146a8afd05491883ef2b4daf"
 
   bottle do
-    sha1 "4b2a69e83336d0817e7a5e3a1a3360be6caadeb2" => :yosemite
-    sha1 "a2149452cb673b6e16042bc607a80369fde91589" => :mavericks
-    sha1 "b59dc9fdf8b070bd897b1d879b791635cb0d1dd7" => :mountain_lion
+    sha1 "304af06c460efee55cffd2086ca1a7b3a36ae6f7" => :yosemite
+    sha1 "5a151e79eff6550a7832aa9493d67e7194ce78b5" => :mavericks
+    sha1 "43a8ec2383668d00d1fbc4734c3d3de3069c264f" => :mountain_lion
   end
 
   head do

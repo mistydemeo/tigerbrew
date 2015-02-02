@@ -1,11 +1,9 @@
-require 'formula'
-
 class Gmp < Formula
-  homepage 'http://gmplib.org/'
-  url 'http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.bz2'
-  mirror 'ftp://ftp.gmplib.org/pub/gmp/gmp-6.0.0a.tar.bz2'
-  mirror 'http://ftp.gnu.org/gnu/gmp/gmp-6.0.0a.tar.bz2'
-  sha1 '360802e3541a3da08ab4b55268c80f799939fddc'
+  homepage "http://gmplib.org/"
+  url "http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.bz2"
+  mirror "ftp://ftp.gmplib.org/pub/gmp/gmp-6.0.0a.tar.bz2"
+  mirror "https://ftp.gnu.org/gnu/gmp/gmp-6.0.0a.tar.bz2"
+  sha1 "360802e3541a3da08ab4b55268c80f799939fddc"
 
   bottle do
     cellar :any
@@ -14,7 +12,7 @@ class Gmp < Formula
     sha1 "f6b2011e9b1a6e22ccbb30f6ed94d338063feb30" => :leopard_altivec
   end
 
-  option '32-bit'
+  option "32-bit"
   option :cxx11
 
   # https://github.com/mistydemeo/tigerbrew/issues/212
@@ -36,8 +34,24 @@ class Gmp < Formula
     ENV.append_to_cflags "-force_cpusubtype_ALL" if Hardware.cpu_type == :ppc
     system "./configure", *args
     system "make"
-    system "make check"
+    system "make", "check"
     ENV.deparallelize
-    system "make install"
+    system "make", "install"
+  end
+
+  test do
+    (testpath/"test.c").write <<-EOS.undent
+      #include <gmp.h>
+
+      int main()
+      {
+        mpz_t integ;
+        mpz_init (integ);
+        mpz_clear (integ);
+        return 0;
+      }
+    EOS
+    system ENV.cc, "test.c", "-L#{lib}", "-lgmp", "-o", "test"
+    system "./test"
   end
 end

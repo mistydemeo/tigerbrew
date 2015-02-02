@@ -1,16 +1,16 @@
 require 'formula'
 
 class Arangodb < Formula
-  homepage 'http://www.arangodb.org/'
-  url 'https://www.arangodb.com/repositories/Source/ArangoDB-2.3.2.tar.gz'
-  sha1 'dff048b051d04d4f2f169dbb446589d0c886c759'
+  homepage 'http://www.arangodb.com/'
+  url 'https://www.arangodb.com/repositories/Source/ArangoDB-2.4.2.tar.gz'
+  sha1 '5e396cfcd0376cbcf2f7feac36270676f1b9e991'
 
-  head "https://github.com/triAGENS/ArangoDB.git", :branch => 'unstable'
+  head "https://github.com/arangodb/arangodb.git", :branch => 'unstable'
 
   bottle do
-    sha1 "400031de8f90c2bac57898fe36d6343f9a51aaa2" => :yosemite
-    sha1 "756ce1938ef5ee5f7f3333ef8d55c23a94b2ae52" => :mavericks
-    sha1 "79458b5343ba215854090749c6d8f1f3f39e75a6" => :mountain_lion
+    sha1 "e15c42bdac98b7430d3d895b650437353cdb0659" => :yosemite
+    sha1 "0b2a59822ae08af9ebd5dadde4037b2b342d0c92" => :mavericks
+    sha1 "b43016b809802a6be2d26be8c61b8d574bc2d827" => :mountain_lion
   end
 
   depends_on 'go' => :build
@@ -24,20 +24,10 @@ class Arangodb < Formula
     # arangodb requires.
     ENV.libcxx
 
-    # Bundled V8 tries to build with a 10.5 deployment target,
-    # which causes clang to error out b/c a 10.5 deployment target
-    # and -stdlib=libc++ are not valid together.
-    inreplace "3rdParty/V8/build/standalone.gypi",
-      "'mac_deployment_target%': '10.5',",
-      "'mac_deployment_target%': '#{MacOS.version}',"
-
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
       --disable-relative
-      --enable-all-in-one-icu
-      --enable-all-in-one-libev
-      --enable-all-in-one-v8
       --enable-mruby
       --datadir=#{share}
       --localstatedir=#{var}

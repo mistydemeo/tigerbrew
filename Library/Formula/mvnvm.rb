@@ -1,25 +1,22 @@
-require "formula"
-
 class Mvnvm < Formula
   homepage "http://mvnvm.org"
-  url "https://bitbucket.org/mjensen/mvnvm/get/mvnvm-0.1.zip"
-  sha1 "ae75e26265c62daab4e9f751f5a6a44325247e23"
+  url "https://bitbucket.org/mjensen/mvnvm/get/mvnvm-1.0.3.zip"
+  sha1 "e72f47104ac16575f992be4234ab264579d66444"
 
   head "https://bitbucket.org/mjensen/mvnvm.git"
 
-  depends_on :java => "1.7"
+  depends_on :java => "1.7+"
 
   def install
     bin.install "mvn"
   end
 
-  conflicts_with "maven",
-    :because => "also installs a 'mvn' executable"
+  conflicts_with "maven", :because => "also installs a 'mvn' executable"
 
   test do
     ENV["JAVA_HOME"] = `/usr/libexec/java_home`.chomp
     (testpath/"mvnvm.properties").write <<-EOS.undent
-      mvn_version=3.0.5
+      mvn_version=3.2.5
     EOS
     (testpath/"pom.xml").write <<-EOS.undent
       <?xml version="1.0" encoding="UTF-8"?>
