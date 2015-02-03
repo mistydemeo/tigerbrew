@@ -125,7 +125,7 @@ module Homebrew
     elsif !(`/usr/libexec/java_home --failfast &>/dev/null` && $?.success?)
       "N/A"
     else
-      java = `java -version 2>&1`.lines.first.chomp
+      java = `java -version 2>&1`.split("\n").first.chomp
       java =~ /java version "(.+?)"/ ? $1 : java
     end
   end
