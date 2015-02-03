@@ -26,6 +26,7 @@ class Gstreamer < Formula
   depends_on "gettext"
   depends_on "glib"
   depends_on "bison"
+  depends_on "flex" if MacOS.version < :leopard
 
   def install
     args = %W[
