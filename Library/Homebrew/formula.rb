@@ -344,7 +344,7 @@ class Formula
   def post_install; end
 
   def post_install_defined?
-    method(:post_install).owner == self.class
+    self.class.public_instance_methods(false).map(&:to_s).include?("post_install")
   end
 
   # tell the user about any caveats regarding this package, return a string
