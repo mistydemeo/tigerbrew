@@ -14,6 +14,8 @@ class Libtool < Formula
     sha1 "5af44fab5def8f1ddcd8e1cf97cc9aba52652af0" => :mountain_lion
   end
 
+  depends_on "homebrew/dupes/m4" if MacOS.version < :leopard
+
   keg_only :provided_until_xcode43
 
   option :universal
