@@ -11,6 +11,8 @@ class Gputils < Formula
     sha1 "b4ef0c6743be8f8b0cd11e7148cee046f8780d59" => :mountain_lion
   end
 
+  depends_on "flex" => :build if MacOS.version < :snow_leopard
+
   def install
     system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking"
     system "make install"
