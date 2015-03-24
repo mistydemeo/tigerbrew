@@ -20,8 +20,8 @@ class LibtorrentRasterbar < Formula
   end
 
   patch do
-    url "https://raw.githubusercontent.com/ivanholmes/scripts/master/libtorrent-rasterbar.diff"
-    sha1 "53c2a8ddcbd68da39fb1551d5d188870ae7c86e6"
+    url "https://raw.githubusercontent.com/ivanholmes/scripts/d9bc2404d94d88a16adaf077c6582be19c5cb8d9/libtorrent-rasterbar.diff"
+    sha256 "11bb9b9d7d5e8849d9882a56fab341192150533df86983f30e953d4c421b2799"
   end
 
   depends_on "pkg-config" => :build
