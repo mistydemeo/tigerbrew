@@ -19,6 +19,11 @@ class LibtorrentRasterbar < Formula
     sha256 "c094fd6b5826e83b99ee71be5f075d2a44c81e33a2c6a480b5709ad696825aa2" => :mountain_lion
   end
 
+  patch do
+    url "https://raw.githubusercontent.com/ivanholmes/scripts/master/libtorrent-rasterbar.diff"
+    sha1 "53c2a8ddcbd68da39fb1551d5d188870ae7c86e6"
+  end
+
   depends_on "pkg-config" => :build
   depends_on "openssl"
   depends_on :python => :optional
