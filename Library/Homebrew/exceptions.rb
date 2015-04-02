@@ -259,3 +259,5 @@ class DuplicateResourceError < ArgumentError
     super "Resource #{resource.inspect} is defined more than once"
   end
 end
+
+class OpenSSLNotInstalledError < StandardError; end

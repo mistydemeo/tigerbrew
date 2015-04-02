@@ -274,18 +274,32 @@ class Pathname
 
   def sha256
     if MacOS.version == :tiger
-      openssl = Formula.factory('openssl')
-      openssl_bin = openssl.opt_prefix/'bin/openssl'
-
-      if !openssl.installed? || !(openssl_bin.exist? && `"#{openssl_bin}" dgst -h 2>&1` =~ /sha256/)
-        raise "You must `brew install openssl` to compute sha256 hashes on Tiger"
+      begin
+        sha256_homebrew_openssl
+      rescue OpenSSLNotInstalledError
+        sha256_python
       end
-      str = `"#{openssl_bin}" dgst -sha256 "#{self}"`.chomp
-      str.match(/= ((\d|[a-z])+)/).captures.first
     else
       require 'digest/sha2'
       incremental_hash(Digest::SHA2)
     end
+  end
+
+  # Calculate sha256 hash using a Homebrew-installed OpenSSL.
+  # Doesn't have to be up-to-date, just needs to be able to install hashes.
+  def sha256_homebrew_openssl
+    openssl = Formula.factory('openssl')
+    openssl_bin = openssl.opt_prefix/'bin/openssl'
+    raise OpenSSLNotInstalledError unless openssl.installed? || (openssl_bin.exist? && !!(`"#{openssl_bin}" dgst -h 2>&1` =~ /sha256/))
+
+    str = `"#{openssl_bin}" dgst -sha256 "#{self}"`.chomp
+    str.match(/= ((\d|[a-z])+)/).captures.first
+  end
+
+  # Calculate sha256 hashes using a pure Python script.
+  # Slow, avoid using if possible.
+  def sha256_python
+    `"#{HOMEBREW_REPOSITORY}/Library/Homebrew/vendor/sha256" #{self}`.chomp
   end
 
   def verify_checksum expected
