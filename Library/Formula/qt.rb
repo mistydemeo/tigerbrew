@@ -11,8 +11,8 @@ class Qt < Formula
 
     # This patch should be able to be removed with the next stable Qt4 release.
     patch do
-      url "https://raw.githubusercontent.com/DomT4/scripts/440e3cafde5bf6ec6f50cd28fa5bf89c280f1b53/Homebrew_Resources/Qt/qt4patch.diff"
-      sha1 "57246a33460246118a1fab7460c79f2077d3a929"
+      url "https://raw.githubusercontent.com/ivanholmes/scripts/master/qt4.diff"
+      sha1 "e22af2197009dc0d73f56f5136501d68db32e229"
     end
   end
 
