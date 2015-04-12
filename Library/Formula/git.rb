@@ -1,7 +1,7 @@
 class Git < Formula
   homepage "http://git-scm.com"
-  url "https://www.kernel.org/pub/software/scm/git/git-2.2.2.tar.gz"
-  sha256 "e9e50d0d382183a9327d39334eb65db92852208e1438aab2a9bf8d06ef17b653"
+  url "https://www.kernel.org/pub/software/scm/git/git-2.3.5.tar.xz"
+  sha256 "d7711324a58d41b4c46d1e4d560ce17fec5f79fa0311107c15aac866f2c1645a"
 
   head "https://github.com/git/git.git", :shallow => false
 
@@ -9,13 +9,13 @@ class Git < Formula
   end
 
   resource "man" do
-    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.2.2.tar.gz"
-    sha256 "c9340fad1f521f3782abca4839d66bfee237f3e931856413561cf1b55fc9d550"
+    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.3.5.tar.xz"
+    sha256 "8a1d580a45f9ca3220a59f96ebab9194c1ae6e1f3b30c8a934807040ce6d1940"
   end
 
   resource "html" do
-    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.2.2.tar.gz"
-    sha256 "7f5eb11cf3dd5abb4705fb91f52c78ff4265b2e2eb15948cef311b3e04896d1c"
+    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.3.5.tar.xz"
+    sha256 "0e5588248735a209aaf0b7606e647fc9c4f90e0d5184ee28da9a41eccb85eaa1"
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -83,11 +83,11 @@ class Git < Formula
     if build.with? "brewed-svn"
       ENV["PERLLIB_EXTRA"] = "#{Formula["subversion"].prefix}/Library/Perl/#{perl_version}/darwin-thread-multi-2level"
     elsif MacOS.version >= :mavericks
-      ENV["PERLLIB_EXTRA"] = %W{
+      ENV["PERLLIB_EXTRA"] = %W[
         #{MacOS.active_developer_dir}
         /Library/Developer/CommandLineTools
         /Applications/Xcode.app/Contents/Developer
-      }.uniq.map { |p|
+      ].uniq.map { |p|
         "#{p}/Library/Perl/#{perl_version}/darwin-thread-multi-2level"
       }.join(":")
     end
@@ -104,8 +104,6 @@ class Git < Formula
     end
 
     ENV["NO_GETTEXT"] = "1" if build.without? "gettext"
-
-    ENV["GIT_DIR"] = cached_download/".git" if build.head?
 
     system "make", "prefix=#{prefix}",
                    "sysconfdir=#{etc}",

@@ -1,29 +1,32 @@
-require "formula"
-
 class Imagemagick < Formula
   homepage "http://www.imagemagick.org"
-  url "http://www.imagemagick.org/download/releases/ImageMagick-6.9.0-3.tar.xz"
-  sha256 "f00452ba2c05c2df9624c62d7adb49ecf17140edd6e5f355cceca051dab1fb38"
+  url "http://www.imagemagick.org/download/releases/ImageMagick-6.9.1-0.tar.xz"
+  mirror "https://downloads.sourceforge.net/project/imagemagick/6.9.1-sources/ImageMagick-6.9.1-0.tar.xz"
+  sha256 "32747565fc30da0ff0bc0bf3e41c9fefad829fa8fb2f7d1b98dd84ddb3919b0e"
 
-  head "http://www.imagemagick.org/subversion/ImageMagick/trunk"
+  head "https://subversion.imagemagick.org/subversion/ImageMagick/trunk",
+       :using => :svn
 
   bottle do
-    sha1 "9e788e5e325c50da3accb53228fdcda87bd43929" => :yosemite
-    sha1 "f260b2e5c574fe7159a093769a9cabad7970ef9b" => :mavericks
-    sha1 "e277ef9ac3df4771851a8e061025ba8005fd292c" => :mountain_lion
+    sha256 "6fd5c101e3c95eb0b87105d95ac2c3f0739a5b12920cbb57d5decf7671a68b1b" => :yosemite
+    sha256 "92c97d4984714b616dbd07e4bed47ef190bddaf13f5013618def56a303894db5" => :mavericks
+    sha256 "837c6f6bc869c6bf35c776a2b0e9bc76e725b69f3cf927f1e78a02e15d36e2cd" => :mountain_lion
   end
 
+  deprecated_option "enable-hdri" => "with-hdri"
+
+  option "with-fftw", "Compile with FFTW support"
+  option "with-hdri", "Compile with HDRI support"
+  option "with-jp2", "Compile with Jpeg2000 support"
+  option "with-perl", "enable build/install of PerlMagick"
   option "with-quantum-depth-8", "Compile with a quantum depth of 8 bit"
   option "with-quantum-depth-16", "Compile with a quantum depth of 16 bit"
   option "with-quantum-depth-32", "Compile with a quantum depth of 32 bit"
-  option "with-perl", "enable build/install of PerlMagick"
+  option "without-opencl", "Disable OpenCL"
   option "without-magick-plus-plus", "disable build/install of Magick++"
-  option "with-jp2", "Compile with Jpeg2000 support"
-  option "enable-hdri", "Compile with HDRI support"
-  option "with-fftw", "Compile with FFTW support"
 
+  depends_on "xz"
   depends_on "libtool" => :run
-
   depends_on "pkg-config" => :build
 
   depends_on "jpeg" => :recommended
@@ -43,28 +46,29 @@ class Imagemagick < Formula
   depends_on "webp" => :optional
   depends_on "homebrew/versions/openjpeg21" if build.with? "jp2"
   depends_on "fftw" => :optional
-
-  depends_on "xz"
+  depends_on "pango" => :optional
 
   skip_clean :la
 
   def install
-    args = [ "--disable-osx-universal-binary",
-             "--prefix=#{prefix}",
-             "--disable-dependency-tracking",
-             "--enable-shared",
-             "--disable-static",
-             "--without-pango",
-             "--with-modules",
-             "--disable-openmp"]
+    args = %W[
+      --disable-osx-universal-binary
+      --prefix=#{prefix}
+      --disable-dependency-tracking
+      --enable-shared
+      --disable-static
+      --with-modules
+      --disable-openmp
+    ]
 
-    args << "--disable-opencl" if build.include? "disable-opencl"
+    args << "--disable-opencl" if build.without? "opencl"
     args << "--without-gslib" if build.without? "ghostscript"
     args << "--without-perl" if build.without? "perl"
     args << "--with-gs-font-dir=#{HOMEBREW_PREFIX}/share/ghostscript/fonts" if build.without? "ghostscript"
     args << "--without-magick-plus-plus" if build.without? "magick-plus-plus"
-    args << "--enable-hdri=yes" if build.include? "enable-hdri"
+    args << "--enable-hdri=yes" if build.with? "hdri"
     args << "--enable-fftw=yes" if build.with? "fftw"
+    args << "--without-pango" if build.without? "pango"
 
     if build.with? "quantum-depth-32"
       quantum_depth = 32
@@ -90,7 +94,7 @@ class Imagemagick < Formula
     # versioned stuff in main tree is pointless for us
     inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_VERSION}", "${PACKAGE_NAME}"
     system "./configure", *args
-    system "make install"
+    system "make", "install"
   end
 
   def caveats

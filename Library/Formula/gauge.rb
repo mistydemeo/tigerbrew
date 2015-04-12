@@ -2,31 +2,48 @@ require "language/go"
 
 class Gauge < Formula
   homepage "http://getgauge.io"
-  url "https://github.com/getgauge/gauge/archive/v0.0.3.tar.gz"
-  sha1 "5cb64ce8d803c739c3e21513b334e0d2216cc68a"
+  url "https://github.com/getgauge/gauge/archive/v0.0.6.tar.gz"
+  sha1 "1e322c9f468ae56cc95e5488b5c9359300b7ec27"
 
   bottle do
-    sha1 "6b503ea7ac28bd315a8a7fa55917aaccb20e9e87" => :yosemite
-    sha1 "b353b1dc155055ed3b8f94f6f1ebe2e470246c97" => :mavericks
-    sha1 "10eacac84c0de5491bea5368bc6d33d65d49a2f4" => :mountain_lion
+    cellar :any
+    sha256 "9f61d4b138d35e7de1521126e3f5f76fddd0adbed8bfb78cbbc0744fd7c0174f" => :yosemite
+    sha256 "0bb87ecb1f6f61ecd026037c6b3898ddf4b202e094237d6b75a88a3450417f83" => :mavericks
+    sha256 "7aedc34492d35034285bdad7e474c77d3d6072a1b6f16071180c3422dbaf9909" => :mountain_lion
   end
 
   depends_on "go" => :build
 
-  go_resource "code.google.com/p/goprotobuf" do
-    url "https://code.google.com/p/goprotobuf",
-        :revision => "725eb0907b649c438e0e8f1601648597141fb66c",
-        :using => :hg
+  go_resource "github.com/golang/protobuf" do
+    url "https://github.com/golang/protobuf.git",
+        :revision => "7f07925444bb51fa4cf9dfe6f7661876f8852275"
   end
 
   go_resource "github.com/getgauge/common" do
     url "https://github.com/getgauge/common.git",
-        :revision => "4c20d2d8fc5c4c447a6110f4f888f72c3d66f84c"
+        :revision => "f81990f732c85813af305a8f0c862e3c21138f37"
   end
 
   go_resource "github.com/getgauge/mflag" do
     url "https://github.com/getgauge/mflag.git",
         :revision => "d64a28a7abc05602c9e6d9c5a1488ee69f9fcb83"
+  end
+
+  go_resource "github.com/op/go-logging" do
+    url "https://github.com/op/go-logging.git",
+        :revision => "fb0230561a6ba1cab17beb95f1faedc16584fdb8"
+  end
+
+  go_resource "golang.org/x/tools" do
+    url "https://go.googlesource.com/tools",
+        :revision => "2ef5a0d23bc4e07573bb094b97e96c9cd9844fca",
+        :using => :git
+  end
+
+  go_resource "gopkg.in/natefinch/lumberjack.v2" do
+    url "https://gopkg.in/natefinch/lumberjack.v2",
+        :revision => "d28785c2f27cd682d872df46ccd8232843629f54",
+        :using =>:git
   end
 
   go_resource "github.com/dmotylev/goproperties" do

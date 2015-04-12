@@ -11,6 +11,9 @@ require 'install_renamed'
 require 'cmd/tap'
 require 'hooks/bottles'
 require 'debrew'
+require 'fcntl'
+require 'socket'
+require 'sandbox'
 
 class FormulaInstaller
   include FormulaCellarChecks
@@ -192,8 +195,15 @@ class FormulaInstaller
     return if ARGV.force?
 
     conflicts = formula.conflicts.select do |c|
-      f = Formulary.factory(c.name)
-      f.linked_keg.exist? && f.opt_prefix.exist?
+      begin
+        f = Formulary.factory(c.name)
+        f.linked_keg.exist? && f.opt_prefix.exist?
+      rescue FormulaUnavailableError
+        raise unless c.name =~ HOMEBREW_TAP_FORMULA_REGEX
+        # If the formula name is in full-qualified name. Let's silently
+        # ignore it as we don't care about things used in taps that aren't
+        # currently tapped.
+      end
     end
 
     raise FormulaConflictError.new(formula, conflicts) unless conflicts.empty?
@@ -448,6 +458,9 @@ class FormulaInstaller
   end
 
   def build
+    socket_path = "#{Dir.mktmpdir("homebrew", HOMEBREW_TEMP)}/socket"
+    server = UNIXServer.new(socket_path)
+
     FileUtils.rm Dir["#{HOMEBREW_LOGS}/#{formula.name}/*"]
 
     @start_time = Time.now
@@ -456,8 +469,7 @@ class FormulaInstaller
     #    installation has a pristine ENV when it starts, forking now is
     #    the easiest way to do this
     read, write = IO.pipe
-    # I'm guessing this is not a good way to do this, but I'm no UNIX guru
-    ENV['HOMEBREW_ERROR_PIPE'] = write.to_i.to_s
+    ENV["HOMEBREW_ERROR_PIPE"] = socket_path
 
     args = %W[
       nice #{RUBY_PATH}
@@ -468,15 +480,17 @@ class FormulaInstaller
       #{formula.path}
     ].concat(build_argv)
 
-    # Ruby 2.0+ sets close-on-exec on all file descriptors except for
-    # 0, 1, and 2 by default, so we have to specify that we want the pipe
-    # to remain open in the child process.
-    args << { write => write } if RUBY_VERSION >= "2.0"
-
     pid = fork do
       begin
+        server.close
         read.close
-        exec(*args)
+        write.fcntl(Fcntl::F_SETFD, Fcntl::FD_CLOEXEC)
+        if Sandbox.available? && ARGV.sandbox?
+          sandbox = Sandbox.new(formula)
+          sandbox.exec(*args)
+        else
+          exec(*args)
+        end
       rescue Exception => e
         Marshal.dump(e, write)
         write.close
@@ -485,10 +499,17 @@ class FormulaInstaller
     end
 
     ignore_interrupts(:quietly) do # the child will receive the interrupt and marshal it back
+      begin
+        socket = server.accept_nonblock
+      rescue Errno::EAGAIN, Errno::EWOULDBLOCK, Errno::ECONNABORTED, Errno::EPROTO, Errno::EINTR
+        retry unless Process.waitpid(pid, Process::WNOHANG)
+      else
+        socket.send_io(write)
+      end
       write.close
       data = read.read
       read.close
-      Process.wait(pid)
+      Process.wait(pid) unless socket.nil?
       raise Marshal.load(data) unless data.nil? or data.empty?
       raise Interrupt if $?.exitstatus == 130
       raise "Suspicious installation failure" unless $?.success?
@@ -503,6 +524,9 @@ class FormulaInstaller
       formula.rack.rmdir_if_possible
     end
     raise
+  ensure
+    server.close
+    FileUtils.rm_r File.dirname(socket_path)
   end
 
   def link(keg)
@@ -560,6 +584,8 @@ class FormulaInstaller
     return unless formula.plist
     formula.plist_path.atomic_write(formula.plist)
     formula.plist_path.chmod 0644
+    log = formula.var/"log"
+    log.mkpath if formula.plist.include? log.to_s
   rescue Exception => e
     onoe "Failed to install plist file"
     ohai e, e.backtrace if debug?
@@ -594,7 +620,7 @@ class FormulaInstaller
   end
 
   def post_install
-    formula.post_install
+    formula.run_post_install
   rescue Exception => e
     opoo "The post-install step did not complete successfully"
     puts "You can try again using `brew postinstall #{formula.name}`"

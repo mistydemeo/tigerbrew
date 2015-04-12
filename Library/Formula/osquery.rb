@@ -3,11 +3,11 @@ require "formula"
 class Osquery < Formula
   homepage "http://osquery.io"
   # pull from git tag to get submodules
-  url "https://github.com/facebook/osquery.git", :tag => "1.3.1"
+  url "https://github.com/facebook/osquery.git", :tag => "1.4.4", :revision => "800dc7745e2ee81c645ca3cda7c8ca2f4c535ca4"
 
   bottle do
-    sha1 "01f4d94a896512fa89649b3e4d241671840e2492" => :yosemite
-    sha1 "4afedc9a5bfbd19dd62770fb9c6c84bdebf1b548" => :mavericks
+    sha256 "7987f024819b8d44d06772c1d5de2a44a34215669536ed8580f57897caa43506" => :yosemite
+    sha256 "eea6d44f14547ef7ed92c086e1c464039e9c4e47f89c190b4375f38ffa2ff186" => :mavericks
   end
 
   # Build currently fails on Mountain Lion:
@@ -16,13 +16,11 @@ class Osquery < Formula
   depends_on :macos => :mavericks
 
   depends_on "cmake" => :build
-
-  depends_on "boost"
-  depends_on "gflags"
-  depends_on "glog"
+  depends_on "boost" => :build
+  depends_on "gflags" => :build
+  depends_on "rocksdb" => :build
+  depends_on "thrift" => :build
   depends_on "openssl"
-  depends_on "rocksdb"
-  depends_on "thrift"
 
   resource "markupsafe" do
     url "https://pypi.python.org/packages/source/M/MarkupSafe/MarkupSafe-0.23.tar.gz"
@@ -47,8 +45,6 @@ class Osquery < Formula
     system "cmake", ".", *std_cmake_args
     system "make"
     system "make", "install"
-
-    prefix.install "tools/deployment/com.facebook.osqueryd.plist"
   end
 
   plist_options :startup => true, :manual => "osqueryd"
@@ -56,9 +52,9 @@ class Osquery < Formula
   test do
     require 'open3'
     Open3.popen3("#{bin}/osqueryi") do |stdin, stdout, _|
-      stdin.write(".mode line\nSELECT major FROM osx_version;")
+      stdin.write(".mode line\nSELECT count(version) as lines FROM osquery_info;")
       stdin.close
-      assert_equal "major = 10\n", stdout.read
+      assert_equal "lines = 1\n", stdout.read
     end
   end
 end

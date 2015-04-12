@@ -2,21 +2,15 @@ require "formula"
 
 class Neo4j < Formula
   homepage "http://neo4j.org"
-  url "http://dist.neo4j.org/neo4j-community-2.1.6-unix.tar.gz"
-  sha1 "6f790bb9dc50e50ba2409101f809e6b3a6cd709e"
-  version "2.1.6"
+  url "http://dist.neo4j.org/neo4j-community-2.2.0-unix.tar.gz"
+  sha1 "af6d05bfd1bf2ca9644bde2571d1b37a6fd972ab"
+  version "2.2.0"
 
   option "with-neo4j-shell-tools", "Add neo4j-shell-tools to the standard neo4j-shell"
 
   resource "neo4j-shell-tools" do
     url "http://dist.neo4j.org/jexp/shell/neo4j-shell-tools_2.1.zip"
     sha1 "83011a6dcf1cb49ee609e973fdb61f32f765b224"
-  end
-
-  devel do
-    url "http://dist.neo4j.org/neo4j-community-2.2.0-M03-unix.tar.gz"
-    sha1 "9e8867753e0e4a1d82d90b7455e7383f352a6521"
-    version "2.2.0-M03"
   end
 
   def install
@@ -27,9 +21,7 @@ class Neo4j < Formula
     libexec.install Dir["*"]
 
     # Symlink binaries
-    bin.install_symlink Dir["#{libexec}/bin/neo4j{,-shell}"]
-
-    bin.install_symlink libexec/"bin/neo4j-import" if build.devel?
+    bin.install_symlink Dir["#{libexec}/bin/neo4j{,-shell,-import}"]
 
     # Eventually, install neo4j-shell-tools
     # omiting "opencsv-2.3.jar" because it already comes with neo4j (see libexec/lib)

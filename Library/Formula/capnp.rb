@@ -1,24 +1,24 @@
-require "formula"
-
 class Capnp < Formula
-  homepage "http://kentonv.github.io/capnproto/"
-  url "http://capnproto.org/capnproto-c++-0.5.0.tar.gz"
-  sha1 "5eec5929d9b64628b2e7b6646369f112079a1f61"
+  homepage "https://capnproto.org/"
+  url "https://capnproto.org/capnproto-c++-0.5.1.2.tar.gz"
+  sha256 "a23f462bb863ee867783ff33e4c2c9e3ece684c6b33410e34ed2eb17b5d90929"
 
   bottle do
-    sha1 "c73a3d2118d22e1741cea71b5557a98f1f9123d3" => :yosemite
-    sha1 "25029d69b65d8cb98dc5015a9c215e5109e889ba" => :mavericks
-    sha1 "06576d9fbc1ee122828bf7f41ceb5cb12bc41a32" => :mountain_lion
+    sha256 "94295e6275fab85b54d334a9994538fe92be8422e2230982a568fe707a4bd17f" => :yosemite
+    sha256 "fca129dbeefeea03b0deaa149bc8f1cae8f0b657a13f6ca838398db3a54fc800" => :mavericks
+    sha256 "3771b3a8a7be9a1b3e9c872ff632a37f23eea8aab1d4b4725a0e82fb58453141" => :mountain_lion
   end
 
   needs :cxx11
   option "without-shared", "Disable building shared library variant"
 
   def install
-    args = ["--disable-debug",
-            "--disable-dependency-tracking",
-            "--disable-silent-rules",
-            "--prefix=#{prefix}"]
+    args = %W[
+      --disable-debug
+      --disable-dependency-tracking
+      --disable-silent-rules
+      --prefix=#{prefix}
+    ]
 
     args << "--disable-shared" if build.without? "shared"
 

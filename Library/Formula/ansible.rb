@@ -1,15 +1,14 @@
 class Ansible < Formula
   homepage "http://www.ansible.com/home"
-  url "http://releases.ansible.com/ansible/ansible-1.8.2.tar.gz"
-  sha1 "4cfbec3a0850639384c908e77e2823acb1297e1e"
-  revision 1
+  url "http://releases.ansible.com/ansible/ansible-1.9.0.1.tar.gz"
+  sha1 "a61c0dfdb3f395546310999d2b75c2ce422fc1ed"
 
   head "https://github.com/ansible/ansible.git", :branch => "devel"
 
   bottle do
-    sha1 "e59a09ae12ea86f9e3cbff61e1badcc307347788" => :yosemite
-    sha1 "7c1aac8d2524cdb20b287018930299911fc8c5e2" => :mavericks
-    sha1 "c4a10980493efd4fbb0b00d3766c20c5daea3380" => :mountain_lion
+    sha256 "1a2744a357106cfea1fe35b652773f3861a332e25cb7729085e57d7db87397af" => :yosemite
+    sha256 "4f25bb0868752ee1ab7205b77f7c1f7cef06ea63405f60c4a88f87d8fab242b5" => :mavericks
+    sha256 "0b2b6b6796b4fe68ea883d4a3f7bdf6aaec6aaf5d092a7924ab3911196926530" => :mountain_lion
   end
 
   depends_on :python if MacOS.version <= :snow_leopard
@@ -21,8 +20,8 @@ class Ansible < Formula
   end
 
   resource "requests" do
-    url "https://pypi.python.org/packages/source/r/requests/requests-2.5.1.tar.gz"
-    sha1 "f906c441be2f0e7a834cbf701a72788d3ac3d144"
+    url "https://pypi.python.org/packages/source/r/requests/requests-2.6.0.tar.gz"
+    sha256 "1cdbed1f0e236f35ef54e919982c7a338e4fea3786310933d3a7887a04b74d75"
   end
 
   resource "websocket-client" do
@@ -41,8 +40,8 @@ class Ansible < Formula
   end
 
   resource "boto" do
-    url "https://pypi.python.org/packages/source/b/boto/boto-2.34.0.tar.gz"
-    sha1 "e19d252b58054a7711fae910324e26b2b551a44d"
+    url "https://pypi.python.org/packages/source/b/boto/boto-2.36.0.tar.gz"
+    sha1 "f230ff9b041d3b43244086e38b7b6029450898be"
   end
 
   resource "pyyaml" do
@@ -76,8 +75,8 @@ class Ansible < Formula
   end
 
   resource "pywinrm" do
-    url "https://github.com/diyan/pywinrm/archive/df049454a9309280866e0156805ccda12d71c93a.zip"
-    sha1 "f2f94b9a1038425323afaa191a25798c1c0b8426"
+    url "https://pypi.python.org/packages/source/p/pywinrm/pywinrm-0.0.3.tar.gz"
+    sha1 "9b4f50e838b9222a101094328b0f6e8669ac17b7"
   end
 
   resource "isodate" do
@@ -90,12 +89,17 @@ class Ansible < Formula
     sha1 "06e4396e886133fdc0b10147c388ed82b0586c83"
   end
 
+  resource "kerberos" do
+    url "https://pypi.python.org/packages/source/k/kerberos/kerberos-1.1.1.tar.gz"
+    sha1 "305cc1ea1e7a209402bca30fbb74a2ca8f2f539d"
+  end
+
   def install
     ENV["PYTHONPATH"] = libexec/"vendor/lib/python2.7/site-packages"
     ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
 
     res = %w[pycrypto boto pyyaml paramiko markupsafe jinja2]
-    res += %w[isodate xmltodict pywinrm] # windows support
+    res += %w[isodate xmltodict kerberos pywinrm] # windows support
     res += %w[six requests websocket-client docker-py] # docker support
     res += %w[pyasn1 python-keyczar] # accelerate support
     res.each do |r|

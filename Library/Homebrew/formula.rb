@@ -347,6 +347,14 @@ class Formula
     self.class.public_instance_methods(false).map(&:to_s).include?("post_install")
   end
 
+  # @private
+  def run_post_install
+    build, self.build = self.build, Tab.for_formula(self)
+    post_install
+  ensure
+    self.build = build
+  end
+
   # tell the user about any caveats regarding this package, return a string
   def caveats; nil end
 
@@ -458,8 +466,6 @@ class Formula
   end
 
   # Standard parameters for CMake builds.
-  # Using Build Type "None" tells cmake to use our CFLAGS,etc. settings.
-  # Setting it to Release would ignore our flags.
   # Setting CMAKE_FIND_FRAMEWORK to "LAST" tells CMake to search for our
   # libraries before trying to utilize Frameworks, many of which will be from
   # 3rd party installs.
@@ -467,8 +473,10 @@ class Formula
   # less consistent and the standard parameters are more memorable.
   def std_cmake_args
     %W[
+      -DCMAKE_C_FLAGS_RELEASE=
+      -DCMAKE_CXX_FLAGS_RELEASE=
       -DCMAKE_INSTALL_PREFIX=#{prefix}
-      -DCMAKE_BUILD_TYPE=None
+      -DCMAKE_BUILD_TYPE=Release
       -DCMAKE_FIND_FRAMEWORK=LAST
       -DCMAKE_VERBOSE_MAKEFILE=ON
       -Wno-dev
@@ -531,8 +539,6 @@ class Formula
       "#$1/#$2"
     elsif core_formula?
       "mistydemeo/tigerbrew"
-    else
-      "path or URL"
     end
   end
 
@@ -585,7 +591,7 @@ class Formula
       "installed" => [],
       "linked_keg" => (linked_keg.resolved_path.basename.to_s if linked_keg.exist?),
       "keg_only" => keg_only?,
-      "dependencies" => deps.map(&:name),
+      "dependencies" => deps.map(&:name).uniq,
       "conflicts_with" => conflicts.map(&:name),
       "caveats" => caveats
     }
@@ -606,6 +612,8 @@ class Formula
           "poured_from_bottle" => tab.poured_from_bottle
         }
       end
+
+      hsh["installed"] = hsh["installed"].sort_by { |i| Version.new(i["version"]) }
     end
 
     hsh
@@ -621,16 +629,18 @@ class Formula
   end
 
   def run_test
-    @oldhome = ENV["HOME"]
-    self.build = Tab.for_formula(self)
+    old_home = ENV["HOME"]
+    build, self.build = self.build, Tab.for_formula(self)
     mktemp do
       @testpath = Pathname.pwd
       ENV["HOME"] = @testpath
+      setup_test_home @testpath
       test
     end
   ensure
     @testpath = nil
-    ENV["HOME"] = @oldhome
+    self.build = build
+    ENV["HOME"] = old_home
   end
 
   def test_defined?
@@ -648,6 +658,16 @@ class Formula
   end
 
   protected
+
+  def setup_test_home home
+    # keep Homebrew's site-packages in sys.path when testing with system Python
+    user_site_packages = home/"Library/Python/2.7/lib/python/site-packages"
+    user_site_packages.mkpath
+    (user_site_packages/"homebrew.pth").write <<-EOS.undent
+      import site; site.addsitedir("#{HOMEBREW_PREFIX}/lib/python2.7/site-packages")
+      import sys; sys.path.insert(0, "#{HOMEBREW_PREFIX}/lib/python2.7/site-packages")
+    EOS
+  end
 
   # Pretty titles the command and buffers stdout/stderr
   # Throws if there's an error
@@ -905,7 +925,7 @@ class Formula
     end
 
     def go_resource name, &block
-      resource name, Resource::Go, &block
+      specs.each { |spec| spec.go_resource(name, &block) }
     end
 
     def depends_on dep
@@ -998,4 +1018,3 @@ class Formula
   end
 end
 
-require 'formula_specialties'

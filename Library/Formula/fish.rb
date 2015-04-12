@@ -1,14 +1,9 @@
-require "formula"
-
 class Fish < Formula
   homepage "http://fishshell.com"
-  url "https://github.com/fish-shell/fish-shell/releases/download/2.1.1/fish-2.1.1.tar.gz"
-  sha1 "8f97f39b92ea7dfef1f464b18e304045bf37546d"
+  url "http://fishshell.com/files/2.1.2/fish-2.1.2.tar.gz"
+  sha1 "f7f8d8d26721833be3458b8113c74b747296ec0b"
 
   bottle do
-    sha1 "f03a733864d88f331cc6e89de4108c1e9c7f21ea" => :tiger_altivec
-    sha1 "982078f3981f1685d077d3ee76a99b102b730b63" => :leopard_g3
-    sha1 "6f53c19d3fa7c59cb5c401c90f535664a350b682" => :leopard_altivec
   end
 
   head do
@@ -22,10 +17,7 @@ class Fish < Formula
   skip_clean "share/doc"
 
   def install
-    if build.head?
-      ENV['GIT_DIR'] = cached_download/'.git'
-      system "autoconf"
-    end
+    system "autoconf" if build.head?
     # In Homebrew's 'superenv' sed's path will be incompatible, so
     # the correct path is passed into configure here.
     system "./configure", "--prefix=#{prefix}", "SED=/usr/bin/sed"

@@ -1,14 +1,14 @@
 class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
-  url "https://www.ffmpeg.org/releases/ffmpeg-2.5.3.tar.bz2"
-  sha1 "160d53a0d6b8df18336fac7f068c390ac2d34cef"
+  url "https://ffmpeg.org/releases/ffmpeg-2.6.1.tar.bz2"
+  sha256 "a4f6388706ee2daba9d35d2aa018ae5feeb450efa716555e011a6543d43ec7c1"
 
-  head "git://git.videolan.org/ffmpeg.git"
+  head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
-    sha1 "08d5a4b48139242805c77ed1e09edba5bc27f5e9" => :yosemite
-    sha1 "87286d9e8da3310e75b016db543777cc8ec084d9" => :mavericks
-    sha1 "017384ba81d06e8825fa22532100db8c587058cf" => :mountain_lion
+    sha256 "8bc0cb43f99a7004aada9969875e551a24ebe2e57b8c620aa77b70372ba7fa0f" => :yosemite
+    sha256 "2ab2f322d8a1ce26af77b7f86e45e8af1c1cf6f01a51d05e460a1282ab84cbec" => :mavericks
+    sha256 "dd2629269914f801e5c16b5c8ba3abebbc48ab7417a54852f1cb74aee8c04875" => :mountain_lion
   end
 
   option "without-x264", "Disable H.264 encoder"
@@ -22,6 +22,7 @@ class Ffmpeg < Formula
   option "with-opencore-amr", "Enable Opencore AMR NR/WB audio format"
   option "with-openjpeg", "Enable JPEG 2000 image format"
   option "with-openssl", "Enable SSL support"
+  option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-schroedinger", "Enable Dirac video format"
   option "with-ffplay", "Enable FFplay media player"
   option "with-tools", "Enable additional FFmpeg tools"
@@ -38,7 +39,7 @@ class Ffmpeg < Formula
   # Tiger's ld doesn't like -install_name
   depends_on :ld64
   # manpages won't be built without texi2html
-  depends_on "texi2html" => :build if MacOS.version >= :mountain_lion
+  depends_on "texi2html" => :build
   depends_on "yasm" => :build
 
   depends_on "x264" => :recommended
@@ -69,6 +70,7 @@ class Ffmpeg < Formula
   depends_on "libvidstab" => :optional
   depends_on "x265" => :optional
   depends_on "openssl" => :optional
+  depends_on "libssh" => :optional
   depends_on "webp" => :optional
 
   def install
@@ -99,6 +101,7 @@ class Ffmpeg < Formula
     args << "--enable-libfaac" if build.with? "faac"
     args << "--enable-libass" if build.with? "libass"
     args << "--enable-ffplay" if build.with? "ffplay"
+    args << "--enable-libssh" if build.with? "libssh"
     args << "--enable-libspeex" if build.with? "speex"
     args << "--enable-libschroedinger" if build.with? "schroedinger"
     args << "--enable-libfdk-aac" if build.with? "fdk-aac"
@@ -129,7 +132,7 @@ class Ffmpeg < Formula
     end
 
     # A bug in a dispatch header on 10.10, included via CoreFoundation,
-    # prevents GCC from building VDA support. GCC has no probles on
+    # prevents GCC from building VDA support. GCC has no problems on
     # 10.9 and earlier.
     # See: https://github.com/Homebrew/homebrew/issues/33741
     if MacOS.version < :yosemite || ENV.compiler == :clang
@@ -139,10 +142,8 @@ class Ffmpeg < Formula
     end
 
     # For 32-bit compilation under gcc 4.2, see:
-    # http://trac.macports.org/ticket/20938#comment:22
+    # https://trac.macports.org/ticket/20938#comment:22
     ENV.append_to_cflags "-mdynamic-no-pic" if Hardware.is_32_bit? && Hardware::CPU.intel? && ENV.compiler == :clang
-
-    ENV["GIT_DIR"] = cached_download/".git" if build.head?
 
     system "./configure", *args
 
@@ -165,15 +166,17 @@ class Ffmpeg < Formula
 
   def caveats
     if build.without? "faac" then <<-EOS.undent
-      FFmpeg has been built without libfaac for licensing reasons.
+      FFmpeg has been built without libfaac for licensing reasons;
+      libvo-aacenc is used by default.
       To install with libfaac, you can:
         brew reinstall ffmpeg --with-faac
 
-      You can also use the libvo-aacenc or experimental FFmpeg encoder to
-      encode AAC audio:
-        -c:a libvo_aacenc
+      You can also use the experimental FFmpeg encoder, libfdk-aac, or
+      libvo_aacenc to encode AAC audio:
+        ffmpeg -i input.wav -c:a aac -strict experimental output.m4a
       Or:
-        -c:a aac -strict -2
+        brew reinstall ffmpeg --with-fdk-aac
+        ffmpeg -i input.wav -c:a libfdk_aac output.m4a
       EOS
     end
   end

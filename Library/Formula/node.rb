@@ -1,72 +1,49 @@
 # Note that x.even are stable releases, x.odd are devel releases
 class Node < Formula
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v0.10.36/node-v0.10.36.tar.gz"
-  sha256 "b9d7d1d0294bce46686b13a05da6fc5b1e7743b597544aa888e8e64a9f178c81"
+  url "https://nodejs.org/dist/v0.12.2/node-v0.12.2.tar.gz"
+  sha256 "ac7e78ade93e633e7ed628532bb8e650caba0c9c33af33581957f3382e2a772d"
+  head "https://github.com/joyent/node.git", :branch => "v0.12"
+  revision 1
 
   bottle do
-    sha1 "ca405f33a5c8e3356a0f477eee43e492e7925927" => :yosemite
-    sha1 "f17dfa5a02a7f83b46f0deb40a4746a1337ffa88" => :mavericks
-    sha1 "b5d7094ed826813b2cc35303bcde8269b1ad9292" => :mountain_lion
+    sha256 "6fa67abcaf006fd9fd749267f08d5e8c33cb7eadd6e94267a49e96659256b06a" => :yosemite
+    sha256 "a995d265c9db0b021de140cdcc78432b96bcbf3fdb6989cc401d9cd7c2164cdd" => :mavericks
+    sha256 "cde73f7ca5b2c080bb8e7d5b99fa02ac43908ec8ad24ef52d9a3a44141ffbe75" => :mountain_lion
   end
-
-  devel do
-    url "https://nodejs.org/dist/v0.11.15/node-v0.11.15.tar.gz"
-    sha256 "e613d274baa4c99a0518038192491433f7877493a66d8505af263f6310991d01"
-
-    depends_on "pkg-config" => :build
-    depends_on "icu4c" => :optional
-    depends_on "openssl" => :optional
-  end
-
-  head do
-    url "https://github.com/joyent/node.git", :branch => "v0.12"
-
-    depends_on "pkg-config" => :build
-    depends_on "icu4c"
-  end
-
-  deprecated_option "enable-debug" => "with-debug"
 
   option "with-debug", "Build with debugger hooks"
   option "without-npm", "npm will not be installed"
   option "without-completion", "npm bash completion will not be installed"
 
-  depends_on :python => :build
+  deprecated_option "enable-debug" => "with-debug"
 
-  # Once we kill off SSLv3 in our OpenSSL consider making our OpenSSL
-  # an optional dep across the whole range of Node releases.
+  depends_on :python => :build
+  depends_on "pkg-config" => :build
+  depends_on "openssl" => :optional
+
+  # https://github.com/joyent/node/issues/7919
+  # https://github.com/Homebrew/homebrew/issues/36681
+  depends_on "icu4c" => :optional
 
   fails_with :llvm do
     build 2326
   end
 
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-2.3.0.tgz"
-    sha1 "3588ec5c18fb5ac41e5721b0ea8ece3a85ab8b4b"
+    url "https://registry.npmjs.org/npm/-/npm-2.7.5.tgz"
+    sha256 "44f236437777bcb27d8be887674754899437685303cc7d666427053e74c51f6f"
   end
 
   def install
     args = %W[--prefix=#{prefix} --without-npm]
     args << "--debug" if build.with? "debug"
-    args << "--without-ssl2" << "--without-ssl3" if build.stable?
+    args << "--with-intl=system-icu" if build.with? "icu4c"
 
-    if build.head?
-      ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["icu4c"].opt_lib}/pkgconfig"
-      args << "--with-intl=system-icu"
-    end
-
-    if build.devel?
-      if build.with? "icu4c"
-        ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["icu4c"].opt_lib}/pkgconfig"
-        args << "--with-intl=system-icu"
-      end
-
-      if build.with? "openssl"
-        args << "--shared-openssl"
-      else
-        args << "--without-ssl2" << "--without-ssl3"
-      end
+    if build.with? "openssl"
+      args << "--shared-openssl"
+    else
+      args << "--without-ssl2" << "--without-ssl3"
     end
 
     system "./configure", *args
@@ -77,7 +54,8 @@ class Node < Formula
 
       # make sure npm can find node
       ENV.prepend_path "PATH", bin
-
+      # make sure user prefix settings in $HOME are ignored
+      ENV["HOME"] = buildpath/"home"
       # set log level temporarily for npm's `make install`
       ENV["NPM_CONFIG_LOGLEVEL"] = "verbose"
 
@@ -138,6 +116,18 @@ class Node < Formula
         Tigerbrew has NOT installed npm. If you later install it, you should supplement
         your NODE_PATH with the npm module folder:
           #{HOMEBREW_PREFIX}/lib/node_modules
+      EOS
+    end
+
+    if build.with? "icu4c"
+      s += <<-EOS.undent
+
+        Please note `icu4c` is built with a newer deployment target than Node and
+        this may cause issues in certain usage. Node itself is built against the
+        outdated `libstdc++` target, which is the root cause. For more information see:
+          https://github.com/joyent/node/issues/7919
+
+        If this is an issue for you, do `brew install node --without-icu4c`.
       EOS
     end
 

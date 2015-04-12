@@ -1,13 +1,13 @@
 class Deis < Formula
   homepage "http://deis.io"
-  url "https://github.com/deis/deis/archive/v1.2.2.tar.gz"
-  sha1 "c92121c88aa8c2548526199837fad334fae74b01"
+  url "https://github.com/deis/deis/archive/v1.4.1.tar.gz"
+  sha1 "4f28c042ae634d92c728b81ea3fed03111b83eb6"
 
   bottle do
     cellar :any
-    sha1 "cafd088c365c8ab39e6a145b8791b5c0d3b0bed4" => :yosemite
-    sha1 "d9ee796b02fd0cb6c49bf5f3b5675e43fc31dc41" => :mavericks
-    sha1 "25164979f8da8ed21d230131319dbacf26289511" => :mountain_lion
+    sha256 "b969023be679d70a61afc7e488eb561a46252d9e062f81e2a44d84885878594f" => :yosemite
+    sha256 "ec437a6a0be6b00486c3293ee863eebd61a02dafcd9469626a47ef5ba7c54712" => :mavericks
+    sha256 "bf448a2340499442641b2df4f5217a0a52fe0ee4e07c29c221828c2d11c3c223" => :mountain_lion
   end
 
   depends_on :python if MacOS.version <= :snow_leopard
@@ -19,8 +19,8 @@ class Deis < Formula
   end
 
   resource "python-dateutil" do
-    url "https://pypi.python.org/packages/source/p/python-dateutil/python-dateutil-2.2.tar.gz"
-    sha1 "fbafcd19ea0082b3ecb17695b4cb46070181699f"
+    url "https://pypi.python.org/packages/source/p/python-dateutil/python-dateutil-2.4.0.tar.gz"
+    sha1 "159081a4c5b3602ab440a7db305f987c00ee8c6d"
   end
 
   resource "PyYAML" do

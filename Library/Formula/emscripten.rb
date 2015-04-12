@@ -1,12 +1,12 @@
 class Emscripten < Formula
   homepage "https://kripken.github.io/emscripten-site/"
-  url "https://github.com/kripken/emscripten/archive/1.29.6.tar.gz"
-  sha1 "fa8fe3c844b7b1f9b4afd928c2f6f083843be69b"
+  url "https://github.com/kripken/emscripten/archive/1.30.2.tar.gz"
+  sha256 "ea25a8180b6ad68289adea965f7d02632369f52332ac1500c4be4f45c06ae4da"
 
   bottle do
-    sha1 "e0cfe1c9d8bc969814281c2d8dffe2323d750259" => :yosemite
-    sha1 "39cf18caf1c8483fe0fa9d86dc42652544972b41" => :mavericks
-    sha1 "ecf68dab9122422f61d8dbec3023e0df5d562b17" => :mountain_lion
+    sha256 "fd40a8cafea9b5bd9313f210bb6467a0af056d2e7813ec914b1429ab3d09e7f9" => :yosemite
+    sha256 "28d539e95c6073184efdef768a3258a03c5d4797b7458818a7840a1bcbe40f84" => :mavericks
+    sha256 "db0679e1b4e5f90878fbfa85787273fccce284cd0b15e3ee87da5dba57f82641" => :mountain_lion
   end
 
   head do
@@ -23,13 +23,13 @@ class Emscripten < Formula
 
   stable do
     resource "fastcomp" do
-      url "https://github.com/kripken/emscripten-fastcomp/archive/1.29.6.tar.gz"
-      sha1 "e4243795347b641367c330867a097c0616f2553e"
+      url "https://github.com/kripken/emscripten-fastcomp/archive/1.30.2.tar.gz"
+      sha256 "d0343e3859992acfdff86991694074c8422e39ac6bce7b09599e461cdc61bcb3"
     end
 
     resource "fastcomp-clang" do
-      url "https://github.com/kripken/emscripten-fastcomp-clang/archive/1.29.6.tar.gz"
-      sha1 "c1f61a952898f199a024a550a520abf1babe4aff"
+      url "https://github.com/kripken/emscripten-fastcomp-clang/archive/1.30.2.tar.gz"
+      sha256 "340ab0639026ba86008b7f4cc2d0d47351c409b7237829cd1c4d113c6d048e04"
     end
   end
 

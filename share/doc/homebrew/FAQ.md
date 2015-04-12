@@ -43,15 +43,14 @@ to see what would be cleaned up:
 
 <a name="uninstall"></a>
 
-### How do I uninstall Tigerbrew?
-If you installed to `/usr/local` then you can use the script in [this
-gist](https://gist.github.com/1173223) to uninstall — it will only
-remove Tigerbrew and the stuff Tigerbrew installed leaving anything else
-in `/usr/local` alone.
+### How do I uninstall Homebrew?
+To uninstall Tigerbrew, paste the command below in a terminal prompt.
 
-Provided you haven’t put anything else in Tigerbrew’s prefix
-(`brew --prefix`), you can generally just `rm -rf` that directory. This
-is because Tigerbrew won’t touch files outside its prefix.
+```bash
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
+```
+Download the [uninstall script](https://raw.githubusercontent.com/Homebrew/install/master/uninstall)
+and run `./uninstall --help` to view more uninstall options.
 
 <a name="uninstall-package"></a>
 
@@ -63,9 +62,7 @@ about when you do (`brew upgrade`). This can be surprising.
 To remove a formula entirely, you may do
 (`brew uninstall formula_name --force`).
 
-Be careful as this is a destructive operation and unfortunately, in
-Tigerbrew 0.9.5 it seems that Tigerbrew does not support the `--dry-run`
-option.
+Be careful as this is a destructive operation.
 
 ### Where does stuff get downloaded?
 
@@ -86,9 +83,7 @@ alternative](https://developer.apple.com/legacy/library/qa/qa1067/_index.html).
 Read everything in https://github.com/mistydemeo/tigerbrew/blob/master/CONTRIBUTING.md.
 
 ### Why do you compile everything?
-Projects distribute source tarballs, generally, but if they provide a
-good binary, we’ll use it. Though we don’t always, because Tigerbrew is
-about **homebrewing**, it’s half the point that you can just
+Tigerbrew is about **homebrewing**, it’s half the point that you can just
 `brew edit $FORMULA` and change how the formula is compiled to your own
 specification.
 
@@ -247,4 +242,4 @@ to with `brew link`.
 
 ### How can I specify different configure arguments for a formula?
 `brew edit $FORMULA` and edit the formula. Currently there is no
-other way to do this, but we’ll design something like that into brew2.
+other way to do this.

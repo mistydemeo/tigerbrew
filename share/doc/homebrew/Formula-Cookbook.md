@@ -79,13 +79,9 @@ Probably. But we have rules to keep the quality and goals of Tigerbrew intact: P
 
 Formulae aren’t that complicated. [etl](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/etl.rb) is as simple as it gets.
 
-<<<<<<< HEAD
 And then [Git](http://github.com/mistydemeo/tigerbrew/tree/master/Library/Formula/git.rb) and [flac](http://github.com/mistydemeo/tigerbrew/tree/master/Library/Formula/flac.rb) show more advanced functionality.
-=======
-And then [Git](https://github.com/Homebrew/homebrew/tree/master/Library/Formula/git.rb) and [flac](https://github.com/Homebrew/homebrew/tree/master/Library/Formula/flac.rb) show more advanced functionality.
->>>>>>> Homebrew/master
 
-A more complete [cheat-sheet](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Contributions/example-formula.rb) shows almost all the stuff you can use in a Formula.
+A more complete example-formula [cheat-sheet](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Contributions/example-formula.rb) shows almost all the stuff you can use in a Formula.
 
 ## Grab the URL
 
@@ -103,7 +99,7 @@ And opens it in your `$EDITOR`. It'll look like:
 class Foo < Formula
   url "http://example.com/foo-0.1.tar.gz"
   homepage ""
-  sha1 "1234567890ABCDEF1234567890ABCDEF"
+  sha256 "85cc828a96735bdafcf29eb6291ca91bac846579bcef7308536e0c875d6c81d7"
 
   # depends_on "cmake" => :build
 
@@ -251,7 +247,7 @@ You can double-check which libraries a binary links to with the `otool` command 
 	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1213.0.0)
 
 
-## Specifying gems, Python modules etc. as dependencies
+## Specifying gems, Python modules, Go projects, etc. as dependencies
 
 Tigerbrew doesn’t package already packaged language-specific libraries. These should be installed directly from `gem`/`cpan`/`pip` etc.
 
@@ -261,7 +257,7 @@ If you're installing an application then please locally vendor all the language-
 class Foo < Formula
   resource "pycrypto" do
     url "https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.tar.gz"
-    sha1 "c17e41a80b3fbf2ee4e8f2d8bb9e28c5d08bbb84"
+    sha256 "85cc828a96735bdafcf29eb6291ca91bac846579bcef7308536e0c875d6c81d7"
   end
 
   def install
@@ -270,9 +266,11 @@ class Foo < Formula
 end
 ```
 
-See [jrnl](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/jrnl.rb) for an example of a formula that does this well. The end-result means the user doesn't have to faff with `pip` or Python and can just run `jrnl`.
+[jrnl](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/jrnl.rb) is an example of a formula that does this well. The end-result means the user doesn't have to faff with `pip` or Python and can just run `jrnl`.
 
-[This script](https://raw.githubusercontent.com/tdsmith/labmisc/master/mkpydeps) can help you generate resource stanzas for the dependencies of your Python application.
+[homebrew-pypi-poet](https://github.com/tdsmith/homebrew-pypi-poet) can help you generate resource stanzas for the dependencies of your Python application.
+
+Similarly, [homebrew-go-resources](https://github.com/samertm/homebrew-go-resources) can help you generate go\_resource stanzas for the dependencies of your go application.
 
 If your formula needs a gem or python module and it can't be made into a resource you’ll need to check for these external dependencies:
 
@@ -377,17 +375,13 @@ Ensure you reference any relevant GitHub issue `#12345` in the commit message. T
 
 Now you just need to push back to GitHub.
 
-<<<<<<< HEAD
 If you haven’t forked Tigerbrew yet, [go to the repo and hit the fork button](http://github.com/mistydemeo/tigerbrew).
-=======
-If you haven’t forked Homebrew yet, [go to the repo and hit the fork button](https://github.com/Homebrew/homebrew).
->>>>>>> Homebrew/master
 
-If you have already forked Tigerbrew on Github, then you can manually push (just make sure you have been pulling from the mistydemeo/tigerbrew master):
+If you have already forked Homebrew on GitHub, then you can manually push (just make sure you have been pulling from the Homebrew/homebrew master):
 
     git push git@github.com:myname/tigerbrew.git <what-you-called-your-branch>
 
-Now, please open a Pull Request (on your github repo page) for new and updated brews.
+Now, please open a Pull Request (on your GitHub repo page) for new and updated brews.
 
 *   One formula per commit; one commit per formula
 *   Keep merge commits out of the request
@@ -484,7 +478,7 @@ External patches can be declared using resource-style blocks:
 ```rb
 patch do
   url "https://example.com/example_patch.diff"
-  sha1 "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+  sha256 "85cc828a96735bdafcf29eb6291ca91bac846579bcef7308536e0c875d6c81d7"
 end
 ```
 
@@ -493,7 +487,7 @@ A strip level of -p1 is assumed. It can be overridden using a symbol argument:
 ```rb
 patch :p0 do
   url "https://example.com/example_patch.diff"
-  sha1 "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+  sha256 "85cc828a96735bdafcf29eb6291ca91bac846579bcef7308536e0c875d6c81d7"
 end
 ```
 
@@ -505,7 +499,7 @@ stable do
 
   patch do
     url "https://example.com/example_patch.diff"
-    sha1 "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+    sha256 "85cc828a96735bdafcf29eb6291ca91bac846579bcef7308536e0c875d6c81d7"
   end
 end
 ```
@@ -572,13 +566,14 @@ end
 
 Tigerbrew understands `git`, `svn`, and `hg` URLs, and has a way to specify `cvs` repositories as a URL as well. You can test whether the `HEAD` is being built with `build.head?`.
 
-To use a specific commit, tag, or branch from a repository, specify head with the `:revision`, `:tag`, or `:branch` option, like so:
+To use a specific commit, tag, or branch from a repository, specify head with the `:tag` and `:revision`, `:revision`, or `:branch` option, like so:
 
 ```ruby
 class Foo < Formula
   head "https://github.com/some/package.git", :revision => "090930930295adslfknsdfsdaffnasd13"
                                          # or :branch => "develop"
-                                         # or :tag => "1_0_release"
+                                         # or :tag => "1_0_release",
+                                         #    :revision => "090930930295adslfknsdfsdaffnasd13"
 end
 ```
 
@@ -591,7 +586,7 @@ The "devel" spec (activated by passing `--devel`) is used for a project’s unst
 ```ruby
 devel do
   url "https://foo.com/foo-0.1.tar.gz"
-  sha1 "deadbeefdeadbeefdeadbeafdeadbeefdeadbeef"
+  sha256 "85cc828a96735bdafcf29eb6291ca91bac846579bcef7308536e0c875d6c81d7"
 end
 ```
 
@@ -599,7 +594,7 @@ You can test if the "devel" spec is in use with `build.devel?`.
 
 ## Compiler selection
 
-Sometimes a package fails to build when using a certain compiler. Since recent XCode no longer includes a GCC compiler, we cannot simply force the use of GCC. Instead, the correct way to declare this is the `fails_with` DSL method. A properly constructed `fails_with` block documents the latest compiler build version known to cause compilation to fail, and the cause of the failure. For example:
+Sometimes a package fails to build when using a certain compiler. Since recent Xcode no longer includes a GCC compiler, we cannot simply force the use of GCC. Instead, the correct way to declare this is the `fails_with` DSL method. A properly constructed `fails_with` block documents the latest compiler build version known to cause compilation to fail, and the cause of the failure. For example:
 
 ```ruby
 fails_with :llvm do
@@ -870,13 +865,9 @@ end
 
 Option names should be prefixed with one of the words `with`, `without`, `no`, or a verb in the imperative tense describing the action to be taken. For example, an option to run a test suite should be named `--with-test` or `--with-check` rather than `--test`, and an option to enable a shared library should be named `--enable-shared` rather than `--shared`.
 
-<<<<<<< HEAD
-See the [graphviz](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/graphviz.rb) formula for an example.
-=======
-Note that options that aren’t ` build.with? ` or ` build.without? ` should be actively deprecated where possible. See [wget](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/wget.rb#L27-L31) for an example.
+Note that options that aren’t ` build.with? ` or ` build.without? ` should be actively deprecated where possible. See [wget](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/wget.rb#L27-L31) for an example.
 
-See the [graphviz](https://github.com/Homebrew/homebrew/blob/master/Library/Formula/graphviz.rb) formula for an example.
->>>>>>> Homebrew/master
+See the [graphviz](https://github.com/mistydemeo/tigerbrew/blob/master/Library/Formula/graphviz.rb) formula for an example.
 
 
 ## File level operations
@@ -907,7 +898,7 @@ Tigerbrew provides two Formula methods for launchd plist files. `plist_name` wil
 
 ## Updating formulae
 
-Eventually a new version of the software will be released. In this case you should update the `url` and `sha1`/`sha256`. Please leave the `bottle do ... end`  block as-is; our CI system will update it when we pull your change.
+Eventually a new version of the software will be released. In this case you should update the `url` and `sha256`. Please leave the `bottle do ... end`  block as-is; our CI system will update it when we pull your change.
 
 Check if the formula you are updating is a dependency for any other formulae by running `brew uses UPDATED_FORMULA`. If it is a dependency please `brew reinstall` all the dependencies after it is installed and verify they work correctly.
 
@@ -952,11 +943,7 @@ class Foo < Formula
 end
 ```
 
-<<<<<<< HEAD
 If that fixes it, please open an [issue](http://github.com/mistydemeo/tigerbrew/issues) so that we can fix it for everyone.
-=======
-If that fixes it, please open an [issue](https://github.com/Homebrew/homebrew/issues) so that we can fix it for everyone.
->>>>>>> Homebrew/master
 
 ## Still won’t work?
 

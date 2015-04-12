@@ -2,21 +2,23 @@ class Python < Formula
   homepage "https://www.python.org"
   head "https://hg.python.org/cpython", :using => :hg, :branch => "2.7"
   url "https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz"
-  sha1 "7a191bcccb598ccbf2fa6a0edce24a97df3fc0ad"
+  sha256 "c8bba33e66ac3201dabdc556f0ea7cfe6ac11946ec32d357c4c6f9b018c12c5b"
 
   bottle do
-    revision 9
-    sha1 "b37e77b5fc9432f9b944ca36f8e33758bf751b31" => :yosemite
-    sha1 "1387fd922955e8522c7bcbfa124b80d3d6e4d3ef" => :mavericks
-    sha1 "4e2a3133a9e043f12f9a14c8006b71bc82a831ba" => :mountain_lion
+    revision 11
+    sha256 "c79fb412babf09e15f5d6173dcea0f348c99451841635c4bfbcaef0a93b5c016" => :yosemite
+    sha256 "431899ee2f68a53b39a59fb1c060906b994505ec06e9ef4cfa7db3ad028d1283" => :mavericks
+    sha256 "0cb8d0e543abe9b1442bc0db31c5cfb3cd79e8e10bc8a15a994c51e73bb7d8d0" => :mountain_lion
   end
 
   # Please don't add a wide/ucs4 option as it won't be accepted.
   # More details in: https://github.com/Homebrew/homebrew/pull/32368
   option :universal
-  option "quicktest", "Run `make quicktest` after the build (for devs; may fail)"
+  option "with-quicktest", "Run `make quicktest` after the build (for devs; may fail)"
   option "with-brewed-tk", "Use Tigerbrew's Tk (has optional Cocoa and threads support)"
   option "with-poll", "Enable select.poll, which is not fully implemented on OS X (http://bugs.python.org/issue5154)"
+
+  deprecated_option "quicktest" => "with-quicktest"
 
   depends_on "pkg-config" => :build
   depends_on "readline" => :recommended
@@ -24,19 +26,19 @@ class Python < Formula
   depends_on "gdbm" => :recommended
   depends_on "openssl"
   depends_on "homebrew/dupes/tcl-tk" if build.with? "brewed-tk"
-  depends_on :x11 if build.with? "brewed-tk" and Tab.for_name("tcl-tk").with? "x11"
+  depends_on :x11 if build.with?("brewed-tk") && Tab.for_name("homebrew/dupes/tcl-tk").with?("x11")
 
   skip_clean "bin/pip", "bin/pip-2.7"
   skip_clean "bin/easy_install", "bin/easy_install-2.7"
 
   resource "setuptools" do
-    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-12.0.5.tar.gz"
-    sha1 "cd49661e090a397d77c690f7f2d06852b7086be9"
+    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-15.0.tar.gz"
+    sha256 "718d13adf87f99a45835bb20e0a1c4c036de644cd32b3f112639403aa04ebeb5"
   end
 
   resource "pip" do
-    url "https://pypi.python.org/packages/source/p/pip/pip-6.0.7.tar.gz"
-    sha1 "d2539dcd3d938863c7f6d7197d2f53066c92cf23"
+    url "https://pypi.python.org/packages/source/p/pip/pip-6.1.0.tar.gz"
+    sha256 "89f120e2ab3d25ab70c36eb28ad4f280fc9ba71736e74d3055f609c1f9173768"
   end
 
   # Patch for pyport.h macro issue
@@ -44,7 +46,7 @@ class Python < Formula
   # https://trac.macports.org/ticket/44288
   patch do
     url "http://bugs.python.org/file30805/issue10910-workaround.txt"
-    sha1 "9926640cb7c8e273e4b451469a2b13d4b9df5ba3"
+    sha256 "c075353337f9ff3ccf8091693d278782fcdff62c113245d8de43c5c7acc57daf"
   end
 
   # Patch to disable the search for Tk.framework, since Homebrew's Tk is
@@ -81,12 +83,12 @@ class Python < Formula
     ENV["PYTHONPATH"] = nil
 
     args = %W[
-             --prefix=#{prefix}
-             --enable-ipv6
-             --datarootdir=#{share}
-             --datadir=#{share}
-             --enable-framework=#{frameworks}
-           ]
+      --prefix=#{prefix}
+      --enable-ipv6
+      --datarootdir=#{share}
+      --datadir=#{share}
+      --enable-framework=#{frameworks}
+    ]
 
     args << "--without-gcc" if ENV.compiler == :clang
 
@@ -100,19 +102,19 @@ class Python < Formula
     # Allow sqlite3 module to load extensions:
     # http://docs.python.org/library/sqlite3.html#f1
     if build.with? "sqlite"
-      inreplace("setup.py", 'sqlite_defines.append(("SQLITE_OMIT_LOAD_EXTENSION", "1"))', '')
+      inreplace("setup.py", 'sqlite_defines.append(("SQLITE_OMIT_LOAD_EXTENSION", "1"))', "")
     end
 
     # Allow python modules to use ctypes.find_library to find homebrew's stuff
     # even if homebrew is not a /usr/local/lib. Try this with:
     # `brew install enchant && pip install pyenchant`
     inreplace "./Lib/ctypes/macholib/dyld.py" do |f|
-      f.gsub! 'DEFAULT_LIBRARY_FALLBACK = [', "DEFAULT_LIBRARY_FALLBACK = [ '#{HOMEBREW_PREFIX}/lib',"
-      f.gsub! 'DEFAULT_FRAMEWORK_FALLBACK = [', "DEFAULT_FRAMEWORK_FALLBACK = [ '#{HOMEBREW_PREFIX}/Frameworks',"
+      f.gsub! "DEFAULT_LIBRARY_FALLBACK = [", "DEFAULT_LIBRARY_FALLBACK = [ '#{HOMEBREW_PREFIX}/lib',"
+      f.gsub! "DEFAULT_FRAMEWORK_FALLBACK = [", "DEFAULT_FRAMEWORK_FALLBACK = [ '#{HOMEBREW_PREFIX}/Frameworks',"
     end
 
     if build.with? "brewed-tk"
-      tcl_tk = Formula["tcl-tk"].opt_prefix
+      tcl_tk = Formula["homebrew/dupes/tcl-tk"].opt_prefix
       ENV.append "CPPFLAGS", "-I#{tcl_tk}/include"
       ENV.append "LDFLAGS", "-L#{tcl_tk}/lib"
     end
@@ -133,7 +135,7 @@ class Python < Formula
     system "make", "install", "PYTHONAPPSDIR=#{prefix}"
     # Demos and Tools
     system "make", "frameworkinstallextras", "PYTHONAPPSDIR=#{share}/python"
-    system "make", "quicktest" if build.include? 'quicktest'
+    system "make", "quicktest" if build.include? "quicktest"
 
     # Fixes setting Python build flags for certain software
     # See: https://github.com/Homebrew/homebrew/pull/20182
@@ -146,8 +148,8 @@ class Python < Formula
     # Remove the site-packages that Python created in its Cellar.
     site_packages_cellar.rmtree
 
-    (libexec/'setuptools').install resource('setuptools')
-    (libexec/'pip').install resource('pip')
+    (libexec/"setuptools").install resource("setuptools")
+    (libexec/"pip").install resource("pip")
   end
 
   def post_install
@@ -204,7 +206,7 @@ class Python < Formula
     cflags = "CFLAGS=-I#{HOMEBREW_PREFIX}/include -I#{sqlite}/include"
     ldflags = "LDFLAGS=-L#{HOMEBREW_PREFIX}/lib -L#{sqlite}/lib"
     if build.with? "brewed-tk"
-      tcl_tk = Formula["tcl-tk"].opt_prefix
+      tcl_tk = Formula["homebrew/dupes/tcl-tk"].opt_prefix
       cflags += " -I#{tcl_tk}/include"
       ldflags += " -L#{tcl_tk}/lib"
     end
@@ -234,7 +236,8 @@ class Python < Formula
     <<-EOF.undent
       # This file is created by Homebrew and is executed on each python startup.
       # Don't print from here, or else python command line scripts may fail!
-      # <https://github.com/Homebrew/homebrew/wiki/Homebrew-and-Python>
+      # <https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Homebrew-and-Python.md>
+      import re
       import os
       import sys
 
@@ -247,43 +250,41 @@ class Python < Formula
           exit('Your PYTHONPATH points to a site-packages dir for Python 2.x but you are running Python ' +
                str(sys.version_info[0]) + '.x!\\n     PYTHONPATH is currently: "' + str(os.environ['PYTHONPATH']) + '"\\n' +
                '     You should `unset PYTHONPATH` to fix this.')
-      else:
-          # Only do this for a brewed python:
-          opt_executable = '#{opt_bin}/python2.7'
-          if os.path.commonprefix([os.path.realpath(e) for e in [opt_executable, sys.executable]]).startswith('#{rack}'):
-              # Remove /System site-packages, and the Cellar site-packages
-              # which we moved to lib/pythonX.Y/site-packages. Further, remove
-              # HOMEBREW_PREFIX/lib/python because we later addsitedir(...).
-              sys.path = [ p for p in sys.path
-                           if (not p.startswith('/System') and
-                               not p.startswith('#{HOMEBREW_PREFIX}/lib/python') and
-                               not (p.startswith('#{rack}') and p.endswith('site-packages'))) ]
 
-              # LINKFORSHARED (and python-config --ldflags) return the
-              # full path to the lib (yes, "Python" is actually the lib, not a
-              # dir) so that third-party software does not need to add the
-              # -F/#{HOMEBREW_PREFIX}/Frameworks switch.
-              # Assume Framework style build (default since months in brew)
-              try:
-                  from _sysconfigdata import build_time_vars
-                  build_time_vars['LINKFORSHARED'] = '-u _PyMac_Error #{opt_prefix}/Frameworks/Python.framework/Versions/2.7/Python'
-              except:
-                  pass  # remember: don't print here. Better to fail silently.
+      # Only do this for a brewed python:
+      if os.path.realpath(sys.executable).startswith('#{rack}'):
+          # Shuffle /Library site-packages to the end of sys.path and reject
+          # paths in /System pre-emptively (#14712)
+          library_site = '/Library/Python/2.7/site-packages'
+          library_packages = [p for p in sys.path if p.startswith(library_site)]
+          sys.path = [p for p in sys.path if not p.startswith(library_site) and
+                                             not p.startswith('/System')]
+          # .pth files have already been processed so don't use addsitedir
+          sys.path.extend(library_packages)
 
-              # Set the sys.executable to use the opt_prefix
-              sys.executable = opt_executable
+          # the Cellar site-packages is a symlink to the HOMEBREW_PREFIX
+          # site_packages; prefer the shorter paths
+          long_prefix = re.compile(r'#{rack}/[0-9\._abrc]+/Frameworks/Python\.framework/Versions/2\.7/lib/python2\.7/site-packages')
+          sys.path = [long_prefix.sub('#{site_packages}', p) for p in sys.path]
 
-          # Tell about homebrew's site-packages location.
-          # This is needed for Python to parse *.pth.
-          import site
-          site.addsitedir('#{site_packages}')
+          # LINKFORSHARED (and python-config --ldflags) return the
+          # full path to the lib (yes, "Python" is actually the lib, not a
+          # dir) so that third-party software does not need to add the
+          # -F/#{HOMEBREW_PREFIX}/Frameworks switch.
+          try:
+              from _sysconfigdata import build_time_vars
+              build_time_vars['LINKFORSHARED'] = '-u _PyMac_Error #{opt_prefix}/Frameworks/Python.framework/Versions/2.7/Python'
+          except:
+              pass  # remember: don't print here. Better to fail silently.
+
+          # Set the sys.executable to use the opt_prefix
+          sys.executable = '#{opt_bin}/python2.7'
     EOF
   end
 
   def caveats; <<-EOS.undent
-    Setuptools and pip have been installed. To update them
-      pip install --upgrade setuptools
-      pip install --upgrade pip
+    Pip and setuptools have been installed. To update them
+      pip install --upgrade pip setuptools
 
     You can install Python packages with
       pip install <package>

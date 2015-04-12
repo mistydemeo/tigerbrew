@@ -1,8 +1,8 @@
 class Sqlite < Formula
   homepage "https://sqlite.org/"
-  url "https://sqlite.org/2015/sqlite-autoconf-3080802.tar.gz"
-  sha1 "1db237523419af7110e1d92c6b766e965f9322e4"
-  version "3.8.8.2"
+  url "https://sqlite.org/2015/sqlite-autoconf-3080900.tar.gz"
+  sha256 "76ebb6392cd2289fbff903af7ff67f3e49bd01ff30544b8028ecededd60269a2"
+  version "3.8.9"
 
   bottle do
     cellar :any
@@ -25,13 +25,13 @@ class Sqlite < Formula
   resource "functions" do
     url "https://www.sqlite.org/contrib/download/extension-functions.c?get=25", :using  => :nounzip
     version "2010-01-06"
-    sha1 "c68fa706d6d9ff98608044c00212473f9c14892f"
+    sha256 "991b40fe8b2799edc215f7260b890f14a833512c9d9896aa080891330ffe4052"
   end
 
   resource "docs" do
-    url "https://sqlite.org/2015/sqlite-doc-3080802.zip"
-    version "3.8.8.2"
-    sha1 "a11a6ea95d3d4a88b8d7d4e0cb6fcc3e5f4bf887"
+    url "https://sqlite.org/2015/sqlite-doc-3080900.zip"
+    version "3.8.9"
+    sha256 "aeeb5b9a410c3efabaccb13860dd04e3dbdfcd75e9f05fcb5c2a41d3a1f8f296"
   end
 
   # sqlite won't compile on Tiger due to missing function;
