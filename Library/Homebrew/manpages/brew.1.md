@@ -326,8 +326,8 @@ Note that these flags should only appear after a command.
 
   * `sh [--env=std]`:
     Instantiate a Tigerbrew build environment. Uses our years-battle-hardened
-    Homebrew build logic to help your `./configure && make && make install`
-    or even your `gem install` succeed. Especially handy if you run Homebrew
+    Tigerbrew build logic to help your `./configure && make && make install`
+    or even your `gem install` succeed. Especially handy if you run Tigerbrew
     in a Xcode-only configuration since it adds tools like make to your PATH
     which otherwise build-systems would not find.
 
@@ -466,7 +466,7 @@ can take several different forms:
     `homebrew/dupes/vim` or `homebrew/versions/node4`.
 
   * An arbitrary URL:
-    Homebrew can install formulae via URL, e.g.
+    Tigerbrew can install formulae via URL, e.g.
     `https://raw.github.com/mistydemeo/tigerbrew/master/Library/Formula/git.rb`.
     The formula file will be cached for later use.
 
