@@ -264,4 +264,4 @@ class DuplicateResourceError < ArgumentError
   end
 end
 
-class OpenSSLNotInstalledError < StandardError; end
+class SHA2NotInstalledError < StandardError; end

@@ -261,8 +261,13 @@ class Pathname
   def sha256
     if MacOS.version == :tiger
       begin
-        sha256_homebrew_openssl
-      rescue OpenSSLNotInstalledError
+        sha256_homebrew_sha2
+      rescue SHA2NotInstalledError
+        opoo <<-EOS.undent
+        No native sha256 available; falling back to slower Python implementation.
+        It is recommended to:
+          brew install sha2
+        EOS
         sha256_python
       end
     else
@@ -273,12 +278,12 @@ class Pathname
 
   # Calculate sha256 hash using a Homebrew-installed OpenSSL.
   # Doesn't have to be up-to-date, just needs to be able to install hashes.
-  def sha256_homebrew_openssl
-    openssl = Formula.factory('openssl')
-    openssl_bin = openssl.opt_prefix/'bin/openssl'
-    raise OpenSSLNotInstalledError unless openssl.installed? || (openssl_bin.exist? && !!(`"#{openssl_bin}" dgst -h 2>&1` =~ /sha256/))
+  def sha256_homebrew_sha2
+    sha2 = Formula["sha2"]
+    sha2_bin = sha2.opt_bin/"sha2"
+    raise SHA2NotInstalledError unless sha2.installed? || sha2_bin.exist?
 
-    str = `"#{openssl_bin}" dgst -sha256 "#{self}"`.chomp
+    str = `"#{sha2_bin}" -256 "#{self}"`.chomp
     str.match(/= ((\d|[a-z])+)/).captures.first
   end
 
