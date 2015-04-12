@@ -131,7 +131,7 @@ class Openssl < Formula
       (openssldir/"certs").install resource("Equifax_CA")
       system bin/"c_rehash"
     end
-  end
+  end if MacOS.version > :leopard
 
   def caveats; <<-EOS.undent
     A CA file has been bootstrapped using certificates from the system
