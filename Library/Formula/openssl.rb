@@ -134,12 +134,9 @@ class Openssl < Formula
   end if MacOS.version > :leopard
 
   def caveats; <<-EOS.undent
-    A CA file has been bootstrapped using certificates from the system
-    keychain. To add additional certificates, place .pem files in
-      #{openssldir}/certs
+    To install updated CA certs from Mozilla.org:
 
-    and run
-      #{opt_bin}/c_rehash
+        brew install curl-ca-bundle
     EOS
   end
 
