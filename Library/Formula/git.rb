@@ -79,7 +79,7 @@ class Git < Formula
     ENV["NO_R_TO_GCC_LINKER"] = "1" # pass arguments to LD correctly
     ENV["PYTHON_PATH"] = which "python"
     ENV["PERL_PATH"] = which "perl"
-      ENV["CURLDIR"] = Formula["curl"].opt_prefix if MacOS.version < :snow_leopard
+    ENV["CURLDIR"] = Formula["curl"].opt_prefix if MacOS.version < :snow_leopard
     ENV["NO_APPLE_COMMON_CRYPTO"] = "1" if MacOS.version < :leopard
 
     perl_version = /\d\.\d+/.match(`perl --version`)
