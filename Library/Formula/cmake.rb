@@ -72,7 +72,7 @@ class Cmake < Formula
       --datadir=/share/cmake
       --docdir=/share/doc/cmake
       --mandir=/share/man
-      --system-curl
+      --no-system-curl
       --system-zlib
       --system-bzip2
     ]
