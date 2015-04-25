@@ -20,6 +20,7 @@ class Cmake < Formula
 
   option "without-docs", "Don't build man pages"
 
+  depends_on "curl" if MacOS.version == :tiger
   depends_on :python => :build if MacOS.version <= :snow_leopard && build.with?("docs")
 
   # The `with-qt` GUI option was removed due to circular dependencies if
