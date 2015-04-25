@@ -1,7 +1,7 @@
 class Ruby < Formula
   homepage "https://www.ruby-lang.org/"
-  url "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.1.tar.bz2"
-  sha256 "4e5676073246b7ade207be3e80a930567a88100513591a0f19fc38e247370065"
+  url "http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.2.tar.bz2"
+  sha256 "f3b8ffa6089820ee5bdc289567d365e5748d4170e8aa246d2ea6576f24796535"
 
   bottle do
   end
@@ -28,6 +28,9 @@ class Ruby < Formula
   fails_with :llvm do
     build 2326
   end
+
+  # Remove when next release lands; fixes #318
+  patch :DATA if MacOS.version <= :leopard
 
   def install
     system "autoconf" if build.head?
@@ -149,3 +152,55 @@ class Ruby < Formula
     assert_equal 0, $?.exitstatus
   end
 end
+
+__END__
+diff --git a/dir.c b/dir.c
+index cfd22e3..a6934bd 100644
+--- a/dir.c
++++ b/dir.c
+@@ -103,13 +103,23 @@ char *strchr(char*,char);
+ #include <sys/mount.h>
+ #include <sys/vnode.h>
+ 
++# if defined HAVE_FGETATTRLIST || !defined HAVE_GETATTRLIST
++#   define need_normalization(dirp, path) need_normalization(dirp)
++# else
++#   define need_normalization(dirp, path) need_normalization(path)
++# endif
+ static inline int
+-need_normalization(DIR *dirp)
++need_normalization(DIR *dirp, const char *path)
+ {
+-# ifdef HAVE_GETATTRLIST
++# if defined HAVE_FGETATTRLIST || defined HAVE_GETATTRLIST
+     u_int32_t attrbuf[SIZEUP32(fsobj_tag_t)];
+     struct attrlist al = {ATTR_BIT_MAP_COUNT, 0, ATTR_CMN_OBJTAG,};
+-    if (!fgetattrlist(dirfd(dirp), &al, attrbuf, sizeof(attrbuf), 0)) {
++#   if defined HAVE_FGETATTRLIST
++    int ret = fgetattrlist(dirfd(dirp), &al, attrbuf, sizeof(attrbuf), 0);
++#   else
++    int ret = getattrlist(path, &al, attrbuf, sizeof(attrbuf), 0);
++#   endif
++    if (!ret) {
+ 	const fsobj_tag_t *tag = (void *)(attrbuf+1);
+ 	switch (*tag) {
+ 	  case VT_HFS:
+@@ -699,7 +709,7 @@ dir_each(VALUE dir)
+     RETURN_ENUMERATOR(dir, 0, 0);
+     GetDIR(dir, dirp);
+     rewinddir(dirp->dir);
+-    IF_NORMALIZE_UTF8PATH(norm_p = need_normalization(dirp->dir));
++    IF_NORMALIZE_UTF8PATH(norm_p = need_normalization(dirp->dir, RSTRING_PTR(dirp->path)));
+     while ((dp = READDIR(dirp->dir, dirp->enc)) != NULL) {
+ 	const char *name = dp->d_name;
+ 	size_t namlen = NAMLEN(dp);
+@@ -1701,7 +1711,7 @@ glob_helper(
+ # endif
+ 	    return 0;
+ 	}
+-	IF_NORMALIZE_UTF8PATH(norm_p = need_normalization(dirp));
++	IF_NORMALIZE_UTF8PATH(norm_p = need_normalization(dirp, *path ? path : "."));
+ 
+ # if NORMALIZE_UTF8PATH
+ 	if (!(norm_p || magical || recursive)) {
+
