@@ -14,6 +14,7 @@ class Libvpx < Formula
   end
 
   depends_on :macos => :tiger
+  depends_on 'homebrew/dupes/make' => :build if MacOS.version == :tiger
   depends_on 'yasm' => :build
 
   option 'gcov', 'Enable code coverage'
