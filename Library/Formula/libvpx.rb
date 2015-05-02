@@ -13,6 +13,7 @@ class Libvpx < Formula
     sha256 "6aed92389466e1a0cf62b8320262d33c2e5e0c2802b40e2cbd267f270621e77f" => :mountain_lion
   end
 
+  depends_on :macos => :tiger
   depends_on 'yasm' => :build
 
   option 'gcov', 'Enable code coverage'
@@ -31,6 +32,11 @@ class Libvpx < Formula
     # http://code.google.com/p/webm/issues/detail?id=401
     if MacOS.version == "10.6" && Hardware.is_32_bit?
       args << "--target=x86-darwin10-gcc"
+    # also tries to build universal on PPC
+    elsif Hardware::CPU.ppc?
+      arch = "ppc#{Hardware::CPU.bits}"
+      osver = MacOS.version == :tiger ? 8 : 9
+      args << "--target=#{arch}-darwin#{osver}-gcc"
     end
 
     mkdir 'macbuild' do
