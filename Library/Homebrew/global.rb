@@ -19,57 +19,7 @@ ARGV.extend(HomebrewArgvExtension)
 HOMEBREW_VERSION = '0.9.5'
 HOMEBREW_WWW = 'https://github.com/mistydemeo/tigerbrew'
 
-def cache
-  if ENV['HOMEBREW_CACHE']
-    Pathname.new(ENV['HOMEBREW_CACHE'])
-  else
-    # we do this for historic reasons, however the cache *should* be the same
-    # directory whichever user is used and whatever instance of brew is executed
-    home_cache = Pathname.new("~/Library/Caches/Homebrew").expand_path
-    if home_cache.directory? and home_cache.writable_real?
-      home_cache
-    else
-      Pathname.new("/Library/Caches/Homebrew").extend Module.new {
-        def mkpath
-          unless exist?
-            super
-            chmod 0775
-          end
-        end
-      }
-    end
-  end
-end
-
-HOMEBREW_CACHE = cache
-undef cache
-
-# Where brews installed via URL are cached
-HOMEBREW_CACHE_FORMULA = HOMEBREW_CACHE+"Formula"
-
-if not defined? HOMEBREW_BREW_FILE
-  HOMEBREW_BREW_FILE = ENV['HOMEBREW_BREW_FILE'] || which('brew').to_s
-end
-
-# Where we link under
-HOMEBREW_PREFIX = Pathname.new(HOMEBREW_BREW_FILE).dirname.parent
-
-# Where .git is found
-HOMEBREW_REPOSITORY = Pathname.new(HOMEBREW_BREW_FILE).realpath.dirname.parent
-
-HOMEBREW_LIBRARY = HOMEBREW_REPOSITORY/"Library"
-HOMEBREW_CONTRIB = HOMEBREW_REPOSITORY/"Library/Contributions"
-
-# Where we store built products; /usr/local/Cellar if it exists,
-# otherwise a Cellar relative to the Repository.
-HOMEBREW_CELLAR = if (HOMEBREW_PREFIX+"Cellar").exist?
-  HOMEBREW_PREFIX+"Cellar"
-else
-  HOMEBREW_REPOSITORY+"Cellar"
-end
-
-HOMEBREW_LOGS = Pathname.new(ENV['HOMEBREW_LOGS'] || '~/Library/Logs/Homebrew/').expand_path
-HOMEBREW_TEMP = Pathname.new(ENV.fetch('HOMEBREW_TEMP', '/tmp'))
+require "config"
 
 RbConfig = Config if RUBY_VERSION < "1.8.6" # different module name on Tiger
 
@@ -92,7 +42,7 @@ else
 end
 
 HOMEBREW_GITHUB_API_TOKEN = ENV["HOMEBREW_GITHUB_API_TOKEN"]
-HOMEBREW_USER_AGENT = "Homebrew #{HOMEBREW_VERSION} (Ruby #{RUBY_VERSION}; #{OS_VERSION})"
+HOMEBREW_USER_AGENT = "Tigerbrew #{HOMEBREW_VERSION} (Ruby #{RUBY_VERSION}; #{OS_VERSION})"
 
 HOMEBREW_CURL_ARGS = '-f#LA'
 
@@ -111,9 +61,3 @@ HOMEBREW_PULL_OR_COMMIT_URL_REGEX = %r[https://github\.com/([\w-]+)/tigerbrew(-[
 require 'compat' unless ARGV.include? "--no-compat" or ENV['HOMEBREW_NO_COMPAT']
 
 ORIGINAL_PATHS = ENV['PATH'].split(File::PATH_SEPARATOR).map{ |p| Pathname.new(p).expand_path rescue nil }.compact.freeze
-
-SUDO_BAD_ERRMSG = <<-EOS.undent
-  You can use brew with sudo, but only if the brew executable is owned by root.
-  However, this is both not recommended and completely unsupported so do so at
-  your own risk.
-EOS

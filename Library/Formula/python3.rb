@@ -1,20 +1,20 @@
 class Python3 < Formula
   homepage "https://www.python.org/"
   url "https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tar.xz"
-  sha1 "7ca5cd664598bea96eec105aa6453223bb6b4456"
+  sha256 "b5b3963533768d5fc325a4d7a6bd6f666726002d696f1d399ec06b043ea996b8"
 
   bottle do
-    revision 8
-    sha256 "17b51ee7ae14df6def7c1acb4ab0736c75dbaa4aa114017f3aaf5a8cf175ecd9" => :yosemite
-    sha256 "201741e84461918bd7f5116dc203b4927bef84307e33a0cdf1453c969352dcad" => :mavericks
-    sha256 "4a0b1897fd29f7aa2600b7810c8723ac3e10bdda82a10892744d36a945577c8d" => :mountain_lion
+    revision 9
+    sha256 "27a35164b7fc00072e06e720659b81d4cd2d966871c0bb07edaf6f7bb79c887f" => :yosemite
+    sha256 "ddb288f138b379e99b29aa55300f801a625e3c65b6c6efb8bbc908777f57fda0" => :mavericks
+    sha256 "76d3e930c5166dba4ac5b3a941f558223921b70e4543fbe9447f8672b0013562" => :mountain_lion
   end
 
   head "https://hg.python.org/cpython", :using => :hg
 
   devel do
-    url "https://www.python.org/ftp/python/3.5.0/Python-3.5.0a3.tgz"
-    sha256 "c711dcc0b0273dde65d642983784168f082771a88dd7c1d899b66a172af9bf8d"
+    url "https://www.python.org/ftp/python/3.5.0/Python-3.5.0a4.tgz"
+    sha256 "d865d540283cb518f340bbe0fac40a467956ae27fdc779122ca92f8bfd255426"
   end
 
   option :universal
@@ -36,13 +36,13 @@ class Python3 < Formula
   skip_clean "bin/easy_install3", "bin/easy_install-3.4", "bin/easy_install-3.5"
 
   resource "setuptools" do
-    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-15.0.tar.gz"
-    sha256 "718d13adf87f99a45835bb20e0a1c4c036de644cd32b3f112639403aa04ebeb5"
+    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-15.2.tar.gz"
+    sha256 "381e78471fb0eff89c4b1a219e8739f48dd87c76ad2d3a790010ca3a62ee29a4"
   end
 
   resource "pip" do
-    url "https://pypi.python.org/packages/source/p/pip/pip-6.1.0.tar.gz"
-    sha256 "89f120e2ab3d25ab70c36eb28ad4f280fc9ba71736e74d3055f609c1f9173768"
+    url "https://pypi.python.org/packages/source/p/pip/pip-6.1.1.tar.gz"
+    sha256 "89f3b626d225e08e7f20d85044afa40f612eb3284484169813dc2d0631f2a556"
   end
 
   # Homebrew's tcl-tk is built in a standard unix fashion (due to link errors)
@@ -141,6 +141,9 @@ class Python3 < Formula
     # https://github.com/Homebrew/homebrew/issues/15943
     ["Headers", "Python", "Resources"].each { |f| rm(prefix/"Frameworks/Python.framework/#{f}") }
     rm prefix/"Frameworks/Python.framework/Versions/Current"
+
+    # Symlink the pkgconfig files into HOMEBREW_PREFIX so they're accessible.
+    (lib/"pkgconfig").install_symlink Dir["#{frameworks}/Python.framework/Versions/#{xy}/lib/pkgconfig/*"]
 
     # Remove 2to3 because python2 also installs it
     rm bin/"2to3"

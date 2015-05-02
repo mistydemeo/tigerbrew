@@ -720,7 +720,7 @@ class FormulaAuditor
     if @strict
       if line =~ /system (["'][^"' ]*(?:\s[^"' ]*)+["'])/
         bad_system = $1
-        unless %w[| < > & ;].any? { |c| bad_system.include? c }
+        unless %w[| < > & ; *].any? { |c| bad_system.include? c }
           good_system = bad_system.gsub(" ", "\", \"")
           problem "Use `system #{good_system}` instead of `system #{bad_system}` "
         end
@@ -846,6 +846,10 @@ class ResourceAuditor
 
     if version.to_s =~ /^v/
       problem "version #{version} should not have a leading 'v'"
+    end
+
+    if version.to_s =~ /_\d+$/
+      problem "version #{version} should not end with a underline and a number"
     end
   end
 

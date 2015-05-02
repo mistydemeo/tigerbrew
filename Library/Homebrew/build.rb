@@ -1,5 +1,5 @@
 # This script is loaded by formula_installer as a separate instance.
-# Thrown exceptions are propogated back to the parent process over a pipe
+# Thrown exceptions are propagated back to the parent process over a pipe
 
 old_trap = trap("INT") { exit! 130 }
 
@@ -32,13 +32,6 @@ class Build
     # a formula opts-in to allowing the user's path.
     if formula.env.userpaths? || reqs.any? { |rq| rq.env.userpaths? }
       ENV.userpaths!
-    end
-  end
-
-  def pre_superenv_hacks
-    # Allow a formula to opt-in to the std environment.
-    if (formula.env.std? || deps.any? { |d| d.name == "scons" }) && ARGV.env != "super"
-      ARGV.unshift "--env=std"
     end
   end
 
@@ -82,7 +75,6 @@ class Build
       fixopt(dep) unless dep.opt_prefix.directory?
     end
 
-    pre_superenv_hacks
     ENV.activate_extensions!
 
     if superenv?

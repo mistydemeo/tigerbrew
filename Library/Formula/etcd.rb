@@ -1,13 +1,14 @@
 class Etcd < Formula
   homepage "https://github.com/coreos/etcd"
-  url "https://github.com/coreos/etcd/archive/v2.0.8.tar.gz"
-  sha256 "95155b04fb4b1e7e86f064d4b9f8858addd102dad589300a039f4c1a0227f983"
+  url "https://github.com/coreos/etcd/archive/v2.0.10.tar.gz"
+  sha256 "6029113d9870e5c6f0d10adbd2b6670958a46575114a094b86b607771a0e5ff3"
   head "https://github.com/coreos/etcd.git"
 
   bottle do
-    sha256 "4b8834b4e30d3a1b844c44c9d45fd56cc0c0ecd622fd25f9839c66951e8c4b9a" => :yosemite
-    sha256 "0fc622368c5a64ac24f85260fb1d571b9eedb8dbec9283134adf33ee1f17295b" => :mavericks
-    sha256 "3516319b664ce4bfea142f32a8844fa78d79f590b94c953cb29fcd3b6ad22c90" => :mountain_lion
+    cellar :any
+    sha256 "b1bb954e636b25d75d41f3119c817b67bf3b3dcbd37dca7e95f79ada8782a506" => :yosemite
+    sha256 "c0af5a4ef05c4c09e4a2e20610cbc49e6cc6bb389f79f84f03497da44ed631f0" => :mavericks
+    sha256 "09d0f70cfcce1a5e5e922d39d4d3f232adc1a08beb3a2a00dd282fcb6c4f95ac" => :mountain_lion
   end
 
   depends_on "go" => :build
@@ -17,6 +18,26 @@ class Etcd < Formula
     system "./build"
     bin.install "bin/etcd"
     bin.install "bin/etcdctl"
+  end
+
+  test do
+    begin
+      require "utils/json"
+      test_string = "Hello from brew test!"
+      etcd_pid = fork do
+        exec "etcd", "--force-new-cluster", "--data-dir=#{testpath}"
+      end
+      # sleep to let etcd get its wits about it
+      sleep 10
+      etcd_uri = "http://127.0.0.1:4001/v2/keys/brew_test"
+      system "curl", "--silent", "-L", etcd_uri, "-XPUT", "-d", "value=#{test_string}"
+      curl_output = shell_output "curl --silent -L #{etcd_uri}"
+      response_hash = Utils::JSON.load(curl_output)
+      assert_match(test_string, response_hash.fetch("node").fetch("value"))
+    ensure
+      # clean up the etcd process before we leave
+      Process.kill("HUP", etcd_pid)
+    end
   end
 
   def plist; <<-EOS.undent
