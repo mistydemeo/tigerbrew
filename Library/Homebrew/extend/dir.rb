@@ -1,4 +1,4 @@
-module Dir
+class Dir
   # This definition comes from Ruby 1.8.7
   def Dir.mktmpdir(prefix_suffix=nil, tmpdir=nil)
     case prefix_suffix
