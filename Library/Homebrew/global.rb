@@ -1,4 +1,5 @@
 require 'rbconfig'
+require 'extend/dir'
 require 'extend/module'
 require 'extend/fileutils'
 require 'extend/hash'
