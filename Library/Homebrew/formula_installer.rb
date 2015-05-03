@@ -9,7 +9,6 @@ require 'cleaner'
 require 'formula_cellar_checks'
 require 'install_renamed'
 require 'cmd/tap'
-require 'cmd/postinstall'
 require 'hooks/bottles'
 require 'debrew'
 require 'sandbox'
@@ -615,7 +614,7 @@ class FormulaInstaller
   end
 
   def post_install
-    Homebrew.run_post_install(formula)
+    formula.run_post_install
   rescue Exception => e
     opoo "The post-install step did not complete successfully"
     puts "You can try again using `brew postinstall #{formula.name}`"
