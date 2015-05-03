@@ -13,6 +13,7 @@ class GobjectIntrospection < Formula
   option :universal
   option "with-tests", "Run tests in addition to the build (requires cairo)"
 
+  depends_on "homebrew/dupes/make" => :build if MacOS.version < :leopard
   depends_on "pkg-config" => :run
   depends_on "glib"
   depends_on "libffi"
