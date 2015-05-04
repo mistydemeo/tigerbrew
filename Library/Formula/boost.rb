@@ -6,6 +6,7 @@ class Boost < Formula
   head "https://github.com/boostorg/boost.git"
 
   bottle do
+    sha1 "1645c13e95cb9bbc2d8cf0026d064663c3802b84" => :tiger_altivec
     cellar :any
   end
 
