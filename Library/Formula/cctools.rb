@@ -12,6 +12,8 @@ class Cctools < Formula
 
   bottle do
     cellar :any
+    revision 1
+    sha1 "deeaa62d24b8b90ed45dc53403b12548ab7311a9" => :tiger_altivec
   end
 
   depends_on :ld64
