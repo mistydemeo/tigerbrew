@@ -7,6 +7,8 @@ class Git < Formula
 
   bottle do
     sha1 "7f994371e942492bae4a3a29fea60131e1f09413" => :tiger_altivec
+    sha1 "720f81944844006029603896a1268c2de9743715" => :leopard_g3
+    sha1 "a83e507778eb4d522b456014fbe19d0d4311ddeb" => :leopard_altivec
   end
 
   resource "man" do
