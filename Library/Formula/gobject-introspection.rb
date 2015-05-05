@@ -17,6 +17,7 @@ class GobjectIntrospection < Formula
   depends_on "pkg-config" => :run
   depends_on "glib"
   depends_on "libffi"
+  depends_on :python if MacOS.version < :snow_leopard
   depends_on "cairo" => :build if build.with? "tests"
 
   # Allow tests to execute on OS X (.so => .dylib)
