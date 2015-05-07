@@ -10,10 +10,7 @@ class Faad2 < Formula
 
   bottle do
     cellar :any
-    revision 1
-    sha1 "39cc3707e90db859db8cb135ccd7080f9c304459" => :yosemite
-    sha1 "04c2c277cfd485ccf2741e0655d80f5e15cf8cd3" => :mavericks
-    sha1 "08c8bc69ca372e20e233da8deabd5367ea0f345d" => :mountain_lion
+    sha1 "96262445fa48886dc6ee84308b8b6118b7b796dc" => :tiger_altivec
   end
 
   def install
