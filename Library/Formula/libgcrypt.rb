@@ -8,6 +8,8 @@ class Libgcrypt < Formula
   bottle do
     cellar :any
     sha1 "8081cd27955afa92cfd845c80ad05100539f08c4" => :tiger_altivec
+    sha1 "b663ffa1b7589233555ba54d3612c592eeae73c3" => :leopard_g3
+    sha1 "f5c032b5663479744bf4a3d04e3dfaece08bd7d5" => :leopard_altivec
   end
 
   depends_on "libgpg-error"
