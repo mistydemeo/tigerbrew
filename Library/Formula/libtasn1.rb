@@ -7,6 +7,8 @@ class Libtasn1 < Formula
   bottle do
     cellar :any
     sha1 "2dba7aa37aa982e15ea188498080760588f54187" => :tiger_altivec
+    sha1 "0b108eacc94f2ae8c034c19049cb3e54faeedbfa" => :leopard_g3
+    sha1 "44572384002c0e922d7bf849a230077071e15849" => :leopard_altivec
   end
 
   option :universal
