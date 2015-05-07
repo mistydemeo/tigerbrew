@@ -15,6 +15,8 @@ class X264 < Formula
   bottle do
     cellar :any
     sha1 "e8b121d25342b19c4723b4e05b8ad986dbb6295c" => :tiger_altivec
+    sha1 "704b5d3c10a31e938c46637aabaf6ba85a4bc993" => :tiger_g3
+    sha1 "356b28cdec5b5d3ff0bb44677dbfb0b14ef67980" => :tiger_altivec
   end
 
   depends_on :ld64
