@@ -8,6 +8,8 @@ class Xvid < Formula
   bottle do
     cellar :any
     sha1 "7bafed6dce60e1478fd80421e741230beb70611d" => :tiger_altivec
+    sha1 "06b6ae5f072a7907863bcbfa9be018406d096b71" => :leopard_g3
+    sha1 "cb8ba30b3f040f3e6ce9e89bfa0b23de4d94feda" => :leopard_altivec
   end
 
   def install
