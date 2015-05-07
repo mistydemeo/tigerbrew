@@ -9,6 +9,8 @@ class JsonC < Formula
   bottle do
     cellar :any
     sha1 "694077944d6c93066e1a64890effcf8f2670cf94" => :tiger_altivec
+    sha1 "0a26ca526c9073fc07552aed153ad889ffad408f" => :leopard_g3
+    sha1 "86b91aa534135162e7642afab394621d44319080" => :leopard_altivec
   end
 
   head do
