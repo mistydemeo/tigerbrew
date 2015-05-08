@@ -7,6 +7,8 @@ class Ffmpeg < Formula
 
   bottle do
     sha1 "ad9ec2282b5c938cbb21d5370e2291050acd1346" => :tiger_altivec
+    sha1 "fe4d6fed73ce6c5f2e4575638c646c2f4e05d7b5" => :leopard_g3
+    sha1 "3666d9535abf73fd5f613db0ac718efbfbedf5dc" => :leopard_altivec
   end
 
   option "without-x264", "Disable H.264 encoder"
