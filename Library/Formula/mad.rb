@@ -7,10 +7,8 @@ class Mad < Formula
 
   bottle do
     cellar :any
-    revision 1
-    sha1 "ec696978cd2bbd43ed11b6b1d3b78156d2b97c71" => :yosemite
-    sha1 "b8ea86acc3a5aab051e7df3d6e1b00ac1acac346" => :mavericks
-    sha1 "7164d878d4467cda6bbed49fd46129a4ae3169ec" => :mountain_lion
+    sha1 "9d591d72a744fb6a7d78a4307f83a7628efb731a" => :leopard_g3
+    sha1 "150c5852d8244e6f3429283b87e268dfdce7af79" => :leopard_altivec
   end
 
   def install
