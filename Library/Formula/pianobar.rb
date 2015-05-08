@@ -9,6 +9,8 @@ class Pianobar < Formula
   bottle do
     cellar :any
     sha1 "ac594a508ff186a483fc74d56e35460ec1c3127a" => :tiger_altivec
+    sha1 "d4aa59c4411f32c1c3655b7fcd16195ced843ff6" => :leopard_g3
+    sha1 "2d79864486410f89d28ebe287bd13d5b14c6267a" => :leopard_altivec
   end
 
   depends_on "homebrew/dupes/make" => :build if MacOS.version < :leopard
