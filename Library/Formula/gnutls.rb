@@ -3,15 +3,12 @@
 # http://nmav.gnutls.org/2014/10/what-about-poodle.html
 class Gnutls < Formula
   homepage "http://gnutls.org"
-  url "ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/gnutls-3.3.14.tar.xz"
-  mirror "http://mirrors.dotsrc.org/gcrypt/gnutls/v3.3/gnutls-3.3.14.tar.xz"
-  sha256 "0dfa0030faad8909c1e904105198232d6bc0123cae8cf4933b2bac85ee7cec52"
+  url "ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/gnutls-3.3.15.tar.xz"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnutls/v3.3/gnutls-3.3.15.tar.xz"
+  sha256 "8961227852911a1974e15bc017ddbcd4779876c867226d199f06648d8b27ba4b"
 
   bottle do
     cellar :any
-    sha1 "0422aaf9fd04bc09233c36f5fbcadbb92decdcf6" => :tiger_altivec
-    sha1 "948223906218d619317e7e0aa4c589e0669a1737" => :leopard_g3
-    sha1 "12b747e1cb3135d179c1bec7db730794e4474749" => :leopard_altivec
   end
 
   depends_on "pkg-config" => :build

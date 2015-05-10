@@ -1,18 +1,24 @@
 class Mariadb < Formula
   homepage "https://mariadb.org/"
-  url "http://ftp.osuosl.org/pub/mariadb/mariadb-10.0.17/source/mariadb-10.0.17.tar.gz"
-  sha1 "240253b3ee21dea5e2f501778e8ee72b32a5d052"
+  url "http://ftp.osuosl.org/pub/mariadb/mariadb-10.0.19/source/mariadb-10.0.19.tar.gz"
+  sha256 "2fbf5e5d7d8094691601ece8ae60b941478d73c98a58a960aeebfa021091a132"
 
   bottle do
-    revision 1
-    sha256 "5d592bf32afc34b950da714130cc9bc9790b8f30eae201ad2dbc22de249aa4f7" => :yosemite
-    sha256 "973a4e379af98525431e4adce16c85ed73634d59f26008b9524db2ef07b0cc1f" => :mavericks
-    sha256 "ee7ffc04be67f0f1100119a75b4b357e5e823164dab9266b611a36b74312d2a5" => :mountain_lion
+    sha256 "01c0c87bb3185c4b9e992dd8869daeea126dc8131c9cfc507f59e28b8b4f364e" => :yosemite
+    sha256 "7650b9eb90b5c9427bed0558f91d5c8d1ac324050d766311e2e09dee1b6d167f" => :mavericks
+    sha256 "09916d6944e8cbbee2ca6c97dafdf5c7409522bd27738c851df0e544e8ae2163" => :mountain_lion
   end
 
   devel do
-    url "http://ftp.osuosl.org/pub/mariadb/mariadb-10.1.3/source/mariadb-10.1.3.tar.gz"
-    sha1 "95a4e2640b40e79c58f22662ff76eb3f76f892e9"
+    url "http://ftp.osuosl.org/pub/mariadb/mariadb-10.1.4/source/mariadb-10.1.4.tar.gz"
+    sha256 "14cc92414b2c3822923977a6fb544593498dbb5005044db33c193511757d411c"
+
+    patch do
+      # https://mariadb.atlassian.net/browse/MDEV-8073
+      # upstream patch, fixed in 10.1.5
+      url "https://github.com/MariaDB/server/commit/ff1e0821d1174428dd70331bd864de1334ab0567.diff"
+      sha256 "552fe747e05de7c0ffa8af7d0476e74f3bb4b54bb8fa0609b94a1c2147728ebb"
+    end
   end
 
   depends_on "cmake" => :build

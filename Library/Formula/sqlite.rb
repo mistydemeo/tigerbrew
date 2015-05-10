@@ -1,8 +1,8 @@
 class Sqlite < Formula
   homepage "https://sqlite.org/"
-  url "https://sqlite.org/2015/sqlite-autoconf-3080900.tar.gz"
-  sha256 "76ebb6392cd2289fbff903af7ff67f3e49bd01ff30544b8028ecededd60269a2"
-  version "3.8.9"
+  url "https://sqlite.org/2015/sqlite-autoconf-3081001.tar.gz"
+  sha256 "5f8f2ae6461e637ff63e50fef10b6962764dfc3b81a8c0f80a19794b9d59f7ca"
+  version "3.8.10.1"
 
   bottle do
     cellar :any
@@ -18,6 +18,7 @@ class Sqlite < Formula
   option "with-unlock-notify", "Enable the unlock notification feature"
   option "with-icu4c", "Enable the ICU module"
   option "with-functions", "Enable more math and string functions for SQL queries"
+  option "with-dbstat", "Enable the 'dbstat' virtual table"
 
   depends_on "readline" => :recommended
   depends_on "icu4c" => :optional
@@ -29,9 +30,9 @@ class Sqlite < Formula
   end
 
   resource "docs" do
-    url "https://sqlite.org/2015/sqlite-doc-3080900.zip"
-    version "3.8.9"
-    sha256 "aeeb5b9a410c3efabaccb13860dd04e3dbdfcd75e9f05fcb5c2a41d3a1f8f296"
+    url "https://sqlite.org/2015/sqlite-doc-3081001.zip"
+    version "3.8.10.1"
+    sha256 "0b6c186a2da8b7d7397eb3942e97fd85b88734beb300702ace0dca4a3db729a6"
   end
 
   # sqlite won't compile on Tiger due to missing function;
@@ -48,6 +49,7 @@ class Sqlite < Formula
     ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_COLUMN_METADATA"
     ENV.append "CPPFLAGS", "-DSQLITE_SECURE_DELETE" if build.with? "secure-delete"
     ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_UNLOCK_NOTIFY" if build.with? "unlock-notify"
+    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_DBSTAT_VTAB" if build.with? "dbstat"
 
     if build.with? "icu4c"
       icu4c = Formula["icu4c"]
