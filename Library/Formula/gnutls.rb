@@ -9,6 +9,9 @@ class Gnutls < Formula
 
   bottle do
     cellar :any
+    sha1 "1e18b40250765c41f8734ed30e474843a41eb06e" => :tiger_altivec
+    sha1 "ec2a7f5b4b5fbcc3fe3053d3fbc1c64222ef0057" => :leopard_g3
+    sha1 "062fed4de82977d65b82d66f6dc7cbcdac0ec889" => :leopard_altivec
   end
 
   depends_on "pkg-config" => :build
