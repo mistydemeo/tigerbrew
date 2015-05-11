@@ -5,6 +5,9 @@ class PkgConfig < Formula
   sha256 "6b6eb31c6ec4421174578652c7e141fdaae2dabad1021f420d8713206ac1f845"
 
   bottle do
+    sha1 "7ca199a1104327ccada4ad7f6c5ee6ec8c7cd048" => :tiger_altivec
+    sha1 "8de871e1860cf3879baffc0fb1d8d9ee16926f7c" => :leopard_g3
+    sha1 "3b082c2433b5e636cfa40e9db8e4683530bfecd0" => :leopard_altivec
   end
 
   def install
