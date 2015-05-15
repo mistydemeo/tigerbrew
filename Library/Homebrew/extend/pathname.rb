@@ -262,37 +262,16 @@ class Pathname
 
   def sha256
     if MacOS.version == :tiger
-      begin
-        sha256_homebrew_sha2
-      rescue SHA2NotInstalledError
-        opoo <<-EOS.undent
-        No native sha256 available; falling back to slower Python implementation.
-        It is recommended to:
-          brew install sha2
-        EOS
-        sha256_python
-      end
+      sha256_vendored_sha2
     else
       require 'digest/sha2'
       incremental_hash(Digest::SHA2)
     end
   end
 
-  # Calculate sha256 hash using a Homebrew-installed OpenSSL.
-  # Doesn't have to be up-to-date, just needs to be able to install hashes.
-  def sha256_homebrew_sha2
-    sha2 = Formula["sha2"]
-    sha2_bin = sha2.opt_bin/"sha2"
-    raise SHA2NotInstalledError unless sha2.installed? || sha2_bin.exist?
-
-    str = `"#{sha2_bin}" -256 "#{self}"`.chomp
+  def sha256_vendored_sha2
+    str = `"#{HOMEBREW_REPOSITORY}/Library/Homebrew/vendor/sha256" -256 #{self}`.chomp
     str.match(/= ((\d|[a-z])+)/).captures.first
-  end
-
-  # Calculate sha256 hashes using a pure Python script.
-  # Slow, avoid using if possible.
-  def sha256_python
-    `"#{HOMEBREW_REPOSITORY}/Library/Homebrew/vendor/sha256" #{self}`.chomp
   end
 
   def verify_checksum expected
