@@ -13,6 +13,7 @@ require 'utils'
 require 'exceptions'
 require 'set'
 require 'extend/tiger' if RUBY_VERSION == '1.8.2'
+require 'extend/leopard' if RUBY_VERSION <= '1.8.6'
 require 'rbconfig'
 
 ARGV.extend(HomebrewArgvExtension)
