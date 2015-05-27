@@ -1,13 +1,13 @@
 class Awscli < Formula
   homepage "https://aws.amazon.com/cli/"
-  url "https://pypi.python.org/packages/source/a/awscli/awscli-1.7.25.tar.gz"
-  sha256 "48b46892c1b95b6467335145fd8db2fdab6a6cba14c481dfde4fe5af7114b3b4"
+  url "https://pypi.python.org/packages/source/a/awscli/awscli-1.7.29.tar.gz"
+  sha256 "1a5020149987afac863f795c89ad67a2c7162d7e4be8b2f15aa810aab4c218c8"
 
   bottle do
     cellar :any
-    sha256 "61c12e8f153e8cffda0b7569fffa9e930e403029f7ae6d3fee38ac3263997d8a" => :yosemite
-    sha256 "756215fed0af623444d2b079f3a5cfc350298c260d143fd3f479e0f19f62c2f4" => :mavericks
-    sha256 "eaa2137eae7bf145579679323f9d850c8cdbebb6b095452353e6aaa7f46ff326" => :mountain_lion
+    sha256 "4a73411703fa94cfe7faa6d5a07d9ebe31523b47e2ab4dbb1f97de8ee9041201" => :yosemite
+    sha256 "8dd5802c89b4eaf204e09318a522b7a45cedbbabb64ff0280bffecdb8a267d37" => :mavericks
+    sha256 "2df38790c062daffe20c3cbbcff0a4620542245e7d2a7cc414ecb662fcabad58" => :mountain_lion
   end
 
   head do
@@ -36,8 +36,8 @@ class Awscli < Formula
   end
 
   resource "python-dateutil" do
-    url "https://pypi.python.org/packages/source/p/python-dateutil/python-dateutil-2.4.1.post1.tar.gz"
-    sha256 "aa9bdbd60c395db90204609f1fb5aeb3797870f65c09f04f243476d22f8f4615"
+    url "https://pypi.python.org/packages/source/p/python-dateutil/python-dateutil-2.4.2.tar.gz"
+    sha256 "3e95445c1db500a344079a47b171c45ef18f57d188dffdb0e4165c71bea8eb3d"
   end
 
   resource "colorama" do
@@ -51,8 +51,8 @@ class Awscli < Formula
   end
 
   resource "botocore" do
-    url "https://pypi.python.org/packages/source/b/botocore/botocore-0.106.0.tar.gz"
-    sha256 "e0e56faedbd2bf149ebb77a96d74c2fd5a74f91bc265d2750f24d6e1db58a6b0"
+    url "https://pypi.python.org/packages/source/b/botocore/botocore-1.0.0a1.tar.gz"
+    sha256 "b55beefa3020e1f00c5ffeaf32ec5f1148b2aef57086634f61773b4011c9cb3b"
   end
 
   resource "docutils" do

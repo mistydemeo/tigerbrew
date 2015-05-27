@@ -1,7 +1,7 @@
 class HerokuToolbelt < Formula
   homepage "https://toolbelt.heroku.com/other"
-  url "https://s3.amazonaws.com/assets.heroku.com/heroku-client/heroku-client-3.32.0.tgz"
-  sha256 "bae8e899dbc0f2e341171e10270faa347b1d4e9dda31167b091d6a4e6dfd2695"
+  url "https://s3.amazonaws.com/assets.heroku.com/heroku-client/heroku-client-3.37.1.tgz"
+  sha256 "a9d7ecface5363a945498b3d274533c4436c6f6529852939a0835620a415d420"
   head "https://github.com/heroku/heroku.git"
 
   depends_on :ruby => "1.9"
@@ -9,6 +9,10 @@ class HerokuToolbelt < Formula
   def install
     inreplace 'bin/heroku', '/usr/bin/env ruby', Formula['ruby'].opt_bin/'ruby'
     libexec.install Dir["*"]
+    # turn off autoupdates (off by default in HEAD)
+    if build.stable?
+      inreplace libexec/"bin/heroku", "Heroku::Updater.inject_libpath", "Heroku::Updater.disable(\"Use `brew upgrade heroku-toolbelt` to update\")"
+    end
     bin.write_exec_script libexec/"bin/heroku"
   end
 

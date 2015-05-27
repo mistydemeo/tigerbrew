@@ -188,7 +188,7 @@ module Homebrew
 
       begin
         formula = Formulary.factory(argument)
-      rescue FormulaUnavailableError
+      rescue FormulaUnavailableError, TapFormulaAmbiguityError
       end
 
       git "rev-parse", "--verify", "-q", argument
@@ -256,6 +256,12 @@ module Homebrew
         end
       end
 
+      def brew_update
+        return unless current_branch == "master"
+        success = quiet_system "brew", "update"
+        success ||= quiet_system "brew", "update"
+      end
+
       @category = __method__
       @start_branch = current_branch
 
@@ -264,13 +270,13 @@ module Homebrew
          and not ENV['ghprbPullLink']
         diff_start_sha1 = shorten_revision ENV['GIT_PREVIOUS_COMMIT']
         diff_end_sha1 = shorten_revision ENV['GIT_COMMIT']
-        test "brew", "update" if current_branch == "master"
+        brew_update
       elsif @hash
         diff_start_sha1 = current_sha1
-        test "brew", "update" if current_branch == "master"
+        brew_update
         diff_end_sha1 = current_sha1
       elsif @url
-        test "brew", "update" if current_branch == "master"
+        brew_update
       end
 
       # Handle Jenkins pull request builder plugin.
@@ -376,6 +382,12 @@ module Homebrew
       test "brew", "uses", canonical_formula_name
 
       formula = Formulary.factory(canonical_formula_name)
+
+      formula.conflicts.map { |c| Formulary.factory(c.name) }.
+        select { |f| f.installed? }.each do |conflict|
+          test "brew", "unlink", conflict.name
+        end
+
       installed_gcc = false
 
       deps = []
@@ -406,7 +418,7 @@ module Homebrew
         CompilerSelector.select_for(formula)
       rescue CompilerSelectionError => e
         unless installed_gcc
-          test "brew", "install", "gcc"
+          run_as_not_developer { test "brew", "install", "gcc" }
           installed_gcc = true
           OS::Mac.clear_version_cache
           retry
@@ -436,7 +448,7 @@ module Homebrew
       testable_dependents = dependents.select { |d| d.test_defined? && d.bottled? }
 
       if (deps | reqs).any? { |d| d.name == "mercurial" && d.build? }
-        test "brew", "install", "mercurial"
+        run_as_not_developer { test "brew", "install", "mercurial" }
       end
 
       test "brew", "fetch", "--retry", *unchanged_dependencies unless unchanged_dependencies.empty?
@@ -463,10 +475,10 @@ module Homebrew
 
       install_args << canonical_formula_name
       # Don't care about e.g. bottle failures for dependencies.
-      ENV["HOMEBREW_DEVELOPER"] = nil
-      test "brew", "install", "--only-dependencies", *install_args unless dependencies.empty?
-      ENV["HOMEBREW_DEVELOPER"] = "1"
-      test "brew", "install", *install_args
+      run_as_not_developer do
+        test "brew", "install", "--only-dependencies", *install_args unless dependencies.empty?
+        test "brew", "install", *install_args
+      end
       install_passed = steps.last.passed?
       audit_args = [canonical_formula_name]
       audit_args << "--strict" if @added_formulae.include? formula_name
@@ -500,7 +512,7 @@ module Homebrew
             conflicts.each do |conflict|
               test "brew", "unlink", conflict.name
             end
-            test "brew", "install", dependent.name
+            run_as_not_developer { test "brew", "install", dependent.name }
             next if steps.last.failed?
           end
           if dependent.installed?
@@ -513,7 +525,7 @@ module Homebrew
       if formula.devel && formula.stable? && !ARGV.include?('--HEAD') \
          && satisfied_requirements?(formula, :devel)
         test "brew", "fetch", "--retry", "--devel", *formula_fetch_options
-        test "brew", "install", "--devel", "--verbose", canonical_formula_name
+        run_as_not_developer { test "brew", "install", "--devel", "--verbose", dependent.name }
         devel_install_passed = steps.last.passed?
         test "brew", "audit", "--devel", *audit_args
         if devel_install_passed
@@ -543,7 +555,7 @@ module Homebrew
       git "checkout", "-f", "master"
       git "clean", "-fdx"
       git "clean", "-ffdx" unless $?.success?
-      pr_locks = "#{HOMEBREW_REPOSITORY}/.git/refs/remotes/*/pr/*/head.lock"
+      pr_locks = "#{HOMEBREW_REPOSITORY}/.git/refs/remotes/*/pr/*/*.lock"
       Dir.glob(pr_locks) {|lock| FileUtils.rm_rf lock }
     end
 

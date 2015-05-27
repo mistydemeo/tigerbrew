@@ -1,24 +1,21 @@
 class Git < Formula
   homepage "https://git-scm.com"
-  url "https://www.kernel.org/pub/software/scm/git/git-2.4.0.tar.xz"
-  sha256 "b33438dd94659958a74850aacae4a2b3a626baec36d7f29c266130b08045bb24"
+  url "https://www.kernel.org/pub/software/scm/git/git-2.4.2.tar.xz"
+  sha256 "4801ec1cd8c2175b58cfdbc721d0bf50d74ae226f36905fceb894c2fb620c9e5"
 
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
-    sha1 "7f994371e942492bae4a3a29fea60131e1f09413" => :tiger_altivec
-    sha1 "720f81944844006029603896a1268c2de9743715" => :leopard_g3
-    sha1 "a83e507778eb4d522b456014fbe19d0d4311ddeb" => :leopard_altivec
   end
 
   resource "man" do
-    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.4.0.tar.xz"
-    sha256 "b616dc6aa02dcac312e6aeae7af148913f76e1f851ba03ba340b4d2db316ecc7"
+    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.4.2.tar.xz"
+    sha256 "1b1830e804725e90ff319d801ab25f84ad956564379ef976bdc91bd58b743c32"
   end
 
   resource "html" do
-    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.4.0.tar.xz"
-    sha256 "70ee1fdb70507c74832ac021e8940c8249d9b69f2b86aeaf0888ae41772e93a7"
+    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.4.2.tar.xz"
+    sha256 "792cfc6c8236fdb58dfd66e39766c7b8097080361eed28443207bc6c36e07911"
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"

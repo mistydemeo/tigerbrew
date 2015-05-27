@@ -1,13 +1,15 @@
 class Thefuck < Formula
   homepage "https://github.com/nvbn/thefuck"
-  url "https://pypi.python.org/packages/source/t/thefuck/thefuck-1.29.tar.gz"
-  sha256 "3e51de66ea29a1bbd9f1aadbd3a2398601e7a5e7ab69fef0f75677ca95f00cb1"
+  url "https://pypi.python.org/packages/source/t/thefuck/thefuck-1.43.tar.gz"
+  sha256 "24ba074a51e988ddb7dbc5dcfce70865799b33499ba46f4826329c9be961305e"
+
+  head "https://github.com/nvbn/thefuck.git"
 
   bottle do
     cellar :any
-    sha256 "257c5674dd683812bda279eb9709809440d7cba032862d234523a0e2dfd38d1d" => :yosemite
-    sha256 "b2cfa406696a624e311bed92ef08c314f0fe6c893308d8e67fecc08102da9b32" => :mavericks
-    sha256 "68a2b3f99d193ab817f31e8c7941d0f4574eccb36f9f29884e9d03e608999afe" => :mountain_lion
+    sha256 "ead4cc532a95acb5c40b0100355abb987cf92c0846ec82bddcb9247074666d1c" => :yosemite
+    sha256 "83258e00f605b4b09380e18f98c1ac97c7a5d1f388cc7a8d7b56238853ea0bbd" => :mavericks
+    sha256 "4b56e914e4e4e96ec9db6cc35aa1d7a19bf5b278c21f28829a0f1134782546f4" => :mountain_lion
   end
 
   depends_on :python if MacOS.version <= :snow_leopard
@@ -36,10 +38,8 @@ class Thefuck < Formula
     ENV["PYTHONPATH"] = libexec/"vendor/lib/python2.7/site-packages"
     ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
 
-    %w[psutil pathlib colorama six].each do |r|
-      resource(r).stage do
-        system "python", *Language::Python.setup_install_args(libexec/"vendor")
-      end
+    resources.each do |r|
+      r.stage { system "python", *Language::Python.setup_install_args(libexec/"vendor") }
     end
     system "python", *Language::Python.setup_install_args(libexec)
 
@@ -54,11 +54,10 @@ class Thefuck < Formula
 
   def caveats; <<-EOS.undent
     Add the following to your .bash_profile or .zshrc:
-      alias fuck='$(thefuck $(fc -ln -1))'
-    Or in config.fish:
-      function fuck
-        eval (thefuck $history[1])
-      end
+      bash: alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
+      zsh: alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+
+      Other shells: https://github.com/nvbn/thefuck/wiki/Shell-aliases
     EOS
   end
 end

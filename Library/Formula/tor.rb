@@ -1,28 +1,27 @@
 class Tor < Formula
   homepage "https://www.torproject.org/"
-  url "https://dist.torproject.org/tor-0.2.5.12.tar.gz"
-  mirror "https://tor.eff.org/dist/tor-0.2.5.12.tar.gz"
-  sha256 "550fdafffeb4c1e3035bb8cc42e6e49d5af17ad79563bd118af22c1107f72b49"
+  url "https://dist.torproject.org/tor-0.2.6.8.tar.gz"
+  mirror "https://tor.eff.org/dist/tor-0.2.6.8.tar.gz"
+  sha256 "b88b363896454250c3f561b0b48479f18295c93596d2e81baa10c5a3ae609a76"
 
   bottle do
-    sha256 "8f4ed124a0505b2d78cbb77705d0b899865df6cdbb2ecbd8bf507a8cc14a270a" => :yosemite
-    sha256 "033474dbd57cb7a5b0eb07b6a1c7391f746cec20ba77f935522cb9f0a106423f" => :mavericks
-    sha256 "463d44d09c99754079bc28f036c7bd6e80a381a5c90b8245fcc9bc30d98a389b" => :mountain_lion
+    sha256 "8e951125ab8ccec4f75f042f07bded3b08c4c970b84d84a6962249b7290ba86d" => :yosemite
+    sha256 "4e99238ca821986b63c7b524774c9173ad8b9f0e5075266f9fe254ff0103b0a9" => :mavericks
+    sha256 "a0316b566f6214a0b476f916c8810375bf964844d622512f3faf1ad68bac5ed9" => :mountain_lion
   end
 
   devel do
-    url "https://dist.torproject.org/tor-0.2.6.7.tar.gz"
-    mirror "https://tor.eff.org/dist/tor-0.2.6.7.tar.gz"
-    sha256 "8c2be88a542ed1b22a8d3d595ec0acd0e28191de273dbcaefc64fdce92b89e6c"
-
-    # Move this to the main block when current devel = stable release.
-    depends_on "libscrypt" => :optional
+    url "https://dist.torproject.org/tor-0.2.7.1-alpha.tar.gz"
+    mirror "https://tor.eff.org/dist/tor-0.2.7.1-alpha.tar.gz"
+    sha256 "9afc770a5a795e752f053ae7c2c1ee3a560145adc0aea377c83e602c2cbbed9b"
+    version "0.2.7.1-alpha"
   end
 
   depends_on "libevent"
   depends_on "openssl"
   depends_on "libnatpmp" => :optional
   depends_on "miniupnpc" => :optional
+  depends_on "libscrypt" => :optional
 
   # See https://github.com/mistydemeo/tigerbrew/issues/105
   fails_with :gcc do
@@ -41,7 +40,7 @@ class Tor < Formula
 
     args << "--with-libnatpmp-dir=#{Formula["libnatpmp"].opt_prefix}" if build.with? "libnatpmp"
     args << "--with-libminiupnpc-dir=#{Formula["miniupnpc"].opt_prefix}" if build.with? "miniupnpc"
-    args << "--disable-libscrypt" if build.devel? && build.without?("libscrypt")
+    args << "--disable-libscrypt" if build.without? "libscrypt"
 
     system "./configure", *args
     system "make", "install"

@@ -1,5 +1,5 @@
 module Homebrew
   def postinstall
-    ARGV.formulae.each { |f| f.run_post_install }
+    ARGV.resolved_formulae.each { |f| run_post_install(f) }
   end
 end

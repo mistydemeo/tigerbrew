@@ -1,14 +1,11 @@
 class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-2.6.2.tar.bz2"
-  sha256 "889e3aa069b724dc95cbfc79ef83322a8a39d9f6225f39fad1b47294fc1f29ba"
+  url "https://ffmpeg.org/releases/ffmpeg-2.6.3.tar.bz2"
+  sha256 "59eb98c1b5896ac29abc0385f7c875d1b4942d695818818d418ee71eea1e0cfb"
 
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
-    sha1 "ad9ec2282b5c938cbb21d5370e2291050acd1346" => :tiger_altivec
-    sha1 "fe4d6fed73ce6c5f2e4575638c646c2f4e05d7b5" => :leopard_g3
-    sha1 "3666d9535abf73fd5f613db0ac718efbfbedf5dc" => :leopard_altivec
   end
 
   option "without-x264", "Disable H.264 encoder"

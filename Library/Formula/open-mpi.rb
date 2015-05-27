@@ -1,12 +1,16 @@
 class OpenMpi < Formula
-  homepage "http://www.open-mpi.org/"
-  url "http://www.open-mpi.org/software/ompi/v1.8/downloads/openmpi-1.8.5.tar.bz2"
-  sha256 "4cea06a9eddfa718b09b8240d934b14ca71670c2dc6e6251a585ce948a93fbc4"
+  homepage "https://www.open-mpi.org/"
+  # Wait for 1.8.6 and skip 1.8.5 due to a severe memory leak on OS X:
+  # https://github.com/open-mpi/ompi/issues/579
+  url "https://www.open-mpi.org/software/ompi/v1.8/downloads/openmpi-1.8.4.tar.bz2"
+  sha256 "23158d916e92c80e2924016b746a93913ba7fae9fff51bf68d5c2a0ae39a2f8a"
+  revision 1
 
   bottle do
-    sha256 "cb257e6d49ebd40af7b9cfefb08547df5278e4db70463d3adac341811620ae4a" => :yosemite
-    sha256 "e0918c53d587f92c7ad43f2841992b06bade41f5b4adfe3f46367b7f244e04ab" => :mavericks
-    sha256 "df0ac28d6a1149cf21172f7ee2d32e36113e2ec257b3efb003831f333d42f43c" => :mountain_lion
+    revision 1
+    sha256 "78d4850f74cc2c6043bc3fb77cb431dcb43edde4bd898640840aa444c3268e6e" => :yosemite
+    sha256 "21c9b28a601b07a0c5ac85b5155e79d4e083f233dbddfe5a62a5274d24b40866" => :mavericks
+    sha256 "b2d256bf0430a7a3853683354137102f5ab5d8ba729f8e889877763e65dd7d22" => :mountain_lion
   end
 
   deprecated_option "disable-fortran" => "without-fortran"
@@ -18,6 +22,7 @@ class OpenMpi < Formula
   conflicts_with "mpich2", :because => "both install mpi__ compiler wrappers"
   conflicts_with "lcdf-typetools", :because => "both install same set of binaries."
 
+  depends_on :java => :build
   depends_on :fortran => :recommended
   depends_on "libevent"
 
@@ -30,6 +35,7 @@ class OpenMpi < Formula
       --disable-silent-rules
       --enable-ipv6
       --with-libevent=#{Formula["libevent"].opt_prefix}
+      --with-sge
     ]
     args << "--disable-mpi-fortran" if build.without? "fortran"
     args << "--enable-mpi-thread-multiple" if build.with? "mpi-thread-multiple"
@@ -46,12 +52,6 @@ class OpenMpi < Formula
     # Move vtsetup.jar from bin to libexec.
     libexec.install bin/"vtsetup.jar"
     inreplace bin/"vtsetup", "$bindir/vtsetup.jar", "$prefix/libexec/vtsetup.jar"
-  end
-
-  def caveats; <<-EOS.undent
-    WARNING: Open MPI now ignores the F77 and FFLAGS environment variables.
-    Only the FC and FCFLAGS environment variables are used.
-    EOS
   end
 
   test do

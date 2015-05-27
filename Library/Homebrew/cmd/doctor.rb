@@ -419,6 +419,16 @@ def check_access_usr_local
   end
 end
 
+def check_tmpdir_sticky_bit
+  world_writable = HOMEBREW_TEMP.stat.mode & 0777 == 0777
+  if world_writable && !HOMEBREW_TEMP.sticky? then <<-EOS.undent
+    #{HOMEBREW_TEMP} is world-writable but does not have the sticky bit set.
+    Please run "Repair Disk Permissions" in Disk Utility.
+  EOS
+  end
+end
+
+
 (Keg::TOP_LEVEL_DIRECTORIES + ["lib/pkgconfig"]).each do |d|
   define_method("check_access_#{d.sub("/", "_")}") do
     dir = HOMEBREW_PREFIX.join(d)
@@ -1118,8 +1128,8 @@ def check_for_unlinked_but_not_keg_only
       true
     elsif not (HOMEBREW_REPOSITORY/"Library/LinkedKegs"/rack.basename).directory?
       begin
-        Formulary.factory(rack.basename.to_s).keg_only?
-      rescue FormulaUnavailableError
+        Formulary.from_rack(rack).keg_only?
+      rescue FormulaUnavailableError, TapFormulaAmbiguityError
         false
       end
     else

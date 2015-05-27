@@ -256,7 +256,7 @@ Note that these flags should only appear after a command.
     If no <formulae> are provided, all of them will have their .apps symlinked.
 
     If provided, `--local` will move them into the user's `~/Applications`
-    folder instead of the system folder. It may need to be created, first.
+    directory instead of the system directory. It may need to be created, first.
 
   * `ls, list [--unbrewed] [--versions [--multiple]] [--pinned]` [<formulae>]:
     Without any arguments, list all installed formulae.
@@ -353,8 +353,7 @@ Note that these flags should only appear after a command.
     If `--full` is passed, a full clone will be used.
 
   * `tap --repair`:
-    Ensure all tapped formulae are symlinked into Library/Formula and prune dead
-    formulae from Library/Formula.
+    Migrate tapped formulae from symlink-based to directory-based structure.
 
   * `test` [--devel|--HEAD] [--debug] <formula>:
     A few formulae provide a test method. `brew test <formula>` runs this
@@ -440,7 +439,8 @@ Note that these flags should only appear after a command.
     Display the file or directory used to cache <formula>.
 
   * `--cellar`:
-    Display Tigerbrews's Cellar path. *Default:* `/usr/local/Cellar`
+    Display Tigerbrews's Cellar path. *Default:* `$(brew --prefix)/Cellar`, or if
+    that directory doesn't exist, `$(brew --repository)/Cellar`.
 
   * `--cellar` <formula>:
     Display the location in the cellar where <formula> would be installed,
@@ -561,6 +561,9 @@ can take several different forms:
     greater number of API requests. See
     <https://developer.github.com/v3/#rate-limiting> for more information.
     Tigerbrew uses the GitHub API for features such as `brew search`.
+
+  * HOMEBREW\_LOGS:
+    If set, Homebrew will use the given directory to store log files.
 
   * HOMEBREW\_MAKE\_JOBS:
     If set, instructs Tigerbrew to use the value of `HOMEBREW_MAKE_JOBS` as

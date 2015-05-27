@@ -23,7 +23,8 @@ module Superenv
   end
 
   def self.bin
-    (HOMEBREW_REPOSITORY/"Library/ENV").subdirs.reject { |d| d.basename.to_s > MacOS::Xcode.version }.max
+    bin = (HOMEBREW_REPOSITORY/"Library/ENV").subdirs.reject { |d| d.basename.to_s > MacOS::Xcode.version }.max
+    bin.realpath unless bin.nil?
   end
 
   def reset
@@ -293,7 +294,7 @@ module Superenv
     when "clang"
       append 'HOMEBREW_CCCFG', "x", ''
       append 'HOMEBREW_CCCFG', "g", ''
-    when /gcc-4\.(8|9)/
+    when /gcc-(4\.(8|9)|5)/
       append 'HOMEBREW_CCCFG', "x", ''
     else
       raise "The selected compiler doesn't support C++11: #{homebrew_cc}"

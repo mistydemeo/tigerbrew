@@ -125,13 +125,17 @@ module Homebrew
       return ofail "Formula has no stable version: #{f.name}"
     end
 
-    if ARGV.include? '--no-revision'
-      bottle_revision = 0
-    else
+    bottle_revision = 0
+
+    unless ARGV.include? "--no-revision"
       ohai "Determining #{f.name} bottle revision..."
       versions = FormulaVersions.new(f)
-      max = versions.bottle_version_map("origin/master")[f.pkg_version].max
-      bottle_revision = max ? max + 1 : 0
+      bottle_revisions = versions.bottle_version_map("origin/master")[f.pkg_version]
+
+      unless bottle_revisions.empty?
+        bottle_revisions.pop if bottle_revisions.last > 0
+        bottle_revision = bottle_revisions.max + 1
+      end
     end
 
     filename = Bottle::Filename.create(f, bottle_tag, bottle_revision)
@@ -287,7 +291,7 @@ module Homebrew
   def bottle
     merge if ARGV.include? '--merge'
 
-    ARGV.formulae.each do |f|
+    ARGV.resolved_formulae.each do |f|
       bottle_formula f
     end
   end
