@@ -6,6 +6,9 @@ class Sqlite < Formula
 
   bottle do
     cellar :any
+    sha256 "72e1542beceb3b31a6246414b10693f3665f9f66811518ad62b7b55b86a7cc6b" => :tiger_altivec
+    sha256 "e01da8dba7de5f26bcfa136d296fe08346612d2ccc72e90eb51f222d6a451a35" => :leopard_g3
+    sha256 "5392cdc6272048b5993990d85277c0515e3486197a099276b398538985491a15" => :leopard_altivec
   end
 
   keg_only :provided_by_osx, "OS X provides an older sqlite3."
