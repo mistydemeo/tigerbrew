@@ -5,9 +5,8 @@ class AprUtil < Formula
   revision 1
 
   bottle do
-    sha256 "6b043e4bf051fce17991f3cafb4ce7d235bf52e01b76e447b5a286f85a69cde9" => :yosemite
-    sha256 "aff874c3e72a5ec31b75c066d327771bc84b0a31fedc2243e4e21a56dee78eae" => :mavericks
-    sha256 "76f24ef98aebf89eb0b3c7d7fdc31f8074120c39708d8a513575e956fe50fc07" => :mountain_lion
+    sha256 "00de6007379bd4246825cdabc7c4eea0da4e5d2c97a545977fbe01782997869f" => :leopard_g3
+    sha256 "e1f4b891239cef8a1eda4a7e22d36e3dbe8648b8db162e6a6d210874aa0c3957" => :leopard_altivec
   end
 
   keg_only :provided_by_osx, "Apple's CLT package contains apr."
