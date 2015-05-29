@@ -13,6 +13,8 @@ class Scons < Formula
     sha1 "38882a9e4002c6c5b7e35df8613fb2bf6720f3b1" => :mountain_lion
   end
 
+  depends_on :python if MacOS.version < :snow_leopard
+
   def install
     bin.mkpath # Script won't create this if it doesn't already exist
     man1.install gzip("scons-time.1", "scons.1", "sconsign.1")
