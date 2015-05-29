@@ -1,3 +1,6 @@
+# provides #max_by
+require "vendor/backports/enumerable"
+
 # The Formulary is responsible for creating instances of Formula.
 # It is not meant to be used directy from formulae.
 
