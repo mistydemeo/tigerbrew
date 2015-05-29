@@ -6,6 +6,9 @@ class Git < Formula
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
+    sha256 "986076c3c42fcfd050dc0b0d8fe3b2ba539ee9920d00819e19af61cd3179acd8" => :tiger_altivec
+    sha256 "4c96052440f6d336ffe1e9adc046511539739d356fee1c6121c8b2245a1a8fb4" => :leopard_g3
+    sha256 "a907a54ea6c2060b43112d8dcc69867020bc4e1940ab7d8d88b962d922471d92" => :leopard_altivec
   end
 
   resource "man" do
