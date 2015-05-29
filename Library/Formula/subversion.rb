@@ -5,6 +5,8 @@ class Subversion < Formula
   sha256 "1099cc68840753b48aedb3a27ebd1e2afbcc84ddb871412e5d500e843d607579"
 
   bottle do
+    sha256 "f78c2b28c705189995b0bb21232c2c7828957bd67dfda309223de02f48a49c11" => :leopard_g3
+    sha256 "b0bb9f1daadb113ea0b6aa28b20b70239b05baae71165d0069e05208830bbfca" => :leopard_altivec
   end
 
   devel do
