@@ -11,6 +11,9 @@ class Isl < Formula
 
   bottle do
     cellar :any
+    sha256 "5eaa78e68bc8d075525deb825a6eb06c2fb50a17b7dd4396ad0ac55de8aa3756" => :tiger_altivec
+    sha256 "9b9a2b0962c3ebfcabe04a59ea55b4ca27c78399f8da2b13b9e87d5b6af204c3" => :leopard_g3
+    sha256 "2aec4bfbb99d9d8f8946f38ba7a047a51ad6cae6332699305dca79f702ca322a" => :leopard_altivec
   end
 
   head do
