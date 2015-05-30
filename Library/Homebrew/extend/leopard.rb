@@ -33,3 +33,9 @@ class String
     end
   end
 end
+
+class Symbol
+  def to_proc
+    proc { |*args| args.shift.send(self, *args) }
+  end
+end
