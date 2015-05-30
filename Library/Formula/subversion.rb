@@ -52,6 +52,10 @@ class Subversion < Formula
   depends_on "gpg-agent" => :optional
   depends_on :java => :optional
 
+  # Fails when linking serf
+  # https://github.com/mistydemeo/tigerbrew/issues/333
+  fails_with :gcc_4_0
+
   # Fix #23993 by stripping flags swig can't handle from SWIG_CPPFLAGS
   # Prevent "-arch ppc" from being pulled in from Perl's $Config{ccflags}
   patch :DATA
