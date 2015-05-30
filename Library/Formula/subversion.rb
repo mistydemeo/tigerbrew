@@ -87,7 +87,7 @@ class Subversion < Formula
                 CFLAGS=#{ENV.cflags} LINKFLAGS=#{ENV.ldflags}
                 OPENSSL=#{Formula["openssl"].opt_prefix}]
 
-      if MacOS.version < :leopard || !MacOS::CLT.installed?
+      if MacOS.version <= :leopard || !MacOS::CLT.installed?
         args << "APR=#{Formula['apr'].opt_prefix}"
         args << "APU=#{Formula['apr-util'].opt_prefix}"
       end
