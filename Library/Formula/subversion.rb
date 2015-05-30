@@ -140,7 +140,7 @@ class Subversion < Formula
     args << "--enable-javahl" << "--without-jikes" if build.with? "java"
     args << "--without-gpg-agent" if build.without? "gpg-agent"
 
-    if MacOS.version > :leopard || MacOS::CLT.installed?
+    if MacOS.version > :leopard && MacOS::CLT.installed?
       args << "--with-apr=/usr"
       args << "--with-apr-util=/usr"
     else
