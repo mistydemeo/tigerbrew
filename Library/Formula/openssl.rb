@@ -17,6 +17,7 @@ class Openssl < Formula
   option "without-check", "Skip build-time tests (not recommended)"
 
   depends_on "makedepend" => :build
+  depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
 
   keg_only :provided_by_osx,
     "Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries"
@@ -139,12 +140,9 @@ class Openssl < Formula
     rm_f openssldir/"certs/Equifax_CA" if MacOS.version == :yosemite
   end if MacOS.version > :leopard
 
-  def caveats; <<-EOS.undent
-    To install updated CA certs from Mozilla.org:
-
-        brew install curl-ca-bundle
-    EOS
-  end
+  def post_install
+    (openssldir/"cert.pem").install_symlink Formula["curl-ca-bundle"].opt_share/"ca-bundle.crt"
+  end if MacOS.version <= :leopard
 
   test do
     # Make sure the necessary .cnf file exists, otherwise OpenSSL gets moody.
