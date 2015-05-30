@@ -4,6 +4,7 @@ class Apr < Formula
   sha256 "7d03ed29c22a7152be45b8e50431063736df9e1daa1ddf93f6a547ba7a28f67a"
 
   bottle do
+    sha256 "e7ce8b6f59d1b41c8fd5e2f51a6871bac464d03e943e9e23fd4b947076912c42" => :tiger_altivec
     sha256 "3ae92c725f0c8ad9aa5b1044b332b76eeecc4a9831d41450c55bdd17577b626e" => :leopard_g3
     sha256 "0720fdf5a6be0810571ed9b03a67b8fef9e730d6bd1889ffc7e6e3dcbcbc3130" => :leopard_altivec
   end
