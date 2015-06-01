@@ -18,8 +18,18 @@ class Tuntap < Formula
   depends_on UnsignedKextRequirement => [ :cask => "tuntap",
       :download => "http://sourceforge.net/projects/tuntaposx/files/tuntap/" ]
 
+  # error: invalid conversion from 'errno_t (*)(__ifnet*, long unsigned int, void*)' to 'errno_t (*)(__ifnet*, u_int32_t, void*)'
+  patch :DATA
+
   def install
-    cd "tuntap" if build.head?
+    cd "tuntap"
+
+    # Don't force archflags
+    inreplace %w[src/tap/Makefile src/tun/Makefile] do |s|
+      s.gsub! "-arch ppc -arch i386 -arch x86_64", ""
+      s.gsub! "-Xlinker -kext", ""
+    end
+
     ENV.j1 # to avoid race conditions (can't open: ../tuntap.o)
     system "make", "CC=#{ENV.cc}", "CCP=#{ENV.cxx}"
     kext_prefix.install "tun.kext", "tap.kext"
@@ -56,31 +66,38 @@ class Tuntap < Formula
 end
 
 __END__
-diff --git a/tuntap/src/tap/Makefile b/tuntap/src/tap/Makefile
-index d4d1158..1dfe294 100644
---- a/tuntap/src/tap/Makefile
-+++ b/tuntap/src/tap/Makefile
-@@ -19,7 +19,8 @@ BUNDLE_SIGNATURE = ????
- BUNDLE_PACKAGETYPE = KEXT
- BUNDLE_VERSION = $(TAP_KEXT_VERSION)
+diff --git a/tuntap/src/tuntap.cc b/tuntap/src/tuntap.cc
+index 143d94a..d48d5c7 100644
+--- a/tuntap/src/tuntap.cc
++++ b/tuntap/src/tuntap.cc
+@@ -75,7 +75,7 @@ tuntap_if_output(ifnet_t ifp, mbuf_t m)
+ }
  
--INCLUDE = -I.. -I/System/Library/Frameworks/Kernel.framework/Headers
-+SDKROOT = $(shell xcodebuild -version -sdk macosx Path 2>/dev/null)
-+INCLUDE = -I.. -I$(SDKROOT)/System/Library/Frameworks/Kernel.framework/Headers
- CFLAGS = -Wall -mkernel -force_cpusubtype_ALL \
- 	-fno-builtin -fno-stack-protector -arch i386 -arch x86_64 \
- 	-DKERNEL -D__APPLE__ -DKERNEL_PRIVATE -DTUNTAP_VERSION=\"$(TUNTAP_VERSION)\" \
-diff --git a/tuntap/src/tun/Makefile b/tuntap/src/tun/Makefile
-index 9ca6794..c530f10 100644
---- a/tuntap/src/tun/Makefile
-+++ b/tuntap/src/tun/Makefile
-@@ -20,7 +20,8 @@ BUNDLE_SIGNATURE = ????
- BUNDLE_PACKAGETYPE = KEXT
- BUNDLE_VERSION = $(TUN_KEXT_VERSION)
+ errno_t
+-tuntap_if_ioctl(ifnet_t ifp, long unsigned int cmd, void *arg)
++tuntap_if_ioctl(ifnet_t ifp, uint32_t cmd, void *arg)
+ {
+ 	if (ifp != NULL) {
+ 		tuntap_interface *ttif = (tuntap_interface *) ifnet_softc(ifp);
+diff --git a/tuntap/src/tuntap.h b/tuntap/src/tuntap.h
+index e025abd..c74394e 100644
+--- a/tuntap/src/tuntap.h
++++ b/tuntap/src/tuntap.h
+@@ -54,7 +54,7 @@ extern "C" {
+ extern "C" {
  
--INCLUDE = -I.. -I/System/Library/Frameworks/Kernel.framework/Headers
-+SDKROOT = $(shell xcodebuild -version -sdk macosx Path 2>/dev/null)
-+INCLUDE = -I.. -I$(SDKROOT)/System/Library/Frameworks/Kernel.framework/Headers
- CFLAGS = -Wall -mkernel -force_cpusubtype_ALL \
- 	-fno-builtin -fno-stack-protector -arch i386 -arch x86_64 \
- 	-DKERNEL -D__APPLE__ -DKERNEL_PRIVATE -DTUNTAP_VERSION=\"$(TUNTAP_VERSION)\" \
+ errno_t tuntap_if_output(ifnet_t ifp, mbuf_t m);
+-errno_t tuntap_if_ioctl(ifnet_t ifp, long unsigned int cmd, void *arg);
++errno_t tuntap_if_ioctl(ifnet_t ifp, uint32_t cmd, void *arg);
+ errno_t tuntap_if_set_bpf_tap(ifnet_t ifp, bpf_tap_mode mode, int (*cb)(ifnet_t, mbuf_t));
+ errno_t tuntap_if_demux(ifnet_t ifp, mbuf_t m, char *header, protocol_family_t *proto);
+ errno_t tuntap_if_framer(ifnet_t ifp, mbuf_t *m, const struct sockaddr *dest,
+@@ -264,7 +264,7 @@ class tuntap_interface {
+ 
+ 		/* interface functions. friends and implementation methods */
+ 		friend errno_t tuntap_if_output(ifnet_t ifp, mbuf_t m);
+-		friend errno_t tuntap_if_ioctl(ifnet_t ifp, long unsigned int cmd, void *arg);
++		friend errno_t tuntap_if_ioctl(ifnet_t ifp, uint32_t cmd, void *arg);
+ 		friend errno_t tuntap_if_set_bpf_tap(ifnet_t ifp, bpf_tap_mode mode,
+ 				int (*cb)(ifnet_t, mbuf_t));
+ 		friend errno_t tuntap_if_demux(ifnet_t ifp, mbuf_t m, char *header,
