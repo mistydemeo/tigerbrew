@@ -10,9 +10,8 @@ class Tuntap < Formula
 
   bottle do
     cellar :any
-    sha1 "66c5936c679b961089df84668a8c04bce56d992c" => :mavericks
-    sha1 "80bfd6bcec776491065be0450ce2c47dc2d7a567" => :mountain_lion
-    sha1 "a3e380d8080ce9cf75f04cc80dcc869cf93b0276" => :lion
+    sha256 "62f4775179574e59661badc00178cce7b334f24dc4f5a2cc06de5a0a618906f7" => :leopard_g3
+    sha256 "d2ffdd7c5441e054152a8491cf378dc5fc7fb5ab1cab6eccc9b44ef7298f7f4b" => :leopard_altivec
   end
 
   depends_on UnsignedKextRequirement => [ :cask => "tuntap",
