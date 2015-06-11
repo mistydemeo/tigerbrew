@@ -213,7 +213,9 @@ class CompilerSelectionError < RuntimeError
   def initialize(formula)
     super <<-EOS.undent
       #{formula.name} cannot be built with any available compilers.
-      To install this formula, you may need to:
+      To install this formula, you may need to either:
+        brew install apple-gcc42
+      or:
         brew install gcc
       EOS
   end
