@@ -3,6 +3,7 @@ require "language/haskell"
 class HighlightingKate < Formula
   include Language::Haskell::Cabal
 
+  desc "Haskell syntax highlighting library, based on the Kate editor"
   homepage "https://github.com/jgm/highlighting-kate"
   url "https://hackage.haskell.org/package/highlighting-kate-0.5.15/highlighting-kate-0.5.15.tar.gz"
   sha256 "e4e52471dcef0771109d1f748ca9989a32eac8a31971b7e09e1c81c6cef7e945"
@@ -19,6 +20,8 @@ class HighlightingKate < Formula
 
   depends_on "ghc" => :build
   depends_on "cabal-install" => :build
+
+  setup_ghc_compilers
 
   def install
     cabal_sandbox do

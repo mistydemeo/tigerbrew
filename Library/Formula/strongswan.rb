@@ -1,15 +1,13 @@
-require 'formula'
-
 class Strongswan < Formula
+  desc "VPN based on IPsec"
   homepage 'https://www.strongswan.org'
-  url 'https://download.strongswan.org/strongswan-5.3.0.tar.bz2'
-  sha1 '6d83222143ff4dabbc667e9b1725cac55c546826'
+  url 'https://download.strongswan.org/strongswan-5.3.2.tar.bz2'
+  sha256 "a4a9bc8c4e42bdc4366a87a05a02bf9f425169a7ab0c6f4482d347e44acbf225"
 
   bottle do
-    revision 1
-    sha256 "101d5e0a389b98a81f1b8f13bff8ea5144c45f9448563c1b46cf73288be96317" => :yosemite
-    sha256 "0a9765b71208cea3c24b8ec8c405baaad2db7c4d434d8a67d769fa7d94bfb3f3" => :mavericks
-    sha256 "962bd6f448aa43eccffe76c831656612b9f36af6f05b71822748bbfe7febb159" => :mountain_lion
+    sha256 "dcb83dc117ee1f0b145408d14ef5a832ea8931cedd6d2f3a7c97c157cc577bff" => :yosemite
+    sha256 "bc642bdf33694216316a17fd2d64054b6b7aac5bc73cf5cd231aa868b1108b88" => :mavericks
+    sha256 "f3601206f55048e0d67802fc4d32091cfe3a6bef4c98fa38a2f1e9ddbb832e85" => :mountain_lion
   end
 
   option 'with-curl', 'Build with libcurl based fetcher'

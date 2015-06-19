@@ -1,20 +1,21 @@
 class Python3 < Formula
+  desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
   url "https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tar.xz"
   sha256 "b5b3963533768d5fc325a4d7a6bd6f666726002d696f1d399ec06b043ea996b8"
 
   bottle do
-    revision 10
-    sha256 "06b2766a61cd2f1f97ca8f9db0ca1d0eb16f51b36703a7df959db15bc268031a" => :yosemite
-    sha256 "e6be6bed7233938bc22c1173f38c921c9f820e5c46dc969d85d5a479b3240c95" => :mavericks
-    sha256 "c92526adb9a3f07da1ab665a23e80f9e62ca38166b6eb9a0c18680f9feb4c6fc" => :mountain_lion
+    revision 12
+    sha256 "68f6938ba44a6c40852f02c15c2f88afc07e4395f7d8d30a22d385f0a70360ed" => :yosemite
+    sha256 "214e9575b5b6e1714ae1aa2107c3ad3c449130eb0b1ef79914dce668ca2e025e" => :mavericks
+    sha256 "e0ac1577337be5ad2e421f2299edc26018e78a57df76830f56bada728eca023e" => :mountain_lion
   end
 
   head "https://hg.python.org/cpython", :using => :hg
 
   devel do
-    url "https://www.python.org/ftp/python/3.5.0/Python-3.5.0b1.tgz"
-    sha256 "1a4f57ad2ec0dd9b17703e13b46b96256b55b28d9e6529005e72f3d660e3f8a1"
+    url "https://www.python.org/ftp/python/3.5.0/Python-3.5.0b2.tgz"
+    sha256 "3487dbdea5b78ec25be73321e5d54f56d76e8de22bf818e2a529eeb9feb34fe8"
   end
 
   option :universal
@@ -37,13 +38,13 @@ class Python3 < Formula
   skip_clean "bin/easy_install3", "bin/easy_install-3.4", "bin/easy_install-3.5"
 
   resource "setuptools" do
-    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-15.2.tar.gz"
-    sha256 "381e78471fb0eff89c4b1a219e8739f48dd87c76ad2d3a790010ca3a62ee29a4"
+    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-17.1.1.tar.gz"
+    sha256 "5bf42dbf406fd58a41029f53cffff1c90db5de1c5e0e560b5545cf2ec949c431"
   end
 
   resource "pip" do
-    url "https://pypi.python.org/packages/source/p/pip/pip-6.1.1.tar.gz"
-    sha256 "89f3b626d225e08e7f20d85044afa40f612eb3284484169813dc2d0631f2a556"
+    url "https://pypi.python.org/packages/source/p/pip/pip-7.0.3.tar.gz"
+    sha256 "b4c598825a6f6dc2cac65968feb28e6be6c1f7f1408493c60a07eaa731a0affd"
   end
 
   # Homebrew's tcl-tk is built in a standard unix fashion (due to link errors)
@@ -113,11 +114,14 @@ class Python3 < Formula
     end
     # Avoid linking to libgcc http://code.activestate.com/lists/python-dev/112195/
     args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
-    # We want our readline! This is just to outsmart the detection code,
+
+    # We want our readline and openssl! This is just to outsmart the detection code,
     # superenv makes cc always find includes/libs!
-    inreplace "setup.py",
-              "do_readline = self.compiler.find_library_file(lib_dirs, 'readline')",
+    inreplace "setup.py" do |s|
+      s.gsub! "do_readline = self.compiler.find_library_file(lib_dirs, 'readline')",
               "do_readline = '#{Formula["readline"].opt_lib}/libhistory.dylib'"
+      s.gsub! "/usr/local/ssl", Formula["openssl"].opt_prefix
+    end
 
     if build.universal?
       ENV.universal_binary
@@ -220,8 +224,8 @@ class Python3 < Formula
     end
 
     # Help distutils find brewed stuff when building extensions
-    include_dirs = [HOMEBREW_PREFIX/"include"]
-    library_dirs = [HOMEBREW_PREFIX/"lib"]
+    include_dirs = [HOMEBREW_PREFIX/"include", Formula["openssl"].opt_include]
+    library_dirs = [HOMEBREW_PREFIX/"lib", Formula["openssl"].opt_lib]
 
     if build.with? "sqlite"
       include_dirs << Formula["sqlite"].opt_include
@@ -248,7 +252,7 @@ class Python3 < Formula
   end
 
   def xy
-    version.to_s.slice(/(3.\d)/) || "3.5"
+    version.to_s.slice(/(3.\d)/) || "3.6"
   end
 
   def sitecustomize

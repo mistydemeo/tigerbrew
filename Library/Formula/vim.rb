@@ -1,4 +1,5 @@
 class Vim < Formula
+  desc "Vi \"workalike\" with many additional features"
   homepage "http://www.vim.org/"
   head "https://vim.googlecode.com/hg/"
   # This package tracks debian-unstable: http://packages.debian.org/unstable/vim
@@ -61,12 +62,12 @@ class Vim < Formula
     end
 
     opts << "--disable-nls" if build.include? "disable-nls"
+    opts << "--without-x"
 
     if build.with? "client-server"
       opts << "--enable-gui=gtk2"
     else
       opts << "--enable-gui=no"
-      opts << "--without-x"
     end
 
     if build.with? "luajit"

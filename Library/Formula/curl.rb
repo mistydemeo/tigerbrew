@@ -1,14 +1,12 @@
 class Curl < Formula
+  desc "Get a file from an HTTP, HTTPS or FTP server"
   homepage "http://curl.haxx.se/"
-  url "http://curl.haxx.se/download/curl-7.42.1.tar.bz2"
-  mirror "https://raw.githubusercontent.com/DomT4/LibreMirror/master/cURL/curl-7.42.1.tar.bz2"
-  sha256 "e2905973391ec2dfd7743a8034ad10eeb58dab8b3a297e7892a41a7999cac887"
+  url "http://curl.haxx.se/download/curl-7.43.0.tar.bz2"
+  mirror "https://raw.githubusercontent.com/DomT4/LibreMirror/master/cURL/curl-7.43.0.tar.bz2"
+  sha256 "baa654a1122530483ccc1c58cc112fec3724a82c11c6a389f1e6a37dc8858df9"
 
   bottle do
     cellar :any
-    sha1 "1c6e439e3caac6cca00c38749082ad04109238d7" => :tiger_altivec
-    sha1 "61dbde00f5f16e9566a1e17ac0323c5be09ab44b" => :leopard_g3
-    sha1 "6cdbb0aa2ccf1b1556f602b7f0e592cf5661ea09" => :leopard_altivec
   end
 
   keg_only :provided_by_osx

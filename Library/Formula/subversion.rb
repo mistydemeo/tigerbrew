@@ -1,19 +1,17 @@
 class Subversion < Formula
+  desc "Version control system designed to be a better CVS"
   homepage "https://subversion.apache.org/"
   url "https://www.apache.org/dyn/closer.cgi?path=subversion/subversion-1.8.13.tar.bz2"
   mirror "https://archive.apache.org/dist/subversion/subversion-1.8.13.tar.bz2"
   sha256 "1099cc68840753b48aedb3a27ebd1e2afbcc84ddb871412e5d500e843d607579"
 
   bottle do
-    sha256 "171889d27e0ee3bcabc43ce5a341bb2ad3da5017a7e29a483969f05e0de9e195" => :tiger_altivec
-    sha256 "f78c2b28c705189995b0bb21232c2c7828957bd67dfda309223de02f48a49c11" => :leopard_g3
-    sha256 "b0bb9f1daadb113ea0b6aa28b20b70239b05baae71165d0069e05208830bbfca" => :leopard_altivec
   end
 
   devel do
-    url "https://www.apache.org/dyn/closer.cgi?path=subversion/subversion-1.9.0-rc1.tar.bz2"
-    mirror "https://archive.apache.org/dist/subversion/subversion-1.9.0-rc1.tar.bz2"
-    sha256 "4912585249820d9fb9c507dcc91a6495fc9d3581e4bafdf188bb45007204a913"
+    url "https://www.apache.org/dyn/closer.cgi?path=subversion/subversion-1.9.0-rc2.tar.bz2"
+    mirror "https://archive.apache.org/dist/subversion/subversion-1.9.0-rc2.tar.bz2"
+    sha256 "915161d5692d5ee3358bb04ae634d2b7173c308eef78070fe1905e40585ecd85"
   end
 
   deprecated_option "java" => "with-java"
@@ -59,6 +57,7 @@ class Subversion < Formula
 
   # Fix #23993 by stripping flags swig can't handle from SWIG_CPPFLAGS
   # Prevent "-arch ppc" from being pulled in from Perl's $Config{ccflags}
+  # Prevent linking into a Python Framework
   patch :DATA
 
   if build.with?("perl") || build.with?("ruby")
@@ -77,6 +76,19 @@ class Subversion < Formula
   end
 
   def install
+    # OS X's Python is built universally and can't link with Homebrew's deps
+    # unless Homebrew's deps are universal as well.
+    # https://github.com/Homebrew/homebrew-versions/issues/777
+    # https://github.com/Homebrew/homebrew/issues/34119
+    if build.with?("python") && (which "python").universal?
+      unless build.universal?
+        raise <<-EOS.undent
+          You must build subversion --universal unless Homebrew's
+          Python is installed, otherwise the build will fail.
+        EOS
+      end
+    end
+
     serf_prefix = libexec+"serf"
 
     resource("serf").stage do
@@ -102,7 +114,7 @@ class Subversion < Formula
     end
 
     if build.include? "unicode-path"
-      fail <<-EOS.undent
+      raise <<-EOS.undent
         The --unicode-path patch is not supported on Subversion 1.8.
 
         Upgrading from a 1.7 version built with this patch is not supported.
@@ -179,6 +191,7 @@ class Subversion < Formula
     if build.with? "python"
       system "make", "swig-py"
       system "make", "install-swig-py"
+      (lib/"python2.7/site-packages").install_symlink Dir["#{lib}/svn-python/*"]
     end
 
     if build.with? "perl"
@@ -296,3 +309,17 @@ index a60430b..bd9b017 100644
      INC  => join(' ', $includes, $cppflags,
                   " -I$swig_srcdir/perl/libsvn_swig_perl",
                   " -I$svnlib_srcdir/include",
+
+diff --git a/build/get-py-info.py b/build/get-py-info.py
+index 29a6c0a..dd1a5a8 100644
+--- a/build/get-py-info.py
++++ b/build/get-py-info.py
+@@ -83,7 +83,7 @@ def link_options():
+   options = sysconfig.get_config_var('LDSHARED').split()
+   fwdir = sysconfig.get_config_var('PYTHONFRAMEWORKDIR')
+
+-  if fwdir and fwdir != "no-framework":
++  if fwdir and fwdir != "no-framework" and sys.platform != 'darwin':
+
+     # Setup the framework prefix
+     fwprefix = sysconfig.get_config_var('PYTHONFRAMEWORKPREFIX')

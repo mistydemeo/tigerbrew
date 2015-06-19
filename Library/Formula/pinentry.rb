@@ -1,14 +1,15 @@
 class Pinentry < Formula
+  desc "Passphrase entry dialog utilizing the Assuan protocol"
   homepage "https://www.gnupg.org/related_software/pinentry/index.en.html"
-  url "ftp://ftp.gnupg.org/gcrypt/pinentry/pinentry-0.9.2.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/pinentry/pinentry-0.9.2.tar.bz2"
-  sha256 "fd8bc1592ceb22bb492b07cb29b1b140bb882c859e6503b974254c0a4b4134d1"
+  url "ftp://ftp.gnupg.org/gcrypt/pinentry/pinentry-0.9.4.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/pinentry/pinentry-0.9.4.tar.bz2"
+  sha256 "4b8835bb738d464542b62020ff6b8f649a621540edb61c4cbfe0c894538ee2e0"
 
   bottle do
     cellar :any
-    sha256 "4cb0a5a49787d34b3ab201b0d7d7e04bf9c2997ecd9acfa317bf4e5515414316" => :yosemite
-    sha256 "ce8ef66a0b5860788b8f317a68d0d10206394a02c71c8d43600a528226e13e76" => :mavericks
-    sha256 "3ee6b0dad415740e56b0446935121c3ecf4379a0b1bc85bd67d20afbb1224b27" => :mountain_lion
+    sha256 "7355da76546d02a42f60922fb1786b05e10a80706d3e0da9b3a49e45f5993f79" => :yosemite
+    sha256 "49d718588e9a4c9f609636ba6d53aa88421b737a93e154ed30216df02aa8a5be" => :mavericks
+    sha256 "706ee6a2fcfca3259e94ca3b76665136066c1755229d0f3e4cb460e85f7e1b24" => :mountain_lion
   end
 
   depends_on "pkg-config" => :build
@@ -17,7 +18,8 @@ class Pinentry < Formula
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--disable-pinentry-qt4",
-                          "--disable-pinentry-gtk2"
+                          "--disable-pinentry-gtk2",
+                          "--disable-pinentry-gnome3"
     system "make", "install"
   end
 

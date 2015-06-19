@@ -1,24 +1,22 @@
 class Git < Formula
+  desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://www.kernel.org/pub/software/scm/git/git-2.4.2.tar.xz"
-  sha256 "4801ec1cd8c2175b58cfdbc721d0bf50d74ae226f36905fceb894c2fb620c9e5"
+  url "https://www.kernel.org/pub/software/scm/git/git-2.4.4.tar.xz"
+  sha256 "f873b15d42281474fcba5921295d01e48a3cd3cddcbeb3d60176bf30f5f30260"
 
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
-    sha256 "986076c3c42fcfd050dc0b0d8fe3b2ba539ee9920d00819e19af61cd3179acd8" => :tiger_altivec
-    sha256 "4c96052440f6d336ffe1e9adc046511539739d356fee1c6121c8b2245a1a8fb4" => :leopard_g3
-    sha256 "a907a54ea6c2060b43112d8dcc69867020bc4e1940ab7d8d88b962d922471d92" => :leopard_altivec
   end
 
   resource "man" do
-    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.4.2.tar.xz"
-    sha256 "1b1830e804725e90ff319d801ab25f84ad956564379ef976bdc91bd58b743c32"
+    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.4.4.tar.xz"
+    sha256 "4bf125ece40f33872c6d9ccd6d83ec0068de5216b4075eaee78e39d46b08c351"
   end
 
   resource "html" do
-    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.4.2.tar.xz"
-    sha256 "792cfc6c8236fdb58dfd66e39766c7b8097080361eed28443207bc6c36e07911"
+    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.4.4.tar.xz"
+    sha256 "e7f411f3eb3ecccc87e7d96afdcd8e72734a331170412eb37f240b731b2c2580"
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -108,12 +106,16 @@ class Git < Formula
 
     ENV["NO_GETTEXT"] = "1" if build.without? "gettext"
 
-    system "make", "prefix=#{prefix}",
-                   "sysconfdir=#{etc}",
-                   "CC=#{ENV.cc}",
-                   "CFLAGS=#{ENV.cflags}",
-                   "LDFLAGS=#{ENV.ldflags}",
-                   "install"
+    args = %W[
+      prefix=#{prefix}
+      sysconfdir=#{etc}
+      CC=#{ENV.cc}
+      CFLAGS=#{ENV.cflags}
+      LDFLAGS=#{ENV.ldflags}
+    ]
+    args << "NO_OPENSSL=1" << "APPLE_COMMON_CRYPTO=1" if build.without? "brewed-openssl"
+
+    system "make", "install", *args
 
     # Install the OS X keychain credential helper
     cd "contrib/credential/osxkeychain" do

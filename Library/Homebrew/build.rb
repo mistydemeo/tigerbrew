@@ -80,7 +80,7 @@ class Build
     if superenv?
       ENV.keg_only_deps = keg_only_deps.map(&:name)
       ENV.deps = deps.map { |d| d.to_formula.name }
-      ENV.x11 = reqs.any? { |rq| rq.kind_of?(X11Dependency) }
+      ENV.x11 = reqs.any? { |rq| rq.kind_of?(X11Requirement) }
       ENV.setup_build_environment(formula)
       post_superenv_hacks
       reqs.each(&:modify_build_environment)
@@ -159,7 +159,7 @@ class Build
     end
     Keg.new(path).optlink
   rescue StandardError
-    raise "#{f.opt_prefix} not present or broken\nPlease reinstall #{f.name}. Sorry :("
+    raise "#{f.opt_prefix} not present or broken\nPlease reinstall #{f.full_name}. Sorry :("
   end
 end
 

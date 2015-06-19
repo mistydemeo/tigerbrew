@@ -85,7 +85,7 @@ end
 def interactive_shell f=nil
   unless f.nil?
     ENV['HOMEBREW_DEBUG_PREFIX'] = f.prefix
-    ENV['HOMEBREW_DEBUG_INSTALL'] = f.name
+    ENV['HOMEBREW_DEBUG_INSTALL'] = f.full_name
   end
 
   Process.wait fork { exec ENV['SHELL'] }
@@ -175,13 +175,13 @@ def quiet_system cmd, *args
 end
 
 def curl *args
-  brewed_curl = Formula["curl"]
-  curl_certs = Formula["curl-ca-bundle"]
-  use_curl = brewed_curl.installed? && curl_certs.installed?
-  if use_curl
-    curl = brewed_curl.opt_bin/"curl"
+  brewed_curl = HOMEBREW_PREFIX/"opt/curl/bin/curl"
+  curl_certs = HOMEBREW_PREFIX/"opt/curl-ca-bundle"
+  use_curl = MacOS.version <= "10.6" && brewed_curl.exist? && curl_certs.exist?
+  curl = if use_curl
+    brewed_curl
   else
-    curl = Pathname.new '/usr/bin/curl'
+    Pathname.new '/usr/bin/curl'
   end
   raise "#{curl} is not executable" unless curl.exist? and curl.executable?
 

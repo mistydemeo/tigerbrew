@@ -1,24 +1,25 @@
 class Librsvg < Formula
+  desc "Library to render SVG files using Cairo"
   homepage "https://live.gnome.org/LibRsvg"
   url "https://download.gnome.org/sources/librsvg/2.40/librsvg-2.40.9.tar.xz"
   sha256 "13964c5d35357552b47d365c34215eee0a63bf0e6059b689f048648c6bf5f43a"
+  revision 1
 
   bottle do
-    sha256 "d5c5069f182b750a3060cca13a5c50f1546713115705af0bb9bc831b12b2f096" => :yosemite
-    sha256 "d491bd2d1cd1a543fb00acca95d8fbcc24676bf0a90edb254ff59bc393262cb8" => :mavericks
-    sha256 "2ae07ec80edb461808b53e529f1fbb4983762500f1f25f15cc702139cc59e385" => :mountain_lion
+    revision 1
+    sha256 "f955dd5db15b8963cecbe16243d21672894a4486594610e71c24612ad4607259" => :yosemite
+    sha256 "656a206ab678897eda447ab3f13681f5c133e00581aee70382de6707bed34a5d" => :mavericks
+    sha256 "be9e61f02fe0d10f25d1980c56041c2856c65a69c02e19dd72ae04d05e634768" => :mountain_lion
   end
 
   depends_on "pkg-config" => :build
   depends_on "cairo"
   depends_on "gdk-pixbuf"
   depends_on "glib"
-  depends_on "gtk+" => :recommended
   depends_on "gtk+3" => :optional
   depends_on "libcroco"
   depends_on "libgsf" => :optional
   depends_on "pango"
-  depends_on :x11 => :recommended
 
   def install
     args = ["--disable-dependency-tracking",
