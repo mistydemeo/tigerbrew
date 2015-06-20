@@ -7,6 +7,7 @@ class Subversion < Formula
 
   bottle do
     revision 1
+    sha256 "cc57e488880e76a380434bfc5b8c8b1c1caf5176802f8e60af0cd443913e8974" => :tiger_altivec
     sha256 "fe1ab0031b738afd2e3f3091725b4e2afd8e7f6c22b13c62ba145e1c2f63d536" => :leopard_g3
     sha256 "fd8d3d5a7fe7a0361ec2622385c85c1649b3bc7d50f3d56f1b602dda92c9b6ad" => :leopard_altivec
   end
