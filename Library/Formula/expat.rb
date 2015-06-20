@@ -11,6 +11,7 @@ class Expat < Formula
   bottle do
     cellar :any
     revision 1
+    sha256 "029429201dd20a3b3b4a8cd17a88deb891c8b5c9a51d9807e72c26952b45f552" => :tiger_altivec
     sha256 "cd7e2201781cbfa541a75d7c794b0149e141f426c1785186037311f381e200e0" => :leopard_g3
     sha256 "3cba71ebb2c11fc7dd9137f844861b5fd7b2a55c5e37af7506556e339a33ae7e" => :leopard_altivec
   end
