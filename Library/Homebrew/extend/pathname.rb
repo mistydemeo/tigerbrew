@@ -1,3 +1,4 @@
+require 'open3'
 require 'pathname'
 require 'mach'
 require 'resource'
@@ -270,7 +271,7 @@ class Pathname
   end
 
   def sha256_vendored_sha2
-    str = `"#{HOMEBREW_REPOSITORY}/Library/Homebrew/vendor/sha256" -256 #{self}`.chomp
+    str = Open3.popen3("#{HOMEBREW_REPOSITORY}/Library/Homebrew/vendor/sha256", "-256", self.to_s) {|_, stdout, _| stdout.read.chomp}
     str.match(/= ((\d|[a-z])+)/).captures.first
   end
 
