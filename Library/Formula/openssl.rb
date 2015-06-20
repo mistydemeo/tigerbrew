@@ -121,7 +121,7 @@ class Openssl < Formula
 
   def post_install
     rm_rf openssldir/"cert.pem"
-    openssldir.install_symlink Formula["curl-ca-bundle"].opt_share/"ca-bundle.crt" => "certs.pem"
+    openssldir.install_symlink Formula["curl-ca-bundle"].opt_share/"ca-bundle.crt" => "cert.pem"
   end if MacOS.version <= :leopard
 
   test do
