@@ -7,6 +7,7 @@ class Python < Formula
 
   bottle do
     revision 1
+    sha256 "63bbea5981e623d58c5a7b60d67e8cc429c5a3161cacc183bfcf80b59d4df658" => :tiger_altivec
     sha256 "8bfcfa5d07c3a445422a941e16e2f30bc171722df1ebe57d477022b33c862a22" => :leopard_g3
     sha256 "99574b0fedfc6c71ab05d9d090014083d5d97767caf5db764d542e04edbfdabd" => :leopard_altivec
   end
