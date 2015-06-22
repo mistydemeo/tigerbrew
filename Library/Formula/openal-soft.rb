@@ -12,6 +12,18 @@ class OpenalSoft < Formula
     sha256 "b190c7c847f976b7d4938ea84356baa7225b63748c890af151150089f145ec6a" => :mountain_lion
   end
 
+  # static asserts try to use __COUNTER__, not defined in GCC 4.2
+  # These upstream commits will be included in the next release.
+  patch do
+    url "http://repo.or.cz/w/openal-soft.git/commitdiff_plain/907cd3dd01098c5b7437173b5f800ecdf03946bb?hp=b34a374fa7801b64fddcfd1fa57188fb5f5303a8"
+    sha256 "2326039b55f52435eb271c683b9392fd52603ba2161a73345bf8bae1132f9e7b"
+  end
+
+  patch do
+    url "http://repo.or.cz/w/openal-soft.git/commitdiff_plain/19f79be57b8e768f44710b6d26017bc1f8c8fbda?hp=6fcaccc96414de5a0c4578b594bdc244f7b96058"
+    sha256 "97d6a2e759f9fab2b8a9b4bd448783d40eb7ecb541af952d63031e15201aa6c2"
+  end
+
   option :universal
 
   depends_on "pkg-config" => :build
