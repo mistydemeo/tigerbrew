@@ -15,9 +15,8 @@ class Flac < Formula
 
   bottle do
     cellar :any
-    sha1 "fcb2c97ae1a204372210e89b49a12cd8f18a14c8" => :yosemite
-    sha1 "ba8cd91c32faddb537929fad6dee7ef363c30f3d" => :mavericks
-    sha1 "0e117a98f7a267b019d7dba31d5b65f5d57c530c" => :mountain_lion
+    sha256 "993da436abd03400977ec266a2747a955595a6418462b8fb328661ff83b41f9e" => :leopard_g3
+    sha256 "eebc1cd5a2204c9d223c476e5148ada3663ba58ffe5caa6faeaa24eb2d6a5cc8" => :leopard_altivec
   end
 
   option :universal
