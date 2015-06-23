@@ -8,10 +8,8 @@ class Libogg < Formula
 
   bottle do
     cellar :any
-    sha1 "103ee41d6c42015473a4d13b010c33d5dca29f64" => :yosemite
-    sha1 "7fcbece23ab93ac6d107625aae32e966615661d1" => :mavericks
-    sha1 "ba0b0f47f7043e711eb8ab3719623d15395440ab" => :mountain_lion
-    sha1 "e5f0cb6f5b1546e8073cdaa9b09b65b8b7c0d696" => :lion
+    sha256 "771d905c7cd8ec9b28e94ddb751e2af5e86e943ce1e156ead529b0e6f6044914" => :leopard_g3
+    sha256 "f5eff6ed4b72ec948f42dee65463623fb4e61094e96abc78af8e1669633f9c4f" => :leopard_altivec
   end
 
   head do
