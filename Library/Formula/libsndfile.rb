@@ -9,10 +9,8 @@ class Libsndfile < Formula
 
   bottle do
     cellar :any
-    revision 1
-    sha1 "6bbba8972b492d3a287e6f10d39115ca980224ec" => :yosemite
-    sha1 "07d424bd9d4f051495538edd0899b191495457c5" => :mavericks
-    sha1 "9ed12d6cc31e2a63d14fb175bba7b5d68145cc94" => :mountain_lion
+    sha256 "c090158abe3cc4a62f30f7318c66a509deff2e23b0f78786f7c1bae90d6f4a0f" => :leopard_g3
+    sha256 "94622c1c00694f43403f83f2aaeac4745c15021c3a56568e2bfa17d116274ab6" => :leopard_altivec
   end
 
   depends_on "pkg-config" => :build
