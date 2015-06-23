@@ -17,9 +17,8 @@ class Sfml < Formula
 
   bottle do
     cellar :any
-    sha256 "3a945776dbc66b4e304853fe09a41b43f1da4047427e37a21c3402332b41d2ff" => :yosemite
-    sha256 "7c7e3eeb9f700ecf56e4ce68406dfe9be1c3a614f6ce156a45057e421bd08d60" => :mavericks
-    sha256 "1dd68903fa88cf39d3d12d9380d0bfb9c10585d2970b2cca24597e8c3604acf8" => :mountain_lion
+    sha256 "508425964941cd9d99a9ed0f6fec449676f7995e6f7d6eb6db1ac868b788a494" => :leopard_g3
+    sha256 "67e6b2996aa55bcd19e2c65a1a0c5d9523e922791773f7939d0a5a3a54366553" => :leopard_altivec
   end
 
   # SFML 2.x requires 10.5; it appears to be a substantial rewrite from 1.x,
