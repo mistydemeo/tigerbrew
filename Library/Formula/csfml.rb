@@ -2,6 +2,17 @@ class Csfml < Formula
   # Don't update CSFML until there's a corresponding SFML release
   desc "SMFL bindings for C"
   homepage "http://www.sfml-dev.org/"
+
+  # SFML 2.2+ require Lion or newer
+  case MacOS.version
+  when 10.5, 10.6
+    url "https://github.com/SFML/CSFML/archive/2.1.tar.gz"
+    sha256 "0158a2c13f7e5392a6e3c6981121dadf225672c2ba7123de210eb878ab4e03b5"
+  else
+    url "https://github.com/SFML/CSFML/archive/2.3.tar.gz"
+    sha256 "ba8f5529fd264c2778844a8b1bb71ede7e902bbd6841275c344dc488ce7054cd"
+  end
+
   url "https://github.com/SFML/CSFML/archive/2.3.tar.gz"
   sha256 "ba8f5529fd264c2778844a8b1bb71ede7e902bbd6841275c344dc488ce7054cd"
 
@@ -14,6 +25,9 @@ class Csfml < Formula
     sha256 "afbda33ded196a5dd39ecc68627e6fb6db156ec7a67f71fb16a6d6cb4cd40531" => :mountain_lion
   end
 
+  # SFML 2.x requires 10.5; it appears to be a substantial rewrite from 1.x,
+  # so don't bother trying to support SFML 1.6
+  depends_on :macos => :leopard
   depends_on "cmake" => :build
   depends_on "sfml"
 
