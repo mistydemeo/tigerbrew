@@ -8,9 +8,8 @@ class Libvorbis < Formula
 
   bottle do
     cellar :any
-    sha1 "241550d9dc1c52eecfe2ca63d8609c1e8cf4d5fb" => :yosemite
-    sha1 "b216293debbca8baa7bfa848b81cb07e664be847" => :mavericks
-    sha1 "44ac5cf5991f063d5ed105379fceb84cd1ef8330" => :mountain_lion
+    sha256 "451cecb555c4adb44678482b097c4ce02675d3e30789ae3f50e400592681fbbf" => :leopard_g3
+    sha256 "d5fc576ca9cbbae385155b13eb90dbaccd600c78b197944c504c1e29c9decae2" => :leopard_altivec
   end
 
   head do
