@@ -7,8 +7,8 @@ class Freetype < Formula
 
   bottle do
     cellar :any
-    sha256 "a09402a7a0d80223670a8b803cc62107c9b10e570a2d7af0afd5ae6829c41959" => :leopard_g3
-    sha256 "eebc1cd5a2204c9d223c476e5148ada3663ba58ffe5caa6faeaa24eb2d6a5cc8" => :leopard_altivec
+    sha256 "6ebf5afadacb6dc0252b0fcb51d6c706a27f9ec591d1622f480a5ae275f82b55" => :leopard_g3
+    sha256 "a09402a7a0d80223670a8b803cc62107c9b10e570a2d7af0afd5ae6829c41959" => :leopard_altivec
   end
 
   keg_only :provided_pre_mountain_lion
