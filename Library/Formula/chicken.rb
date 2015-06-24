@@ -15,6 +15,9 @@ class Chicken < Formula
     sha1 "e2a9863f311099590265704fe410f39de802c600" => :lion
   end
 
+  # needs make 3.81 or newer
+  depends_on 'homebrew/dupes/make' => :build if MacOS.version < :leopard
+
   def install
     ENV.deparallelize
 
