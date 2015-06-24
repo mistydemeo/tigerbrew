@@ -15,6 +15,8 @@ class Chicken < Formula
     sha1 "e2a9863f311099590265704fe410f39de802c600" => :lion
   end
 
+  depends_on 'homebrew/dupes/make' => :build
+
   def install
     ENV.deparallelize
 
