@@ -7,6 +7,8 @@ class Libmpc < Formula
 
   bottle do
     cellar :any
+    sha256 "e1d5665aa0ee5311993ba4dc64200aec82421b6d157403de9309f1930aad19c7" => :leopard_g3
+    sha256 "6bf27cc9799fd7737c0a3dac7c8d65c87a5db6f7feaffb271a0d4c838061342f" => :leopard_altivec
   end
 
   depends_on "gmp"
