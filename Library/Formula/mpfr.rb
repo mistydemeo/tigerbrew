@@ -9,6 +9,8 @@ class Mpfr < Formula
 
   bottle do
     cellar :any
+    sha256 "dc76f5632de09dc146e7ea882c543e6e66e52c9edc96ce59d09c7d295dbca23c" => :leopard_g3
+    sha256 "027026c392c85a50fe467a31bf3bc82b239f5e6eb65ef60ce0bd97a5fc0fc405" => :leopard_altivec
   end
 
   # http://www.mpfr.org/mpfr-current/allpatches
