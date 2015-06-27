@@ -41,8 +41,8 @@ class Coq < Formula
                           "-coqide", "no",
                           "-with-doc", "no"
     ENV.j1 # Otherwise "mkdir bin" can be attempted by more than one job
-    system "make", "world"
-    system "make", "install"
+    system make_path, "world"
+    system make_path, "install"
   end
 
   def caveats; <<-EOS.undent

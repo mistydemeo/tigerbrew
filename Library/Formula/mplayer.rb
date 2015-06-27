@@ -84,12 +84,9 @@ class Mplayer < Formula
     args << "--enable-freetype" if build.with?('osd') || build.with?('x11')
     args << "--enable-caca" if build.with? 'libcaca'
 
-
-    make = MacOS.version < :leopard ? Formula['homebrew/dupes/make'].bin/'make' : 'make'
-
     system "./configure", *args
-    system make.to_s
-    system make.to_s, "install"
+    system make_path
+    system make_path, "install"
   end
 
   test do

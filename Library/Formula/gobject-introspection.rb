@@ -44,9 +44,9 @@ class GobjectIntrospection < Formula
     args << "--with-cairo" if build.with? "tests"
 
     system "./configure", *args
-    system "make"
-    system "make", "check" if build.with? "tests"
-    system "make", "install"
+    system make_path
+    system make_path, "check" if build.with? "tests"
+    system make_path, "install"
   end
 
   test do

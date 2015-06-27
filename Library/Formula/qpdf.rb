@@ -20,8 +20,8 @@ class Qpdf < Formula
     ENV.append "LDFLAGS", "-L#{Formula["pcre"].opt_lib}"
 
     system "./configure", "--prefix=#{prefix}"
-    system "make"
-    system "make install"
+    system make_path
+    system make_path, "install"
   end
 
   test do

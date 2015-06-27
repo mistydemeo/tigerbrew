@@ -29,8 +29,8 @@ class Chicken < Formula
       POSTINSTALL_PROGRAM=install_name_tool
     ]
 
-    system "make", *args
-    system "make", "install", *args
+    system make_path, *args
+    system make_path, "install", *args
   end
 
   test do

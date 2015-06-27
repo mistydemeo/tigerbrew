@@ -622,6 +622,18 @@ class Formula
   alias_method :python2, :python
   alias_method :python3, :python
 
+  # Returns the path to a make 3.81 or newer binary.
+  # Returns the system make on Leopard and newer, and the
+  # path to the actually-installed make on Tiger or older.
+  def make_path
+    if MacOS.version > :tiger
+      "/usr/bin/make"
+    else
+      make = Formula["make"].opt_bin/"make"
+      make.exist? ? make.to_s : (Formula["make"].opt_bin/"gmake").to_s
+    end
+  end
+
   # an array of all core {Formula} names
   def self.core_names
     Dir["#{HOMEBREW_LIBRARY}/Formula/*.rb"].map{ |f| File.basename f, ".rb" }.sort

@@ -43,7 +43,7 @@ class Libvpx < Formula
 
     mkdir 'macbuild' do
       system "../configure", *args
-      system "make install"
+      system make_path, "install"
     end
   end
 end

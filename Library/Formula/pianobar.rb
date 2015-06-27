@@ -36,8 +36,8 @@ class Pianobar < Formula
                     "-std=c99 " +
                     # build if we aren't /usr/local'
                     "#{ENV.cppflags} #{ENV.ldflags}"
-    system "make", "PREFIX=#{prefix}"
-    system "make", "install", "PREFIX=#{prefix}"
+    system make_path, "PREFIX=#{prefix}"
+    system make_path, "install", "PREFIX=#{prefix}"
 
     prefix.install "contrib"
   end
