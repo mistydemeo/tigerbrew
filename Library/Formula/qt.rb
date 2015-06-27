@@ -16,11 +16,16 @@ class Qt < Formula
 
   head "https://code.qt.io/qt/qt.git", :branch => "4.8"
 
+  # Fixes build on 10.5 - "‘kCFURLIsHiddenKey’ was not declared in this scope"
+  # https://github.com/mistydemeo/tigerbrew/issues/303
+  patch :DATA
+
   option :universal
   option "with-qt3support", "Build with deprecated Qt3Support module support"
   option "with-docs", "Build documentation"
   option "with-developer", "Build and link with developer options"
 
+  depends_on :macos => :leopard
   depends_on "d-bus" => :optional
   depends_on "mysql" => :optional
   depends_on "postgresql" => :optional
@@ -122,3 +127,25 @@ class Qt < Formula
     EOS
   end
 end
+
+__END__
+diff --git a/src/gui/dialogs/qfiledialog_mac.mm b/src/gui/dialogs/qfiledialog_mac.mm
+index c51f6ad..f4bd8b8 100644
+--- a/src/gui/dialogs/qfiledialog_mac.mm
++++ b/src/gui/dialogs/qfiledialog_mac.mm
+@@ -297,6 +297,7 @@ QT_USE_NAMESPACE
+     CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (CFStringRef)filename, kCFURLPOSIXPathStyle, isDir);
+     CFBooleanRef isHidden;
+     Boolean errorOrHidden = false;
++#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
+     if (!CFURLCopyResourcePropertyForKey(url, kCFURLIsHiddenKey, &isHidden, NULL)) {
+         errorOrHidden = true;
+     } else {
+@@ -304,6 +305,7 @@ QT_USE_NAMESPACE
+             errorOrHidden = true;
+         CFRelease(isHidden);
+     }
++#endif
+     CFRelease(url);
+     return errorOrHidden;
+ #else
