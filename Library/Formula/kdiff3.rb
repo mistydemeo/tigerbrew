@@ -8,6 +8,12 @@ class Kdiff3 < Formula
 
   depends_on "qt"
 
+  bottle do
+    cellar :any
+    sha256 "e9a51e6fb1654987784824009d0b16a5fa0f502a868a5f25304f8a058ed9dee7" => :leopard_g3
+    sha256 "3769bf3241c09a547158b05f877f7ddcd69fca0d592cf6d302ae9e73470c9351" => :leopard_altivec
+  end
+
   def install
     # configure builds the binary
     system "./configure", "qt4"
