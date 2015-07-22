@@ -11,7 +11,12 @@ class Aria2 < Formula
     sha1 "b931e5c286c97a5cc5d5ef2e21336dfc9fe62ea6" => :mountain_lion
   end
 
+  # configure can't get C++11 working with new GCC on Tiger
+  # TODO figure this out
+  depends_on :macos => :leopard
   depends_on "pkg-config" => :build
+  # Apple TLS doesn't work on Leopard
+  depends_on "gnutls" if MacOS.version < :snow_leopard
 
   needs :cxx11
 
@@ -19,13 +24,17 @@ class Aria2 < Formula
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
-      --with-appletls
       --without-openssl
-      --without-gnutls
       --without-libgmp
       --without-libnettle
       --without-libgcrypt
     ]
+
+    if MacOS.version < :snow_leopard
+      args << "--with-gnutls" << "--without-appletls"
+    else
+      args << "--without-gnutls" << "--with-appletls"
+    end
 
     system "./configure", *args
     system "make", "install"
