@@ -4,11 +4,10 @@ class Freetype < Formula
   url "https://downloads.sf.net/project/freetype/freetype2/2.6/freetype-2.6.tar.bz2"
   mirror "http://download.savannah.gnu.org/releases/freetype/freetype-2.6.tar.bz2"
   sha256 "8469fb8124764f85029cc8247c31e132a2c5e51084ddce2a44ea32ee4ae8347e"
+  revision 1
 
   bottle do
     cellar :any
-    sha256 "6ebf5afadacb6dc0252b0fcb51d6c706a27f9ec591d1622f480a5ae275f82b55" => :leopard_g3
-    sha256 "a09402a7a0d80223670a8b803cc62107c9b10e570a2d7af0afd5ae6829c41959" => :leopard_altivec
   end
 
   keg_only :provided_pre_mountain_lion
@@ -17,6 +16,14 @@ class Freetype < Formula
   option "without-subpixel", "Disable sub-pixel rendering (a.k.a. LCD rendering, or ClearType)"
 
   depends_on "libpng"
+
+  # Don't define a TYPEOF macro in ftconfig.h
+  # https://savannah.nongnu.org/bugs/index.php?45376
+  # http://git.savannah.gnu.org/cgit/freetype/freetype2.git/commit/?id=5931268eecaeda3e05580bdc8885348fecc43fa8
+  patch do
+    url "https://gist.githubusercontent.com/anonymous/b47d77c41a6801879fd2/raw/fc21c3516b465095da7ed13f98bea491a7d18bbd/patch"
+    sha256 "5b21575d0384c9e502b51b0ba4be0ff453a34bcf9deba52b6baa38c3ffcde063"
+  end
 
   def install
     if build.with? "subpixel"

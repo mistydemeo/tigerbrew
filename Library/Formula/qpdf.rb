@@ -1,5 +1,3 @@
-require "formula"
-
 class Qpdf < Formula
   desc "Tools for and transforming and inspecting PDF files"
   homepage "http://qpdf.sourceforge.net/"

@@ -1,15 +1,12 @@
 class Sqlite < Formula
   desc "Command-line interface for SQLite"
   homepage "https://sqlite.org/"
-  url "https://sqlite.org/2015/sqlite-autoconf-3081002.tar.gz"
-  sha256 "8382e55a4e7d853c93038562ca3dd00307937fccf1c6b65ddd813e503a56d626"
-  version "3.8.10.2"
+  url "https://sqlite.org/2015/sqlite-autoconf-3081101.tar.gz"
+  sha256 "fb99b0ac038c4a7e48b44b61836cb41d4eeba36b4d0ee757beeab59031a1d3b6"
+  version "3.8.11.1"
 
   bottle do
     cellar :any
-    sha256 "72e1542beceb3b31a6246414b10693f3665f9f66811518ad62b7b55b86a7cc6b" => :tiger_altivec
-    sha256 "e01da8dba7de5f26bcfa136d296fe08346612d2ccc72e90eb51f222d6a451a35" => :leopard_g3
-    sha256 "5392cdc6272048b5993990d85277c0515e3486197a099276b398538985491a15" => :leopard_altivec
   end
 
   keg_only :provided_by_osx, "OS X provides an older sqlite3."
@@ -34,9 +31,9 @@ class Sqlite < Formula
   end
 
   resource "docs" do
-    url "https://sqlite.org/2015/sqlite-doc-3081002.zip"
-    version "3.8.10.2"
-    sha256 "e355ec10989829d485d2df08f076f6c3f598f7fc1d45d307b4fd70d5e609e6c4"
+    url "https://sqlite.org/2015/sqlite-doc-3081101.zip"
+    version "3.8.11.1"
+    sha256 "89e3fc4bce7463885da3b03602b4260fe07240f9ea674ba4ac7ce2ee4987357f"
   end
 
   # sqlite won't compile on Tiger due to missing function;

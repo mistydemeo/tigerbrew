@@ -38,7 +38,7 @@ Note that these flags should only appear after a command.
 
 ## COMMANDS
 
-  * `audit` [--strict] [<formulae>]:
+  * `audit` [--strict] [--online] [<formulae>]:
     Check <formulae> for Tigerbrew coding style violations. This should be
     run before submitting a new formula.
 
@@ -46,6 +46,9 @@ Note that these flags should only appear after a command.
 
     If `--strict` is passed, additional checks are run. This should be used
     when creating for new formulae.
+
+    If `--online` is passed, additional slower checks that require a network
+    connection are run. This should be used when creating for new formulae.
 
     `audit` exits with a non-zero status if any errors are found. This is useful,
     for instance, for implementing pre-commit hooks.
@@ -69,8 +72,14 @@ Note that these flags should only appear after a command.
     versions of formula. Note downloads for any installed formula will still not be
     deleted. If you want to delete those too: `rm -rf $(brew --cache)`
 
-  * `commands`:
+  * `command` <cmd>:
+    Display the path to the file which is used when invoking `brew <cmd>`.
+
+  * `commands [--quiet [--include-aliases]]`:
     Show a list of built-in and external commands.
+
+    If `--quiet` is passed, list only the names of commands without the header.
+    With `--include-aliases`, the aliases of internal commands will be included.
 
   * `config`:
     Show Tigerbrew and system configuration useful for debugging. If you file
@@ -89,7 +98,7 @@ Note that these flags should only appear after a command.
     If `--cmake` is passed, create a basic template for a CMake-style build.
 
     If `--no-fetch` is passed, Tigerbrew will not download <URL> to the cache and
-    will thus not add the SHA-1 to the formula for you.
+    will thus not add the SHA256 to the formula for you.
 
     The options `--set-name` and `--set-version` each take an argument and allow
     you to explicitly set the name and version of the package you are creating.
@@ -181,7 +190,7 @@ Note that these flags should only appear after a command.
     See the docs for examples of using the JSON:
     <https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/Querying-Brew.md>
 
-  * `install [--debug] [--env=<std|super>] [--ignore-dependencies] [--only-dependencies] [--cc=<compiler>] [--build-from-source] [--devel|--HEAD]` <formula>:
+  * `install [--debug] [--env=<std|super>] [--ignore-dependencies] [--only-dependencies] [--cc=<compiler>] [--build-from-source|--force-bottle] [--devel|--HEAD]` <formula>:
     Install <formula>.
 
     <formula> is usually the name of the formula to install, but it can be specified
@@ -210,6 +219,9 @@ Note that these flags should only appear after a command.
     If `--build-from-source` is passed, compile from source even if a bottle
     is provided for <formula>.
 
+    If `--force-bottle` is passed, install from a bottle if it exists
+    for the current version of OS X, even if custom options are given.
+
     If `--devel` is passed, and <formula> defines it, install the development version.
 
     If `--HEAD` is passed, and <formula> defines it, install the HEAD version,
@@ -226,10 +238,10 @@ Note that these flags should only appear after a command.
     If `--git` is passed, Tigerbrew will create a Git repository, useful for
     creating patches to the software.
 
-  * `irb [--example]`:
+  * `irb [--examples]`:
     Enter the interactive Tigerbrew Ruby shell.
 
-    If `--example` is passed, several examples will be shown.
+    If `--examples` is passed, several examples will be shown.
 
   * `leaves`:
     Show installed formulae that are not dependencies of another installed formula.
@@ -258,15 +270,16 @@ Note that these flags should only appear after a command.
     If provided, `--local` will move them into the user's `~/Applications`
     directory instead of the system directory. It may need to be created, first.
 
-  * `ls, list [--unbrewed] [--versions [--multiple]] [--pinned]` [<formulae>]:
-    Without any arguments, list all installed formulae.
+  * `ls, list [--full-name]`
+    List all installed formulae. If `--full-name` is passed, print formulae with
+    full-qualified names.
 
-    If <formulae> are given, list the installed files for <formulae>.
-    Combined with `--verbose`, recursively list the contents of all subdirectories
-    in each <formula>'s keg.
+  * `ls, list --unbrewed`
+    List all files in the Tigerbrew prefix not installed by Tigerbrew.
 
-    If `--unbrewed` is passed, list all files in the Tigerbrew prefix not installed
-    by Tigerbrew.
+  * `ls, list [--versions [--multiple]] [--pinned]` [<formulae>]:
+    List the installed files for <formulae>. Combined with `--verbose`, recursively
+    list the contents of all subdirectories in each <formula>'s keg.
 
     If `--versions` is passed, show the version number for installed formulae,
     or only the specified formulae if <formulae> are given. With `--multiple`,
@@ -285,6 +298,13 @@ Note that these flags should only appear after a command.
 
     If no <formulae> are given, check all installed brews.
 
+  * `migrate [--force]` <formulae>:
+    Migrate renamed packages to new name, where <formulae> are old names of
+    packages.
+
+    If `--force` is passed and installed <formulae> have nil tap, then treat
+    them like packages installed from core.
+
   * `options [--compact] [--all] [--installed]` <formula>:
     Display install options specific to <formula>.
 
@@ -295,7 +315,7 @@ Note that these flags should only appear after a command.
 
     If `--installed` is passed, show options for all installed formulae.
 
-  * `outdated [--quiet|--verbose]`:
+  * `outdated [--quiet | --verbose | --json=v1 ]`:
     Show formulae that have an updated version available.
 
     By default, version information is displayed in interactive shells, and
@@ -306,9 +326,12 @@ Note that these flags should only appear after a command.
 
     If `--verbose` is passed, display detailed version information.
 
+    If `--json=<version>` is passed, the output will be in JSON format. The only
+    valid version is `v1`.
+
   * `pin` <formulae>:
     Pin the specified <formulae>, preventing them from being upgraded when
-    issuing the `brew upgrade --all` command. See also `unpin`.
+    issuing the `brew upgrade` command. See also `unpin`.
 
   * `prune`:
     Remove dead symlinks from the Tigerbrew prefix. This is generally not
@@ -379,6 +402,13 @@ Note that these flags should only appear after a command.
     See the docs for examples of using the JSON:
     <https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Querying-Brew.md>
 
+  * `tap-pin` <tap>:
+    Pin <tap>, prioritizing its formulae over core when formula names are supplied
+    by the user. See also `tap-unpin`.
+
+  * `tap-unpin` <tap>:
+    Unpin <tap> so its formulae are no longer prioritized. See also `tap-pin`.
+
   * `test` [--devel|--HEAD] [--debug] <formula>:
     A few formulae provide a test method. `brew test <formula>` runs this
     test method. There is no standard output or return code, but it should
@@ -415,7 +445,7 @@ Note that these flags should only appear after a command.
     source. This is useful for creating patches for the software.
 
   * `unpin` <formulae>:
-    Unpin <formulae>, allowing them to be upgraded by `brew upgrade --all`. See also
+    Unpin <formulae>, allowing them to be upgraded by `brew upgrade`. See also
     `pin`.
 
   * `untap` <tap>:
@@ -533,7 +563,10 @@ can take several different forms:
 
     Set this to force Tigerbrew to use a particular git binary.
 
-  * HOMEBREW_BROWSER:
+  * HOMEBREW\_BOTTLE\_DOMAIN:
+    If set, instructs Homebrew to use the given URL as a download mirror for bottles.
+
+  * HOMEBREW\_BROWSER:
     If set, uses this setting as the browser when opening project homepages,
     instead of the OS default browser.
 

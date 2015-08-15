@@ -1,13 +1,12 @@
 class Aria2 < Formula
   desc "Download with resuming and segmented downloading"
   homepage "http://aria2.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/aria2/stable/aria2-1.18.9/aria2-1.18.9.tar.bz2"
-  sha1 "31ac90d9ffcdba4cdf936ddfbc3d8f08416360e6"
+  url "https://downloads.sourceforge.net/project/aria2/stable/aria2-1.19.0/aria2-1.19.0.tar.bz2"
+  mirror "https://mirrors.kernel.org/debian/pool/main/a/aria2/aria2_1.19.0.orig.tar.bz2"
+  sha256 "ae2b6fce7a0974c9156415cccf2395cd258580ab34eec2b34a8e76120b7240ce"
 
   bottle do
     cellar :any
-    sha256 "45d7d73c781be08f658dbdd4ead963646863963711bbc28a27c1ef2db9f8bff" => :leopard_g3
-    sha256 "17ee167e2c1b01b8b1e3ab0ce7914ca88b10a3e457647e2ef1417d24574b085f" => :leopard_altivec
   end
 
   # configure can't get C++11 working with new GCC on Tiger

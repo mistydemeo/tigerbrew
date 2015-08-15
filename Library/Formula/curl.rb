@@ -1,15 +1,12 @@
 class Curl < Formula
   desc "Get a file from an HTTP, HTTPS or FTP server"
   homepage "http://curl.haxx.se/"
-  url "http://curl.haxx.se/download/curl-7.43.0.tar.bz2"
-  mirror "https://raw.githubusercontent.com/DomT4/LibreMirror/master/cURL/curl-7.43.0.tar.bz2"
-  sha256 "baa654a1122530483ccc1c58cc112fec3724a82c11c6a389f1e6a37dc8858df9"
+  url "https://github.com/bagder/curl/releases/download/curl-7_44_0/curl-7.44.0.tar.bz2"
+  mirror "http://curl.haxx.se/download/curl-7.44.0.tar.bz2"
+  sha256 "1e2541bae6582bb697c0fbae49e1d3e6fad5d05d5aa80dbd6f072e0a44341814"
 
   bottle do
     cellar :any
-    sha256 "49fe71c63c0c1c601269bb0ed9fd7f4a338fb6f58cca48ad14c7ae35b4af0feb" => :tiger_altivec
-    sha256 "0f0d2523f1d3e581786939c89791c7b14f1287ab236b6fa628da84dade3d5fcb" => :leopard_g3
-    sha256 "c5e4f988e59a30ddce49dec8adb8bf7be0ef3aeb22b0ecb4a047641e24ffd66b" => :leopard_altivec
   end
 
   keg_only :provided_by_osx
@@ -103,7 +100,7 @@ class Curl < Formula
     # Fetch the curl tarball and see that the checksum matches.
     # This requires a network connection, but so does Homebrew in general.
     filename = (testpath/"test.tar.gz")
-    system "#{bin}/curl", stable.url, "-o", filename
+    system "#{bin}/curl", "-L", stable.url, "-o", filename
     filename.verify_checksum stable.checksum
   end
 end

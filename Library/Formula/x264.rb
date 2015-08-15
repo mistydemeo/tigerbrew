@@ -2,22 +2,19 @@ class X264 < Formula
   desc "H.264/AVC encoder"
   homepage "https://www.videolan.org/developers/x264.html"
   # the latest commit on the stable branch
-  url "https://git.videolan.org/git/x264.git", :revision => "c8a773ebfca148ef04f5a60d42cbd7336af0baf6"
-  version "r2533"
+  url "https://git.videolan.org/git/x264.git", :revision => "0c21480fa2fdee345a3049e2169624dc6fc2acfc"
+  version "r2555"
 
   devel do
     # the latest commit on the master branch
-    url "https://git.videolan.org/git/x264.git", :revision => "121396c71b4907ca82301d1a529795d98daab5f8"
-    version "r2538"
+    url "https://git.videolan.org/git/x264.git", :revision => "73ae2d11d472d0eb3b7c218dc1659db32f649b14"
+    version "r2579"
   end
 
   head "https://git.videolan.org/git/x264.git"
 
   bottle do
     cellar :any
-    sha1 "e8b121d25342b19c4723b4e05b8ad986dbb6295c" => :tiger_altivec
-    sha1 "704b5d3c10a31e938c46637aabaf6ba85a4bc993" => :tiger_g3
-    sha1 "356b28cdec5b5d3ff0bb44677dbfb0b14ef67980" => :tiger_altivec
   end
 
   depends_on :ld64

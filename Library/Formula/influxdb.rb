@@ -1,21 +1,26 @@
-require "formula"
 require "language/go"
 
 class Influxdb < Formula
   desc "Time series, events, and metrics database"
-  homepage "http://influxdb.com"
-  url "https://github.com/influxdb/influxdb/archive/v0.9.0.tar.gz"
-  sha256 "c7cc869754d7bfb9374b0a16a9b91073d9588adedbd7bfda1d5709e22d3a3d75"
+  homepage "https://influxdb.com"
+
+  stable do
+    url "https://github.com/influxdb/influxdb/archive/v0.9.2.tar.gz"
+    sha256 "5e0f33c3d4076509118ad9b02c61f64f7db138ada141675c84a5326e77b21115"
+  end
 
   bottle do
     cellar :any
-    sha256 "26df716a5ae5271b06d54f33ea98b0ba9e733fa52de840d92c02a21e63e70375" => :yosemite
-    sha256 "646d615c01dafc81b17db5c6f646c4c0904bd8fb6e0c5d6cf7ef36a063fbb4b3" => :mavericks
-    sha256 "c9581f39e4904fa38609e140396e6e67b44080b26e7a26a3b2ae68e0a3b831ae" => :mountain_lion
+    sha256 "8c2d583d6f5d009331e0dc766eaf5ac55a9a32eaa1176c15582bdf28bb274486" => :yosemite
+    sha256 "df22c852bdef918837b443d3314a3080109b5c774fb004047a0c07091a046cb8" => :mavericks
+    sha256 "40d0e642ae9942ed4a66b2cb90f918a400a8f20daec2c5e8d16304972bcdc74e" => :mountain_lion
+  end
+
+  head do
+    url "https://github.com/influxdb/influxdb.git"
   end
 
   depends_on "go" => :build
-  depends_on :hg => :build
 
   go_resource "github.com/BurntSushi/toml" do
     url "https://github.com/BurntSushi/toml.git", :revision => "056c9bc7be7190eaa7715723883caffa5f8fa3e4"
@@ -73,6 +78,10 @@ class Influxdb < Formula
     url "https://github.com/fatih/pool.git", :revision => "cba550ebf9bce999a02e963296d4bc7a486cb715"
   end
 
+  go_resource "collectd.org" do
+    url "https://github.com/collectd/go-collectd.git", :revision => "27f4f77337ae0b2de0d3267f6278d62aff8b52fb"
+  end
+
   def install
     ENV["GOPATH"] = buildpath
     influxdb_path = buildpath/"src/github.com/influxdb/influxdb"
@@ -81,7 +90,11 @@ class Influxdb < Formula
     Language::Go.stage_deps resources, buildpath/"src"
 
     cd influxdb_path do
-      system "go", "install", "-ldflags", "-X main.version 0.9.0 -X main.commit 471117ce5b308e59f8f247d8a88a52ead553b602", "./..."
+      if build.head?
+        system "go", "install", "-ldflags", "-X main.version 0.9.3-HEAD -X main.commit #{`git rev-parse HEAD`.strip}", "./..."
+      else
+        system "go", "install", "-ldflags", "-X main.version 0.9.2 -X main.commit 6c0a91f775f9fc0e625d17ffa04a3fe86945ba09", "./..."
+      end
     end
 
     inreplace influxdb_path/"etc/config.sample.toml" do |s|
@@ -90,14 +103,13 @@ class Influxdb < Formula
       s.gsub! "/var/opt/influxdb/hh", "#{var}/influxdb/hh"
     end
 
-    bin.install buildpath/"bin/influxd" => "influxd"
-    bin.install buildpath/"bin/influx" => "influx"
+    bin.install buildpath/"bin/influxd"
+    bin.install buildpath/"bin/influx"
     etc.install influxdb_path/"etc/config.sample.toml" => "influxdb.conf"
 
     (var/"influxdb/data").mkpath
-    (var/"influxdb/raft").mkpath
-    (var/"influxdb/state").mkpath
-    (var/"influxdb/logs").mkpath
+    (var/"influxdb/meta").mkpath
+    (var/"influxdb/hh").mkpath
   end
 
   plist_options :manual => "influxd -config #{HOMEBREW_PREFIX}/etc/influxdb.conf"
@@ -130,6 +142,15 @@ class Influxdb < Formula
         <string>#{var}/log/influxdb.log</string>
       </dict>
     </plist>
+    EOS
+  end
+
+  def caveats; <<-EOS.undent
+    Config files from old InfluxDB versions are incompatible with version 0.9.
+    If upgrading from a pre-0.9 version, the new configuration file will be named:
+        #{etc}/influxdb.conf.default
+    To generate a new config file:
+        influxd config > influxdb.conf.generated
     EOS
   end
 end

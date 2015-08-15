@@ -1,8 +1,6 @@
-require 'formula'
-
 class Libvpx < Formula
   desc "VP8 video codec"
-  homepage 'http://www.webmproject.org/code/'
+  homepage "https://www.webmproject.org/code/"
   url "https://github.com/webmproject/libvpx/archive/v1.4.0.tar.gz"
   sha256 "eca30ea7fae954286c9fe9de9d377128f36b56ea6b8691427783b20c67bcfc13"
 
@@ -15,12 +13,12 @@ class Libvpx < Formula
   end
 
   depends_on :macos => :tiger
-  depends_on 'homebrew/dupes/make' => :build if MacOS.version == :tiger
-  depends_on 'yasm' => :build
+  depends_on "homebrew/dupes/make" => :build if MacOS.version == :tiger
+  depends_on "yasm" => :build
 
-  option 'gcov', 'Enable code coverage'
-  option 'mem-tracker', 'Enable tracking memory usage'
-  option 'visualizer', 'Enable post processing visualizer'
+  option "gcov", "Enable code coverage"
+  option "mem-tracker", "Enable tracking memory usage"
+  option "visualizer", "Enable post processing visualizer"
   option "with-examples", "Build examples (vpxdec/vpxenc)"
 
   def install
@@ -41,7 +39,7 @@ class Libvpx < Formula
       args << "--target=#{arch}-darwin#{osver}-gcc"
     end
 
-    mkdir 'macbuild' do
+    mkdir "macbuild" do
       system "../configure", *args
       system make_path, "install"
     end

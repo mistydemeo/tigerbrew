@@ -21,14 +21,11 @@ class Gcc < Formula
 
   desc "GNU compiler collection"
   homepage "https://gcc.gnu.org"
-  url "http://ftpmirror.gnu.org/gcc/gcc-5.1.0/gcc-5.1.0.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/gcc/gcc-5.1.0/gcc-5.1.0.tar.bz2"
-  sha256 "b7dafdf89cbb0e20333dbf5b5349319ae06e3d1a30bf3515b5488f7e89dca5ad"
+  url "http://ftpmirror.gnu.org/gcc/gcc-5.2.0/gcc-5.2.0.tar.bz2"
+  mirror "https://ftp.gnu.org/gnu/gcc/gcc-5.2.0/gcc-5.2.0.tar.bz2"
+  sha256 "5f835b04b5f7dd4f4d2dc96190ec1621b8d89f2dc6f638f9f8bc1b1014ba8cad"
 
   bottle do
-    sha256 "0f0e2060f625c4f29934f2e826f89f8895eede3d6e74462465751441e6960c6b" => :tiger_altivec
-    sha256 "730bc5e74e6dcf86e97812abd847a2357ca657f6b6e94023e58962143733909d" => :leopard_g3
-    sha256 "40712e2a492e0e7cdf8fa19d3d6ab7a8c9e7b7b6fbddffb58b3829a75dfe56aa" => :leopard_altivec
   end
 
   option "with-java", "Build the gcj compiler"
@@ -175,7 +172,7 @@ class Gcc < Formula
         "#{lib}/gcc/#{version_suffix}/logging.properties",
         "#{lib}/gcc/#{version_suffix}/security/classpath.security",
         "#{lib}/gcc/#{version_suffix}/i386/logging.properties",
-        "#{lib}/gcc/#{version_suffix}/i386/security/classpath.security",
+        "#{lib}/gcc/#{version_suffix}/i386/security/classpath.security"
       ]
       config_files.each do |file|
         add_suffix file, version_suffix if File.exist? file
@@ -257,3 +254,22 @@ index 44d0750..4df2a9c 100644
 
  $(LIBGCCJIT_SONAME_SYMLINK): $(LIBGCCJIT_FILENAME)
 	ln -sf $(LIBGCCJIT_FILENAME) $(LIBGCCJIT_SONAME_SYMLINK)
+diff --git a/gcc/jit/jit-playback.c b/gcc/jit/jit-playback.c
+index 925fa86..01cfd4b 100644
+--- a/gcc/jit/jit-playback.c
++++ b/gcc/jit/jit-playback.c
+@@ -2416,6 +2416,15 @@ invoke_driver (const char *ctxt_progname,
+      time.  */
+   ADD_ARG ("-fno-use-linker-plugin");
+
++#if defined (DARWIN_X86) || defined (DARWIN_PPC)
++  /* OS X's linker defaults to treating undefined symbols as errors.
++     If the context has any imported functions or globals they will be
++     undefined until the .so is dynamically-linked into the process.
++     Ensure that the driver passes in "-undefined dynamic_lookup" to the
++     linker.  */
++  ADD_ARG ("-Wl,-undefined,dynamic_lookup");
++#endif
++
+   /* pex argv arrays are NULL-terminated.  */
+   argvec.safe_push (NULL);

@@ -1,16 +1,16 @@
 class Pushpin < Formula
   desc "Reverse proxy for realtime web services"
   homepage "http://pushpin.org"
-  url "http://packages.fanout.io/source/pushpin-1.3.0.tar.bz2"
-  sha256 "b3f45a6faca6873299eb68c876eab21f965cb961a3c91e8ed13cccb4018ff5e6"
-  revision 1
+  url "https://dl.bintray.com/fanout/source/pushpin-1.5.0.tar.bz2"
+  sha256 "9e9a05da706260bc4c96a36f9af5fdc38b78699709c83538663f00f59104ba2b"
 
   head "https://github.com/fanout/pushpin.git"
 
   bottle do
-    sha256 "f4fb204ca635b382101e5fa3927dc90e27a0781cabf40de97c491c21126c40f1" => :yosemite
-    sha256 "e331bac41c7ca1a9ecfec2c71e1408eef10b1c204cf6a7857bd2c05d5cb88182" => :mavericks
-    sha256 "8aa61ae4f9eedbbce0fb14ab61eb16a8893867230535d26cc74998e5b31ed5aa" => :mountain_lion
+    cellar :any
+    sha256 "5cf360e17906df91764cb18379a429eb9541974a6c8b8bcf961302dcef0c23d3" => :yosemite
+    sha256 "bb470fe80c924be13c5f91cb3a597ddece614969df88fb79a7683b02dde7ea94" => :mavericks
+    sha256 "901b72b2601c0702d60b27e3c36ed1f7b2099a2f3784fe73a468428532271181" => :mountain_lion
   end
 
   depends_on "pkg-config" => :build
@@ -52,16 +52,16 @@ class Pushpin < Formula
     sha256 "55715a5d758214034db179005def47ed842da36c4c48e9e7ae59bcaffed7ca9b"
   end
 
-  resource "blist" do
-    url "https://pypi.python.org/packages/source/b/blist/blist-1.3.6.tar.gz"
-    sha256 "3a12c450b001bdf895b30ae818d4d6d3f1552096b8c995f0fe0c74bef04d1fc3"
+  resource "sortedcontainers" do
+    url "https://pypi.python.org/packages/source/s/sortedcontainers/sortedcontainers-0.9.6.tar.gz"
+    sha256 "bacaeb1c3e59c3083eec4d1198ba5625246c012e0342aafa46291632e8458dd3"
   end
 
   def install
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
 
-    %w[setuptools MarkupSafe Jinja2 pyzmq setproctitle tnetstring blist].each do |r|
-      resource(r).stage do
+    resources.each do |r|
+      r.stage do
         system "python", *Language::Python.setup_install_args(libexec/"vendor")
       end
     end

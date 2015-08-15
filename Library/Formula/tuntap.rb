@@ -1,5 +1,3 @@
-require "formula"
-
 class Tuntap < Formula
   desc "Virtual network interfaces for OS X"
   homepage "http://tuntaposx.sourceforge.net/"
@@ -15,8 +13,8 @@ class Tuntap < Formula
     sha256 "d2ffdd7c5441e054152a8491cf378dc5fc7fb5ab1cab6eccc9b44ef7298f7f4b" => :leopard_altivec
   end
 
-  depends_on UnsignedKextRequirement => [ :cask => "tuntap",
-      :download => "http://sourceforge.net/projects/tuntaposx/files/tuntap/" ]
+  depends_on UnsignedKextRequirement => [:cask => "tuntap",
+                                         :download => "http://sourceforge.net/projects/tuntaposx/files/tuntap/"]
 
   # error: invalid conversion from 'errno_t (*)(__ifnet*, long unsigned int, void*)' to 'errno_t (*)(__ifnet*, u_int32_t, void*)'
   patch :DATA

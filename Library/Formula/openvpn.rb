@@ -1,13 +1,11 @@
 class Openvpn < Formula
   desc "SSL VPN implementing OSI layer 2 or 3 secure network extension"
   homepage "https://openvpn.net/index.php/download/community-downloads.html"
-  url "https://swupdate.openvpn.org/community/releases/openvpn-2.3.6.tar.gz"
-  mirror "http://build.openvpn.net/downloads/releases/openvpn-2.3.6.tar.gz"
-  sha256 "7baed2ff39c12e1a1a289ec0b46fcc49ff094ca58b8d8d5f29b36ac649ee5b26"
+  url "https://swupdate.openvpn.org/community/releases/openvpn-2.3.7.tar.gz"
+  mirror "http://build.openvpn.net/downloads/releases/openvpn-2.3.7.tar.gz"
+  sha256 "1f02a4cd6aeb6250ca9311560875b10ce8957a3c9101a8005bd1e17e5b03146e"
 
   bottle do
-    sha256 "ba0c87c3b0fbbd873563d2a14377d283a51d0d719bfe11eeea1eaaeb19bf5825" => :leopard_g3
-    sha256 "21c0c8154cb234b8e6033467ee8b83b9e4b364589be185a6de7fb72e8bfc9670" => :leopard_altivec
   end
 
   depends_on "lzo"

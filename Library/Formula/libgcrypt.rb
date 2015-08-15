@@ -2,25 +2,23 @@ class Libgcrypt < Formula
   desc "Cryptographic library based on the code from GnuPG"
   homepage "https://gnupg.org/"
   url "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.6.3.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.6.3.tar.bz2"
   mirror "http://ftp.heanet.ie/mirrors/ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.6.3.tar.bz2"
-  mirror "ftp://mirror.tje.me.uk/pub/mirrors/ftp.gnupg.org/libgcrypt/libgcrypt-1.6.3.tar.bz2"
-  sha1 "9456e7b64db9df8360a1407a38c8c958da80bbf1"
+  sha256 "41b4917b93ae34c6a0e2127378d7a4d66d805a2a86a09911d4f9bd871db7025f"
+  revision 1
 
   bottle do
     cellar :any
-    sha1 "8081cd27955afa92cfd845c80ad05100539f08c4" => :tiger_altivec
-    sha1 "b663ffa1b7589233555ba54d3612c592eeae73c3" => :leopard_g3
-    sha1 "f5c032b5663479744bf4a3d04e3dfaece08bd7d5" => :leopard_altivec
   end
-
-  depends_on "libgpg-error"
 
   option :universal
 
+  depends_on "libgpg-error"
+
   resource "config.h.ed" do
-    url "http://trac.macports.org/export/113198/trunk/dports/devel/libgcrypt/files/config.h.ed"
+    url "https://trac.macports.org/export/113198/trunk/dports/devel/libgcrypt/files/config.h.ed"
     version "113198"
-    sha1 "136f636673b5c9d040f8a55f59b430b0f1c97d7a"
+    sha256 "d02340651b18090f3df9eed47a4d84bed703103131378e1e493c26d7d0c7aab1"
   end
 
   def install
@@ -39,7 +37,10 @@ class Libgcrypt < Formula
 
     # Parallel builds work, but only when run as separate steps
     system "make"
-    system "make", "check"
+    # Make check currently dies on El Capitan
+    # https://github.com/Homebrew/homebrew/issues/41599
+    # https://bugs.gnupg.org/gnupg/issue2056
+    system "make", "check" unless MacOS.version >= :el_capitan
     system "make", "install"
   end
 

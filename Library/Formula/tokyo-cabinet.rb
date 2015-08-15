@@ -1,5 +1,3 @@
-require 'formula'
-
 class TokyoCabinet < Formula
   desc "Lightweight database library"
   homepage "http://fallabs.com/tokyocabinet/"
@@ -21,6 +19,6 @@ class TokyoCabinet < Formula
 
     system "./configure", *args
     system "make"
-    system "make install"
+    system "make", "install"
   end
 end

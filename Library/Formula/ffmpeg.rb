@@ -1,15 +1,12 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-2.6.3.tar.bz2"
-  sha256 "59eb98c1b5896ac29abc0385f7c875d1b4942d695818818d418ee71eea1e0cfb"
-
+  url "https://ffmpeg.org/releases/ffmpeg-2.7.2.tar.bz2"
+  sha256 "7ceb7550ad628c526fa6c9ff23fdfb687a62f54d90c4a730998d8c2b417b9ef2"
   head "https://github.com/FFmpeg/FFmpeg.git"
+  revision 1
 
   bottle do
-    sha256 "69dac6962e0ff7b4aa7a5204117010bdf77e8408648e96ac9be4e7329708e45c" => :tiger_altivec
-    sha256 "9c0d1f4c0cb739ec18e0d74633bddf62f3804930029d3a39b41f7fcd04f081fc" => :leopard_g3
-    sha256 "55896a4938ff05669dd2812f9e5e157d077f15ddd6eb2ee96e1e7b14e6b2f1ee" => :leopard_altivec
   end
 
   option "without-x264", "Disable H.264 encoder"
@@ -32,6 +29,7 @@ class Ffmpeg < Formula
   option "with-x265", "Enable x265 encoder"
   option "with-libsoxr", "Enable the soxr resample library"
   option "with-webp", "Enable using libwebp to encode WEBP images"
+  option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
 
   depends_on "pkg-config" => :build
 
@@ -73,6 +71,7 @@ class Ffmpeg < Formula
   depends_on "openssl" => :optional
   depends_on "libssh" => :optional
   depends_on "webp" => :optional
+  depends_on "zeromq" => :optional
 
   def install
     args = ["--prefix=#{prefix}",
@@ -84,8 +83,10 @@ class Ffmpeg < Formula
             "--enable-avresample",
             "--cc=#{ENV.cc}",
             "--host-cflags=#{ENV.cflags}",
-            "--host-ldflags=#{ENV.ldflags}",
+            "--host-ldflags=#{ENV.ldflags}"
            ]
+
+    args << "--enable-opencl" if MacOS.version > :lion
 
     args << "--enable-libx264" if build.with? "x264"
     args << "--enable-libmp3lame" if build.with? "lame"
@@ -115,12 +116,13 @@ class Ffmpeg < Formula
     args << "--enable-libvidstab" if build.with? "libvidstab"
     args << "--enable-libx265" if build.with? "x265"
     args << "--enable-libwebp" if build.with? "webp"
+    args << "--enable-libzmq" if build.with? "zeromq"
     args << "--disable-indev=qtkit" if build.without?("qtkit") || MacOS.version < :snow_leopard
 
     if build.with? "openjpeg"
       args << "--enable-libopenjpeg"
       args << "--disable-decoder=jpeg2000"
-      args << "--extra-cflags=" + %x(pkg-config --cflags libopenjpeg).chomp
+      args << "--extra-cflags=" + `pkg-config --cflags libopenjpeg`.chomp
     end
 
     args << "--disable-asm" if MacOS.version < :leopard

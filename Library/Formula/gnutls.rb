@@ -4,15 +4,12 @@
 class Gnutls < Formula
   desc "GNU Transport Layer Security (TLS) Library"
   homepage "http://gnutls.org"
-  url "ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/gnutls-3.3.15.tar.xz"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnutls/v3.3/gnutls-3.3.15.tar.xz"
-  sha256 "8961227852911a1974e15bc017ddbcd4779876c867226d199f06648d8b27ba4b"
+  url "ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/gnutls-3.3.17.1.tar.xz"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnutls/v3.3/gnutls-3.3.17.1.tar.xz"
+  sha256 "b40f158030a92f450a07b20300a3996710ca19800848d9f6fd62493170c5bbb4"
 
   bottle do
     cellar :any
-    sha1 "1e18b40250765c41f8734ed30e474843a41eb06e" => :tiger_altivec
-    sha1 "ec2a7f5b4b5fbcc3fe3053d3fbc1c64222ef0057" => :leopard_g3
-    sha1 "062fed4de82977d65b82d66f6dc7cbcdac0ec889" => :leopard_altivec
   end
 
   depends_on "pkg-config" => :build
@@ -48,8 +45,8 @@ class Gnutls < Formula
     system "make", "install"
 
     # certtool shadows the OS X certtool utility
-    mv bin+"certtool", bin+"gnutls-certtool"
-    mv man1+"certtool.1", man1+"gnutls-certtool.1"
+    mv bin/"certtool", bin/"gnutls-certtool"
+    mv man1/"certtool.1", man1/"gnutls-certtool.1"
   end
 
   def post_install
@@ -58,9 +55,23 @@ class Gnutls < Formula
       /System/Library/Keychains/SystemRootCertificates.keychain
     ]
 
+    certs_list = `security find-certificate -a -p #{keychains.join(" ")}`
+    certs = certs_list.scan(
+      /-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----/m
+    )
+
+    valid_certs = certs.select do |cert|
+      IO.popen("openssl x509 -inform pem -checkend 0 -noout", "w") do |openssl_io|
+        openssl_io.write(cert)
+        openssl_io.close_write
+      end
+
+      $?.success?
+    end
+
     openssldir = etc/"openssl"
     openssldir.mkpath
-    (openssldir/"cert.pem").atomic_write `security find-certificate -a -p #{keychains.join(" ")}`
+    (openssldir/"cert.pem").atomic_write(valid_certs.join("\n"))
   end
 
   test do
