@@ -335,8 +335,6 @@ class DuplicateResourceError < ArgumentError
   end
 end
 
-class SHA2NotInstalledError < StandardError; end
-
 class BottleVersionMismatchError < RuntimeError
   def initialize(bottle_file, bottle_version, formula, formula_version)
     super <<-EOS.undent
