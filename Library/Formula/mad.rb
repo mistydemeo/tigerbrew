@@ -11,7 +11,11 @@ class Mad < Formula
   end
 
   def install
-    fpm = MacOS.prefer_64_bit? ? "64bit": "intel"
+    fpm = if Hardware::CPU.intel?
+      MacOS.prefer_64_bit? ? "64bit": "intel"
+    else
+      "ppc"
+    end
     system "./configure", "--disable-debugging", "--enable-fpm=#{fpm}", "--prefix=#{prefix}"
     system "make", "CFLAGS=#{ENV.cflags}", "LDFLAGS=#{ENV.ldflags}", "install"
     (lib+"pkgconfig/mad.pc").write pc_file
