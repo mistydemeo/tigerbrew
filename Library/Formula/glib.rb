@@ -7,9 +7,7 @@ class Glib < Formula
   revision 1
 
   bottle do
-    sha256 "b6017260ce6e82abca388e12ab536a7e0675caf17f4a5f3ae7d7876ec1f7b5d9" => :yosemite
-    sha256 "ec584074182b988e2b83fcc23d6143fe463a9bb6ddca6d7f75d40d96a9282a7b" => :mavericks
-    sha256 "fcac604c02b1f562c4a6823b8361f35067a2cc1cdcf2ea0dc772698b5f2a156a" => :mountain_lion
+    sha256 "e7b46f044f8fedff3199e5c74beaa35763e486c3ce21b63e38dc49efed199" => :tiger_altivec
   end
 
   option :universal
