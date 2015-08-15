@@ -8,6 +8,7 @@ class Mpfr < Formula
 
   bottle do
     cellar :any
+    sha256 "04e066ed7657626ae08398f894d58b23e0614af343f8a1d6fe4a892f3f943e17" => :tiger_altivec
   end
 
   # http://www.mpfr.org/mpfr-current/allpatches
