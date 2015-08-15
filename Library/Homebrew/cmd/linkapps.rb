@@ -24,7 +24,7 @@ module Homebrew
 
     kegs.each do |keg|
       keg = keg.opt_record if keg.optlinked?
-      Dir["#{keg}/*.app", "#{keg}/bin/*.app", "#{keg}/libexec/*.app"].each do |app|
+      (Dir["#{keg}/*.app"] + Dir["#{keg}/bin/*.app"] + Dir["#{keg}/libexec/*.app"]).each do |app|
         puts "Linking #{app} to #{target_dir}."
         app_name = File.basename(app)
         target = "#{target_dir}/#{app_name}"
