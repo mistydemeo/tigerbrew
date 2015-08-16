@@ -39,8 +39,10 @@ class Fftw < Formula
     simd_double = []
 
     if Hardware.cpu_type == :intel
-      simd_single << "--enable-sse"
-      simd_double << "--enable-sse2"
+      # enable-sse2 and enable-avx works for both single and double precision
+      simd_single = ["--enable-sse2"]
+      simd_single << "--enable-avx" if ENV.compiler == :clang && Hardware::CPU.avx? && !build.bottle?
+      simd_double = simd_single
     elsif Hardware::CPU.altivec?
       simd_single << "--enable-altivec" # altivec seems to only work with single precision
     end
