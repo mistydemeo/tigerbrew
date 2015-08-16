@@ -72,7 +72,8 @@ class Libressl < Formula
 
   test do
     # Make sure the necessary .cnf file exists, otherwise LibreSSL gets moody.
-    assert (HOMEBREW_PREFIX/"etc/libressl/openssl.cnf").exist?,
+    cnf_path = HOMEBREW_PREFIX/"etc/libressl/openssl.cnf"
+    assert cnf_path.exist?,
             "LibreSSL requires the .cnf file for some functionality"
 
     # Check LibreSSL itself functions as expected.
