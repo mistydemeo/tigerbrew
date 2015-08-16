@@ -53,8 +53,7 @@ class Fftw < Formula
     # enable-sse only works with single
     # similarly altivec only works with single precision
     system "./configure", "--enable-single",
-                          simd_single,
-                          *args
+                          *(simd_single + args)
     system "make", "install"
 
     # clean up so we can compile the double precision variant
@@ -62,7 +61,7 @@ class Fftw < Formula
 
     # double precision
     # enable-sse2 only works with double precision (default)
-    system "./configure", simd_double, *args
+    system "./configure", *(simd_double + args)
     system "make", "install"
 
     # clean up so we can compile the long-double precision variant
