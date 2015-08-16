@@ -8,6 +8,7 @@ class Openssl < Formula
   revision 1
 
   bottle do
+    sha256 "070ecc026f4a92f47cd83703fa8bf73b985913cc9d5317f14467bd32c23f10dc" => :tiger_altivec
   end
 
   option :universal
