@@ -7,6 +7,7 @@ class Python < Formula
   revision 2
 
   bottle do
+    sha256 "5eb842516f3508de7d421b97d30055c639c9da7b8d7fc182da5785c32a1030c0" => :tiger_altivec
   end
 
   # Please don't add a wide/ucs4 option as it won't be accepted.
