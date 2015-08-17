@@ -8,6 +8,8 @@ class Git < Formula
 
   bottle do
     sha256 "9742f209430710a2274eb8e9a11a235fe17d3827651db22534487651335f266c" => :tiger_altivec
+    sha256 "a74b864e3275e9b593fb6d24c6aeb5d3c09083782b7ea9767c87ac5979cefbd2" => :leopard_g3
+    sha256 "418feaf6fe1fbe46ed3edbf2fe279d0aed53a3726a7ecd7ae5cc82a7bf33e665" => :leopard_altivec
   end
 
   resource "man" do
