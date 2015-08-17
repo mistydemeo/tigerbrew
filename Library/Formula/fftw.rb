@@ -41,7 +41,7 @@ class Fftw < Formula
       simd_single = ["--enable-sse2"]
       simd_single << "--enable-avx" if ENV.compiler == :clang && Hardware::CPU.avx? && !build.bottle?
       simd_double = simd_single
-    elsif Hardware::CPU.altivec?
+    elsif Hardware::CPU.altivec? && !(build.bottle? && ARGV.bottle_arch == :g3)
       simd_single << "--enable-altivec" # altivec seems to only work with single precision
     end
 
