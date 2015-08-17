@@ -9,6 +9,8 @@ class Openssl < Formula
 
   bottle do
     sha256 "070ecc026f4a92f47cd83703fa8bf73b985913cc9d5317f14467bd32c23f10dc" => :tiger_altivec
+    sha256 "b9171c4aee63337121402f2da64ea9776985ef3ae7a5f551960b90d6838ac4cd" => :leopard_g3
+    sha256 "4a5a411e5936bc2c6c10313bbb8e5b6577e9df3cab2931ce1912d5c35ce5679a" => :leopard_altivec
   end
 
   option :universal
