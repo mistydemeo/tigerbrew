@@ -8,6 +8,8 @@ class Fftw < Formula
   bottle do
     cellar :any
     sha256 "36a37f90f5c820881349771ace8a8c6074afc9e92e8b28d54ec11b64212842ae" => :tiger_altivec
+    sha256 "b0674fe02a9eb76161b67d17e14fd03ea8c826874b3172a7033fb0f55d3f9ab7" => :leopard_g3
+    sha256 "1440b812fd8d0c65a10be62ad4dd3885c6feab1679d677377ff483a4e1342ee0" => :leopard_altivec
   end
 
   option "with-fortran", "Enable Fortran bindings"
