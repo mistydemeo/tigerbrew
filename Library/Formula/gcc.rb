@@ -27,6 +27,8 @@ class Gcc < Formula
 
   bottle do
     sha256 "7786105aba6e06111cadb876900ad0f5613ad0b87e699bb81e66baa88d1279c9" => :tiger_altivec
+    sha256 "aa1e0a6738594a14f270726501de6bd65628cc0f331af458c396e0728744fc1e" => :leopard_g3s
+    sha256 "2e7f1d7a9600a42b88672f7719dd76257acfaa6994e11f762ccc0234c84bd905" => :leopard_altivec
   end
 
   option "with-java", "Build the gcj compiler"
