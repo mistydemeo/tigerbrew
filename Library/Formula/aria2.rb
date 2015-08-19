@@ -7,6 +7,8 @@ class Aria2 < Formula
 
   bottle do
     cellar :any
+    sha256 "eb19d43e1bb8c6b44505881d8f49943ca781a8bf04c558d0916dcbcdd4a0fc8e" => :leopard_g3
+    sha256 "1a0e3c43309c5a3cbfa294b983e29a2db3e1e5ac6ab17dca27dd1c1bfc5929cf" => :leopard_altivec
   end
 
   # configure can't get C++11 working with new GCC on Tiger
