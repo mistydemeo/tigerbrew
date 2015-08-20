@@ -13,6 +13,8 @@ class Cmake < Formula
 
   bottle do
     cellar :any
+    sha256 "c6e32f49bbafe8bad1499e4deeb4ae0cb7ea5028f3c7e00eac95f4350bbd6068" => :leopard_g3
+    sha256 "6b0013cb9d2b50b75ca1c4b33c9364e94baa6a35f02f34d1ff6db8c54ca456ab" => :leopard_altivec
   end
 
   option "without-docs", "Don't build man pages"
