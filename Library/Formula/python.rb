@@ -8,6 +8,8 @@ class Python < Formula
 
   bottle do
     sha256 "5eb842516f3508de7d421b97d30055c639c9da7b8d7fc182da5785c32a1030c0" => :tiger_altivec
+    sha256 "adb4e1345fa8ae741b95cc23d2f5aad9a5381d558bea664d1bd33fb8293bd79e" => :leopard_g3
+    sha256 "280700d22a8a35bd9952d3f7d09c0dac426bcd68da0f9279ac10c040617b670f" => :leopard_altivec
   end
 
   # Please don't add a wide/ucs4 option as it won't be accepted.
