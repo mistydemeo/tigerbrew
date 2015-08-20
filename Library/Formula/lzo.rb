@@ -6,9 +6,8 @@ class Lzo < Formula
 
   bottle do
     cellar :any
-    sha256 "27ec3d9e9303bab8aedb74eb617b147f92e34251c0a3da2fba9004f3d76ea96f" => :yosemite
-    sha256 "af6941abe4f2a8db33e5a8296352b4cf0ef4df73152e8f968efa59b7213a5969" => :mavericks
-    sha256 "d9ccb8e665598254f96907a1716760af99736771f41be2f31ab47c6409017251" => :mountain_lion
+    sha256 "1b87a121fe67fc2f843dca0e0dd6007089de6c43d5970c11f7b1ac3a2e30e04f" => :leopard_g3
+    sha256 "f8e42b1e3d1c14a5cc987fb8e2a4050b6a581b309a91a16dbeb27c1b25b48f45" => :leopard_altivec
   end
 
   def install
