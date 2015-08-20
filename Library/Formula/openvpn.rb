@@ -6,6 +6,9 @@ class Openvpn < Formula
   sha256 "1f02a4cd6aeb6250ca9311560875b10ce8957a3c9101a8005bd1e17e5b03146e"
 
   bottle do
+    cellar :any
+    sha256 "b34fed46f12c9d20c591bb9fa626eff709889d3a5487ff4b6a3d61bf476415f0" => :leopard_g3
+    sha256 "95cda726d5336fe02151f8c63d7df22c5b6ac2f87b7f5149779f5ab7811a42f8" => :leopard_altivec
   end
 
   depends_on "lzo"
