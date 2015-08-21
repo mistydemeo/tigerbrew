@@ -6,6 +6,7 @@ class Gettext < Formula
   sha256 "66da00dc2c810d733b1f55a2a4af5cb669e2ee4259937d50a51d5614cdad323d"
 
   bottle do
+    sha256 "ab8b4e0ef484663d803479f1c7e635631420fe786b4c3f9b5d81d07245ec9ce3" => :tiger_altivec
     sha256 "b728d58d0da4529db302b6ab0dbdd3dd263a1257faa0962a518f20fb1e06a7e8" => :leopard_g3
     sha256 "aab7a6eed9fc34a712d1acc46155e3c307ad692cc2e070a51bfc5412454273d9" => :leopard_altivec
   end
