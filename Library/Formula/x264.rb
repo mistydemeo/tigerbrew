@@ -15,6 +15,7 @@ class X264 < Formula
 
   bottle do
     cellar :any
+    sha256 "13edbf4f3344fcb9791a885b0eaadc32790908beade8313911684d7d441da3ab" => :tiger_altivec
   end
 
   depends_on :ld64
