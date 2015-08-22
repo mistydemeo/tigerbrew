@@ -7,6 +7,7 @@ class Chicken < Formula
   head "http://code.call-cc.org/git/chicken-core.git"
 
   bottle do
+    sha256 "6afd924dfb77841a333c17c5b419f8e9a386833a07efc0f2288c7ee1c3f99cd5" => :tiger_altivec
   end
 
   # needs make 3.81 or newer
