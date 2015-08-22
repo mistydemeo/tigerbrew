@@ -8,6 +8,7 @@ class Xvid < Formula
 
   bottle do
     cellar :any
+    sha256 "ec7422d4b91dd4b4df077b62c570ae69c81631f07e4cbb0a4c399743cd086f67" => :tiger_altivec
   end
 
   def install
