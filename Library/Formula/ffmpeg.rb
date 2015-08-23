@@ -7,6 +7,7 @@ class Ffmpeg < Formula
   revision 1
 
   bottle do
+    sha256 "4039849aea98a7d16b3bc5eaaebab93b91ad9c610a47abe1a04d67ec8127e91d" => :tiger_altivec
   end
 
   option "without-x264", "Disable H.264 encoder"
