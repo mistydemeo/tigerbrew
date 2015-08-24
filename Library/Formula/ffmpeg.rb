@@ -127,7 +127,7 @@ class Ffmpeg < Formula
     end
 
     args << "--disable-asm" if MacOS.version < :leopard
-    args << "--disable-altivec" unless Hardware::CPU.altivec?
+    args << "--disable-altivec" if !Hardware::CPU.altivec? || (build.bottle? && ARGV.bottle_arch == :g3)
 
     # These librares are GPL-incompatible, and require ffmpeg be built with
     # the "--enable-nonfree" flag, which produces unredistributable libraries
