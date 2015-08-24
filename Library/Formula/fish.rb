@@ -6,6 +6,8 @@ class Fish < Formula
 
   bottle do
     sha256 "1a9a75647ab672132d4ea6b385a09461041f47a91a3719a82494467eaeceab97" => :tiger_altivec
+    sha256 "e0ba430b35df479e52c0d33b6900cbfe55bf2779e7ab22c3e226db05e53f9410" => :leopard_g3
+    sha256 "326cea656c8cadf59f2202293334c17d38dfb52ea21388f5fa2b44a6cd8cc46e" => :leopard_altivec
   end
 
   head do
