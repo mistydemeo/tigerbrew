@@ -8,6 +8,8 @@ class Chicken < Formula
 
   bottle do
     sha256 "6afd924dfb77841a333c17c5b419f8e9a386833a07efc0f2288c7ee1c3f99cd5" => :tiger_altivec
+    sha256 "4a74c33768158b7cdc1572bf4ee4eda8fa87474a3db32756bfefe0a594bfe0fc" => :leopard_g3
+    sha256 "d35ec1b651fd1db63f633dcd80d1ec2eef1df968b86755df0d4fd6211902dc5e" => :leopard_altivec
   end
 
   # needs make 3.81 or newer
