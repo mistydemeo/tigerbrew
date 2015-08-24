@@ -9,6 +9,8 @@ class Libpng < Formula
   bottle do
     cellar :any
     sha256 "d09b58d89e89013b8674e090d57a900d7e554d47c9ce952802116754e505cfc3" => :tiger_altivec
+    sha256 "46146f5fdac93a350d98ff17222ecfb38bc2287653dc88ba9e619246f1573f31" => :leopard_g3
+    sha256 "c32e4fc4f87fd40d719cefc5734f93a2ccde334a18c33934c2eefbb0ce0f083d" => :leopard_altivec
   end
 
   keg_only :provided_pre_mountain_lion
