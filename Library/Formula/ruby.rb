@@ -6,6 +6,8 @@ class Ruby < Formula
 
   bottle do
     sha256 "1146cee1a02caae6d48d2f7804bb40163b12bab29d7c65e6030cbd953a514ea5" => :tiger_altivec
+    sha256 "843a9a0f02a4f14964640a898b78ee742485da4044ab27e3f530beb147f2f635" => :leopard_g3
+    sha256 "57621cf39513e48946501f7f34a72f912649289cdd0b537cc4bf2a1f1d1d9647" => :leopard_altivec
   end
 
   head do
