@@ -9,6 +9,8 @@ class Xvid < Formula
   bottle do
     cellar :any
     sha256 "ec7422d4b91dd4b4df077b62c570ae69c81631f07e4cbb0a4c399743cd086f67" => :tiger_altivec
+    sha256 "6a4338ba070c5512b0607d44587df14ffb5f6b28c7463044ec034e1dd46e64b9" => :leopard_g3
+    sha256 "2555cd6f7798940b32ba3f0b1f52c04362e6438f2fa56f3aca79369730504e6c" => :leopard_altivec
   end
 
   def install
