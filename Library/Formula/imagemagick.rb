@@ -49,6 +49,7 @@ class Imagemagick < Formula
   depends_on "homebrew/versions/openjpeg21" if build.with? "jp2"
   depends_on "fftw" => :optional
   depends_on "pango" => :optional
+  depends_on "homebrew/dupes/zlib" if MacOS.version < :snow_leopard # for PNG support
 
   needs :openmp if build.with? "openmp"
 
