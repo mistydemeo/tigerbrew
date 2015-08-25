@@ -10,9 +10,9 @@ class Libtool < Formula
 
   bottle do
     cellar :any
-    sha1 "2d08e8a6d58d789194efcb3d6e4b822e6ad409cc" => :yosemite
-    sha1 "f545d684854815e7a5a5c1d4e6372ac26a7516ff" => :mavericks
-    sha1 "dd1e72102dda61ab33da205e9cfb507a269fd0b9" => :mountain_lion
+    sha256 "9e483f1712bc2a917f9183f80d3536f2e778dfbe9c89b82d7538354791b704e9" => :tiger_altivec
+    sha256 "312ee20c1208b8de8cb545513015460d68dff99aafed509999dc8d9826b92217" => :leopard_g3
+    sha256 "f14f7c9f863be4c820839eb403e5a994986f8c4d2d19ff60ea011adcceb2ed81" => :leopard_altivec
   end
 
   depends_on "homebrew/dupes/m4" if MacOS.version < :leopard
