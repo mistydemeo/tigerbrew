@@ -12,7 +12,7 @@ class Cctools < Formula
   end
 
   bottle do
-    cellar :any
+    cellar :any_skip_relocation
     revision 1
     sha256 "80262f4d2c2ed5e7e9b2e80d8a0c30937f9239a3f1958010ad247a1b731e49a2" => :tiger_altivec
     sha256 "4adc7c27e720a59d8bdb177dd06b8cd5ca7ff3c0b8199e29c1b04db417966986" => :leopard_g3
@@ -20,6 +20,8 @@ class Cctools < Formula
   end
 
   depends_on :ld64
+
+  cxxstdlib_check :skip
 
   keg_only :provided_by_osx,
     "This package duplicates tools shipped by Xcode."

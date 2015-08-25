@@ -343,9 +343,11 @@ Add aliases by creating symlinks in `Library/Aliases`.
 
 ## Audit the formula
 
-You can run `brew audit` to test formulae for adherence to Tigerbrew house style. This includes warnings for trailing whitespace, preferred URLs for certain source hosts, and a lot of other style issues. Fixing these warnings before committing will make the process a lot smoother for us.
+You can run `brew audit` to test formulae for adherence to Tigerbrew house style. The audit command includes warnings for trailing whitespace, preferred URLs for certain source hosts, and a lot of other style issues. Fixing these warnings before committing will make the process a lot smoother for us.
 
-Use `brew info` and check if the version guessed by Homebrew from the URL is
+New formulae being submitted to Tigerbrew should run `brew audit <formula name> --strict --online`. This command is performed by the Brew Test Bot on new submissions as part of the automated build and test process, and highlights more potential issues than the standard audit.
+
+Use `brew info` and check if the version guessed by Tigerbrew from the URL is
 correct. Add an explicit `version` if not.
 
 ## Commit
@@ -381,7 +383,7 @@ Now you just need to push back to GitHub.
 
 If you haven’t forked Tigerbrew yet, [go to the repo and hit the fork button](http://github.com/mistydemeo/tigerbrew).
 
-If you have already forked Homebrew on GitHub, then you can manually push (just make sure you have been pulling from the Homebrew/homebrew master):
+If you have already forked Tigerbrew on GitHub, then you can manually push (just make sure you have been pulling from the mistydemeo/tigerbrew master):
 
     git push git@github.com:myname/tigerbrew.git <what-you-called-your-branch>
 
@@ -581,7 +583,7 @@ class Foo < Formula
 end
 ```
 
-Formulae that only have `head` versions should be submitted to [homebrew/headonly](https://github.com/Homebrew/homebrew-headonly) instead of Homebrew/homebrew.
+Formulae that only have `head` versions should be submitted to [homebrew/headonly](https://github.com/Homebrew/homebrew-headonly) instead of mistydemeo/tigerbrew.
 
 ### devel
 

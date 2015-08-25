@@ -266,13 +266,13 @@ If no \fIformulae\fR are provided, all of them will have their \.apps symlinked\
 If provided, \fB\-\-local\fR will move them into the user\'s \fB~/Applications\fR directory instead of the system directory\. It may need to be created, first\.
 .
 .IP "\(bu" 4
-\fBls, list [\-\-full\-name]\fR List all installed formulae\. If \fB\-\-full\-name\fR is passed, print formulae with full\-qualified names\.
+\fBls\fR, \fBlist [\-\-full\-name]\fR List all installed formulae\. If \fB\-\-full\-name\fR is passed, print formulae with full\-qualified names\.
 .
 .IP "\(bu" 4
-\fBls, list \-\-unbrewed\fR List all files in the Tigerbrew prefix not installed by Tigerbrew\.
+\fBls\fR, \fBlist \-\-unbrewed\fR List all files in the Tigerbrew prefix not installed by Tigerbrew\.
 .
 .IP "\(bu" 4
-\fBls, list [\-\-versions [\-\-multiple]] [\-\-pinned]\fR [\fIformulae\fR]: List the installed files for \fIformulae\fR\. Combined with \fB\-\-verbose\fR, recursively list the contents of all subdirectories in each \fIformula\fR\'s keg\.
+\fBls\fR, \fBlist [\-\-versions [\-\-multiple]] [\-\-pinned]\fR [\fIformulae\fR]: List the installed files for \fIformulae\fR\. Combined with \fB\-\-verbose\fR, recursively list the contents of all subdirectories in each \fIformula\fR\'s keg\.
 .
 .IP
 If \fB\-\-versions\fR is passed, show the version number for installed formulae, or only the specified formulae if \fIformulae\fR are given\. With \fB\-\-multiple\fR, only show formulae with multiple versions installed\.
@@ -293,7 +293,7 @@ If no \fIformulae\fR are given, check all installed brews\.
 \fBmigrate [\-\-force]\fR \fIformulae\fR: Migrate renamed packages to new name, where \fIformulae\fR are old names of packages\.
 .
 .IP
-If \fB\-\-force\fR is passed and installed \fIformulae\fR have nil tap, then treat them like packages installed from core\.
+If \fB\-\-force\fR is passed, then treat installed \fIformulae\fR and passed \fIformulae\fR like if they are from same taps and migrate them anyway\.
 .
 .IP "\(bu" 4
 \fBoptions [\-\-compact] [\-\-all] [\-\-installed]\fR \fIformula\fR: Display install options specific to \fIformula\fR\.
@@ -373,6 +373,12 @@ By default, the repository is cloned as a shallow copy (\fB\-\-depth=1\fR), but 
 \fBtap \-\-repair\fR: Migrate tapped formulae from symlink\-based to directory\-based structure\.
 .
 .IP "\(bu" 4
+\fBtap \-\-list\-official\fR: List all official taps\.
+.
+.IP "\(bu" 4
+\fBtap \-\-list\-pinned\fR: List all pinned taps\.
+.
+.IP "\(bu" 4
 \fBtap\-info\fR \fItap\fR: Display information about \fItap\fR\.
 .
 .IP "\(bu" 4
@@ -382,7 +388,7 @@ By default, the repository is cloned as a shallow copy (\fB\-\-depth=1\fR), but 
 Pass \fB\-\-installed\fR to get information on installed taps\.
 .
 .IP
-See the docs for examples of using the JSON: \fIhttps://github\.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Querying\-Brew\.md\fR
+See the docs for examples of using the JSON: \fIhttps://github\.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/Querying\-Brew\.md\fR
 .
 .IP "\(bu" 4
 \fBtap\-pin\fR \fItap\fR: Pin \fItap\fR, prioritizing its formulae over core when formula names are supplied by the user\. See also \fBtap\-unpin\fR\.
@@ -529,7 +535,7 @@ Set this to force Tigerbrew to use a particular git binary\.
 .
 .TP
 HOMEBREW_BOTTLE_DOMAIN
-If set, instructs Homebrew to use the given URL as a download mirror for bottles\.
+If set, instructs Tigerbrew to use the given URL as a download mirror for bottles\.
 .
 .TP
 HOMEBREW_BROWSER
@@ -579,7 +585,7 @@ A personal access token for the GitHub API, which you can create at \fIhttps://g
 .
 .TP
 HOMEBREW_LOGS
-If set, Homebrew will use the given directory to store log files\.
+If set, Tigerbrew will use the given directory to store log files\.
 .
 .TP
 HOMEBREW_MAKE_JOBS
@@ -597,7 +603,7 @@ If set, Tigerbrew will not print the \fBHOMEBREW_INSTALL_BADGE\fR on a successfu
 .
 .TP
 HOMEBREW_NO_INSECURE_REDIRECT
-If set, Homebrew will not permit redirects from secure HTTPS to insecure HTTP\.
+If set, Tigerbrew will not permit redirects from secure HTTPS to insecure HTTP\.
 .
 .IP
 While ensuring your downloads are fully secure, this is likely to cause from\-source Sourceforge & GNOME based formulae to fail to download\.

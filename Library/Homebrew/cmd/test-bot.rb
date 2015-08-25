@@ -410,11 +410,15 @@ module Homebrew
       end
 
       begin
+        formula.recursive_dependencies
+      rescue TapFormulaUnavailableError => e
+        raise if e.tap.installed?
+        safe_system "brew", "tap", e.tap.name
+        retry
+      end
+
+      begin
         deps.each do |dep|
-          if dep.is_a?(TapDependency) && dep.tap
-            tap_dir = Homebrew.homebrew_git_repo dep.tap
-            test "brew", "tap", dep.tap unless tap_dir.directory?
-          end
           CompilerSelector.select_for(dep.to_formula)
         end
         CompilerSelector.select_for(formula)
@@ -710,6 +714,7 @@ module Homebrew
     end
 
     ENV["HOMEBREW_DEVELOPER"] = "1"
+    ENV["HOMEBREW_SANDBOX"] = "1"
     ENV["HOMEBREW_NO_EMOJI"] = "1"
     if ARGV.include?("--ci-master") || ARGV.include?("--ci-pr") \
        || ARGV.include?("--ci-testing")

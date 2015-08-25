@@ -5,9 +5,10 @@ class Gdl < Formula
   sha256 "34cbe104f5df9a20ea26aa8acca2b6d1a73035448aa854162c598e90f4e6ff80"
 
   bottle do
-    sha256 "930feafd625b56e05f050cd14792409c8ff605847697a24e22f5863876d2263f" => :yosemite
-    sha256 "1838dbd48f08223efcd3ee1c6aa1e227f50663533bb8bfb4c074f99420331d40" => :mavericks
-    sha256 "4f356923eb810ad11dad0aca8f8875fb5464a59798d6046b0219427221e93abe" => :mountain_lion
+    revision 1
+    sha256 "be662ba065cffbfe5d9b9499b51a829d0990a4d147d4893070bf2134aeb9ffc7" => :yosemite
+    sha256 "8dce0ae0f0aac31b16e09010c5b7287f5158ebc4337c631e6983b3560ec612a1" => :mavericks
+    sha256 "4cca328a630b1b6e009d31eeb5546fcd653a278d153f57193d56bb1c6993fb6d" => :mountain_lion
   end
 
   depends_on "pkg-config" => :build

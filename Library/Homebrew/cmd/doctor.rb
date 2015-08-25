@@ -234,7 +234,8 @@ class Checks
   def check_for_broken_symlinks
     broken_symlinks = []
 
-    Keg::PRUNEABLE_DIRECTORIES.select(&:directory?).each do |d|
+    Keg::PRUNEABLE_DIRECTORIES.each do |d|
+      next unless d.directory?
       d.find do |path|
         if path.symlink? && !path.resolved_path_exists?
           broken_symlinks << path
@@ -257,6 +258,7 @@ class Checks
     end
   end
 
+  # TODO: distill down into single method definition a la BuildToolsError
   if MacOS.version >= "10.9"
     def check_for_installed_developer_tools
       unless MacOS::Xcode.installed? || MacOS::CLT.installed? then <<-EOS.undent
@@ -864,7 +866,7 @@ class Checks
     # https://help.github.com/articles/https-cloning-errors
     `git --version`.chomp =~ /git version ((?:\d+\.?)+)/
 
-    if $1 && Version.new($1) < Version.new("1.7.10") then
+    if $1 && Version.new($1) < Version.new("1.7.10")
       git_upgrade_cmd = Formula["git"].any_version_installed? ? "upgrade" : "install"
 
       <<-EOS.undent

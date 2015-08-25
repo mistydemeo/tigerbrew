@@ -7,17 +7,17 @@ class Erlang < Formula
 
   stable do
     # Download tarball from GitHub; it is served faster than the official tarball.
-    url "https://github.com/erlang/otp/archive/OTP-18.0.2.tar.gz"
-    sha256 "b8c4af95376cd8a67b1f3cfb54ce4cbc7a548cac2293e9a0e865f2c058402a8e"
+    url "https://github.com/erlang/otp/archive/OTP-18.0.3.tar.gz"
+    sha256 "3e1680aded824ad5659224024e09a4ff040e97a5b8ace4bdc1537b2f514a5a21"
   end
 
   head "https://github.com/erlang/otp.git"
 
   bottle do
     cellar :any
-    sha256 "3c064591b32e9010cdef1a51455cd0ac23c2b8a016a117924a67b236c12a988e" => :yosemite
-    sha256 "3b0b4285955dc187a8dca66b8b9e7f077b5a49c43bd1d3e59366d282590e4d47" => :mavericks
-    sha256 "0ed053371d9b3e80b5c9a6ed3a3023945b13f2564039822749f692bbd284025b" => :mountain_lion
+    sha256 "ad559514ac12544bee41b9a901c565913b0d24d17f7844265a10bb4d865e3985" => :yosemite
+    sha256 "47a82e3384039029eb0344e052acd394873194034905d73a3b2514e5d7a90e49" => :mavericks
+    sha256 "c86d7fdbd7db4e235e41ef26eedcc8aa309dcfb8e522a4246fb061fed08374db" => :mountain_lion
   end
 
   resource "man" do

@@ -270,14 +270,14 @@ Note that these flags should only appear after a command.
     If provided, `--local` will move them into the user's `~/Applications`
     directory instead of the system directory. It may need to be created, first.
 
-  * `ls, list [--full-name]`
+  * `ls`, `list [--full-name]`
     List all installed formulae. If `--full-name` is passed, print formulae with
     full-qualified names.
 
-  * `ls, list --unbrewed`
+  * `ls`, `list --unbrewed`
     List all files in the Tigerbrew prefix not installed by Tigerbrew.
 
-  * `ls, list [--versions [--multiple]] [--pinned]` [<formulae>]:
+  * `ls`, `list [--versions [--multiple]] [--pinned]` [<formulae>]:
     List the installed files for <formulae>. Combined with `--verbose`, recursively
     list the contents of all subdirectories in each <formula>'s keg.
 
@@ -302,8 +302,8 @@ Note that these flags should only appear after a command.
     Migrate renamed packages to new name, where <formulae> are old names of
     packages.
 
-    If `--force` is passed and installed <formulae> have nil tap, then treat
-    them like packages installed from core.
+    If `--force` is passed, then treat installed <formulae> and passed <formulae>
+    like if they are from same taps and migrate them anyway.
 
   * `options [--compact] [--all] [--installed]` <formula>:
     Display install options specific to <formula>.
@@ -390,6 +390,12 @@ Note that these flags should only appear after a command.
   * `tap --repair`:
     Migrate tapped formulae from symlink-based to directory-based structure.
 
+  * `tap --list-official`:
+    List all official taps.
+
+  * `tap --list-pinned`:
+    List all pinned taps.
+
   * `tap-info` <tap>:
     Display information about <tap>.
 
@@ -400,7 +406,7 @@ Note that these flags should only appear after a command.
     Pass `--installed` to get information on installed taps.
 
     See the docs for examples of using the JSON:
-    <https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Querying-Brew.md>
+    <https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/Querying-Brew.md>
 
   * `tap-pin` <tap>:
     Pin <tap>, prioritizing its formulae over core when formula names are supplied
@@ -564,7 +570,7 @@ can take several different forms:
     Set this to force Tigerbrew to use a particular git binary.
 
   * HOMEBREW\_BOTTLE\_DOMAIN:
-    If set, instructs Homebrew to use the given URL as a download mirror for bottles.
+    If set, instructs Tigerbrew to use the given URL as a download mirror for bottles.
 
   * HOMEBREW\_BROWSER:
     If set, uses this setting as the browser when opening project homepages,
@@ -616,7 +622,7 @@ can take several different forms:
     Tigerbrew uses the GitHub API for features such as `brew search`.
 
   * HOMEBREW\_LOGS:
-    If set, Homebrew will use the given directory to store log files.
+    If set, Tigerbrew will use the given directory to store log files.
 
   * HOMEBREW\_MAKE\_JOBS:
     If set, instructs Tigerbrew to use the value of `HOMEBREW_MAKE_JOBS` as
@@ -631,7 +637,7 @@ can take several different forms:
     *Note:* Tigerbrew will only try to print emoji on Lion or newer.
 
   * HOMEBREW\_NO\_INSECURE\_REDIRECT:
-    If set, Homebrew will not permit redirects from secure HTTPS
+    If set, Tigerbrew will not permit redirects from secure HTTPS
     to insecure HTTP.
 
     While ensuring your downloads are fully secure, this is likely

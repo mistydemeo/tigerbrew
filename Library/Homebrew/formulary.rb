@@ -200,12 +200,11 @@ class Formulary
   def self.to_rack(ref)
     # First, check whether the rack with the given name exists.
     if (rack = HOMEBREW_CELLAR/File.basename(ref, ".rb")).directory?
-      return rack
+      return rack.resolved_path
     end
 
     # Second, use canonical name to locate rack.
-    name = canonical_name(ref)
-    HOMEBREW_CELLAR/name
+    (HOMEBREW_CELLAR/canonical_name(ref)).resolved_path
   end
 
   def self.canonical_name(ref)
@@ -252,7 +251,7 @@ class Formulary
       return AliasLoader.new(possible_alias)
     end
 
-   possible_tap_formulae = tap_paths(ref)
+    possible_tap_formulae = tap_paths(ref)
     if possible_tap_formulae.size > 1
       raise TapFormulaAmbiguityError.new(ref, possible_tap_formulae)
     elsif possible_tap_formulae.size == 1
@@ -291,7 +290,7 @@ class Formulary
     Pathname.new("#{HOMEBREW_LIBRARY}/Formula/#{name.downcase}.rb")
   end
 
-  def self.tap_paths(name, taps=Dir["#{HOMEBREW_LIBRARY}/Taps/*/*/"])
+  def self.tap_paths(name, taps = Dir["#{HOMEBREW_LIBRARY}/Taps/*/*/"])
     name = name.downcase
     taps.map do |tap|
       Pathname.glob([
@@ -302,7 +301,7 @@ class Formulary
     end.compact
   end
 
-  def self.find_with_priority(ref, spec=:stable)
+  def self.find_with_priority(ref, spec = :stable)
     possible_pinned_tap_formulae = tap_paths(ref, Dir["#{HOMEBREW_LIBRARY}/PinnedTaps/*/*/"]).map(&:realpath)
     if possible_pinned_tap_formulae.size > 1
       raise TapFormulaAmbiguityError.new(ref, possible_pinned_tap_formulae)
