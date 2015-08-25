@@ -10,6 +10,8 @@ class Imagemagick < Formula
 
   bottle do
     sha256 "c3bbc81bb72cd5a4ae9fbfd28f1c6c840806d08a5b2c5b4410ca7e039fcd" => :tiger_altivec
+    sha256 "943622183cb8895668adbe814b67d8230dacc0c4c01f1fe362aa9e79308d7fc0" => :leopard_g3
+    sha256 "9d3c6164a22811d715a938c27d88106100a25d145c68d8699e6684409735f5b6" => :leopard_altivec
   end
 
   deprecated_option "enable-hdri" => "with-hdri"
