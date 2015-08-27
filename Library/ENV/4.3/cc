@@ -5,7 +5,7 @@ require "pathname"
 require "set"
 
 if RUBY_VERSION < "1.8.7"
-  $:.unshift("#{ENV['HOMEBREW_PREFIX']}/Library/Homebrew")
+  $:.unshift("#{ENV['HOMEBREW_REPOSITORY']}/Library/Homebrew")
   require 'extend/string'
   require 'vendor/backports/enumerator'
 end
