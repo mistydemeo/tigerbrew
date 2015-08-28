@@ -8,6 +8,7 @@ class Readline < Formula
 
   bottle do
     cellar :any
+    sha256 "f36867f7a2762620894058678f400aa945c9a6930a7a33f7e74d02e12639bbb4" => :tiger_altivec
     sha256 "87370403df816b715cb920cce228a31240e7d6eab976bf32b92e2f77050dac06" => :leopard_g3
     sha256 "3d347f4be190c3881c6240f3037e4e5b474b47c36740cf21595ba4122e280205" => :leopard_altivec
   end
