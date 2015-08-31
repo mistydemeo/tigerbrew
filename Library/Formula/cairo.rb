@@ -7,10 +7,10 @@ class Cairo < Formula
   revision 1
 
   bottle do
-    revision 2
-    sha256 "3307b2b8c32b21af9f9ccd78ab3f798a12a864a2165371782c757db575232824" => :yosemite
-    sha256 "53d24aab616e3040bec8f2caf736c5b7b1c137d10479596624c5331be61a8a8b" => :mavericks
-    sha256 "da209992941c375d2d8ba135393546dc181219fa7210bd2d0e0eda80cdf0cfdf" => :mountain_lion
+    revision 3
+    sha256 "33d9cb9c8dcb1a12eaefb2c816cb7c82f948a9775f79b2427b011a03153fc8a0" => :yosemite
+    sha256 "4332ca15d3f37a421947d4d5a43ee7f6116cbc1f920fdd4db7a6b2538cddde7b" => :mavericks
+    sha256 "32c35db10bc86230c18c4484e6b7f314ba56c0186c80b356a0d0533576267a2e" => :mountain_lion
   end
 
   keg_only :provided_pre_mountain_lion
@@ -36,12 +36,14 @@ class Cairo < Formula
       --enable-gobject=yes
       --enable-svg=yes
       --enable-tee=yes
-      --enable-xlib=no
-      --enable-xlib-xrender=no
       --enable-quartz-image
     ]
 
-    args << (build.with?("x11") ? "--enable-xcb=yes" : "--enable-xcb=no")
+    if build.with? "x11"
+      args << "--enable-xcb=yes" << "--enable-xlib=yes" << "--enable-xlib-xrender=yes"
+    else
+      args << "--enable-xcb=no" << "--enable-xlib=no" << "--enable-xlib-xrender=no"
+    end
 
     system "./configure", *args
     system "make", "install"

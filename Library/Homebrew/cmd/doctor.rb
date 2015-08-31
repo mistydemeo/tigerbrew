@@ -655,14 +655,35 @@ class Checks
     end
   end
 
+  def check_for_bad_curl
+    if MacOS.version <= "10.6" && !Formula["curl"].installed? then <<-EOS.undent
+      The system curl on 10.6 and below is often incapable of supporting
+      modern secure connections & will fail on fetching formulae.
+      We recommend you:
+        brew install curl
+      EOS
+    end
+  end
+
   def check_user_curlrc
     if %w[CURL_HOME HOME].any? { |key| ENV[key] && File.exist?("#{ENV[key]}/.curlrc") } then <<-EOS.undent
     You have a curlrc file
     If you have trouble downloading packages with Tigerbrew, then maybe this
     is the problem? If the following command doesn't work, then try removing
     your curlrc:
-      curl http://github.com
+      curl https://github.com
     EOS
+    end
+  end
+
+  def check_for_unsupported_curl_vars
+    # Support for SSL_CERT_DIR seemed to be removed in the 10.10.5 update.
+    if MacOS.version >= :yosemite && !ENV["SSL_CERT_DIR"].nil? then <<-EOS.undent
+      SSL_CERT_DIR support was removed from Apple's curl.
+      If fetching formulae fails you should:
+        unset SSL_CERT_DIR
+      and remove it from #{shell_profile} if present.
+      EOS
     end
   end
 

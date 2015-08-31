@@ -1,15 +1,13 @@
 class LibgpgError < Formula
   desc "Common error values for all GnuPG components"
   homepage "https://www.gnupg.org/"
-  url "ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.19.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.19.tar.bz2"
-  sha256 "53120e1333d5c5d28d87ff2854e9e98719c8e214152f17ad5291704d25c4978b"
+  url "https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.20.tar.bz2"
+  mirror "ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.20.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.20.tar.bz2"
+  sha256 "3266895ce3419a7fb093e63e95e2ee3056c481a9bc0d6df694cfd26f74e72522"
 
   bottle do
     cellar :any
-    sha1 "cd20f764f048e7e91ce792f615daf424aac8b812" => :tiger_altivec
-    sha1 "08e80e3c2efbbcdc16b2cb7d77baa12385f5b105" => :leopard_g3
-    sha1 "f6db05c6486fdfdecde777b23ca147b11eade892" => :leopard_altivec
   end
 
   option :universal

@@ -2,14 +2,15 @@ class Legit < Formula
   desc "Command-line interface for Git, optimized for workflow simplicity"
   homepage "http://www.git-legit.org/"
   url "https://github.com/kennethreitz/legit/archive/v0.2.0.tar.gz"
-  version "0.1.0"
   sha256 "dce86a16d9c95e2a7d93be75f1fc17c67d3cd2a137819fa498e179bf21daf39e"
+  head "https://github.com/kennethreitz/legit.git", :branch => "develop"
+  revision 1
 
   bottle do
     cellar :any
-    sha256 "9fa6ed92b611e6e8810c19f5e130320723bc7752ce69f223d145c1b087b14266" => :yosemite
-    sha256 "279762cb281dd6e8416a3b5e06438a5300819ba6aa6732472cfff35e80c4881a" => :mavericks
-    sha256 "e7a0e18464490895a21c794e25c44806dcd62ce3f6e8d354a2c68c7435836baf" => :mountain_lion
+    sha256 "ec8b37896fe4c19ee8e313103d1f41a5e2a289fcaf6acd33d6a5f82beed27893" => :yosemite
+    sha256 "0c392e429ad2ffc921d96b847ff4f542d9fabc05b16f648a82bdd0f0de16862c" => :mavericks
+    sha256 "e59e88a94c770a4abfab93ab881bfea970308b2c13f2feb0c2e0e4d3fd850f4e" => :mountain_lion
   end
 
   depends_on :python if MacOS.version <= :snow_leopard
@@ -55,6 +56,10 @@ class Legit < Formula
 
     bin.install Dir["#{libexec}/bin/*"]
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+
+    bash_completion.install "extra/bash-completion/legit"
+    zsh_completion.install "extra/zsh-completion/_legit"
+    man1.install "extra/man/legit.1" if build.head?
   end
 
   test do

@@ -1,25 +1,26 @@
 class Libgxps < Formula
   desc "GObject based library for handling and rendering XPS documents"
   homepage "https://live.gnome.org/libgxps"
-  url "http://ftp.gnome.org/pub/gnome/sources/libgxps/0.2/libgxps-0.2.2.tar.xz"
-  sha256 "39d104739bf0db43905c315de1d8002460f1a098576f4418f69294013a5820be"
+  url "https://download.gnome.org/sources/libgxps/0.2/libgxps-0.2.3.1.tar.xz"
+  sha256 "370ec84251e2d3759ef6487d39f65157a22e49fbaf2c51e7a08bdbe198d6a536"
 
   bottle do
     cellar :any
-    sha1 "924309fd03db773717136c28f18c252287fb594e" => :yosemite
-    sha1 "824b1ccbe6227f3daf53ba511186f45b7e57a8d2" => :mavericks
-    sha1 "1782c7a78c41172a401cef801e0995818ec23e33" => :mountain_lion
+    sha256 "fa03aed3a2f74fcf5e679f4a9b20a11a079bb99f6bb41f5de8cac4fabe3e1b90" => :yosemite
+    sha256 "aaa4b251edb7849ffafc1a333e9491f5ad1c22d71765bf30197ab3d94ef42e81" => :mavericks
+    sha256 "5771617e37c86898335f97531f67fbd19c76b4eea47bf71db4d9627ca519ffa8" => :mountain_lion
   end
 
   head do
     url "https://github.com/GNOME/libgxps.git"
 
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
     depends_on "libtool" => :build
     depends_on "gnome-common" => :build
     depends_on "gtk-doc" => :build
   end
+
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
   depends_on "pkg-config" => :build
   depends_on "cairo"
   depends_on "libarchive"

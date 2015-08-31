@@ -1,23 +1,23 @@
 class Thefuck < Formula
   desc "Programatically correct mistyped console commands"
   homepage "https://github.com/nvbn/thefuck"
-  url "https://pypi.python.org/packages/source/t/thefuck/thefuck-2.7.tar.gz"
-  sha256 "5486f9244315b83645efd1aaba98d83a74e23ccad8499d24d80a6b64dde850a7"
+  url "https://pypi.python.org/packages/source/t/thefuck/thefuck-2.8.tar.gz"
+  sha256 "40ac6c27974fc749557fe37f00e29100c26f25f038f3e63034f721442ac0b489"
 
   head "https://github.com/nvbn/thefuck.git"
 
   bottle do
     cellar :any
-    sha256 "fafef0f2d06b9ccab5d035f041d656167c37372e33d0039b0d260a27b7067938" => :yosemite
-    sha256 "90a62137449bc70c077d98e5fa1ee4a233a84550de8a1ceaa78eb215fdc9d66a" => :mavericks
-    sha256 "48eb9527a4c6405d90f9d8c328635da50d5445ba5e78c1c1b51e203d0bfe8d0c" => :mountain_lion
+    sha256 "bfaf5babb508ca12c22c87f62784051a1b0528959df403ccf788e374332c47a8" => :yosemite
+    sha256 "a206c186fa553ce3ea1f40eb4ed4160e12df5c630103a4d1f7d644815005430d" => :mavericks
+    sha256 "fedbc94b2769e205f64ea41b52942be1f4647e30dd4148365d518933927fa7c8" => :mountain_lion
   end
 
   depends_on :python if MacOS.version <= :snow_leopard
 
   resource "psutil" do
-    url "https://pypi.python.org/packages/source/p/psutil/psutil-2.2.1.tar.gz"
-    sha256 "a0e9b96f1946975064724e242ac159f3260db24ffa591c3da0a355361a3a337f"
+    url "https://pypi.python.org/packages/source/p/psutil/psutil-3.1.1.tar.gz"
+    sha256 "d3290bd4a027fa0b3a2e2ee87728056fe49d4112640e2b8c2ea4dd94ba0cf057"
   end
 
   resource "pathlib" do
@@ -36,8 +36,8 @@ class Thefuck < Formula
   end
 
   resource "setuptools" do
-    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-18.0.1.tar.gz"
-    sha256 "4d49c99fd51edf22baa997fb6105b07482feaebcb174b7d348a4307c29264b94"
+    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-18.2.tar.gz"
+    sha256 "0994a58df27ea5dc523782a601357a2198b7493dcc99a30d51827a23585b5b1d"
   end
 
   def install

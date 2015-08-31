@@ -1,17 +1,16 @@
 class Magit < Formula
   desc "Emacs interface for Git"
   homepage "https://github.com/magit/magit"
-  url "https://github.com/magit/magit/archive/2.2.0.tar.gz"
-  sha256 "947c47961d5adbcbccda2ed50b7ef59e82ff91e089dedd645f14eeeb7d9acac9"
+  url "https://github.com/magit/magit/releases/download/2.2.1/magit-2.2.1.tar.gz"
+  sha256 "b0e2c8c7ecf175f223c85849b8c9f80458b3f435ab9014851cbc446408914d2e"
 
   head "https://github.com/magit/magit.git", :shallow => false
 
   bottle do
     cellar :any
-    revision 1
-    sha256 "39bb319eaf4f0fcecec2e0e6d25b40d5f5837597dbc1fb687f1fea71f274d81c" => :yosemite
-    sha256 "d87188bd976bb881697e69b014e1040cc18f9a69d28ad1d11e4f864284e829f4" => :mavericks
-    sha256 "99717730946ae8952ae3c6873cf49f35c9a13c4808f8d4ee32f808f1bfba026b" => :mountain_lion
+    sha256 "270e2504734160b1f1693e93d203d6f42a030b679b1a010a32db63e855def1e9" => :yosemite
+    sha256 "de8082a62774c0fbd06e1d956486f0885e99cec4b44d3cef28b90f79f0932c11" => :mavericks
+    sha256 "d647ceaa8f7c2bcc0518a0bbb0662f074418d44074cad6eab8441b31b8516f47" => :mountain_lion
   end
 
   depends_on :emacs => "24.4"
@@ -37,10 +36,8 @@ class Magit < Formula
     args = %W[
       PREFIX=#{prefix}
       docdir=#{doc}
+      VERSION=#{version}
     ]
-    # Can't run `make install` alone without ENV.j1:
-    # https://github.com/magit/magit/issues/1670
-    system "make", "VERSION=#{version}"
     system "make", "install", *args
   end
 

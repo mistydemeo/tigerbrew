@@ -1,14 +1,14 @@
 class Jenkins < Formula
   desc "Extendable open source continuous integration server"
   homepage "https://jenkins-ci.org"
-  url "http://mirrors.jenkins-ci.org/war/1.625/jenkins.war"
-  sha256 "3a3a2e639a2d9a80c542055a4634e0165f1441952756dbb6cf306f8fa98a204b"
+  url "http://mirrors.jenkins-ci.org/war/1.626/jenkins.war"
+  sha256 "e6df4d44f1110d1095b4e05c0d574f1120ac4f7bf943fba99c22edff0127c110"
 
   bottle do
     cellar :any
-    sha256 "65140904210bf90a83db8bd6a7c84f3901693d1f07760b9b64cfdfe0c6a2f038" => :yosemite
-    sha256 "7f225c9791efa1ae24afb170403f84a3e792f458fe535eca537032876e93c1cd" => :mavericks
-    sha256 "3c2ae580cc0ad6bdff3aec730d1b5d405b94af31cc21b5370978c52e3bff8e45" => :mountain_lion
+    sha256 "27b888de2255abfbec3438d304e7c3e5ea3c3c98d50775b7b4456d505730bfd4" => :yosemite
+    sha256 "d1329ac5ed0f8afadcc6e651d7fe8dbbab46aa4aa8b54cc184f5c2abb8afa4ff" => :mavericks
+    sha256 "a28c12de6ef20c1aaf4799b11676bd3d1dd00f6f0557a29d3072898a0cf6edc9" => :mountain_lion
   end
 
   head do
