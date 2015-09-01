@@ -8,6 +8,9 @@ class LibgpgError < Formula
 
   bottle do
     cellar :any
+    sha256 "716a5ff0208092694e5d53ea379f85b3cdfbb4439b9b8d80a30039469c65e0cf" => :tiger_altivec
+    sha256 "04d285ef2175eefc716abb6617e10e8f4e47bac36968ec0607607849e7a7222f" => :leopard_g3
+    sha256 "09e37962ed965242557f5e430fcefe822e7af9cec6f240e6b16223b7d3fc7a64" => :leopard_altivec
   end
 
   option :universal
