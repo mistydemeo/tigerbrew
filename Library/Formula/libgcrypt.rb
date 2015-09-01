@@ -9,6 +9,9 @@ class Libgcrypt < Formula
 
   bottle do
     cellar :any
+    sha256 "967c3b4f8e69ff608cf6c6e318ff8632ddede4b99fade5e078ea06f6a7d8a577" => :tiger_altivec
+    sha256 "02145c811e42c22911092789be5349876e555936d149dce0499b6136405b041f" => :leopard_g3
+    sha256 "ea17238ee44f50e56a2bfa1647e34b0c88ef4ab59df100b02b7a65bff8fe502d" => :leopard_altivec
   end
 
   option :universal
