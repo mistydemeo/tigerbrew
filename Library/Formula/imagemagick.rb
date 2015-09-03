@@ -5,8 +5,7 @@ class Imagemagick < Formula
   mirror "http://ftp.nluug.nl/ImageMagick/ImageMagick-6.9.1-10.tar.xz"
   sha256 "22565464059376513869b6626982e0726a33788ccc7e19a08e55ff1683d4ff92"
 
-  head "https://subversion.imagemagick.org/subversion/ImageMagick/trunk",
-       :using => :svn
+  head "http://git.imagemagick.org/repos/ImageMagick.git"
 
   bottle do
     sha256 "c3bbc81bb72cd5a4ae9fbfd28f1c6c840806d08a5b2c5b4410ca7e039fcde7cc" => :tiger_altivec
