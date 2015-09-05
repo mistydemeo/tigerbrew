@@ -35,6 +35,11 @@ class Sbcl < Formula
     sha256 "5801c60e2a875d263fccde446308b613c0253a84a61ab63569be62eb086718b3"
   end
 
+  resource "bootstrapppc" do
+    url "http://downloads.sourceforge.net/project/sbcl/sbcl/1.0.47/sbcl-1.0.47-powerpc-darwin-binary.tar.bz2"
+    sha256 "6971a64c0706894f217da676081874088f50f84daa66d89b653b065f83563f3b"
+  end
+
   patch :p0 do
     url "https://trac.macports.org/export/88830/trunk/dports/lang/sbcl/files/patch-base-target-features.diff"
     sha256 "e101d7dc015ea71c15a58a5c54777283c89070bf7801a13cd3b3a1969a6d8b75"
@@ -82,7 +87,11 @@ class Sbcl < Formula
       ascii_val =~ /[\x80-\xff]/n
     end
 
-    bootstrap = (build.build_32_bit? || !MacOS.prefer_64_bit?) ? "bootstrap32" : "bootstrap64"
+    bootstrap = if Hardware::CPU.intel?
+      (build.build_32_bit? || !MacOS.prefer_64_bit?) ? "bootstrap32" : "bootstrap64"
+    else
+      "bootstrapppc"
+    end
     resource(bootstrap).stage do
       # We only need the binaries for bootstrapping, so don't install anything:
       command = "#{Dir.pwd}/src/runtime/sbcl"
@@ -90,7 +99,7 @@ class Sbcl < Formula
       xc_cmdline = "#{command} --core #{core} --disable-debugger --no-userinit --no-sysinit"
 
       cd buildpath do
-        ENV["SBCL_ARCH"] = "x86" if build.build_32_bit?
+        ENV["SBCL_ARCH"] = "x86" if build.build_32_bit? && Hardware::CPU.intel?
         Pathname.new("version.lisp-expr").write('"1.0.99.999"') if build.head?
         system "./make.sh", "--prefix=#{prefix}", "--xc-host=#{xc_cmdline}"
       end
