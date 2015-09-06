@@ -4,8 +4,7 @@ class Sfml < Formula
   homepage "http://www.sfml-dev.org/"
 
   # SFML 2.2+ require Lion or newer
-  case MacOS.version
-  when 10.5, 10.6
+  if MacOS.version < :lion
     url "http://www.sfml-dev.org/download/sfml/2.1/SFML-2.1-sources.zip"
     sha256 "5f46d7748223be3f0c6a9fcf18c0016d227f7b1903cdbcd85f61ddbc82ef95bf"
   else
