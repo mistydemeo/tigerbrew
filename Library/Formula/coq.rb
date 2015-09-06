@@ -30,7 +30,7 @@ class Coq < Formula
   depends_on :ld64 # needs -no_compact_unwind
   depends_on Camlp5TransitionalModeRequirement
   depends_on "camlp5"
-  depends_on "objective-caml"
+  depends_on "ocaml"
 
   def install
     camlp5_lib = Formula["camlp5"].opt_lib+"ocaml/camlp5"

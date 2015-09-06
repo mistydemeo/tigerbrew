@@ -11,7 +11,7 @@ class Camlp5 < Formula
   end
 
   depends_on :ld64 # uses -no_compact_unwind
-  depends_on "objective-caml"
+  depends_on "ocaml"
 
   option "strict", "Compile in strict mode"
 
