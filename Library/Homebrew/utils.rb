@@ -133,8 +133,7 @@ def interactive_shell(f = nil)
 end
 
 module Homebrew
-  def self.system(cmd, *args)
-    puts "#{cmd} #{args*" "}" if ARGV.verbose?
+  def self._system(cmd, *args)
     pid = fork do
       yield if block_given?
       args.collect!(&:to_s)
@@ -143,6 +142,11 @@ module Homebrew
     end
     Process.wait(pid)
     $?.success?
+  end
+
+  def self.system(cmd, *args)
+    puts "#{cmd} #{args*" "}" if ARGV.verbose?
+    _system(cmd, *args)
   end
 
   def self.git_head
@@ -213,7 +217,7 @@ end
 
 # prints no output
 def quiet_system(cmd, *args)
-  Homebrew.system(cmd, *args) do
+  Homebrew._system(cmd, *args) do
     # Redirect output streams to `/dev/null` instead of closing as some programs
     # will fail to execute if they can't write to an open stream.
     $stdout.reopen("/dev/null")
@@ -255,8 +259,8 @@ def puts_columns(items, star_items = [])
     # determine the best width to display for different console sizes
     console_width = `/bin/stty size`.chomp.split(" ").last.to_i
     console_width = 80 if console_width <= 0
-    longest = items.sort_by(&:length).last
-    optimal_col_width = (console_width.to_f / (longest.length + 2).to_f).floor
+    max_len = items.reduce(0) { |max, item| l = item.length ; l > max ? l : max }
+    optimal_col_width = (console_width.to_f / (max_len + 2).to_f).floor
     cols = optimal_col_width > 1 ? optimal_col_width : 1
 
     IO.popen("/usr/bin/pr -#{cols} -t -w#{console_width}", "w") { |io| io.puts(items) }
