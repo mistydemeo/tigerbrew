@@ -59,14 +59,6 @@ class Checks
   def inject_file_list(list, str)
     list.inject(str) { |s, f| s << "    #{f}\n" }
   end
-
-  # Git will always be on PATH because of the wrapper script in
-  # Library/ENV/scm, so we check if there is a *real*
-  # git here to avoid multiple warnings.
-  def git?
-    return @git if instance_variable_defined?(:@git)
-    @git = system "git --version >/dev/null 2>&1"
-  end
   ############# END HELPERS
 
   # Sorry for the lack of an indent here, the diff would have been unreadable.
@@ -886,7 +878,7 @@ class Checks
   end
 
   def check_for_git
-    if git?
+    if Utils.git_available?
       __check_git_version
     else <<-EOS.undent
     Git could not be found in your PATH.
@@ -898,7 +890,7 @@ class Checks
   end
 
   def check_git_newline_settings
-    return unless git?
+    return unless Utils.git_available?
 
     autocrlf = `git config --get core.autocrlf`.chomp
 
@@ -916,12 +908,11 @@ class Checks
   end
 
   def check_git_origin
-    return unless git? && (HOMEBREW_REPOSITORY/".git").exist?
+    return if !Utils.git_available? || !(HOMEBREW_REPOSITORY/".git").exist?
 
-    HOMEBREW_REPOSITORY.cd do
-      origin = `git config --get remote.origin.url`.strip
+    origin = Homebrew.git_origin
 
-      if origin.empty? then <<-EOS.undent
+    if origin.nil? then <<-EOS.undent
       Missing git origin remote.
 
       Without a correctly configured origin, Tigerbrew won't update
@@ -929,7 +920,7 @@ class Checks
         cd #{HOMEBREW_REPOSITORY}
         git add remote origin https://github.com/mistydemeo/tigerbrew.git
       EOS
-      elsif origin !~ /mistydemeo\/tigerbrew(\.git)?$/ then <<-EOS.undent
+    elsif origin !~ /mistydemeo\/tigerbrew(\.git)?$/ then <<-EOS.undent
       Suspicious git origin remote found.
 
       With a non-standard origin, Tigerbrew won't pull updates from
@@ -940,7 +931,6 @@ class Checks
       origin remote to point at the main repository, located at:
         https://github.com/mistydemeo/tigerbrew.git
       EOS
-      end
     end
   end
 
@@ -1030,7 +1020,7 @@ class Checks
   end
 
   def check_git_status
-    return unless git?
+    return unless Utils.git_available?
     HOMEBREW_REPOSITORY.cd do
       unless `git status --untracked-files=all --porcelain -- Library/Homebrew/ 2>/dev/null`.chomp.empty?
         <<-EOS.undent_________________________________________________________72
@@ -1124,7 +1114,7 @@ class Checks
   end
 
   def check_for_outdated_homebrew
-    return unless git?
+    return unless Utils.git_available?
     HOMEBREW_REPOSITORY.cd do
       if File.directory? ".git"
         local = `git rev-parse -q --verify refs/remotes/origin/master`.chomp
