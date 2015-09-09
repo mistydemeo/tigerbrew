@@ -1,17 +1,13 @@
 class Libgcrypt < Formula
   desc "Cryptographic library based on the code from GnuPG"
   homepage "https://gnupg.org/"
-  url "https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.6.3.tar.bz2"
-  mirror "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.6.3.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.6.3.tar.bz2"
-  sha256 "41b4917b93ae34c6a0e2127378d7a4d66d805a2a86a09911d4f9bd871db7025f"
-  revision 2
+  url "https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.6.4.tar.bz2"
+  mirror "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.6.4.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.6.4.tar.bz2"
+  sha256 "c9bc2c7fe2e5f4ea13b0c74f9d24bcbb1ad889bb39297d8082aebf23f4336026"
 
   bottle do
     cellar :any
-    sha256 "967c3b4f8e69ff608cf6c6e318ff8632ddede4b99fade5e078ea06f6a7d8a577" => :tiger_altivec
-    sha256 "02145c811e42c22911092789be5349876e555936d149dce0499b6136405b041f" => :leopard_g3
-    sha256 "ea17238ee44f50e56a2bfa1647e34b0c88ef4ab59df100b02b7a65bff8fe502d" => :leopard_altivec
   end
 
   option :universal
