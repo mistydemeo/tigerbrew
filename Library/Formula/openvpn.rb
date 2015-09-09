@@ -7,6 +7,7 @@ class Openvpn < Formula
 
   bottle do
     cellar :any
+    revision 1
     sha256 "c9dec218ba8899bf7027f2dc5dea800bbe9834c530ad1e3eb32440e88e58a106" => :leopard_g3
     sha256 "ff196ea79f7a1bab55b07a72c58475c36133c2637fc9813f1f73a714c52acbaf" => :leopard_altivec
   end
