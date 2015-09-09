@@ -562,7 +562,7 @@ class FormulaInstaller
       read.close
       Process.wait(pid)
       raise Marshal.load(data) unless data.nil? or data.empty?
-      raise Interrupt if $?.exitstatus == 130
+      raise Interrupt, "User interrupted build" if $?.exitstatus == 130
       raise "Suspicious installation failure" unless $?.success?
     end
 
