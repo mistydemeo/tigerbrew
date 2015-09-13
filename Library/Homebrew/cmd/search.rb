@@ -137,13 +137,15 @@ module Homebrew
   end
 
   def search_formulae(rx)
-    aliases = Formula.aliases
+    aliases = Formula.alias_full_names
     results = (Formula.full_names+aliases).grep(rx).sort
 
     results.map do |name|
-      canonical_name = Formulary.canonical_name(name)
+      formula = Formulary.factory(name)
+      canonical_name = formula.name
+      canonical_full_name = formula.full_name
       # Ignore aliases from results when the full name was also found
-      if aliases.include?(name) && results.include?(canonical_name)
+      if aliases.include?(name) && results.include?(canonical_full_name)
         next
       elsif (HOMEBREW_CELLAR/canonical_name).directory?
         "#{name} (installed)"

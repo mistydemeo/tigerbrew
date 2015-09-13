@@ -210,7 +210,8 @@ class FormulaAuditor
     end
   end
 
-  @@aliases ||= Formula.aliases
+  # core aliases + tap alias names + tap alias full name
+  @@aliases ||= Formula.aliases + Formula.tap_aliases
 
   def audit_formula_name
     return unless @strict
@@ -220,7 +221,7 @@ class FormulaAuditor
     name = formula.name
     full_name = formula.full_name
 
-    if @@aliases.include? name
+    if Formula.aliases.include? name
       problem "Formula name conflicts with existing aliases."
       return
     end
@@ -316,7 +317,7 @@ class FormulaAuditor
           problem "Don't use ruby as a dependency. We allow non-Tigerbrew ruby installations."
         when "gfortran"
           problem "Use `depends_on :fortran` instead of `depends_on 'gfortran'`"
-        when "open-mpi", "mpich2"
+        when "open-mpi", "mpich"
           problem <<-EOS.undent
             There are multiple conflicting ways to install MPI. Use an MPIRequirement:
               depends_on :mpi => [<lang list>]
