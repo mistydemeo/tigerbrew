@@ -5,7 +5,7 @@ class Yasm < Formula
   sha256 "3dce6601b495f5b3d45b59f7d2492a340ee7e84b5beca17e48f862502bd5603f"
 
   bottle do
-    cellar :any
+    cellar :any_skip_relocation
     sha1 "901eef3d8e3c45feb728d1ae14306a7b90e1f336" => :leopard_g3
     sha1 "21a683bb375e328caaed0a9ce59ec2b83284cb81" => :leopard_altivec
   end

@@ -1,15 +1,11 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-2.7.2.tar.bz2"
-  sha256 "7ceb7550ad628c526fa6c9ff23fdfb687a62f54d90c4a730998d8c2b417b9ef2"
+  url "https://ffmpeg.org/releases/ffmpeg-2.8.tar.bz2"
+  sha256 "9565236404d3515aab754283c687c0a001019003148bf7f708e643608c0690b8"
   head "https://github.com/FFmpeg/FFmpeg.git"
-  revision 1
 
   bottle do
-    sha256 "4039849aea98a7d16b3bc5eaaebab93b91ad9c610a47abe1a04d67ec8127e91d" => :tiger_altivec
-    sha256 "cdadbeb06b6c5279b64558a63b28b6769b81388271e7c15f9f4ea1a45c3f4d50" => :leopard_g3
-    sha256 "a39f5efff94ddd0d63944d816fb84c12b6a0eed1f113f617ea5fada07bed7ec5" => :leopard_altivec
   end
 
   option "without-x264", "Disable H.264 encoder"
