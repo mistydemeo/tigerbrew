@@ -7,6 +7,8 @@ class Libtiff < Formula
 
   bottle do
     cellar :any
+    sha256 "ac6deffd0e96ad67b5ecc976daa6b944a1292d0306d8ff1f411e06b817d94c2c" => :leopard_g3
+    sha256 "98294201f9f6e549b752006cc86a2dd029696ecfdc3f54c1b77bc5e38d9bd0ad" => :leopard_altivec
   end
 
   option :universal
