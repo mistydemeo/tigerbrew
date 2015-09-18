@@ -6,6 +6,8 @@ class Ffmpeg < Formula
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
+    sha256 "4676c5d72f1b3dccab80df9837d88386927c61e8b666b27434b0c8b95765d150" => :leopard_g3
+    sha256 "ecbc453f7e47abd14d926f15f0125e90d05e6f718eac0151b3e4908af3072a8f" => :leopard_altivec
   end
 
   option "without-x264", "Disable H.264 encoder"
