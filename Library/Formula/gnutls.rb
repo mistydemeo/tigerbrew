@@ -10,6 +10,7 @@ class Gnutls < Formula
 
   bottle do
     cellar :any
+    sha256 "d3cb42ef5d97d092d2367146c690ffefbc9bb99451e8061e1045943843e57ff6" => :tiger_altivec
     sha256 "72af0d7211a6e17f9bea7969b8ff17b1a36377958cbc349f1b7a115b291ee172" => :leopard_g3
     sha256 "8f88d5527c44d52000b3c0243f2740edc27c5fba80ffb5764e0aef2757055c08" => :leopard_altivec
   end
