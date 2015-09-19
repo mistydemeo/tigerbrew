@@ -219,9 +219,9 @@ module Homebrew
     bottle.root_url(root_url) if root_url
     if relocatable
       if skip_relocation
-        bottle.cellar :any_skip_relocation
+        bottle.cellar(:any_skip_relocation)
       else
-        bottle.cellar :any
+        bottle.cellar(:any)
       end
     else
       bottle.cellar cellar
