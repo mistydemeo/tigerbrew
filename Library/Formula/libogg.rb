@@ -6,6 +6,7 @@ class Libogg < Formula
 
   bottle do
     cellar :any
+    sha256 "e6cd3367b66868d926581ddca05967355456bdf885292321a1f3238df6cf3c7f" => :tiger_altivec
     sha256 "771d905c7cd8ec9b28e94ddb751e2af5e86e943ce1e156ead529b0e6f6044914" => :leopard_g3
     sha256 "f5eff6ed4b72ec948f42dee65463623fb4e61094e96abc78af8e1669633f9c4f" => :leopard_altivec
   end
