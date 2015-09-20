@@ -6,6 +6,7 @@ class Libvorbis < Formula
 
   bottle do
     cellar :any
+    sha256 "66931f70d90c73980e99d37641c714d152d890e345e2adb60b11e77de2828afe" => :tiger_altivec
     sha256 "451cecb555c4adb44678482b097c4ce02675d3e30789ae3f50e400592681fbbf" => :leopard_g3
     sha256 "d5fc576ca9cbbae385155b13eb90dbaccd600c78b197944c504c1e29c9decae2" => :leopard_altivec
   end
