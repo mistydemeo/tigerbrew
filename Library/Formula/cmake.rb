@@ -1,9 +1,9 @@
 class Cmake < Formula
   desc "Cross-platform make"
   homepage "http://www.cmake.org/"
-  url "http://www.cmake.org/files/v3.3/cmake-3.3.1.tar.gz"
-  mirror "https://mirrors.kernel.org/debian/pool/main/c/cmake/cmake_3.3.1.orig.tar.gz"
-  sha256 "cd65022c6a0707f1c7112f99e9c981677fdd5518f7ddfa0f778d4cee7113e3d6"
+  url "http://www.cmake.org/files/v3.3/cmake-3.3.2.tar.gz"
+  mirror "https://mirrors.kernel.org/debian/pool/main/c/cmake/cmake_3.3.2.orig.tar.gz"
+  sha256 "e75a178d6ebf182b048ebfe6e0657c49f0dc109779170bad7ffcb17463f2fc22"
   head "http://cmake.org/cmake.git"
 
   # See: https://gist.github.com/shirleyallan/6261775
@@ -13,10 +13,6 @@ class Cmake < Formula
   end
 
   bottle do
-    cellar :any
-    sha256 "ee57fc1d5745f9fd4f770c5f577f2b4c33a820f721e2abdb582a211632d68763" => :tiger_altivec
-    sha256 "c6e32f49bbafe8bad1499e4deeb4ae0cb7ea5028f3c7e00eac95f4350bbd6068" => :leopard_g3
-    sha256 "6b0013cb9d2b50b75ca1c4b33c9364e94baa6a35f02f34d1ff6db8c54ca456ab" => :leopard_altivec
   end
 
   option "without-docs", "Don't build man pages"
