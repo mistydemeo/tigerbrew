@@ -13,6 +13,7 @@ class Cmake < Formula
   end
 
   bottle do
+    sha256 "f2b16ef4fe3f26ba8662883b670ef8e6b3d974b4cd5857c50cba0c15950cd59d" => :tiger_altivec
   end
 
   option "without-docs", "Don't build man pages"
