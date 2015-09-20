@@ -9,6 +9,7 @@ class Xz < Formula
 
   bottle do
     cellar :any
+    sha256 "c0aca51bad86142aca2722c5155d8a733d5de4dbb0af48864029f94ab6e81a35" => :tiger_altivec
     sha1 "6b44665805221675b1adb2ac2246a8238779e6af" => :leopard_g3
     sha1 "f84ebc041d0ad358a099bdc93ed101c2cf0469cc" => :leopard_altivec
   end
