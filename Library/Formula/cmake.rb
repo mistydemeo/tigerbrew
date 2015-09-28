@@ -13,6 +13,8 @@ class Cmake < Formula
   end
 
   bottle do
+    sha256 "46ffe73c3277dea43fb3341c02b06b36a6c165bcb6cc900b597fcf94dbfddad7" => :leopard_g3
+    sha256 "da4027b8afd98665000d9b806da19f84d352fee39a0f8c4a9a287f23e3aef567" => :leopard_altivec
     sha256 "f2b16ef4fe3f26ba8662883b670ef8e6b3d974b4cd5857c50cba0c15950cd59d" => :tiger_altivec
   end
 
