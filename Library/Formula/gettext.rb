@@ -1,14 +1,11 @@
 class Gettext < Formula
   desc "GNU internationalization (i18n) and localization (l10n) library"
   homepage "https://www.gnu.org/software/gettext/"
-  url "http://ftpmirror.gnu.org/gettext/gettext-0.19.5.1.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/gettext/gettext-0.19.5.1.tar.xz"
-  sha256 "66da00dc2c810d733b1f55a2a4af5cb669e2ee4259937d50a51d5614cdad323d"
+  url "http://ftpmirror.gnu.org/gettext/gettext-0.19.6.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/gettext/gettext-0.19.6.tar.xz"
+  sha256 "9b95816620fd1168cb4eeca0e9dc0ffd86e864fc668f76f5e37cc054d6982e51"
 
   bottle do
-    sha256 "ab8b4e0ef484663d803479f1c7e635631420fe786b4c3f9b5d81d07245ec9ce3" => :tiger_altivec
-    sha256 "b728d58d0da4529db302b6ab0dbdd3dd263a1257faa0962a518f20fb1e06a7e8" => :leopard_g3
-    sha256 "aab7a6eed9fc34a712d1acc46155e3c307ad692cc2e070a51bfc5412454273d9" => :leopard_altivec
   end
 
   keg_only :shadowed_by_osx, "OS X provides the BSD gettext library and some software gets confused if both are in the library path."
@@ -37,6 +34,7 @@ class Gettext < Formula
                           "--with-included-libcroco",
                           "--with-included-libunistring",
                           "--with-emacs",
+                          "--with-lispdir=#{share}/emacs/site-lisp/gettext",
                           "--disable-java",
                           "--disable-csharp",
                           # Don't use VCS systems to create these archives

@@ -6,7 +6,7 @@ class Aria2 < Formula
   sha256 "ae2b6fce7a0974c9156415cccf2395cd258580ab34eec2b34a8e76120b7240ce"
 
   bottle do
-    cellar :any
+    cellar :any_skip_relocation
     sha256 "eb19d43e1bb8c6b44505881d8f49943ca781a8bf04c558d0916dcbcdd4a0fc8e" => :leopard_g3
     sha256 "1a0e3c43309c5a3cbfa294b983e29a2db3e1e5ac6ab17dca27dd1c1bfc5929cf" => :leopard_altivec
   end
