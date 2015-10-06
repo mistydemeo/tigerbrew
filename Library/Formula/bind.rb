@@ -21,11 +21,18 @@ class Bind < Formula
     ENV.append "CFLAGS", ENV.cppflags
 
     json = build.with?("json-c") ? "yes" : "no"
+
+    # https://github.com/mistydemeo/tigerbrew/issues/358
+    gssapi = MacOS.version > :tiger ? "yes" : "no"
+    dlopen = MacOS.version > :leopard ? "yes" : "no"
+
     system "./configure", "--prefix=#{prefix}",
                           "--enable-threads",
                           "--enable-ipv6",
                           "--with-openssl=#{Formula["openssl"].opt_prefix}",
-                          "--with-libjson=#{json}"
+                          "--with-libjson=#{json}",
+                          "--with-gssapi=#{gssapi}",
+                          "--with-dlopen=#{dlopen}"
 
     # From the bind9 README: "Do not use a parallel "make"."
     ENV.deparallelize
