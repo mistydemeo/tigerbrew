@@ -122,7 +122,6 @@ class Ffmpeg < Formula
     args << "--enable-libzmq" if build.with? "zeromq"
     args << "--disable-indev=qtkit" if build.without?("qtkit") || MacOS.version < :snow_leopard
     args << "--enable-libbs2b" if build.with? "libbs2b"
-    args << "--disable-indev=qtkit" if build.without? "qtkit"
 
     if build.with? "openjpeg"
       args << "--enable-libopenjpeg"
