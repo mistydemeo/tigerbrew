@@ -25,6 +25,9 @@ class Clamav < Formula
 
   skip_clean "share/clamav"
 
+  # https://github.com/mistydemeo/tigerbrew/issues/360
+  fails_with :gcc_4_0
+
   def install
     args = [
       "--disable-dependency-tracking",
