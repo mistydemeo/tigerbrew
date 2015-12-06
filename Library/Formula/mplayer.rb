@@ -28,17 +28,6 @@ class Mplayer < Formula
   depends_on "homebrew/dupes/make" => :build if MacOS.version < :leopard
   depends_on "yasm" => :build
   depends_on "libcaca" => :optional
-  depends_on :x11 => :optional
-
-  deprecated_option "with-x" => "with-x11"
-
-  if build.with?("osd") || build.with?("x11")
-    # These are required for the OSD. We can get them from X11, or we can
-    # build our own.
-    depends_on "fontconfig"
-    depends_on "freetype"
-    depends_on "libpng"
-  end
 
   fails_with :clang do
     build 211
@@ -56,18 +45,17 @@ class Mplayer < Formula
     ENV.append_to_cflags '-faltivec' if MacOS.version == :tiger
 
     # we disable cdparanoia because homebrew's version is hacked to work on OS X
-    # and mplayer doesn't expect the hacks we apply. So it chokes.
+    # and mplayer doesn't expect the hacks we apply. So it chokes. Only relevant
+    # if you have cdparanoia installed.
     # Specify our compiler to stop ffmpeg from defaulting to gcc.
     args = %W[
-      --prefix=#{prefix}
       --cc=#{ENV.cc}
       --host-cc=#{ENV.cc}
       --disable-cdparanoia
+      --prefix=#{prefix}
+      --disable-x11
     ]
 
-    args << "--enable-menu" if build.with? "osd"
-    args << "--disable-x11" if build.without? "x11"
-    args << "--enable-freetype" if build.with?("osd") || build.with?("x11")
     args << "--enable-caca" if build.with? "libcaca"
 
     system "./configure", *args
