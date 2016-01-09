@@ -19,6 +19,11 @@ class Openssl < Formula
   depends_on "makedepend" => :build
   depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
 
+  patch :p0 do
+    url "https://trac.macports.org/export/144472/trunk/dports/devel/openssl/files/x86_64-asm-on-i386.patch"
+    sha256 "98ffb308aa04c14db9c21769f1c5ff09d63eb85ce9afdf002598823c45edef6d"
+  end
+
   keg_only :provided_by_osx,
     "Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries"
 
