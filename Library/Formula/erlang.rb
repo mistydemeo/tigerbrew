@@ -75,6 +75,9 @@ class Erlang < Formula
     args << "--enable-native-libs" if build.with? "native-libs"
     args << "--enable-dirty-schedulers" if build.with? "dirty-schedulers"
     args << "--enable-wx" if build.with? "wxmac"
+    # Older Javas not supported by jinterface
+    # https://github.com/mistydemeo/tigerbrew/issues/372
+    args << "--disable-javac" if MacOS.version < :snow_leopard
 
     if MacOS.version >= :snow_leopard && MacOS::CLT.installed?
       args << "--with-dynamic-trace=dtrace"
