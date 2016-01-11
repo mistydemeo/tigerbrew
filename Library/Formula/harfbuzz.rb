@@ -30,6 +30,13 @@ class Harfbuzz < Formula
   depends_on "cairo" => :optional
   depends_on "graphite2" => :optional
 
+  # Fixes undefined constant on pre-10.6
+  # https://github.com/mistydemeo/tigerbrew/issues/388
+  patch do
+    url "https://git.gnome.org/browse/gtk-osx/plain/patches/harfbuzz-kCTTypesetterOptionForcedEmbeddingLevel-Leopard.patch"
+    sha256 "12b927a41d3e2983197a96d20a6776a911a7dcafc18135abf5f1148b96f180c0"
+  end if MacOS.version < :snow_leopard
+
   resource "ttf" do
     url "https://github.com/behdad/harfbuzz/raw/fc0daafab0336b847ac14682e581a8838f36a0bf/test/shaping/fonts/sha1sum/270b89df543a7e48e206a2d830c0e10e5265c630.ttf"
     sha256 "9535d35dab9e002963eef56757c46881f6b3d3b27db24eefcc80929781856c77"
