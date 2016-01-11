@@ -6,8 +6,7 @@ class AndroidNdk < Formula
 
   version "r10e"
 
-  # As of r10e, only a 64-bit version is provided
-  depends_on :arch => :x86_64
+  depends_on :arch => :intel
   depends_on "android-sdk" => :recommended
 
   def install
