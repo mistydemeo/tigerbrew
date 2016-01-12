@@ -19,6 +19,9 @@ class Node < Formula
   deprecated_option "enable-debug" => "with-debug"
   deprecated_option "with-icu4c" => "with-full-icu"
 
+  # Can we fix this using this someday?
+  # https://github.com/andrewlow/v8ppc
+  depends_on :macos => :intel
   depends_on :python => :build if MacOS.version <= :snow_leopard
   depends_on "pkg-config" => :build
   depends_on "openssl" => :optional
