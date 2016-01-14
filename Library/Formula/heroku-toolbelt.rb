@@ -10,7 +10,6 @@ class HerokuToolbelt < Formula
   depends_on :ruby => "1.9"
 
   def install
-    inreplace 'bin/heroku', '/usr/bin/env ruby', Formula['ruby'].opt_bin/'ruby'
     libexec.install Dir["*"]
     # turn off autoupdates (off by default in HEAD)
     if build.stable?
@@ -21,5 +20,11 @@ class HerokuToolbelt < Formula
 
   test do
     system "#{bin}/heroku", "version"
+  end
+
+  # Possibly temporary; see https://github.com/heroku/heroku/issues/1020
+  def caveats; <<-EOS.undent
+    heroku-toolbelt requires an installation of Ruby 1.9 or greater.
+    EOS
   end
 end
