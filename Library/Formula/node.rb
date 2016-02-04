@@ -21,7 +21,7 @@ class Node < Formula
 
   # Can we fix this using this someday?
   # https://github.com/andrewlow/v8ppc
-  depends_on :macos => :intel
+  depends_on :arch => :intel
   depends_on :python => :build if MacOS.version <= :snow_leopard
   depends_on "pkg-config" => :build
   depends_on "openssl" => :optional
