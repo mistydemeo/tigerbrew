@@ -16,6 +16,11 @@ class DBus < Formula
     sha256 "8f571788a6bd6209e27b4e4cbdd4e1d2179b7f3bbdb35262c3159ff28336b76a" => :mountain_lion
   end
 
+  patch do
+    url "https://raw.githubusercontent.com/zbentley/dbus-osx-examples/master/homebrew-patches/org.freedesktop.dbus-session.plist.osx-old.diff"
+    sha256 "da17af8e014d942d6e916a406ad7c901eebe6c3c7780318069db29e6c1e9ca67"
+  end
+
   def install
     # Fix the TMPDIR to one D-Bus doesn't reject due to odd symbols
     ENV["TMPDIR"] = "/tmp"
