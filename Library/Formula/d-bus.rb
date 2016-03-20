@@ -2,8 +2,9 @@ class DBus < Formula
   # releases: even (1.10.x) = stable, odd (1.11.x) = development
   desc "Message bus system, providing inter-application communication"
   homepage "https://wiki.freedesktop.org/www/Software/dbus"
-
-  stable do
+  head "git://anongit.freedesktop.org/dbus/dbus.git"
+ 
+ stable do
     url "http://dbus.freedesktop.org/releases/dbus/dbus-1.10.0.tar.gz"
     mirror "https://mirrors.kernel.org/debian/pool/main/d/dbus/dbus_1.10.0.orig.tar.gz"
     sha256 "1dfb9745fb992f1ccd43c920490de8caddf6726a6222e8b803be6098293f924b"
@@ -16,9 +17,16 @@ class DBus < Formula
     sha256 "8f571788a6bd6209e27b4e4cbdd4e1d2179b7f3bbdb35262c3159ff28336b76a" => :mountain_lion
   end
 
-  patch do
-    url "https://raw.githubusercontent.com/zbentley/dbus-osx-examples/master/homebrew-patches/org.freedesktop.dbus-session.plist.osx-old.diff"
-    sha256 "da17af8e014d942d6e916a406ad7c901eebe6c3c7780318069db29e6c1e9ca67"
+  if MacOS.version >= :leopard
+    patch do
+      url "https://raw.githubusercontent.com/zbentley/dbus-osx-examples/master/homebrew-patches/org.freedesktop.dbus-session.plist.osx.diff"
+      sha256 "a8aa6fe3f2d8f873ad3f683013491f5362d551bf5d4c3b469f1efbc5459a20dc"
+    end
+  else
+    patch do
+      url "https://raw.githubusercontent.com/zbentley/dbus-osx-examples/master/homebrew-patches/org.freedesktop.dbus-session.plist.osx-old.diff"
+      sha256 "da17af8e014d942d6e916a406ad7c901eebe6c3c7780318069db29e6c1e9ca67"
+    end
   end
 
   def install
@@ -38,8 +46,6 @@ class DBus < Formula
     system "make"
     ENV.deparallelize
     system "make", "install"
-
-    (prefix+"org.freedesktop.dbus-session.plist").chmod 0644
   end
 
   def post_install
