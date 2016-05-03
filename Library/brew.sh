@@ -109,6 +109,11 @@ HOMEBREW_USER_AGENT="$HOMEBREW_PRODUCT/$HOMEBREW_VERSION ($HOMEBREW_SYSTEM; $HOM
 HOMEBREW_CURL_VERSION="$("$HOMEBREW_CURL" --version 2>/dev/null | head -n1 | /usr/bin/awk '{print $1"/"$2}')"
 HOMEBREW_USER_AGENT_CURL="$HOMEBREW_USER_AGENT $HOMEBREW_CURL_VERSION"
 
+if [[ -z "$HOMEBREW_CACHE" ]]
+then
+  HOMEBREW_CACHE="$HOME/Library/Caches/Homebrew"
+fi
+
 # Declared in bin/brew
 export HOMEBREW_BREW_FILE
 export HOMEBREW_PREFIX
@@ -117,6 +122,7 @@ export HOMEBREW_LIBRARY
 
 # Declared in brew.sh
 export HOMEBREW_VERSION
+export HOMEBREW_CACHE
 export HOMEBREW_CELLAR
 export HOMEBREW_RUBY_PATH
 export HOMEBREW_CURL
@@ -194,7 +200,7 @@ fi
 if [[ "$(id -u)" = "0" && "$(/usr/bin/stat -f%u "$HOMEBREW_BREW_FILE")" != "0" ]]
 then
   case "$HOMEBREW_COMMAND" in
-    install|reinstall|postinstall|link|pin|update|upgrade|create|migrate|tap|tap-pin|switch)
+    install|reinstall|postinstall|link|pin|update|upgrade|vendor-install|create|migrate|tap|tap-pin|switch)
       odie <<EOS
 Cowardly refusing to 'sudo brew $HOMEBREW_COMMAND'
 You can use brew with sudo, but only if the brew executable is owned by root.
