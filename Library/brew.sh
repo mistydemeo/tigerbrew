@@ -16,7 +16,7 @@ odie() {
   exit 1
 }
 
-chdir() {
+safe_cd() {
   cd "$@" >/dev/null || odie "Error: failed to cd to $*!"
 }
 
