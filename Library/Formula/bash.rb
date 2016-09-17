@@ -1,6 +1,7 @@
 class Bash < Formula
   desc "Bash (Bourne-again SHell) is a UNIX command interpreter"
   homepage "https://www.gnu.org/software/bash/"
+  revision 1
 
   head "http://git.savannah.gnu.org/r/bash.git"
 
