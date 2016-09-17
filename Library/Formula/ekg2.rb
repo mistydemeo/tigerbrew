@@ -3,6 +3,7 @@ class Ekg2 < Formula
   homepage "http://ekg2.org"
   url "http://pl.ekg2.org/ekg2-0.3.1.tar.gz"
   sha256 "6ad360f8ca788d4f5baff226200f56922031ceda1ce0814e650fa4d877099c63"
+  revision 1
 
   depends_on "pkg-config" => :build
   depends_on "readline"
