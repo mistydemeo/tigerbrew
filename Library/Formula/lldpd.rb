@@ -3,6 +3,7 @@ class Lldpd < Formula
   homepage "https://vincentbernat.github.io/lldpd/"
   url "http://media.luffy.cx/files/lldpd/lldpd-0.7.17.tar.gz"
   sha256 "6b50b8aa47d1424a93ba3df55af26da41f7d5718db8d25e99291c4a6cd09c20e"
+  revision 1
 
   bottle do
     sha256 "16b4fdd519466b561ff5034ba379d6be062a2a6dd1487576d58f677150812543" => :el_capitan
