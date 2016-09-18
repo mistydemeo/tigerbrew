@@ -4,6 +4,7 @@ class GnuUnits < Formula
   url "http://ftpmirror.gnu.org/units/units-2.02.tar.gz"
   mirror "https://ftp.gnu.org/gnu/units/units-2.02.tar.gz"
   sha256 "2b34fa70c9319956135b990afc1ac99d411ba5b291b5d29e4a89fdf052944e9a"
+  revision 1
 
   bottle do
     revision 1
