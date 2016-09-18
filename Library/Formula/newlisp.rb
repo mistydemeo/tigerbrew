@@ -5,6 +5,7 @@ class Newlisp < Formula
   homepage "http://www.newlisp.org/"
   url "http://www.newlisp.org/downloads/newlisp-10.6.2.tgz"
   sha1 "8ea722f2ed415548a0904ef15bafd259d8b07e01"
+  revision 1
 
   bottle do
     sha1 "3201cfe276549f314eb8bd429d849277fd43293b" => :yosemite
