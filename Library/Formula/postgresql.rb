@@ -1,6 +1,7 @@
 class Postgresql < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
+  revision 1
 
   stable do
     url "https://ftp.postgresql.org/pub/source/v9.4.4/postgresql-9.4.4.tar.bz2"
