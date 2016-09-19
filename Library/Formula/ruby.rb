@@ -3,6 +3,7 @@ class Ruby < Formula
   homepage "https://www.ruby-lang.org/"
   url "https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.bz2"
   sha256 "c745cb98b29127d7f19f1bf9e0a63c384736f4d303b83c4f4bda3c2ee3c5e41f"
+  revision 1
 
   bottle do
     sha256 "1146cee1a02caae6d48d2f7804bb40163b12bab29d7c65e6030cbd953a514ea5" => :tiger_altivec
