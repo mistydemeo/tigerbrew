@@ -4,7 +4,7 @@ class Python < Formula
   head "https://hg.python.org/cpython", :using => :hg, :branch => "2.7"
   url "https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz"
   sha256 "eda8ce6eec03e74991abb5384170e7c65fcd7522e409b8e83d7e6372add0f12a"
-  revision 2
+  revision 3
 
   bottle do
     sha256 "5eb842516f3508de7d421b97d30055c639c9da7b8d7fc182da5785c32a1030c0" => :tiger_altivec
