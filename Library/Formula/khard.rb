@@ -3,6 +3,7 @@ class Khard < Formula
   homepage "https://github.com/scheibler/khard"
   url "https://pypi.python.org/packages/source/k/khard/khard-0.5.0.tar.gz"
   sha256 "6880a639a32a2830b2d62f70d7f0155216fa2f6d599d8b8bb6b45c1df912e3bf"
+  revision 1
 
   bottle do
     cellar :any_skip_relocation
