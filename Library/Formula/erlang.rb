@@ -77,7 +77,7 @@ class Erlang < Formula
     args << "--enable-wx" if build.with? "wxmac"
     # Older Javas not supported by jinterface
     # https://github.com/mistydemeo/tigerbrew/issues/372
-    args << "--disable-javac" if MacOS.version < :snow_leopard
+    args << "--without-javac" if MacOS.version < :snow_leopard
 
     if MacOS.version >= :snow_leopard && MacOS::CLT.installed?
       args << "--with-dynamic-trace=dtrace"
