@@ -205,6 +205,7 @@ end
 class Bottle
   class Filename
     attr_reader :name, :version, :tag, :revision
+    alias_method :rebuild, :revision
 
     def self.create(formula, tag, revision)
       new(formula.name, formula.pkg_version, tag, revision)
