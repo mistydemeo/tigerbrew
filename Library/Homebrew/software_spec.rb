@@ -284,6 +284,7 @@ class BottleSpecification
   DEFAULT_DOMAIN = (ENV["HOMEBREW_BOTTLE_DOMAIN"] || "https://ia902307.us.archive.org/31/items/tigerbrew").freeze
 
   attr_rw :prefix, :cellar, :revision
+  alias_method :rebuild, :revision
   attr_accessor :tap
   attr_reader :checksum, :collector
 
