@@ -1,25 +1,24 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://www.kernel.org/pub/software/scm/git/git-2.6.0.tar.xz"
-  sha256 "211beb96ff41a83727e39704431ac388ecb1cebb5219cda067999bce4e1e15a6"
-
+  url "https://www.kernel.org/pub/software/scm/git/git-2.10.2.tar.xz"
+  sha256 "94802903dd707d85ca3b9a2be35e936a54ce86375f52c6a789efe7ce7e238671"
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
-    sha256 "c5ded800991a31d7d12a84b9c03d013757e20ad210717b00c25bf8aba5132552" => :tiger_altivec
-    sha256 "766011fdc2e7b8b3eb1816a5212f3a3268121e30e5335150bf77256202aea1e2" => :leopard_g3
-    sha256 "56853920db7b8171d9f838969d879d02a781a2eb8e7784f0f25d3fc6114f7a02" => :leopard_altivec
-  end
-
-  resource "man" do
-    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.6.0.tar.xz"
-    sha256 "94c45cf2353f8e1bbb6b56b6f54289203319db4cc38d94f53fcfb8dc3b669615"
+    sha256 "ff9d1b1600f268f0ec5af318562fc08bd9a503d512309dd26f7b166d98c8ecaf" => :sierra
+    sha256 "525962ccf0890c754aedbe2a623bb32d2af2b941fbdb8ac122bbaba41f48664c" => :el_capitan
+    sha256 "5c11a6d358ece56497bb67300aa082d27f04ac594bc6eafe5f6fed0437d68d33" => :yosemite
   end
 
   resource "html" do
-    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.6.0.tar.xz"
-    sha256 "0ba5d5d630e3235b74bcfb4ea2e9bbda8a3e619aaaf9e1f56e12dec5d8dc1d87"
+    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.10.2.tar.xz"
+    sha256 "dd43111c3518a92a7fe64ac5cd32a5d4d77d49c67f7d89dce3e8293bc3d6b491"
+  end
+
+  resource "man" do
+    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.10.2.tar.xz"
+    sha256 "83b0a317f6039ad95ef6af6a182cf659c2d053eed5d8f70b06710eb787f8aa6f"
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -82,10 +81,18 @@ class Git < Formula
     ENV["CURLDIR"] = Formula["curl"].opt_prefix if MacOS.version < :snow_leopard
     ENV["NO_APPLE_COMMON_CRYPTO"] = "1" if MacOS.version < :leopard
 
+    # Support Tcl versions before "lime" color name was introduced
+    # https://github.com/Homebrew/homebrew-core/issues/115
+    # https://www.mail-archive.com/git%40vger.kernel.org/msg92017.html
+    inreplace "gitk-git/gitk", "lime", '"#99FF00"'
+
     perl_version = /\d\.\d+/.match(`perl --version`)
 
     if build.with? "brewed-svn"
-      ENV["PERLLIB_EXTRA"] = "#{Formula["subversion"].opt_prefix}/Library/Perl/#{perl_version}/darwin-thread-multi-2level"
+      ENV["PERLLIB_EXTRA"] = %W[
+        #{Formula["subversion"].opt_lib}/perl5/site_perl
+        #{Formula["subversion"].opt_prefix}/Library/Perl/#{perl_version}/darwin-thread-multi-2level
+      ].join(":")
     elsif MacOS.version >= :mavericks
       ENV["PERLLIB_EXTRA"] = %W[
         #{MacOS.active_developer_dir}
@@ -169,6 +176,14 @@ class Git < Formula
     # To avoid this feature hooking into the system OpenSSL, remove it.
     # If you need it, install git --with-brewed-openssl.
     rm "#{libexec}/git-core/git-imap-send" if build.without? "brewed-openssl"
+
+    # Set the macOS keychain credential helper by default
+    # (as Apple's CLT's git also does this).
+    (buildpath/"gitconfig").write <<-EOS.undent
+      [credential]
+      \thelper = osxkeychain
+    EOS
+    etc.install "gitconfig"
   end
 
   def caveats; <<-EOS.undent
@@ -181,8 +196,10 @@ class Git < Formula
   end
 
   test do
-    HOMEBREW_REPOSITORY.cd do
-      assert_equal "bin/brew", `#{bin}/git ls-files -- bin`.strip
-    end
+    system bin/"git", "init"
+    %w[haunted house].each { |f| touch testpath/f }
+    system bin/"git", "add", "haunted", "house"
+    system bin/"git", "commit", "-a", "-m", "Initial Commit"
+    assert_equal "haunted\nhouse", shell_output("#{bin}/git ls-files").strip
   end
 end

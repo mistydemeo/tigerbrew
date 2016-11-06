@@ -1,15 +1,13 @@
 class Glib < Formula
   desc "Core application library for C"
   homepage "https://developer.gnome.org/glib/"
-  url "https://download.gnome.org/sources/glib/2.46/glib-2.46.0.tar.xz"
-  sha256 "b1cee83469ae7d80f17c267c37f090414e93960bd62d2b254a5a96fbc5baacb4"
-
-  revision 1
+  url "https://download.gnome.org/sources/glib/2.50/glib-2.50.1.tar.xz"
+  sha256 "2ef87a78f37c1eb5b95f4cc95efd5b66f69afad9c9c0899918d04659cf6df7dd"
 
   bottle do
-    sha256 "15fd5f2f9eb1cbdb340c5d0f4fce7f0cad222c7663801f41d13ae04f075135c2" => :tiger_altivec
-    sha256 "a77fa2cdde4c04eb14fba684bcbafcd1be11aad39e98431cba135eeead9eaf92" => :leopard_g3
-    sha256 "92b517c29d6ccdc549dd4952d1d85c250e6dc663e36379fd053771ff01840a7a" => :leopard_altivec
+    sha256 "4892a83baa553ef938ec2a7cb4d6f72af9bbd45ddef730e42b9640c5c9883fe4" => :sierra
+    sha256 "818420b0efd28fc6ed8fce3be2291cb4761ba264a535b795bf42e251b432c7c2" => :el_capitan
+    sha256 "cfde246fc576b0cf6c4609045b5f1dc4c412133047036326176e350e425e8e4e" => :yosemite
   end
 
   option :universal
@@ -21,6 +19,7 @@ class Glib < Formula
   depends_on "pkg-config" => :build
   depends_on "gettext"
   depends_on "libffi"
+  depends_on "pcre"
   # the version of zlib which comes with Tiger does not
   # export some symbols glib expects
   depends_on 'homebrew/dupes/zlib' if MacOS.version == :tiger
@@ -31,8 +30,7 @@ class Glib < Formula
   end
 
   resource "config.h.ed" do
-    url "https://svn.macports.org/repository/macports/trunk/dports/devel/glib2/files/config.h.ed", :using => :curl
-    mirror "https://trac.macports.org/export/111532/trunk/dports/devel/glib2/files/config.h.ed"
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/eb51d82/glib/config.h.ed"
     version "111532"
     sha256 "9f1e23a084bc879880e589893c17f01a2f561e20835d6a6f08fcc1dad62388f1"
   end
@@ -49,13 +47,13 @@ class Glib < Formula
   # to unrelated issues in GCC, but improves the situation.
   # Patch submitted upstream: https://bugzilla.gnome.org/show_bug.cgi?id=672777
   patch do
-    url "https://raw.githubusercontent.com/Homebrew/patches/59e4d327791d4fe3423c2c871adb98e3f3f07633/glib/gio.patch"
-    sha256 "cc3f0f6d561d663dfcdd6154b075150f68a36f5a92f94e5163c1c20529bfdf32"
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/a39dec26/glib/gio.patch"
+    sha256 "284cbf626f814c21f30167699e6e59dcc0d31000d71151f25862b997a8c8493d"
   end
 
   patch do
-    url "https://raw.githubusercontent.com/Homebrew/patches/59e4d327791d4fe3423c2c871adb98e3f3f07633/glib/universal.patch"
-    sha256 "7e1ad7667c7d89fcd08950c9c32cd66eb9c8e2ee843f023d1fadf09a9ba39fee"
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/fe50d25d/glib/universal.diff"
+      sha256 "e21f902907cca543023c930101afe1d0c1a7ad351daa0678ba855341f3fd1b57"
   end if build.universal?
 
   # Fixes g_get_monotonic_time on non-Intel Macs; submitted upstream:
@@ -65,7 +63,7 @@ class Glib < Formula
     sha1 "5637d98e1c7bbfa8824e60612976a8c13d0c0fb6"
   end
 
-  # Reverts GNotification support on OS X.
+  # Reverts GNotification support on macOS.
   # This only supports OS X 10.9, and the reverted commits removed the
   # ability to build glib on older versions of OS X.
   # https://bugzilla.gnome.org/show_bug.cgi?id=747146
@@ -74,8 +72,8 @@ class Glib < Formula
   # also applied to configure and gio/Makefile.in
   if MacOS.version < :mavericks
     patch do
-      url "https://raw.githubusercontent.com/Homebrew/patches/59e4d327791d4fe3423c2c871adb98e3f3f07633/glib/gnotification-mountain.patch"
-      sha256 "723def732304552ca55ae9f5b568ff3e8a59a14d512af72b6c1f0421f8228a68"
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/a4fe61b/glib/gnotification-mountain.patch"
+      sha256 "5bf6d562dd2be811d71e6f84eb43fc6c51a112db49ec0346c1b30f4f6f4a4233"
     end
   end
 

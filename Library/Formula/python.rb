@@ -1,15 +1,16 @@
 class Python < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org"
-  head "https://hg.python.org/cpython", :using => :hg, :branch => "2.7"
-  url "https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz"
-  sha256 "eda8ce6eec03e74991abb5384170e7c65fcd7522e409b8e83d7e6372add0f12a"
+  url "https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tar.xz"
+  sha256 "d7837121dd5652a05fef807c361909d255d173280c4e1a4ded94d73d80a1f978"
   revision 2
 
+  head "https://hg.python.org/cpython", :using => :hg, :branch => "2.7"
+
   bottle do
-    sha256 "5eb842516f3508de7d421b97d30055c639c9da7b8d7fc182da5785c32a1030c0" => :tiger_altivec
-    sha256 "adb4e1345fa8ae741b95cc23d2f5aad9a5381d558bea664d1bd33fb8293bd79e" => :leopard_g3
-    sha256 "280700d22a8a35bd9952d3f7d09c0dac426bcd68da0f9279ac10c040617b670f" => :leopard_altivec
+    sha256 "2ac20b04ff599f02e950431622943f2c92e70e85c097f645265adaf4dd8c6a31" => :sierra
+    sha256 "ed692ad5e13437a751dce19865989ce7e3344402aa38496db3e78ab179121197" => :el_capitan
+    sha256 "834c7ac3ce19df12cb4fb9cbb1cae0c7fbdcaf33a9141dc1c3791ab801df27f0" => :yosemite
   end
 
   # Please don't add a wide/ucs4 option as it won't be accepted.
@@ -18,6 +19,13 @@ class Python < Formula
   option "with-quicktest", "Run `make quicktest` after the build (for devs; may fail)"
   option "with-tcl-tk", "Use Tigerbrew's Tk instead of OS X Tk (has optional Cocoa and threads support)"
   option "with-poll", "Enable select.poll, which is not fully implemented on OS X (https://bugs.python.org/issue5154)"
+
+  # sphinx-doc depends on python, but on 10.6 or earlier python is fulfilled by
+  # brew, which would lead to circular dependency.
+  if MacOS.version > :snow_leopard
+    option "with-sphinx-doc", "Build HTML documentation"
+    depends_on "sphinx-doc" => [:build, :optional]
+  end
 
   deprecated_option "quicktest" => "with-quicktest"
   deprecated_option "with-brewed-tk" => "with-tcl-tk"
@@ -35,19 +43,23 @@ class Python < Formula
   skip_clean "bin/easy_install", "bin/easy_install-2.7"
 
   resource "setuptools" do
-    url "https://pypi.python.org/packages/source/s/setuptools/setuptools-18.3.1.tar.gz"
-    sha256 "2fa230727104b07e522deec17929e84e041c9047e392c055347a02b0d5ca874d"
+    url "https://files.pythonhosted.org/packages/9f/7c/0a33c528164f1b7ff8cf0684cf88c2e733c8ae0119ceca4a3955c7fc059d/setuptools-23.1.0.tar.gz"
+    sha256 "4e269d36ba2313e6236f384b36eb97b3433cf99a16b94c74cca7eee2b311f2be"
   end
 
   resource "pip" do
-    url "https://pypi.python.org/packages/source/p/pip/pip-7.1.2.tar.gz"
-    sha256 "ca047986f0528cfa975a14fb9f7f106271d4e0c3fe1ddced6c1db2e7ae57a477"
+    url "https://files.pythonhosted.org/packages/e7/a8/7556133689add8d1a54c0b14aeff0acb03c64707ce100ecd53934da1aa13/pip-8.1.2.tar.gz"
+    sha256 "4d24b03ffa67638a3fa931c09fd9e0273ffa904e95ebebe7d4b1a54c93d7b732"
   end
 
   resource "wheel" do
-    url "https://pypi.python.org/packages/source/w/wheel/wheel-0.26.0.tar.gz"
-    sha256 "eaad353805c180a47545a256e6508835b65a8e830ba1093ed8162f19a50a530c"
+    url "https://files.pythonhosted.org/packages/c9/1d/bd19e691fd4cfe908c76c429fe6e4436c9e83583c4414b54f6c85471954a/wheel-0.29.0.tar.gz"
+    sha256 "1ebb8ad7e26b448e9caa4773d2357849bf80ff9e313964bcaf79cbf0201a1648"
   end
+
+  # Patch to disable the search for Tk.framework, since Homebrew's Tk is
+  # a plain unix build. Remove `-lX11`, too because our Tk is "AquaTk".
+  patch :DATA if build.with? "tcl-tk"
 
   # Patch for pyport.h macro issue
   # https://bugs.python.org/issue10910
@@ -55,18 +67,6 @@ class Python < Formula
   patch do
     url "https://bugs.python.org/file30805/issue10910-workaround.txt"
     sha256 "c075353337f9ff3ccf8091693d278782fcdff62c113245d8de43c5c7acc57daf"
-  end
-
-  # Patch to disable the search for Tk.framework, since Homebrew's Tk is
-  # a plain unix build. Remove `-lX11`, too because our Tk is "AquaTk".
-  patch :DATA if build.with? "tcl-tk"
-
-  # Fix extension module builds against Xcode 7 SDKs
-  # https://github.com/Homebrew/homebrew/issues/41085
-  # https://bugs.python.org/issue25136
-  patch do
-    url "https://bugs.python.org/file40479/xcode-stubs-2.7.patch"
-    sha256 "86714b750c887065952cd556f4d23246edf3124384f579356c8e377bc6ff2f83"
   end
 
   def lib_cellar
@@ -84,8 +84,13 @@ class Python < Formula
 
   # setuptools remembers the build flags python is built with and uses them to
   # build packages later. Xcode-only systems need different flags.
-  def pour_bottle?
-    MacOS::CLT.installed?
+  def pour_bottle
+    reason <<-EOS.undent
+    The bottle needs the Apple Command Line Tools to be installed.
+      You can install them, if desired, with:
+        xcode-select --install
+    EOS
+    satisfy { MacOS::CLT.installed? }
   end
 
   def install
@@ -109,18 +114,20 @@ class Python < Formula
 
     args << "--without-gcc" if ENV.compiler == :clang
 
+    cflags   = []
+    ldflags  = []
+    cppflags = []
+
     unless MacOS::CLT.installed?
       # Help Python's build system (setuptools/pip) to build things on Xcode-only systems
       # The setup.py looks at "-isysroot" to get the sysroot (and not at --sysroot)
-      cflags = "CFLAGS=-isysroot #{MacOS.sdk_path}"
-      ldflags = "LDFLAGS=-isysroot #{MacOS.sdk_path}"
-      args << "CPPFLAGS=-I#{MacOS.sdk_path}/usr/include" # find zlib
+      cflags   << "-isysroot #{MacOS.sdk_path}"
+      ldflags  << "-isysroot #{MacOS.sdk_path}"
+      cppflags << "-I#{MacOS.sdk_path}/usr/include" # find zlib
       # For the Xlib.h, Python needs this header dir with the system Tk
       if build.without? "tcl-tk"
-        cflags += " -I#{MacOS.sdk_path}/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers"
+        cflags << "-I#{MacOS.sdk_path}/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers"
       end
-      args << cflags
-      args << ldflags
     end
 
     # Avoid linking to libgcc https://code.activestate.com/lists/python-dev/112195/
@@ -140,10 +147,16 @@ class Python < Formula
       args << "--enable-universalsdk=/" << "--with-universal-archs=intel"
     end
 
-    # Allow sqlite3 module to load extensions:
-    # https://docs.python.org/library/sqlite3.html#f1
     if build.with? "sqlite"
-      inreplace("setup.py", 'sqlite_defines.append(("SQLITE_OMIT_LOAD_EXTENSION", "1"))', "")
+      inreplace "setup.py" do |s|
+        s.gsub! "sqlite_setup_debug = False", "sqlite_setup_debug = True"
+        s.gsub! "for d_ in inc_dirs + sqlite_inc_paths:",
+                "for d_ in ['#{Formula["sqlite"].opt_include}']:"
+
+        # Allow sqlite3 module to load extensions:
+        # https://docs.python.org/library/sqlite3.html#f1
+        s.gsub! 'sqlite_defines.append(("SQLITE_OMIT_LOAD_EXTENSION", "1"))', ""
+      end
     end
 
     # Allow python modules to use ctypes.find_library to find homebrew's stuff
@@ -156,9 +169,13 @@ class Python < Formula
 
     if build.with? "tcl-tk"
       tcl_tk = Formula["homebrew/dupes/tcl-tk"].opt_prefix
-      ENV.append "CPPFLAGS", "-I#{tcl_tk}/include"
-      ENV.append "LDFLAGS", "-L#{tcl_tk}/lib"
+      cppflags << "-I#{tcl_tk}/include"
+      ldflags  << "-L#{tcl_tk}/lib"
     end
+
+    args << "CFLAGS=#{cflags.join(" ")}" unless cflags.empty?
+    args << "LDFLAGS=#{ldflags.join(" ")}" unless ldflags.empty?
+    args << "CPPFLAGS=#{cppflags.join(" ")}" unless cppflags.empty?
 
     system "./configure", *args
 
@@ -170,16 +187,15 @@ class Python < Formula
     end
 
     system "make"
+    if build.with?("quicktest") || build.bottle?
+      system "make", "quicktest", "TESTPYTHONOPTS=-s", "TESTOPTS=-j#{ENV.make_jobs} -w"
+    end
 
-    ENV.deparallelize # installs must be serialized
-    # Tell Python not to install into /Applications
-    system "make", "install", "PYTHONAPPSDIR=#{prefix}"
-    # Demos and Tools
-    system "make", "frameworkinstallextras", "PYTHONAPPSDIR=#{share}/python"
-    system "make", "quicktest" if build.include? "quicktest"
-
-    # Symlink the pkgconfig files into HOMEBREW_PREFIX so they're accessible.
-    (lib/"pkgconfig").install_symlink Dir["#{frameworks}/Python.framework/Versions/Current/lib/pkgconfig/*"]
+    ENV.deparallelize do
+      # Tell Python not to install into /Applications
+      system "make", "install", "PYTHONAPPSDIR=#{prefix}"
+      system "make", "frameworkinstallextras", "PYTHONAPPSDIR=#{pkgshare}"
+    end
 
     # Fixes setting Python build flags for certain software
     # See: https://github.com/Homebrew/homebrew/pull/20182
@@ -189,12 +205,28 @@ class Python < Formula
         "-u _PyMac_Error $(PYTHONFRAMEWORKINSTALLDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)"
     end
 
+    # Prevent third-party packages from building against fragile Cellar paths
+    inreplace [lib_cellar/"_sysconfigdata.py",
+               lib_cellar/"config/Makefile",
+               frameworks/"Python.framework/Versions/Current/lib/pkgconfig/python-2.7.pc"],
+              prefix, opt_prefix
+
+    # Symlink the pkgconfig files into HOMEBREW_PREFIX so they're accessible.
+    (lib/"pkgconfig").install_symlink Dir["#{frameworks}/Python.framework/Versions/Current/lib/pkgconfig/*"]
+
     # Remove the site-packages that Python created in its Cellar.
     site_packages_cellar.rmtree
 
     (libexec/"setuptools").install resource("setuptools")
     (libexec/"pip").install resource("pip")
     (libexec/"wheel").install resource("wheel")
+
+    if MacOS.version > :snow_leopard && build.with?("sphinx-doc")
+      cd "Doc" do
+        system "make", "html"
+        doc.install Dir["build/html/*"]
+      end
+    end
   end
 
   def post_install
@@ -266,7 +298,7 @@ class Python < Formula
     <<-EOF.undent
       # This file is created by Homebrew and is executed on each python startup.
       # Don't print from here, or else python command line scripts may fail!
-      # <https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Homebrew-and-Python.md>
+      # <https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Homebrew-and-Python.md>
       import re
       import os
       import sys
@@ -322,7 +354,7 @@ class Python < Formula
     They will install into the site-package directory
       #{site_packages}
 
-    See: https://github.com/Homebrew/homebrew/blob/master/share/doc/homebrew/Homebrew-and-Python.md
+    See: https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Homebrew-and-Python.md
     EOS
   end
 

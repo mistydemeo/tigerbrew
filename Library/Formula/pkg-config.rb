@@ -1,14 +1,15 @@
 class PkgConfig < Formula
   desc "Manage compile and link flags for libraries"
-  homepage "https://wiki.freedesktop.org/www/Software/pkg-config/"
-  url "http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz"
-  mirror "https://fossies.org/linux/misc/pkg-config-0.28.tar.gz"
-  sha256 "6b6eb31c6ec4421174578652c7e141fdaae2dabad1021f420d8713206ac1f845"
+  homepage "https://freedesktop.org/wiki/Software/pkg-config/"
+  url "https://pkgconfig.freedesktop.org/releases/pkg-config-0.29.1.tar.gz"
+  mirror "https://fossies.org/linux/misc/pkg-config-0.29.1.tar.gz"
+  sha256 "beb43c9e064555469bd4390dcfd8030b1536e0aa103f08d7abf7ae8cac0cb001"
+  revision 2
 
   bottle do
-    sha1 "7ca199a1104327ccada4ad7f6c5ee6ec8c7cd048" => :tiger_altivec
-    sha1 "8de871e1860cf3879baffc0fb1d8d9ee16926f7c" => :leopard_g3
-    sha1 "3b082c2433b5e636cfa40e9db8e4683530bfecd0" => :leopard_altivec
+    sha256 "aa5f169cffe4576a6a6b0e3d528ab2ee0ac331ff3fe51bfbb182fb4ef7cdb794" => :sierra
+    sha256 "6c89838a29bea6a641b611e631de3765b7755d987029de34419e04d85191d8a5" => :el_capitan
+    sha256 "fc68806653ba68fe742885cc050990433125588099d2ea30139d1663d3d4311a" => :yosemite
   end
 
   def install
@@ -20,6 +21,7 @@ class PkgConfig < Formula
       #{HOMEBREW_LIBRARY}/ENV/pkgconfig/#{MacOS.version}
     ].uniq.join(File::PATH_SEPARATOR)
 
+    ENV.append "LDFLAGS", "-framework Foundation -framework Cocoa"
     system "./configure", "--disable-debug",
                           "--prefix=#{prefix}",
                           "--disable-host-tool",
