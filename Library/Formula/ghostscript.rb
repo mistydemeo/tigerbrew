@@ -3,7 +3,7 @@ class Ghostscript < Formula
   homepage "http://www.ghostscript.com/"
 
   stable do
-    url "http://downloads.ghostscript.com/public/ghostscript-9.16.tar.gz"
+    url "http://downloads.ghostscript.com/public/old-gs-releases/ghostscript-9.16.tar.gz"
     sha256 "746d77280cca8afdd3d4c2c1389e332ed9b0605bd107bcaae1d761b061d1a68d"
 
     patch :DATA # Uncomment OS X-specific make vars
