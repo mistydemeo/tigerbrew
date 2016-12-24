@@ -3,7 +3,7 @@ class PostgresXc < Formula
   homepage "http://postgres-xc.sourceforge.net/"
   url "https://downloads.sourceforge.net/project/postgres-xc/Version_1.0/pgxc-v1.0.3.tar.gz"
   sha256 "60ae1e42e977f78785090743161867dc838e3c8e1db0ac836dcfa23c8f1db8dd"
-  revision 1
+  revision 2
 
   bottle do
     revision 1

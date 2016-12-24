@@ -4,7 +4,7 @@ class Mdk < Formula
   url "http://ftpmirror.gnu.org/mdk/v1.2.8/mdk-1.2.8.tar.gz"
   mirror "https://ftp.gnu.org/gnu/mdk/v1.2.8/mdk-1.2.8.tar.gz"
   sha256 "7bff1e10b829c6e1f3c278bfecbe82f0f658753ce80ea58b6f71c05f9490b0db"
-  revision 1
+  revision 2
 
   bottle do
     revision 1

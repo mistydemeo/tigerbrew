@@ -4,6 +4,7 @@ class Vdirsyncer < Formula
   url "https://pypi.python.org/packages/source/v/vdirsyncer/vdirsyncer-0.6.0.tar.gz"
   sha256 "0d2a9677b086cfbe5fe5e7cb5e55db4c1afab62cb5dc56aeaff6e95d34bf60d5"
   head "https://github.com/untitaker/vdirsyncer.git"
+  revision 1
 
   bottle do
     cellar :any_skip_relocation

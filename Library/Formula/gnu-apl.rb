@@ -4,6 +4,7 @@ class GnuApl < Formula
   url "http://ftpmirror.gnu.org/apl/apl-1.4.tar.gz"
   mirror "https://ftp.gnu.org/gnu/apl/apl-1.4.tar.gz"
   sha256 "69da31db180e6ae17116122758c266e19f62e256f04e3c4959f6f2b224a1893a"
+  revision 1
 
   bottle do
     revision 1

@@ -6,6 +6,7 @@ class Algernon < Formula
   url "https://github.com/xyproto/algernon/archive/0.85.tar.gz"
   sha256 "c30380d9781166a6cc6297210e70c742c5a6c91bbbbdbf223783db1ffa1aa7e6"
   head "https://github.com/xyproto/algernon.git"
+  revision 1
 
   bottle do
     sha256 "4afae3ee47dc003a6916c399b103dd8d8223db6c2234ba4a3a67f9e52e338efd" => :el_capitan

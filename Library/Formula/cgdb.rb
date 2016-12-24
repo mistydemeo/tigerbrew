@@ -3,6 +3,7 @@ class Cgdb < Formula
   homepage "https://cgdb.github.io/"
   url "http://cgdb.me/files/cgdb-0.6.8.tar.gz"
   sha256 "be203e29be295097439ab67efe3dc8261f742c55ff3647718d67d52891f4cf41"
+  revision 1
 
   bottle do
     sha256 "8d47a315bc04053f84802069723edf9ea920c7361464992c1a657f41db52f901" => :el_capitan
