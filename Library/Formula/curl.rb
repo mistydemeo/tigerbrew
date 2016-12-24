@@ -1,15 +1,15 @@
 class Curl < Formula
   desc "Get a file from an HTTP, HTTPS or FTP server"
-  homepage "http://curl.haxx.se/"
-  url "https://github.com/bagder/curl/releases/download/curl-7_44_0/curl-7.44.0.tar.bz2"
-  mirror "http://curl.haxx.se/download/curl-7.44.0.tar.bz2"
-  sha256 "1e2541bae6582bb697c0fbae49e1d3e6fad5d05d5aa80dbd6f072e0a44341814"
+  homepage "https://curl.haxx.se/"
+  url "https://curl.haxx.se/download/curl-7.50.3.tar.bz2"
+  sha256 "7b7347d976661d02c84a1f4d6daf40dee377efdc45b9e2c77dedb8acf140d8ec"
 
   bottle do
     cellar :any
-    sha256 "2ff224add32d7a7dd98f938b6d9d8193ef66440d00b94cbdc005772aac2f1c05" => :tiger_altivec
-    sha256 "02144e7a26f1fe078b3845d2586469bb67a79e9c8a562d882e583812a181b5fe" => :leopard_g3
-    sha256 "9039d7cafbd2ed01b7b56f45c82f01c7529832bb7143284b1aa955ae7ca101e7" => :leopard_altivec
+    sha256 "638108732f8c4dacea7953c81b070d8ab8bde837e0608f0b4ca36124b7ff1055" => :sierra
+    sha256 "b425bee3c2602e9b470db43b00418805e97ab675bfdd292be194e61fca8d9f52" => :el_capitan
+    sha256 "acd850690b6578bf1f7682804734cadf5b922aa17d696ef5154b15d048712319" => :yosemite
+    sha256 "cfbb0a2c28b150d13a239b9a6acd95cdd530cf57f7e26831f966d672e88dfcc0" => :mavericks
   end
 
   keg_only :provided_by_osx
@@ -42,18 +42,17 @@ class Curl < Formula
   depends_on "rtmpdump" => :optional
   depends_on "libssh2" => :optional
   depends_on "c-ares" => :optional
-  depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
   depends_on "libmetalink" => :optional
   depends_on "libressl" => :optional
   depends_on "nghttp2" => :optional
 
   def install
-    # Throw an error if someone actually tries to rock both SSL choices.
-    # Long-term, make this singular-ssl-option-only a requirement.
+    # Fail if someone tries to use both SSL choices.
+    # Long-term, handle conflicting options case in core code.
     if build.with?("libressl") && build.with?("openssl")
-      ohai <<-EOS.undent
+      odie <<-EOS.undent
       --with-openssl and --with-libressl are both specified and
-      curl can only use one at a time; proceeding with libressl.
+      curl can only use one at a time.
       EOS
     end
 
@@ -68,11 +67,11 @@ class Curl < Formula
     # "--with-ssl" any more. "when possible, set the PKG_CONFIG_PATH environment
     # variable instead of using this option". Multi-SSL choice breaks w/o using it.
     if build.with? "libressl"
-      ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["libressl"].opt_prefix}/lib/pkgconfig"
+      ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["libressl"].opt_lib}/pkgconfig"
       args << "--with-ssl=#{Formula["libressl"].opt_prefix}"
       args << "--with-ca-bundle=#{etc}/libressl/cert.pem"
     elsif MacOS.version < :mountain_lion || build.with?("openssl") || build.with?("nghttp2")
-      ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["openssl"].opt_prefix}/lib/pkgconfig"
+      ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["openssl"].opt_lib}/pkgconfig"
       args << "--with-ssl=#{Formula["openssl"].opt_prefix}"
       args << "--with-ca-bundle=#{etc}/openssl/cert.pem"
     else
@@ -97,6 +96,7 @@ class Curl < Formula
 
     system "./configure", *args
     system "make", "install"
+    libexec.install "lib/mk-ca-bundle.pl"
   end
 
   test do
@@ -105,5 +105,9 @@ class Curl < Formula
     filename = (testpath/"test.tar.gz")
     system "#{bin}/curl", "-L", stable.url, "-o", filename
     filename.verify_checksum stable.checksum
+
+    system libexec/"mk-ca-bundle.pl", "test.pem"
+    assert File.exist?("test.pem")
+    assert File.exist?("certdata.txt")
   end
 end

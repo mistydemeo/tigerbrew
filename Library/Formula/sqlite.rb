@@ -1,15 +1,15 @@
 class Sqlite < Formula
   desc "Command-line interface for SQLite"
   homepage "https://sqlite.org/"
-  url "https://sqlite.org/2015/sqlite-autoconf-3081101.tar.gz"
-  sha256 "fb99b0ac038c4a7e48b44b61836cb41d4eeba36b4d0ee757beeab59031a1d3b6"
-  version "3.8.11.1"
+  url "https://sqlite.org/2016/sqlite-autoconf-3150000.tar.gz"
+  version "3.15.0"
+  sha256 "77162da9b4a0336d7e77d5252b690662850f62b47c12d9125f74ab9de78ded27"
 
   bottle do
     cellar :any
-    sha256 "3c508738db63a1398bb58c0e6a461027a7c83e08e9d02c2867a3cf8a6be4f4f2" => :tiger_altivec
-    sha256 "1a14355297ed1c5db02f616366ea67995dc194d2d24c0924c4d36513fb04b117" => :leopard_g3
-    sha256 "b3e5b2e8ded7eb9f3836ff03c571315f1ccd4d6934ff2209e74270233ac12982" => :leopard_altivec
+    sha256 "aa6584b9258f1c8295abd5d8ba2acd2631ed42783ed928ab3648ba90bec3c62b" => :sierra
+    sha256 "b6316df042d481c296fdac098df47318c45aed3221931cac8e15c80bad9c0670" => :el_capitan
+    sha256 "48df8696f00a3bc5cea3a6c1c4339cc9a4114724258af1cc087bbccb69dff049" => :yosemite
   end
 
   keg_only :provided_by_osx, "OS X provides an older sqlite3."
@@ -17,12 +17,15 @@ class Sqlite < Formula
   option :universal
   option "with-docs", "Install HTML documentation"
   option "without-rtree", "Disable the R*Tree index module"
-  option "with-fts", "Enable the FTS module"
+  option "with-fts", "Enable the FTS3 module"
+  option "with-fts5", "Enable the FTS5 module (experimental)"
   option "with-secure-delete", "Defaults secure_delete to on"
   option "with-unlock-notify", "Enable the unlock notification feature"
   option "with-icu4c", "Enable the ICU module"
   option "with-functions", "Enable more math and string functions for SQL queries"
   option "with-dbstat", "Enable the 'dbstat' virtual table"
+  option "with-json1", "Enable the JSON1 extension"
+  option "with-session", "Enable the session extension"
 
   depends_on "readline" => :recommended
   depends_on "icu4c" => :optional
@@ -34,9 +37,9 @@ class Sqlite < Formula
   end
 
   resource "docs" do
-    url "https://sqlite.org/2015/sqlite-doc-3081101.zip"
-    version "3.8.11.1"
-    sha256 "89e3fc4bce7463885da3b03602b4260fe07240f9ea674ba4ac7ce2ee4987357f"
+    url "https://sqlite.org/2016/sqlite-doc-3150000.zip"
+    version "3.15.0"
+    sha256 "cea0208b2b8dddf51b846d6e9d23210fc497da2c6f3fbed96f00eadceb1c32f7"
   end
 
   # sqlite won't compile on Tiger due to missing function;
@@ -48,12 +51,18 @@ class Sqlite < Formula
     # obviously we need a newer GCC stat!
     ENV.no_optimization if ENV.compiler == :gcc && MacOS.version == :tiger
 
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_RTREE" if build.with? "rtree"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS" if build.with? "fts"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_COLUMN_METADATA"
-    ENV.append "CPPFLAGS", "-DSQLITE_SECURE_DELETE" if build.with? "secure-delete"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_UNLOCK_NOTIFY" if build.with? "unlock-notify"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_DBSTAT_VTAB" if build.with? "dbstat"
+    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_COLUMN_METADATA=1"
+    # Default value of MAX_VARIABLE_NUMBER is 999 which is too low for many
+    # applications. Set to 250000 (Same value used in Debian and Ubuntu).
+    ENV.append "CPPFLAGS", "-DSQLITE_MAX_VARIABLE_NUMBER=250000"
+    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_RTREE=1" if build.with? "rtree"
+    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_FTS3=1 -DSQLITE_ENABLE_FTS3_PARENTHESIS=1" if build.with? "fts"
+    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_FTS5=1" if build.with? "fts5"
+    ENV.append "CPPFLAGS", "-DSQLITE_SECURE_DELETE=1" if build.with? "secure-delete"
+    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_UNLOCK_NOTIFY=1" if build.with? "unlock-notify"
+    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_DBSTAT_VTAB=1" if build.with? "dbstat"
+    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_JSON1=1" if build.with? "json1"
+    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_PREUPDATE_HOOK=1 -DSQLITE_ENABLE_SESSION=1" if build.with? "session"
 
     if build.with? "icu4c"
       icu4c = Formula["icu4c"]
@@ -113,9 +122,8 @@ class Sqlite < Formula
       select name from students order by age asc;
     EOS
 
-    names = `#{bin}/sqlite3 < #{path}`.strip.split("\n")
+    names = shell_output("#{bin}/sqlite3 < #{path}").strip.split("\n")
     assert_equal %w[Sue Tim Bob], names
-    assert_equal 0, $?.exitstatus
   end
 end
 

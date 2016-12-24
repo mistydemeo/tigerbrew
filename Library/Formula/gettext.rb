@@ -1,28 +1,21 @@
 class Gettext < Formula
   desc "GNU internationalization (i18n) and localization (l10n) library"
   homepage "https://www.gnu.org/software/gettext/"
-  url "http://ftpmirror.gnu.org/gettext/gettext-0.19.6.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/gettext/gettext-0.19.6.tar.xz"
-  sha256 "9b95816620fd1168cb4eeca0e9dc0ffd86e864fc668f76f5e37cc054d6982e51"
+  url "https://ftpmirror.gnu.org/gettext/gettext-0.19.8.1.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/gettext/gettext-0.19.8.1.tar.xz"
+  sha256 "105556dbc5c3fbbc2aa0edb46d22d055748b6f5c7cd7a8d99f8e7eb84e938be4"
 
   bottle do
-    sha256 "41a26cf4db47c63a8d1b93092dc45bb56a832701d11838277221fd934af4ed8a" => :tiger_altivec
-    sha256 "5c7b69d10f0a5e330285d1806d10ce85f0a8e01eb727ba92bcdb815d2e08f6ca" => :leopard_g3
-    sha256 "522195faf5f9c5cbd80ecfb7e6f72653a248cc893be53a931c2949645f48f51b" => :leopard_altivec
+    sha256 "8368522242c5fe33acd5c80b5f1321559da9efe20878da6e4b9507683a740c21" => :sierra
+    sha256 "311475f36f3fd314ae0db4fb52e4ab769f62ded6c8c81678ad8295f41762e4ba" => :el_capitan
+    sha256 "ca8fe572e7c8db00bb1bdfd66c379ba4a960927f4b829f47f9e2335c51dc7376" => :yosemite
+    sha256 "e3091192716347fc54f6e8a8184d892feed5309672daa061a1407b071af80c05" => :mavericks
   end
 
   keg_only :shadowed_by_osx, "OS X provides the BSD gettext library and some software gets confused if both are in the library path."
 
   option :universal
   option 'with-examples', 'Keep example files'
-
-  def patches
-    unless build.include? 'with-examples'
-      # Use a MacPorts patch to disable building examples at all,
-      # rather than build them and remove them afterwards.
-      {:p0 => ['https://trac.macports.org/export/102008/trunk/dports/devel/gettext/files/patch-gettext-tools-Makefile.in']}
-    end
-  end
 
   def install
     ENV.libxml2

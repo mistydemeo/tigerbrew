@@ -1,21 +1,21 @@
 class Cmake < Formula
   desc "Cross-platform make"
   homepage "http://www.cmake.org/"
-  url "http://www.cmake.org/files/v3.3/cmake-3.3.2.tar.gz"
-  mirror "https://mirrors.kernel.org/debian/pool/main/c/cmake/cmake_3.3.2.orig.tar.gz"
-  sha256 "e75a178d6ebf182b048ebfe6e0657c49f0dc109779170bad7ffcb17463f2fc22"
-  head "http://cmake.org/cmake.git"
+  url "https://cmake.org/files/v3.6/cmake-3.6.3.tar.gz"
+  sha256 "7d73ee4fae572eb2d7cd3feb48971aea903bb30a20ea5ae8b4da826d8ccad5fe"
 
-  # See: https://gist.github.com/shirleyallan/6261775
-  fails_with :gcc do
-    build 5553
-    cause "/Developer/SDKs/MacOSX10.4u.sdk/usr/include/stdarg.h:4:25: error: stdarg.h: No such file or directory"
-  end
+  head "https://cmake.org/cmake.git"
 
   bottle do
-    sha256 "46ffe73c3277dea43fb3341c02b06b36a6c165bcb6cc900b597fcf94dbfddad7" => :leopard_g3
-    sha256 "da4027b8afd98665000d9b806da19f84d352fee39a0f8c4a9a287f23e3aef567" => :leopard_altivec
-    sha256 "f2b16ef4fe3f26ba8662883b670ef8e6b3d974b4cd5857c50cba0c15950cd59d" => :tiger_altivec
+    cellar :any_skip_relocation
+    sha256 "81a8b6e3b7f527edb89c298c8aea367e7fb00bf83f30fc4ee814e0d06b75f3dc" => :sierra
+    sha256 "e0e81368fe89f206582833d5f289c6fc56ee0272b1913361e65e3221efadf447" => :el_capitan
+    sha256 "16f91ff94d784b2120e248650a7a99c5974d325900f94ead54392b2fdaabeb8e" => :yosemite
+  end
+
+  devel do
+    url "https://cmake.org/files/v3.7/cmake-3.7.0-rc3.tar.gz"
+    sha256 "654a5f0400c88fb07cf7e882e6254d17f248663b51a85ff07d79f7ee7b4795bd"
   end
 
   option "without-docs", "Don't build man pages"
@@ -107,7 +107,12 @@ class Cmake < Formula
       --system-bzip2
     ]
 
-    args << (MacOS.version < :leopard ? "--no-system-curl" : "--system-curl")
+    # https://github.com/Homebrew/legacy-homebrew/issues/45989
+    if MacOS.version <= :lion
+      args << "--no-system-curl"
+    else
+      args << "--system-curl"
+    end
 
     if build.with? "docs"
       args << "--sphinx-man" << "--sphinx-build=#{buildpath}/sphinx/bin/sphinx-build"
