@@ -1,8 +1,8 @@
 class Libssh2 < Formula
   desc "C library implementing the SSH2 protocol"
   homepage "http://www.libssh2.org/"
-  url "http://www.libssh2.org/download/libssh2-1.6.0.tar.gz"
-  sha256 "5a202943a34a1d82a1c31f74094f2453c207bf9936093867f41414968c8e8215"
+  url "https://libssh2.org/download/libssh2-1.8.0.tar.gz"
+  sha256 "39f34e2f6835f4b992cafe8625073a88e5a28ba78f83e8099610a7b3af4676d4"
 
   option "with-libressl", "build with LibreSSL instead of OpenSSL"
 
@@ -15,11 +15,9 @@ class Libssh2 < Formula
   end
 
   bottle do
-    cellar :any
-    sha256 "bc688cb19311bbe1a5dd5ab79f15864b77e1aadc0b042a61c2ac2662481536ac" => :el_capitan
-    sha256 "ef02bf38e976c9f786d7bfc743c7bf39ecc2cf634324a2a03dd3767c96f3c44a" => :yosemite
-    sha256 "0dfd55ea524c2eea19e2f1baf34cdd609830be488e8dc05787dce353d83765ab" => :mavericks
-    sha256 "dca69057eb05d5951ddc11af3078cc4418d81e087fd728f96b989c2b5e5eeba9" => :mountain_lion
+    sha256 "4a1e39137bc9461d779a7a84626354928788aeb0650fb0fed75e0fbecb95c0cd" => :sierra
+    sha256 "d6693c1417f0deb8f1b0c6a7c338491a7f60f2cc516675186e572329c1fcaa6c" => :el_capitan
+    sha256 "f7fab0024a104c43a3139b0e70cbc04606c20409b36ffb6deebb326c168c4547" => :yosemite
   end
 
   depends_on "openssl" => :recommended
