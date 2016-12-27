@@ -42,8 +42,9 @@ class Openssl < Formula
       enable-cms
     ]
     
-    args << "no-asm" if MacOS.version == :tiger    
-    
+    args << "no-asm" if MacOS.version == :tiger
+
+    args
   end
 
   def install
