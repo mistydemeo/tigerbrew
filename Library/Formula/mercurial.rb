@@ -2,8 +2,8 @@
 # of Homebrew.
 class Mercurial < Formula
   desc "Scalable distributed version control system"
-  homepage "https://mercurial.selenic.com/"
-  url "https://mercurial.selenic.com/release/mercurial-3.5.1.tar.gz"
+  homepage "https://www.mercurial-scm.org/"
+  url "https://www.mercurial-scm.org/release/mercurial-3.5.1.tar.gz"
   sha256 "997da45da303e399678c5bccd7be39b0fabf29c7e02fd3c8751c2ff88c8a259d"
 
   bottle do
