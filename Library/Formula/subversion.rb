@@ -37,7 +37,12 @@ class Subversion < Formula
   depends_on :expat
 
   depends_on "pkg-config" => :build
-  depends_on :apr => :build
+  if MacOS.version > :leopard
+    depends_on :apr => :build
+  else
+    depends_on "apr"
+    depends_on "apr-util"
+  end
 
   # Always build against Homebrew versions instead of system versions for consistency.
   depends_on "sqlite"
