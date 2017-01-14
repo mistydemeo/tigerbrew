@@ -58,6 +58,7 @@ class Mplayer < Formula
     ]
 
     args << "--enable-caca" if build.with? "libcaca"
+    args << "--extra-libs-mencoder=-framework Carbon" if MacOS.version < :snow_leopard
 
     system "./configure", *args
     system make_path
