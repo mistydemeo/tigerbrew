@@ -19,6 +19,15 @@ class Cairo < Formula
   depends_on "pixman"
   depends_on "glib"
 
+  # Fixes building when certain CoreText features are unavailable
+  # https://github.com/mistydemeo/tigerbrew/issues/452
+  if MacOS.version < :leopard
+    patch do
+      url "https://cgit.freedesktop.org/~ranma42/cairo/patch/?id=5a8a9c97ed268004cbac510d39739ff56c0fb43c"
+      sha256 "8d119eca6c35ac8645d13d656b5a721cfeeec1ebcf5793f9d5182c604782de15"
+    end
+  end
+
   def install
     ENV.universal_binary if build.universal?
 
