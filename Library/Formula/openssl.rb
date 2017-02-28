@@ -80,7 +80,7 @@ class Openssl < Formula
 
       if build.universal?
         cp "include/openssl/opensslconf.h", dir
-        cp Dir["*.?.?.?.dylib", "*.a", "apps/openssl"], dir
+        cp Dir["*.?.?.?.dylib"] + Dir["*.a"] + Dir["apps/openssl"], dir
         cp Dir["engines/**/*.dylib"], "#{dir}/engines"
       end
     end
