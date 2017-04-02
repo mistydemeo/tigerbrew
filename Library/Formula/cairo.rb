@@ -8,10 +8,9 @@ class Cairo < Formula
   keg_only :provided_pre_mountain_lion
 
   option :universal
-  # Tiger's X11 is simply way too old
-  option 'without-x', 'Build without X11 support' if MacOS.version > :tiger
 
   depends_on "pkg-config" => :build
+  depends_on :x11 => :recommended if MacOS.version == :leopard
   depends_on :x11 => :optional if MacOS.version > :leopard
   depends_on "freetype"
   depends_on "fontconfig"
