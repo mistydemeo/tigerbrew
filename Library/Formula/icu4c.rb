@@ -67,4 +67,51 @@ index 01b0683..69d89d8 100644
   * Only include langinfo.h if we have a way to get the codeset. If we later
   * depend on more feature, we can test on U_HAVE_NL_LANGINFO.
   *
+diff --git a/source/tools/toolutil/pkg_genc.c b/source/tools/toolutil/pkg_genc.c
+index 3096db8..9a4fa21 100644
+--- a/source/tools/toolutil/pkg_genc.c
++++ b/source/tools/toolutil/pkg_genc.c
+@@ -113,13 +113,13 @@ static const struct AssemblyType {
+     int8_t      hexType; /* HEX_0X or HEX_0h */
+ } assemblyHeader[] = {
+     /* For gcc assemblers, the meaning of .align changes depending on the */
+-    /* hardware, so we use .balign 16 which always means 16 bytes. */
++    /* hardware, so we use .p2align 4 which always means 16 bytes. */
+     /* https://sourceware.org/binutils/docs/as/Pseudo-Ops.html */
+     {"gcc",
+         ".globl %s\n"
+         "\t.section .note.GNU-stack,\"\",%%progbits\n"
+         "\t.section .rodata\n"
+-        "\t.balign 16\n"
++        "\t.p2align 4\n"
+         "#ifdef U_HIDE_DATA_SYMBOL\n"
+         "\t.hidden %s\n"
+         "#endif\n"
+@@ -137,7 +137,7 @@ static const struct AssemblyType {
+         "#endif\n"
+         "\t.data\n"
+         "\t.const\n"
+-        "\t.balign 16\n"
++        "\t.p2align 4\n"
+         "_%s:\n\n",
+ 
+         ".long ","",HEX_0X
+@@ -145,7 +145,7 @@ static const struct AssemblyType {
+     {"gcc-cygwin",
+         ".globl _%s\n"
+         "\t.section .rodata\n"
+-        "\t.balign 16\n"
++        "\t.p2align 4\n"
+         "_%s:\n\n",
+ 
+         ".long ","",HEX_0X
+@@ -153,7 +153,7 @@ static const struct AssemblyType {
+     {"gcc-mingw64",
+         ".globl %s\n"
+         "\t.section .rodata\n"
+-        "\t.balign 16\n"
++        "\t.p2align 4\n"
+         "%s:\n\n",
+ 
+         ".long ","",HEX_0X
 
