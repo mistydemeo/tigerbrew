@@ -338,7 +338,7 @@ module Stdenv
     append flags, map.fetch(effective_arch, default)
 
     # Works around a buggy system header on Tiger
-    append flags, "-faltivec" if MacOS.version == :tiger
+    append flags, "-faltivec" if MacOS.version == :tiger && Hardware::CPU.ppc?
 
     # not really a 'CPU' cflag, but is only used with clang
     remove flags, '-Qunused-arguments'
