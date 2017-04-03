@@ -1,9 +1,9 @@
 class CurlCaBundle < Formula
   homepage "http://curl.haxx.se/docs/caextract.html"
-  url "https://raw.githubusercontent.com/bagder/ca-bundle/bff056d04b9e2c92ea8c83b2e39be9c8d0501039/ca-bundle.crt",
+  url "https://curl.haxx.se/ca/cacert-2017-01-18.pem",
     :using => :nounzip
-  sha256 "0f119da204025da7808273fab42ed8e030cafb5c7ea4e1deda4e75f066f528fb"
-  version "2015-04-27"
+  sha256 "e62a07e61e5870effa81b430e1900778943c228bd7da1259dd6a955ee2262b47"
+  version "2017-01-18"
 
   bottle do
     cellar :any
@@ -14,6 +14,6 @@ class CurlCaBundle < Formula
   end
 
   def install
-    share.install "ca-bundle.crt"
+    share.install "cacert-#{version}.pem" => "ca-bundle.crt"
   end
 end
