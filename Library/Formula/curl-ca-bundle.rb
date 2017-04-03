@@ -7,10 +7,12 @@ class CurlCaBundle < Formula
 
   bottle do
     cellar :any
-    sha256 "2ca60a8bbb648ded824dce45eb150fd0e9d32f8cbd983945db7bee4c6e58b1ea" => :tiger_g3
-    sha256 "fba559a40c232629dade3aaa6c13206098d6428fc5716ed05002ed748c60f946" => :tiger_altivec
-    sha256 "3ec0182385448739a37805ad3f1561ec44706506cb9fa15cd8573023c4e8fb0c" => :leopard_g3
-    sha256 "b168b3d05821dd315a7a8665f63f6a327957f129dda209f20df9aaad45f0742d" => :leopard_altivec
+    sha256 "0507b35196c0cd269f7e209353f88154b0c4232b1f28c1ecdaeb2c89e368d927" => :tiger
+    sha256 "0507b35196c0cd269f7e209353f88154b0c4232b1f28c1ecdaeb2c89e368d927" => :tiger_g3
+    sha256 "0507b35196c0cd269f7e209353f88154b0c4232b1f28c1ecdaeb2c89e368d927" => :tiger_altivec
+    sha256 "b7a31dae293c4c39092690a1a4b43a6bd1ff6419daae4899245f469717aa8712" => :leopard
+    sha256 "b7a31dae293c4c39092690a1a4b43a6bd1ff6419daae4899245f469717aa8712" => :leopard_g3
+    sha256 "b7a31dae293c4c39092690a1a4b43a6bd1ff6419daae4899245f469717aa8712" => :leopard_altivec
   end
 
   def install
