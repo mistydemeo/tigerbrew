@@ -40,7 +40,8 @@ class Cairo < Formula
     ]
 
     if build.with? "x11"
-      # Tiger's X11 does not include XCB
+      # Tiger's X11 does not include XCB,
+      # and Leopard's X11 has an XCB that's too old.
       args << "--enable-xcb=yes" if MacOS.version > :leopard
       args << "--enable-xlib=yes" << "--enable-xlib-xrender=yes"
     else
