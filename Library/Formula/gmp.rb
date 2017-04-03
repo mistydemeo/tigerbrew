@@ -23,7 +23,7 @@ class Gmp < Formula
     ENV.cxx11 if build.cxx11?
     args = ["--prefix=#{prefix}", "--enable-cxx"]
 
-    if build.build_32_bit?
+    if build.build_32_bit? || Hardware::CPU.is_32_bit?
       ENV.m32
       args << "ABI=32"
     end
