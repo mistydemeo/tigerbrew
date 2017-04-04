@@ -1,14 +1,11 @@
 class Ruby < Formula
   desc "Powerful, clean, object-oriented scripting language"
   homepage "https://www.ruby-lang.org/"
-  url "https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.bz2"
-  sha256 "c745cb98b29127d7f19f1bf9e0a63c384736f4d303b83c4f4bda3c2ee3c5e41f"
+  url "https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.1.tar.bz2"
+  sha256 "ccfb2d0a61e2a9c374d51e099b0d833b09241ee78fc17e1fe38e3b282160237c"
   revision 1
 
   bottle do
-    sha256 "1146cee1a02caae6d48d2f7804bb40163b12bab29d7c65e6030cbd953a514ea5" => :tiger_altivec
-    sha256 "843a9a0f02a4f14964640a898b78ee742485da4044ab27e3f530beb147f2f635" => :leopard_g3
-    sha256 "57621cf39513e48946501f7f34a72f912649289cdd0b537cc4bf2a1f1d1d9647" => :leopard_altivec
   end
 
   head do
@@ -17,7 +14,7 @@ class Ruby < Formula
   end
 
   option :universal
-  option "with-suffix", "Suffix commands with '22'"
+  option "with-suffix", "Suffix commands with '24'"
   option "with-doc", "Install documentation"
   option "with-tcltk", "Install with Tcl/Tk support"
 
@@ -42,7 +39,9 @@ class Ruby < Formula
       inreplace "signal.c" do |s|
         s.gsub! "->__ss.", "->ss."
         s.gsub! "__rsp", "rsp"
+        s.gsub! "__rbp", "rbp"
         s.gsub! "__esp", "esp"
+        s.gsub! "__ebp", "ebp"
       end
 
       inreplace "vm_dump.c" do |s|
@@ -69,7 +68,7 @@ class Ruby < Formula
       args << "--with-arch=#{Hardware::CPU.universal_archs.join(",")}"
     end
 
-    args << "--program-suffix=22" if build.with? "suffix"
+    args << "--program-suffix=24" if build.with? "suffix"
     args << "--with-out-ext=tk" if build.without? "tcltk"
     args << "--disable-install-doc" if build.without? "doc"
     args << "--disable-dtrace" unless MacOS::CLT.installed?
@@ -183,7 +182,7 @@ class Ruby < Formula
       end
 
       def self.ruby
-        "#{opt_bin}/ruby#{"22" if build.with? "suffix"}"
+        "#{opt_bin}/ruby#{"24" if build.with? "suffix"}"
       end
     end
     EOS
