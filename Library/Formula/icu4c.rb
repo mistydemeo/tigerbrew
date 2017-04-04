@@ -22,10 +22,9 @@ class Icu4c < Formula
   option :universal
   option :cxx11
 
-  def patches
-    # patch submitted upstream: http://bugs.icu-project.org/trac/ticket/9367
-    DATA
-  end if MacOS.version < :leopard
+  # patch submitted upstream: http://bugs.icu-project.org/trac/ticket/9367
+  # See also https://github.com/mistydemeo/tigerbrew/pull/467
+  patch :DATA if MacOS.version < :leopard
 
   def install
     ENV.universal_binary if build.universal?
