@@ -78,6 +78,13 @@ class Gcc < Formula
     sha256 "fc5b45bb2771a6b35b0283412a50d7cb13ae982ed5607b27232a976a48078134"
   end
 
+  # Fix an Intel-only build failure on 10.4
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64184
+  patch do
+    url "https://gist.githubusercontent.com/anonymous/c0eff2ff4bfbf555505968e21311a38f/raw/39e96539676556e87c7461a382b73088c0b5ba28/-"
+    sha256 "c10779e463fe3c77c574225083a9f7a12638f6b0cb278e8c3d6c40bf9d9c2762"
+  end
+
   def install
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
