@@ -35,6 +35,27 @@ class Ruby < Formula
   end
 
   def install
+    # mcontext types had a member named `ss` instead of `__ss`
+    # prior to Leopard; see
+    # https://github.com/mistydemeo/tigerbrew/issues/473
+    if Hardware::CPU.intel? && MacOS.version < :leopard
+      inreplace "signal.c" do |s|
+        s.gsub! "->__ss.", "->ss."
+        s.gsub! "__rsp", "rsp"
+        s.gsub! "__esp", "esp"
+      end
+
+      inreplace "vm_dump.c" do |s|
+        s.gsub! /uc_mcontext->__(ss)\.__(r\w\w)/,
+                "uc_mcontext->\1.\2"
+        s.gsub! "mctx->__ss.__##reg",
+                "mctx->ss.reg"
+        # missing include in vm_dump; this is an ugly solution
+        s.gsub! '#include "iseq.h"',
+                %{#include "iseq.h"\n#include <ucontext.h>}
+      end
+    end
+
     system "autoconf" if build.head?
 
     args = %W[
