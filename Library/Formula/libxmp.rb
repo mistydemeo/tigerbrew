@@ -27,7 +27,7 @@ class Libxmp < Formula
   # https://github.com/cmatsuoka/libxmp/issues/1
   depends_on :ld64
   # a bug in gnumake 3.80 causes the build to instantly fail
-  depends_on "homebrew/dupes/make" => :build if MacOS.version < :leopard
+  depends_on "make" => :build if MacOS.version < :leopard
 
   def install
     system "autoconf" if build.head?

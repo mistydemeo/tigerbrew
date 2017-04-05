@@ -13,7 +13,7 @@ class Chicken < Formula
   end
 
   # needs make 3.81 or newer
-  depends_on "homebrew/dupes/make" => :build if MacOS.version < :leopard
+  depends_on "make" => :build if MacOS.version < :leopard
 
   def install
     ENV.deparallelize

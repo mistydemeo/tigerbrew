@@ -26,7 +26,7 @@ class Mplayer < Formula
   option "without-osd", "Build without OSD"
 
   # dupe make needed because of "make: *** virtual memory exhausted.  Stop."
-  depends_on "homebrew/dupes/make" => :build if MacOS.version < :leopard
+  depends_on "make" => :build if MacOS.version < :leopard
   depends_on "yasm" => :build
   depends_on "libcaca" => :optional
 

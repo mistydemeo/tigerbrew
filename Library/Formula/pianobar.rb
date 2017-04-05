@@ -12,7 +12,7 @@ class Pianobar < Formula
     sha1 "2d79864486410f89d28ebe287bd13d5b14c6267a" => :leopard_altivec
   end
 
-  depends_on "homebrew/dupes/make" => :build if MacOS.version < :leopard
+  depends_on "make" => :build if MacOS.version < :leopard
   depends_on "pkg-config" => :build
   depends_on "libao"
   depends_on "mad"

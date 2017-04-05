@@ -35,7 +35,7 @@ class Moc < Formula
   depends_on "faad2" => :optional
   depends_on "timidity" => :optional
   depends_on "libmagic" => :optional
-  depends_on "homebrew/dupes/ncurses" => :optional
+  depends_on "ncurses" => :optional
 
   def install
     system "autoreconf", "-fvi" if build.head?

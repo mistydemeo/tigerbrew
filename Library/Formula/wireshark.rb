@@ -11,7 +11,7 @@ class Wireshark < Formula
     # Reported upstream: https://bugs.wireshark.org/bugzilla/show_bug.cgi?id=9290
     patch :DATA
 
-    depends_on "homebrew/dupes/libpcap" => :optional
+    depends_on "libpcap" => :optional
   end
 
   bottle do
@@ -26,7 +26,7 @@ class Wireshark < Formula
     mirror "https://1.eu.dl.wireshark.org/src/wireshark-1.99.9.tar.bz2"
     sha256 "be7ac8f8eb2c08e0e3d62da9f781db0dc5322a9cbcb024d3f86a66a06185e182"
 
-    depends_on "homebrew/dupes/libpcap" if MacOS.version == :mavericks
+    depends_on "libpcap" if MacOS.version == :mavericks
   end
 
   head do
