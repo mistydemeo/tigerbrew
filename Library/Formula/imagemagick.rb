@@ -54,7 +54,7 @@ class Imagemagick < Formula
   depends_on "fftw" => :optional
   depends_on "pango" => :optional
   depends_on "perl" => ["5.5", :optional]
-  depends_on "homebrew/dupes/zlib" if MacOS.version < :snow_leopard # for PNG support
+  depends_on "zlib" if MacOS.version < :snow_leopard # for PNG support
 
   needs :openmp if build.with? "openmp"
 

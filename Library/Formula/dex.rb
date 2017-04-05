@@ -12,8 +12,8 @@ class Dex < Formula
     sha256 "6f2d7d8c6a1e54dbe6d815915ac0eb0100fd68426b3d91ec9d04a5356ca0a48b" => :mountain_lion
   end
 
-  depends_on "homebrew/dupes/ncurses" => :optional
-  depends_on "homebrew/dupes/libiconv" => :optional
+  depends_on "ncurses" => :optional
+  depends_on "libiconv" => :optional
 
   def install
     args = ["prefix=#{prefix}",

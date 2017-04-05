@@ -5,7 +5,7 @@ class Ghi < Formula
   head "https://github.com/stephencelis/ghi.git"
   sha256 "1b58c7ec6e9339c44175808719694d7ee21cbd254d3a2e6d31a70d31027e9bea"
 
-  depends_on 'homebrew/dupes/less' if MacOS.version == :tiger
+  depends_on "less" if MacOS.version == :tiger
 
   def install
     bin.install "ghi"

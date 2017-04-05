@@ -16,7 +16,7 @@ class Bison < Formula
     depends_on "automake"
     # "It also requires GNU Autoconf, GNU m4 and Perl in order to run"
     depends_on "autoconf"
-    depends_on "homebrew/dupes/m4"
+    depends_on "m4"
   end
 
   keg_only :provided_by_osx, "Some formulae require a newer version of bison."
