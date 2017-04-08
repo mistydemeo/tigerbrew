@@ -118,6 +118,9 @@ class Cmake < Formula
       args << "--sphinx-man" << "--sphinx-build=#{buildpath}/sphinx/bin/sphinx-build"
     end
 
+    # gcc-4.2 does not find stdarg.h if the sysroot is set to an SDK
+    args << "--" << "-DCMAKE_OSX_SYSROOT=/"
+
     system "./bootstrap", *args
     system "make"
     system "make", "install"
