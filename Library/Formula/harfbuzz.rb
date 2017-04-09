@@ -22,6 +22,9 @@ class Harfbuzz < Formula
 
   option "with-cairo", "Build command-line utilities that depend on Cairo"
 
+  # ld64 is needed to lookup @loader_path/libicudata.*.dylib
+  depends_on :ld64
+
   depends_on "pkg-config" => :build
   depends_on "glib"
   depends_on "freetype"
