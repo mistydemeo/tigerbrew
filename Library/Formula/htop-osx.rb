@@ -15,6 +15,9 @@ class HtopOsx < Formula
   depends_on "automake" => :build
   depends_on "libtool" => :build
 
+  # Tiger does not have backtrace nor the 64-bits compatible kernel APIs
+  patch :DATA if MacOS.version < :leopard
+
   def install
     # Otherwise htop will segfault when resizing the terminal
     ENV.no_optimization if ENV.compiler == :clang
@@ -37,3 +40,93 @@ class HtopOsx < Formula
     assert $?.success?
   end
 end
+
+__END__
+diff --git a/CRT.c b/CRT.c
+index b1f60a0..f3f26f0 100644
+--- a/CRT.c
++++ b/CRT.c
+@@ -127,13 +127,8 @@ int CRT_colors[LAST_COLORELEMENT] = { 0 };
+ char* CRT_termType;
+ 
+ static void CRT_handleSIGSEGV(int signal) {
+-   void *array[10];
+-   size_t size;
+-   size = backtrace(array, 10);
+-
+    CRT_done();
+    fprintf(stderr, "htop " VERSION " aborted. Please report bug at http://htop.sf.net\n");
+-   backtrace_symbols_fd(array, size, STDERR_FILENO);
+    exit(1);
+ }
+ 
+diff --git a/ProcessList.c b/ProcessList.c
+index 0f4ebf3..ea7b191 100644
+--- a/ProcessList.c
++++ b/ProcessList.c
+@@ -737,12 +737,9 @@ ProcessList_decodeState( int st ) {
+ static bool
+ ProcessList_getSwap( ProcessList * this ) {
+   struct xsw_usage swap;
+-  size_t bufSize = 0;
++  size_t bufSize = sizeof( swap );
+   int mib[2] = { CTL_VM, VM_SWAPUSAGE };
+ 
+-  if ( sysctl( mib, 2, NULL, &bufSize, NULL, 0 ) < 0 )
+-    die( "Failure calling sysctl" );
+-
+   if ( sysctl( mib, 2, &swap, &bufSize, NULL, 0 ) < 0 )
+     die( "Failure calling sysctl" );
+ 
+diff --git a/smc.c b/smc.c
+index 058c809..5c6d432 100644
+--- a/smc.c
++++ b/smc.c
+@@ -160,39 +160,15 @@ SMCCall(int index,   SMCParamStruct* input,  SMCParamStruct* output)
+     if (conn == 0 && (result = SMCOpen()) != 0)
+         return result;
+ 
+-    result = IOConnectCallMethod(
+-                                          conn, 
+-                                          kSMCUserClientOpen, 
+-                                          NULL, 
+-                                          0, 
+-                                          NULL, 
+-                                          0, 
+-                                          NULL, 
+-                                          NULL, 
+-                                          NULL, 
+-                                          NULL);
+-    if (kIOReturnSuccess != result)
+-        return result;
+-     
+     size_t outSize = sizeof(SMCParamStruct);
+-    result = IOConnectCallStructMethod(
+-                                       conn, 
+-                                       index, 
+-                                       input, 
+-                                       sizeof(SMCParamStruct), 
+-                                       output, 
+-                                       &outSize);
+-    IOConnectCallMethod(
+-                        conn, 
+-                        kSMCUserClientClose, 
+-                        NULL, 
+-                        0, 
+-                        NULL, 
+-                        0, 
+-                        NULL, 
+-                        NULL, 
+-                        NULL, 
+-                        NULL);
++    result = IOConnectMethodStructureIStructureO(
++                                                 conn,
++						 index,
++						 sizeof(SMCParamStruct),
++						 &outSize,
++						 input,
++						 output);
++
+     return result;
+ }
+ 
