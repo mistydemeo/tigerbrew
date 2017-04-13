@@ -29,6 +29,12 @@ class Openssl < Formula
     url "https://trac.macports.org/export/144472/trunk/dports/devel/openssl/files/x86_64-asm-on-i386.patch"
     sha256 "98ffb308aa04c14db9c21769f1c5ff09d63eb85ce9afdf002598823c45edef6d"
   end
+
+  # Avoid SIGILL on MacOSX; allows testing the ppc library on Intel
+  patch do
+    url "https://github.com/openssl/openssl/commit/a91bfe2f55892f625d5a30171efa0fdfd2814abe.patch"
+    sha256 "43b8cabe76e40b4a91e8b0cdfd68aa581f934859d01cf8759c74a9c146dd982a"
+  end
   
   def arch_args
     {
@@ -50,6 +56,12 @@ class Openssl < Formula
     ]
     
     args
+  end
+
+  def lipo(input_dirs, output_dir, name)
+    args = input_dirs.map { |dir| "#{dir}/#{name}" }
+    args << "-output" << "#{output_dir}/#{name}"
+    system "lipo", "-create", *args
   end
 
   def install
@@ -94,25 +106,17 @@ class Openssl < Formula
 
     if build.universal?
       %w[libcrypto libssl].each do |libname|
-        system "lipo", "-create", "#{dirs.first}/#{libname}.1.0.0.dylib",
-                                  "#{dirs.last}/#{libname}.1.0.0.dylib",
-                       "-output", "#{lib}/#{libname}.1.0.0.dylib"
-        system "lipo", "-create", "#{dirs.first}/#{libname}.a",
-                                  "#{dirs.last}/#{libname}.a",
-                       "-output", "#{lib}/#{libname}.a"
+        lipo dirs, lib, "#{libname}.1.0.0.dylib"
+        lipo dirs, lib, "#{libname}.a"
       end
 
       Dir.glob("#{dirs.first}/engines/*.dylib") do |engine|
         libname = File.basename(engine)
-        system "lipo", "-create", "#{dirs.first}/engines/#{libname}",
-                                  "#{dirs.last}/engines/#{libname}",
-                       "-output", "#{lib}/engines/#{libname}"
+        engines = dirs.map { |dir| "#{dir}/engines" }
+        lipo engines, "#{lib}/engines", libname
       end
 
-      system "lipo", "-create", "#{dirs.first}/openssl",
-                                "#{dirs.last}/openssl",
-                     "-output", "#{bin}/openssl"
-
+      lipo dirs, bin, "openssl"
     end
   end
 
