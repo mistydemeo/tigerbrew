@@ -15,6 +15,13 @@ class Openssl < Formula
   option :universal
   option "without-test", "Skip build-time tests (not recommended)"
 
+  if MacOS.version == :tiger
+    # Tiger's ld defaults to multi-module dylibs, which do not support common symbols
+    depends_on :ld64
+    # Tiger's as cannot parse .comm pseudo-ops when the optional alignment argument is specified
+    depends_on "cctools" => :build
+  end
+
   depends_on "makedepend" => :build
   depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
 
@@ -42,8 +49,6 @@ class Openssl < Formula
       enable-cms
     ]
     
-    args << "no-asm" if MacOS.version == :tiger
-
     args
   end
 
