@@ -18,6 +18,11 @@ class Lsof < Formula
     sha256 "997d8c147070987350fc12078ce83cd6e9e159f757944879d7e4da374c030755"
   end
 
+  resource "libproc-headers" do
+    url "https://github.com/mistydemeo/libproc-tiger.git",
+      :revision => "3ab5d350e981e79bbfc0955dcf6cd4994a691ee9"
+  end
+
   def install
     ENV["LSOF_INCLUDE"] = "#{MacOS.sdk_path}/usr/include"
 
@@ -29,6 +34,23 @@ class Lsof < Formula
     ], "/usr/include", "#{MacOS.sdk_path}/usr/include"
 
     mv "00README", "README"
+
+    # Tiger's libproc doesn't ship a header; provide a custom one.
+    if MacOS.version < :leopard
+      (buildpath/"include").install resource("libproc-headers")
+
+      ENV.append_to_cflags "-I#{buildpath}/include"
+
+      # Configure is opinionated on where libproc headers are,
+      # and doesn't respect external CFLAGS.
+      inreplace "Configure" do |s|
+        s.gsub! "${LSOF_INCLUDE}/../local/include",
+                "#{buildpath}/include"
+        s.gsub! "${LSOF_TMP5}/sys/proc_info.h",
+                "#{buildpath}/include/sys/proc_info.h"
+      end
+    end
+
     system "./Configure", "-n", `uname -s`.chomp.downcase
     system "make"
     bin.install "lsof"
