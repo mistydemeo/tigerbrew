@@ -76,7 +76,7 @@ class Openssl < Formula
       system "perl", "./Configure", *(configure_args + arch_args[arch])
       system "make", "depend"
       system "make"
-      system "make", "test" if build.with?("test")
+      system "make", "test" if build.with?("test") && Hardware::CPU.can_run?(arch)
 
       if build.universal?
         cp "include/openssl/opensslconf.h", dir
