@@ -79,7 +79,11 @@ module MacCPUs
   end
 
   def bits
-    sysctl_bool("hw.cpu64bit_capable") ? 64 : 32
+    # hw.cpu64bit_capable is not available on Tiger, but it is
+    # possible to detect 64-bit CPUs by checking the ppc- and
+    # intel-specific flags, as shown in
+    # https://opensource.apple.com/source/xnu/xnu-1504.7.4/tools/tests/xnu_quick_test/misc.c?txt
+    sysctl_bool("hw.optional.64bitops") || sysctl_bool("hw.optional.x86_64") ? 64 : 32
   end
 
   def arch_32_bit
