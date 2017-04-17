@@ -64,7 +64,7 @@ class Harfbuzz < Formula
 
     system "./autogen.sh" if build.head?
     system "./configure", *args
-    system make_path, "install"
+    make "install"
   end
 
   test do
