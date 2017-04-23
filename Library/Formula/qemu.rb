@@ -1,9 +1,19 @@
 class Qemu < Formula
   desc "x86 and PowerPC Emulator"
   homepage "http://wiki.qemu.org"
-  url "http://wiki.qemu-project.org/download/qemu-2.4.0.1.tar.bz2"
-  sha256 "ecfe8b88037e41e817d72c460c56c6a0b573d540d6ba38b162d0de4fd22d1bdb"
   head "git://git.qemu-project.org/qemu.git"
+
+  stable do
+    url "http://wiki.qemu-project.org/download/qemu-2.4.0.1.tar.bz2"
+    sha256 "ecfe8b88037e41e817d72c460c56c6a0b573d540d6ba38b162d0de4fd22d1bdb"
+
+    # Upstream patch to "fix" pre-10.5 file handler UI... by removing the UI.
+    # The UI is gone on all OS X versions as of qemu 2.5.0; this patch can be removed then.
+    patch do
+      url "https://github.com/qemu/qemu/commit/365d7f3c7aacc789ead96b8eeb5ba5b0a8d93d48.patch"
+      sha256 "0b32b6af97d7079302ee4a76699ffe232b4121f5488079b8e757161170cea0d9"
+    end
+  end
 
   bottle do
     sha256 "c6bf8ef38e8af71b00a906a4578bd180d91dce2f3c2f092818690b52bfaac895" => :el_capitan
