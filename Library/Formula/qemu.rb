@@ -32,6 +32,9 @@ class Qemu < Formula
   depends_on "gtk+" => :optional
   depends_on "libssh2" => :optional
 
+  fails_with :gcc_4_0
+  fails_with :gcc
+
   # 3.2MB working disc-image file hosted on upstream's servers for people to use to test qemu functionality.
   resource "armtest" do
     url "http://wiki.qemu.org/download/arm-test-0.2.tar.gz"
