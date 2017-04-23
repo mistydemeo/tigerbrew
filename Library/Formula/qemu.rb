@@ -40,6 +40,8 @@ class Qemu < Formula
       --disable-guest-agent
     ]
 
+    # qemu will try to build 64-bit on 64-bit hardware, but we might not want that
+    args << "--cpu=#{Hardware::CPU.arch_32_bit}" unless MacOS.prefer_64_bit?
     args << (build.with?("sdl") ? "--enable-sdl" : "--disable-sdl")
     args << (build.with?("vde") ? "--enable-vde" : "--disable-vde")
     args << (build.with?("gtk+") ? "--enable-gtk" : "--disable-gtk")
