@@ -26,6 +26,7 @@ class Qemu < Formula
   depends_on "jpeg"
   depends_on "gnutls"
   depends_on "glib"
+  depends_on "libutil" if MacOS.version < :leopard
   depends_on "pixman"
   depends_on "vde" => :optional
   depends_on "sdl" => :optional
