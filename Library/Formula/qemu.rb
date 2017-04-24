@@ -52,10 +52,16 @@ class Qemu < Formula
       --prefix=#{prefix}
       --cc=#{ENV.cc}
       --host-cc=#{ENV.cc}
-      --enable-cocoa
       --disable-bsd-user
       --disable-guest-agent
     ]
+
+    # Cocoa UI uses features that require 10.5 or newer
+    if MacOS.version > :tiger
+      args << "--enable-cocoa"
+    else
+      args << "--disable-cocoa"
+    end
 
     # qemu will try to build 64-bit on 64-bit hardware, but we might not want that
     args << "--cpu=#{Hardware::CPU.arch_32_bit}" unless MacOS.prefer_64_bit?
