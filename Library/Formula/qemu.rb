@@ -45,8 +45,13 @@ class Qemu < Formula
   def install
     ENV["LIBTOOL"] = "glibtool"
 
-    # Needed for certain stdint macros on 10.4
-    ENV.append_to_cflags "-D__STDC_CONSTANT_MACROS" if MacOS.version < :leopard
+    if MacOS.version < :leopard
+      # Needed for certain stdint macros on 10.4
+      ENV.append_to_cflags "-D__STDC_CONSTANT_MACROS"
+
+      # Rez is provided in a normal path in later Xcodes
+      ENV.prepend_path "PATH", "/Developer/Tools"
+    end
 
     args = %W[
       --prefix=#{prefix}
