@@ -32,6 +32,9 @@ class Qemu < Formula
   def install
     ENV["LIBTOOL"] = "glibtool"
 
+    # Needed for certain stdint macros on 10.4
+    ENV.append_to_cflags "-D__STDC_CONSTANT_MACROS" if MacOS.version < :leopard
+
     args = %W[
       --prefix=#{prefix}
       --cc=#{ENV.cc}
