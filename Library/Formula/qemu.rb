@@ -12,6 +12,7 @@ class Qemu < Formula
     sha1 "27cc527a607c4c9d818e78eba2a0bd55ad5e52b9" => :mountain_lion
   end
 
+  depends_on "make" => :build if MacOS.version < :leopard
   depends_on "pkg-config" => :build
   depends_on "libtool" => :build
   depends_on "jpeg"
@@ -32,8 +33,14 @@ class Qemu < Formula
   def install
     ENV["LIBTOOL"] = "glibtool"
 
-    # Needed for certain stdint macros on 10.4
-    ENV.append_to_cflags "-D__STDC_CONSTANT_MACROS" if MacOS.version < :leopard
+    if MacOS.version < :leopard
+      # Needed for certain stdint macros on 10.4
+      ENV.append_to_cflags "-D__STDC_CONSTANT_MACROS"
+
+      # Make 3.80 does not support the `or` operator and has trouble evaluating `unnest-vars`
+      # See https://github.com/mistydemeo/tigerbrew/pull/496
+      ENV["MAKE"] = make_path
+    end
 
     args = %W[
       --prefix=#{prefix}
@@ -58,7 +65,7 @@ class Qemu < Formula
     args << (build.with?("libssh2") ? "--enable-libssh2" : "--disable-libssh2")
 
     system "./configure", *args
-    system "make", "V=1", "install"
+    make "V=1", "install"
   end
 
   test do
