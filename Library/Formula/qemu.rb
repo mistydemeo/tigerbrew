@@ -21,11 +21,13 @@ class Qemu < Formula
     sha256 "043f1c5b577fdfbaac516bc1ca909dee089cd591fd018b68c1298ab859170ef9" => :mavericks
   end
 
+  depends_on "make" => :build if MacOS.version < :leopard
   depends_on "pkg-config" => :build
   depends_on "libtool" => :build
   depends_on "jpeg"
   depends_on "gnutls"
   depends_on "glib"
+  depends_on "libutil" if MacOS.version < :leopard
   depends_on "pixman"
   depends_on "vde" => :optional
   depends_on "sdl" => :optional
@@ -44,14 +46,32 @@ class Qemu < Formula
   def install
     ENV["LIBTOOL"] = "glibtool"
 
+    if MacOS.version < :leopard
+      # Needed for certain stdint macros on 10.4
+      ENV.append_to_cflags "-D__STDC_CONSTANT_MACROS"
+
+      # Rez is provided in a normal path in later Xcodes
+      ENV.prepend_path "PATH", "/Developer/Tools"
+
+      # Make 3.80 does not support the `or` operator and has trouble evaluating `unnest-vars`
+      # See https://github.com/mistydemeo/tigerbrew/pull/496
+      ENV["MAKE"] = make_path
+    end
+
     args = %W[
       --prefix=#{prefix}
       --cc=#{ENV.cc}
       --host-cc=#{ENV.cc}
-      --enable-cocoa
       --disable-bsd-user
       --disable-guest-agent
     ]
+
+    # Cocoa UI uses features that require 10.5 or newer
+    if MacOS.version > :tiger
+      args << "--enable-cocoa"
+    else
+      args << "--disable-cocoa"
+    end
 
     # qemu will try to build 64-bit on 64-bit hardware, but we might not want that
     args << "--cpu=#{Hardware::CPU.arch_32_bit}" unless MacOS.prefer_64_bit?
@@ -61,7 +81,7 @@ class Qemu < Formula
     args << (build.with?("libssh2") ? "--enable-libssh2" : "--disable-libssh2")
 
     system "./configure", *args
-    system "make", "V=1", "install"
+    make "V=1", "install"
   end
 
   test do
