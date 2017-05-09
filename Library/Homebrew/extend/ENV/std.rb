@@ -200,7 +200,7 @@ module Stdenv
     self["CPATH"] = "#{HOMEBREW_PREFIX}/include"
     prepend "LDFLAGS", "-L#{HOMEBREW_PREFIX}/lib"
 
-    if (sdk = MacOS.sdk_path(version)) && !MacOS::CLT.installed?
+    if (sdk = MacOS.sdk_path(version)) && !MacOS::CLT.installed? || Hardware::CPU.ppc?
       # Extra setup to support Xcode 4.3+ without CLT.
       self["SDKROOT"] = sdk
       # Tell clang/gcc where system include's are:
