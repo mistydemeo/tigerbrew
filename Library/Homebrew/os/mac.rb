@@ -80,6 +80,8 @@ module OS
         opts << "#{Xcode.prefix}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX#{v}.sdk"
         # Xcode < 4.3 style
         opts << "/Developer/SDKs/MacOSX#{v}.sdk"
+        # Tiger-style
+        opts << "/Developer/SDKs/MacOSX#{v}u.sdk"
         @sdk_path[key] = opts.map { |a| Pathname.new(a) }.detect(&:directory?)
       end
     end
