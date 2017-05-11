@@ -82,6 +82,9 @@ fetch() {
   elif [[ -n "$(which sha256sum)" ]]
   then
     sha="$(sha256sum "$CACHED_LOCATION" | cut -d' ' -f1)"
+  elif [[ -f "$HOMEBREW_PREFIX/Library/Homebrew/vendor/sha256" ]]
+  then
+    sha = "$($HOMEBREW_PREFIX/Library/Homebrew/vendor/sha256 -256 $CACHED_LOCATION) | cut -d' ' -f4"
   else
     odie "Cannot verify the checksum ('shasum' or 'sha256sum' not found)!"
   fi
