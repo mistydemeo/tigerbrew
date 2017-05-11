@@ -424,7 +424,6 @@ module GitHub
 
     require "net/https"
 
-  def api_headers
     headers = {
       "User-Agent" => HOMEBREW_USER_AGENT_RUBY,
       "Accept"     => "application/vnd.github.v3+json"
