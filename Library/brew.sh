@@ -64,7 +64,7 @@ if [[ -z "$HOMEBREW_RUBY_PATH" ]]
 then
   if [[ -n "$HOMEBREW_OSX" ]]
   then
-    HOMEBREW_RUBY_PATH="/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby"
+    HOMEBREW_RUBY_PATH="/usr/bin/ruby"
   else
     HOMEBREW_RUBY_PATH="$(which ruby)"
   fi
