@@ -16,8 +16,8 @@ then
     ruby_URL="https://homebrew.bintray.com/bottles-portable/portable-ruby-2.0.0-p648.leopard_64.bottle.tar.gz"
     ruby_SHA="5c1240abe4be91c9774a0089c2a38a8ccfff87c009e8e5786730c659d5e633f7"
   else
-    ruby_URL=""
-    ruby_SHA=""
+    ruby_URL="https://archive.org/download/tigerbrew/portable-ruby%402.2-2.2.7.tiger.bottle.tar.gz"
+    ruby_SHA="297c31c02dca6dab1c31291699f389848edf0fd56b3626fb1fc6c895ed9e83ba"
   fi
 elif [[ -n "$HOMEBREW_LINUX" ]]
 then
