@@ -76,10 +76,10 @@ fetch() {
     trap - SIGINT
   fi
 
-  if [[ -n "$(which shasum)" ]]
+  if [[ -x "/usr/bin/shasum" || -x "/usr/local/bin/shasum" ]]
   then
     sha="$(shasum -a 256 "$CACHED_LOCATION" | cut -d' ' -f1)"
-  elif [[ -n "$(which sha256sum)" ]]
+  elif [[ -x "/usr/bin/sha256sum" || -x "/usr/local/bin/sha256sum" ]]
   then
     sha="$(sha256sum "$CACHED_LOCATION" | cut -d' ' -f1)"
   elif [[ -f "$HOMEBREW_PREFIX/Library/Homebrew/vendor/sha256" ]]
