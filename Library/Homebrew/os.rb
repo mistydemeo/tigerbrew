@@ -10,6 +10,7 @@ module OS
   ::OS_VERSION = ENV["HOMEBREW_OS_VERSION"]
 
   if OS.mac?
+    require "os/mac"
     ISSUES_URL = "https://github.com/mistydemeo/tigerbrew/wiki/troubleshooting"
     PATH_OPEN = "/usr/bin/open"
     # compatibility
