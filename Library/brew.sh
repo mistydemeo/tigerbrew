@@ -79,7 +79,7 @@ export HOMEBREW_CELLAR
 
 if [[ -n "$HOMEBREW_OSX" ]]
 then
-  if [[ "$('/usr/bin/xcode-select' --print-path)" = "/" ]]
+  if [[ -f "/usr/bin/xcode-select" ]] && [[ "$('/usr/bin/xcode-select' --print-path)" = "/" ]]
   then
     odie <<EOS
 Your xcode-select path is currently set to '/'.
