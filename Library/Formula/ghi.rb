@@ -7,6 +7,8 @@ class Ghi < Formula
 
   depends_on "less" if MacOS.version == :tiger
 
+  depends_on 'homebrew/dupes/less' if MacOS.version == :tiger
+
   def install
     bin.install "ghi"
     man1.install "man/ghi.1"
