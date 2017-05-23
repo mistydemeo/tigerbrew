@@ -8,6 +8,9 @@ class Miniupnpc < Formula
     cellar :any
   end
 
+  # /usr/bin/ld: -i argument: nstall_name must have a ':' between its symbol names
+  depends_on :ld64
+
   def install
     system "make", "INSTALLPREFIX=#{prefix}", "install"
   end
