@@ -18,6 +18,12 @@ then
   else
     ruby_URL="https://archive.org/download/tigerbrew/portable-ruby%402.2-2.2.7.tiger.bottle.tar.gz"
     ruby_SHA="297c31c02dca6dab1c31291699f389848edf0fd56b3626fb1fc6c895ed9e83ba"
+
+    curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.53.1.tiger.bottle.tar.gz"
+    curl_SHA="e4c142abd7720d0796415d232fd1577e5ab9005c65ad79d8b731ea30a27a051e"
+
+    openssl_URL="https://archive.org/download/tigerbrew/portable-openssl-1.0.2k.tiger.bottle.tar.gz"
+    openssl_SHA="fa04456498f6f6192d985e281b1a8a88effca01d0b8d6521f8f1f6de03ad6c4d"
   fi
 elif [[ -n "$HOMEBREW_LINUX" ]]
 then
