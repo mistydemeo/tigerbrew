@@ -4,7 +4,7 @@
 
 # Hide shellcheck complaint:
 # shellcheck source=/dev/null
-# source "$HOMEBREW_LIBRARY/Homebrew/utils/lock.sh"
+source "$HOMEBREW_LIBRARY/Homebrew/utils/lock.sh"
 
 VENDOR_DIR="$HOMEBREW_LIBRARY/Homebrew/vendor"
 
@@ -204,7 +204,7 @@ EOS
   VENDOR_VERSION="$(<"$VENDOR_DIR/portable-${VENDOR_NAME}-version")"
   CACHED_LOCATION="$HOMEBREW_CACHE/$(basename "$VENDOR_URL")"
 
-  # lock "vendor-install-$VENDOR_NAME"
+  lock "vendor-install-$VENDOR_NAME"
   fetch
   install
 }
