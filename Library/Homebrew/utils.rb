@@ -235,22 +235,15 @@ def quiet_system(cmd, *args)
 end
 
 def curl(*args)
-  brewed_curl = HOMEBREW_PREFIX/"opt/curl/bin/curl"
-  curl_certs = HOMEBREW_PREFIX/"opt/curl-ca-bundle"
-  use_curl = MacOS.version <= "10.6" && brewed_curl.exist? && curl_certs.exist?
-  curl = if use_curl
-    brewed_curl
-  else
-    Pathname.new "/usr/bin/curl"
-  end
+  curl = Pathname.new ENV["HOMEBREW_CURL"]
   raise "#{curl} is not executable" unless curl.exist? && curl.executable?
 
   flags = HOMEBREW_CURL_ARGS
   flags = flags.delete("#") if ARGV.verbose?
 
-  args = [flags, HOMEBREW_USER_AGENT, *args]
+  args = [flags, HOMEBREW_USER_AGENT_CURL, *args]
   # See https://github.com/Homebrew/homebrew/issues/6103
-  args << "--insecure" if MacOS.version < "10.6" unless use_curl
+  args << "--insecure" if MacOS.version < "10.6" if ENV["HOMEBREW_CURL"] == "/usr/bin/curl"
   args << "--verbose" if ENV["HOMEBREW_CURL_VERBOSE"]
   args << "--silent" unless $stdout.tty?
 
@@ -432,7 +425,7 @@ module GitHub
     require "net/https"
 
     headers = {
-      "User-Agent" => HOMEBREW_USER_AGENT,
+      "User-Agent" => HOMEBREW_USER_AGENT_RUBY,
       "Accept"     => "application/vnd.github.v3+json"
     }
 
