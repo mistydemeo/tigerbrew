@@ -22,14 +22,11 @@ then
     ruby_SHA="5c1240abe4be91c9774a0089c2a38a8ccfff87c009e8e5786730c659d5e633f7"
   fi
 
-  # Universal OpenSSL and Curl used on older OS Xs to download software and calculate sha256s
+  # Universal Curl used on older OS Xs to download software
   if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100900" ]]
   then
     curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.53.1.tiger.bottle.tar.gz"
     curl_SHA="e4c142abd7720d0796415d232fd1577e5ab9005c65ad79d8b731ea30a27a051e"
-
-    openssl_URL="https://archive.org/download/tigerbrew/portable-openssl-1.0.2k.tiger.bottle.tar.gz"
-    openssl_SHA="fa04456498f6f6192d985e281b1a8a88effca01d0b8d6521f8f1f6de03ad6c4d"
   fi
 elif [[ -n "$HOMEBREW_LINUX" ]]
 then

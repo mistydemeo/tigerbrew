@@ -188,8 +188,6 @@ fi
 
 # Hide shellcheck complaint:
 # shellcheck source=/dev/null
-source "$HOMEBREW_LIBRARY/Homebrew/utils/openssl.sh"
-setup-openssl-path
 source "$HOMEBREW_LIBRARY/Homebrew/utils/ruby.sh"
 setup-ruby-path
 source "$HOMEBREW_LIBRARY/Homebrew/utils/curl.sh"
