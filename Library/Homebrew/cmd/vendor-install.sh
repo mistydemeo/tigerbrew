@@ -57,6 +57,13 @@ fetch() {
     curl_args[${#curl_args[*]}]="--progress-bar"
   fi
 
+  # Certs are too old to recognize most modern websites; count on the
+  # sha256 hashes to ensure we're fetching the right thing.
+  if [[ "$HOMEBREW_CURL" = "/usr/bin/curl" && "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100900" ]]
+  then
+    curl_args[${#curl_args[*]}]="--insecure"
+  fi
+
   temporary_path="${CACHED_LOCATION}.incomplete"
 
   mkdir -p "$HOMEBREW_CACHE"
