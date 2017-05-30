@@ -92,10 +92,10 @@ fetch() {
     trap - SIGINT
   fi
 
-  if [[ -x "/usr/bin/shasum" || -x "/usr/local/bin/shasum" ]]
+  if [[ -x "$(which shasum)" ]]
   then
     sha="$(shasum -a 256 "$CACHED_LOCATION" | cut -d' ' -f1)"
-  elif [[ -x "/usr/bin/sha256sum" || -x "/usr/local/bin/sha256sum" ]]
+  elif [[ -x "$(which sha256sum)" ]]
   then
     sha="$(sha256sum "$CACHED_LOCATION" | cut -d' ' -f1)"
   elif [[ -x "$(which ruby)" ]]
