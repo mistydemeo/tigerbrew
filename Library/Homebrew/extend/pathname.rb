@@ -280,17 +280,8 @@ class Pathname
   end
 
   def sha256
-    if MacOS.version == :tiger
-      sha256_vendored
-    else
-      require "digest/sha2"
-      incremental_hash(Digest::SHA2)
-    end
-  end
-
-  def sha256_vendored
-    str = Open3.popen3("#{HOMEBREW_REPOSITORY}/Library/Homebrew/vendor/sha256", self.to_s) {|_, stdout, _| stdout.read.chomp}
-    str.match(/((\d|[a-z])+)/).captures.first
+    require "digest/sha2"
+    incremental_hash(Digest::SHA256)
   end
 
   def verify_checksum(expected)
