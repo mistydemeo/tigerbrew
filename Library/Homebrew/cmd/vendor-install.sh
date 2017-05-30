@@ -98,9 +98,9 @@ fetch() {
   elif [[ -x "/usr/bin/sha256sum" || -x "/usr/local/bin/sha256sum" ]]
   then
     sha="$(sha256sum "$CACHED_LOCATION" | cut -d' ' -f1)"
-  elif [[ -f "$HOMEBREW_PREFIX/Library/Homebrew/vendor/sha256" ]]
+  elif [[ -x "$(which ruby)" ]]
   then
-    sha="$($HOMEBREW_PREFIX/Library/Homebrew/vendor/sha256 $CACHED_LOCATION)"
+    sha="$(ruby -e "require 'digest/sha2'; digest = Digest::SHA256.new; File.open('$CACHED_LOCATION', 'rb') { |f| digest.update(f.read) }; puts digest.hexdigest")"
   else
     odie "Cannot verify the checksum ('shasum' or 'sha256sum' not found)!"
   fi
