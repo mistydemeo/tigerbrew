@@ -190,8 +190,11 @@ fi
 # shellcheck source=/dev/null
 source "$HOMEBREW_LIBRARY/Homebrew/utils/ruby.sh"
 setup-ruby-path
-source "$HOMEBREW_LIBRARY/Homebrew/utils/curl.sh"
-setup-curl-path
+if [[ -x "$HOMEBREW_LIBRARY/Homebrew/cmd/vendor-curl.sh" ]]
+then
+  source "$HOMEBREW_LIBRARY/Homebrew/utils/curl.sh"
+  setup-curl-path
+fi
 
 if [[ -n "$HOMEBREW_BASH_COMMAND" ]]
 then
