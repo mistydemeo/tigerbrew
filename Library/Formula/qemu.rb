@@ -10,8 +10,8 @@ class Qemu < Formula
     # Upstream patch to "fix" pre-10.5 file handler UI... by removing the UI.
     # The UI is gone on all OS X versions as of qemu 2.5.0; this patch can be removed then.
     patch do
-      url "https://github.com/qemu/qemu/commit/365d7f3c7aacc789ead96b8eeb5ba5b0a8d93d48.patch"
-      sha256 "0b32b6af97d7079302ee4a76699ffe232b4121f5488079b8e757161170cea0d9"
+      url "https://github.com/qemu/qemu/commit/365d7f3c7aacc789ead96b8eeb5ba5b0a8d93d48.patch?full_index=1"
+      sha256 "4e370ff6417f80aac46c84748800353caa5ec3a59ba9cdb1587077f5a68196f8"
     end
   end
 
