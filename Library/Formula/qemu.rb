@@ -1,4 +1,5 @@
 class Qemu < Formula
+  desc "x86 and PowerPC Emulator"
   homepage "http://wiki.qemu.org"
   # 2.2.1 is the last version to work pre-10.6
   # See: https://github.com/mistydemeo/tigerbrew/issues/523
