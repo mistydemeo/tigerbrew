@@ -6,12 +6,6 @@ class Qemu < Formula
   sha256 "4617154c6ef744b83e10b744e392ad111dd351d435d6563ce24d8da75b1335a0"
   head "git://git.qemu-project.org/qemu.git"
 
-  bottle do
-    sha1 "becc370764c6a1408112cd0bfd534842591cdda5" => :yosemite
-    sha1 "fbd6ec4d831ecf814a47a4dd1b0811223ecef5be" => :mavericks
-    sha1 "27cc527a607c4c9d818e78eba2a0bd55ad5e52b9" => :mountain_lion
-  end
-
   depends_on "make" => :build if MacOS.version < :leopard
   depends_on "pkg-config" => :build
   depends_on "libtool" => :build
