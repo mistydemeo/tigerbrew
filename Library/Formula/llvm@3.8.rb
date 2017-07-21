@@ -83,11 +83,6 @@ class LlvmAT38 < Formula
       sha256 "38dc8f2e12bd925dee2235f309068de5c60360d246071d72fbfbcb14981256f4"
     end
 
-    resource "9001-macports-libstdcxx-3.8.diff" do
-      url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/9001-macports-libstdcxx-3.8.diff"
-      sha256 "15346df7bbc1d54fab4c32afd61504e17baf5ee6044afa4b60046799894b060a"
-    end
-
     resource "999-patch-clang-3.8-Toolchains-default-always-libcxx.diff" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/999-patch-clang-3.8-Toolchains-default-always-libcxx.diff"
       sha256 "edba75fe8cd12ca80426e98bae8a140a923848fd791ef2c41173db4d1b18d25e"
