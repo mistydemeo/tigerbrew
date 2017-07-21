@@ -401,7 +401,7 @@ class LlvmAT38 < Formula
     # HUGE HACK
     # These patches cover several subprojects, so they can't use Homebrew's normal
     # patching mechanism.
-    resources.select { |r| r.url.end_with?(".diff") || r.url.end_with?(".patch") }
+    resources.select { |r| r.url.end_with?(".diff") || r.url.end_with?(".patch") }.each do
       buildpath.install res
       filename = res.name
       system "patch", "-p1", filename
