@@ -344,7 +344,7 @@ class LlvmAT38 < Formula
     resources.select { |r| r.url.end_with?(".diff") || r.url.end_with?(".patch") }.each do |res|
       buildpath.install res
       filename = res.name
-      system "patch -p1 < '#{res.name}'"
+      system "patch", "-p1", "-i", filename
       rm filename
     end
 
