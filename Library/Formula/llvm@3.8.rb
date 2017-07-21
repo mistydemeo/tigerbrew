@@ -343,6 +343,16 @@ class LlvmAT38 < Formula
     (buildpath/"tools/clang/tools/extra").install resource("clang-tools-extra")
     (buildpath/"projects/openmp").install resource("openmp")
 
+    # HUGE HACK
+    # These patches cover several subprojects, so they can't use Homebrew's normal
+    # patching mechanism.
+    resources.select { |r| r.url.end_with?(".diff") || r.url.end_with?(".patch") }.each do
+      buildpath.install res
+      filename = res.name
+      system "patch", "-p1", filename
+      rm filename
+    end
+
     ENV["REQUIRES_RTTI"] = "1"
 
     install_prefix = lib/"llvm-#{ver}"
@@ -396,16 +406,6 @@ class LlvmAT38 < Formula
       # include path as libc++ uses a custom build script, so just
       # symlink the needed header here.
       ln_s libcxxabi_buildpath/"include/cxxabi.h", libcxx_buildpath/"include"
-    end
-
-    # HUGE HACK
-    # These patches cover several subprojects, so they can't use Homebrew's normal
-    # patching mechanism.
-    resources.select { |r| r.url.end_with?(".diff") || r.url.end_with?(".patch") }.each do
-      buildpath.install res
-      filename = res.name
-      system "patch", "-p1", filename
-      rm filename
     end
 
     # Putting libcxx in projects only ensures that headers are installed.
