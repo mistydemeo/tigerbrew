@@ -326,13 +326,16 @@ class LlvmAT38 < Formula
     ENV.libcxx if ENV.compiler == :clang
 
     clang_buildpath = buildpath/"tools/clang"
-    compilerrt_buildpath = buildpath/"tools/compiler-rt"
+    compilerrt_buildpath = buildpath/"projects/compiler-rt"
     libcxx_buildpath = buildpath/"projects/libcxx"
     libcxxabi_buildpath = buildpath/"libcxxabi" # build failure if put in projects due to no Makefile
 
     clang_buildpath.install resource("clang")
     compilerrt_buildpath.install resource("compiler-rt")
-    compilerrt_buildpath.install resource("compilerrt_cmakelists")
+    resource("compilerrt_cmakelists").stage do
+      (compilerrt_buildpath/"CMakeLists.txt").unlink
+      mv resource("compilerrt_cmakelists").name, (compilerrt_buildpath/"CMakeLists.txt").to_s
+    end
     libcxx_buildpath.install resource("libcxx")
     (buildpath/"tools/polly").install resource("polly")
     (buildpath/"tools/clang/tools/extra").install resource("clang-tools-extra")
