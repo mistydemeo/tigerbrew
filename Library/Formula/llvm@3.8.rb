@@ -63,242 +63,242 @@ class LlvmAT38 < Formula
 
   # Giant batch of patches that fix builds on 10.4 and 10.5
   if MacOS.version < :snow_leopard
-    resource do
+    resource "4000-patch-clang-lib-codegen-targetinfo-ppc-38.diff" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/4000-patch-clang-lib-codegen-targetinfo-ppc-38.diff"
       sha256 "3ec44ba60d21611c54a49bb521a0e59ab3d77d728d806f4e5e28d3db0545e139"
     end
 
-    resource do
+    resource "4001-patch-clang-3.8-gccabi-sema.diff" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/4001-patch-clang-3.8-gccabi-sema.diff"
       sha256 "6d577bff4afce6d7978d17ae719a73717933e31da9f29a15ef4e46fd32cb630c"
     end
 
-    resource do
+    resource "4001-patch-llvm-Only-call-setpriority-PRIO_DARWIN_THREAD-0-PRIO_DARW.diff" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/4001-patch-llvm-Only-call-setpriority-PRIO_DARWIN_THREAD-0-PRIO_DARW.diff"
       sha256 "fd0ba715ed4914e88a947cff440845ee429f6486d44e1cbe485d8d1d475beda2"
     end
 
-    resource do
+    resource "4002-patch-clang-3.8-gccabi-mangler.diff" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/4002-patch-clang-3.8-gccabi-mangler.diff"
       sha256 "38dc8f2e12bd925dee2235f309068de5c60360d246071d72fbfbcb14981256f4"
     end
 
-    resource do
+    resource "9001-macports-libstdcxx-3.8.diff" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/9001-macports-libstdcxx-3.8.diff"
       sha256 "15346df7bbc1d54fab4c32afd61504e17baf5ee6044afa4b60046799894b060a"
     end
 
-    resource do
+    resource "999-patch-clang-3.8-Toolchains-default-always-libcxx.diff" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/999-patch-clang-3.8-Toolchains-default-always-libcxx.diff"
       sha256 "edba75fe8cd12ca80426e98bae8a140a923848fd791ef2c41173db4d1b18d25e"
     end
 
-    resource do
+    resource "0001-Set-the-Mach-O-CPU-Subtype-to-ppc7400-when-targeting.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0001-Set-the-Mach-O-CPU-Subtype-to-ppc7400-when-targeting.patch"
       sha256 "2419fa4c03d8b2b6adad520e559cf461d39c21c60b0d4ea6b7af00ff2046908b"
     end
 
-    resource do
+    resource "0002-Define-EXC_MASK_CRASH-and-MACH_EXCEPTION_CODES-if-th.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0002-Define-EXC_MASK_CRASH-and-MACH_EXCEPTION_CODES-if-th.patch"
       sha256 "45eedac790efdbbffcac270c7ab2458333937005b7b76af3d15e5277256412d2"
     end
 
-    resource do
+    resource "0003-MacPorts-Only-Update-install-targets-for-clang-subpo.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0003-MacPorts-Only-Update-install-targets-for-clang-subpo.patch"
       sha256 "74409cd8842be758d8ee6cb71a07b23a1b050c33aa715c1f2b6eacecdde9f79c"
     end
 
-    resource do
+    resource "0004-MacPorts-Only-Use-full-path-for-the-dylib-id-instead.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0004-MacPorts-Only-Use-full-path-for-the-dylib-id-instead.patch"
       sha256 "68595e9e850a55b64485f85aa758654c71024897fb4c7671b0aaf38f0fc1cd22"
     end
 
-    resource do
+    resource "0005-MacPorts-Only-Don-t-embed-the-deployment-target-in-t.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0005-MacPorts-Only-Don-t-embed-the-deployment-target-in-t.patch"
       sha256 "76cfa2fceb6a31430629f49e4c17e377970d37cc3a9fa49aba6c620bfb406276"
     end
 
-    resource do
+    resource "0006-MacPorts-Only-Skip-checking-for-python-in-configure.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0006-MacPorts-Only-Skip-checking-for-python-in-configure.patch"
       sha256 "e77899c8e30615dd0530db915eae491375008dc8ab41effabaf85a5c761537e1"
     end
 
-    resource do
+    resource "0007-Remove-override-of-raise-abort-and-__assert_rtn.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0007-Remove-override-of-raise-abort-and-__assert_rtn.patch"
       sha256 "c4798a35c187ddab3daed3316e87c63e54e02561dc33d861f55ee4fcca4e0737"
     end
 
-    resource do
+    resource "0008-CMake-Use-CMake-s-default-RPATH-for-the-unit-tests.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0008-CMake-Use-CMake-s-default-RPATH-for-the-unit-tests.patch"
       sha256 "281ac3a1413eb2f9b8a81d15750606f2fbd37175aa1b8f2fa81fe7dfcf3481b7"
     end
 
-    resource do
+    resource "0009-CMake-Fix-rpath-construction-for-out-of-tree-builds.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0009-CMake-Fix-rpath-construction-for-out-of-tree-builds.patch"
       sha256 "9b419798df9eb14956f8b11ed69cce51633c0886a4810fb43fb46e68ac89a72a"
     end
 
-    resource do
+    resource "0010-CMake-Make-CMAKE_INSTALL_RPATH-work-again.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0010-CMake-Make-CMAKE_INSTALL_RPATH-work-again.patch"
       sha256 "e3907117f8bca7c5917bd53d3c064d25d526d521afed042629cdd344d3edc811"
     end
 
-    resource do
+    resource "0011-CMake-Fix-llvm_setup_rpath-function.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/0011-CMake-Fix-llvm_setup_rpath-function.patch"
       sha256 "4b5e53c07611bb3c3ad9f501d92651617006d128c554ef461dc611c0a7473f82"
     end
 
-    resource do
+    resource "1001-MacPorts-Only-Prepare-clang-format-for-replacement-w.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/1001-MacPorts-Only-Prepare-clang-format-for-replacement-w.patch"
       sha256 "36ae75541f4a37bc1da59768d85f6710d5801d4d4122ede2823089435ff8678d"
     end
 
-    resource do
+    resource "1002-MacPorts-Only-Fall-back-on-xcodebuild-sdk-when-xcrun.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/1002-MacPorts-Only-Fall-back-on-xcodebuild-sdk-when-xcrun.patch"
       sha256 "d6fa1f75f239ba6e290cb5eccbf1a26f403a3831d056b29c9f17b84ffca30e68"
     end
 
-    resource do
+    resource "1003-MacPorts-Only-Fix-name-of-scan-view-executable-insid.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/1003-MacPorts-Only-Fix-name-of-scan-view-executable-insid.patch"
       sha256 "e5ea01023665cfdff884403d1c4fbde3219aed51fe0712c7935d1b39728f11ca"
     end
 
-    resource do
+    resource "1004-MacPorts-Only-Relocate-clang-resources-using-llvm-ve.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/1004-MacPorts-Only-Relocate-clang-resources-using-llvm-ve.patch"
       sha256 "9123a490e25f1ff0ac84496180d3f287d247b9ab45dc6ce4adc92c300311eba9"
     end
 
-    resource do
+    resource "1005-Default-to-ppc7400-for-OSX-10.5.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/1005-Default-to-ppc7400-for-OSX-10.5.patch"
       sha256 "b1d6bc9bed47a15d2e9aa9010a3dcdbcc55ca86e52f7fbe633259fe6773c891b"
     end
 
-    resource do
+    resource "1006-Only-call-setpriority-PRIO_DARWIN_THREAD-0-PRIO_DARW.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/1006-Only-call-setpriority-PRIO_DARWIN_THREAD-0-PRIO_DARW.patch"
       sha256 "e0575b6015a56992f10ea4bf10419fc7495cb1591d7214329fdf286048ba0ca4"
     end
 
-    resource do
+    resource "1007-Default-to-fragile-ObjC-runtime-when-targeting-darwi.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/1007-Default-to-fragile-ObjC-runtime-when-targeting-darwi.patch"
       sha256 "637dd035174e5ce5871f08d004efbd80a32a34dfd39d1ba9c0a2b8c2eee0957f"
     end
 
-    resource do
+    resource "1008-Fixup-libstdc-header-search-paths-for-older-versions.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/1008-Fixup-libstdc-header-search-paths-for-older-versions.patch"
       sha256 "a51d4633dc88ab5adbbeb705e60f9c55dbabb3b9e26b40268aab22686fcfb70f"
     end
 
-    resource do
+    resource "1009-Darwin-Stop-linking-libclang_rt.eprintf.a.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/1009-Darwin-Stop-linking-libclang_rt.eprintf.a.patch"
       sha256 "3663d5e4e16447f4438cf02dd4eba5473dd10fa93759e38ea7a7eb239b6c0882"
     end
 
-    resource do
+    resource "2001-MacPorts-Only-Comment-out-SL-cctools-workaround.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2001-MacPorts-Only-Comment-out-SL-cctools-workaround.patch"
       sha256 "09de02d6acba21e51a34f95be19ff3030bdda9e7921e884159217bc2434699df"
     end
 
-    resource do
+    resource "2002-Update-CheckArches-to-fallback-on-Intel-ppc-if-ld-v-.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2002-Update-CheckArches-to-fallback-on-Intel-ppc-if-ld-v-.patch"
       sha256 "1bdf6a86e767ab66467aac2b79c49879a5e8325eba98d26faa1803546e582a96"
     end
 
-    resource do
+    resource "2003-Fall-back-on-xcodebuild-sdk-when-xcrun-sdk-is-not-su.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2003-Fall-back-on-xcodebuild-sdk-when-xcrun-sdk-is-not-su.patch"
       sha256 "e2c98df8a0afc7710ce077094e05eb9a8c2bc04fcd1b9333eb179c73448ac98a"
     end
 
-    resource do
+    resource "2004-On-darwin-build-ppc-slices-of-the-compiler-runtime-i.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2004-On-darwin-build-ppc-slices-of-the-compiler-runtime-i.patch"
       sha256 "5ee665321f4f62bef6aa484c71f1204836b790007d0392f19d1fd95a18c0b632"
     end
 
-    resource do
+    resource "2005-MacPorts-Only-Don-t-build-x86_64h-slice-of-compiler-.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2005-MacPorts-Only-Don-t-build-x86_64h-slice-of-compiler-.patch"
       sha256 "187323919a85479fa6aaee323169456a05a9ab39e83219efa1d440481858c47c"
     end
 
-    resource do
+    resource "2006-MacPorts-Only-Fix-regression-introduced-when-fixing-.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2006-MacPorts-Only-Fix-regression-introduced-when-fixing-.patch"
       sha256 "669cf7dd9eefa8a2c00ec890f4b3be6de51f64661fbb4452f518223b42676285"
     end
 
-    resource do
+    resource "2007-MacPorts-Only-Don-t-check-for-the-macosx.internal-SD.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2007-MacPorts-Only-Don-t-check-for-the-macosx.internal-SD.patch"
       sha256 "9ea9586bc82d7ef5428c5435504f132bb009876f9accd9ba3b2065ed7862c2b7"
     end
 
-    resource do
+    resource "2008-CMake-NFC-Move-macro-definitions-out-of-config-ix.cm.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2008-CMake-NFC-Move-macro-definitions-out-of-config-ix.cm.patch"
       sha256 "9577ccce75140887e7e3f7ac203414ceb1d8bb8956e0ad88e9294b19c386cbda"
     end
 
-    resource do
+    resource "2009-CMake-Adding-some-missing-CMake-includes.-NFC.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2009-CMake-Adding-some-missing-CMake-includes.-NFC.patch"
       sha256 "f7f4b2a1654464ca52336e3852e17f0d130a7f804b08e8692c5de4fc1d4ed192"
     end
 
-    resource do
+    resource "2010-CMake-Adding-another-missing-include.-NFC.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2010-CMake-Adding-another-missing-include.-NFC.patch"
       sha256 "0cfb1d89bcd4c2a54cccf2350c34ddd5eeda1aa376b7d377187f9c2f2fb782b2"
     end
 
-    resource do
+    resource "2011-CMake-NFC.-Add-support-for-testing-the-compiler-with.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2011-CMake-NFC.-Add-support-for-testing-the-compiler-with.patch"
       sha256 "9bab589b168d1b5e428ff41f1ae2cc7d44b22c9fe25c73ad9b0b75e45055cf2b"
     end
 
-    resource do
+    resource "2012-Add-missing-include.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/2012-Add-missing-include.patch"
       sha256 "792e09f615e3873854f3071d8a2deb3a9b3717664be62bcb110285cec4c66479"
     end
 
-    resource do
+    resource "3001-buildit-build-fix-for-Leopard.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/3001-buildit-build-fix-for-Leopard.patch"
       sha256 "f2e8ed5a18c9995182584c2b904f92eff67efb62a88d7bc8ea31738fac6ad2d8"
     end
 
-    resource do
+    resource "3002-buildit-Set-compatibility-version-to-RC_ProjectSourc.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/3002-buildit-Set-compatibility-version-to-RC_ProjectSourc.patch"
       sha256 "c7fda46fac6f164d39b5d5a364c533f890a4d3d3035585e8f44d13765609531f"
     end
 
-    resource do
+    resource "3003-Fix-local-and-iterator-when-building-with-Lion-and-n.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/3003-Fix-local-and-iterator-when-building-with-Lion-and-n.patch"
       sha256 "9d2ff1cb46c504eccd6656a4495b518ea5942a254c4f2bfa8a64f0e72b8c1148"
     end
 
-    resource do
+    resource "3004-Fix-missing-long-long-math-prototypes-when-using-the.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/3004-Fix-missing-long-long-math-prototypes-when-using-the.patch"
       sha256 "4e5b21353303ce3ca4ce718c68bc017e84f6c5177d732c04b95da496ca0f214d"
     end
 
-    resource do
+    resource "3005-implement-atomic-using-mutex-lock_guard-for-64b-ops-.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/3005-implement-atomic-using-mutex-lock_guard-for-64b-ops-.patch"
       sha256 "136a400af5ff3d686ee95dd156c01cde7c678f04b132414c12c9d8b7adff2c39"
     end
 
-    resource do
+    resource "compiler_rt-toolchain.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/compiler_rt-toolchain.patch"
       sha256 "5ddabde13f5563171eec96b530e606a4a3193a1546ae7f25aafb6998f426d92b"
     end
 
-    resource do
+    resource "leopard-no-asan.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/leopard-no-asan.patch"
       sha256 "72ff067d3d30ec3f7e86221d40f2e0b39b36ed70c7815b7e1b9729b85e4dc64b"
     end
 
-    resource do
+    resource "leopard-no-blocks.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/leopard-no-blocks.patch"
       sha256 "1bc301ad8180be3b5ef8fca513e6f3534112d531bb8cfd6282a583cf438afe0f"
     end
 
-    resource do
+    resource "llvm-skip-unittests.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/llvm-skip-unittests.patch"
       sha256 "2ba50b6256d5630ffcb6aaf3a8611f6c77e5653a951f3e595beb3bc9d85ca5c3"
     end
 
-    resource do
+    resource "openmp-locations.patch" do
       url "https://github.com/kencu/LeopardPorts/raw/0a0fcace43631235c274410d5664c053cb462ea9/lang/llvm-3.8/files/openmp-locations.patch"
       sha256 "ed079cf0a66ba6d60b96115b22b9418d1e27839c07719771b4ecd3e04979dbb3"
     end
@@ -397,9 +397,9 @@ class LlvmAT38 < Formula
     # HUGE HACK
     # These patches cover several subprojects, so they can't use Homebrew's normal
     # patching mechanism.
-    resources.select { |r| r.url.end_with? /\.(diff|patch)/ }.each do |resource|
-      buildpath.install resource
-      filename = File.basename(resource.url)
+    resources.select { |r| r.url.end_with? /\.(diff|patch)/ }.each do |res|
+      buildpath.install res
+      filename = res.name
       system "patch", "-p1", filename
       rm filename
     end
