@@ -333,8 +333,9 @@ class LlvmAT38 < Formula
     clang_buildpath.install resource("clang")
     compilerrt_buildpath.install resource("compiler-rt")
     resource("compilerrt_cmakelists").stage do
-      (compilerrt_buildpath/"CMakeLists.txt").unlink
-      mv resource("compilerrt_cmakelists").name, (compilerrt_buildpath/"CMakeLists.txt").to_s
+      target = (compilerrt_buildpath/"lib/builtins/CMakeLists.txt")
+      target.unlink
+      mv File.basename(resource("compilerrt_cmakelists").url), target.to_s
     end
     libcxx_buildpath.install resource("libcxx")
     (buildpath/"tools/polly").install resource("polly")
