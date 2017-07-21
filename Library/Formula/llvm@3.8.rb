@@ -304,7 +304,11 @@ class LlvmAT38 < Formula
     end
   end
 
-  depends_on "cctools" => :build
+  if MacOS.version < :snow_leopard
+    depends_on "cctools" => :build
+    depends_on "python" => :build
+  end
+
   depends_on "gnu-sed" => :build
   depends_on "gmp"
   depends_on "libffi"
