@@ -21,15 +21,9 @@ class Gcc6 < Formula
 
   desc "The GNU Compiler Collection"
   homepage "https://gcc.gnu.org"
-  url "https://ftpmirror.gnu.org/gcc/gcc-6.2.0/gcc-6.2.0.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/gcc/gcc-6.2.0/gcc-6.2.0.tar.bz2"
-  sha256 "9944589fc722d3e66308c0ce5257788ebd7872982a718aa2516123940671b7c5"
-
-  bottle do
-    sha256 "c30c0898b73794434af820725d3b69d4f26e58357c6d2867028527ce31273b58" => :sierra
-    sha256 "b3b138b29d6705f85bf3d558795bd901c53929ac7935879ff4b7778f7f7b84c7" => :el_capitan
-    sha256 "0ffe5b97c65df653ea664514880fd72c01cf516b1409655a8c03e48a42275050" => :yosemite
-  end
+  url "https://ftp.gnu.org/gnu/gcc/gcc-6.4.0/gcc-6.4.0.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gcc/gcc-6.4.0/gcc-6.4.0.tar.xz"
+  sha256 "850bf21eafdfe5cd5f6827148184c08c4a0852a37ccf36ce69855334d2c914d4"
 
   # GCC's Go compiler is not currently supported on Mac OS X.
   # See: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=46986
