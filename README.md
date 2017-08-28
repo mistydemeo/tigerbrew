@@ -22,7 +22,6 @@ What Packages Are Available?
 ----------------------------
 1. You can [browse the Formula directory on GitHub][formula].
 2. Or type `brew search` for a list.
-3. Or use [`brew desc`][brew-desc] to browse packages from the command line.
 
 More Documentation
 ------------------
