@@ -48,7 +48,7 @@ Many of the formulae in the repository have been tested, but there are still man
 Credits
 -------
 
-Homebrew is originally by [mxcl][mxcl], a splendid chap. This fork is by @mistydemeo, incorporating some code originally written by @sceaga.
+Homebrew is originally by [mxcl][mxcl], a splendid chap. This fork is by [mistydemeo](https://github.com/mistydemeo), incorporating some code originally written by @sceaga.
 
 License
 -------
