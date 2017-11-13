@@ -27,17 +27,17 @@ class Ruby < Formula
   depends_on "openssl"
   depends_on :x11 if build.with? "tcltk"
 
-  if MacOS.version <= :leopard
+  if true# MacOS.version <= :leopard
     # fix for https://bugs.ruby-lang.org/issues/11054
     patch do
-      url "https://github.com/ruby/ruby/commit/1c80c388d5bd48018c419a2ea3ed9f7b7514dfa3.patch"
-      sha256 "b53661f3077f10af2446f6faf5870d476471290859b7058cd2661e6e6ca24e8e"
+      url "https://github.com/ruby/ruby/commit/1c80c388d5bd48018c419a2ea3ed9f7b7514dfa3.patch?full_index=1"
+      sha256 "8ba0a24a36702d2cbc94aa73cb6f0b11793348b0158c11c8608e073c71601bb5"
     end
 
     # fix for https://bugs.ruby-lang.org/issues/13247
     patch do
-      url "https://github.com/ruby/ruby/commit/9e1a9858c84142e32b1bc51b23fa06a025f98b46.patch"
-      sha256 "6bae61c482b59771613c281def4826cd32fa5d9fbe8d0f4935b50896b65fe5fe"
+      url "https://github.com/ruby/ruby/commit/9e1a9858c84142e32b1bc51b23fa06a025f98b46.patch?full_index=1"
+      sha256 "300f13461385804ddfb314d9b0880bb47ad4f53f48209681d193a800418c31e6"
     end
 
     # fix for ext/fiddle/libffi-3.2.1/src/x86/win32.S
@@ -45,9 +45,9 @@ class Ruby < Formula
     patch :DATA
   end
 
-  fails_with :llvm do
-    build 2326
-  end
+  # fails_with :llvm do
+  #   build 2326
+  # end
 
   def install
     # mcontext types had a member named `ss` instead of `__ss`
