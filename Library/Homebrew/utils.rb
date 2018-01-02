@@ -243,7 +243,7 @@ def curl(*args)
 
   args = [flags, HOMEBREW_USER_AGENT_CURL, *args]
   # See https://github.com/Homebrew/homebrew/issues/6103
-  args << "--insecure" if MacOS.version < "10.6" if ENV["HOMEBREW_CURL"] == "/usr/bin/curl"
+  args << "--insecure" if MacOS.version <= "10.6" if ENV["HOMEBREW_CURL"] == "/usr/bin/curl"
   args << "--verbose" if ENV["HOMEBREW_CURL_VERBOSE"]
   args << "--silent" unless $stdout.tty?
 
