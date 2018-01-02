@@ -27,6 +27,9 @@ class Doxygen < Formula
   depends_on "qt" if build.with? "doxywizard"
   depends_on "llvm" => "with-clang" if build.with? "libclang"
 
+  # /Developer/SDKs/MacOSX10.4u.sdk/usr/include/stdarg.h:4:25: error: stdarg.h: No such file or directory
+  fails_with :gcc if MacOS.version == :tiger
+
   def install
     # This flag was introduced after GCC 4.2.
     # This is necessary on Tiger, since we don't have superenv yet.
