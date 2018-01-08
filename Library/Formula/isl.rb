@@ -7,14 +7,12 @@ class Isl < Formula
   # and update isl_version() function accordingly.  All other names will
   # result in isl_version() function returning "UNKNOWN" and hence break
   # package detection.
-  url "http://isl.gforge.inria.fr/isl-0.14.1.tar.xz"
-  sha256 "8882c9e36549fc757efa267706a9af733bb8d7fe3905cbfde43e17a89eea4675"
+  url "http://isl.gforge.inria.fr/isl-0.18.tar.xz"
+  mirror "https://mirrors.ocf.berkeley.edu/debian/pool/main/i/isl/isl_0.18.orig.tar.xz"
+  sha256 "0f35051cc030b87c673ac1f187de40e386a1482a0cfdf2c552dd6031b307ddc4"
 
   bottle do
     cellar :any
-    sha256 "5eaa78e68bc8d075525deb825a6eb06c2fb50a17b7dd4396ad0ac55de8aa3756" => :tiger_altivec
-    sha256 "9b9a2b0962c3ebfcabe04a59ea55b4ca27c78399f8da2b13b9e87d5b6af204c3" => :leopard_g3
-    sha256 "2aec4bfbb99d9d8f8946f38ba7a047a51ad6cae6332699305dca79f702ca322a" => :leopard_altivec
   end
 
   head do
@@ -34,7 +32,7 @@ class Isl < Formula
                           "--prefix=#{prefix}",
                           "--with-gmp=system",
                           "--with-gmp-prefix=#{Formula["gmp"].opt_prefix}"
-    system "make"
+    system "make", "check"
     system "make", "install"
     (share/"gdb/auto-load").install Dir["#{lib}/*-gdb.py"]
   end
@@ -50,7 +48,7 @@ class Isl < Formula
         return 0;
       }
     EOS
-    system ENV.cc, "test.c", "-lisl", "-o", "test"
+    system ENV.cc, "test.c", "-L#{lib}", "-lisl", "-o", "test"
     system "./test"
   end
 end
