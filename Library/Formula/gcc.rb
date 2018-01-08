@@ -21,15 +21,9 @@ class Gcc < Formula
 
   desc "GNU compiler collection"
   homepage "https://gcc.gnu.org"
-  url "http://ftpmirror.gnu.org/gcc/gcc-5.2.0/gcc-5.2.0.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/gcc/gcc-5.2.0/gcc-5.2.0.tar.bz2"
-  sha256 "5f835b04b5f7dd4f4d2dc96190ec1621b8d89f2dc6f638f9f8bc1b1014ba8cad"
-
-  bottle do
-    sha256 "7786105aba6e06111cadb876900ad0f5613ad0b87e699bb81e66baa88d1279c9" => :tiger_altivec
-    sha256 "aa1e0a6738594a14f270726501de6bd65628cc0f331af458c396e0728744fc1e" => :leopard_g3s
-    sha256 "2e7f1d7a9600a42b88672f7719dd76257acfaa6994e11f762ccc0234c84bd905" => :leopard_altivec
-  end
+  url "https://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz"
+  sha256 "1cf7adf8ff4b5aa49041c8734bbcf1ad18cc4c94d0029aae0f4e48841088479a"
 
   option "with-java", "Build the gcj compiler"
   option "with-all-languages", "Enable all compilers and languages, except Ada"
