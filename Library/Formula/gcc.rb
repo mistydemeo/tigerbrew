@@ -68,8 +68,8 @@ class Gcc < Formula
   # Fix an Intel-only build failure on 10.4
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64184
   patch do
-    url "https://gist.githubusercontent.com/anonymous/c0eff2ff4bfbf555505968e21311a38f/raw/39e96539676556e87c7461a382b73088c0b5ba28/-"
-    sha256 "c10779e463fe3c77c574225083a9f7a12638f6b0cb278e8c3d6c40bf9d9c2762"
+    url "https://gist.githubusercontent.com/mistydemeo/9c5b8dadd892ba3197a9cb431295cc83/raw/582d1ba135511272f7262f51a3f83c9099cd891d/sysdep-unix-tiger-intel.patch"
+    sha256 "17afaf7daec1dd207cb8d06a7e026332637b11e83c3ad552b4cd32827f16c1d8"
   end
 
   def install
