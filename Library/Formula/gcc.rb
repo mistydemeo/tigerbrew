@@ -65,13 +65,6 @@ class Gcc < Formula
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64089
   patch :DATA
 
-  # Fix build with make 3.80
-  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66947
-  patch do
-    url "https://gist.githubusercontent.com/mistydemeo/f5508247c1171edcbddcd95671137bdb/raw/249976f5b22ace26f2373f6fad12c0a1c0e22df4/libgcc-fix-make380.patch"
-    sha256 "fc5b45bb2771a6b35b0283412a50d7cb13ae982ed5607b27232a976a48078134"
-  end
-
   # Fix an Intel-only build failure on 10.4
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64184
   patch do
