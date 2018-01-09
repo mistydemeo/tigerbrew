@@ -72,6 +72,14 @@ class Gcc < Formula
     sha256 "17afaf7daec1dd207cb8d06a7e026332637b11e83c3ad552b4cd32827f16c1d8"
   end
 
+  # This patch fixes the build on PPC
+  # https://gcc.gnu.org/ml/gcc-testresults/2017-01/msg02971.html
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80865
+  patch :p0 do
+    url "https://raw.githubusercontent.com/macports/macports-ports/master/lang/gcc7/files/patch-darwin-ppc-2017-01-msg02971.diff"
+    sha256 "98dfb57c9d08430c9656b2afa8967937c3f146b9bb21ac79129ac1cb2c9a4642"
+  end
+
   def install
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
