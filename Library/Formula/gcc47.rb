@@ -83,6 +83,10 @@ class Gcc47 < Formula
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
 
+    # Otherwise libstdc++ will be incorrectly tagged with cpusubtype 10 (G4e)
+    # https://github.com/mistydemeo/tigerbrew/issues/538
+    ENV.append_to_cflags "-force_cpusubtype_ALL" if Hardware::CPU.family == :g3
+
     if build.with? "all-languages"
       # Everything but Ada, which requires a pre-existing GCC Ada compiler
       # (gnat) to bootstrap. GCC 4.6.0 add go as a language option, but it is
