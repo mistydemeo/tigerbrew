@@ -89,6 +89,10 @@ class Gcc48 < Formula
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
 
+    # Otherwise libstdc++ will be incorrectly tagged with cpusubtype 10 (G4e)
+    # https://github.com/mistydemeo/tigerbrew/issues/538
+    ENV.append_to_cflags "-force_cpusubtype_ALL" if Hardware::CPU.family == :g3
+
     if MacOS.version < :leopard
       ENV["AS"] = ENV["AS_FOR_TARGET"] = "#{Formula["cctools"].bin}/as"
     end
