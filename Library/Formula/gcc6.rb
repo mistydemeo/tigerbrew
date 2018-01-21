@@ -123,7 +123,7 @@ class Gcc6 < Formula
 
     # "Building GCC with plugin support requires a host that supports
     # -fPIC, -shared, -ldl and -rdynamic."
-    args << "--enable-plugin" if MacOS.version > :tiger
+    args << "--enable-plugin" if MacOS.version > :leopard
 
     # The pre-Mavericks toolchain requires the older DWARF-2 debugging data
     # format to avoid failure during the stage 3 comparison of object files.

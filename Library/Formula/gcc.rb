@@ -116,7 +116,7 @@ class Gcc < Formula
 
     # "Building GCC with plugin support requires a host that supports
     # -fPIC, -shared, -ldl and -rdynamic."
-    args << "--enable-plugin" if MacOS.version > :tiger
+    args << "--enable-plugin" if MacOS.version > :leopard
 
     # Otherwise make fails during comparison at stage 3
     # See: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=45248
