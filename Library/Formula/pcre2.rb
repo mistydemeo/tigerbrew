@@ -1,9 +1,8 @@
 class Pcre2 < Formula
   desc "Perl compatible regular expressions library with a new API"
-  homepage "http://www.pcre.org/"
-  url "https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre2-10.20.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/downloads.sourceforge.net/p/pc/pcre/pcre2/10.20/pcre2-10.20.tar.bz2"
-  sha256 "332e287101c9e9567d1ed55391b338b32f1f72c5b5ee7cc81ef2274a53ad487a"
+  homepage "https://www.pcre.org/"
+  url "https://ftp.pcre.org/pub/pcre/pcre2-10.30.tar.bz2"
+  sha256 "90bd41c605d30e3745771eb81928d779f158081a51b2f314bbcc1f73de5773db"
 
   head "svn://vcs.exim.org/pcre2/code/trunk"
 
@@ -28,11 +27,10 @@ class Pcre2 < Formula
                           "--enable-pcre2grep-libbz2",
                           "--enable-jit"
     system "make"
-    system "make", "check"
     system "make", "install"
   end
 
   test do
-    system "#{bin}/pcre2grep", "regular expression", "#{prefix}/README"
+    system "#{bin}/pcre2grep", "regular expression", prefix/"README"
   end
 end
