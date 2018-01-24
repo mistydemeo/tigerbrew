@@ -16,6 +16,7 @@ class Fish < Formula
     depends_on "libtool" => :build
   end
 
+  needs :cxx11
   depends_on "pcre2"
 
   def install
