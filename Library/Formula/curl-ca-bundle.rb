@@ -2,6 +2,7 @@ class CurlCaBundle < Formula
   homepage "http://curl.haxx.se/docs/caextract.html"
   url "https://curl.haxx.se/ca/cacert-2017-01-18.pem",
     :using => :nounzip
+  mirror "https://ia902307.us.archive.org/31/items/tigerbrew/cacert-2017-01-18.pem"
   sha256 "e62a07e61e5870effa81b430e1900778943c228bd7da1259dd6a955ee2262b47"
   version "2017-01-18"
 
