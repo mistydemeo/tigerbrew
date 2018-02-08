@@ -14,10 +14,10 @@ class Gmp < Formula
 
   def arch_to_string_map
     @arch_map ||= {
-      :g3  => "750",
-      :g4  => "7400",
-      :g4e => "7450",
-      :g5  => "970"
+      :g3  => "powerpc750",
+      :g4  => "powerpc7400",
+      :g4e => "powerpc7450",
+      :g5  => "powerpc970"
     }
   end
 
@@ -30,7 +30,7 @@ class Gmp < Formula
     if build.bottle?
       bottle_sym = ARGV.bottle_arch || Hardware.oldest_cpu
       arch = arch_to_string_map.fetch(bottle_sym, "core2")
-      args << "--build=powerpc#{arch}-apple-darwin#{`uname -r`.to_i}"
+      args << "--build=#{arch}-apple-darwin#{`uname -r`.to_i}"
     end
 
     if build.build_32_bit? || !MacOS.prefer_64_bit?
