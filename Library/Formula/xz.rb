@@ -3,7 +3,7 @@
 class Xz < Formula
   desc "General-purpose data compression with high compression ratio"
   homepage "http://tukaani.org/xz/"
-  url "https://fossies.org/linux/misc/xz-5.2.1.tar.gz"
+  url "http://download.openpkg.org/components/cache/xz/xz-5.2.1.tar.gz"
   mirror "http://tukaani.org/xz/xz-5.2.1.tar.gz"
   sha256 "b918b6648076e74f8d7ae19db5ee663df800049e187259faf5eb997a7b974681"
 
