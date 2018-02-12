@@ -12,10 +12,10 @@ class Ppl011 < Formula
     sha256 "f257cca9615ae1fb0a239c1fbf4f505dbcba139744999a9c8d7f512b5dbb7fa4" => :mountain_lion
   end
 
-  depends_on "homebrew/dupes/m4" => :build if MacOS.version < :leopard
+  depends_on "m4" => :build if MacOS.version < :leopard
   depends_on "gmp4"
 
-  conflicts_with "ppl10", :because => "They install the same binaries"
+  conflicts_with "ppl", :because => "They install the same binaries"
 
   # https://www.cs.unipr.it/mantis/view.php?id=596
   # https://github.com/Homebrew/homebrew/issues/27431
