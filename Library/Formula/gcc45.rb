@@ -133,7 +133,7 @@ class Gcc45 < Formula
 
     # "Building GCC with plugin support requires a host that supports
     # -fPIC, -shared, -ldl and -rdynamic."
-    args << "--enable-plugin" if MacOS.version > :tiger
+    args << "--enable-plugin" if MacOS.version > :tiger && Hardware.cpu_type == :intel
 
     # Otherwise make fails during comparison at stage 3
     # See: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=45248
@@ -174,7 +174,7 @@ class Gcc45 < Formula
       system "make", "install"
 
       # `make install` neglects to transfer an essential plugin header file.
-      Pathname.new(Dir[prefix.join "**", "plugin", "include", "config"].first).install "../gcc/config/darwin-sections.def" if MacOS.version > :tiger
+      Pathname.new(Dir[prefix.join "**", "plugin", "include", "config"].first).install "../gcc/config/darwin-sections.def" if MacOS.version > :tiger && Hardware.cpu_type == :intel
     end
 
     # Handle conflicts between GCC formulae.
