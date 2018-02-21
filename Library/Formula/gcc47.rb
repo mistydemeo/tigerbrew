@@ -64,6 +64,10 @@ class Gcc47 < Formula
   depends_on "cloog-ppl015"
   depends_on "ecj" if build.with?("java") || build.with?("all-languages")
 
+  # The as that comes with Tiger isn't capable of dealing with the
+  # PPC asm that comes in libitm
+  depends_on "cctools" => :build if MacOS.version < :leopard
+
   # The bottles are built on systems with the CLT installed, and do not work
   # out of the box on Xcode-only systems due to an incorrect sysroot.
   def pour_bottle?
@@ -132,6 +136,10 @@ class Gcc47 < Formula
     # "Building GCC with plugin support requires a host that supports
     # -fPIC, -shared, -ldl and -rdynamic."
     args << "--enable-plugin" if MacOS.version > :tiger
+
+    # Otherwise make fails during comparison at stage 3
+    # See: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=45248
+    args << "--with-dwarf2" if MacOS.version < :leopard
 
     args << "--disable-nls" if build.without? "nls"
 
