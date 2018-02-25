@@ -12,7 +12,7 @@ VENDOR_DIR="$HOMEBREW_LIBRARY/Homebrew/vendor"
 if [[ -n "$HOMEBREW_OSX" ]]
 then
   # PPC-only 10.4 build
-  if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100600" || "$HOMEBREW_PROCESSOR" != "Intel" ]]
+  if [[ "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
     ruby_URL="https://archive.org/download/tigerbrew/portable-ruby-2.3.3.tiger_g3.bottle.tar.gz"
     ruby_SHA="162bed8c95fb30d4580ebc7dfadbb9d699171edbd7b60d8259de7f4cfc55cc32"
@@ -23,7 +23,7 @@ then
   fi
 
   # Universal Curl used on older OS Xs to download software
-  if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100600" || "$HOMEBREW_PROCESSOR" != "Intel" ]]
+  if [[ "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
     curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.58.0.tiger_g3.bottle.tar.gz"
     curl_SHA="b3c29e64b62c281e6820460c823d6f7d983e7234fd398ffd13d49c6a011c6bda"
