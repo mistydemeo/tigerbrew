@@ -18,8 +18,8 @@ then
     ruby_SHA="b7a283eaa3b3a77f73eb2c4a7210ef84fa23729a724717b0562ded9094028eb0"
   # Intel-only 10.5 build
   else
-    ruby_URL="https://homebrew.bintray.com/bottles-portable/portable-ruby-2.0.0-p648.leopard_64.bottle.tar.gz"
-    ruby_SHA="5c1240abe4be91c9774a0089c2a38a8ccfff87c009e8e5786730c659d5e633f7"
+    ruby_URL="https://homebrew.bintray.com/bottles-portable-ruby/portable-ruby-2.3.3.leopard_64.bottle.1.tar.gz"
+    ruby_SHA="34ce9e4c9c1be28db564d744165aa29291426f8a3d2ef806ba4f0b9175aedb2b"
   fi
 
   # Universal Curl used on older OS Xs to download software
