@@ -14,8 +14,8 @@ then
   # Universal 10.4 build
   if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100600" || "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
-    ruby_URL="https://archive.org/download/tigerbrew/portable-ruby-2.2.7.tiger.bottle.tar.gz"
-    ruby_SHA="b7a283eaa3b3a77f73eb2c4a7210ef84fa23729a724717b0562ded9094028eb0"
+    ruby_URL="https://archive.org/download/tigerbrew/portable-ruby-2.3.3.tiger_g3.bottle.tar.gz"
+    ruby_SHA="162bed8c95fb30d4580ebc7dfadbb9d699171edbd7b60d8259de7f4cfc55cc32"
   # Intel-only 10.5 build
   else
     ruby_URL="https://homebrew.bintray.com/bottles-portable-ruby/portable-ruby-2.3.3.leopard_64.bottle.1.tar.gz"
