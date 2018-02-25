@@ -22,11 +22,13 @@ then
     ruby_SHA="7f4f13348d583bc9e8594d2b094c6b0140ce0a32a226a145b8b7f9993fca8c28"
   fi
 
-  # Universal Curl used on older OS Xs to download software
+  # Curl used on older OS Xs to download software
+  # PPC-only 10.4 build
   if [[ "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
     curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.58.0.tiger_g3.bottle.tar.gz"
     curl_SHA="b3c29e64b62c281e6820460c823d6f7d983e7234fd398ffd13d49c6a011c6bda"
+  # Intel-only 10.4 build
   else
     curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.58.0.tiger_i386.bottle.tar.gz"
     curl_SHA="552eff67a04f23ee3e041e51387fbebc8b950c265a1b92bed2fdd69ea71496a8"
