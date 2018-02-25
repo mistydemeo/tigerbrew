@@ -12,7 +12,7 @@ VENDOR_DIR="$HOMEBREW_LIBRARY/Homebrew/vendor"
 if [[ -n "$HOMEBREW_OSX" ]]
 then
   # Universal 10.4 build
-  if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100500" || "$HOMEBREW_PROCESSOR" != "Intel" ]]
+  if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100600" || "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
     ruby_URL="https://archive.org/download/tigerbrew/portable-ruby-2.2.7.tiger.bottle.tar.gz"
     ruby_SHA="b7a283eaa3b3a77f73eb2c4a7210ef84fa23729a724717b0562ded9094028eb0"
