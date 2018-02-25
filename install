@@ -73,6 +73,8 @@ def macos_version
 end
 
 def git
+  return if macos_version < 10.9
+
   @git ||= if ENV['GIT'] and File.executable? ENV['GIT']
     ENV['GIT']
   elsif which 'git'
