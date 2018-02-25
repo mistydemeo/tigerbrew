@@ -192,7 +192,7 @@ source "$HOMEBREW_LIBRARY/Homebrew/utils/ruby.sh"
 setup-ruby-path
 if [[ -x "$HOMEBREW_LIBRARY/Homebrew/cmd/vendor-curl.sh" ]]
 then
-  source "$HOMEBREW_LIBRARY/Homebrew/utils/curl.sh"
+  source "$HOMEBREW_LIBRARY/Homebrew/cmd/vendor-curl.sh"
   setup-curl-path
 fi
 
