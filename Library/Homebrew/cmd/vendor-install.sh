@@ -25,8 +25,8 @@ then
   # Universal Curl used on older OS Xs to download software
   if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100900" || || "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
-    curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.53.1.tiger.bottle.tar.gz"
-    curl_SHA="e4c142abd7720d0796415d232fd1577e5ab9005c65ad79d8b731ea30a27a051e"
+    curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.58.0.tiger_g3.bottle.tar.gz"
+    curl_SHA="b3c29e64b62c281e6820460c823d6f7d983e7234fd398ffd13d49c6a011c6bda"
   fi
 elif [[ -n "$HOMEBREW_LINUX" ]]
 then
