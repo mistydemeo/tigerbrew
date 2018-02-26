@@ -4,6 +4,12 @@
 # change the value of HOMEBREW_PREFIX.
 HOMEBREW_PREFIX = '/usr/local'
 
+CURL_VERSION    = "7.58.0"
+CURL_PPC_URL    = "https://archive.org/download/tigerbrew/portable-curl-#{CURL_VERSION}.tiger_g3.bottle.tar.gz"
+CURL_PPC_SHA1   = "5bbd587871bca54637437359555618a4b1a612ec"
+CURL_INTEL_URL  = "https://archive.org/download/tigerbrew/portable-curl-#{CURL_VERSION}.tiger_i386.bottle.tar.gz"
+CURL_INTEL_SHA1 = "6e6e7989adb20856c0473aedecd623f443a6ac55"
+
 module Tty extend self
   def blue; bold 34; end
   def white; bold 39; end
@@ -90,6 +96,41 @@ def git
   @git
 end
 
+# Using curl to fetch curl, what could go wrong?
+def fetch_vendor_curl!
+  if `uname -m`.chomp == "Power Macintosh"
+    url = CURL_PPC_URL
+    sha = CURL_PPC_SHA1
+  else
+    url = CURL_INTEL_URL
+    sha = CURL_INTEL_SHA1
+  end
+
+  # -k because the cert bundle can't verify archive.org, but
+  # at least we speak its TLS standard.
+  system "/usr/bin/curl", "-Lk", url, "-o", "/tmp/curl.tar.gz"
+  our_hash = `openssl sha1 /tmp/curl.tar.gz`.chomp.split(" ").last
+  if our_hash != sha
+    abort <<-EOABORT
+Unable to verify the integrity of the downloaded curl utility.
+Downloaded file's SHA1 is #{our_hash} but the expected hash is
+#{sha}.
+    EOABORT
+  end
+
+  Dir.chdir "/tmp" do
+    system "tar", "-xzf", "curl.tar.gz", "--strip", "1"
+  end
+end
+
+def curl
+  return @curl if defined? @curl
+
+  fetch_vendor_curl!
+
+  @curl = "/tmp/#{CURL_VERSION}/bin/curl"
+end
+
 # The block form of Dir.chdir fails later if Dir.CWD doesn't exist which I
 # guess is fair enough. Also sudo prints a warning message for no good reason
 Dir.chdir "/usr"
@@ -165,10 +206,8 @@ Dir.chdir HOMEBREW_PREFIX do
     system git, "reset", "--hard", "origin/master"
   else
     # -m to stop tar erroring out if it can't modify the mtime for root owned directories
-    # we use -k for curl because Leopard has a bunch of bad SSL certificates
     curl_flags = "fsSL"
-    curl_flags << "k" if macos_version <= 10.5
-    system "/bin/bash -c '/usr/bin/curl -#{curl_flags} https://github.com/mistydemeo/tigerbrew/tarball/master | /usr/bin/tar xz -m --strip 1'"
+    system "/bin/bash -c '#{curl} -#{curl_flags} https://github.com/mistydemeo/tigerbrew/tarball/master | /usr/bin/tar xz -m --strip 1'"
   end
 end
 
