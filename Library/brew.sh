@@ -196,6 +196,10 @@ then
   setup-curl-path
 fi
 
+# This may have changed after we vendored curl; regenerate it
+HOMEBREW_USER_AGENT_CURL="$HOMEBREW_USER_AGENT $HOMEBREW_CURL_VERSION"
+export HOMEBREW_USER_AGENT_CURL
+
 if [[ -n "$HOMEBREW_BASH_COMMAND" ]]
 then
   # source rather than executing directly to ensure the entire file is read into
