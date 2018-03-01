@@ -528,17 +528,6 @@ class Checks
     end
   end
 
-  def check_ruby_version
-    ruby_version = MacOS.version >= "10.9" ? "2.0" : "1.8"
-    if RUBY_VERSION[/\d\.\d/] != ruby_version then <<-EOS.undent
-    Ruby version #{RUBY_VERSION} is unsupported on #{MacOS.version}. Tigerbrew
-    is developed and tested on Ruby #{ruby_version}, and may not work correctly
-    on other Rubies. Patches are accepted as long as they don't cause breakage
-    on supported Rubies.
-    EOS
-    end
-  end
-
   def check_homebrew_prefix
     unless HOMEBREW_PREFIX.to_s == "/usr/local"
       <<-EOS.undent
