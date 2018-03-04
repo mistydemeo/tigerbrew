@@ -16,7 +16,7 @@ odie() {
   exit 1
 }
 
-chdir() {
+safe_cd() {
   cd "$@" >/dev/null || odie "Error: failed to cd to $*!"
 }
 
@@ -56,30 +56,11 @@ fi
 unset GEM_HOME
 unset GEM_PATH
 
-if [[ -z "$HOMEBREW_DEVELOPER" ]]
-then
-  unset HOMEBREW_RUBY_PATH
-fi
-
 HOMEBREW_SYSTEM="$(uname -s)"
 case "$HOMEBREW_SYSTEM" in
   Darwin) HOMEBREW_OSX="1";;
   Linux) HOMEBREW_LINUX="1";;
 esac
-
-if [[ -z "$HOMEBREW_RUBY_PATH" ]]
-then
-  if [[ -n "$HOMEBREW_OSX" ]]
-  then
-    HOMEBREW_RUBY_PATH="/usr/bin/ruby"
-  else
-    HOMEBREW_RUBY_PATH="$(which ruby)"
-    if [[ -z "$HOMEBREW_RUBY_PATH" ]]
-    then
-      odie "No Ruby found, cannot proceed."
-    fi
-  fi
-fi
 
 HOMEBREW_CURL="/usr/bin/curl"
 if [[ -n "$HOMEBREW_OSX" ]]
@@ -93,12 +74,6 @@ then
   HOMEBREW_OS_VERSION="Mac OS X $HOMEBREW_OSX_VERSION"
 
   HOMEBREW_OSX_VERSION_NUMERIC="$(printf "%02d%02d%02d" $(echo "${HOMEBREW_OSX_VERSION//./ }"))"
-  if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100900" &&
-        -x "$HOMEBREW_PREFIX/opt/curl/bin/curl" &&
-        -d "$HOMEBREW_PREFIX/opt/curl-ca-bundle" ]]
-  then
-    HOMEBREW_CURL="$HOMEBREW_PREFIX/opt/curl/bin/curl"
-  fi
 else
   HOMEBREW_PROCESSOR="$(uname -m)"
   HOMEBREW_PRODUCT="${HOMEBREW_SYSTEM}brew"
@@ -109,6 +84,11 @@ HOMEBREW_USER_AGENT="$HOMEBREW_PRODUCT/$HOMEBREW_VERSION ($HOMEBREW_SYSTEM; $HOM
 HOMEBREW_CURL_VERSION="$("$HOMEBREW_CURL" --version 2>/dev/null | head -n1 | /usr/bin/awk '{print $1"/"$2}')"
 HOMEBREW_USER_AGENT_CURL="$HOMEBREW_USER_AGENT $HOMEBREW_CURL_VERSION"
 
+if [[ -z "$HOMEBREW_CACHE" ]]
+then
+  HOMEBREW_CACHE="$HOME/Library/Caches/Homebrew"
+fi
+
 # Declared in bin/brew
 export HOMEBREW_BREW_FILE
 export HOMEBREW_PREFIX
@@ -117,8 +97,9 @@ export HOMEBREW_LIBRARY
 
 # Declared in brew.sh
 export HOMEBREW_VERSION
+export HOMEBREW_CACHE
 export HOMEBREW_CELLAR
-export HOMEBREW_RUBY_PATH
+export HOMEBREW_SYSTEM
 export HOMEBREW_CURL
 export HOMEBREW_OS_VERSION
 export HOMEBREW_OSX_VERSION
@@ -194,7 +175,7 @@ fi
 if [[ "$(id -u)" = "0" && "$(/usr/bin/stat -f%u "$HOMEBREW_BREW_FILE")" != "0" ]]
 then
   case "$HOMEBREW_COMMAND" in
-    install|reinstall|postinstall|link|pin|update|upgrade|create|migrate|tap|tap-pin|switch)
+    install|reinstall|postinstall|link|pin|update|upgrade|vendor-install|create|migrate|tap|tap-pin|switch)
       odie <<EOS
 Cowardly refusing to 'sudo brew $HOMEBREW_COMMAND'
 You can use brew with sudo, but only if the brew executable is owned by root.
@@ -204,6 +185,21 @@ EOS
       ;;
   esac
 fi
+
+# Hide shellcheck complaint:
+# shellcheck source=/dev/null
+source "$HOMEBREW_LIBRARY/Homebrew/utils/ruby.sh"
+setup-ruby-path
+if [[ -x "$HOMEBREW_LIBRARY/Homebrew/cmd/vendor-curl.sh" ]]
+then
+  source "$HOMEBREW_LIBRARY/Homebrew/cmd/vendor-curl.sh"
+  setup-curl-path
+fi
+
+# This may have changed after we vendored curl; regenerate it
+HOMEBREW_CURL_VERSION="$("$HOMEBREW_CURL" --version 2>/dev/null | head -n1 | /usr/bin/awk '{print $1"/"$2}')"
+HOMEBREW_USER_AGENT_CURL="$HOMEBREW_USER_AGENT $HOMEBREW_CURL_VERSION"
+export HOMEBREW_USER_AGENT_CURL
 
 if [[ -n "$HOMEBREW_BASH_COMMAND" ]]
 then
