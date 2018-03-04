@@ -197,6 +197,7 @@ then
 fi
 
 # This may have changed after we vendored curl; regenerate it
+HOMEBREW_CURL_VERSION="$("$HOMEBREW_CURL" --version 2>/dev/null | head -n1 | /usr/bin/awk '{print $1"/"$2}')"
 HOMEBREW_USER_AGENT_CURL="$HOMEBREW_USER_AGENT $HOMEBREW_CURL_VERSION"
 export HOMEBREW_USER_AGENT_CURL
 
