@@ -1,25 +1,11 @@
 class Qemu < Formula
   desc "x86 and PowerPC Emulator"
   homepage "http://wiki.qemu.org"
+  # 2.2.1 is the last version to work pre-10.6
+  # See: https://github.com/mistydemeo/tigerbrew/issues/523
+  url "http://wiki.qemu-project.org/download/qemu-2.2.1.tar.bz2"
+  sha256 "4617154c6ef744b83e10b744e392ad111dd351d435d6563ce24d8da75b1335a0"
   head "git://git.qemu-project.org/qemu.git"
-
-  stable do
-    url "http://wiki.qemu-project.org/download/qemu-2.4.0.1.tar.bz2"
-    sha256 "ecfe8b88037e41e817d72c460c56c6a0b573d540d6ba38b162d0de4fd22d1bdb"
-
-    # Upstream patch to "fix" pre-10.5 file handler UI... by removing the UI.
-    # The UI is gone on all OS X versions as of qemu 2.5.0; this patch can be removed then.
-    patch do
-      url "https://github.com/qemu/qemu/commit/365d7f3c7aacc789ead96b8eeb5ba5b0a8d93d48.patch?full_index=1"
-      sha256 "4e370ff6417f80aac46c84748800353caa5ec3a59ba9cdb1587077f5a68196f8"
-    end
-  end
-
-  bottle do
-    sha256 "c6bf8ef38e8af71b00a906a4578bd180d91dce2f3c2f092818690b52bfaac895" => :el_capitan
-    sha256 "36e3cee1a950d0877d6120b4e7603ddd96e506af54e72337276e5d931e8c40dc" => :yosemite
-    sha256 "043f1c5b577fdfbaac516bc1ca909dee089cd591fd018b68c1298ab859170ef9" => :mavericks
-  end
 
   depends_on "make" => :build if MacOS.version < :leopard
   depends_on "pkg-config" => :build
@@ -27,15 +13,11 @@ class Qemu < Formula
   depends_on "jpeg"
   depends_on "gnutls"
   depends_on "glib"
-  depends_on "libutil" if MacOS.version < :leopard
   depends_on "pixman"
   depends_on "vde" => :optional
   depends_on "sdl" => :optional
   depends_on "gtk+" => :optional
   depends_on "libssh2" => :optional
-
-  fails_with :gcc_4_0
-  fails_with :gcc
 
   # 3.2MB working disc-image file hosted on upstream's servers for people to use to test qemu functionality.
   resource "armtest" do
@@ -49,9 +31,6 @@ class Qemu < Formula
     if MacOS.version < :leopard
       # Needed for certain stdint macros on 10.4
       ENV.append_to_cflags "-D__STDC_CONSTANT_MACROS"
-
-      # Rez is provided in a normal path in later Xcodes
-      ENV.prepend_path "PATH", "/Developer/Tools"
 
       # Make 3.80 does not support the `or` operator and has trouble evaluating `unnest-vars`
       # See https://github.com/mistydemeo/tigerbrew/pull/496
