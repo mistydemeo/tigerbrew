@@ -55,6 +55,12 @@ class Gcc44 < Formula
     sha256 "9c5f6fd30d089e97e0364af322272bb06f3d107f357d2b621503ebfbbb4a5af7"
   end
 
+  # Handle OS X deployment targets correctly (GCC PR target/63810 <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63810>).
+  patch :p0 do
+    url "https://trac.macports.org/export/129382/trunk/dports/lang/gcc44/files/macosx-version-min.patch"
+    sha256 "9083143d2c60fbd89d33354710381590da770973746dd6849e18835f449510bc"
+  end
+
   # The bottles are built on systems with the CLT installed, and do not work
   # out of the box on Xcode-only systems due to an incorrect sysroot.
   def pour_bottle?
@@ -132,15 +138,12 @@ class Gcc44 < Formula
 
       system "../configure", *args
 
-      # Flags for Clang compatibility
-      make_flags = 'BOOT_CFLAGS="$BOOT_CFLAGS -D_FORTIFY_SOURCE=0" STAGE1_CFLAGS="$STAGE1_CFLAGS -std=gnu89 -D_FORTIFY_SOURCE=0 -fkeep-inline-functions"'
-
       if build.with? "profiled-build"
         # Takes longer to build, may bug out. Provided for those who want to
         # optimise all the way to 11.
-        system "make", make_flags, "profiledbootstrap"
+        system "make", "profiledbootstrap"
       else
-        system "make", make_flags, "bootstrap"
+        system "make", "bootstrap"
       end
 
       # At this point `make check` could be invoked to run the testsuite. The
