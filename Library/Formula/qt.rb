@@ -112,6 +112,12 @@ class Qt < Formula
               "@MACOSX_DEPLOYMENT_TARGET@",
               MacOS.version.to_s
 
+    inreplace "configure" do |s|
+      s.gsub! /EXTRA_CFLAGS=$/, "EXTRA_CFLAGS=#{ENV.cflags}"
+      arch = Hardware::CPU.bits == 32 ? Hardware::CPU.arch_32_bit : Hardware::CPU.arch_64_bit
+      s.gsub! "@ARCHES@", arch.to_s
+    end
+
     args = ["-prefix", prefix,
             "-system-zlib",
             "-qt-libtiff", "-qt-libpng", "-qt-libjpeg",
