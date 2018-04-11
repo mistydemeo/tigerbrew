@@ -22,6 +22,32 @@ class Qt < Formula
     end
   end
 
+  # Makes the MACOSX_DEPLOYMENT_TARGET configurable
+  patch :p0 do
+    url "https://raw.githubusercontent.com/macports/macports-ports/master/aqua/qt4-mac/files/patch-configure.diff"
+    sha256 "b5001ee9df42d77d22b32624c80af37205be4783a964ccfe26f4f754ee7a2dbe"
+  end
+
+  patch :p0 do
+    url "https://raw.githubusercontent.com/macports/macports-ports/master/aqua/qt4-mac/files/patch-mkspecs_common_g++-macx.conf.diff"
+    sha256 "e356c4cac6675bd6c2e6886ccbbcb3c4fde5ef7b643446d6239712e3606b6767"
+  end
+
+  patch :p0 do
+    url "https://raw.githubusercontent.com/macports/macports-ports/master/aqua/qt4-mac/files/patch-mkspecs_common_mac.conf.diff"
+    sha256 "b720ade0ec31a6140ad0261427930eeb50cd81ca1bde79c65e1b93017c1137f6"
+  end
+
+  patch :p0 do
+    url "https://raw.githubusercontent.com/macports/macports-ports/master/aqua/qt4-mac/files/patch-qmake_qmake.pri.diff"
+    sha256 "13a13af4bc4eccb64ff866a7cbc28e8deb40672206727e4d9e47e8539da73afa"
+  end
+
+  patch :p0 do
+    url "https://raw.githubusercontent.com/macports/macports-ports/master/aqua/qt4-mac/files/patch-src_tools_bootstrap_bootstrap.pro.diff"
+    sha256 "d2ff4397112215be80abc096937db89da8ba710b69499b169f5870c0fc49c46b"
+  end
+
   if MacOS.version < :leopard
     patch :p0 do
       url "https://raw.githubusercontent.com/macports/macports-ports/bc7db7bdadf141040ffa35fe6308b5039f74c7e0/aqua/qt4-mac/files/patch-src_corelib_io_qfilesystemengine_unix.cpp-tiger.diff"
@@ -79,6 +105,12 @@ class Qt < Formula
 
   def install
     ENV.universal_binary if build.universal?
+
+    inreplace ["configure", "mkspecs/common/g++-macx.conf",
+               "mkspecs/common/mac.conf", "qmake/qmake.pri",
+               "src/tools/bootstrap/bootstrap.pro"],
+              "@MACOSX_DEPLOYMENT_TARGET@",
+              MacOS.version.to_s
 
     args = ["-prefix", prefix,
             "-system-zlib",
