@@ -33,7 +33,6 @@ class Qt < Formula
   option "with-docs", "Build documentation"
   option "with-developer", "Build and link with developer options"
 
-  depends_on :macos => :leopard
   depends_on "d-bus" => :optional
   depends_on "mysql" => :optional
   depends_on "postgresql" => :optional
@@ -49,7 +48,14 @@ class Qt < Formula
             "-qt-libtiff", "-qt-libpng", "-qt-libjpeg",
             "-confirm-license", "-opensource",
             "-nomake", "demos", "-nomake", "examples",
-            "-cocoa", "-fast", "-release"]
+            "-fast", "-release"]
+
+    # Cocoa build requires 10.5 or newer
+    if MacOS.version < :leopard
+      args << "-carbon"
+    else
+      args << "-cocoa"
+    end
 
     if ENV.compiler == :clang
       args << "-platform"
