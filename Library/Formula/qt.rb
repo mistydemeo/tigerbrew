@@ -22,6 +22,38 @@ class Qt < Formula
     end
   end
 
+  if MacOS.version < :leopard
+    patch :p0 do
+      url "https://raw.githubusercontent.com/macports/macports-ports/bc7db7bdadf141040ffa35fe6308b5039f74c7e0/aqua/qt4-mac/files/patch-src_corelib_io_qfilesystemengine_unix.cpp-tiger.diff"
+      sha256 "35377ba0171e71c964bb896a756719fa733a6e48aba2ec19839cae585dea2f71"
+    end
+
+    patch :p0 do
+      url "https://raw.githubusercontent.com/macports/macports-ports/bc7db7bdadf141040ffa35fe6308b5039f74c7e0/aqua/qt4-mac/files/patch-src_network_kernel_qnetworkproxy_mac.cpp-tiger.diff"
+      sha256 "223d116eb6ed6905bb815ce3df2b984cfd405e46bda6ed889393481beabd133f"
+    end
+
+    patch :p0 do
+      url "https://raw.githubusercontent.com/macports/macports-ports/bc7db7bdadf141040ffa35fe6308b5039f74c7e0/aqua/qt4-mac/files/patch-src_gui_painting_qprintengine_mac.mm-tiger.diff"
+      sha256 "bce916ed9643fdb8b674721bd774c576fd7504a7fb900c77a35fc86596541d28"
+    end
+
+    patch :p0 do
+      url "https://raw.githubusercontent.com/macports/macports-ports/bc7db7bdadf141040ffa35fe6308b5039f74c7e0/aqua/qt4-mac/files/patch-src_gui_dialogs_qfontdialog_mac.mm-tiger.diff"
+      sha256 "0719eef855969e3b728cd060683656e90db02cfdeba9c2b763f3ce78c868df71"
+    end
+
+    patch :p0 do
+      url "https://raw.githubusercontent.com/macports/macports-ports/bc7db7bdadf141040ffa35fe6308b5039f74c7e0/aqua/qt4-mac/files/patch-src_gui_text_qfontdatabase_mac.cpp-tiger.diff"
+      sha256 "b5014c18bfd703b37d4dd20e27f7e6f1715626d63eb788a7c64eef6cd1c2019a"
+    end
+
+    patch :p0 do
+      url "https://raw.githubusercontent.com/macports/macports-ports/bc7db7bdadf141040ffa35fe6308b5039f74c7e0/aqua/qt4-mac/files/patch-src_gui_painting_qpaintengine_mac.cpp-tiger.diff"
+      sha256 "a7c0322e898c91ae9cdc5f889dfb0d87265e0623d2533dcf51c09bb733f6aeb2"
+    end
+  end
+
   head "https://code.qt.io/qt/qt.git", :branch => "4.8"
 
   # Fixes build on 10.5 - "‘kCFURLIsHiddenKey’ was not declared in this scope"
