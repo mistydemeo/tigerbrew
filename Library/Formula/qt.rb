@@ -49,6 +49,11 @@ class Qt < Formula
     end
 
     patch :p0 do
+      url "https://raw.githubusercontent.com/macports/macports-ports/master/aqua/qt4-mac/files/patch-src_gui_painting_qpaintengine_mac.diff"
+      sha256 "d375639801da219c26bf3ae8a371eefe9321b253915ab8afe765ad3ed98e45d9"
+    end
+
+    patch :p0 do
       url "https://raw.githubusercontent.com/macports/macports-ports/bc7db7bdadf141040ffa35fe6308b5039f74c7e0/aqua/qt4-mac/files/patch-src_gui_painting_qpaintengine_mac.cpp-tiger.diff"
       sha256 "a7c0322e898c91ae9cdc5f889dfb0d87265e0623d2533dcf51c09bb733f6aeb2"
     end
