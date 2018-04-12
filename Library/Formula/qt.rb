@@ -29,6 +29,11 @@ class Qt < Formula
   end
 
   patch :p0 do
+    url "https://raw.githubusercontent.com/macports/macports-ports/master/aqua/qt4-mac/files/patch-mkspecs_common_g%2B%2B-base.conf.diff"
+    sha256 "cd023a7a300d9d2a993e707e0374fb944a45e49fe8e50834b157ee330c9901f0"
+  end
+
+  patch :p0 do
     url "https://raw.githubusercontent.com/macports/macports-ports/master/aqua/qt4-mac/files/patch-mkspecs_common_g++-macx.conf.diff"
     sha256 "e356c4cac6675bd6c2e6886ccbbcb3c4fde5ef7b643446d6239712e3606b6767"
   end
@@ -116,6 +121,11 @@ class Qt < Formula
       s.gsub! /EXTRA_CFLAGS=$/, "EXTRA_CFLAGS=#{ENV.cflags}"
       arch = Hardware::CPU.bits == 32 ? Hardware::CPU.arch_32_bit : Hardware::CPU.arch_64_bit
       s.gsub! "@ARCHES@", arch.to_s
+    end
+
+    inreplace "mkspecs/common/g++-base.conf" do |s|
+      s.gsub! "@CC@", ENV.cc
+      s.gsub! "@CXX@", ENV.cxx
     end
 
     args = ["-prefix", prefix,
