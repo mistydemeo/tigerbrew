@@ -21,31 +21,27 @@ class Gcc < Formula
 
   desc "GNU compiler collection"
   homepage "https://gcc.gnu.org"
-  url "https://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz"
-  mirror "https://ftpmirror.gnu.org/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz"
-  sha256 "1cf7adf8ff4b5aa49041c8734bbcf1ad18cc4c94d0029aae0f4e48841088479a"
+  url "https://ftpmirror.gnu.org/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz"
+  sha256 "832ca6ae04636adbb430e865a1451adf6979ab44ca1c8374f61fba65645ce15c"
 
   option "with-nls", "Build with native language support (localization)"
   option "with-jit", "Build just-in-time compiler"
   # enabling multilib on a host that can't run 64-bit results in build failures
   option "without-multilib", "Build without multilib support" if MacOS.prefer_64_bit?
 
+  depends_on :ld64
   depends_on "gmp"
   depends_on "libmpc"
   depends_on "mpfr"
   depends_on "isl"
 
-  if MacOS.version < :leopard
-    # The as that comes with Tiger isn't capable of dealing with the
-    # PPC asm that comes in libitm
-    depends_on "cctools" => :build
-  end
+  # The as that comes with Tiger isn't capable of dealing with the
+  # PPC asm that comes in libitm
+  depends_on "cctools" => :build if MacOS.version < :leopard
 
   fails_with :gcc_4_0
   fails_with :llvm
-
-  # GCC bootstraps itself, so it is OK to have an incompatible C++ stdlib
-  cxxstdlib_check :skip
 
   # The bottles are built on systems with the CLT installed, and do not work
   # out of the box on Xcode-only systems due to an incorrect sysroot.
@@ -57,16 +53,19 @@ class Gcc < Formula
     version.to_s.slice(/\d/)
   end
 
-  # Fix for libgccjit.so linkage on Darwin
-  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64089
-  patch :DATA
+  # GCC bootstraps itself, so it is OK to have an incompatible C++ stdlib
+  cxxstdlib_check :skip
 
-  # Fix an Intel-only build failure on 10.4
+  # Fix an Intel-only build failure on 10.4.
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64184
   patch do
     url "https://gist.githubusercontent.com/mistydemeo/9c5b8dadd892ba3197a9cb431295cc83/raw/582d1ba135511272f7262f51a3f83c9099cd891d/sysdep-unix-tiger-intel.patch"
     sha256 "17afaf7daec1dd207cb8d06a7e026332637b11e83c3ad552b4cd32827f16c1d8"
   end
+
+  # Fix for libgccjit.so linkage on Darwin.
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64089
+  patch :DATA
 
   # This patch fixes the build on PPC
   # https://gcc.gnu.org/ml/gcc-testresults/2017-01/msg02971.html
@@ -156,8 +155,9 @@ class Gcc < Formula
     # Since GCC 4.8 libffi stuff are no longer shipped.
     # Rename man7.
     Dir.glob(man7/"*.7") { |file| add_suffix file, version_suffix }
+
     # Even when suffixes are appended, the info pages conflict when
-    # install-info is run. TODO fix this.
+    # install-info is run. Fix this.
     info.rmtree
   end
 
@@ -216,6 +216,7 @@ class Gcc < Formula
     assert_equal "Done\n", `./test`
   end
 end
+
 __END__
 diff --git a/gcc/jit/Make-lang.in b/gcc/jit/Make-lang.in
 index 44d0750..4df2a9c 100644
