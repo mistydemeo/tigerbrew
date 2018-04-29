@@ -21,6 +21,8 @@ class Fish < Formula
 
   def install
     system "autoreconf", "--no-recursive" if build.head?
+    # Necessary to get the standard signature of ttyname_r()
+    ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version < :leopard
 
     # In Homebrew's 'superenv' sed's path will be incompatible, so
     # the correct path is passed into configure here.
