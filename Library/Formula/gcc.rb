@@ -25,6 +25,10 @@ class Gcc < Formula
   mirror "https://ftpmirror.gnu.org/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz"
   sha256 "832ca6ae04636adbb430e865a1451adf6979ab44ca1c8374f61fba65645ce15c"
 
+  bottle do
+    sha256 "dfe5debb5b2d22c65673a38bfc1902042d7094702f49ff3cdfa2ecb30d09308e" => :tiger_g3
+  end
+
   option "with-nls", "Build with native language support (localization)"
   option "with-jit", "Build just-in-time compiler"
   # enabling multilib on a host that can't run 64-bit results in build failures
