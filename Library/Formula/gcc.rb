@@ -21,9 +21,14 @@ class Gcc < Formula
 
   desc "GNU compiler collection"
   homepage "https://gcc.gnu.org"
-  url "https://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz"
-  mirror "https://ftpmirror.gnu.org/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz"
-  sha256 "1cf7adf8ff4b5aa49041c8734bbcf1ad18cc4c94d0029aae0f4e48841088479a"
+  url "https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz"
+  sha256 "832ca6ae04636adbb430e865a1451adf6979ab44ca1c8374f61fba65645ce15c"
+
+  bottle do
+    sha256 "dfe5debb5b2d22c65673a38bfc1902042d7094702f49ff3cdfa2ecb30d09308e" => :tiger_g3
+    sha256 "401a75fa8baebfd62260dfa5c1b2668a4599d2543e4634d3dc7c7bb3b120e9d4" => :tiger_altivec
+  end
 
   option "with-nls", "Build with native language support (localization)"
   option "with-jit", "Build just-in-time compiler"
@@ -71,9 +76,9 @@ class Gcc < Formula
   # This patch fixes the build on PPC
   # https://gcc.gnu.org/ml/gcc-testresults/2017-01/msg02971.html
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80865
-  patch :p0 do
-    url "https://raw.githubusercontent.com/macports/macports-ports/master/lang/gcc7/files/patch-darwin-ppc-2017-01-msg02971.diff"
-    sha256 "98dfb57c9d08430c9656b2afa8967937c3f146b9bb21ac79129ac1cb2c9a4642"
+  patch do
+    url "https://gist.githubusercontent.com/mistydemeo/d35fcc040587cc75bd24d3464e93a45d/raw/c5fe1f0c6393526ff45803b0fc14e028149a245e/gcc_altivec.patch"
+    sha256 "09a795d013ec3e96107bfb9d5c6bba821cc867b88c3bce494ae1564bfd4ababd"
   end
 
   def install
@@ -82,7 +87,9 @@ class Gcc < Formula
 
     # Otherwise libstdc++ will be incorrectly tagged with cpusubtype 10 (G4e)
     # https://github.com/mistydemeo/tigerbrew/issues/538
-    ENV.append_to_cflags "-force_cpusubtype_ALL" if Hardware::CPU.family == :g3
+    if Hardware::CPU.family == :g3 || ARGV.bottle_arch == :g3
+      ENV.append_to_cflags "-force_cpusubtype_ALL"
+    end
 
     if MacOS.version < :leopard
       ENV["AS"] = ENV["AS_FOR_TARGET"] = "#{Formula["cctools"].bin}/as"
