@@ -1,0 +1,30 @@
+#!/bin/sh # Graceful sha256 for tigerbrew with fallbacks. Public domain.
+
+# Cycle through utilities we may likely have that can compute a sha256.
+# We make sure it works correctly by grepping a few digits of /dev/null.
+# If we don't have a utility (or utility doesn't have the algorithm),
+# fail silently and move on.
+
+# These two variables should be defined if this was called through brew;
+# otherwise, define them by shelling out in case this was called manually.
+homebrew_prefix=${HOMEBREW_PREFIX:-$(brew --repository)}
+homebrew_repository=${HOMEBREW_REPOSITORY:-$(brew --repository)}
+
+homebrew_openssl="$homebrew_prefix/opt/openssl/bin/openssl"
+vendor_openssl="$homebrew_repository/Library/Homebrew/vendor/portable-openssl/current/bin/openssl"
+
+for util in "sha2 -q -256" "openssl dgst -sha256" "$vendor_openssl" "$homebrew_openssl dgst -sha256" "shasum -a 256" "gsha256sum"
+do
+  $util </dev/null 2>/dev/null | grep e3b0c >/dev/null 2>&1 &&
+    exec $util "$@" | sed -e's|.*= ||' -e's| .*||' && exit 0
+done
+
+# If we don't have a faster utility installed, then fall back to this
+# stand-alone version of Digest::SHA::PurePerl. I've changed the default
+# algorithm to sha256 instead of sha1, but otherwise its still functionally
+# equivalent to 'shasum'. The script will use Digest::SHA (the binary
+# version) if our perl happens to have it (although the perl 5.8 that ships
+# with 10.4 indeed does not), falling back to the pure perl module only
+# as a last resort. Digest::SHA::PurePerl is Artistic license.
+
+exec perl -I"$(dirname "$0")" "$(dirname "$0")/shasum" "$@" | sed 's| .*||'
