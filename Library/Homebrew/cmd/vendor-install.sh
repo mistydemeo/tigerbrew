@@ -97,15 +97,20 @@ fetch() {
     trap - SIGINT
   fi
 
+  cpu_family="$(sysctl -n hw.cpufamily)"
   if [[ -x "$(which shasum)" ]]
   then
     sha="$(shasum -a 256 "$CACHED_LOCATION" | cut -d' ' -f1)"
   elif [[ -x "$(which sha256sum)" ]]
   then
     sha="$(sha256sum "$CACHED_LOCATION" | cut -d' ' -f1)"
-  elif [[ -x "$(which ruby)" ]]
+  # Ruby 1.8.2's vendored Ruby has broken SHA256 calculation pre-G4e
+  elif [[ -x "$(which ruby)" && "$cpu_family" != 9 && "$cpu_family" != 10 ]]
   then
     sha="$(ruby -e "require 'digest/sha2'; digest = Digest::SHA256.new; File.open('$CACHED_LOCATION', 'rb') { |f| digest.update(f.read) }; puts digest.hexdigest")"
+  # Pure Perl SHA256 implementation
+  else
+    sha="$(VENDOR_DIR/sha256 "$CACHED_LOCATION")"
   else
     odie "Cannot verify the checksum ('shasum' or 'sha256sum' not found)!"
   fi
