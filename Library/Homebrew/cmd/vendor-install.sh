@@ -111,8 +111,6 @@ fetch() {
   # Pure Perl SHA256 implementation
   else
     sha="$(VENDOR_DIR/sha256 "$CACHED_LOCATION")"
-  else
-    odie "Cannot verify the checksum ('shasum' or 'sha256sum' not found)!"
   fi
 
   if [[ "$sha" != "$VENDOR_SHA" ]]
