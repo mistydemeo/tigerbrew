@@ -17,7 +17,7 @@ class Tcsh < Formula
     (testpath/"test.csh").write <<~EOS
       #!#{bin}/tcsh -f
       set ARRAY=( "t" "e" "s" "t" )
-      foreach i ( `seq $#ARRAY` )
+      foreach i ( 1 2 3 4 )
         echo -n $ARRAY[$i]
       end
     EOS
