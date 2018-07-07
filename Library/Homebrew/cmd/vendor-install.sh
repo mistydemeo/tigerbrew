@@ -97,7 +97,12 @@ fetch() {
     trap - SIGINT
   fi
 
-  cpu_family="$(sysctl -n hw.cpufamily)"
+  if [[ "$(sysctl -n hw.cputype)" = "18" ]]; then
+    cpu_family="$(sysctl -n hw.cpusubtype)"
+  else
+    cpu_family="$(sysctl -n hw.cpufamily)"
+  fi
+
   if [[ -x "$(which shasum)" ]]
   then
     sha="$(shasum -a 256 "$CACHED_LOCATION" | cut -d' ' -f1)"
