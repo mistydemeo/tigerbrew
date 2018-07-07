@@ -97,7 +97,12 @@ fetch() {
     trap - SIGINT
   fi
 
-  cpu_family="$(sysctl -n hw.cpufamily)"
+  if [[ "$(sysctl -n hw.cputype)" = "18" ]]; then
+    cpu_family="$(sysctl -n hw.cpusubtype)"
+  else
+    cpu_family="$(sysctl -n hw.cpufamily)"
+  fi
+
   if [[ -x "$(which shasum)" ]]
   then
     sha="$(shasum -a 256 "$CACHED_LOCATION" | cut -d' ' -f1)"
@@ -110,7 +115,7 @@ fetch() {
     sha="$(ruby -e "require 'digest/sha2'; digest = Digest::SHA256.new; File.open('$CACHED_LOCATION', 'rb') { |f| digest.update(f.read) }; puts digest.hexdigest")"
   # Pure Perl SHA256 implementation
   else
-    sha="$(VENDOR_DIR/sha256 "$CACHED_LOCATION")"
+    sha="$($VENDOR_DIR/sha256 "$CACHED_LOCATION")"
   fi
 
   if [[ "$sha" != "$VENDOR_SHA" ]]
