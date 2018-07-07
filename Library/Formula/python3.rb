@@ -5,10 +5,8 @@ class Python3 < Formula
   sha256 "0382996d1ee6aafe59763426cf0139ffebe36984474d0ec4126dd1c40a8b3549"
 
   bottle do
-    revision 3
-    sha256 "5a955a6800431f4b38f7dcc4910deaf3c9e3a47f68b5a4b2117527c57290c4dd" => :el_capitan
-    sha256 "956b2bfe8289da7584089768e6143f852b9586ffd552d9b1e4c5e116f7c52587" => :yosemite
-    sha256 "98e2f771b7bc6e33f5eae068788b9197619eb037f043a292790482aa82577528" => :mavericks
+    sha256 "2caf6b1d5c9166e4135392905adbb342d9abff35377762fc101278ba367089a3" => :tiger_g3
+    sha256 "b5bbf6517590aae2a173d4dc2b586525b110d5188a4b5b2f465e41bfcf73f495" => :tiger_altivec
   end
 
   head do
