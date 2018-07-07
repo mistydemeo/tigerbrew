@@ -4,6 +4,14 @@ class Grip < Formula
   url "https://files.pythonhosted.org/packages/3c/ea/2a475ed37e1b6476182e71223c98667f51704bdbc919608372b203c7ea04/grip-4.5.2.tar.gz"
   sha256 "048b7e5c738ed80bee345bd10840f27eb31687eb67132b40f2473dc1cf67aa0f"
 
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "1d4b1cbd24fd7e087f13f947510fbf886bb1eccbd0bc7c45f23c4a5eebec678e" => :tiger_g3
+    sha256 "cd904541d7370920a24f07abe782cc68f947dc26e820eb7000f9c0edceb9e8e2" => :tiger_g4
+    sha256 "69934d0ea8e23b288a28e5dbbe429415d0b0e9df7d3bdb3c338b3bf0acd12121" => :tiger_g4e
+    sha256 "0fabed73fb8cb3072f4b849e47ca2ebab0d6c8300652755866a354e49d146024" => :tiger_g5
+  end
+
   depends_on "python"
 
   resource "certifi" do
