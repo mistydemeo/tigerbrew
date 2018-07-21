@@ -157,7 +157,7 @@ class Cmd
       "-fuse-linker-plugin"
       # clang doesn't support these flags
       args << arg unless tool =~ /^clang/
-    when "-Wno-deprecated-register"
+    when "-Wno-deprecated-register", "-Wno-implicit-fallthrough"
       # older gccs don't support these flags
       args << arg unless tool =~ /^g..-4.[02]/
     when /^-W[alp],/, /^-Wno-/
