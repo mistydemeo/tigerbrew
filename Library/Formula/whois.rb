@@ -20,6 +20,9 @@ class Whois < Formula
   depends_on "libidn2" => :optional
 
   def install
+    # autodie was not shipped with the system perl 5.8
+    inreplace "make_version_h.pl", "use autodie;", "" if MacOS.version < :snow_leopard
+
     ENV.append "LDFLAGS", "-L/usr/lib -liconv"
 
     system "make", "whois", "HAVE_ICONV=1"
