@@ -15,7 +15,7 @@ then
   if [[ "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
     ruby_URL="https://archive.org/download/tigerbrew/portable-ruby-2.3.3.tiger_g3.bottle.tar.gz"
-    ruby_SHA="162bed8c95fb30d4580ebc7dfadbb9d699171edbd7b60d8259de7f4cfc55cc32"
+    ruby_SHA="cf3d760ba0ae9bfb705e289ff3f01a0b4d1eb40337b2968531518c2eaf41ab55"
   # Intel-only 10.4 build
   else
     ruby_URL="https://archive.org/download/tigerbrew/portable-ruby-2.3.3.tiger_i386.bottle.tar.gz"
@@ -27,7 +27,7 @@ then
   if [[ "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
     curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.58.0.tiger_g3.bottle.tar.gz"
-    curl_SHA="b3c29e64b62c281e6820460c823d6f7d983e7234fd398ffd13d49c6a011c6bda"
+    curl_SHA="2a1e8ebddb087f23c7bb988fcf83d31ee5c8ae4a66ff4b1c713a650b8b68ea42"
   # Intel-only 10.4 build
   else
     curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.58.0.tiger_i386.bottle.tar.gz"
