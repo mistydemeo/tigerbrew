@@ -109,7 +109,7 @@ fetch() {
   elif [[ -x "$(which sha256sum)" ]]
   then
     sha="$(sha256sum "$CACHED_LOCATION" | cut -d' ' -f1)"
-  # Ruby 1.8.2's vendored Ruby has broken SHA256 calculation pre-G4e
+  # Ruby 1.8.2's vendored Ruby has broken SHA256 calculation on several PowerPC CPUs
   elif [[ -x "$(which ruby)" && "$cpu_family" != 9 && "$cpu_family" != 10 && "$cpu_family" != 11 ]]
   then
     sha="$(ruby -e "require 'digest/sha2'; digest = Digest::SHA256.new; File.open('$CACHED_LOCATION', 'rb') { |f| digest.update(f.read) }; puts digest.hexdigest")"
