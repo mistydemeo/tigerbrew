@@ -43,6 +43,7 @@ class Emacs < Formula
   depends_on "mailutils" => :optional
   depends_on "glib" => :optional
 
+  # Patch "configure" to allow PPC Darwin builds
   patch :DATA
 
   # https://github.com/Homebrew/homebrew/issues/37803
