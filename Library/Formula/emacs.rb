@@ -1,9 +1,9 @@
 class Emacs < Formula
   desc "GNU Emacs text editor"
   homepage "https://www.gnu.org/software/emacs/"
-  url "http://ftpmirror.gnu.org/emacs/emacs-24.5.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/emacs/emacs-24.5.tar.xz"
-  sha256 "dd47d71dd2a526cf6b47cb49af793ec2e26af69a0951cc40e43ae290eacfc34e"
+  url "http://ftpmirror.gnu.org/emacs/emacs-26.2.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/emacs/emacs-26.2.tar.xz"
+  sha256 "151ce69dbe5b809d4492ffae4a4b153b2778459de6deb26f35691e1281a9c58e"
 
   bottle do
     revision 1
@@ -42,6 +42,8 @@ class Emacs < Formula
   depends_on "imagemagick" => :optional
   depends_on "mailutils" => :optional
   depends_on "glib" => :optional
+
+  patch :DATA
 
   # https://github.com/Homebrew/homebrew/issues/37803
   if build.with? "x11"
@@ -155,3 +157,18 @@ class Emacs < Formula
     assert_equal "4", shell_output("#{bin}/emacs --batch --eval=\"(print (+ 2 2))\"").strip
   end
 end
+
+__END__
+diff --git a/configure b/configure
+index 935691b..3043cb9 100755
+--- a/configure
++++ b/configure
+@@ -4794,7 +4794,7 @@ case "${canonical}" in
+   ## Apple Darwin / macOS
+   *-apple-darwin* )
+     case "${canonical}" in
+-      *-apple-darwin[0-9].*) unported=yes ;;
++      *-apple-darwin[0-9].*)  ;;
+       i[3456]86-* | x86_64-* )  ;;
+       * )            unported=yes ;;
+     esac
