@@ -1,7 +1,7 @@
 class Mariadb < Formula
   desc "Drop-in replacement for MySQL"
   homepage "https://mariadb.org/"
-  url "http://ftp.osuosl.org/pub/mariadb/mariadb-10.0.21/source/mariadb-10.0.21.tar.gz"
+  url "http://archive.mariadb.org/mariadb-10.0.21/source/mariadb-10.0.21.tar.gz"
   sha256 "4b9a32e15ceadefdb1057a02eb3e0addf702b75aef631a3c9194b832ecfa3545"
 
   bottle do
@@ -12,7 +12,7 @@ class Mariadb < Formula
   end
 
   devel do
-    url "http://ftp.osuosl.org/pub/mariadb/mariadb-10.1.7/source/mariadb-10.1.7.tar.gz"
+    url "http://archive.mariadb.org/mariadb-10.1.7/source/mariadb-10.1.7.tar.gz"
     sha256 "5bd3b80cf0f312751271a3446c12579c7081f93406e59a0cdfda8e133423c88f"
     # fix compilation failure with clang in mroonga storage engine
     # https://mariadb.atlassian.net/projects/MDEV/issues/MDEV-8551
