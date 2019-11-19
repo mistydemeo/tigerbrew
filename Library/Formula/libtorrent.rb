@@ -46,7 +46,8 @@ class Libtorrent < Formula
                           "--disable-debug",
                           "--disable-dependency-tracking",
                           "--with-kqueue",
-                          "--enable-ipv6"
+                          "--enable-ipv6",
+                          "--disable-instrumentation"
     system "make"
     system "make", "install"
   end
