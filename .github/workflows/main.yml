@@ -1,0 +1,27 @@
+name: Sync Fork
+
+on:
+  schedule:
+  - cron: '*/30 * * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: TG908/fork-sync@v1.1.4
+      with:
+        # Owner of the forked repository
+        owner: mistydemeo
+        # Token for the github API
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        # Branch to track
+        head: master
+        # Branch to keep updated
+        base: master
+        # Merge method to use
+        merge_method: merge
+        # The title of the pull request
+        pr_title: Fork Sync
+        # The message in the pull request
+        pr_message: 'Updated from fork'
