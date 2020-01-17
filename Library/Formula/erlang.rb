@@ -44,7 +44,7 @@ class Erlang < Formula
   depends_on "openssl"
   depends_on "unixodbc" if MacOS.version >= :mavericks
   depends_on "fop" => :optional # enables building PDF docs
-  depends_on "wxmac" => :recommended # for GUI apps like observer
+  depends_on "wxmac" => :recommended if MacOS.version >= :leopard # for GUI apps like observer, unavailable on Tiger.
 
   fails_with :llvm
 
