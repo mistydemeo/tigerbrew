@@ -4,6 +4,7 @@ class Pdsh < Formula
   url "https://code.google.com/p/pdsh.git",
       :tag => "pdsh-2.31",
       :revision => "e1c8e71dd6a26b40cd067a8322bd14e10e4f7ded"
+  revision 1
 
   head "https://code.google.com/p/pdsh.git"
 

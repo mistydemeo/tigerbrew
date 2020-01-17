@@ -27,7 +27,7 @@ class Coq < Formula
     sha256 "dd082d214e2540429c6f757a41e4df23307e339d50ae68cd108dbd569c6b9ed1" => :mountain_lion
   end
 
-  depends_on 'homebrew/dupes/make' => :build if MacOS.version < :leopard
+  depends_on "make" => :build if MacOS.version < :leopard
   depends_on :ld64 # needs -no_compact_unwind
   depends_on Camlp5TransitionalModeRequirement
   depends_on "camlp5"

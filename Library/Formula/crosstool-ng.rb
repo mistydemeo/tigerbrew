@@ -21,8 +21,8 @@ class CrosstoolNg < Formula
   depends_on "gawk"
   depends_on "binutils"
   depends_on "libelf"
-  depends_on "homebrew/dupes/grep" => :optional
-  depends_on "homebrew/dupes/make" => :optional
+  depends_on "grep" => :optional
+  depends_on "make" => :optional
 
   # Avoid superenv to prevent https://github.com/mxcl/homebrew/pull/10552#issuecomment-9736248
   env :std

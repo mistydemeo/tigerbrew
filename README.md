@@ -22,7 +22,7 @@ What Packages Are Available?
 ----------------------------
 1. You can [browse the Formula directory on GitHub][formula].
 2. Or type `brew search` for a list.
-3. Or use [`brew desc`][brew-desc] to browse packages from the command line.
+3. Or use `brew desc` to browse packages from the command line.
 
 More Documentation
 ------------------
@@ -37,8 +37,7 @@ Run these commands from your terminal. You must have git installed.
 
 ```
 cd `brew --repository`
-git remote rm origin
-git remote add origin https://github.com/mistydemeo/tigerbrew.git
+git remote set-url origin https://github.com/mistydemeo/tigerbrew.git
 git fetch origin
 git reset --hard origin/master
 ```
@@ -50,7 +49,7 @@ Many of the formulae in the repository have been tested, but there are still man
 Credits
 -------
 
-Homebrew is originally by [mxcl][mxcl], a splendid chap. This fork is by @mistydemeo, incorporating some code originally written by @sceaga.
+Homebrew is originally by [mxcl][mxcl], a splendid chap. This fork is by [mistydemeo](https://github.com/mistydemeo), incorporating some code originally written by @sceaga.
 
 License
 -------

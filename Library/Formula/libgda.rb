@@ -11,7 +11,7 @@ class Libgda < Formula
     sha256 "cf2ce1122dfe0f754f811a901114bfa5e4918368ec1acfb915038c2ec84c5215" => :mountain_lion
   end
 
-  revision 1
+  revision 2
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

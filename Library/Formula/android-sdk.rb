@@ -22,6 +22,8 @@ class AndroidSdk < Formula
     sha256 "44b3e20ed9cb8fff01dc6907a57bd8648cd0d1bcc7b129ec952a190983ab5e1a"
   end
 
+  depends_on :arch => :intel
+
   # Version of the android-build-tools the wrapper scripts reference.
   def build_tools_version
     "23.0.1"

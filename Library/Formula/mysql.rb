@@ -1,8 +1,8 @@
 class Mysql < Formula
   desc "Open source relational database management system"
   homepage "https://dev.mysql.com/doc/refman/5.6/en/"
-  url "https://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.26.tar.gz"
-  sha256 "b44c6ce5f95172c56c73edfa8b710b39242ec7af0ab182c040208c41866e5070"
+  url "https://cdn.mysql.com/archives/mysql-5.6/mysql-5.6.35.tar.gz"
+  sha256 "dddcba169b98844d7c65346cbd791c853edf942d78440381685087b84aa35020"
 
   bottle do
     revision 1
@@ -49,6 +49,10 @@ class Mysql < Formula
     inreplace "cmake/libutils.cmake",
       "COMMAND /usr/bin/libtool -static -o ${TARGET_LOCATION}",
       "COMMAND libtool -static -o ${TARGET_LOCATION}"
+
+    inreplace "storage/innobase/include/os0sync.h",
+      "# if defined(IB_STRONG_MEMORY_MODEL)",
+      "# if defined(HAVE_ATOMIC_BUILTINS)"
 
     # Build without compiler or CPU specific optimization flags to facilitate
     # compilation of gems and other software that queries `mysql-config`.

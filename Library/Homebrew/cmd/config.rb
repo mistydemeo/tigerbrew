@@ -126,6 +126,9 @@ module Homebrew
   end
 
   def describe_java
+    # java_home doesn't exist on all OS Xs; it might be missing on older versions.
+    return "N/A" unless File.executable? "/usr/libexec/java_home"
+
     java_xml = Utils.popen_read("/usr/libexec/java_home", "--xml", "--failfast")
     return "N/A" unless $?.success?
     javas = []
@@ -146,6 +149,7 @@ module Homebrew
     f.puts "HOMEBREW_BOTTLE_DOMAIN: #{BottleSpecification::DEFAULT_DOMAIN}"
     f.puts hardware
     f.puts "OS X: #{MACOS_FULL_VERSION}-#{kernel}"
+    f.puts "Curl: #{ENV["HOMEBREW_CURL"]}"
     f.puts "Xcode: #{xcode ? xcode : "N/A"}"
     f.puts "CLT: #{clt ? clt : "N/A"}"
     f.puts "GCC-4.0: build #{gcc_40}" if gcc_40

@@ -7,6 +7,7 @@ class FormularyTest < Homebrew::TestCase
     assert_equal "SLang", Formulary.class_s("s-lang")
     assert_equal "PkgConfig", Formulary.class_s("pkg-config")
     assert_equal "FooBar", Formulary.class_s("foo_bar")
+    assert_equal "OpensslAT11", Formulary.class_s("openssl@1.1")
   end
 end
 
@@ -19,7 +20,7 @@ class FormularyFactoryTest < Homebrew::TestCase
     @path.write <<-EOS.undent
       class #{Formulary.class_s(@name)} < Formula
         url "file://#{File.expand_path("..", __FILE__)}/tarballs/testball-0.1.tbz"
-        sha256 "1dfb13ce0f6143fe675b525fc9e168adb2215c5d5965c9f57306bb993170914f"
+        sha256 TESTBALL_SHA256
 
         bottle do
           cellar :any_skip_relocation

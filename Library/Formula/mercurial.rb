@@ -2,8 +2,8 @@
 # of Homebrew.
 class Mercurial < Formula
   desc "Scalable distributed version control system"
-  homepage "https://mercurial.selenic.com/"
-  url "https://mercurial.selenic.com/release/mercurial-3.5.1.tar.gz"
+  homepage "https://www.mercurial-scm.org/"
+  url "https://www.mercurial-scm.org/release/mercurial-3.5.1.tar.gz"
   sha256 "997da45da303e399678c5bccd7be39b0fabf29c7e02fd3c8751c2ff88c8a259d"
 
   bottle do
@@ -13,6 +13,8 @@ class Mercurial < Formula
     sha256 "f1c4e9ebbb056b50a584b760569de5cacdafbd728dd821e00297380ee5095904" => :mavericks
     sha256 "d39399222a31f040a5e22ef5853a9f99a476c1d76da85935710fdd80980d9ed5" => :mountain_lion
   end
+
+  depends_on :python if MacOS.version < :snow_leopard
 
   def install
     ENV.minimal_optimization if MacOS.version <= :snow_leopard

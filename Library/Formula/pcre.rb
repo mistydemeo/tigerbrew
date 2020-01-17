@@ -1,9 +1,17 @@
 class Pcre < Formula
   desc "Perl compatible regular expressions library"
   homepage "http://www.pcre.org/"
-  url "https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/downloads.sourceforge.net/p/pc/pcre/pcre/8.37/pcre-8.37.tar.bz2"
-  sha256 "51679ea8006ce31379fb0860e46dd86665d864b5020fc9cd19e71260eef4789d"
+  url "https://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/downloads.sourceforge.net/p/pc/pcre/pcre/8.39/pcre-8.39.tar.bz2"
+  sha256 "b858099f82483031ee02092711689e7245586ada49e534a06e678b8ea9549e8b"
+
+  bottle do
+    cellar :any
+    sha256 "c1be1b0c15e9e8f9cd568724618952d136612baccc66901317e877277ebd7230" => :sierra
+    sha256 "a9333dda2e7b2f2a3f0de5e542d24f4cd0750edc53bfaa6bbf34f0d03db5fb3c" => :el_capitan
+    sha256 "202f05c7d2dc78c30ef7115395ec0bf7bc3f40bfb2dd1704ca1a01ff1661142c" => :yosemite
+    sha256 "d2bb8776d8dca524aa1cbbb4f18b156658d673fe5424daeb96100b01b55805dd" => :mavericks
+  end
 
   head do
     url "svn://vcs.exim.org/pcre/code/trunk"
@@ -11,13 +19,6 @@ class Pcre < Formula
     depends_on "automake" => :build
     depends_on "autoconf" => :build
     depends_on "libtool" => :build
-  end
-
-  bottle do
-    cellar :any
-    sha256 "e3d59e4d7c6bce68f7db7c62e13f9fec54f5fb905ce242e654975503e7dbf9e8" => :tiger_altivec
-    sha256 "b7a492a51680eb558534e4ae14ff5e9ac797a53cff40adb30599b783922ee475" => :leopard_g3
-    sha256 "b12c914a86261483456550a93e4abd1baba1ecdcf342f7c2b1e5f545bf7fe1ab" => :leopard_altivec
   end
 
   option :universal

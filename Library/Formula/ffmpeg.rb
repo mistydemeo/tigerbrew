@@ -36,7 +36,7 @@ class Ffmpeg < Formula
   depends_on "pkg-config" => :build
 
   # Tiger's make is too old
-  depends_on "homebrew/dupes/make" => :build if MacOS.version < :leopard
+  depends_on "make" => :build if MacOS.version < :leopard
   # Tiger's ld doesn't like -install_name
   depends_on :ld64
   # manpages won't be built without texi2html

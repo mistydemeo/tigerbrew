@@ -21,21 +21,17 @@ class Gcc < Formula
 
   desc "GNU compiler collection"
   homepage "https://gcc.gnu.org"
-  url "http://ftpmirror.gnu.org/gcc/gcc-5.2.0/gcc-5.2.0.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/gcc/gcc-5.2.0/gcc-5.2.0.tar.bz2"
-  sha256 "5f835b04b5f7dd4f4d2dc96190ec1621b8d89f2dc6f638f9f8bc1b1014ba8cad"
+  url "https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz"
+  sha256 "832ca6ae04636adbb430e865a1451adf6979ab44ca1c8374f61fba65645ce15c"
 
   bottle do
-    sha256 "7786105aba6e06111cadb876900ad0f5613ad0b87e699bb81e66baa88d1279c9" => :tiger_altivec
-    sha256 "aa1e0a6738594a14f270726501de6bd65628cc0f331af458c396e0728744fc1e" => :leopard_g3s
-    sha256 "2e7f1d7a9600a42b88672f7719dd76257acfaa6994e11f762ccc0234c84bd905" => :leopard_altivec
+    sha256 "dfe5debb5b2d22c65673a38bfc1902042d7094702f49ff3cdfa2ecb30d09308e" => :tiger_g3
+    sha256 "401a75fa8baebfd62260dfa5c1b2668a4599d2543e4634d3dc7c7bb3b120e9d4" => :tiger_altivec
   end
 
-  option "with-java", "Build the gcj compiler"
-  option "with-all-languages", "Enable all compilers and languages, except Ada"
   option "with-nls", "Build with native language support (localization)"
-  option "with-jit", "Build the jit compiler"
-  option "without-fortran", "Build without the gfortran compiler"
+  option "with-jit", "Build just-in-time compiler"
   # enabling multilib on a host that can't run 64-bit results in build failures
   option "without-multilib", "Build without multilib support" if MacOS.prefer_64_bit?
 
@@ -43,7 +39,6 @@ class Gcc < Formula
   depends_on "libmpc"
   depends_on "mpfr"
   depends_on "isl"
-  depends_on "ecj" if build.with?("java") || build.with?("all-languages")
 
   if MacOS.version < :leopard
     # The as that comes with Tiger isn't capable of dealing with the
@@ -71,27 +66,43 @@ class Gcc < Formula
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64089
   patch :DATA
 
+  # Fix an Intel-only build failure on 10.4
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64184
+  patch do
+    url "https://gist.githubusercontent.com/mistydemeo/9c5b8dadd892ba3197a9cb431295cc83/raw/582d1ba135511272f7262f51a3f83c9099cd891d/sysdep-unix-tiger-intel.patch"
+    sha256 "17afaf7daec1dd207cb8d06a7e026332637b11e83c3ad552b4cd32827f16c1d8"
+  end
+
+  # This patch fixes the build on PPC
+  # https://gcc.gnu.org/ml/gcc-testresults/2017-01/msg02971.html
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=80865
+  patch do
+    url "https://gist.githubusercontent.com/mistydemeo/d35fcc040587cc75bd24d3464e93a45d/raw/c5fe1f0c6393526ff45803b0fc14e028149a245e/gcc_altivec.patch"
+    sha256 "09a795d013ec3e96107bfb9d5c6bba821cc867b88c3bce494ae1564bfd4ababd"
+  end
+
   def install
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
+
+    # Otherwise libstdc++ will be incorrectly tagged with cpusubtype 10 (G4e)
+    # https://github.com/mistydemeo/tigerbrew/issues/538
+    if Hardware::CPU.family == :g3 || ARGV.bottle_arch == :g3
+      ENV.append_to_cflags "-force_cpusubtype_ALL"
+    end
 
     if MacOS.version < :leopard
       ENV["AS"] = ENV["AS_FOR_TARGET"] = "#{Formula["cctools"].bin}/as"
     end
 
-    if build.with? "all-languages"
-      # Everything but Ada, which requires a pre-existing GCC Ada compiler
-      # (gnat) to bootstrap. GCC 4.6.0 adds go as a language option, but it is
-      # currently only compilable on Linux.
-      languages = %w[c c++ objc obj-c++ fortran java jit]
-    else
-      # C, C++, ObjC compilers are always built
-      languages = %w[c c++ objc obj-c++]
+    # We avoiding building:
+    #  - Ada, which requires a pre-existing GCC Ada compiler to bootstrap
+    #  - Go, currently not supported on macOS
+    #  - BRIG
+    languages = %w[c c++ objc obj-c++ fortran]
 
-      languages << "fortran" if build.with? "fortran"
-      languages << "java" if build.with? "java"
-      languages << "jit" if build.with? "jit"
-    end
+    # JIT compiler is off by default, enabling it has performance cost
+    languages << "jit" if build.with? "jit"
 
     args = [
       "--build=#{arch}-apple-darwin#{osmajor}",
@@ -105,21 +116,14 @@ class Gcc < Formula
       "--with-mpc=#{Formula["libmpc"].opt_prefix}",
       "--with-isl=#{Formula["isl"].opt_prefix}",
       "--with-system-zlib",
-      "--enable-libstdcxx-time=yes",
-      "--enable-stage1-checking",
       "--enable-checking=release",
-      "--enable-lto",
-      # Use 'bootstrap-debug' build configuration to force stripping of object
-      # files prior to comparison during bootstrap (broken by Xcode 6.3).
-      "--with-build-config=bootstrap-debug",
-      "--disable-werror",
       "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
       "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
     ]
 
     # "Building GCC with plugin support requires a host that supports
     # -fPIC, -shared, -ldl and -rdynamic."
-    args << "--enable-plugin" if MacOS.version > :tiger
+    args << "--enable-plugin" if MacOS.version > :leopard
 
     # Otherwise make fails during comparison at stage 3
     # See: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=45248
@@ -127,17 +131,13 @@ class Gcc < Formula
 
     args << "--disable-nls" if build.without? "nls"
 
-    if build.with?("java") || build.with?("all-languages")
-      args << "--with-ecj-jar=#{Formula["ecj"].opt_share}/java/ecj.jar"
-    end
-
     if build.without?("multilib") || !MacOS.prefer_64_bit?
       args << "--disable-multilib"
     else
       args << "--enable-multilib"
     end
 
-    args << "--enable-host-shared" if build.with?("jit") || build.with?("all-languages")
+    args << "--enable-host-shared" if build.with?("jit")
 
     # Ensure correct install names when linking against libgcc_s;
     # see discussion in https://github.com/Homebrew/homebrew/pull/34303
@@ -152,12 +152,10 @@ class Gcc < Formula
       end
 
       system "../configure", *args
-      system "make", "bootstrap"
+      system "make"
       system "make", "install"
 
-      if build.with?("fortran") || build.with?("all-languages")
-        bin.install_symlink bin/"gfortran-#{version_suffix}" => "gfortran"
-      end
+      bin.install_symlink bin/"gfortran-#{version_suffix}" => "gfortran"
     end
 
     # Handle conflicts between GCC formulae and avoid interfering
@@ -168,19 +166,6 @@ class Gcc < Formula
     # Even when suffixes are appended, the info pages conflict when
     # install-info is run. TODO fix this.
     info.rmtree
-
-    # Rename java properties
-    if build.with?("java") || build.with?("all-languages")
-      config_files = [
-        "#{lib}/gcc/#{version_suffix}/logging.properties",
-        "#{lib}/gcc/#{version_suffix}/security/classpath.security",
-        "#{lib}/gcc/#{version_suffix}/i386/logging.properties",
-        "#{lib}/gcc/#{version_suffix}/i386/security/classpath.security"
-      ]
-      config_files.each do |file|
-        add_suffix file, version_suffix if File.exist? file
-      end
-    end
   end
 
   def add_suffix(file, suffix)
@@ -223,23 +208,19 @@ class Gcc < Formula
     system "#{bin}/g++-#{version_suffix}", "-o", "hello-cc", "hello-cc.cc"
     assert_equal "Hello, world!\n", `./hello-cc`
 
-    if build.with?("fortran") || build.with?("all-languages")
-      fixture = <<-EOS.undent
-        integer,parameter::m=10000
-        real::a(m), b(m)
-        real::fact=0.5
+    (testpath/"test.f90").write <<-EOS.undent
+      integer,parameter::m=10000
+      real::a(m), b(m)
+      real::fact=0.5
 
-        do concurrent (i=1:m)
-          a(i) = a(i) + fact*b(i)
-        end do
-        print *, "done"
-        end
-      EOS
-      (testpath/"in.f90").write(fixture)
-      system "#{bin}/gfortran", "-c", "in.f90"
-      system "#{bin}/gfortran", "-o", "test", "in.o"
-      assert_equal "done", `./test`.strip
-    end
+      do concurrent (i=1:m)
+        a(i) = a(i) + fact*b(i)
+      end do
+      write(*,"(A)") "Done"
+      end
+    EOS
+    system "#{bin}/gfortran", "-o", "test", "test.f90"
+    assert_equal "Done\n", `./test`
   end
 end
 __END__

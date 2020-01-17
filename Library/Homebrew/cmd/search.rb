@@ -66,7 +66,7 @@ module Homebrew
         end
       end
     end
-    metacharacters = %w[\\ | ( ) [ ] { } ^ $ * + ? .]
+    metacharacters = %w[\\ | ( ) [ ] { } ^ $ * + ?]
     bad_regex = metacharacters.any? do |char|
       ARGV.any? do |arg|
         arg.include?(char) && !arg.start_with?("/")

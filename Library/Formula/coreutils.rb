@@ -1,23 +1,19 @@
 class Coreutils < Formula
   desc "GNU File, Shell, and Text utilities"
   homepage "https://www.gnu.org/software/coreutils"
-  url "http://ftpmirror.gnu.org/coreutils/coreutils-8.24.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/coreutils/coreutils-8.24.tar.xz"
-  sha256 "a2d75286a4b9ef3a13039c2da3868a61be4ee9f17d8ae380a35a97e506972170"
+  url "https://ftp.gnu.org/gnu/coreutils/coreutils-8.30.tar.xz"
+  mirror "https://ftpmirror.gnu.org/coreutils/coreutils-8.30.tar.xz"
+  sha256 "e831b3a86091496cdba720411f9748de81507798f6130adeaef872d206e1b057"
 
   bottle do
-    sha256 "982576be0136e46016643da0efdb44e3ab201263b2a43433448821c19fb9edd4" => :el_capitan
-    sha256 "142edfec5f84958bdb27866e3a826f9b580a4ae07bfd805c766ab6a9a368e34f" => :yosemite
-    sha256 "851e007f3edaa58fc00d9c67aeed2ab5a8b9a1bad608dc3e5d76732cc35c593f" => :mavericks
-    sha256 "32ef44141d7dff2995ea0a692a3861ee9049a37a1254a3978c7dc8283c258476" => :mountain_lion
+    sha256 "45157fb067a46c953bdfcba90de688903b7b3c8fcb39afa1e0b2fef2819eedc5" => :mojave
+    sha256 "77b09dbe66f3d5098998da6babf953e01e828742b8a740a831cc3f3a1f713df7" => :high_sierra
+    sha256 "94844581b7e08ae2d1dc6c77acfd6e95021283cc8b7c1228fed32a423ae826cc" => :sierra
+    sha256 "a5145f88de2525d168ef998f8310d5c0abcead9efee9108fb61c30de91a4869c" => :el_capitan
   end
 
-  conflicts_with "ganglia", :because => "both install `gstat` binaries"
-  conflicts_with "idutils", :because => "both install `gid` and `gid.1`"
-  conflicts_with "aardvark_shell_utils", :because => "both install `realpath` binaries"
-
   head do
-    url "git://git.sv.gnu.org/coreutils"
+    url "https://git.savannah.gnu.org/git/coreutils.git"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
@@ -30,8 +26,28 @@ class Coreutils < Formula
 
   depends_on "gmp" => :optional
 
+  conflicts_with "ganglia", :because => "both install `gstat` binaries"
+  conflicts_with "gegl", :because => "both install `gcut` binaries"
+  conflicts_with "idutils", :because => "both install `gid` and `gid.1`"
+  conflicts_with "aardvark_shell_utils", :because => "both install `realpath` binaries"
+
   def install
+    if MacOS.version == :el_capitan
+      # Work around unremovable, nested dirs bug that affects lots of
+      # GNU projects. See:
+      # https://github.com/Homebrew/homebrew/issues/45273
+      # https://github.com/Homebrew/homebrew/issues/44993
+      # This is thought to be an el_capitan bug:
+      # https://lists.gnu.org/archive/html/bug-tar/2015-10/msg00017.html
+      ENV["gl_cv_func_getcwd_abort_bug"] = "no"
+
+      # renameatx_np and RENAME_EXCL are available at compile time from Xcode 8
+      # (10.12 SDK), but the former is not available at runtime.
+      inreplace "lib/renameat2.c", "defined RENAME_EXCL", "defined UNDEFINED_GIBBERISH"
+    end
+
     system "./bootstrap" if build.head?
+
     args = %W[
       --prefix=#{prefix}
       --program-prefix=g
@@ -54,20 +70,15 @@ class Coreutils < Formula
     man1.install_symlink "grealpath.1" => "realpath.1"
   end
 
-  def caveats; <<-EOS.undent
+  def caveats; <<~EOS
     All commands have been installed with the prefix 'g'.
-
     If you really need to use these commands with their normal names, you
     can add a "gnubin" directory to your PATH from your bashrc like:
-
         PATH="#{opt_libexec}/gnubin:$PATH"
-
     Additionally, you can access their man pages with normal names if you add
     the "gnuman" directory to your MANPATH from your bashrc as well:
-
         MANPATH="#{opt_libexec}/gnuman:$MANPATH"
-
-    EOS
+  EOS
   end
 
   def coreutils_filenames(dir)
@@ -82,6 +93,7 @@ class Coreutils < Formula
   test do
     (testpath/"test").write("test")
     (testpath/"test.sha1").write("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3 test")
-    system "#{bin}/gsha1sum", "-c", "test.sha1"
+    system bin/"gsha1sum", "-c", "test.sha1"
+    system bin/"gln", "-f", "test", "test.sha1"
   end
 end

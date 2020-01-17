@@ -3,6 +3,7 @@ class ArgusClients < Formula
   homepage "http://qosient.com/argus/"
   url "http://qosient.com/argus/src/argus-clients-3.0.8.tar.gz"
   sha256 "aee8585d50959e00070a382f3121edfaa844a0a51dc0b73edf84c0f4eb8912c9"
+  revision 1
 
   bottle do
     cellar :any

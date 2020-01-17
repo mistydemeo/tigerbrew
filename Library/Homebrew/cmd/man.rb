@@ -25,15 +25,35 @@ module Homebrew
       puts "Writing HTML fragments to #{DOC_PATH}"
       puts "Writing manpages to #{TARGET_PATH}"
 
-      target_file = nil
-      Dir["#{SOURCE_PATH}/*.md"].each do |source_file|
-        target_html = DOC_PATH/"#{File.basename(source_file, ".md")}.html"
-        safe_system "ronn --fragment --pipe --organization='Tigerbrew' --manual='brew' #{source_file} > #{target_html}"
-        target_man = TARGET_PATH/File.basename(source_file, ".md")
-        safe_system "ronn --roff --pipe --organization='Tigerbrew' --manual='brew' #{source_file} > #{target_man}"
-      end
+      header = (SOURCE_PATH/"header.1.md").read
+      footer = (SOURCE_PATH/"footer.1.md").read
+      sub_commands = Pathname.glob("#{HOMEBREW_LIBRARY_PATH}/cmd/*.{rb,sh}").
+        sort_by { |source_file| source_file.basename.sub(/\.(rb|sh)$/, "") }.
+        map { |source_file|
+          source_file.read.
+            split("\n").
+            grep(/^#:/).
+            map { |line| line.slice(2..-1) }.
+            join("\n")
+        }.
+        reject { |s| s.strip.empty? }.
+        join("\n\n")
 
-      system "man", target_file if ARGV.flag? "--verbose"
+      target_md = SOURCE_PATH/"brew.1.md"
+      target_md.atomic_write(header + sub_commands + footer)
+
+      args = %W[
+        --pipe
+        --organization=Tigerbrew
+        --manual=brew
+        #{SOURCE_PATH}/brew.1.md
+      ]
+
+      target_html = DOC_PATH/"brew.1.html"
+      target_html.atomic_write Utils.popen_read("ronn", "--fragment", *args)
+
+      target_man = TARGET_PATH/"brew.1"
+      target_man.atomic_write Utils.popen_read("ronn", "--roff", *args)
     end
   end
 end

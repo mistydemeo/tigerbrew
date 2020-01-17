@@ -1,32 +1,31 @@
 class Cairo < Formula
   desc "Vector graphics library with cross-device output support"
   homepage "http://cairographics.org/"
-  url "http://cairographics.org/releases/cairo-1.14.2.tar.xz"
-  mirror "https://www.mirrorservice.org/sites/ftp.netbsd.org/pub/pkgsrc/distfiles/cairo-1.14.2.tar.xz"
-  sha256 "c919d999ddb1bbbecd4bbe65299ca2abd2079c7e13d224577895afa7005ecceb"
-  revision 1
-
-  bottle do
-    revision 3
-    sha256 "c53e4efa75921181a8689a0dcd13454d7a0759e259b331ebdc92c692d0716bad" => :el_capitan
-    sha256 "33d9cb9c8dcb1a12eaefb2c816cb7c82f948a9775f79b2427b011a03153fc8a0" => :yosemite
-    sha256 "4332ca15d3f37a421947d4d5a43ee7f6116cbc1f920fdd4db7a6b2538cddde7b" => :mavericks
-    sha256 "32c35db10bc86230c18c4484e6b7f314ba56c0186c80b356a0d0533576267a2e" => :mountain_lion
-  end
+  url "https://cairographics.org/releases/cairo-1.14.8.tar.xz"
+  mirror "https://www.mirrorservice.org/sites/ftp.netbsd.org/pub/pkgsrc/distfiles/cairo-1.14.8.tar.xz"
+  sha256 "d1f2d98ae9a4111564f6de4e013d639cf77155baf2556582295a0f00a9bc5e20"
 
   keg_only :provided_pre_mountain_lion
 
   option :universal
-  # Tiger's X11 is simply way too old
-  option 'without-x', 'Build without X11 support' if MacOS.version > :tiger
 
   depends_on "pkg-config" => :build
+  depends_on :x11 => :recommended if MacOS.version <= :leopard
   depends_on :x11 => :optional if MacOS.version > :leopard
   depends_on "freetype"
   depends_on "fontconfig"
   depends_on "libpng"
   depends_on "pixman"
   depends_on "glib"
+
+  # Fixes building when certain CoreText features are unavailable
+  # https://github.com/mistydemeo/tigerbrew/issues/452
+  if MacOS.version < :leopard
+    patch do
+      url "https://cgit.freedesktop.org/~ranma42/cairo/patch/?id=5a8a9c97ed268004cbac510d39739ff56c0fb43c"
+      sha256 "8d119eca6c35ac8645d13d656b5a721cfeeec1ebcf5793f9d5182c604782de15"
+    end
+  end
 
   def install
     ENV.universal_binary if build.universal?
@@ -41,7 +40,10 @@ class Cairo < Formula
     ]
 
     if build.with? "x11"
-      args << "--enable-xcb=yes" << "--enable-xlib=yes" << "--enable-xlib-xrender=yes"
+      # Tiger's X11 does not include XCB,
+      # and Leopard's X11 has an XCB that's too old.
+      args << "--enable-xcb=yes" if MacOS.version > :leopard
+      args << "--enable-xlib=yes" << "--enable-xlib-xrender=yes"
     else
       args << "--enable-xcb=no" << "--enable-xlib=no" << "--enable-xlib-xrender=no"
     end

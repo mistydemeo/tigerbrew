@@ -1,14 +1,14 @@
 class Tcsh < Formula
   desc "Enhanced, fully compatible version of the Berkeley C shell"
   homepage "http://www.tcsh.org/"
-  url "ftp://ftp.astron.com/pub/tcsh/tcsh-6.19.00.tar.gz"
-  mirror "http://ftp.funet.fi/pub/mirrors/ftp.astron.com/pub/tcsh/tcsh-6.19.00.tar.gz"
-  sha256 "12e271e0b89e4259d9d6e8d525322e77340e7244cfbd199a591e5f8146285c49"
+  url "ftp://ftp.astron.com/pub/tcsh/tcsh-6.20.00.tar.gz"
+  mirror "https://ftp.osuosl.org/pub/blfs/conglomeration/tcsh/tcsh-6.20.00.tar.gz"
+  sha256 "b89de7064ab54dac454a266cfe5d8bf66940cb5ed048d0c30674ea62e7ecef9d"
 
   bottle do
-    sha256 "2d3fed239e9d5ac71b47c3e5bf96b93c1e9ba77c3799ca482a5b6809621d5f1e" => :yosemite
-    sha256 "ff5b980d71cb0f151264f0a7f6c6b34120e2420aac284ecfe8fcf908f4e90c07" => :mavericks
-    sha256 "beab7a774551d3b446526359c31900fbbc7300403b545395c1949ba302a65e24" => :mountain_lion
+    sha256 "9ea07dfb5815b5cfda4c022870a31fce1e1e66109d6afd21d45870b6566eef50" => :tiger_g3
+    sha256 "e574d87dd70e6604f675033fcea4bd3f7529242dd868d705a8bae694f87f7a03" => :tiger_altivec
+    sha256 "2ff1a8f5dbd9a71f555009b7ee509dc033953d4558a3fed85f74781a12942c5a" => :tiger_g5
   end
 
   def install
@@ -17,10 +17,10 @@ class Tcsh < Formula
   end
 
   test do
-    (testpath/"test.csh").write <<-EOS.undent
-      #!#{bin}/tcsh
+    (testpath/"test.csh").write <<~EOS
+      #!#{bin}/tcsh -f
       set ARRAY=( "t" "e" "s" "t" )
-      foreach i ( `seq $#ARRAY` )
+      foreach i ( 1 2 3 4 )
         echo -n $ARRAY[$i]
       end
     EOS

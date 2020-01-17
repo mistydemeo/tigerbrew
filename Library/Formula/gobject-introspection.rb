@@ -14,7 +14,7 @@ class GobjectIntrospection < Formula
 
   option :universal
 
-  depends_on "homebrew/dupes/make" => :build if MacOS.version < :leopard
+  depends_on "make" => :build if MacOS.version < :leopard
   depends_on "pkg-config" => :run
   depends_on "glib"
   depends_on "libffi"

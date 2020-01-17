@@ -12,7 +12,8 @@ end
 
 class AppleGcc42 < Formula
   homepage 'http://r.research.att.com/tools/'
-  url 'http://r.research.att.com/gcc-42-5553-darwin8-all.tar.gz'
+  url 'https://ia902307.us.archive.org/31/items/tigerbrew/gcc-42-5553-darwin8-all.tar.gz'
+  mirror 'http://r.research.att.com/gcc-42-5553-darwin8-all.tar.gz'
   version '4.2.1-5553'
   sha1 '0e529a2e4723e016e3d086d6ca3215d700931503'
 

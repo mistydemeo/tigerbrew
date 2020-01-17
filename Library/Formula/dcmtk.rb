@@ -25,7 +25,7 @@ class Dcmtk < Formula
   depends_on "libpng"
   depends_on "libtiff"
   depends_on "openssl"
-  depends_on "homebrew/dupes/libiconv" => :optional
+  depends_on "libiconv" => :optional
 
   def install
     ENV.m64 if MacOS.prefer_64_bit?

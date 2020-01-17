@@ -3,6 +3,7 @@ class Sdcv < Formula
   homepage "http://sdcv.sourceforge.net/"
   url "http://svn.code.sf.net/p/sdcv/code/trunk", :revision => "76"
   version "0.5-2013-09-10"
+  revision 1
 
   depends_on "pkg-config" => :build
   depends_on "cmake" => :build

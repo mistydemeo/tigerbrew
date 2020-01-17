@@ -1,19 +1,22 @@
 class CurlCaBundle < Formula
   homepage "http://curl.haxx.se/docs/caextract.html"
-  url "https://raw.githubusercontent.com/bagder/ca-bundle/bff056d04b9e2c92ea8c83b2e39be9c8d0501039/ca-bundle.crt",
+  url "https://curl.haxx.se/ca/cacert-2017-01-18.pem",
     :using => :nounzip
-  sha256 "0f119da204025da7808273fab42ed8e030cafb5c7ea4e1deda4e75f066f528fb"
-  version "2015-04-27"
+  mirror "https://ia902307.us.archive.org/31/items/tigerbrew/cacert-2017-01-18.pem"
+  sha256 "e62a07e61e5870effa81b430e1900778943c228bd7da1259dd6a955ee2262b47"
+  version "2017-01-18"
 
   bottle do
     cellar :any
-    sha256 "2ca60a8bbb648ded824dce45eb150fd0e9d32f8cbd983945db7bee4c6e58b1ea" => :tiger_g3
-    sha256 "fba559a40c232629dade3aaa6c13206098d6428fc5716ed05002ed748c60f946" => :tiger_altivec
-    sha256 "3ec0182385448739a37805ad3f1561ec44706506cb9fa15cd8573023c4e8fb0c" => :leopard_g3
-    sha256 "b168b3d05821dd315a7a8665f63f6a327957f129dda209f20df9aaad45f0742d" => :leopard_altivec
+    sha256 "0507b35196c0cd269f7e209353f88154b0c4232b1f28c1ecdaeb2c89e368d927" => :tiger
+    sha256 "0507b35196c0cd269f7e209353f88154b0c4232b1f28c1ecdaeb2c89e368d927" => :tiger_g3
+    sha256 "0507b35196c0cd269f7e209353f88154b0c4232b1f28c1ecdaeb2c89e368d927" => :tiger_altivec
+    sha256 "b7a31dae293c4c39092690a1a4b43a6bd1ff6419daae4899245f469717aa8712" => :leopard
+    sha256 "b7a31dae293c4c39092690a1a4b43a6bd1ff6419daae4899245f469717aa8712" => :leopard_g3
+    sha256 "b7a31dae293c4c39092690a1a4b43a6bd1ff6419daae4899245f469717aa8712" => :leopard_altivec
   end
 
   def install
-    share.install "ca-bundle.crt"
+    share.install "cacert-#{version}.pem" => "ca-bundle.crt"
   end
 end

@@ -1,13 +1,13 @@
 class Fish < Formula
   desc "User-friendly command-line shell for UNIX-like operating systems"
   homepage "http://fishshell.com"
-  url "http://fishshell.com/files/2.2.0/fish-2.2.0.tar.gz"
-  sha256 "a76339fd14ce2ec229283c53e805faac48c3e99d9e3ede9d82c0554acfc7b77a"
+  url "https://github.com/fish-shell/fish-shell/releases/download/2.7.1/fish-2.7.1.tar.gz"
+  sha256 "e42bb19c7586356905a58578190be792df960fa81de35effb1ca5a5a981f0c5a"
 
   bottle do
-    sha256 "1a9a75647ab672132d4ea6b385a09461041f47a91a3719a82494467eaeceab97" => :tiger_altivec
-    sha256 "e0ba430b35df479e52c0d33b6900cbfe55bf2779e7ab22c3e226db05e53f9410" => :leopard_g3
-    sha256 "326cea656c8cadf59f2202293334c17d38dfb52ea21388f5fa2b44a6cd8cc46e" => :leopard_altivec
+    sha256 "12616d6225eb804b40cdd12ecc8722252a9d28d0275af61f9afc59ef12a55f87" => :tiger_g3
+    sha256 "0339873032336e84bd169f49b4a9745bcb6ee4e21cfc3cf7a99b05423405498e" => :tiger_altivec
+    sha256 "6b02140be2753196951031ef7836d1297e752270c3cbda8915c6dae7dd948766" => :tiger_g5
   end
 
   head do
@@ -19,25 +19,42 @@ class Fish < Formula
     depends_on "libtool" => :build
   end
 
+  needs :cxx11
+  depends_on "pcre2"
+
   def install
-    system "autoconf" if build.head?
+    system "autoreconf", "--no-recursive" if build.head?
+    # Necessary to get the standard signature of ttyname_r()
+    ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version < :leopard
+
     # In Homebrew's 'superenv' sed's path will be incompatible, so
     # the correct path is passed into configure here.
-    system "./configure", "--prefix=#{prefix}", "SED=/usr/bin/sed"
+    args = %W[
+      --prefix=#{prefix}
+      --with-extra-functionsdir=#{HOMEBREW_PREFIX}/share/fish/vendor_functions.d
+      --with-extra-completionsdir=#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d
+      --with-extra-confdir=#{HOMEBREW_PREFIX}/share/fish/vendor_conf.d
+      SED=/usr/bin/sed
+    ]
+    system "./configure", *args
     system "make", "install"
   end
 
   def caveats; <<-EOS.undent
     You will need to add:
       #{HOMEBREW_PREFIX}/bin/fish
-    to /etc/shells. Run:
+    to /etc/shells.
+
+    Then run:
       chsh -s #{HOMEBREW_PREFIX}/bin/fish
     to make fish your default shell.
-
-    If you are upgrading from an older version of fish, you should now run:
-      killall fishd
-    to terminate the outdated fish daemon.
     EOS
+  end
+
+  def post_install
+    (pkgshare/"vendor_functions.d").mkpath
+    (pkgshare/"vendor_completions.d").mkpath
+    (pkgshare/"vendor_conf.d").mkpath
   end
 
   test do

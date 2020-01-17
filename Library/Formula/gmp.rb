@@ -1,20 +1,25 @@
 class Gmp < Formula
   desc "GNU multiple precision arithmetic library"
   homepage "https://gmplib.org/"
-  url "http://ftpmirror.gnu.org/gmp/gmp-6.0.0a.tar.bz2"
-  mirror "https://gmplib.org/download/gmp/gmp-6.0.0a.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/gmp/gmp-6.0.0a.tar.bz2"
-  sha256 "7f8e9a804b9c6d07164cf754207be838ece1219425d64e28cfa3e70d5c759aaf"
+  url "https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz"
+  sha256 "87b565e89a9a684fe4ebeeddb8399dce2599f9c9049854ca8c0dfbdea0e21912"
 
   bottle do
     cellar :any
-    sha1 "954d513d362b0bda155bd8bf0347a49a93e3f885" => :tiger_altivec
-    sha1 "ef404f79249e760443a037cc5f9374df4074f8fc" => :leopard_g3
-    sha1 "f6b2011e9b1a6e22ccbb30f6ed94d338063feb30" => :leopard_altivec
   end
 
   option "32-bit"
   option :cxx11
+
+  def arch_to_string_map
+    @arch_map ||= {
+      :g3  => "powerpc750",
+      :g4  => "powerpc7400",
+      :g4e => "powerpc7450",
+      :g5  => "powerpc970"
+    }
+  end
 
   # https://github.com/mistydemeo/tigerbrew/issues/212
   env :std
@@ -22,8 +27,13 @@ class Gmp < Formula
   def install
     ENV.cxx11 if build.cxx11?
     args = ["--prefix=#{prefix}", "--enable-cxx"]
+    if build.bottle?
+      bottle_sym = ARGV.bottle_arch || Hardware.oldest_cpu
+      arch = arch_to_string_map.fetch(bottle_sym, "core2")
+      args << "--build=#{arch}-apple-darwin#{`uname -r`.to_i}"
+    end
 
-    if build.build_32_bit?
+    if build.build_32_bit? || !MacOS.prefer_64_bit?
       ENV.m32
       args << "ABI=32"
     end
@@ -32,22 +42,28 @@ class Gmp < Formula
     # https://github.com/Homebrew/homebrew/issues/20693
     args << "--disable-assembly" if build.build_32_bit? || build.bottle?
 
-    system "./configure", *args
+    system "./configure", "--disable-static", *args
     system "make"
     system "make", "check"
-    ENV.deparallelize
     system "make", "install"
+    system "make", "clean"
+    system "./configure", "--disable-shared", "--disable-assembly", *args
+    system "make"
+    lib.install Dir[".libs/*.a"]
   end
 
   test do
     (testpath/"test.c").write <<-EOS.undent
       #include <gmp.h>
+      #include <stdlib.h>
 
-      int main()
-      {
-        mpz_t integ;
-        mpz_init (integ);
-        mpz_clear (integ);
+      int main() {
+        mpz_t i, j, k;
+        mpz_init_set_str (i, "1a", 16);
+        mpz_init (j);
+        mpz_init (k);
+        mpz_sqrtrem (j, k, i);
+        if (mpz_get_si (j) != 5 || mpz_get_si (k) != 1) abort();
         return 0;
       }
     EOS

@@ -12,7 +12,7 @@ class Qpdf < Formula
     sha256 "927c353822d0ae21b0d822931121c4ff36a2a0e2905dd04075c60de4d0b023bf" => :mavericks
   end
 
-  depends_on "homebrew/dupes/make" => :build if MacOS.version == :tiger
+  depends_on "make" => :build if MacOS.version == :tiger
   depends_on "pcre"
 
   def install

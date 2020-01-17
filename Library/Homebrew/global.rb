@@ -17,7 +17,7 @@ require "extend/leopard" if RUBY_VERSION <= "1.8.6"
 
 ARGV.extend(HomebrewArgvExtension)
 
-HOMEBREW_VERSION = "0.9.5"
+HOMEBREW_VERSION = ENV["HOMEBREW_VERSION"]
 HOMEBREW_WWW = "https://github.com/mistydemeo/tigerbrew"
 
 require "config"
@@ -43,7 +43,10 @@ else
 end
 
 HOMEBREW_GITHUB_API_TOKEN = ENV["HOMEBREW_GITHUB_API_TOKEN"]
-HOMEBREW_USER_AGENT = "Tigerbrew #{HOMEBREW_VERSION} (Ruby #{RUBY_VERSION}; #{OS_VERSION})"
+
+HOMEBREW_USER_AGENT_CURL = ENV["HOMEBREW_USER_AGENT_CURL"]
+ruby_version = "#{RUBY_VERSION}#{"-p#{RUBY_PATCHLEVEL}" if defined? RUBY_PATCHLEVEL}"
+HOMEBREW_USER_AGENT_RUBY = "#{ENV["HOMEBREW_USER_AGENT"]} ruby/#{ruby_version}"
 
 HOMEBREW_CURL_ARGS = "-f#LA"
 

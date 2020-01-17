@@ -15,7 +15,7 @@ class Libtool < Formula
     sha256 "f14f7c9f863be4c820839eb403e5a994986f8c4d2d19ff60ea011adcceb2ed81" => :leopard_altivec
   end
 
-  depends_on "homebrew/dupes/m4" if MacOS.version < :leopard
+  depends_on "m4" if MacOS.version < :leopard
 
   keg_only :provided_until_xcode43
 

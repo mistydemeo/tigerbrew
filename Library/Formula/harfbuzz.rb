@@ -22,6 +22,12 @@ class Harfbuzz < Formula
 
   option "with-cairo", "Build command-line utilities that depend on Cairo"
 
+  # ld64 is needed to lookup @loader_path/libicudata.*.dylib
+  depends_on :ld64
+
+  # the make binary shipped on Tiger cannot handle the gobject-introspection Makefiles
+  depends_on "make" => :build if MacOS.version < :leopard
+
   depends_on "pkg-config" => :build
   depends_on "glib"
   depends_on "freetype"
@@ -29,6 +35,13 @@ class Harfbuzz < Formula
   depends_on "icu4c" => :recommended
   depends_on "cairo" => :optional
   depends_on "graphite2" => :optional
+
+  # Fixes undefined constant on pre-10.6
+  # https://github.com/mistydemeo/tigerbrew/issues/388
+  patch do
+    url "https://git.gnome.org/browse/gtk-osx/plain/patches/harfbuzz-kCTTypesetterOptionForcedEmbeddingLevel-Leopard.patch"
+    sha256 "12b927a41d3e2983197a96d20a6776a911a7dcafc18135abf5f1148b96f180c0"
+  end if MacOS.version < :snow_leopard
 
   resource "ttf" do
     url "https://github.com/behdad/harfbuzz/raw/fc0daafab0336b847ac14682e581a8838f36a0bf/test/shaping/fonts/sha1sum/270b89df543a7e48e206a2d830c0e10e5265c630.ttf"
@@ -41,7 +54,6 @@ class Harfbuzz < Formula
       --prefix=#{prefix}
       --enable-introspection=yes
       --with-gobject=yes
-      --with-coretext=yes
     ]
 
     args << "--with-coretext=yes" if MacOS.version >= :leopard
@@ -52,7 +64,7 @@ class Harfbuzz < Formula
 
     system "./autogen.sh" if build.head?
     system "./configure", *args
-    system "make", "install"
+    make "install"
   end
 
   test do

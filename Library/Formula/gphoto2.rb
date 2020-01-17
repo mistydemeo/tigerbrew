@@ -3,6 +3,7 @@ class Gphoto2 < Formula
   homepage "http://gphoto.org/"
   url "http://downloads.sourceforge.net/project/gphoto/gphoto/2.5.1/gphoto2-2.5.1.tar.bz2"
   sha1 "c363adfb5d0f21c03bc5dc27daf19e9e409832ec"
+  revision 1
 
   depends_on "pkg-config" => :build
   depends_on "jpeg"

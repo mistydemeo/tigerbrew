@@ -1,19 +1,16 @@
 class Libpng < Formula
   desc "Library for manipulating PNG images"
   homepage "http://www.libpng.org/pub/png/libpng.html"
-  # Sourceforge tarball is not up yet; review this later
-  url "ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-1.6.18.tar.xz"
-  mirror "https://dl.bintray.com/homebrew/mirror/libpng-1.6.18.tar.xz"
-  sha256 "2e10c13b7949883ac961db6177c516d778184432d440317e9f0391305c360963"
+  url "ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-1.6.24.tar.xz"
+  mirror "https://dl.bintray.com/homebrew/mirror/libpng-1.6.24.tar.xz"
+  sha256 "7932dc9e5e45d55ece9d204e90196bbb5f2c82741ccb0f7e10d07d364a6fd6dd"
 
   bottle do
     cellar :any
-    sha256 "d09b58d89e89013b8674e090d57a900d7e554d47c9ce952802116754e505cfc3" => :tiger_altivec
-    sha256 "46146f5fdac93a350d98ff17222ecfb38bc2287653dc88ba9e619246f1573f31" => :leopard_g3
-    sha256 "c32e4fc4f87fd40d719cefc5734f93a2ccde334a18c33934c2eefbb0ce0f083d" => :leopard_altivec
+    sha256 "92ae818d3a0237f375767d2f0ce673484789ca298b7295cf34c48da945c0dc3f" => :el_capitan
+    sha256 "d0c673c254660fbce4880f74a6d832f6ce5ce4bd4926ea2e7e0985cb0ac82218" => :yosemite
+    sha256 "91e832b62a0ee289d3835edbffdd7fccb4d5674c7a0d4c1c6ac1d367584b02c4" => :mavericks
   end
-
-  keg_only :provided_pre_mountain_lion
 
   head do
     url "https://github.com/glennrp/libpng.git"
@@ -22,6 +19,8 @@ class Libpng < Formula
     depends_on "automake" => :build
     depends_on "libtool" => :build
   end
+
+  keg_only :provided_pre_mountain_lion
 
   option :universal
 
