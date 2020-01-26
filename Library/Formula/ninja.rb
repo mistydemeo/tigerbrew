@@ -18,7 +18,7 @@ class Ninja < Formula
   option "without-tests", "Run build-time tests"
 
   resource "gtest" do
-    url "https://googletest.googlecode.com/files/gtest-1.7.0.zip"
+    url "https://web.archive.org/web/20160617081653if_/http://googletest.googlecode.com/files/gtest-1.7.0.zip"
     sha256 "247ca18dd83f53deb1328be17e4b1be31514cedfc1e3424f672bf11fd7e0d60d"
   end
 
