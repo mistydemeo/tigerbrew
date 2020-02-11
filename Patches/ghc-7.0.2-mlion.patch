@@ -1,0 +1,13 @@
+diff --git a/mk/config.mk.in b/mk/config.mk.in
+index 10539ae..7213827 100644
+--- a/mk/config.mk.in
++++ b/mk/config.mk.in
+@@ -633,7 +633,7 @@ CPP                 = @CPP@ @CPPFLAGS@
+ # Clang in particular is a bit more annoying, so we suppress some warnings.
+ RAWCPP_FLAGS            = -undef -traditional
+ ifeq "$(CC_CLANG_BACKEND)" "1"
+-RAWCPP_FLAGS           += -Wno-invalid-pp-token -Wno-unicode -Wno-trigraphs
++RAWCPP_FLAGS           += -Wno-trigraphs
+ endif
+ 
+ FIND                   = @FindCmd@
