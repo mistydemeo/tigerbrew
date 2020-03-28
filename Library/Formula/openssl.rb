@@ -1,10 +1,10 @@
 class Openssl < Formula
   desc "SSL/TLS cryptography library"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-1.0.2j.tar.gz"
-  mirror "https://dl.bintray.com/homebrew/mirror/openssl-1.0.2j.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-1.0.2j.tar.gz"
-  sha256 "e7aff292be21c259c6af26469c7a9b3ba26e9abaaffd325e3dccc9785256c431"
+  url "https://www.openssl.org/source/openssl-1.0.2k.tar.gz"
+  mirror "https://dl.bintray.com/homebrew/mirror/openssl-1.0.2k.tar.gz"
+  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-1.0.2k.tar.gz"
+  sha256 "6b3977c61f2aedf0f96367dcfb5c6e578cf37e7b8d913b4ecb6643c3cb88d8c0"
 
   bottle do
     sha256 "109fe24d2ee82d89e1ee60587d91c953cdd3384db5374e8e83635c456fa15ed0" => :sierra
@@ -15,12 +15,25 @@ class Openssl < Formula
   option :universal
   option "without-test", "Skip build-time tests (not recommended)"
 
+  if MacOS.version == :tiger
+    # Tiger's ld defaults to multi-module dylibs, which do not support common symbols
+    depends_on :ld64
+    # Tiger's as cannot parse .comm pseudo-ops when the optional alignment argument is specified
+    depends_on "cctools" => :build
+  end
+
   depends_on "makedepend" => :build
   depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
 
   patch :p0 do
     url "https://trac.macports.org/export/144472/trunk/dports/devel/openssl/files/x86_64-asm-on-i386.patch"
     sha256 "98ffb308aa04c14db9c21769f1c5ff09d63eb85ce9afdf002598823c45edef6d"
+  end
+
+  # Avoid SIGILL on MacOSX; allows testing the ppc library on Intel
+  patch do
+    url "https://github.com/openssl/openssl/commit/a91bfe2f55892f625d5a30171efa0fdfd2814abe.patch"
+    sha256 "43b8cabe76e40b4a91e8b0cdfd68aa581f934859d01cf8759c74a9c146dd982a"
   end
   
   def arch_args
@@ -42,9 +55,13 @@ class Openssl < Formula
       enable-cms
     ]
     
-    args << "no-asm" if MacOS.version == :tiger
-
     args
+  end
+
+  def lipo(input_dirs, output_dir, name)
+    args = input_dirs.map { |dir| "#{dir}/#{name}" }
+    args << "-output" << "#{output_dir}/#{name}"
+    system "lipo", "-create", *args
   end
 
   def install
@@ -76,7 +93,7 @@ class Openssl < Formula
       system "perl", "./Configure", *(configure_args + arch_args[arch])
       system "make", "depend"
       system "make"
-      system "make", "test" if build.with?("test")
+      system "make", "test" if build.with?("test") && Hardware::CPU.can_run?(arch)
 
       if build.universal?
         cp "include/openssl/opensslconf.h", dir
@@ -89,25 +106,17 @@ class Openssl < Formula
 
     if build.universal?
       %w[libcrypto libssl].each do |libname|
-        system "lipo", "-create", "#{dirs.first}/#{libname}.1.0.0.dylib",
-                                  "#{dirs.last}/#{libname}.1.0.0.dylib",
-                       "-output", "#{lib}/#{libname}.1.0.0.dylib"
-        system "lipo", "-create", "#{dirs.first}/#{libname}.a",
-                                  "#{dirs.last}/#{libname}.a",
-                       "-output", "#{lib}/#{libname}.a"
+        lipo dirs, lib, "#{libname}.1.0.0.dylib"
+        lipo dirs, lib, "#{libname}.a"
       end
 
       Dir.glob("#{dirs.first}/engines/*.dylib") do |engine|
         libname = File.basename(engine)
-        system "lipo", "-create", "#{dirs.first}/engines/#{libname}",
-                                  "#{dirs.last}/engines/#{libname}",
-                       "-output", "#{lib}/engines/#{libname}"
+        engines = dirs.map { |dir| "#{dir}/engines" }
+        lipo engines, "#{lib}/engines", libname
       end
 
-      system "lipo", "-create", "#{dirs.first}/openssl",
-                                "#{dirs.last}/openssl",
-                     "-output", "#{bin}/openssl"
-
+      lipo dirs, bin, "openssl"
     end
   end
 

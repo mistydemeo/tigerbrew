@@ -79,7 +79,11 @@ module MacCPUs
   end
 
   def bits
-    sysctl_bool("hw.cpu64bit_capable") ? 64 : 32
+    # hw.cpu64bit_capable is not available on Tiger, but it is
+    # possible to detect 64-bit CPUs by checking the ppc- and
+    # intel-specific flags, as shown in
+    # https://opensource.apple.com/source/xnu/xnu-1504.7.4/tools/tests/xnu_quick_test/misc.c?txt
+    sysctl_bool("hw.optional.64bitops") || sysctl_bool("hw.optional.x86_64") ? 64 : 32
   end
 
   def arch_32_bit
@@ -93,12 +97,15 @@ module MacCPUs
   # Returns an array that's been extended with ArchitectureListExtension,
   # which provides helpers like #as_arch_flags and #as_cmake_arch_flags.
   def universal_archs
-    # Building 64-bit is a no-go on Tiger, and pretty hit or miss on Leopard.
-    # Don't even try unless Tigerbrew's experimental 64-bit Leopard support is enabled.
-    if MacOS.version <= :leopard && !MacOS.prefer_64_bit?
-      [arch_32_bit].extend ArchitectureListExtension
+    # Support for running on ppc was dropped after Leopard
+    if MacOS.version > :leopard
+      [:x86_64, :i386].extend ArchitectureListExtension
+    # Building 64-bit is pretty hit or miss on Tiger and Leopard.
+    # Don't even try unless Tigerbrew's experimental 64-bit support is enabled.
+    elsif ENV["HOMEBREW_PREFER_64_BIT"]
+      [:x86_64, :i386, :ppc64, :ppc].extend ArchitectureListExtension
     else
-      [arch_32_bit, arch_64_bit].extend ArchitectureListExtension
+      [:i386, :ppc].extend ArchitectureListExtension
     end
   end
 
