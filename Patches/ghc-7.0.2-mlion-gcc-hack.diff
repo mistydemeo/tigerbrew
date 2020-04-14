@@ -1,0 +1,10 @@
+diff --git a/gcc-hacked-for-mlion-10.8.5 b/gcc-hacked-for-mlion-10.8.5
+new file mode 100755
+index 0000000..3d716f3
+--- /dev/null
++++ b/gcc-hacked-for-mlion-10.8.5
+@@ -0,0 +1,4 @@
++#!/usr/bin/python
++import sys
++import os
++os.execv("/usr/bin/gcc", ["/usr/bin/gcc"] + [i for i in sys.argv[1:] if i != "-Wno-invalid-pp-token" and i != "-Wno-unicode"])
