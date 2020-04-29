@@ -10,9 +10,12 @@ class Sdl2Gfx < Formula
 
   def install
     ENV.universal_binary if build.universal?
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
-                          "--disable-sdltest"
+    args = %W[--disable-dependency-tracking
+              --prefix=#{prefix}
+              --disable-sdltest]
+    args << "--disable-mmx" unless Hardware::CPU.type == :intel
+
+    system "./configure", *args
     system "make", "install"
   end
 end
