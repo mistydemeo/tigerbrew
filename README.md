@@ -58,7 +58,7 @@ Code is under the [BSD 2 Clause (NetBSD) license][license].
 [Homebrew]:http://brew.sh
 [wiki]:https://github.com/mistydemeo/tigerbrew/wiki
 [mxcl]:http://twitter.com/mxcl
-[formula]:https://github.com/mistydemeo/tigerbrew
+[formula]:https://github.com/mistydemeo/tigerbrew/tree/master/Library/Formula
 [license]:https://github.com/mistydemeo/tigerbrew/blob/master/Library/Homebrew/LICENSE
 [issues]:https://github.com/mistydemeo/tigerbrew/issues
 [prs]:https://github.com/mistydemeo/tigerbrew/pulls
