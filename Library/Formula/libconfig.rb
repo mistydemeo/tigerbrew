@@ -1,7 +1,7 @@
 class Libconfig < Formula
   desc "Configuration file processing library"
   homepage "http://www.hyperrealm.com/libconfig/"
-  url "https://hyperrealm.github.io/libconfig/dist/libconfig-1.7.2.tar.gz"
+  url "https://github.com/hyperrealm/libconfig/archive/v1.7.2.tar.gz"
   sha256 "7c3c7a9c73ff3302084386e96f903eb62ce06953bb1666235fac74363a16fad9"
 
   head do
