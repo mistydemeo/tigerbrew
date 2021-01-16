@@ -79,9 +79,7 @@ module Homebrew
     raise SEARCH_ERROR_QUEUE.pop unless SEARCH_ERROR_QUEUE.empty?
   end
 
-  SEARCHABLE_TAPS = OFFICIAL_TAPS.map { |tap| ["Homebrew", tap] } + [
-    %w[Caskroom cask]
-  ]
+  SEARCHABLE_TAPS = OFFICIAL_TAPS.map { |tap| ["Homebrew", tap] }
 
   def query_regexp(query)
     case query
