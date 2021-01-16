@@ -28,7 +28,7 @@ setup-curl-path() {
         HOMEBREW_CURL="$(which curl)"
       fi
 
-      if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100900" || ! -x "$HOMEBREW_CURL" ]]
+      if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "101500" || ! -x "$HOMEBREW_CURL" ]]
       then
         brew vendor-install curl --quiet
         if [[ ! -x "$vendor_curl_path" ]]
