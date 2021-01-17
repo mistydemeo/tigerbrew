@@ -44,6 +44,10 @@ fetch() {
   local sha
   local temporary_path
 
+  echo "==> Please wait... tigers are now brewing"
+  echo "Downloading Tigerbrew's ${VENDOR_NAME}; this may take some time"
+  echo ""
+
   curl_args=(
     --fail \
     --remote-time \
