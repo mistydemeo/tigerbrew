@@ -89,6 +89,9 @@ then
   HOMEBREW_CACHE="$HOME/Library/Caches/Homebrew"
 fi
 
+# We want to ensure that newer Intel Macs use our Ruby/curl, too
+export HOMEBREW_FORCE_VENDOR_RUBY="1"
+
 # Declared in bin/brew
 export HOMEBREW_BREW_FILE
 export HOMEBREW_PREFIX
