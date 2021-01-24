@@ -6,6 +6,8 @@ A little experimental fork of [Homebrew][homebrew] that adds support for PowerPC
 Installation
 ============
 
+You will first need the newest version of Xcode for your operating system installed. For Tiger that's [Xcode 2.5, available from Apple here](https://developer.apple.com/download/more/?=xcode%202.5). For Leopard, [Xcode 3.1.4, available from Apple here](https://developer.apple.com/download/more/?=xcode%203.1.4). Both downloads will require an Apple Developer account.
+
 Paste this into a terminal prompt:
 
 ```sh
