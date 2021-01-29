@@ -1,10 +1,8 @@
 class Openssl < Formula
   desc "SSL/TLS cryptography library"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/old/1.0.2/openssl-1.0.2j.tar.gz"
-  mirror "http://artfiles.org/openssl.org/source/old/1.0.2/openssl-1.0.2j.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/old/1.0.2/openssl-1.0.2j.tar.gz"
-  sha256 "e7aff292be21c259c6af26469c7a9b3ba26e9abaaffd325e3dccc9785256c431"
+  url "https://www.openssl.org/source/openssl-1.1.1i.tar.gz"
+  sha256 "e8be6a35fe41d10603c3cc635e93289ed00bf34b79671a3a4de64fcee00d5242"
 
   bottle do
     sha256 "109fe24d2ee82d89e1ee60587d91c953cdd3384db5374e8e83635c456fa15ed0" => :sierra
@@ -15,14 +13,10 @@ class Openssl < Formula
   option :universal
   option "without-test", "Skip build-time tests (not recommended)"
 
+  depends_on "perl" => :build
   depends_on "makedepend" => :build
   depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
 
-  patch :p0 do
-    url "https://trac.macports.org/export/144472/trunk/dports/devel/openssl/files/x86_64-asm-on-i386.patch"
-    sha256 "98ffb308aa04c14db9c21769f1c5ff09d63eb85ce9afdf002598823c45edef6d"
-  end
-  
   def arch_args
     {
       :x86_64 => %w[darwin64-x86_64-cc enable-ec_nistp_64_gcc_128],
@@ -72,8 +66,8 @@ class Openssl < Formula
         system "make", "clean"
       end
 
-      ENV.deparallelize
-      system "perl", "./Configure", *(configure_args + arch_args[arch])
+      # ENV.deparallelize
+      system "/usr/local/Cellar/perl/5.22.0/bin/perl", "./Configure", *(configure_args + arch_args[arch])
       system "make", "depend"
       system "make"
       system "make", "test" if build.with?("test")
