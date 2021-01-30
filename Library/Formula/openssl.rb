@@ -26,14 +26,18 @@ class Openssl < Formula
     }
   end
 
+
+  # SSLv2 died with 1.1.0, so no-ssl2 no longer required.
+  # SSLv3 & zlib are off by default with 1.1.0 but this may not
+  # be obvious to everyone, so explicitly state it for now to
+  # help debug inevitable breakage.
   def configure_args
-    args = %W[ 
+    args = %W[
       --prefix=#{prefix}
       --openssldir=#{openssldir}
-      no-ssl2
-      zlib-dynamic
-      shared
-      enable-cms
+      no-ssl3
+      no-ssl3-method
+      no-zlib
     ]
     
     args << "no-asm" if MacOS.version == :tiger
@@ -66,8 +70,14 @@ class Openssl < Formula
         system "make", "clean"
       end
 
+
+      # This ensures where Homebrew's Perl is needed the Cellar path isn't
+      # hardcoded into OpenSSL's scripts, causing them to break every Perl update.
+      # Whilst our env points to opt_bin, by default OpenSSL resolves the symlink.
+      ENV["PERL"] = Formula["perl"].opt_bin/"perl"
+
       # ENV.deparallelize
-      system "/usr/local/Cellar/perl/5.22.0/bin/perl", "./Configure", *(configure_args + arch_args[arch])
+      system "perl", "./Configure", *(configure_args + arch_args[arch])
       system "make", "depend"
       system "make"
       system "make", "test" if build.with?("test")
