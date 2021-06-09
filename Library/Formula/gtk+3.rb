@@ -44,7 +44,7 @@ class Gtkx3 < Formula
     # necessary to avoid gtk-update-icon-cache not being found during make install
     bin.mkpath
     ENV.prepend_path "PATH", "#{bin}"
-    system "make", "install"
+    make "install"
     # Prevent a conflict between this and Gtk+2
     mv bin/"gtk-update-icon-cache", bin/"gtk3-update-icon-cache"
   end
