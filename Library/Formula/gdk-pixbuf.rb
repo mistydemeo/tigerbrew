@@ -14,12 +14,11 @@ class GdkPixbuf < Formula
   option "with-relocations", "Build with relocation support for bundles"
 
   depends_on "pkg-config" => :build
-  depends_on "make" => :build if MacOS.version < :leopard
   depends_on "glib"
   depends_on "jpeg"
   depends_on "libtiff"
   depends_on "libpng"
-  depends_on "gobject-introspection"
+  depends_on "gobject-introspection" => :build
 
   # 'loaders.cache' must be writable by other packages
   skip_clean "lib/gdk-pixbuf-2.0"
@@ -38,8 +37,8 @@ class GdkPixbuf < Formula
     args << "--enable-relocations" if build.with?("relocations")
 
     system "./configure", *args
-    system make_path
-    system make_path, "install"
+    make
+    make "install"
 
     # Other packages should use the top-level modules directory
     # rather than dumping their files into the gdk-pixbuf keg.
