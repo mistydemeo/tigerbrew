@@ -11,9 +11,8 @@ class Atk < Formula
   end
 
   depends_on "pkg-config" => :build
-  depends_on "make" => :build if MacOS.version < :leopard
   depends_on "glib"
-  depends_on "gobject-introspection"
+  depends_on "gobject-introspection" => :build
 
   option :universal
 
@@ -22,8 +21,8 @@ class Atk < Formula
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--enable-introspection=yes"
-    system make_path
-    system make_path, "install"
+    make
+    make "install"
   end
 
   test do
