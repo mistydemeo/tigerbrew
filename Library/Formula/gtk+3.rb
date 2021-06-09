@@ -24,6 +24,8 @@ class Gtkx3 < Formula
   depends_on "glib"
   depends_on "hicolor-icon-theme"
 
+  depends_on :ld64
+
   patch :DATA if MacOS.version < :leopard # No NSTextInputClient on Tiger
 
   def install
