@@ -38,6 +38,7 @@ class Gtkx3 < Formula
       --disable-x11-backend
     ]
 
+    args << "--disable-cups" if MacOS.version < :leopard # Requires CUPS 1.2
     args << "--enable-quartz-relocation" if build.with?("quartz-relocation")
 
     system "./configure", *args
