@@ -24,6 +24,8 @@ class Gtkx3 < Formula
   depends_on "glib"
   depends_on "hicolor-icon-theme"
 
+  patch :DATA if MacOS.version < :leopard # No NSTextInputClient on Tiger
+
   def install
     ENV.universal_binary if build.universal?
 
@@ -116,3 +118,17 @@ class Gtkx3 < Formula
     system "./test"
   end
 end
+
+__END__
+diff -ur a/gdk/quartz/GdkQuartzView.h b/gdk/quartz/GdkQuartzView.h
+--- a/gdk/quartz/GdkQuartzView.h	2014-11-26 21:54:55.000000000 -0500
++++ b/gdk/quartz/GdkQuartzView.h	2021-06-09 13:24:00.000000000 -0400
+@@ -32,7 +32,7 @@
+ #define GIC_FILTER_PASSTHRU	0
+ #define GIC_FILTER_FILTERED	1
+
+-@interface GdkQuartzView : NSView <NSTextInputClient>
++@interface GdkQuartzView : NSView
+ {
+   GdkWindow *gdk_window;
+   NSTrackingRectTag trackingRect;
