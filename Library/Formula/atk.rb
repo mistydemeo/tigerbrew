@@ -12,7 +12,7 @@ class Atk < Formula
 
   depends_on "pkg-config" => :build
   depends_on "glib"
-  depends_on "gobject-introspection" => :build
+  depends_on "gobject-introspection"
 
   option :universal
 

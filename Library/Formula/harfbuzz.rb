@@ -28,7 +28,7 @@ class Harfbuzz < Formula
   depends_on "pkg-config" => :build
   depends_on "glib"
   depends_on "freetype"
-  depends_on "gobject-introspection" => :build
+  depends_on "gobject-introspection"
   depends_on "icu4c" => :recommended
   depends_on "cairo" => :optional
   depends_on "graphite2" => :optional
