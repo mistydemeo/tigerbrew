@@ -11,6 +11,7 @@ class Pcre2 < Formula
     sha256 "bd0d09c9849ec4ce62bff6bf422cf8c42dfa7d39e684c0d7e7d3d176a749ab76" => :tiger_g3
     sha256 "032c6cc3f59a97be735e385714da097201d03afb5ecc1ee943d0f5ebf8f06d52" => :tiger_altivec
     sha256 "23e8ed207c87f4a77e01b49d1972de94795e398ab00e4fe1d2260f1c905306f7" => :tiger_g5
+    sha256 "e4f42029c07e1ddbc7b0efe938b911f66b5fbb8404a18542ee4bd0156274b7cb" => :leopard_g4e
   end
 
   option :universal
