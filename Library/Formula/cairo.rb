@@ -23,7 +23,7 @@ class Cairo < Formula
   if MacOS.version < :leopard
     patch do
       url "https://cgit.freedesktop.org/~ranma42/cairo/patch/?id=5a8a9c97ed268004cbac510d39739ff56c0fb43c"
-      sha256 "8d119eca6c35ac8645d13d656b5a721cfeeec1ebcf5793f9d5182c604782de15"
+      sha256 "e4d5cea0f00108bab020e669659e8c20dfcbf29f43b15aeeebd2936e45ededd0"
     end
   end
 
