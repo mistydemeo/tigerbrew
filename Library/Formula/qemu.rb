@@ -6,6 +6,7 @@ class Qemu < Formula
   url "http://wiki.qemu-project.org/download/qemu-2.2.1.tar.bz2"
   sha256 "4617154c6ef744b83e10b744e392ad111dd351d435d6563ce24d8da75b1335a0"
   head "git://git.qemu-project.org/qemu.git"
+  revision 1
 
   depends_on "make" => :build if MacOS.version < :leopard
   depends_on "pkg-config" => :build

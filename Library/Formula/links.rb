@@ -4,6 +4,7 @@ class Links < Formula
   url "http://links.twibright.com/download/links-2.11.tar.bz2"
   mirror "https://mirrors.kernel.org/debian/pool/main/l/links2/links2_2.11.orig.tar.bz2"
   sha256 "87f7f927d6394f1dc45886dd5ff89234c4e0fb321132ceaa009db5bcc26f123f"
+  revision 1
 
   bottle do
     cellar :any

@@ -5,7 +5,7 @@ class Analog < Formula
   # homepage "http://analog.cx"
   url "https://mirrors.kernel.org/debian/pool/main/a/analog/analog_6.0.orig.tar.gz"
   sha256 "31c0e2bedd0968f9d4657db233b20427d8c497be98194daf19d6f859d7f6fcca"
-  revision 1
+  revision 2
 
   bottle do
     revision 1

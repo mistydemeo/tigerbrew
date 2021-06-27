@@ -8,6 +8,7 @@ class Imagemagick < Formula
   mirror "https://www.imagemagick.org/download/ImageMagick-6.9.6-2.tar.xz"
   sha256 "39244823fe736626fb4ea22c4b6cb4cae30c6a27a38a02ecd774f0ce3c4d308d"
   head "http://git.imagemagick.org/repos/ImageMagick.git"
+  revision 1
 
   bottle do
     sha256 "2f8807e39abcf51a2ce1e7f0986d67091155f977731662d3d5e197f09cc0364d" => :sierra

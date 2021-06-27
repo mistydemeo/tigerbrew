@@ -3,6 +3,7 @@ class Ffmpegthumbnailer < Formula
   homepage "https://github.com/dirkvdb/ffmpegthumbnailer"
   url "https://github.com/dirkvdb/ffmpegthumbnailer/archive/2.0.10.tar.gz"
   sha256 "68125d98d72347a676ab2f9bc93ddd3537ff39d6a81145e2a58a6de5d3958e4e"
+  revision 1
 
   bottle do
     cellar :any

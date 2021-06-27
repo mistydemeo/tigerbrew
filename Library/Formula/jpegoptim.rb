@@ -5,6 +5,7 @@ class Jpegoptim < Formula
   mirror "https://mirrors.kernel.org/debian/pool/main/j/jpegoptim/jpegoptim_1.4.3.orig.tar.gz"
   sha256 "f892f5917c8dd8259d319df204e4bc13806b90389041ca7a4a24d8a5c25c7013"
   head "https://github.com/tjko/jpegoptim.git"
+  revision 1
 
   bottle do
     cellar :any
