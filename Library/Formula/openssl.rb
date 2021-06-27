@@ -7,9 +7,8 @@ class Openssl < Formula
   sha256 "e7aff292be21c259c6af26469c7a9b3ba26e9abaaffd325e3dccc9785256c431"
 
   bottle do
-    sha256 "109fe24d2ee82d89e1ee60587d91c953cdd3384db5374e8e83635c456fa15ed0" => :sierra
-    sha256 "7b331c548a5a82f7a111c6218be3e255a2a1a6c19888c2b7ceaf02f2021c1628" => :el_capitan
-    sha256 "a3083052e81d711dd6da2d5bda7418d321eba26570a63818e52f5f68247c63f2" => :yosemite
+    revision 1
+    sha256 "380cec4114d6293641751cadf3431338b619166cae5465c5ebc880b2c8b99783" => :tiger_g4e
   end
 
   option :universal
