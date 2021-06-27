@@ -13,7 +13,7 @@ class Sdl2Image < Formula
     sha1 "39628bcec4c2a8a64ec255c6adabc55de7481678" => :mountain_lion
   end
 
-  revision 1
+  revision 2
 
   depends_on "pkg-config" => :build
   depends_on "sdl2"

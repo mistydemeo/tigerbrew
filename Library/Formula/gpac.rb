@@ -10,6 +10,7 @@ class Gpac < Formula
   desc "Multimedia framework for research and academic purposes"
   homepage "https://gpac.wp.mines-telecom.fr/"
   head "https://github.com/gpac/gpac.git"
+  revision 1
 
   stable do
     url "https://github.com/gpac/gpac/archive/v0.5.2.tar.gz"

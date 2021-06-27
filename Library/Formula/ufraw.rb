@@ -3,6 +3,7 @@ class Ufraw < Formula
   homepage "http://ufraw.sourceforge.net"
   url "https://downloads.sourceforge.net/project/ufraw/ufraw/ufraw-0.22/ufraw-0.22.tar.gz"
   sha256 "f7abd28ce587db2a74b4c54149bd8a2523a7ddc09bedf4f923246ff0ae09a25e"
+  revision 1
 
   bottle do
     sha256 "5462d1df3236f497fbae4171b743e598107224abce9ba274ef8c783153c3e41d" => :el_capitan
