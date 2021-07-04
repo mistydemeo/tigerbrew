@@ -24,7 +24,7 @@ class GsettingsDesktopSchemas < Formula
                           "--prefix=#{prefix}",
                           "--disable-schemas-compile",
                           "--enable-introspection=yes"
-    system "make", "install"
+    make "install"
   end
 
   test do

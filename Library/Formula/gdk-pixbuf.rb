@@ -3,6 +3,7 @@ class GdkPixbuf < Formula
   homepage "http://gtk.org"
   url "https://download.gnome.org/sources/gdk-pixbuf/2.32/gdk-pixbuf-2.32.1.tar.xz"
   sha256 "4432b74f25538c7d6bcb3ca51adabdd666168955f25812a2568dc9637697f3bc"
+  revision 1
 
   bottle do
     sha256 "62f6a4d7d312267fdfda5d1497de9af7fe4d8e731f888bb761a516c8f0e9cfa3" => :el_capitan
@@ -37,8 +38,8 @@ class GdkPixbuf < Formula
     args << "--enable-relocations" if build.with?("relocations")
 
     system "./configure", *args
-    system "make"
-    system "make", "install"
+    make
+    make "install"
 
     # Other packages should use the top-level modules directory
     # rather than dumping their files into the gdk-pixbuf keg.

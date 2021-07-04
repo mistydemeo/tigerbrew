@@ -11,7 +11,7 @@ class Libpano < Formula
     sha1 "0ea739e0ad708cc3d48d48eb542cb726e705ea2a" => :mountain_lion
   end
 
-  revision 1
+  revision 2
 
   depends_on "libpng"
   depends_on "jpeg"

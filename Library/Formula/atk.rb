@@ -21,8 +21,8 @@ class Atk < Formula
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--enable-introspection=yes"
-    system "make"
-    system "make", "install"
+    make
+    make "install"
   end
 
   test do

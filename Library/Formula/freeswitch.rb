@@ -6,6 +6,7 @@ class Freeswitch < Formula
       :revision => "87a059bafcc094bdb4899b6a20bcd215e249109e"
 
   head "https://freeswitch.org/stash/scm/fs/freeswitch.git"
+  revision 1
 
   bottle do
     sha256 "bafd8d3ec7bd43bf961ad3c747f1dcff7cc21f0e8aec934a950e2ee15273181b" => :el_capitan

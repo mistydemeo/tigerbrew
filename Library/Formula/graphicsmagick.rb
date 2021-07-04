@@ -4,11 +4,9 @@ class Graphicsmagick < Formula
   url "https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.21/GraphicsMagick-1.3.21.tar.bz2"
   sha256 "a0ce08f2710c158e39faa083463441f6eeeecce07dbd59510498ffa4e0b053d1"
   head "http://hg.code.sf.net/p/graphicsmagick/code", :using => :hg
+  revision 1
 
   bottle do
-    sha256 "6ea3436f715b3739485a35dd9ee55b6f4e9019d41d7ec12e095b009ec1e" => :tiger_altivec
-    sha256 "ce05ba743efd2dba316ca904f97793732afaf6787eab8bd1049691353ee5bd39" => :leopard_g3
-    sha256 "70bcb01a84da376d30dd8f730cbaad83271a21e9b9973e98b58204d969506626" => :leopard_altivec
   end
 
   option "with-quantum-depth-8", "Compile with a quantum depth of 8 bit"
