@@ -19,11 +19,11 @@ class Gcc5 < Formula
     `uname -r`.chomp
   end
 
-  desc "The GNU Compiler Collection"
+  desc "GNU compiler collection"
   homepage "https://gcc.gnu.org"
-  url "https://ftpmirror.gnu.org/gcc/gcc-5.4.0/gcc-5.4.0.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/gcc/gcc-5.4.0/gcc-5.4.0.tar.bz2"
-  sha256 "608df76dec2d34de6558249d8af4cbee21eceddbcb580d666f7a5a583ca3303a"
+  url "https://ftpmirror.gnu.org/gcc/gcc-5.5.0/gcc-5.5.0.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/gcc/gcc-5.5.0/gcc-5.5.0.tar.xz"
+  sha256 "530cea139d82fe542b358961130c69cfde8b3d14556370b65823d2f91f0ced87"
 
   bottle do
     sha256 "834b511f2f460db483e8126b446bb0a7fc7e2d7ee16bb53d6c4ec51910ce89be" => :el_capitan
@@ -37,9 +37,9 @@ class Gcc5 < Formula
   option "with-all-languages", "Enable all compilers and languages, except Ada"
   option "with-nls", "Build with native language support (localization)"
   option "with-profiled-build", "Make use of profile guided optimization when bootstrapping GCC"
-  option "with-jit", "Build the jit compiler"
+  option "with-jit", "Build just-in-time compiler"
   option "without-fortran", "Build without the gfortran compiler"
-  # enabling multilib on a host that can"t run 64-bit results in build failures
+  # enabling multilib on a host that can't run 64-bit results in build failures
   option "without-multilib", "Build without multilib support" if MacOS.prefer_64_bit?
 
   depends_on "gmp"
@@ -48,11 +48,9 @@ class Gcc5 < Formula
   depends_on "isl014"
   depends_on "ecj" if build.with?("java") || build.with?("all-languages")
 
-  if MacOS.version < :leopard
-    # The as that comes with Tiger isn't capable of dealing with the
-    # PPC asm that comes in libitm
-    depends_on "cctools" => :build
-  end
+  # The as that comes with Tiger isn't capable of dealing with the
+  # PPC asm that comes in libitm
+  depends_on "cctools" => :build if MacOS.version < :leopard
 
   # The bottles are built on systems with the CLT installed, and do not work
   # out of the box on Xcode-only systems due to an incorrect sysroot.
@@ -63,9 +61,23 @@ class Gcc5 < Formula
   # GCC bootstraps itself, so it is OK to have an incompatible C++ stdlib
   cxxstdlib_check :skip
 
+  # Fix an Intel-only build failure on 10.4.
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64184
+  patch :DATA if MacOS.version < :leopard && Hardware.cpu_type == :intel
+
+  # Fix an incompatibility with Make 3.80.
+  # https://gcc.gnu.org/ml/gcc-patches/2015-07/msg01398.html
+  patch do
+    url "https://gist.githubusercontent.com/mistydemeo/f5508247c1171edcbddcd95671137bdb/raw/249976f5b22ace26f2373f6fad12c0a1c0e22df4/libgcc-fix-make380.patch"
+    sha256 "fc5b45bb2771a6b35b0283412a50d7cb13ae982ed5607b27232a976a48078134"
+  end
+
   # Fix for libgccjit.so linkage on Darwin.
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64089
-  patch :DATA
+  patch do
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/64fd2d52/gcc%405/5.4.0.patch"
+    sha256 "1e126048d9a6b29b0da04595ffba09c184d338fe963cf9db8d81b47222716bc4"
+  end
 
   def install
     # GCC will suffer build errors if forced to use a particular linker.
@@ -81,7 +93,7 @@ class Gcc5 < Formula
 
     if build.with? "all-languages"
       # Everything but Ada, which requires a pre-existing GCC Ada compiler
-      # (gnat) to bootstrap. GCC 4.6.0 add go as a language option, but it is
+      # (gnat) to bootstrap. GCC 4.6.0 adds Go as a language option, but it is
       # currently only compilable on Linux.
       languages = %w[c c++ fortran java objc obj-c++ jit]
     else
@@ -111,11 +123,14 @@ class Gcc5 < Formula
       "--enable-stage1-checking",
       "--enable-checking=release",
       "--enable-lto",
+      # Use 'bootstrap-debug' build configuration to force stripping of object
+      # files prior to comparison during bootstrap (broken by Xcode 6.3).
+      "--with-build-config=bootstrap-debug",
       # A no-op unless --HEAD is built because in head warnings will
       # raise errors. But still a good idea to include.
       "--disable-werror",
-      "--with-pkgversion=Homebrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/Homebrew/homebrew-versions/issues",
+      "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
+      "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
     ]
 
     # "Building GCC with plugin support requires a host that supports
@@ -132,7 +147,7 @@ class Gcc5 < Formula
       args << "--with-ecj-jar=#{Formula["ecj"].opt_share}/java/ecj.jar"
     end
 
-    if !MacOS.prefer_64_bit? || build.without?("multilib")
+    if build.without?("multilib") || !MacOS.prefer_64_bit?
       args << "--disable-multilib"
     else
       args << "--enable-multilib"
@@ -168,13 +183,14 @@ class Gcc5 < Formula
     end
 
     # Handle conflicts between GCC formulae.
-
     # Since GCC 4.8 libffi stuff are no longer shipped.
     # Rename man7.
     Dir.glob(man7/"*.7") { |file| add_suffix file, version_suffix }
+
     # Even when suffixes are appended, the info pages conflict when
-    # install-info is run. fix this.
+    # install-info is run. Fix this.
     info.rmtree
+
     # Since GCC 4.9 java properties are properly sandboxed.
   end
 
@@ -200,15 +216,47 @@ class Gcc5 < Formula
 end
 
 __END__
---- a/gcc/jit/Make-lang.in	2015-02-03 17:19:58.000000000 +0000
-+++ b/gcc/jit/Make-lang.in	2015-04-08 22:08:24.000000000 +0100
-@@ -85,8 +85,7 @@
-	     $(jit_OBJS) libbackend.a libcommon-target.a libcommon.a \
-	     $(CPPLIB) $(LIBDECNUMBER) $(LIBS) $(BACKENDLIBS) \
-	     $(EXTRA_GCC_OBJS) \
--	     -Wl,--version-script=$(srcdir)/jit/libgccjit.map \
--	     -Wl,-soname,$(LIBGCCJIT_SONAME)
-+	     -Wl,-install_name,$(LIBGCCJIT_SONAME)
-
- $(LIBGCCJIT_SONAME_SYMLINK): $(LIBGCCJIT_FILENAME)
-	ln -sf $(LIBGCCJIT_FILENAME) $(LIBGCCJIT_SONAME_SYMLINK)
+diff --git a/libcilkrts/runtime/sysdep-unix.c b/libcilkrts/runtime/sysdep-unix.c
+index 1f82b62..41887e7 100644
+--- a/libcilkrts/runtime/sysdep-unix.c
++++ b/libcilkrts/runtime/sysdep-unix.c
+@@ -115,6 +115,10 @@ void *alloca (size_t);
+ #   include <vxCpuLib.h>  
+ #endif
+ 
++#ifdef __APPLE__
++#   include <sys/sysctl.h>
++#endif
++
+ struct global_sysdep_state
+ {
+     pthread_t *threads;    ///< Array of pthreads for system workers
+@@ -629,6 +633,19 @@ static const char *get_runtime_path ()
+ #endif
+ }
+ 
++#ifdef __APPLE__
++static int emulate_sysconf_nproc_onln () {
++    int count = 0;
++    int cmd[2] = { CTL_HW, HW_NCPU };
++    size_t len = sizeof count;
++    int status = sysctl(cmd, 2, &count, &len, 0, 0);
++    assert(status >= 0);
++    assert((unsigned)count == count);
++
++    return count;
++}
++#endif
++
+ /* if the environment variable, CILK_VERSION, is defined, writes the version
+  * information to the specified file.
+  * g is the global state that was just created, and n is the number of workers
+@@ -732,6 +749,8 @@ static void write_version_file (global_state_t *g, int n)
+     fprintf(fp, "==================\n");
+ #ifdef __VXWORKS__      
+     fprintf(fp, "System cores: %d\n", (int)__builtin_popcount(vxCpuEnabledGet()));
++#elif defined __APPLE__
++    fprintf(fp, "System cores: %d\n", emulate_sysconf_nproc_onln());
+ #else    
+     fprintf(fp, "System cores: %d\n", (int)sysconf(_SC_NPROCESSORS_ONLN));
+ #endif    
