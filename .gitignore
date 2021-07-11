@@ -26,3 +26,5 @@
 /Library/PinnedKegs
 /Library/Taps
 /Library/PinnedTaps
+Library/Homebrew/vendor/portable-curl/
+Library/Homebrew/vendor/portable-ruby/
