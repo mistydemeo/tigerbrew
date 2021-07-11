@@ -1,25 +1,50 @@
 class Libwebsockets < Formula
   desc "C websockets server library"
-  homepage "http://libwebsockets.org"
-  url "http://git.libwebsockets.org/cgi-bin/cgit/libwebsockets/snapshot/libwebsockets-1.4-chrome43-firefox-36.tar.gz"
-  version "1.4"
-  sha256 "e11492477e582ef0b1a6ea2f18d81a9619b449170a3a5c43f32a9468461a9798"
-  head "git://git.libwebsockets.org/libwebsockets"
-
-  depends_on "openssl"
+  homepage "https://libwebsockets.org"
+  url "https://github.com/warmcat/libwebsockets/archive/v3.1.0.tar.gz"
+  sha256 "db948be74c78fc13f1f1a55e76707d7baae3a1c8f62b625f639e8f2736298324"
+  head "https://github.com/warmcat/libwebsockets.git"
 
   bottle do
-    sha256 "c5e9fa776e0a00d3219ce4597c844e9396742fffe86dee2949d721c8845b2595" => :el_capitan
-    sha256 "3dff3a837b8204b09b49d16bc9f08eddf8730253772b18117b2ca08b3ecb47c1" => :yosemite
-    sha256 "b95d36361c26bf1ef29032981462a581d461cc5abcd2698a4490c2677148ecb2" => :mavericks
-    sha256 "60f191872c2c470fbd5716109df094bf82dad51fa9c4f76a5debcd45a11bf280" => :mountain_lion
+    sha256 "c3dee13c27c98c87853ec9d1cbd3db27473c3fee1b0870260dc6c47294dd95e4" => :mojave
+    sha256 "fce83552c866222ad1386145cdd9745b82efc0c0a97b89b9069b98928241e893" => :high_sierra
+    sha256 "a57218f16bde1f484648fd7893d99d3dafc5c0ade4902c7ce442019b9782dc66" => :sierra
   end
 
   depends_on "cmake" => :build
+  depends_on "libevent"
+  depends_on "libuv"
+  depends_on "openssl"
 
   def install
-    system "cmake", ".", *std_cmake_args
+    system "cmake", ".", *std_cmake_args,
+                    "-DLWS_IPV6=ON",
+                    "-DLWS_WITH_HTTP2=ON",
+                    "-DLWS_WITH_LIBEVENT=ON",
+                    "-DLWS_WITH_LIBUV=ON",
+                    "-DLWS_WITH_PLUGINS=ON",
+                    "-DLWS_WITHOUT_TESTAPPS=ON",
+                    "-DLWS_UNIX_SOCK=ON"
     system "make"
     system "make", "install"
+  end
+
+  test do
+    (testpath/"test.c").write <<~EOS
+      #include <openssl/ssl.h>
+      #include <libwebsockets.h>
+
+      int main()
+      {
+        struct lws_context_creation_info info;
+        memset(&info, 0, sizeof(info));
+        struct lws_context *context;
+        context = lws_create_context(&info);
+        lws_context_destroy(context);
+        return 0;
+      }
+    EOS
+    system ENV.cc, "test.c", "-I#{Formula["openssl"].opt_prefix}/include", "-L#{lib}", "-lwebsockets", "-o", "test"
+    system "./test"
   end
 end
