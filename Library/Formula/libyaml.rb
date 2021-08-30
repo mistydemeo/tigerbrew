@@ -19,8 +19,8 @@ class Libyaml < Formula
   # address CVE-2014-9130
   # https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-9130
   patch do
-    url "https://bitbucket.org/xi/libyaml/commits/2b9156756423e967cfd09a61d125d883fca6f4f2/raw/"
-    sha256 "30546a280c4f9764a93ff5f4f88671a02222e9886e7f63ee19aebf1b2086a7fe"
+    url "https://git.g77k.com/supercatexpert/luna-yocto-meta-openembedded/-/raw/a3fd44bd1cba2ae55226b6cabec18347473197f4/meta-oe/recipes-support/libyaml/files/libyaml-CVE-2014-9130.patch"
+    sha256 "c8a9122a40ae04ce96e77f006c297039f4707381c1e4ada8442dc837323e8bd1"
   end
 
   def install
