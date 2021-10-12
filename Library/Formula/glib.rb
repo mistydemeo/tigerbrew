@@ -61,7 +61,7 @@ class Glib < Formula
   # https://bugzilla.gnome.org/show_bug.cgi?id=728123
   patch do
     url "https://gist.githubusercontent.com/mistydemeo/a34250bb0864a87602f6128784dd87a8/raw/1b0006a1e0cdd2c6740fb0a0223b3104a8ed1c21/g_get_monotonic_time.patch"
-    sha1 "7133b8087952bba71a60cccc2f380aa565c837842b705a90d51ac8beb0fd41cb"
+    sha256 "7133b8087952bba71a60cccc2f380aa565c837842b705a90d51ac8beb0fd41cb"
   end
 
   # Reverts GNotification support on macOS.
