@@ -22,7 +22,6 @@ class Git < Formula
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
   option "without-completions", "Disable bash/zsh completions from 'contrib' directory"
-  option "with-brewed-openssl", "Build with Homebrew OpenSSL instead of the system version" if MacOS.version > :snow_leopard
   option "with-brewed-curl", "Use Homebrew's version of cURL library" if MacOS.version > :snow_leopard
   option "with-brewed-svn", "Use Homebrew's version of SVN"
   option "with-persistent-https", "Build git-remote-persistent-https from 'contrib' directory"
@@ -38,7 +37,7 @@ class Git < Formula
   depends_on :expat
   depends_on "pcre" => :optional
   depends_on "gettext" => :optional
-  depends_on "openssl" if MacOS.version < :snow_leopard || build.with?("brewed-openssl")
+  depends_on "openssl"
   depends_on "curl" if MacOS.version < :snow_leopard || build.with?("brewed-curl")
   depends_on "go" => :build if build.with? "persistent-https"
   # Trigger an install of swig before subversion, as the "swig" doesn't get pulled in otherwise
@@ -122,7 +121,6 @@ class Git < Formula
       CFLAGS=#{ENV.cflags}
       LDFLAGS=#{ENV.ldflags}
     ]
-    args << "NO_OPENSSL=1" << "APPLE_COMMON_CRYPTO=1" if build.without? "brewed-openssl" unless MacOS.version < :snow_leopard
 
     system "make", "install", *args
 
