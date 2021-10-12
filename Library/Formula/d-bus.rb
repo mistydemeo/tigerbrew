@@ -4,7 +4,7 @@ class DBus < Formula
   homepage "https://wiki.freedesktop.org/www/Software/dbus"
   head "git://anongit.freedesktop.org/dbus/dbus.git"
  
- stable do
+  stable do
     url "http://dbus.freedesktop.org/releases/dbus/dbus-1.10.0.tar.gz"
     mirror "https://mirrors.kernel.org/debian/pool/main/d/dbus/dbus_1.10.0.orig.tar.gz"
     sha256 "1dfb9745fb992f1ccd43c920490de8caddf6726a6222e8b803be6098293f924b"
