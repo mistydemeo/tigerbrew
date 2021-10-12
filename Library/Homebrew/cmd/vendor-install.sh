@@ -26,12 +26,12 @@ then
   # PPC-only 10.4 build
   if [[ "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
-    curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.58.0.tiger_g3.bottle.tar.gz"
-    curl_SHA="b3c29e64b62c281e6820460c823d6f7d983e7234fd398ffd13d49c6a011c6bda"
+    curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.58.0-1.tiger_g3.bottle.tar.gz"
+    curl_SHA="93f18319a239905f5e8b5443825548bc870a639d8019b9e2d0c84c33d84794fe"
   # Intel-only 10.4 build
   else
-    curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.58.0.tiger_i386.bottle.tar.gz"
-    curl_SHA="552eff67a04f23ee3e041e51387fbebc8b950c265a1b92bed2fdd69ea71496a8"
+    curl_URL="https://archive.org/download/tigerbrew/portable-curl-7.58.0-1.tiger_i386.bottle.tar.gz"
+    curl_SHA="0dbcffe698aa47189bb1d5d3b0ef284e2255b75f10284d57927091c9846e7d43"
   fi
 elif [[ -n "$HOMEBREW_LINUX" ]]
 then
