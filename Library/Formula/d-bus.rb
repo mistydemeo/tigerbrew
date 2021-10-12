@@ -10,6 +10,9 @@ class DBus < Formula
     sha256 "1dfb9745fb992f1ccd43c920490de8caddf6726a6222e8b803be6098293f924b"
   end
 
+  # needs make 3.81 or newer
+  depends_on "make" => :build if MacOS.version < :leopard
+
   bottle do
     sha256 "68500e3670555c2bf5eaeae7541111f9052e92c4a7b28410a0ded25fd7cac544" => :el_capitan
     sha256 "5a49bcf55334b90e3cd6725b7cc6f0383bcf0160ca7a8d12611107ac7f6a022a" => :yosemite
@@ -43,9 +46,9 @@ class DBus < Formula
                           "--with-launchd-agent-dir=#{prefix}",
                           "--without-x",
                           "--disable-tests"
-    system "make"
+    system make_path
     ENV.deparallelize
-    system "make", "install"
+    system make_path, "install"
   end
 
   def post_install
