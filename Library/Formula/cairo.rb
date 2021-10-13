@@ -5,6 +5,10 @@ class Cairo < Formula
   mirror "https://www.mirrorservice.org/sites/ftp.netbsd.org/pub/pkgsrc/distfiles/cairo-1.14.8.tar.xz"
   sha256 "d1f2d98ae9a4111564f6de4e013d639cf77155baf2556582295a0f00a9bc5e20"
 
+  bottle do
+    sha256 "d42bef08f00c10438064d93b3c7e317a95715c65131526b04b9dd8cc1c917b30" => :tiger_altivec
+  end
+
   keg_only :provided_pre_mountain_lion
 
   option :universal
