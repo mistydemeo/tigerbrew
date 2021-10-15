@@ -1,22 +1,16 @@
 class Aria2 < Formula
   desc "Download with resuming and segmented downloading"
-  homepage "http://aria2.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/aria2/stable/aria2-1.19.0/aria2-1.19.0.tar.bz2"
-  mirror "https://mirrors.kernel.org/debian/pool/main/a/aria2/aria2_1.19.0.orig.tar.bz2"
-  sha256 "ae2b6fce7a0974c9156415cccf2395cd258580ab34eec2b34a8e76120b7240ce"
+  homepage "https://aria2.github.io/"
+  url "https://github.com/aria2/aria2/releases/download/release-1.36.0/aria2-1.36.0.tar.xz"
+  sha256 "58d1e7608c12404f0229a3d9a4953d0d00c18040504498b483305bcb3de907a5"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "eb19d43e1bb8c6b44505881d8f49943ca781a8bf04c558d0916dcbcdd4a0fc8e" => :leopard_g3
-    sha256 "1a0e3c43309c5a3cbfa294b983e29a2db3e1e5ac6ab17dca27dd1c1bfc5929cf" => :leopard_altivec
-  end
-
-  # configure can't get C++11 working with new GCC on Tiger
-  # TODO figure this out
-  depends_on :macos => :leopard
   depends_on "pkg-config" => :build
-  # Apple TLS doesn't work on Leopard
-  depends_on "gnutls" if MacOS.version < :snow_leopard
+  # AppleTLS (what aria2 calls Security.framework's SecureTransport) doesn't work on OS X <= 10.5, so we can't use it on those OS X versions.
+  # aria2 prefers GnuTLS over OpenSSL, but GnuTLS can sometimes cause the aria2c process to hang until SIGKILL'd on OS X <= 10.5, so we're using OpenSSL instead.
+  depends_on "openssl" if MacOS.version < :snow_leopard
+  # aria2 prefers libxml2 over expat, but for some reason, Tigerbrewed libxml2 (as well as libssh2 and sqlite) currently fails to be detected by aria2's configure for a yet-to-be-determined reason.
+  # As a result, we are falling back to expat for the time being to provide aria2 XML functionality.
+  depends_on "expat"
 
   needs :cxx11
 
@@ -24,16 +18,18 @@ class Aria2 < Formula
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
-      --without-openssl
+      --without-gnutls
       --without-libgmp
       --without-libnettle
       --without-libgcrypt
     ]
 
     if MacOS.version < :snow_leopard
-      args << "--with-gnutls" << "--without-appletls"
+      args << "--with-openssl"
+      args << "--without-appletls"
     else
-      args << "--without-gnutls" << "--with-appletls"
+      args << "--without-openssl"
+      args << "--with-appletls"
     end
 
     system "./configure", *args
@@ -43,7 +39,7 @@ class Aria2 < Formula
   end
 
   test do
-    system "#{bin}/aria2c", "http://brew.sh"
-    assert File.exist? "index.html"
+    system "#{bin}/aria2c", "https://brew.sh/"
+    assert_predicate testpath/"index.html", :exist?, "Failed to download https://brew.sh/index.html!"
   end
 end
