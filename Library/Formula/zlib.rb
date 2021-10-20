@@ -12,6 +12,10 @@ class Zlib < Formula
     sha256 "1c3d8a42f15b8f8f5427e5038c76538178b2b57759c57101fb07cbbe92d0ba21" => :yosemite
   end
 
+  fails_with :gcc_4_0 do
+    cause "Building zlib with GCC 4.0 results in a static library instead of a shared library, which can cause formulae that depend on zlib to fail to build. Please use a newer version of GCC instead, such as GCC 4.2 (brew install apple-gcc42)."
+  end
+
   keg_only :provided_by_osx
 
   # http://zlib.net/zlib_how.html
