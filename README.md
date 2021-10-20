@@ -8,11 +8,15 @@ Installation
 
 You will first need the newest version of Xcode for your operating system installed. For Tiger that's [Xcode 2.5, available from Apple here](https://developer.apple.com/download/more/?=xcode%202.5). For Leopard, [Xcode 3.1.4, available from Apple here](https://developer.apple.com/download/more/?=xcode%203.1.4). Both downloads will require an Apple Developer account.
 
-Paste this into a terminal prompt:
+On the computer you're reading this on, control or right click this link and save it (the option will be something like "Save Link As" or "Download Linked File" depending on your browser) to disk:
 
-```sh
-ruby -e "$(curl -fsSkL raw.github.com/mistydemeo/tigerbrew/go/install)"
-```
+<https://raw.github.com/mistydemeo/tigerbrew/go/install>
+
+Transfer it to your Tiger or Leopard machine along with Xcode.
+
+<!-- Advanced users may wish to use TenFourFox instead -->
+
+Type `ruby` followed by a space into your terminal prompt, then drag and drop the `install` file onto the same terminal window, and press return.
 
 You'll also want to make sure that /usr/local/bin and /usr/local/sbin are in your PATH. (Unlike later Mac OS versions, /usr/local/bin isn't in the default PATH.) If you use bash as your shell, add this line to your ~/.bash_profile:
 

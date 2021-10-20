@@ -13,6 +13,11 @@ class Fish < Formula
     depends_on "libtool" => :build
   end
 
+  bottle do
+    sha256 "931bbe0322164134e8de86f4be1adc3bfd5a7e8e85f12bed2fa1f8aa2d05ade9" => :tiger_g4e
+    sha256 "5a74df5ca15c5b2ddb6b2556d2d7b06006556daa6d623fdf0ade3f9c377b4a50" => :leopard_g4e
+  end
+
   needs :cxx11
   depends_on "pcre2"
 

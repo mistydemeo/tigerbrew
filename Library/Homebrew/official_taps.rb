@@ -1,4 +1,1 @@
-OFFICIAL_TAPS = %w[
-  emacs
-  nginx
-]
+OFFICIAL_TAPS = %w[]

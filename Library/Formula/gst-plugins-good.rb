@@ -1,6 +1,7 @@
 class GstPluginsGood < Formula
   desc "GStreamer plugins (well-supported, under the LGPL)"
   homepage "http://gstreamer.freedesktop.org/"
+  revision 1
 
   stable do
     url "https://download.gnome.org/sources/gst-plugins-good/1.6/gst-plugins-good-1.6.0.tar.xz"

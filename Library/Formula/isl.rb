@@ -13,6 +13,8 @@ class Isl < Formula
 
   bottle do
     cellar :any
+    sha256 "8561e09544a30e9d7bfef5483e9c54dff72c4ecd06ed2e7d3e4f9a3ef08f5dd0" => :tiger_g4e
+    sha256 "478c188866c0ae28e7446f0a63fc13d5a3938766accc7a2c1bfaa040a2d378ad" => :leopard_g4e
   end
 
   head do

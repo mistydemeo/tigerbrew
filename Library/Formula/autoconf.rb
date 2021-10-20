@@ -7,11 +7,9 @@ class Autoconf < Formula
 
   bottle do
     cellar :any_skip_relocation
-    revision 4
-    sha256 "ded69c7dac4bc8747e52dca37d6d561e55e3162649d3805572db0dc2f940a4b8" => :el_capitan
-    sha256 "daf70656aa9ff8b2fb612324222aa6b5e900e2705c9f555198bcd8cd798d7dd0" => :yosemite
-    sha256 "d153b3318754731ff5e91b45b2518c75880993fa9d1f312a03696e2c1de0c9d5" => :mavericks
-    sha256 "37e77a2e7ca6d479f0a471d5f5d828efff621bd051c1884ff1363d77c5c4675e" => :mountain_lion
+    revision 5
+    sha256 "2c9ac7548aa73b102ae653c71deed601b77bf89eff34f04c71cd0fc66099ecfb" => :tiger_g4e
+    sha256 "e370351723235b2d5df402818b9073710afd66f9d9b1dd9516a8404ea49a8de7" => :leopard_g4e
   end
 
   # Tiger's m4 is too old.

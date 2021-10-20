@@ -25,9 +25,6 @@ class Harfbuzz < Formula
   # ld64 is needed to lookup @loader_path/libicudata.*.dylib
   depends_on :ld64
 
-  # the make binary shipped on Tiger cannot handle the gobject-introspection Makefiles
-  depends_on "make" => :build if MacOS.version < :leopard
-
   depends_on "pkg-config" => :build
   depends_on "glib"
   depends_on "freetype"

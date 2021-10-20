@@ -4,6 +4,7 @@ class Jasper < Formula
   url "http://download.osgeo.org/gdal/jasper-1.900.1.uuid.tar.gz"
   sha256 "0021684d909de1eb2f7f5a4d608af69000ce37773d51d1fb898e03b8d488087d"
   version "1.900.1"
+  revision 1
 
   bottle do
     cellar :any

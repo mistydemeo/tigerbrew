@@ -1,7 +1,7 @@
 class Libtorrent < Formula
   desc "BitTorrent library"
   homepage "https://github.com/rakshasa/libtorrent"
-  url "http://rtorrent.net/downloads/libtorrent-0.13.6.tar.gz"
+  url "http://sources.buildroot.net/libtorrent/libtorrent-0.13.6.tar.gz"
   sha256 "2838a08c96edfd936aff8fbf99ecbb930c2bfca3337dd1482eb5fccdb80d5a04"
 
   def pour_bottle?

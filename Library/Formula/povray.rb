@@ -3,7 +3,7 @@ class Povray < Formula
   homepage "http://www.povray.org/"
   url "https://github.com/POV-Ray/povray/archive/v3.7.0.0.tar.gz"
   sha256 "bf68861d648e3acafbd1d83a25016a0c68547b257e4fa79fb36eb5f08d665f27"
-  revision 1
+  revision 2
 
   depends_on :macos => :lion
   depends_on "autoconf" => :build

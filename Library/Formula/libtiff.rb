@@ -4,12 +4,11 @@ class Libtiff < Formula
   url "http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz"
   mirror "ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz"
   sha256 "4d57a50907b510e3049a4bba0d7888930fdfc16ce49f1bf693e5b6247370d68c"
+  revision 1
 
   bottle do
     cellar :any
-    sha256 "7ee1f796f6355e84b039d8deb626677a512c25fb40685a511d9d9333ebcb23ad" => :tiger_altivec
-    sha256 "ac6deffd0e96ad67b5ecc976daa6b944a1292d0306d8ff1f411e06b817d94c2c" => :leopard_g3
-    sha256 "98294201f9f6e549b752006cc86a2dd029696ecfdc3f54c1b77bc5e38d9bd0ad" => :leopard_altivec
+    sha256 "2125fa2c9f52cefb5366f149c18db3a53fd7983e3e5c94d248e14c53736f6de0" => :tiger_altivec
   end
 
   option :universal
