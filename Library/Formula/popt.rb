@@ -6,6 +6,7 @@ class Popt < Formula
 
   option :universal
 
+  
   def install
     ENV.universal_binary if build.universal?
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
