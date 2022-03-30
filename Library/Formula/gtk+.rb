@@ -48,7 +48,7 @@ class Gtkx < Formula
     args << "--enable-quartz-relocation" if build.with?("quartz-relocation")
 
     system "./configure", *args
-    system "make", "install"
+    make "install"
   end
 
   test do

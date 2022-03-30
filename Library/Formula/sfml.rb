@@ -7,18 +7,17 @@ class Sfml < Formula
   if MacOS.version < :lion
     url "http://www.sfml-dev.org/download/sfml/2.1/SFML-2.1-sources.zip"
     sha256 "5f46d7748223be3f0c6a9fcf18c0016d227f7b1903cdbcd85f61ddbc82ef95bf"
+    revision 1
   else
     url "http://www.sfml-dev.org/files/SFML-2.3-sources.zip"
     sha256 "a1dc8b00958000628c5394bc8438ba1aa5971fbeeef91a2cf3fa3fff443de7c1"
-    revision 1
+    revision 2
   end
 
   head "https://github.com/SFML/SFML.git"
 
   bottle do
     cellar :any
-    sha256 "508425964941cd9d99a9ed0f6fec449676f7995e6f7d6eb6db1ac868b788a494" => :leopard_g3
-    sha256 "67e6b2996aa55bcd19e2c65a1a0c5d9523e922791773f7939d0a5a3a54366553" => :leopard_altivec
   end
 
   # SFML 2.x requires 10.5; it appears to be a substantial rewrite from 1.x,

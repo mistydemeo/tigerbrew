@@ -24,6 +24,11 @@ class Sdl2Mixer < Formula
   depends_on "libvorbis" => :optional
 
   def install
+    unless build.head?
+      # work around a bug where an indentifier was misnamed in a OS X + PPC-only section of sdl2_mixer's source
+      inreplace "native_midi/native_midi_macosx.c", "MusicSequenceLoadSMFData(song->sequence", "MusicSequenceLoadSMFData(retval->sequence"
+    end
+
     ENV.universal_binary if build.universal?
     inreplace "SDL2_mixer.pc.in", "@prefix@", HOMEBREW_PREFIX
 

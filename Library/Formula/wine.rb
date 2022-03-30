@@ -20,6 +20,7 @@ class Wine < Formula
       sha256 "3dfc23bbc29015e4e538dab8b83cb825d3248a0e5cf3b3318503ee7331115402"
     end
   end
+  revision 1
 
   bottle do
     sha256 "545e28e3c8442d8be08dbb5ec193bbc9fbf82d1c196030e07f4758161af42924" => :el_capitan

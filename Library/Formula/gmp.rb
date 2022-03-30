@@ -7,6 +7,8 @@ class Gmp < Formula
 
   bottle do
     cellar :any
+    sha256 "9a5bfc6fc309e1d589d2a2f451f6390112cbd8d3ab8895d825e14ee440709fa5" => :tiger_g4e
+    sha256 "e00a6a9ecd665146743c15240422f851eb653d4e8b472b17d8502c4d5547c6b6" => :leopard_g4e
   end
 
   option "32-bit"

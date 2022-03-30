@@ -15,7 +15,7 @@ setup-curl-path() {
 
       if [[ $(readlink "$vendor_curl_current_version") != "$(<"$vendor_dir/portable-curl-version")" ]]
       then
-        if ! brew vendor-install curl --quiet
+        if ! brew vendor-install curl
         then
           onoe "Failed to upgrade vendor Curl."
         fi
@@ -28,9 +28,9 @@ setup-curl-path() {
         HOMEBREW_CURL="$(which curl)"
       fi
 
-      if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "100900" || ! -x "$HOMEBREW_CURL" ]]
+      if [[ "$HOMEBREW_OSX_VERSION_NUMERIC" -lt "101500" || ! -x "$HOMEBREW_CURL" ]]
       then
-        brew vendor-install curl --quiet
+        brew vendor-install curl
         if [[ ! -x "$vendor_curl_path" ]]
         then
           odie "Failed to install vendor Curl."

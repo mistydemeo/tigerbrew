@@ -3,12 +3,10 @@ class Webp < Formula
   homepage "https://developers.google.com/speed/webp/"
   url "http://downloads.webmproject.org/releases/webp/libwebp-0.4.3.tar.gz"
   sha256 "efbe0d58fda936f2ed99d0b837ed7087d064d6838931f282c4618d2a3f7390c4"
+  revision 1
 
   bottle do
     cellar :any
-    sha256 "f40ebbbb4a92ed580fab324f26160b58f9456d17deaf4e138852e394a72f2084" => :tiger_altivec
-    sha256 "14cd48734271f4f7236a06a83de069b30848b7147b71924646fd09f79ee26261" => :leopard_g3
-    sha256 "0b7953dfbedccc64b3047677f885b3e7890a6b6df368ec52dec07bd40dc4d041" => :leopard_altivec
   end
 
   head do

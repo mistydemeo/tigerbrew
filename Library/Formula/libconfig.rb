@@ -1,16 +1,8 @@
 class Libconfig < Formula
   desc "Configuration file processing library"
   homepage "http://www.hyperrealm.com/libconfig/"
-  url "http://www.hyperrealm.com/libconfig/libconfig-1.5.tar.gz"
-  sha256 "e31daa390d8e4461c8830512fe2e13ba1a3d6a02a2305a02429eec61e68703f6"
-
-  bottle do
-    cellar :any
-    sha256 "39a2e2d85ca89f895832cfa75710cb9094c3d4e315d7b45db58ebb7fb626a984" => :el_capitan
-    sha256 "04d66c5f07d74f31a5b57a6bb50d0c2b73222876e6c4ba40470bfb852e6f7b99" => :yosemite
-    sha256 "b48857221d7df42fdfb5a1e8a61da669ca2d30331539797e57d436d8cd78f4c9" => :mavericks
-    sha256 "3053bef646c2eb74d9f9a723a496a09d786a3e46e193993a0c10281b28500e50" => :mountain_lion
-  end
+  url "https://github.com/hyperrealm/libconfig/archive/v1.7.2.tar.gz"
+  sha256 "f67ac44099916ae260a6c9e290a90809e7d782d96cdd462cac656ebc5b685726"
 
   head do
     url "https://github.com/hyperrealm/libconfig.git"

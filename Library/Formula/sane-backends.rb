@@ -12,7 +12,7 @@ class SaneBackends < Formula
     sha1 "343224849f6824dba073499bcb0521abd76e9e23" => :mountain_lion
   end
 
-  revision 1
+  revision 2
 
   option :universal
 
