@@ -1,7 +1,7 @@
 class Socat < Formula
   desc "netcat on steroids"
   homepage "http://www.dest-unreach.org/socat/"
-  url "http://www.dest-unreach.org/socat/download/socat-1.7.3.0.tar.gz"
+  url "http://www.dest-unreach.org/socat/download/Archive/socat-1.7.3.0.tar.gz"
   sha256 "f8de4a2aaadb406a2e475d18cf3b9f29e322d4e5803d8106716a01fd4e64b186"
   revision 1
 
