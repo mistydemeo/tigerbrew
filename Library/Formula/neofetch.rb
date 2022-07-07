@@ -15,6 +15,11 @@ class Neofetch < Formula
         sha256 "f0e376abc1af08f9137660fe9fe81767d2920168476d875e9f1c1c71849bbf3c"
     end
 
+    patch do
+	url "https://github.com/ablakely/neofetch/commit/2a6ca41dcf51a5781714ef63f30ee166f9039934.patch?full_index=1"
+	sha256 "e8eeb40b8a2dd0fce670bbf9a1c95bf7ed7af7a660652ee8cc8fd53e1b617dae"
+    end
+
     def install
         system "make", "install"
     end
