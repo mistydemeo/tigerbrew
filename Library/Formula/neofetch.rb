@@ -11,6 +11,6 @@ class Neofetch < Formula
   end
 
   def install
-    system "make", "install"
+    system "make", "install", "PREFIX=#{prefix}"
   end
 end
