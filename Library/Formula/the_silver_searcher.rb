@@ -1,17 +1,9 @@
 class TheSilverSearcher < Formula
   desc "Code-search similar to ack"
   homepage "https://github.com/ggreer/the_silver_searcher"
-  url "https://github.com/ggreer/the_silver_searcher/archive/0.31.0.tar.gz"
-  sha256 "61bc827f4557d8108e91cdfc9ba31632e2568b26884c92426417f58135b37da8"
+  url "https://github.com/ggreer/the_silver_searcher/archive/0.33.0.tar.gz"
+  sha256 "351ab79ada811fd08f81296de10a7498ea3c46b681d73696d5a2911edbdc19db"
   head "https://github.com/ggreer/the_silver_searcher.git"
-
-  bottle do
-    cellar :any
-    sha256 "0967f4da9270f64c0dc389044976fa57a5ca77e8ae4b133db774b9b64f86a3f1" => :el_capitan
-    sha256 "90ffccb93ee6a8f4df645b8ac65b2aaf909f17af235fa625e9cad91091f84176" => :yosemite
-    sha256 "647d83eeb4b8372ef42c5565beaeb1282ac2c7e75330768aac642bbdc36cd68d" => :mavericks
-    sha256 "023a995816ae0fe7e04321d7773bbedfe71dbdc52889b96f9867c6c71850c16c" => :mountain_lion
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
@@ -19,6 +11,8 @@ class TheSilverSearcher < Formula
   depends_on "pkg-config" => :build
   depends_on "pcre"
   depends_on "xz"
+
+  patch :DATA
 
   def install
     # Stable tarball does not include pre-generated configure script
@@ -40,3 +34,36 @@ class TheSilverSearcher < Formula
     system "#{bin}/ag", "Hello World!", testpath
   end
 end
+__END__
+diff --git a/src/main.c b/src/main.c
+index 4259b60..3cd78d9 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -8,6 +8,10 @@
+ #ifdef _WIN32
+ #include <windows.h>
+ #endif
++#if __APPLE__
++#include <sys/types.h>
++#include <sys/sysctl.h>
++#endif
+ 
+ #include "config.h"
+ 
+@@ -69,6 +73,15 @@ int main(int argc, char **argv) {
+         GetSystemInfo(&si);
+         num_cores = si.dwNumberOfProcessors;
+     }
++#elif __APPLE__
++    {
++        /* Tiger fix */
++        size_t num_cores_len = sizeof(num_cores);
++        int sysctl_rc = sysctlbyname("hw.ncpu", &num_cores, &num_cores_len, NULL, 0);
++        if (0 != sysctl_rc) {
++            num_cores = 1; /* assume 1 CPU if sysctlbyname fails */
++        }
++    }
+ #else
+     num_cores = (int)sysconf(_SC_NPROCESSORS_ONLN);
+ #endif
+
