@@ -1,17 +1,9 @@
 class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/2.0/tmux-2.0.tar.gz"
-  sha256 "795f4b4446b0ea968b9201c25e8c1ef8a6ade710ebca4657dd879c35916ad362"
-
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "038a53142251f185976b78e70cb0b261f923c4db70ecd55e97b2fcdb6e78b90a" => :el_capitan
-    sha256 "4a15dbb353298f6ab5db3ad0121e50225328d49da1548bee570f93af4c294368" => :yosemite
-    sha256 "ccc3e43a9e544d74d5a081de07294a8c75d14f9649d7fc2e5bc94cc0107e625d" => :mavericks
-    sha256 "145f66ff2b0adf499ee4a8ceab8ec1556d43b74074921ff1e86a4d7be05492c8" => :mountain_lion
-  end
+  url "https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz"
+  sha256 "551553a4f82beaa8dadc9256800bcc284d7c000081e47aa6ecbb6ff36eacd05f"
+  license "ISC"
 
   head do
     url "https://github.com/tmux/tmux.git"
@@ -21,36 +13,32 @@ class Tmux < Formula
     depends_on "libtool" => :build
   end
 
-  # Fix build on Tiger - osdep includes a header not present until Leopard
-  resource "osdep" do
-    url "https://trac.macports.org/export/124113/trunk/dports/sysutils/tmux/files/osdep-darwin.8.c"
-    sha1 "be1dc421d7f13137be028e35423ef81351ea6886"
-  end if MacOS.version < :leopard
+  # Fix build on Tiger
+  patch :DATA
 
   depends_on "pkg-config" => :build
   depends_on "libevent"
 
   def install
-    resource("osdep").stage do
-      buildpath.install "osdep-darwin.8.c" => "osdep-darwin.c"
-    end if MacOS.version < :leopard
-
     system "sh", "autogen.sh" if build.head?
 
+    args = %W[
+      --disable-dependency-tracking
+      --prefix=#{prefix}
+      --sysconfdir=#{etc}
+    ]
+
     ENV.append "LDFLAGS", "-lresolv"
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
-                          "--sysconfdir=#{etc}"
+    system "./configure", *args
 
     system "make", "install"
 
-    bash_completion.install "examples/bash_completion_tmux.sh" => "tmux"
-    pkgshare.install "examples"
+    pkgshare.install "example_tmux.conf"
   end
 
   def caveats; <<-EOS.undent
-    Example configurations have been installed to:
-      #{pkgshare}/examples
+    Example configuration has been installed to:
+      #{pkgshare}
     EOS
   end
 
@@ -58,3 +46,44 @@ class Tmux < Formula
     system "#{bin}/tmux", "-V"
   end
 end
+__END__
+--- a/compat/daemon-darwin.c
++++ b/compat/daemon-darwin.c
+@@ -49,7 +49,6 @@
+ 
+ #include <mach/mach.h>
+ 
+-#include <Availability.h>
+ #include <unistd.h>
+ 
+ void daemon_darwin(void);
+--- a/osdep-darwin.c
++++ b/osdep-darwin.c
+@@ -19,8 +19,6 @@
+ #include <sys/types.h>
+ #include <sys/sysctl.h>
+ 
+-#include <Availability.h>
+-#include <libproc.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+@@ -71,6 +67,9 @@
+ char *
+ osdep_get_cwd(int fd)
+ {
++	/* Tigerbrew: removed implementation that doesn't compile on Tiger.
++	 * This function isn't critical (used by pane_current_path only). */
++#if 0
+	static char			wd[PATH_MAX];
+	struct proc_vnodepathinfo	pathinfo;
+	pid_t				pgrp;
+@@ -85,6 +86,7 @@ osdep_get_cwd(int fd)
+		strlcpy(wd, pathinfo.pvi_cdir.vip_path, sizeof wd);
+		return (wd);
+	}
++#endif
+	return (NULL);
+ }
+ 
+
