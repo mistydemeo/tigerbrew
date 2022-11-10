@@ -1,8 +1,8 @@
 class Libutil < Formula
   desc "FreeBSD utility library"
-  homepage "https://opensource.apple.com"
-  url "https://opensource.apple.com/tarballs/libutil/libutil-11.tar.gz"
-  sha256 "16351fb9b344a31a3034b9e2dd0764aa78b41985595c4b53406c5c1ffbdce949"
+  homepage "https://github.com/apple-oss-distributions/libutil/tree/libutil-11"
+  url "https://github.com/apple-oss-distributions/libutil/archive/refs/tags/libutil-11.tar.gz"
+  sha256 "10f46572a5f1973cca086689a24f64244eedaec26e47e47cede352e06baee78f"
 
   # Leopard was the first version to ship libutil
   keg_only :provided_by_macos if MacOS.version > :tiger
