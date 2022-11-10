@@ -1,5 +1,5 @@
 # Based on:
-# Apple Open Source: https://opensource.apple.com/source/cvs/cvs-45/
+# Apple Open Source: https://github.com/apple-oss-distributions/cvs/tree/cvs-45
 # MacPorts: https://trac.macports.org/browser/trunk/dports/devel/cvs/Portfile
 # Creating a useful testcase: http://mrsrl.stanford.edu/~brian/cvstutorial/
 
@@ -35,7 +35,7 @@ class Cvs < Formula
     "zlib"              => "7781dc997c895df8cfa991ab7a04add245169ea4"
   }.each do |name, sha|
     patch :p0 do
-      url "https://opensource.apple.com/source/cvs/cvs-45/patches/#{name}.diff?txt"
+      url "https://github.com/apple-oss-distributions/cvs/raw/cvs-45/patches/#{name}.diff"
       sha1 sha
     end
   end

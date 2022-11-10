@@ -1,13 +1,13 @@
 class Ld64 < Formula
   desc "Updated version of the ld shipped by Apple"
-  homepage "https://opensource.apple.com/"
+  homepage "https://github.com/apple-oss-distributions/ld64/tree/ld64-97.17"
   # Latest is 134.9, but it no longer supports building for PPC.
   # 127.2 won't build on Tiger, at least without some patching.
   # Leopard users: if you like, add a 127.2 option or fix the build
   # on Tiger.
   #
-  url "https://opensource.apple.com/tarballs/ld64/ld64-97.17.tar.gz"
-  sha256 "02bd46af0809eaa415d096d7d41c3e8e7d80f7d8d181840866fb87f036b4e089"
+  url "https://github.com/apple-oss-distributions/ld64/archive/refs/tags/ld64-97.17.tar.gz"
+  sha256 "dc609d295365f8f5853b45e8dbcb44ca85e7dbc7a530e6fb5342f81d3c042db5"
 
   bottle do
     sha1 "5a42d849b7231d0b5985514ed5e77aa424048853" => :tiger_altivec
