@@ -43,6 +43,9 @@ class Ffmpeg < Formula
   depends_on "texi2html" => :build
   depends_on "yasm" => :build
 
+  # Always install SDL as a dependency because ffmpeg bottles link against it.
+  depends_on "sdl"
+
   depends_on "x264" => :recommended
   depends_on "lame" => :recommended
   depends_on "libvo-aacenc" => :recommended
@@ -58,7 +61,6 @@ class Ffmpeg < Formula
   depends_on "opencore-amr" => :optional
   depends_on "libass" => :optional
   depends_on "openjpeg" => :optional
-  depends_on "sdl" if build.with? "ffplay"
   depends_on "speex" => :optional
   depends_on "schroedinger" => :optional
   depends_on "fdk-aac" => :optional
