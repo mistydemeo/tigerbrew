@@ -1,9 +1,9 @@
 class Curl < Formula
   desc "Get a file from an HTTP, HTTPS or FTP server"
   homepage "https://curl.haxx.se/"
-  url "https://curl.haxx.se/download/curl-7.50.3.tar.bz2"
-  mirror "http://mirror.sobukus.de/files/src/curl/curl-7.50.3.tar.bz2"
-  sha256 "7b7347d976661d02c84a1f4d6daf40dee377efdc45b9e2c77dedb8acf140d8ec"
+  url "https://curl.haxx.se/download/curl-8.1.0.tar.bz2"
+  mirror "http://mirror.sobukus.de/files/src/curl/curl-8.1.0.tar.bz2"
+  sha256 "8439f39f0f5dd41f399cf60f3f6f5c3e47a4a41c96f99d991b77cecb921c553b"
 
   bottle do
     cellar :any
@@ -18,7 +18,6 @@ class Curl < Formula
   option "with-libssh2", "Build with scp and sftp support"
   option "with-c-ares", "Build with C-Ares async DNS support"
   option "with-gssapi", "Build with GSSAPI/Kerberos authentication support."
-  option "with-libmetalink", "Build with libmetalink support."
   option "with-libressl", "Build with LibreSSL instead of Secure Transport or OpenSSL"
   option "with-nghttp2", "Build with HTTP/2 support (requires OpenSSL or LibreSSL)"
 
@@ -26,6 +25,8 @@ class Curl < Formula
   deprecated_option "with-rtmp" => "with-rtmpdump"
   deprecated_option "with-ssh" => "with-libssh2"
   deprecated_option "with-ares" => "with-c-ares"
+
+  depends_on "zlib"
 
   # HTTP/2 support requires OpenSSL 1.0.2+ or LibreSSL 2.1.3+ for ALPN Support
   # which is currently not supported by Secure Transport (DarwinSSL).
@@ -41,7 +42,6 @@ class Curl < Formula
   depends_on "rtmpdump" => :optional
   depends_on "libssh2" => :optional
   depends_on "c-ares" => :optional
-  depends_on "libmetalink" => :optional
   depends_on "libressl" => :optional
   depends_on "nghttp2" => :optional
 
@@ -60,6 +60,7 @@ class Curl < Formula
       --disable-dependency-tracking
       --disable-silent-rules
       --prefix=#{prefix}
+      --with-zlib=#{Formula["zlib"].opt_prefix}
     ]
 
     # cURL has a new firm desire to find ssl with PKG_CONFIG_PATH instead of using
@@ -79,7 +80,6 @@ class Curl < Formula
 
     args << (build.with?("libssh2") ? "--with-libssh2" : "--without-libssh2")
     args << (build.with?("libidn") ? "--with-libidn" : "--without-libidn")
-    args << (build.with?("libmetalink") ? "--with-libmetalink" : "--without-libmetalink")
     args << (build.with?("gssapi") ? "--with-gssapi" : "--without-gssapi")
     args << (build.with?("rtmpdump") ? "--with-librtmp" : "--without-librtmp")
 
@@ -95,7 +95,6 @@ class Curl < Formula
 
     system "./configure", *args
     system "make", "install"
-    libexec.install "lib/mk-ca-bundle.pl"
   end
 
   test do
