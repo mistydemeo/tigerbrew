@@ -1,8 +1,8 @@
 class Scons < Formula
   desc "Substitute for classic 'make' tool with autoconf/automake functionality"
   homepage "http://www.scons.org"
-  url "https://downloads.sourceforge.net/project/scons/scons/2.3.6/scons-2.3.6.tar.gz"
-  sha256 "98adaa351d8f4e4068a5bf1894bdd7f85b390c8c3f80d437cf8bb266012404df"
+  url "https://downloads.sourceforge.net/project/scons/scons/3.1.2/scons-3.1.2.tar.gz"
+  sha256 "7801f3f62f654528e272df780be10c0e9337e897650b62ddcee9f39fde13f8fb"
 
   bottle do
     cellar :any_skip_relocation
@@ -16,7 +16,7 @@ class Scons < Formula
 
   def install
     man1.install gzip("scons-time.1", "scons.1", "sconsign.1")
-    system "/usr/bin/python", "setup.py", "install",
+    system "python", "setup.py", "install",
              "--prefix=#{prefix}",
              "--standalone-lib",
              # SCons gets handsy with sys.path---`scons-local` is one place it
