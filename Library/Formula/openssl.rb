@@ -28,6 +28,8 @@ class Openssl < Formula
     }
   end
 
+  keg_only :provided_by_osx
+
   # SSLv2 died with 1.1.0, so no-ssl2 no longer required.
   # SSLv3 & zlib are off by default with 1.1.0 but this may not
   # be obvious to everyone, so explicitly state it for now to
