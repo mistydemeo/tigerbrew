@@ -28,6 +28,7 @@ class Subversion < Formula
   end
 
   depends_on "lz4"
+  depends_on "zlib"
 
   # use Tigerbrew's version instead of the old one in X11
   depends_on :expat
@@ -123,7 +124,6 @@ class Subversion < Formula
 
     ENV.universal_binary if build.universal?
 
-    # Use existing system zlib
     # Use dep-provided other libraries
     # Don't mess with Apache modules (since we're not sudo)
     args = ["--disable-debug",
