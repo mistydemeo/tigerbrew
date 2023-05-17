@@ -1,9 +1,8 @@
 class Zlib < Formula
   desc "General-purpose lossless data-compression library"
   homepage "http://www.zlib.net/"
-  url "http://zlib.net/zlib-1.2.11.tar.gz"
-  mirror "https://downloads.sourceforge.net/project/libpng/zlib/1.2.11/zlib-1.2.11.tar.gz"
-  sha256 "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1"
+  url "http://zlib.net/zlib-1.2.13.tar.gz"
+  sha256 "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30"
 
   bottle do
     cellar :any
