@@ -13,11 +13,11 @@ class Openssh < Formula
   depends_on "pkg-config" => :build
   depends_on "ldns"
   depends_on "openssl"
+  depends_on "zlib"
 
   #uses_from_macos "lsof" => :test
   #uses_from_macos "krb5"
   #uses_from_macos "libedit"
-  #uses_from_macos "zlib"
 
     # Both these patches are applied by Apple.
     # https://github.com/apple-oss-distributions/OpenSSH/blob/main/openssh/sandbox-darwin.c#L66
@@ -46,6 +46,7 @@ class Openssh < Formula
       --with-kerberos5
       --with-pam
       --with-ssl-dir=#{Formula["openssl"].opt_prefix}
+      --with-zlib=#{Formula["zlib"].opt_prefix}
     ]
 
     if OS.mac?
