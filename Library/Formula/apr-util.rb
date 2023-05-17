@@ -1,9 +1,8 @@
 class AprUtil < Formula
   desc "Companion library to apr, the Apache Portable Runtime library"
   homepage "https://apr.apache.org/"
-  url "https://www.apache.org/dyn/closer.cgi?path=apr/apr-util-1.5.4.tar.bz2"
-  sha256 "a6cf327189ca0df2fb9d5633d7326c460fe2b61684745fd7963e79a6dd0dc82e"
-  revision 1
+  url "https://www.apache.org/dyn/closer.cgi?path=apr/apr-util-1.6.3.tar.bz2"
+  sha256 "a41076e3710746326c3945042994ad9a4fcac0ce0277dd8fea076fec3c9772b5"
 
   bottle do
     sha256 "4f38f40032b9d1583249614223acfc0520e7000e8804dfedd2e0ad8b0f20defc" => :tiger_altivec
