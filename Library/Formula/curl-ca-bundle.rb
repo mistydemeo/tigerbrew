@@ -1,10 +1,9 @@
 class CurlCaBundle < Formula
   homepage "http://curl.haxx.se/docs/caextract.html"
-  url "https://curl.se/ca/cacert-2021-09-30.pem",
+  url "https://curl.se/ca/cacert-2023-01-10.pem",
     :using => :nounzip
-  mirror "https://ia902307.us.archive.org/31/items/tigerbrew/cacert-2021-09-30.pem"
-  sha256 "f524fc21859b776e18df01a87880efa198112214e13494275dbcbd9bcb71d976"
-  version "2021-09-30"
+  sha256 "fb1ecd641d0a02c01bc9036d513cb658bbda62a75e246bedbc01764560a639f0"
+  version "2023-01-10"
 
   bottle do
     cellar :any
