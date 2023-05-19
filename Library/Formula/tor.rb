@@ -1,9 +1,9 @@
 class Tor < Formula
   desc "Anonymizing overlay network for TCP"
   homepage "https://www.torproject.org/"
-  url "https://dist.torproject.org/tor-0.2.6.10.tar.gz"
-  mirror "https://tor.eff.org/dist/tor-0.2.6.10.tar.gz"
-  sha256 "0542c0efe43b86619337862fa7eb02c7a74cb23a79d587090628a5f0f1224b8d"
+  url "https://dist.torproject.org/tor-0.4.7.13.tar.gz"
+  mirror "https://tor.eff.org/dist/tor-0.4.7.13.tar.gz"
+  sha256 "2079172cce034556f110048e26083ce9bea751f3154b0ad2809751815b11ea9d"
 
   bottle do
     sha256 "10215ccde70597d6bb8efdad496de4b76991aae838a66ffcbb0f1ca033da786c" => :el_capitan
@@ -12,32 +12,31 @@ class Tor < Formula
     sha256 "6e4085a67f555cb0b34b74818fb4f43dcc353d653100633aefa85804148f5d5e" => :mountain_lion
   end
 
-  devel do
-    url "https://dist.torproject.org/tor-0.2.7.3-rc.tar.gz"
-    mirror "https://tor.eff.org/dist/tor-0.2.7.3-rc.tar.gz"
-    sha256 "aeb84ab84475edef5a0545b5e19f154cc1c28bd6730197ffe0013790157470b8"
-    version "0.2.7.3-rc"
-  end
-
   depends_on "libevent"
   depends_on "openssl"
+  depends_on "zlib"
   depends_on "libnatpmp" => :optional
   depends_on "miniupnpc" => :optional
   depends_on "libscrypt" => :optional
 
-  # See https://github.com/mistydemeo/tigerbrew/issues/105
-  fails_with :gcc do
-    build 5553
-    cause "linking fails with: /usr/bin/ld: can't locate file for: -lssp_nonshared"
-  end
-
   def install
+    # Revert commit to replace GCC comments with __attribute__((fallthrough)) macro
+    # https://gitlab.torproject.org/tpo/core/tor/-/commit/c116728209e4ece3249564208e9387f67192a7f6.patch
+    inreplace "src/core/or/reasons.c", "FALLTHROUGH;", "/* fall through */"
+    inreplace "src/core/or/scheduler.c", "FALLTHROUGH;", "/* fall through */"
+    inreplace "src/core/or/sendme.c", "FALLTHROUGH;", "/* Fall through because default is to use v0. */"
+    inreplace "src/feature/control/control_cmd.c", "FALLTHROUGH;", "/* fall through */"
+    inreplace "src/app/config/quiet_level.c", "FALLTHROUGH;", "/* fall through */"
+    inreplace "src/lib/crypt_ops/crypto_digest_openssl.c", "FALLTHROUGH;", "/* fall through */"
+    inreplace "src/test/test_socks.c", "FALLTHROUGH;", "/* fall through */"
+
     args = %W[
       --disable-dependency-tracking
       --disable-silent-rules
       --prefix=#{prefix}
       --sysconfdir=#{etc}
       --with-openssl-dir=#{Formula["openssl"].opt_prefix}
+      --with-zlib=#{Formula["zlib"].opt_prefix}
     ]
 
     args << "--with-libnatpmp-dir=#{Formula["libnatpmp"].opt_prefix}" if build.with? "libnatpmp"
