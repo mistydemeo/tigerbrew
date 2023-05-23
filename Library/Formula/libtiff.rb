@@ -1,31 +1,31 @@
 class Libtiff < Formula
   desc "TIFF library and utilities"
-  homepage "http://www.remotesensing.org/libtiff/"
-  url "http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz"
-  mirror "ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz"
-  sha256 "4d57a50907b510e3049a4bba0d7888930fdfc16ce49f1bf693e5b6247370d68c"
-  revision 1
-
-  bottle do
-    cellar :any
-    sha256 "2125fa2c9f52cefb5366f149c18db3a53fd7983e3e5c94d248e14c53736f6de0" => :tiger_altivec
-  end
+  homepage "https://libtiff.gitlab.io/libtiff/"
+  url "https://download.osgeo.org/libtiff/tiff-4.5.0.tar.xz"
+  sha256 "dafac979c5e7b6c650025569c5a4e720995ba5f17bc17e6276d1f12427be267c"
 
   option :universal
   option :cxx11
 
   depends_on "jpeg"
+  depends_on "xz"
+  depends_on "zlib"
 
   def install
     ENV.universal_binary if build.universal?
     ENV.cxx11 if build.cxx11?
     jpeg = Formula["jpeg"].opt_prefix
+    xz = Formula["xz"].opt_prefix
+    zlib = Formula["zlib"].opt_prefix
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--without-x",
-                          "--disable-lzma",
                           "--with-jpeg-include-dir=#{jpeg}/include",
-                          "--with-jpeg-lib-dir=#{jpeg}/lib"
+                          "--with-jpeg-lib-dir=#{jpeg}/lib",
+                          "--with-lzma-include-dir=#{xz}/include",
+                          "--with-lzma-lib-dir=#{xz}/lib",
+                          "--with-zlib-include-dir=#{zlib}/include",
+                          "--with-zlib-lib-dir=#{zlib}/lib"
     system "make", "install"
   end
 
