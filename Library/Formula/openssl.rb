@@ -1,15 +1,9 @@
 class Openssl < Formula
   desc "SSL/TLS cryptography library"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-1.1.1t.tar.gz"
-  mirror "http://artfiles.org/openssl.org/source/openssl-1.1.1t.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-1.1.1t.tar.gz"
-  sha256 "8dee9b24bdb1dcbf0c3d1e9b02fb8f6bf22165e807f45adeb7c9677536859d3b"
-
-  bottle do
-    revision 1
-    sha256 "380cec4114d6293641751cadf3431338b619166cae5465c5ebc880b2c8b99783" => :tiger_g4e
-  end
+  url "https://www.openssl.org/source/openssl-1.1.1u.tar.gz"
+  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-1.1.1u.tar.gz"
+  sha256 "e2f8d84b523eecd06c7be7626830370300fbcc15386bf5142d72758f6963ebc6"
 
   option :universal
   option "without-test", "Skip build-time tests (not recommended)"
