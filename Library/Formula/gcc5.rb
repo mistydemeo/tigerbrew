@@ -21,15 +21,9 @@ class Gcc5 < Formula
 
   desc "The GNU Compiler Collection"
   homepage "https://gcc.gnu.org"
-  url "https://ftpmirror.gnu.org/gcc/gcc-5.4.0/gcc-5.4.0.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/gcc/gcc-5.4.0/gcc-5.4.0.tar.bz2"
-  sha256 "608df76dec2d34de6558249d8af4cbee21eceddbcb580d666f7a5a583ca3303a"
-
-  bottle do
-    sha256 "834b511f2f460db483e8126b446bb0a7fc7e2d7ee16bb53d6c4ec51910ce89be" => :el_capitan
-    sha256 "b44fcce2f25919f93d33fe9482c1f9cc1068e3332f6890340853c32007c0113b" => :yosemite
-    sha256 "7b4970b4c2c86558208476c3e281f242be4f6bfe7c1fa8391e52b9829ef4ba78" => :mavericks
-  end
+  url "https://ftpmirror.gnu.org/gcc/gcc-5.5.0/gcc-5.5.0.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/gcc/gcc-5.5.0/gcc-5.5.0.tar.xz"
+  sha256 "530cea139d82fe542b358961130c69cfde8b3d14556370b65823d2f91f0ced87"
 
   # GCC's Go compiler is not currently supported on Mac OS X.
   # See: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=46986
