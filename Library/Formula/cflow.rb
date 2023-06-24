@@ -29,10 +29,10 @@ class Cflow < Formula
          user = pw->pw_name;
        else if ((user = getenv ("USER")) == NULL)
          {
-           fprintf (stderr, "I don't know!\n");
+           fprintf (stderr, "I don't know!\\n");
            return 1;
          }
-       printf ("%s\n", user);
+       printf ("%s\\n", user);
        return 0;
      }
 
@@ -41,7 +41,7 @@ class Cflow < Formula
      {
        if (argc > 1)
          {
-           fprintf (stderr, "usage: whoami\n");
+           fprintf (stderr, "usage: whoami\\n");
            return 1;
          }
        return who_am_i ();
