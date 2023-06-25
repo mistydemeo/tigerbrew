@@ -1,21 +1,11 @@
 class Gawk < Formula
   desc "GNU awk utility"
   homepage "https://www.gnu.org/software/gawk/"
-  url "http://ftpmirror.gnu.org/gawk/gawk-4.1.3.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/gawk/gawk-4.1.3.tar.xz"
-  sha256 "e3cf55e91e31ea2845f8338bedd91e40671fc30e4d82ea147d220e687abda625"
-  revision 1
+  url "http://ftpmirror.gnu.org/gawk/gawk-5.3.0.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/gawk/gawk-5.3.0.tar.xz"
+  sha256 "ca9c16d3d11d0ff8c69d79dc0b47267e1329a69b39b799895604ed447d3ca90b"
 
   bottle do
-    sha256 "ed2c5f0b20e4b4af151177a750b1287435aad66bb0c8c4b60daf753f3955332c" => :el_capitan
-    sha256 "c6fd269bedf83b9016fb8e09186de1c88ce18f51b1ad471f4b5ad4262066dda2" => :yosemite
-    sha256 "30486a1665295a3fee02e22465869cec9297aec262554a470bbc7f127d1766e5" => :mavericks
-    sha256 "d9edeb691699655ff990e2227abf67568916640eeffbbca959dbf3b2779c371e" => :mountain_lion
-  end
-
-  fails_with :llvm do
-    build 2326
-    cause "Undefined symbols when linking"
   end
 
   def install
@@ -23,8 +13,7 @@ class Gawk < Formula
                           "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--without-readline",
-                          "--without-mpfr",
-                          "--without-libsigsegv-prefix"
+                          "--without-mpfr"
     system "make"
     system "make", "check"
     system "make", "install"
