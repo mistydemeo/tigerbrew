@@ -1,21 +1,18 @@
 class Mksh < Formula
   desc "MirBSD Korn Shell"
   homepage "https://mirbsd.org/mksh.htm"
-  url "https://www.mirbsd.org/MirOS/dist/mir/mksh/mksh-R50f.tgz"
-  mirror "http://pub.allbsd.org/MirOS/dist/mir/mksh/mksh-R50f.tgz"
-  sha256 "74e051ce92ece9555d91505b956572f64668fc88c5ccabee742099e7f29a2bcb"
-
-  bottle do
-    cellar :any
-    sha1 "4e0335469b6ff8bf83257cda6e00bd3205fff163" => :mavericks
-    sha1 "b93d25d2a9c3f606d44567a2cdf400649b7b6cf4" => :mountain_lion
-    sha1 "52e7568da446b9ea44f23a39b6c6542d6e73beb1" => :lion
-  end
+  url "http://www.mirbsd.org/MirOS/dist/mir/mksh/mksh-R59c.tgz"
+  mirror "http://pub.allbsd.org/MirOS/dist/mir/mksh/mksh-R59c.tgz"
+  sha256 "77ae1665a337f1c48c61d6b961db3e52119b38e58884d1c89684af31f87bc506"
 
   def install
-    system "sh", "./Build.sh", "-r", "-c", (ENV.compiler == :clang ? "lto" : "combine")
+    system "sh", "./Build.sh", "-r"
+    system "./test.sh"
+    system "sh", "./FAQ2HTML.sh"
     bin.install "mksh"
+    doc.install "FAQ.htm"
     man1.install "mksh.1"
+    pkgshare.install "dot.mkshrc"
   end
 
   def caveats; <<-EOS.undent
