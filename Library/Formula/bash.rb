@@ -1,22 +1,13 @@
 class Bash < Formula
   desc "Bourne-Again SHell, a UNIX command interpreter"
   homepage "https://www.gnu.org/software/bash/"
-  url "https://ftpmirror.gnu.org/bash/bash-4.4.tar.gz"
-  mirror "https://mirrors.ocf.berkeley.edu/gnu/bash/bash-4.4.tar.gz"
-  mirror "https://mirrors.kernel.org/gnu/bash/bash-4.4.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/bash/bash-4.4.tar.gz"
-  mirror "https://gnu.cu.be/bash/bash-4.4.tar.gz"
-  mirror "https://mirror.unicorncloud.org/gnu/bash/bash-4.4.tar.gz"
-  sha256 "d86b3392c1202e8ff5a423b302e6284db7f8f435ea9f39b5b1b20fd3ac36dfcb"
-  revision 1
+  url "https://ftp.gnu.org/gnu/bash/bash-5.2.15.tar.gz"
+  mirror "https://mirrors.ocf.berkeley.edu/gnu/bash/bash-5.2.15.tar.gz"
+  mirror "https://mirrors.kernel.org/gnu/bash/bash-5.2.15.tar.gz"
+  mirror "https://ftp.gnu.org/gnu/bash/bash-5.2.15.tar.gz"
+  sha256 "13720965b5f4fc3a0d4b61dd37e7565c741da9a5be24edc2ae00182fc1b3588c"
 
   head "http://git.savannah.gnu.org/r/bash.git"
-
-  bottle do
-    sha256 "a2f73335f36d0a35970b1ee2b41e4a6b939ffd9df2a3ee9e9ebb942765d10002" => :sierra
-    sha256 "9f11130718619dd0523760d714c8ac349fd62cc0b11dc70671ff132e7fc94ef5" => :el_capitan
-    sha256 "af85e62012466dbb9ec9e08fe59acb03aff35f2d41844d2871c80bbd5a9e6ac3" => :yosemite
-  end
 
   depends_on "readline"
 
@@ -42,4 +33,46 @@ class Bash < Formula
   test do
     assert_equal "hello", shell_output("#{bin}/bash -c \"echo hello\"").strip
   end
+
+  # Guard off missing definitions
+  # https://savannah.gnu.org/patch/?10367
+  patch :p0, :DATA
+
 end
+__END__
+--- examples/loadables/getconf.c.orig	2023-06-26 18:29:17.000000000 +0100
++++ examples/loadables/getconf.c	2023-06-26 18:35:06.000000000 +0100
+@@ -269,9 +269,13 @@
+ #ifdef _SC_AVPHYS_PAGES
+     { "_AVPHYS_PAGES", _SC_AVPHYS_PAGES, SYSCONF },
+ #endif
++#ifdef _NPROCESSORS_CONF
+     { "_NPROCESSORS_CONF", _SC_NPROCESSORS_CONF, SYSCONF },
+     { "_NPROCESSORS_ONLN", _SC_NPROCESSORS_ONLN, SYSCONF },
++#endif
++#ifdef _PHYS_PAGES
+     { "_PHYS_PAGES", _SC_PHYS_PAGES, SYSCONF },
++#endif
+ #ifdef _SC_ARG_MAX
+     { "_POSIX_ARG_MAX", _SC_ARG_MAX, SYSCONF },
+ #else
+@@ -854,7 +858,9 @@
+     { "SEM_VALUE_MAX", _SC_SEM_VALUE_MAX, SYSCONF },
+ #endif
+     { "SIGQUEUE_MAX", _SC_SIGQUEUE_MAX, SYSCONF },
++#ifdef _PC_FILESIZEBITS
+     { "FILESIZEBITS", _PC_FILESIZEBITS, PATHCONF },
++#endif
+ #ifdef _PC_ALLOC_SIZE_MIN
+     { "POSIX_ALLOC_SIZE_MIN", _PC_ALLOC_SIZE_MIN, PATHCONF },
+ #endif
+@@ -870,7 +876,9 @@
+ #ifdef _PC_REC_XFER_ALIGN
+     { "POSIX_REC_XFER_ALIGN", _PC_REC_XFER_ALIGN, PATHCONF },
+ #endif
++#ifdef _PC_SYMLINK_MAX
+     { "SYMLINK_MAX", _PC_SYMLINK_MAX, PATHCONF },
++#endif
+ #ifdef _PC_2_SYMLINKS
+     { "POSIX2_SYMLINKS", _PC_2_SYMLINKS, PATHCONF },
+ #endif
