@@ -1,16 +1,10 @@
 class Zsh < Formula
   desc "UNIX shell (command interpreter)"
   homepage "http://www.zsh.org/"
-  url "https://downloads.sourceforge.net/project/zsh/zsh/5.2/zsh-5.2.tar.gz"
-  mirror "http://www.zsh.org/pub/zsh-5.2.tar.gz"
-  sha256 "fa924c534c6633c219dcffdcd7da9399dabfb63347f88ce6ddcd5bb441215937"
+  url "https://downloads.sourceforge.net/project/zsh/zsh/5.9/zsh-5.9.tar.xz"
+  mirror "http://www.zsh.org/pub/zsh-5.9.tar.xz"
+  sha256 "9b8d1ecedd5b5e81fbf1918e876752a7dd948e05c1a0dba10ab863842d45acd5"
 
-
-  bottle do
-    revision 1
-    sha256 "5e1b2aedf741d23c2905d282d8bc51336a2af2da15d0474461a03103143009c0" => :tiger_g4e
-    sha256 "13878a95cd5ae55b01749108561053521c189d41f471d906c573111928935b63" => :leopard_g4e
-  end
 
   option "without-etcdir", "Disable the reading of Zsh rc files in /etc"
 
