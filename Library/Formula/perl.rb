@@ -9,7 +9,7 @@ class Perl < Formula
   keg_only :provided_by_osx,
     "OS X ships Perl and overriding that can cause unintended issues"
 
-  option "with-dtrace", "Build with DTrace probes"
+  option "with-dtrace", "Build with DTrace probes" if MacOS.version >= :leopard
   option "with-tests", "Build and run the test suite"
 
   def install
