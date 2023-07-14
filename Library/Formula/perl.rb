@@ -1,8 +1,8 @@
 class Perl < Formula
   desc "Highly capable, feature-rich programming language"
   homepage "https://www.perl.org/"
-  url "https://www.cpan.org/src/5.0/perl-5.36.1.tar.gz"
-  sha256 "68203665d8ece02988fc77dc92fccbb297a83a4bb4b8d07558442f978da54cc1"
+  url "https://www.cpan.org/src/5.0/perl-5.38.0.tar.gz"
+  sha256 "213ef58089d2f2c972ea353517dc60ec3656f050dcc027666e118b508423e517"
 
   head "https://perl5.git.perl.org/perl.git", :branch => "blead"
 
@@ -51,8 +51,8 @@ class Perl < Formula
   # https://github.com/Perl/perl5/pull/21023
   # lib/ExtUtils/MM_Darwin.pm: Unbreak Perl build
   # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/444/files
-  # Don't use -rpath linker option for macOS <= 10.4
-  # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/412
+  # t/04-xs-rpath-darwin.t: Need Darwin 9 minimum
+  # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/446
   patch :p0, :DATA
 end
 __END__
@@ -100,29 +100,19 @@ __END__
    $self->SUPER::compile(@_);
  }
  
---- cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm.orig	2023-03-02 11:53:45.000000000 +0000
-+++ cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm	2023-05-21 07:30:14.000000000 +0100
-@@ -38,9 +38,12 @@
-                    grep( $^O eq $_, qw(bsdos interix dragonfly) )
-                   );
-     $Is{Android} = $^O =~ /android/;
--    if ( $^O eq 'darwin' && $^X eq '/usr/bin/perl' ) {
-+    if ( $^O eq 'darwin' ) {
-       my @osvers = split /\./, $Config{osvers};
--      $Is{ApplCor} = ( $osvers[0] >= 18 );
-+      if ( $^X eq '/usr/bin/perl' ) {
-+        $Is{ApplCor} = ( $osvers[0] >= 18 );
-+      }
-+      $Is{AppleRPath} = ( $osvers[0] >= 9 );
+--- cpan/ExtUtils-MakeMaker/t/04-xs-rpath-darwin.t
++++ cpan/ExtUtils-MakeMaker/t/04-xs-rpath-darwin.t
+@@ -14,9 +14,13 @@ BEGIN {
+     chdir 't' or die "chdir(t): $!\n";
+     unshift @INC, 'lib/';
+     use Test::More;
++    my ($osmajmin) = $Config{osvers} =~ /^(\d+\.\d+)/;
+     if( $^O ne "darwin" ) {
+         plan skip_all => 'Not darwin platform';
      }
- }
- 
-@@ -1054,7 +1057,7 @@
-         if ( $Is{IRIX} ) {
-             $ldrun = qq{-rpath "$self->{LD_RUN_PATH}"};
-         }
--        elsif ( $^O eq 'darwin' ) {
-+        elsif ( $^O eq 'darwin' && $Is{AppleRPath} ) {
-             # both clang and gcc support -Wl,-rpath, but only clang supports
-             # -rpath so by using -Wl,-rpath we avoid having to check for the
-             # type of compiler
++    elsif ($^O eq 'darwin' && $osmajmin < 9) {
++	plan skip_all => 'For OS X Leopard and newer'
++    }
+     else {
+         plan skip_all => 'Dynaloading not enabled'
+             if !$Config{usedl} or $Config{usedl} ne 'define';
