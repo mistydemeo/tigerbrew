@@ -5,6 +5,12 @@ class Curl < Formula
   mirror "http://mirror.sobukus.de/files/src/curl/curl-8.1.2.tar.bz2"
   sha256 "b54974d32fd610acace92e3df1f643144015ac65847f0a041fdc17db6f43f243"
 
+  bottle do
+    cellar :any
+    sha256 "8a8be053849645a26685c0eee9a497a10c18eca9f8f5a7a877db402506eadda3" => :tiger_g4
+    sha256 "a3d326f66fd8e36c7470edc264e94e522a634122e2c47ee24c7e82992dd9de39" => :tiger_g5
+  end
+
   keg_only :provided_by_osx
 
   option "with-libidn", "Build with support for Internationalized Domain Names"
