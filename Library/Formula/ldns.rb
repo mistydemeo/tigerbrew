@@ -5,10 +5,8 @@ class Ldns < Formula
   sha256 "c3f72dd1036b2907e3a56e6acf9dfb2e551256b3c1bbd9787942deeeb70e7860"
 
   bottle do
-    revision 4
-    sha256 "d1fd252d9d21104d1f8558f78c5c988a9355b6211088ddc4688ad2d15e726dc7" => :yosemite
-    sha256 "a6473267b96ba209161b292d6e4f76048519480c43cd7eb5db41a4c51d311205" => :mavericks
-    sha256 "17d5d97bafecaad3fdd635b1e765d4d9470a195aceb27ed2214fad8332f69aff" => :mountain_lion
+    sha256 "3e739c733f9485b9539ec047787e937838d81ad31352d381b5ae639d06c5113d" => :tiger_g4
+    sha256 "a440a72ed9982f71b913036572fcb8d7897a1f3e81142d37e09f1b3b544bbc7b" => :tiger_g5
   end
 
   depends_on :python => :optional
