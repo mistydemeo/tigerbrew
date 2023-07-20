@@ -22,7 +22,7 @@ class Zlib < Formula
 
   def install
     # The test in configure to see if shared library support is available
-    # is done so by envoking gcc -w and then falls back to building just a
+    # is done so by invoking gcc -w and then falls back to building just a
     # static library.
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
     system "./configure", "--prefix=#{prefix}"
