@@ -4,6 +4,11 @@ class Tmux < Formula
   url "https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz"
   sha256 "551553a4f82beaa8dadc9256800bcc284d7c000081e47aa6ecbb6ff36eacd05f"
   license "ISC"
+  revision 1
+
+  bottle do
+    sha256 "28ffa21032715ab34a336d5b3b911031339a99c618c4ed209eea9fda0c9703a1" => :tiger_altivec
+  end
 
   head do
     url "https://github.com/tmux/tmux.git"
