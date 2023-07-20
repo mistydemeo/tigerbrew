@@ -1,25 +1,18 @@
 class Libmagic < Formula
   desc "Implementation of the file(1) command"
   homepage "http://www.darwinsys.com/file/"
-  url "ftp://ftp.astron.com/pub/file/file-5.25.tar.gz"
-  mirror "https://fossies.org/linux/misc/file-5.25.tar.gz"
-  sha256 "3735381563f69fb4239470b8c51b876a80425348b8285a7cded8b61d6b890eca"
-
-  bottle do
-    sha256 "d3a6cdd08087e9b489335a0a8356e2e2fbff451f6a0e6a235fb9e85ad47db7d3" => :el_capitan
-    sha256 "e036124db97064c7dba5641c48b427f6932c66caebb5b4f708fe1f7651750483" => :yosemite
-    sha256 "11d5a175b69618acfb80aa5832f66afe57c7bb23b9487785ab8512eeedce860e" => :mavericks
-  end
+  url "http://ftp.astron.com/pub/file/file-5.44.tar.gz"
+  mirror "https://fossies.org/linux/misc/file-5.44.tar.gz"
+  sha256 "3751c7fba8dbc831cb8d7cc8aff21035459b8ce5155ef8b0880a27d028475f3b"
 
   option :universal
 
   depends_on :python => :optional
 
   def install
+    # ‘for’ loop initial declaration used outside C99 mode
+    ENV.append_to_cflags "-std=gnu99"
     ENV.universal_binary if build.universal?
-
-    # Clean up "src/magic.h" as per http://bugs.gw.com/view.php?id=330
-    rm "src/magic.h"
 
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
