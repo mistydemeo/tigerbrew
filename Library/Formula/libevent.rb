@@ -6,10 +6,7 @@ class Libevent < Formula
 
   bottle do
     cellar :any
-    sha256 "968c69226279617bd8abc9641c602706e184ad8fab99275675070cf65a99d3eb" => :el_capitan
-    sha1 "d70fff6a306440f4104ff934eec1fd35683724a4" => :yosemite
-    sha1 "7d86d36fff109699bcec092f708d1be61c86ef78" => :mavericks
-    sha1 "e074607f84ab34a1e939f6a93bf3fc2b6c90d9bd" => :mountain_lion
+    sha256 "a0983219dd22de6526968649699c4a939c2553b5da021874bc2f7cf04fe32cb2" => :tiger_altivec
   end
 
   head do
