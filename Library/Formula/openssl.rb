@@ -1,27 +1,18 @@
 class Openssl < Formula
   desc "SSL/TLS cryptography library"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/old/1.0.2/openssl-1.0.2j.tar.gz"
-  mirror "http://artfiles.org/openssl.org/source/old/1.0.2/openssl-1.0.2j.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/old/1.0.2/openssl-1.0.2j.tar.gz"
-  sha256 "e7aff292be21c259c6af26469c7a9b3ba26e9abaaffd325e3dccc9785256c431"
-
-  bottle do
-    revision 1
-    sha256 "380cec4114d6293641751cadf3431338b619166cae5465c5ebc880b2c8b99783" => :tiger_g4e
-  end
+  url "https://www.openssl.org/source/openssl-1.1.1u.tar.gz"
+  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-1.1.1u.tar.gz"
+  sha256 "e2f8d84b523eecd06c7be7626830370300fbcc15386bf5142d72758f6963ebc6"
 
   option :universal
   option "without-test", "Skip build-time tests (not recommended)"
 
+  # Need a minimum of Perl 5.10 for Configure script
+  depends_on "perl" => :build if MacOS.version < :snow_leopard
   depends_on "makedepend" => :build
   depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
 
-  patch :p0 do
-    url "https://trac.macports.org/export/144472/trunk/dports/devel/openssl/files/x86_64-asm-on-i386.patch"
-    sha256 "98ffb308aa04c14db9c21769f1c5ff09d63eb85ce9afdf002598823c45edef6d"
-  end
-  
   def arch_args
     {
       :x86_64 => %w[darwin64-x86_64-cc enable-ec_nistp_64_gcc_128],
@@ -31,17 +22,26 @@ class Openssl < Formula
     }
   end
 
+  keg_only :provided_by_osx
+
+  # SSLv2 died with 1.1.0, so no-ssl2 no longer required.
+  # SSLv3 & zlib are off by default with 1.1.0 but this may not
+  # be obvious to everyone, so explicitly state it for now to
+  # help debug inevitable breakage.
   def configure_args
-    args = %W[ 
+    args = %W[
       --prefix=#{prefix}
       --openssldir=#{openssldir}
-      no-ssl2
-      zlib-dynamic
+      no-ssl3
+      no-ssl3-method
+      no-zlib
       shared
       enable-cms
+      threads
     ]
-    
-    args << "no-asm" if MacOS.version == :tiger
+
+    # No {get,make,set}context support before Leopard
+    args << "no-async" if MacOS.version == :tiger
 
     args
   end
@@ -50,6 +50,10 @@ class Openssl < Formula
     # OpenSSL will prefer the PERL environment variable if set over $PATH
     # which can cause some odd edge cases & isn't intended. Unset for safety.
     ENV.delete("PERL")
+    # Leopard and newer have the crypto framework
+    ENV.append_to_cflags "-DOPENSSL_NO_APPLE_CRYPTO_RANDOM" if MacOS.version == :tiger
+    # Build breaks passing -w
+    ENV.enable_warnings if ENV.compiler == :gcc_4_0
 
     if build.universal?
       ENV.permit_arch_flags
@@ -79,7 +83,7 @@ class Openssl < Formula
 
       if build.universal?
         cp "include/openssl/opensslconf.h", dir
-        cp Dir["*.?.?.?.dylib"] + Dir["*.a"] + Dir["apps/openssl"], dir
+        cp Dir["*.?.?.?.dylib"] + Dir["*.a"] + "apps/openssl", dir
         cp Dir["engines/**/*.dylib"], "#{dir}/engines"
       end
     end
@@ -88,9 +92,9 @@ class Openssl < Formula
 
     if build.universal?
       %w[libcrypto libssl].each do |libname|
-        system "lipo", "-create", "#{dirs.first}/#{libname}.1.0.0.dylib",
-                                  "#{dirs.last}/#{libname}.1.0.0.dylib",
-                       "-output", "#{lib}/#{libname}.1.0.0.dylib"
+        system "lipo", "-create", "#{dirs.first}/#{libname}.1.1.dylib",
+                                  "#{dirs.last}/#{libname}.1.1.dylib",
+                       "-output", "#{lib}/#{libname}.1.1.dylib"
         system "lipo", "-create", "#{dirs.first}/#{libname}.a",
                                   "#{dirs.last}/#{libname}.a",
                        "-output", "#{lib}/#{libname}.a"
@@ -116,7 +120,7 @@ class Openssl < Formula
 
   def post_install
     keychains = %w[
-      /Library/Keychains/System.keychain    
+      /Library/Keychains/System.keychain
       /System/Library/Keychains/SystemRootCertificates.keychain
     ]
 
@@ -159,7 +163,7 @@ class Openssl < Formula
     cnf_path = HOMEBREW_PREFIX/"etc/openssl/openssl.cnf"
     assert cnf_path.exist?,
             "OpenSSL requires the .cnf file for some functionality"
-            
+
     # Check OpenSSL itself functions as expected.
     (testpath/"testfile.txt").write("This is a test file")
     expected_checksum = "e2d0fe1585a63ec6009c8016ff8dda8b17719a637405a4e23c0ff81339148249"
