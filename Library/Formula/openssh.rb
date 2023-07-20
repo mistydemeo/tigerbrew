@@ -7,6 +7,11 @@ class Openssh < Formula
   sha256 "e9baba7701a76a51f3d85a62c383a3c9dcd97fa900b859bc7db114c1868af8a8"
   license "SSH-OpenSSH"
 
+  bottle do
+    sha256 "a25a0b79a12e3d6e1e25bcad479f5ee3adb6b39474ee11d5f610d0324a2defff" => :tiger_altivec
+    sha256 "c73f15b75458d5aff0c475dd43941e35fc959f026676eae139e8653ad7eab5b5" => :tiger_g5
+  end
+
   # Please don't resubmit the keychain patch option. It will never be accepted.
   # https://archive.is/hSB6d#10%25
 
