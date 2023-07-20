@@ -1,19 +1,14 @@
 class Zlib < Formula
   desc "General-purpose lossless data-compression library"
   homepage "http://www.zlib.net/"
-  url "http://zlib.net/zlib-1.2.11.tar.gz"
-  mirror "https://downloads.sourceforge.net/project/libpng/zlib/1.2.11/zlib-1.2.11.tar.gz"
-  sha256 "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1"
+  url "http://zlib.net/zlib-1.2.13.tar.gz"
+  sha256 "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30"
 
   bottle do
     cellar :any
     sha256 "6765c51c09a7aa0ad7c06379a9c7a6b7b3b1bfaaf6a37d111cee44153eaab6e2" => :sierra
     sha256 "c37af2435a876fed3d8ced49698159ac7ab05efeed265de3c40a8e6c3868e332" => :el_capitan
     sha256 "1c3d8a42f15b8f8f5427e5038c76538178b2b57759c57101fb07cbbe92d0ba21" => :yosemite
-  end
-
-  fails_with :gcc_4_0 do
-    cause "Building zlib with GCC 4.0 results in a static library instead of a shared library, which can cause formulae that depend on zlib to fail to build. Please use a newer version of GCC instead, such as GCC 4.2 (brew install apple-gcc42)."
   end
 
   keg_only :provided_by_osx
@@ -26,6 +21,10 @@ class Zlib < Formula
   end
 
   def install
+    # The test in configure to see if shared library support is available
+    # is done so by envoking gcc -w and then falls back to building just a
+    # static library.
+    ENV.enable_warnings if ENV.compiler == :gcc_4_0
     system "./configure", "--prefix=#{prefix}"
     system "make", "install"
   end
