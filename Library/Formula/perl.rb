@@ -12,6 +12,11 @@ class Perl < Formula
   option "with-dtrace", "Build with DTrace probes" if MacOS.version >= :leopard
   option "with-tests", "Build and run the test suite"
 
+  bottle do
+    sha256 "4cc4013fc5a48d3a78a5e55bf39553e5a80b81febf7e9d915ad94173a5c1873f" => :tiger_g43
+    sha256 "cb89c3b3fdb1e0a1efaa6ac8b584294006640bfd959f0747670847dc0783887b" => :tiger_g5
+  end
+
   def install
     args = [
       "-des",
