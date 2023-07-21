@@ -1,8 +1,8 @@
 class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/3.2a/tmux-3.2a.tar.gz"
-  sha256 "551553a4f82beaa8dadc9256800bcc284d7c000081e47aa6ecbb6ff36eacd05f"
+  url "https://github.com/tmux/tmux/releases/download/3.3a/tmux-3.3a.tar.gz"
+  sha256 "e4fd347843bd0772c4f48d6dde625b0b109b7a380ff15db21e97c11a4dcdf93f"
   license "ISC"
 
   head do
@@ -18,6 +18,7 @@ class Tmux < Formula
 
   depends_on "pkg-config" => :build
   depends_on "libevent"
+  depends_on "utf8proc"
 
   def install
     system "sh", "autogen.sh" if build.head?
@@ -26,6 +27,7 @@ class Tmux < Formula
       --disable-dependency-tracking
       --prefix=#{prefix}
       --sysconfdir=#{etc}
+      --enable-utf8proc
     ]
 
     ENV.append "LDFLAGS", "-lresolv"
