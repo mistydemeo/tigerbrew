@@ -1,23 +1,11 @@
 class GnuTar < Formula
   desc "GNU version of the tar archiving utility"
   homepage "https://www.gnu.org/software/tar/"
-  url "http://ftpmirror.gnu.org/tar/tar-1.28.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/tar/tar-1.28.tar.gz"
-  sha256 "6a6b65bac00a127a508533c604d5bf1a3d40f82707d56f20cefd38a05e8237de"
+  url "http://ftpmirror.gnu.org/tar/tar-1.34.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/tar/tar-1.34.tar.xz"
+  sha256 "63bebd26879c5e1eea4352f0d03c991f966aeb3ddeb3c7445c902568d5411d28"
 
   option "with-default-names", "Do not prepend 'g' to the binary"
-
-  bottle do
-    revision 3
-    sha256 "8e443b6faee8c4971ea5778b4327a6454b5719dc93ce4e4da501658c12d521fa" => :tiger_g4e
-  end
-
-  # Fix for xattrs bug causing build failures on OS X:
-  # https://lists.gnu.org/archive/html/bug-tar/2014-08/msg00001.html
-  patch do
-    url "https://gist.githubusercontent.com/mistydemeo/10fbae8b8441359ba86d/raw/e5c183b72036821856f9e82b46fba6185e10e8b9/gnutar-configure-xattrs.patch"
-    sha256 "f2e56bb8afd1c641a7e5b81e35fdbf36b6fb66434b1e35caa8b55196b30c3ad9"
-  end
 
   def install
     args = ["--prefix=#{prefix}", "--mandir=#{man}"]
