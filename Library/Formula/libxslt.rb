@@ -4,6 +4,10 @@ class Libxslt < Formula
   url "https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.38.tar.xz"
   sha256 "1f32450425819a09acaff2ab7a5a7f8a2ec7956e505d7beeb45e843d0e1ecab1"
 
+  bottle do
+    sha256 "66023ea8513126fa1db898fe744e7ed58b502dc09193d28053730a8751ec83af" => :tiger_altivec
+  end
+
   keg_only :provided_by_osx
 
   depends_on "libxml2"
