@@ -4,6 +4,10 @@ class Python3 < Formula
   url "https://www.python.org/ftp/python/3.7.16/Python-3.7.16.tar.xz"
   sha256 "8338f0c2222d847e904c955369155dc1beeeed806e8d5ef04b00ef4787238bfd"
 
+  bottle do
+    sha256 "304579bb966493c655059c086b2765efbb152c314da29dda212c8bad1e566123" => :tiger_altivec
+  end
+
   option :universal
   option "with-tcl-tk", "Use Tigerbrew's Tk instead of OS X Tk (has optional Cocoa and threads support)"
 
