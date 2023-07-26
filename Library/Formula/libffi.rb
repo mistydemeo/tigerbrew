@@ -1,18 +1,8 @@
 class Libffi < Formula
   desc "Portable Foreign Function Interface library"
   homepage "https://sourceware.org/libffi/"
-  url "https://mirrors.kernel.org/sources.redhat.com/libffi/libffi-3.0.13.tar.gz"
-  mirror "ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz"
-  sha256 "1dddde1400c3bcb7749d398071af88c3e4754058d2d4c0b3696c2f82dc5cf11c"
-
-  bottle do
-    cellar :any
-    sha256 "d512d7c3258d61e088097f1f9a1fd010bd1a197e760e0b3abc08a3f767624745" => :el_capitan
-    sha1 "ab596256bb0dcd2c56ebde303dd163b58f00aa3a" => :yosemite
-    sha1 "b6a9696c2a58f34f37cf2bca5a652ee6982c3c14" => :mavericks
-    sha1 "421a0108078e79a1e32ccebea8eeadce0d0533db" => :mountain_lion
-    sha1 "c2ad5c7f63e06566494d92baa1e31c0c2190ea05" => :lion
-  end
+  url "https://github.com/libffi/libffi/releases/download/v3.4.4/libffi-3.4.4.tar.gz"
+  sha256 "d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676"
 
   head do
     url "https://github.com/atgreen/libffi.git"
