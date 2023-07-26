@@ -12,13 +12,12 @@ class Libxml2 < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on :python => :optional
+  depends_on "xz"
+  depends_on "zlib"
 
   keg_only :provided_by_osx
 
   option :universal
-
-  depends_on "xz" => :build
 
   def install
     ENV.universal_binary if build.universal?
