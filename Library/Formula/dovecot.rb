@@ -5,6 +5,10 @@ class Dovecot < Formula
   mirror "https://fossies.org/linux/misc/dovecot-2.3.20.tar.gz"
   sha256 "caa832eb968148abdf35ee9d0f534b779fa732c0ce4a913d9ab8c3469b218552"
 
+  bottle do
+    sha256 "92e320fa7f06b298fd66382943c69314890887544c1e60a82a6f874f4b0e84dd" => :tiger_altivec
+  end
+
   depends_on "openssl"
   depends_on "clucene" => :optional
 
