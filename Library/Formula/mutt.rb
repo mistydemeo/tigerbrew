@@ -14,6 +14,7 @@ class Mutt < Formula
   url "http://ftp.mutt.org/pub/mutt/mutt-2.2.10.tar.gz"
   mirror "https://bitbucket.org/mutt/mutt/downloads/mutt-2.2.10.tar.gz"
   sha256 "4d773f22422f79096f7b94b57bee45654ad9a25165dbb36463c58295b4cd3d88"
+  revision 1
 
   bottle do
     sha256 "8e909fe0b5fbafe54facec36432886c3f868c5d93ca057457bd44ea46b4a0549" => :tiger_altivec
@@ -40,6 +41,9 @@ class Mutt < Formula
 
 
   def install
+    user_in_mail_group = Etc.getgrnam("mail").mem.include?(ENV["USER"])
+    effective_group = Etc.getgrgid(Process.egid).name
+
     args = ["--disable-dependency-tracking",
             "--disable-warnings",
             "--prefix=#{prefix}",
@@ -49,11 +53,7 @@ class Mutt < Formula
             "--enable-smtp",
             "--enable-pop",
             "--enable-hcache",
-            "--with-tokyocabinet",
-            # This is just a trick to keep 'make install' from trying
-            # to chgrp the mutt_dotlock file (which we can't do if
-            # we're running as an unprivileged user)
-            "--with-homespool=.mbox"]
+            "--with-tokyocabinet"]
     args << "--with-slang" if build.with? "s-lang"
     args << "--enable-gpgme" if build.with? "gpgme"
 
@@ -65,9 +65,28 @@ class Mutt < Formula
 
     system "./configure", *args
     system "make"
+
+    # This permits the `mutt_dotlock` file to be installed under a group
+    # that isn't `mail`.
+    # https://github.com/Homebrew/homebrew/issues/45400
+    inreplace "Makefile", /^DOTLOCK_GROUP =.*$/, "DOTLOCK_GROUP = #{effective_group}" unless user_in_mail_group
+
     system "make", "install"
 
     doc.install resource("html") if build.head?
+  end
+
+  def caveats
+    <<~EOS
+      mutt_dotlock(1) has been installed, but does not have the permissions to lock
+      spool files in /var/mail. To grant the necessary permissions, run
+
+        sudo chgrp mail #{bin}/mutt_dotlock
+        sudo chmod g+s #{bin}/mutt_dotlock
+
+      Alternatively, you may configure `spoolfile` in your .muttrc to a file inside
+      your home directory.
+    EOS
   end
 
   test do
