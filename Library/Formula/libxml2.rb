@@ -16,6 +16,7 @@ class Libxml2 < Formula
     sha256 "a25624dea30d2c40b920ecaf6314801cd04350dbf2daa072211f7cf602dac040" => :tiger_altivec
   end
 
+  depends_on "python" => :optional
   depends_on "xz"
   depends_on "zlib"
 
@@ -38,6 +39,14 @@ class Libxml2 < Formula
     system "make"
     ENV.deparallelize
     system "make", "install"
+
+    if build.with? "python"
+      cd "python" do
+        # We need to insert our include dir first
+        inreplace "setup.py", "includes_dir = [", "includes_dir = ['#{include}', '#{MacOS.sdk_path}/usr/include',"
+        system "python", "setup.py", "install", "--prefix=#{prefix}"
+      end
+    end
   end
 
   test do
