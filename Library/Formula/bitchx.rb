@@ -5,6 +5,10 @@ class Bitchx < Formula
   sha256 "2d270500dd42b5e2b191980d584f6587ca8a0dbda26b35ce7fadb519f53c83e2"
   revision 1
 
+  bottle do
+    sha256 "fe307bff999a81c0923462bb39abd01b2446adb3e423cb8eb47e6de304d353bc" => :tiger_altivec
+  end
+
   depends_on "openssl"
 
   # array out of bounds error
