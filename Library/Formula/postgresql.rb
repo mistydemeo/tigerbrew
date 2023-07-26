@@ -68,7 +68,7 @@ class Postgresql < Formula
     end
 
     system "./configure", *args
-    system "gmake", "install-world"
+    system make_path, "install-world"
   end
 
   def post_install
