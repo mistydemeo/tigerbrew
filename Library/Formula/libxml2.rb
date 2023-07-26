@@ -12,6 +12,10 @@ class Libxml2 < Formula
     depends_on "libtool" => :build
   end
 
+  bottle do
+    sha256 "a25624dea30d2c40b920ecaf6314801cd04350dbf2daa072211f7cf602dac040" => :tiger_altivec
+  end
+
   depends_on "xz"
   depends_on "zlib"
 
