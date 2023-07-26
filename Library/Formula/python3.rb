@@ -233,7 +233,6 @@ class Python3 < Formula
 
     # Install unversioned symlinks in libexec/bin.
     {
-      "easy_install" => "easy_install-#{xy}",
       "pip" => "pip3",
       "wheel" => "wheel3",
     }.each do |unversioned_name, versioned_name|
@@ -241,7 +240,7 @@ class Python3 < Formula
     end
 
     # post_install happens after link
-    %W[pip3 pip#{xy} easy_install-#{xy} wheel3].each do |e|
+    %W[pip3 pip#{xy} wheel3].each do |e|
       (HOMEBREW_PREFIX/"bin").install_symlink bin/e
     end
 
