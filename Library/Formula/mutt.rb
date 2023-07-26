@@ -15,6 +15,10 @@ class Mutt < Formula
   mirror "https://bitbucket.org/mutt/mutt/downloads/mutt-2.2.10.tar.gz"
   sha256 "4d773f22422f79096f7b94b57bee45654ad9a25165dbb36463c58295b4cd3d88"
 
+  bottle do
+    sha256 "8e909fe0b5fbafe54facec36432886c3f868c5d93ca057457bd44ea46b4a0549" => :tiger_altivec
+  end
+
   unless Tab.for_name("signing-party").with? "rename-pgpring"
     conflicts_with "signing-party",
       :because => "mutt installs a private copy of pgpring"
