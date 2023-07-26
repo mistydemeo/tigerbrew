@@ -17,6 +17,10 @@ class Bitchx < Formula
   end
 
   def install
+    # At least on a PowerMac G5, it starves itself of resources and
+    # the build fails.
+    ENV.deparallelize
+
     plugins = %w[acro arcfour amp autocycle blowfish cavlink encrypt
                  fserv hint identd nap pkga possum qbx qmail]
     args = %W[
