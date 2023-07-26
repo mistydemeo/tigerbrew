@@ -6,9 +6,7 @@ class TokyoCabinet < Formula
   sha256 "a003f47c39a91e22d76bc4fe68b9b3de0f38851b160bbb1ca07a4f6441de1f90"
 
   bottle do
-    sha1 "17feb98432ff6345f15bc92d60a43df7188fcc0d" => :mavericks
-    sha1 "d3390f329991082ba274c1f34b07a15dc6a413c3" => :mountain_lion
-    sha1 "ff3403ef9b0b0bda9bc3fe21cdd12b42a141e863" => :lion
+    sha256 "71d978130f7d8b003337eebda4e0c87273385b8b462a92dfc374677b4dd458c9" => :tiger_altivec
   end
 
   def install
