@@ -1,10 +1,8 @@
 class Irssi < Formula
   desc "Modular IRC client"
   homepage "http://irssi.org/"
-  url "http://irssi.org/files/irssi-0.8.17.tar.gz"
-  mirror "https://mirrors.kernel.org/debian/pool/main/i/irssi/irssi_0.8.17.orig.tar.gz"
-  sha256 "0ae01f76797fb6d6b8e0f2268b39c7afb90ac62658ec754c82acfc344b8203e9"
-  revision 2
+  url "https://codeberg.org/irssi/irssi/releases/download/1.4.4/irssi-1.4.4.tar.xz"
+  sha256 "fefe9ec8c7b1475449945c934a2360ab12693454892be47a6d288c63eb107ead"
 
   head do
     url "https://github.com/irssi/irssi.git"
@@ -14,43 +12,33 @@ class Irssi < Formula
     depends_on "lynx" => :build
   end
 
-  bottle do
-    revision 2
-    sha256 "2446b2960e3bef1f184fbe0801490d2a15ca7b8d61b7652a5dbbf499ec351edc" => :el_capitan
-    sha256 "a3f40b5a09cd11ee4fe46420b03fe8ac99c1603ac560cdd56b373745d5a07b6b" => :yosemite
-    sha256 "58a876749226ac7f862bdd8ba2d8c1b3aa9f5f9e9bc69e6d7671a32899b108e8" => :mavericks
-    sha256 "dbe24bf6031f96b060884f07dcfc33e00fca993001c3676ce949f6f00522ba88" => :mountain_lion
-  end
-
   option "with-dante", "Build with SOCKS support"
   option "without-perl", "Build without perl support"
 
   depends_on "pkg-config" => :build
   depends_on "glib"
-  depends_on "openssl" => :recommended
+  depends_on "openssl"
   depends_on "dante" => :optional
+  depends_on "ncurses"
+  depends_on "perl" if build.with? "perl"
+
+  if build.with? "perl"
+    # Bug building with Perl 5.37 & newer
+    # https://github.com/irssi/irssi/pull/1474
+    patch do
+      url "https://patch-diff.githubusercontent.com/raw/irssi/irssi/pull/1474.patch"
+      sha256 "ca09a9e64f0fb304ed309addbf8dbbeba76e3309b403a274de4ce59302d51ee8"
+    end
+  end
 
   def install
-    if build.stable?
-      # Make paths in man page Homebrew-specific
-      # (https://github.com/irssi/irssi/issues/251); can be removed in
-      # next stable release
-      inreplace "docs/irssi.1" do |s|
-        s.gsub! "/usr/share", "#{HOMEBREW_PREFIX}/share"
-        s.gsub! "/etc/irssi.conf", "#{HOMEBREW_PREFIX}/etc/irssi.conf"
-      end
-    end
-
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
       --sysconfdir=#{etc}
-      --with-bot
       --with-proxy
-      --enable-ipv6
       --enable-true-color
       --with-socks=#{build.with?("dante") ? "yes" : "no"}
-      --with-ncurses=#{MacOS.sdk_path}/usr
     ]
 
     if build.with? "perl"
@@ -63,8 +51,6 @@ class Irssi < Formula
     # confuses Perl library path configuration
     # https://github.com/Homebrew/homebrew/issues/34685
     ENV.delete "PERL_MM_OPT"
-
-    args << "--disable-ssl" if build.without? "openssl"
 
     if build.head?
       system "./autogen.sh", *args
@@ -82,4 +68,37 @@ class Irssi < Formula
       pipe.close_write
     end
   end
+
+  # Fix crash on exit with Tiger.
+  # realpath(3) changed in POSIX.1-2008 however the signature is
+  # the same so we can use it without guarding to OS version.
+  # https://github.com/irssi/irssi/issues/1482
+  patch :p0, :DATA
 end
+__END__
+--- src/lib-config/write.c.orig	2023-07-27 12:22:36.000000000 +0100
++++ src/lib-config/write.c	2023-07-27 12:27:33.000000000 +0100
+@@ -312,16 +312,13 @@
+ 
+ 	base_name = fname != NULL ? fname : rec->fname;
+ 
+-	/* expand all symlinks; else we may replace a symlink with a regular file */
+-	dest_name = realpath(base_name, NULL);
+-
+-	if (errno == EINVAL) {
+-		/* variable path length not supported by glibc < 2.3, Solaris < 11 */
+-		char resolved_path[PATH_MAX] = { 0 };
+-		errno = 0;
+-		if ((dest_name = realpath(base_name, resolved_path)) != NULL) {
+-			dest_name = g_strdup(dest_name);
+-		}
++	/* expand all symlinks; else we may replace a symlink with a regular file.
++	   Variable path length not supported by glibc < 2.3, Solaris < 11,
++           Mac OS X < 10.5 */
++	char resolved_path[PATH_MAX] = { 0 };
++	errno = 0;
++	if ((dest_name = realpath(base_name, resolved_path)) != NULL) {
++		dest_name = g_strdup(dest_name);
+ 	}
+ 
+ 	if (dest_name == NULL) {
