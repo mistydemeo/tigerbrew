@@ -1,24 +1,15 @@
 class Lighttpd < Formula
   desc "Small memory footprint, flexible web-server"
   homepage "http://www.lighttpd.net/"
-  url "http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-1.4.37.tar.xz"
-  sha256 "804e6f60567ca1da2b3927f92b7e9332b93aca9560f282ca135b86b7558979bd"
-
-  bottle do
-    sha256 "5ccc450f4e552726c108b00955c835c8b4c82ae844eb944f588cedc590f3ea43" => :el_capitan
-    sha256 "31ad0f53176a0509c51b52082868a847751be055b2d0c11f16974cdb18bdfa51" => :yosemite
-    sha256 "c2900f5ea5bc9cc6ebdf7e2e86724f21b2f4fed923912f2904f5466b9a040109" => :mavericks
-    sha256 "0b4fd109bba1b5ad7c2ff7299fe495fe646f8bd767ddea78e6fccefeeb095347" => :mountain_lion
-  end
+  url "https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-1.4.71.tar.xz"
+  sha256 "b8b6915da20396fdc354df3324d5e440169b2e5ea7859e3a775213841325afac"
 
   option "with-lua51", "Include Lua scripting support for mod_magnet"
 
   depends_on "pkg-config" => :build
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
-  depends_on "pcre"
+  depends_on "pcre2"
   depends_on "openssl"
+  depends_on "xxhash"
   depends_on "lua51" => :optional
   depends_on "libev" => :optional
 
@@ -48,18 +39,15 @@ class Lighttpd < Formula
       --prefix=#{prefix}
       --sbindir=#{bin}
       --with-openssl
-      --with-ldap
       --with-zlib
       --with-bzip2
       --with-attr
+      --with-xxhash
     ]
 
     args << "--with-lua" if build.with? "lua51"
     args << "--with-libev" if build.with? "libev"
 
-    # autogen must be run, otherwise prebuilt configure may complain
-    # about a version mismatch between included automake and Homebrew's
-    system "./autogen.sh"
     system "./configure", *args
     system "make", "install"
 
@@ -74,11 +62,6 @@ class Lighttpd < Formula
         s.sub!(/^var\.conf_dir\s*=\s*".+"$/, "var.conf_dir    = \"#{config_path}\"")
         s.sub!(/^server\.port\s*=\s*80$/, "server.port = 8080")
         s.sub!(%r{^server\.document-root\s*=\s*server_root \+ "\/htdocs"$}, "server.document-root = server_root")
-
-        # get rid of "warning: please use server.use-ipv6 only for hostnames, not
-        # without server.bind / empty address; your config will break if the kernel
-        # default for IPV6_V6ONLY changes"
-        s.sub!(/^server.use-ipv6\s*=\s*"enable"$/, 'server.use-ipv6 = "disable"')
 
         s.sub!(/^server\.username\s*=\s*".+"$/, 'server.username  = "_www"')
         s.sub!(/^server\.groupname\s*=\s*".+"$/, 'server.groupname = "_www"')
@@ -148,4 +131,34 @@ class Lighttpd < Formula
     </plist>
     EOS
   end
+
+  patch :p0, :DATA
 end
+__END__
+--- src/stat_cache.c.orig	2023-08-08 16:12:44.000000000 +0100
++++ src/stat_cache.c	2023-08-08 16:13:06.000000000 +0100
+@@ -842,7 +842,7 @@
+    #if defined(HAVE_SYS_XATTR_H)
+     ssize_t attrlen;
+     if (0 < (attrlen = getxattr(name, attrname,
+-                                attrval, sizeof(attrval)-1)))
++                                attrval, sizeof(attrval)-1, 0, NULL)))
+    #else
+     int attrlen = sizeof(attrval)-1;
+     if (0 == attr_get(name, attrname, attrval, &attrlen, 0))
+--- src/ls-hpack/lshpack.h.orig	2023-08-08 17:05:52.000000000 +0100
++++ src/ls-hpack/lshpack.h	2023-08-08 17:06:32.000000000 +0100
+@@ -237,6 +237,13 @@
+ #define STAILQ_FOREACH          SIMPLEQ_FOREACH
+ #endif
+ 
++#ifndef STAILQ_FOREACH
++#define STAILQ_FOREACH(var, head, field)                                \
++        for((var) = STAILQ_FIRST((head));                               \
++           (var);                                                       \
++           (var) = STAILQ_NEXT((var), field))
++#endif
++
+ struct lshpack_enc_table_entry;
+ 
+ STAILQ_HEAD(lshpack_enc_head, lshpack_enc_table_entry);
