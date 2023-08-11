@@ -281,7 +281,7 @@ end
 class BottleSpecification
   DEFAULT_PREFIX = "/usr/local".freeze
   DEFAULT_CELLAR = "/usr/local/Cellar".freeze
-  DEFAULT_DOMAIN = (ENV["HOMEBREW_BOTTLE_DOMAIN"] || "https://ia902307.us.archive.org/31/items/tigerbrew").freeze
+  DEFAULT_DOMAIN = (ENV["HOMEBREW_BOTTLE_DOMAIN"] || "https://ia904500.us.archive.org/24/items/tigerbrew").freeze
 
   attr_rw :prefix, :cellar, :revision
   alias_method :rebuild, :revision
