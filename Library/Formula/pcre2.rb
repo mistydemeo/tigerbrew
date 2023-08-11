@@ -6,6 +6,10 @@ class Pcre2 < Formula
 
   head "https://github.com/PCRE2Project/pcre2"
 
+  bottle do
+    sha256 "8994bdc208954bda33063808e865b53f2f1fe3e84a5da2376d5e66275347cfb8" => :tiger_altivec
+  end
+
   option :universal
 
   # Allow building with JIT support on Tiger
