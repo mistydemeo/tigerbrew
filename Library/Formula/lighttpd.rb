@@ -11,7 +11,6 @@ class Lighttpd < Formula
   depends_on "openssl"
   depends_on "xxhash"
   depends_on "lua51" => :optional
-  depends_on "libev" => :optional
 
   # default max. file descriptors; this option will be ignored if the server is not started as root
   MAX_FDS = 512
@@ -40,13 +39,10 @@ class Lighttpd < Formula
       --sbindir=#{bin}
       --with-openssl
       --with-zlib
-      --with-bzip2
-      --with-attr
       --with-xxhash
     ]
 
     args << "--with-lua" if build.with? "lua51"
-    args << "--with-libev" if build.with? "libev"
 
     system "./configure", *args
     system "make", "install"
@@ -65,12 +61,12 @@ class Lighttpd < Formula
 
         s.sub!(/^server\.username\s*=\s*".+"$/, 'server.username  = "_www"')
         s.sub!(/^server\.groupname\s*=\s*".+"$/, 'server.groupname = "_www"')
-        s.sub!(/^server\.event-handler\s*=\s*"linux-sysepoll"$/, 'server.event-handler = "select"')
-        s.sub!(/^server\.network-backend\s*=\s*"sendfile"$/, 'server.network-backend = "writev"')
+        s.sub!(/^#server\.event-handler\s*=\s*"linux-sysepoll"$/, 'server.event-handler = "kqueue"')
+        s.sub!(/^#server\.network-backend\s*=\s*"sendfile"$/, 'server.network-backend = "writev"')
 
         # "max-connections == max-fds/2",
         # http://redmine.lighttpd.net/projects/1/wiki/Server_max-connectionsDetails
-        s.sub!(/^server\.max-connections = .+$/, "server.max-connections = " + (MAX_FDS / 2).to_s)
+        s.sub!(/^#server\.max-connections = .+$/, "server.max-connections = " + (MAX_FDS / 2).to_s)
       end
     end
 
