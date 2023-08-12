@@ -5,6 +5,10 @@ class Libyaml < Formula
   mirror "https://github.com/yaml/libyaml/releases/download/0.2.5/yaml-0.2.5.tar.gz"
   sha256 "c642ae9b75fee120b2d96c712538bd2cf283228d2337df2cf2988e3c02678ef4"
 
+  bottle do
+    sha256 "1059dae2e830cee36f64e8f8de5f7afd0fb0ef5eb833437da8188ed7a73befb3" => :tiger_altivec
+  end
+
   option :universal
 
   def install
