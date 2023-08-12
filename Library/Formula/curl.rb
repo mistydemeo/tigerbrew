@@ -7,8 +7,7 @@ class Curl < Formula
 
   bottle do
     cellar :any
-    sha256 "8a8be053849645a26685c0eee9a497a10c18eca9f8f5a7a877db402506eadda3" => :tiger_g4
-    sha256 "a3d326f66fd8e36c7470edc264e94e522a634122e2c47ee24c7e82992dd9de39" => :tiger_g5
+    sha256 "12acf882b1d17208fb42d0d2a06e98c2b619fce3ea53057567a7f63aca1b011b" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
