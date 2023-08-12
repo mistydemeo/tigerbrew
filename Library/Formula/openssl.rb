@@ -14,8 +14,7 @@ class Openssl < Formula
   depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
 
   bottle do
-    sha256 "ef17c761f66cbd25e558f7593c2b09db5773282d01f90cd47fd34a8dc6beb9f6" => :tiger_g4
-    sha256 "f6c6f88d4be9b7af10b44d2ee51843661ebc9777cd39f296e54db6d43e7ac969" => :tiger_g5
+    sha256 "193654acb8554f860af0fa6b033b532f1faf2cbcd46ac0b40bd7dfbf0a5717e7" => :tiger_altivec
   end
 
   def arch_args
