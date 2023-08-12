@@ -58,6 +58,8 @@ class Perl < Formula
   # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/444/files
   # t/04-xs-rpath-darwin.t: Need Darwin 9 minimum
   # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/446
+  # -rpath wont work when targeting 10.3 on 10.5
+  # https://github.com/Perl/perl5/pull/21367
   patch :p0, :DATA
 end
 __END__
@@ -121,3 +123,22 @@ __END__
      else {
          plan skip_all => 'Dynaloading not enabled'
              if !$Config{usedl} or $Config{usedl} ne 'define';
+--- hints/darwin.sh.orig	2023-08-12 09:55:03.000000000 +0100
++++ hints/darwin.sh	2023-08-12 09:55:59.000000000 +0100
+@@ -287,14 +287,14 @@
+    ldflags="${ldflags} -flat_namespace"
+    lddlflags="${ldflags} -bundle -undefined suppress"
+    ;;
+-[7-9].*)   # OS X 10.3.x - 10.5.x
++[7-8].*)   # OS X 10.3.x - 10.4.x
+    lddlflags="${ldflags} -bundle -undefined dynamic_lookup"
+    case "$ld" in
+        *MACOSX_DEPLOYMENT_TARGET*) ;;
+        *) ld="env MACOSX_DEPLOYMENT_TARGET=10.3 ${ld}" ;;
+    esac
+    ;;
+-*)        # OS X 10.6.x - current
++*)        # OS X 10.5.x - current
+    # The MACOSX_DEPLOYMENT_TARGET is not needed,
+    # but the -mmacosx-version-min option is always used.
+ 
