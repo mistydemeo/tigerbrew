@@ -4,6 +4,10 @@ class LibatomicOps < Formula
   url "https://github.com/ivmai/libatomic_ops/releases/download/v7.8.0/libatomic_ops-7.8.0.tar.gz"
   sha256 "15676e7674e11bda5a7e50a73f4d9e7d60452271b8acf6fd39a71fefdf89fa31"
 
+  bottle do
+    sha256 "f84912cc7945b0be19837621bac395d883ccd764c111431be32ce11fff4dbb05" => :tiger_altivec
+  end
+
   def install
     system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
     system "make"
