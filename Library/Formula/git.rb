@@ -1,8 +1,8 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://www.kernel.org/pub/software/scm/git/git-2.40.1.tar.xz"
-  sha256 "4893b8b98eefc9fdc4b0e7ca249e340004faa7804a433d17429e311e1fef21d2"
+  url "https://www.kernel.org/pub/software/scm/git/git-2.41.0.tar.xz"
+  sha256 "e748bafd424cfe80b212cbc6f1bbccc3a47d4862fb1eb7988877750478568040"
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
@@ -10,13 +10,13 @@ class Git < Formula
   end
 
   resource "html" do
-    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.40.1.tar.xz"
-    sha256 "8c08b31087566e719f6a7d16bb102255a8b9b970aefba6e306d6340eefe368ee"
+    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.41.0.tar.xz"
+    sha256 "0cb2d4a09270eede7c1b686e2dfeac9bffef9e42c117a7e120f3cbb3e665d286"
   end
 
   resource "man" do
-    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.40.1.tar.xz"
-    sha256 "fe059c948ba3d169537b5b6b24f19726881057dfd4e5987f37789884d42fde13"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.41.0.tar.xz"
+    sha256 "bc7a4c944492c76fc3cd766ce22e826d0241e43792c611d4fdc068e0df545877"
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -183,8 +183,13 @@ class Git < Formula
     system bin/"git", "commit", "-a", "-m", "Initial Commit"
     assert_equal "haunted\nhouse", shell_output("#{bin}/git ls-files").strip
   end
-  # Fix PowerPC build and support for OS X Tiger
-  # e.g supplied pcre is too old, lacks some file system monitoring functionality
+
+  # Fix PowerPC build and support for OS X Tiger & Leopard
+  # e.g supplied regex(3) is too old, lacks some file system monitoring functionality
+  # We revert git-credential-osxkeychain to the version from 2.40.1 since we lack
+  # getline(3).
+  # Needs arc4random_buf(3) which is missing on Leopard and prior so just use openssl
+  # since newer implementations were based on AES cipher.
   patch :p0, :DATA
 end
 __END__
@@ -201,19 +206,21 @@ __END__
  /* Not under GCC-alike or glibc or *BSD or newlib or <processor whitelist> or <os whitelist> */
  #elif defined(SHA1DC_ON_INTEL_LIKE_PROCESSOR)
  /*
---- config.mak.uname.orig	2023-05-17 06:25:11.000000000 +0100
-+++ config.mak.uname	2023-05-17 06:27:15.000000000 +0100
-@@ -127,6 +127,9 @@
- 	ifeq ($(shell expr "$(uname_R)" : '[15678]\.'),2)
+--- config.mak.uname.orig	2023-08-12 18:34:07.000000000 +0100
++++ config.mak.uname	2023-08-12 20:30:51.000000000 +0100
+@@ -128,6 +128,11 @@
  		OLD_ICONV = UnfortunatelyYes
  		NO_APPLE_COMMON_CRYPTO = YesPlease
+ 	endif
++	ifeq ($(shell expr "$(uname_R)" : '[156789]\.'),2)
 +		NO_REGEX=YesPlease
 +	else
 +		USE_ENHANCED_BASIC_REGULAR_EXPRESSIONS = YesPlease
- 	endif
++	endif
  	ifeq ($(shell expr "$(uname_R)" : '[15]\.'),2)
  		NO_STRLCPY = YesPlease
-@@ -146,8 +149,7 @@
+ 	endif
+@@ -146,8 +151,7 @@
  	HAVE_BSD_SYSCTL = YesPlease
  	FREAD_READS_DIRECTORIES = UnfortunatelyYes
  	HAVE_NS_GET_EXECUTABLE_PATH = YesPlease
@@ -223,15 +230,15 @@ __END__
  
  	# Workaround for `gettext` being keg-only and not even being linked via
  	# `brew link --force gettext`, should be obsolete as of
-@@ -160,6 +162,7 @@
+@@ -160,6 +164,7 @@
  		endif
  	endif
  
-+	ifneq ($(shell expr "$(uname_R)" : '[15678]\.'),2)
++	ifneq ($(shell expr "$(uname_R)" : '[156789]\.'),2)
  	# The builtin FSMonitor on MacOS builds upon Simple-IPC.  Both require
  	# Unix domain sockets and PThreads.
  	ifndef NO_PTHREADS
-@@ -168,6 +171,7 @@
+@@ -168,6 +173,7 @@
  	FSMONITOR_OS_SETTINGS = darwin
  	endif
  	endif
@@ -251,3 +258,34 @@ __END__
  BASIC_LDFLAGS =
  
 
+--- contrib/credential/osxkeychain/git-credential-osxkeychain.c.orig	2023-06-01 08:03:05.000000000 +0100
++++ contrib/credential/osxkeychain/git-credential-osxkeychain.c	2023-04-24 16:32:11.000000000 +0100
+@@ -113,16 +113,14 @@
+ 
+ static void read_credential(void)
+ {
+-	char *buf = NULL;
+-	size_t alloc;
+-	ssize_t line_len;
++	char buf[1024];
+ 
+-	while ((line_len = getline(&buf, &alloc, stdin)) > 0) {
++	while (fgets(buf, sizeof(buf), stdin)) {
+ 		char *v;
+ 
+ 		if (!strcmp(buf, "\n"))
+ 			break;
+-		buf[line_len-1] = '\0';
++		buf[strlen(buf)-1] = '\0';
+ 
+ 		v = strchr(buf, '=');
+ 		if (!v)
+@@ -167,8 +165,6 @@
+ 		 * learn new lines, and the helpers are updated to match.
+ 		 */
+ 	}
+-
+-	free(buf);
+ }
+ 
+ int main(int argc, const char **argv)
