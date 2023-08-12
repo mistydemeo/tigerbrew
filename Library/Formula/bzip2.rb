@@ -5,6 +5,10 @@ class Bzip2 < Formula
   sha256 "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"
   license "bzip2-1.0.6"
 
+  bottle do
+    sha256 "10961df6b0aedb21c6758b8c4ef0706db649f2504a5c6f1ea53930c73463e362" => :tiger_altivec
+  end
+
   keg_only :provided_by_osx
 
   def install
