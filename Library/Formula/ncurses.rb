@@ -5,6 +5,10 @@ class Ncurses < Formula
   mirror "https://ftp.gnu.org/gnu/ncurses/ncurses-6.4.tar.gz"
   sha256 "6931283d9ac87c5073f30b6290c4c75f21632bb4fc3603ac8100812bed248159"
 
+  bottle do
+    sha256 "4ec59b31309bbd20ee0d354a8eda5ff32f6a0607c9e2df5467b8b0b948323b70" => :tiger_altivec
+  end
+
   keg_only :provided_by_osx
 
   depends_on "pkg-config" => :build
