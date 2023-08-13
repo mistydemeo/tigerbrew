@@ -1,9 +1,9 @@
 class Texinfo < Formula
   desc "Official documentation format of the GNU project"
   homepage "https://www.gnu.org/software/texinfo/"
-  url "http://ftpmirror.gnu.org/texinfo/texinfo-6.0.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/texinfo/texinfo-6.0.tar.gz"
-  sha256 "83d3183290f34e7f958d209d0b20022c6fe9e921eb6fe94c27d988827d4878d2"
+  url "http://ftpmirror.gnu.org/texinfo/texinfo-7.0.tar.gz"
+  mirror "https://ftp.gnu.org/gnu/texinfo/texinfo-7.0.tar.gz"
+  sha256 "9261d4ee11cdf6b61895e213ffcd6b746a61a64fe38b9741a3aaa73125b35170"
 
   bottle do
     revision 1
@@ -17,7 +17,14 @@ class Texinfo < Formula
     of these files.
   EOS
 
+  depends_on "gettext" # Need libintl.h
+  depends_on "perl"
+
   def install
+    # The perl modules have their own configure scripts and the path to libintl.h
+    # is not propagated down and so the build breaks, despite specifying --with-libintl-prefix
+    ENV["PERL_EXT_CFLAGS"] = "#{Formula["gettext"].opt_prefix}/include"
+    ENV["PERL_EXT_LDFLAGS"] = "#{Formula["gettext"].opt_prefix}/lib"
     system "./configure", "--disable-dependency-tracking",
                           "--disable-install-warnings",
                           "--prefix=#{prefix}"
