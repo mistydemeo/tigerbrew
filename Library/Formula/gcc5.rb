@@ -62,6 +62,9 @@ class Gcc5 < Formula
   patch :DATA
 
   def install
+    # GCC Bug 25127
+    # https://gcc.gnu.org/bugzilla//show_bug.cgi?id=25127
+    ENV.no_optimization if Hardware::CPU.type == :ppc
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
 
