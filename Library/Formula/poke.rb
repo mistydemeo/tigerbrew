@@ -12,6 +12,12 @@ class Poke < Formula
   depends_on "ncurses"
   depends_on "readline"
 
+  # ../../libpoke/pvm.jitter:6829: error: #pragma GCC diagnostic not allowed inside functions
+  fails_with :gcc do
+    build 5553
+    cause "One test failure on G4"
+  end
+
   def install
     args = %W[
       --prefix=#{prefix}
