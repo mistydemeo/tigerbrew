@@ -5,6 +5,10 @@ class Libiconv < Formula
   mirror "https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz"
   sha256 "8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313"
 
+  bottle do
+    sha256 "533c88e9e63c7f9b98919951d1aae09a0ac385919cb53957b78ee0eb65f615fc" => :tiger_altivec
+  end
+
   keg_only :provided_by_osx
 
   patch do
