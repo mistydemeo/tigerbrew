@@ -31,6 +31,9 @@ class Qemu < Formula
 
   def install
     ENV["LIBTOOL"] = "glibtool"
+    # Need to tell ar(1) to generate a table of contents otherwise ld(1) errors
+    # ld: in dtc/libfdt/libfdt.a, archive has no table of contents
+    ENV["ARFLAGS"] = "srv" if MacOS.version == :leopard
 
     if MacOS.version < :leopard
       # Needed for certain stdint macros on 10.4
