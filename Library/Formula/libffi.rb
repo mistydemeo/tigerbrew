@@ -13,6 +13,12 @@ class Libffi < Formula
 
   keg_only :provided_by_osx, "Some formulae require a newer version of libffi." if MacOS.version > :tiger
 
+  # i386 build fix
+  patch do
+    url "https://github.com/libffi/libffi/commit/e70dd1aa240159bd2050cb1eafffb49cdc1d8b22.diff"
+    sha256 "f8716ba642b979756958cdae1cd6a673449fafca7cb695c12cd85a47ab3e4eaf"
+  end
+
   def install
     ENV.deparallelize # https://github.com/Homebrew/homebrew/pull/19267
     ENV.universal_binary
