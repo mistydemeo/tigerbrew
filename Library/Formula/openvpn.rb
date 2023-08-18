@@ -1,16 +1,9 @@
 class Openvpn < Formula
   desc "SSL VPN implementing OSI layer 2 or 3 secure network extension"
   homepage "https://openvpn.net/index.php/download/community-downloads.html"
-  url "https://swupdate.openvpn.org/community/releases/openvpn-2.3.8.tar.gz"
-  mirror "http://build.openvpn.net/downloads/releases/openvpn-2.3.8.tar.gz"
-  sha256 "532435eff61c14b44a583f27b72f93e7864e96c95fe51134ec0ad4b1b1107c51"
-
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "c9dec218ba8899bf7027f2dc5dea800bbe9834c530ad1e3eb32440e88e58a106" => :leopard_g3
-    sha256 "ff196ea79f7a1bab55b07a72c58475c36133c2637fc9813f1f73a714c52acbaf" => :leopard_altivec
-  end
+  url "https://swupdate.openvpn.org/community/releases/openvpn-2.6.6.tar.gz"
+  mirror "https://build.openvpn.net/downloads/releases/openvpn-2.6.6.tar.gz"
+  sha256 "3b074f392818b31aa529b84f76e8b5e4ad03fca764924f46d906bceaaf421034"
 
   depends_on "lzo"
   depends_on :tuntap
@@ -39,8 +32,6 @@ class Openvpn < Formula
 
     (etc+"openvpn").mkpath
     (var+"run/openvpn").mkpath
-    # We don't use PolarSSL, so this file is unnecessary and somewhat confusing.
-    rm "#{share}/doc/openvpn/README.polarssl"
   end
 
   def caveats; <<-EOS.undent
