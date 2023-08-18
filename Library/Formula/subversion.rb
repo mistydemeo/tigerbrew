@@ -5,13 +5,6 @@ class Subversion < Formula
   mirror "https://archive.apache.org/dist/subversion/subversion-1.14.2.tar.bz2"
   sha256 "c9130e8d0b75728a66f0e7038fc77052e671830d785b5616aad53b4810d3cc28"
 
-  bottle do
-    revision 1
-    sha256 "cc57e488880e76a380434bfc5b8c8b1c1caf5176802f8e60af0cd443913e8974" => :tiger_altivec
-    sha256 "fe1ab0031b738afd2e3f3091725b4e2afd8e7f6c22b13c62ba145e1c2f63d536" => :leopard_g3
-    sha256 "fd8d3d5a7fe7a0361ec2622385c85c1649b3bc7d50f3d56f1b602dda92c9b6ad" => :leopard_altivec
-  end
-
   deprecated_option "java" => "with-java"
   deprecated_option "perl" => "with-perl"
   deprecated_option "ruby" => "with-ruby"
@@ -23,8 +16,8 @@ class Subversion < Formula
   option "with-gpg-agent", "Build with support for GPG Agent"
 
   resource "serf" do
-    url "https://www.apache.org/dist/serf/serf-1.3.9.tar.bz2", :using => :curl
-    sha256 "549c2d21c577a8a9c0450facb5cca809f26591f048e466552240947bdf7a87cc"
+    url "https://www.apache.org/dist/serf/serf-1.3.10.tar.bz2", :using => :curl
+    sha256 "be81ef08baa2516ecda76a77adf7def7bc3227eeb578b9a33b45f7b41dc064e6"
   end
 
   depends_on "lz4"
