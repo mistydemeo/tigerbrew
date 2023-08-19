@@ -11,6 +11,10 @@ class Libffi < Formula
     depends_on "libtool" => :build
   end
 
+  bottle do
+    sha256 "f73c477afbca66cf30dd489efa3177fa89ace748e11bd1fd1b6395eeb18a969e" => :tiger_altivec
+  end
+
   keg_only :provided_by_osx, "Some formulae require a newer version of libffi." if MacOS.version > :tiger
 
   # i386 build fix
