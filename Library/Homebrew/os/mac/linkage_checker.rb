@@ -39,7 +39,7 @@ class LinkageChecker
             @broken_dylibs << dylib
           else
             tap = Tab.for_keg(owner).tap
-            f = if tap.nil? || tap.core_tap?
+            f = if tap.nil? || tap == "mistydemeo/tigerbrew"
               owner.name
             else
               "#{tap}/#{owner.name}"
