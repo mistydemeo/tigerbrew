@@ -4,6 +4,10 @@ class GambitScheme < Formula
   url "http://gambitscheme.org/latest/gambit-v4_9_5.tgz"
   sha256 "e28ef8db5f0e7b1159720c150053dcab8f7c4cae1f0e5c838944797073f8c1dc"
 
+  bottle do
+    sha256 "a9adffc0a71887460e7419c42732f5a6eb900f3ef74ccbe6bd634f37ab38e8d5" => :tiger_altivec
+  end
+
   conflicts_with "scheme48", :because => "both install `scheme-r5rs` binaries"
 
   deprecated_option "enable-shared" => "with-shared"
