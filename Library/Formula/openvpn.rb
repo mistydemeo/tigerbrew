@@ -8,6 +8,7 @@ class Openvpn < Formula
   depends_on "lzo"
   depends_on :tuntap
   depends_on "openssl"
+  depends_on "lz4"
 
   def install
     # pam_appl header is installed in a different location on Leopard
