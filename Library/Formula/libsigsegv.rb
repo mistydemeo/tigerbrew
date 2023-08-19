@@ -5,6 +5,10 @@ class Libsigsegv < Formula
   mirror "https://ftp.gnu.org/gnu/libsigsegv/libsigsegv-2.14.tar.gz"
   sha256 "cdac3941803364cf81a908499beb79c200ead60b6b5b40cad124fd1e06caa295"
 
+  bottle do
+    sha256 "1d36d10ca32bfbc8c3b66cdc52e7d0829d2d87d00927b0c0024b6a72a2abc297" => :tiger_altivec
+  end
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
