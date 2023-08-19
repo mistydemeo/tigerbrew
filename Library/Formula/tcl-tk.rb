@@ -5,6 +5,10 @@ class TclTk < Formula
   version "8.6.13"
   sha256 "43a1fae7412f61ff11de2cfd05d28cfc3a73762f354a417c62370a54e2caf066"
 
+  bottle do
+    sha256 "6c1a82cf1a22895eaccac3cd42dd7efcf5b6eb9d79e10826ea656bf063db4629" => :tiger_altivec
+  end
+
   keg_only :provided_by_osx,
     "Tk installs some X11 headers and OS X provides an (older) Tcl/Tk."
 
