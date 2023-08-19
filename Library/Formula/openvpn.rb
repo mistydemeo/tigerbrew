@@ -5,6 +5,10 @@ class Openvpn < Formula
   mirror "https://build.openvpn.net/downloads/releases/openvpn-2.6.6.tar.gz"
   sha256 "3b074f392818b31aa529b84f76e8b5e4ad03fca764924f46d906bceaaf421034"
 
+  bottle do
+    sha256 "b2470b50caa5095b2f2c7dd0c366d1c0c99796cbce3b38e9e98331d56959edf9" => :tiger_altivec
+  end
+
   depends_on "lzo"
   depends_on :tuntap
   depends_on "openssl"
