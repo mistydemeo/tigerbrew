@@ -5,6 +5,10 @@ class Libtasn1 < Formula
   mirror "https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.19.0.tar.gz"
   sha256 "1613f0ac1cf484d6ec0ce3b8c06d56263cc7242f1c23b30d82d23de345a63f7a"
 
+  bottle do
+    sha256 "ab864e12a279d8f7f2f7a3a8e3d30f495a54ae7e9e448b9f45746e2362f81f72" => :tiger_altivec
+  end
+
   option :universal
 
   def install
