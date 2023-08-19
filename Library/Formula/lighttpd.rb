@@ -4,6 +4,10 @@ class Lighttpd < Formula
   url "https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-1.4.71.tar.xz"
   sha256 "b8b6915da20396fdc354df3324d5e440169b2e5ea7859e3a775213841325afac"
 
+  bottle do
+    sha256 "e9ebef903fa723298e4eb57e897f8508e4d9cf1442a4ae8f3ab44eafcd180240" => :tiger_altivec
+  end
+
   option "with-lua51", "Include Lua scripting support for mod_magnet"
 
   depends_on "pkg-config" => :build
