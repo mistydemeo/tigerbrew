@@ -6,6 +6,10 @@ class Chicken < Formula
 
   head "http://code.call-cc.org/git/chicken-core.git"
 
+  bottle do
+    sha256 "baea3114616f42a22ab858f02d0652755dd711de5a8f7fa67bbc19e332088585" => :tiger_altivec
+  end
+
   # needs make 3.81 or newer
   depends_on "make" => :build if MacOS.version < :leopard
 
