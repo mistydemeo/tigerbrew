@@ -8,6 +8,10 @@ class Xxhash < Formula
     "GPL-2.0-or-later", # `xxhsum` command line utility
   ]
 
+  bottle do
+    sha256 "350a5d19d19e0a9dcd24a8b9c13882ba74af727b41ca3149ce4fc1bcb1b7acac" => :tiger_altivec
+  end
+
   def install
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
     system "make"
