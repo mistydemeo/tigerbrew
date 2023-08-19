@@ -5,6 +5,10 @@ class Sqlite < Formula
   version "3.42.0"
   sha256 "7abcfd161c6e2742ca5c6c0895d1f853c940f203304a0b49da4e1eca5d088ca6"
 
+  bottle do
+    sha256 "ae0338b40f5a6b893fb7b8a57c8cee4dfe5f483616cdc5e910659dd1d31805bc" => :sha256
+  end
+
   keg_only :provided_by_osx, "OS X provides an older sqlite3."
 
   option :universal
