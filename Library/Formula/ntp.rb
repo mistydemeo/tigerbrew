@@ -6,6 +6,10 @@ class Ntp < Formula
   sha256 "103dd272e6a66c5b8df07dce5e9a02555fcd6f1397bdfb782237328e89d3a866"
   license all_of: ["BSD-2-Clause", "NTP"]
 
+  bottle do
+    sha256 "328717f558bfb5137571df39fbd4402b602019bc14ee891bd86e026ec18fdcdf" => :tiger_altivec
+  end
+
   depends_on "openssl"
 
   def install
