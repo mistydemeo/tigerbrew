@@ -42,7 +42,7 @@ class GambitScheme < Formula
   end
 
   test do
-    system "#{bin}/gsi", "-e", '(print "hello world")'
+    system "#{bin}/gsi-gambit", "-e", '(print "hello world")'
   end
 
   # Allow the location of OpenSSL to be set during build.
