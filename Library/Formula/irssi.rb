@@ -12,6 +12,12 @@ class Irssi < Formula
     depends_on "lynx" => :build
   end
 
+  # Fix crash on exit with Tiger.
+  # realpath(3) changed in POSIX.1-2008 however the signature is
+  # the same so we can use it without guarding to OS version.
+  # https://github.com/irssi/irssi/issues/1482
+  patch :p0, :DATA
+
   option "with-dante", "Build with SOCKS support"
   option "without-perl", "Build without perl support"
 
@@ -68,12 +74,6 @@ class Irssi < Formula
       pipe.close_write
     end
   end
-
-  # Fix crash on exit with Tiger.
-  # realpath(3) changed in POSIX.1-2008 however the signature is
-  # the same so we can use it without guarding to OS version.
-  # https://github.com/irssi/irssi/issues/1482
-  patch :p0, :DATA
 end
 __END__
 --- src/lib-config/write.c.orig	2023-07-27 12:22:36.000000000 +0100
