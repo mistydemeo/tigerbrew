@@ -12,6 +12,10 @@ class Irssi < Formula
     depends_on "lynx" => :build
   end
 
+  bottle do
+    sha256 "83c8e6d383114da61ac1aedad66ae58e380721e0b35e2c1cce812c009ff4577f" => :tiger_altivec
+  end
+
   # Fix crash on exit with Tiger.
   # realpath(3) changed in POSIX.1-2008 however the signature is
   # the same so we can use it without guarding to OS version.
