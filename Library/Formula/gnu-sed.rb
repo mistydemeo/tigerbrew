@@ -5,6 +5,10 @@ class GnuSed < Formula
   mirror "https://ftp.gnu.org/gnu/sed/sed-4.9.tar.xz"
   sha256 "6e226b732e1cd739464ad6862bd1a1aba42d7982922da7a53519631d24975181"
 
+  bottle do
+    sha256 "b22edf98fd285eecdb04ab8dfc92d9109f082d378f3e0b81c31143f410808ff0" => :tiger_altivec
+  end
+
   conflicts_with "ssed", :because => "both install share/info/sed.info"
 
   deprecated_option "default-names" => "with-default-names"
