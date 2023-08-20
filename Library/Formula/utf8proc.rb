@@ -8,6 +8,9 @@ class Utf8proc < Formula
   # Unbreak build on legacy compilers which lack warnings for sign conversion
   patch :p0, :DATA
 
+  # Uses -compatibility_version, not present in Tiger
+  depends_on :ld64
+
   def install
     system "make", "install", "prefix=#{prefix}"
   end
