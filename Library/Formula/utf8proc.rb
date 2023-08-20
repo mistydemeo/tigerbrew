@@ -5,6 +5,10 @@ class Utf8proc < Formula
   sha256 "a0a60a79fe6f6d54e7d411facbfcc867a6e198608f2cd992490e46f04b1bcecc"
   license all_of: ["MIT", "Unicode-DFS-2015"]
 
+  bottle do
+    sha256 "e39f7d87cb5ba31a4f535ac6d01ebfb66e7fe99cc35a99b5398ce584e780c3f9" => :tiger_altivec
+  end
+
   # Unbreak build on legacy compilers which lack warnings for sign conversion
   patch :p0, :DATA
 
