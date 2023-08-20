@@ -5,6 +5,10 @@ class GnuTar < Formula
   mirror "https://ftp.gnu.org/gnu/tar/tar-1.34.tar.xz"
   sha256 "63bebd26879c5e1eea4352f0d03c991f966aeb3ddeb3c7445c902568d5411d28"
 
+  bottle do
+    "f57c9b390419b477944bcbf7eaa18ae8bd2dc62007534679843e47cdde8143e1" => :tiger_altivec
+  end
+
   option "with-default-names", "Do not prepend 'g' to the binary"
 
   def install
