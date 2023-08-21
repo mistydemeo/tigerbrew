@@ -5,6 +5,9 @@ class Zsh < Formula
   mirror "http://www.zsh.org/pub/zsh-5.9.tar.xz"
   sha256 "9b8d1ecedd5b5e81fbf1918e876752a7dd948e05c1a0dba10ab863842d45acd5"
 
+  bottle do
+    sha256 "6873e100ff5153acdf7664eb296875093856380391ef67d8276ba47a0e0fa587" => :tiger_altivec
+  end
 
   option "without-etcdir", "Disable the reading of Zsh rc files in /etc"
 
