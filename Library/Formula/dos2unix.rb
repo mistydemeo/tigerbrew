@@ -10,6 +10,10 @@ class Dos2unix < Formula
     sha256 "2db1db62169cf4cc7b8b24a61784f6a482af8d87f8cc620b7c3d697811baf73e"
   end
 
+  bottle do
+    sha256 "2110325f87260f0c2abc3fd31750b1330a828994fbd92e2de62c5bf06af415e6" => :tiger_altivec
+  end
+
   option "with-gettext", "Build with Native Language Support"
 
   depends_on "gettext" => :optional
