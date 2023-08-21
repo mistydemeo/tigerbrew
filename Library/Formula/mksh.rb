@@ -5,6 +5,11 @@ class Mksh < Formula
   mirror "http://pub.allbsd.org/MirOS/dist/mir/mksh/mksh-R59c.tgz"
   sha256 "77ae1665a337f1c48c61d6b961db3e52119b38e58884d1c89684af31f87bc506"
 
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "78d0d6429a7861139619e81aae481991c5dbf874af27c2bac0ab7aee5b2f89ea" => :tiger_altivec
+  end
+
   def install
     system "sh", "./Build.sh", "-r"
     system "./test.sh"
