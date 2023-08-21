@@ -5,6 +5,10 @@ class Libpcap < Formula
   sha256 "ed19a0383fad72e3ad435fd239d7cd80d64916b87269550159d20e47160ebe5f"
   head "git://bpf.tcpdump.org/libpcap"
 
+  bottle do
+    sha256 "0000924199fe3a29f3e53efd108d8745707302d613faf97f938ff730b6264d0a" => :tiger_altivec
+  end
+
   keg_only :provided_by_osx
 
   # System versions are too old on older OS Xs
