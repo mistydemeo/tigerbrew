@@ -7,6 +7,10 @@ class Expat < Formula
 
   head "https://github.com/libexpat/libexpat.git"
 
+  bottle do
+    sha256 "29e6fb04afab59f52c7060fea067576c9d805733c058c1212fd62e0194c6175a" => :tiger_altivec
+  end
+
   keg_only :provided_by_osx, "OS X includes Expat 1.5." if MacOS.version > :tiger
 
   option :universal
