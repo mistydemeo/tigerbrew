@@ -10,6 +10,10 @@ class Vala < Formula
   depends_on "graphviz"
   depends_on "libxslt"
 
+  bottle do
+    sha256 "f286d25b1ecb8774a540fe105b73534e14e5d20916576abe43538d1fab7b72b9" => :tiger_altivec
+  end
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
