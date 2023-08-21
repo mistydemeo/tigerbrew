@@ -4,6 +4,10 @@ class Pcre < Formula
   url "https://downloads.sourceforge.net/project/pcre/pcre/8.45/pcre-8.45.tar.bz2"
   sha256 "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8"
 
+  bottle do
+    sha256 "e89c54115a9b58735dd9548c0974a657e9bbce263642aa43264573385e360960" => :tiger_altivec
+  end
+
   option :universal
 
   # See https://github.com/mistydemeo/tigerbrew/issues/93
