@@ -9,6 +9,10 @@ class Bash < Formula
 
   head "http://git.savannah.gnu.org/r/bash.git"
 
+  # Guard off missing definitions
+  # https://savannah.gnu.org/patch/?10367
+  patch :p0, :DATA
+
   depends_on "readline"
 
   def install
@@ -33,11 +37,6 @@ class Bash < Formula
   test do
     assert_equal "hello", shell_output("#{bin}/bash -c \"echo hello\"").strip
   end
-
-  # Guard off missing definitions
-  # https://savannah.gnu.org/patch/?10367
-  patch :p0, :DATA
-
 end
 __END__
 --- examples/loadables/getconf.c.orig	2023-06-26 18:29:17.000000000 +0100
