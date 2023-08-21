@@ -7,6 +7,9 @@ class Rhash < Formula
 
   head "https://github.com/rhash/RHash.git"
 
+  # wants to pass -install_name to the linker
+  depends_on :ld64
+
   bottle do
     cellar :any
     sha256 "e957f797d99c99ad3ccba26cf960a1b2bfbf6915694b44496b8c899c322856ce" => :yosemite
