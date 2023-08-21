@@ -9,6 +9,10 @@ class Bash < Formula
 
   head "http://git.savannah.gnu.org/r/bash.git"
 
+  bottle do
+    sha256 "45860089958dc84d8988c9387fdad5ae30b714df3af36b98e9380d1ff835c94c" => :tiger_altivec
+  end
+
   # Guard off missing definitions
   # https://savannah.gnu.org/patch/?10367
   patch :p0, :DATA
