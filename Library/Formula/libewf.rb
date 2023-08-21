@@ -4,6 +4,10 @@ class Libewf < Formula
   url "https://github.com/libyal/libewf/releases/download/20230212/libewf-experimental-20230212.tar.gz"
   sha256 "d22eecbd962c3d7d646ccfba131fc3c07e6a07da37dc163b6ecbb1348db16101"
 
+  bottle do
+    sha256 "429b192b8eebbe45861e3aa333cb8bca58d80b38bd415cbae4a1eb7f2f38ef35" => :tiger_altivec
+  end
+
   head do
     url "https://github.com/libyal/libewf.git"
     depends_on "automake" => :build
