@@ -6,6 +6,10 @@ class Cmake < Formula
 
   head "https://cmake.org/cmake.git"
 
+  bottle do
+    sha256 "7ed83fa411209917e876cd0a1396593ee78af1201e4ec952ab32884cf00e0c50" => :tiger_altivec
+  end
+
   option "without-docs", "Don't build man pages"
   option "with-completion", "Install Bash completion (Has potential problems with system bash)"
 
