@@ -4,6 +4,10 @@ class Siege < Formula
   url "https://download.joedog.org/siege/siege-4.1.6.tar.gz"
   sha256 "309d589bfc819b6f15d2e5e8591b3c0c6f693624f5060eeac067a4d9a7757de9"
 
+  bottle do
+    sha256 "d99167854a0d1fff56c728f0df3adf9bb563497dae896cf6aef7c5b707c16361" => :tiger_altivec
+  end
+
   depends_on "openssl"
 
   def install
