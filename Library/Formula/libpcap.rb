@@ -9,6 +9,10 @@ class Libpcap < Formula
     sha256 "0000924199fe3a29f3e53efd108d8745707302d613faf97f938ff730b6264d0a" => :tiger_altivec
   end
 
+  # Availability.h was introduced in 10.5, guard it off
+  # https://github.com/the-tcpdump-group/libpcap/pull/1203
+  patch :p0, :DATA
+
   keg_only :provided_by_osx
 
   # System versions are too old on older OS Xs
@@ -26,11 +30,6 @@ class Libpcap < Formula
   test do
     assert_match /lpcap/, shell_output("#{bin}/pcap-config --libs")
   end
-
-  # Availability.h was introduced in 10.5, guard it off
-  # https://github.com/the-tcpdump-group/libpcap/pull/1203
-  patch :p0, :DATA
-
 end
 __END__
 --- pcap/funcattrs.h.orig	2023-07-06 02:23:58.000000000 +0100
