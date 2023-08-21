@@ -3,9 +3,10 @@ class Glib < Formula
   homepage "https://developer.gnome.org/glib/"
   url "https://download.gnome.org/sources/glib/2.50/glib-2.50.1.tar.xz"
   sha256 "2ef87a78f37c1eb5b95f4cc95efd5b66f69afad9c9c0899918d04659cf6df7dd"
+  revision 1
 
   bottle do
-    sha256 "e710830ca67a8beb7ed80bd3344e59e83ee349f803bfb2f18d2d8dca13ad2bd3" => :tiger_altivec
+    sha256 "b2bcafc89c8b6706fa852bc8e792e7508d52b64febd5bdb0a6cfa82aef815472" => :tiger_altivec
   end
 
   option :universal
