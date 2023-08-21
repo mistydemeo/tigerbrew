@@ -7,6 +7,10 @@ class Xz < Formula
   mirror "http://tukaani.org/xz/xz-5.4.3.tar.gz"
   sha256 "1c382e0bc2e4e0af58398a903dd62fff7e510171d2de47a1ebe06d1528e9b7e9"
 
+  bottle do
+    sha256 "018b13f9969e2254597fed8f2d61495535d340e921e18a522fb3466a1165e2c0" => :tiger_altivec
+  end
+
   option :universal
 
   def install
