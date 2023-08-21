@@ -5,6 +5,10 @@ class Bison < Formula
   mirror "https://ftp.gnu.org/gnu/bison/bison-3.8.tar.xz"
   sha256 "1e0a14a8bf52d878e500c33d291026b9ebe969c27b3998d4b4285ab6dbce4527"
 
+  bottle do
+    sha256 "2e6110b42f498d4edcfb07904c56c2cb399677587be77ba0964f22b4493dc79f" => :tiger_altivec
+  end
+
   if MacOS.version < :leopard
     # GNU M4 1.4.6 or later is required; 1.4.16 or newer is recommended.
     depends_on "m4"
