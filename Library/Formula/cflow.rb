@@ -5,6 +5,10 @@ class Cflow < Formula
   mirror "https://ftp.gnu.org/gnu/cflow/cflow-1.7.tar.bz2"
   sha256 "d01146caf9001e266133417c2a8258a64b5fc16fcb082a14f6528204d0c97086"
 
+  bottle do
+    sha256 "2c653d6fab8da262451e0924e81ff9ca5f80b5d5b4b2bc8e12d44b60d97501e6" => :tiger_altivec
+  end
+
   def install
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}", "--infodir=#{info}"
