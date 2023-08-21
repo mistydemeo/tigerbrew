@@ -13,6 +13,10 @@ class Graphviz < Formula
     depends_on "libtool" => :build
   end
 
+  bottle do
+    sha256 "b81798e21bf75f274613ff57060ac767d304fbb3dd18cfd03eb7a35c5a274ebc" => :tiger_altivec
+  end
+
   # To find Ruby and Co.
   env :std
 
