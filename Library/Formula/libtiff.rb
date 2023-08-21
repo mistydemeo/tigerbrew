@@ -4,6 +4,10 @@ class Libtiff < Formula
   url "https://download.osgeo.org/libtiff/tiff-4.5.0.tar.xz"
   sha256 "dafac979c5e7b6c650025569c5a4e720995ba5f17bc17e6276d1f12427be267c"
 
+  bottle do
+    sha256 "081c25de5d538d2cda0919bb3dcaa48b806aa5d8663ad9a6a78df39a8acabec1" => :tiger_altivec
+  end
+
   option :universal
   option :cxx11
 
