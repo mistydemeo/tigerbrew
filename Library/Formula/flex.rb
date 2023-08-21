@@ -4,6 +4,10 @@ class Flex < Formula
   url "https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz"
   sha256 "e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995"
 
+  bottle do
+    sha256 "81739615809b39fd54aa558c1a4f0a2677813f162459f7b6e63a99ad220d1488" => :tiger_altivec
+  end
+
   keg_only :provided_by_osx, "Some formulae require a newer version of flex."
 
   depends_on "gettext"
