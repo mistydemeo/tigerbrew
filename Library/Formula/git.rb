@@ -5,6 +5,10 @@ class Git < Formula
   sha256 "3278210e9fd2994b8484dd7e3ddd9ea8b940ef52170cdb606daa94d887c93b0d"
   head "https://github.com/git/git.git", :shallow => false
 
+  bottle do
+    sha256 "c96ae9197fa159818739fa675d218a0f2c86ed69e2248050d8541778a82aedf0" => :tiger_altivec
+  end
+
   resource "html" do
     url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.42.0.tar.xz"
     sha256 "c027ad23614d19685677899527360985ec9186e97528084dc4f8d611f6c3483f"
