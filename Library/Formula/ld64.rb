@@ -8,12 +8,7 @@ class Ld64 < Formula
   #
   url "https://github.com/apple-oss-distributions/ld64/archive/refs/tags/ld64-97.17.tar.gz"
   sha256 "dc609d295365f8f5853b45e8dbcb44ca85e7dbc7a530e6fb5342f81d3c042db5"
-
-  bottle do
-    sha1 "5a42d849b7231d0b5985514ed5e77aa424048853" => :tiger_altivec
-    sha1 "9c32cb4c189dd8c05f5fed54eb05cf7b2220653d" => :leopard_g3
-    sha1 "28728a210881f5b6949c3305e932eed9109b3a10" => :leopard_altivec
-  end
+  revision 1
 
   resource "makefile" do
     url "https://trac.macports.org/export/123511/trunk/dports/devel/ld64/files/Makefile-97", :using => :nounzip
@@ -27,6 +22,8 @@ class Ld64 < Formula
   depends_on "cctools-headers" => :build
   depends_on "dyld-headers" => :build
   depends_on "libunwind-headers" => :build
+  # No CommonCrypto
+  depends_on "openssl" if MacOS.version < :leopard
 
   keg_only :provided_by_osx,
     "ld64 is an updated version of the ld shipped by Apple."
