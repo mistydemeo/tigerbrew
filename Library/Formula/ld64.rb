@@ -10,6 +10,10 @@ class Ld64 < Formula
   sha256 "dc609d295365f8f5853b45e8dbcb44ca85e7dbc7a530e6fb5342f81d3c042db5"
   revision 1
 
+  bottle do
+    sha256 "bb9853e7c2428a48282eb917ac0b05672b1a00350cc2c6585a05c8d7d567bfcb" => :tiger_altivec
+  end
+
   resource "makefile" do
     url "https://trac.macports.org/export/123511/trunk/dports/devel/ld64/files/Makefile-97", :using => :nounzip
     sha256 "48e3475bd73f9501d17b7d334d3bf319f5664f2d5ab9d13378e37c2519ae2a3a"
