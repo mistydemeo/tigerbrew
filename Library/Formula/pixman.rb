@@ -4,6 +4,10 @@ class Pixman < Formula
   url "https://www.cairographics.org/releases/pixman-0.42.2.tar.gz"
   sha256 "ea1480efada2fd948bc75366f7c349e1c96d3297d09a3fe62626e38e234a625e"
 
+  bottle do
+    sha256 "dd997d0cc6e60b1eae7e5a88dd23d797d8c8ce75c1c853129c58b153e4102874" => :tiger_altivec
+  end
+
   option :universal
 
   depends_on "pkg-config" => :build
