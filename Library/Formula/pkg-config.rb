@@ -1,15 +1,9 @@
 class PkgConfig < Formula
   desc "Manage compile and link flags for libraries"
   homepage "https://freedesktop.org/wiki/Software/pkg-config/"
-  url "https://pkgconfig.freedesktop.org/releases/pkg-config-0.29.1.tar.gz"
-  mirror "https://fossies.org/linux/misc/pkg-config-0.29.1.tar.gz"
-  sha256 "beb43c9e064555469bd4390dcfd8030b1536e0aa103f08d7abf7ae8cac0cb001"
-  revision 2
-
-  bottle do
-    sha256 "89aa358bfdc95a5d0d84e2b5c2551ad47dbd30cad5e36058da5a9624fca58867" => :tiger_g4e
-    sha256 "5c54354f79aae43008d449c26136e5355884383396f60b2b0d7fc51cfe3f8964" => :leopard_g4e
-  end
+  url "https://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz"
+  mirror "https://fossies.org/linux/misc/pkg-config-0.29.2.tar.gz"
+  sha256 "6fc69c01688c9458a57eb9a1664c9aba372ccda420a02bf4429fe610e7e7d591"
 
   def install
     pc_path = %W[
