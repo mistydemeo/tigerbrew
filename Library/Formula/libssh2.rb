@@ -4,6 +4,10 @@ class Libssh2 < Formula
   url "https://libssh2.org/download/libssh2-1.11.0.tar.xz"
   sha256 "a488a22625296342ddae862de1d59633e6d446eff8417398e06674a49be3d7c2"
 
+  bottle do
+    sha256 "eb70ab12fe7e6a56beaaa7ff9ef43eb43d7c8817286a8086f9786bf76904ad24" => :tiger_altivec
+  end
+
   option "with-libressl", "build with LibreSSL instead of OpenSSL"
 
   head do
