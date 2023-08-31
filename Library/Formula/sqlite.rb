@@ -1,9 +1,9 @@
 class Sqlite < Formula
   desc "Command-line interface for SQLite"
   homepage "https://sqlite.org/"
-  url "https://www.sqlite.org/2023/sqlite-autoconf-3420000.tar.gz"
-  version "3.42.0"
-  sha256 "7abcfd161c6e2742ca5c6c0895d1f853c940f203304a0b49da4e1eca5d088ca6"
+  url "https://www.sqlite.org/2023/sqlite-autoconf-3430000.tar.gz"
+  version "3.43.0"
+  sha256 "49008dbf3afc04d4edc8ecfc34e4ead196973034293c997adad2f63f01762ae1"
 
   bottle do
     sha256 "ae0338b40f5a6b893fb7b8a57c8cee4dfe5f483616cdc5e910659dd1d31805bc" => :tiger_altivec
@@ -34,9 +34,9 @@ class Sqlite < Formula
   end
 
   resource "docs" do
-    url "https://www.sqlite.org/2023/sqlite-doc-3420000.zip"
-    version "3.42.0"
-    sha256 "d62fd5f0fcfd15b2c26171e89f762268e2863df3c09696e76cf1482e34db8262"
+    url "https://www.sqlite.org/2023/sqlite-doc-3430000.zip"
+    version "3.43.0"
+    sha256 "e88f98c5651f996e989ef3b7122ed29b01bd2a0100b0aa72dd96013248442291"
   end
 
   def install
