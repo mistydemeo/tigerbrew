@@ -5,6 +5,10 @@ class Nginx < Formula
   sha256 "05dd6d9356d66a74e61035f2a42162f8c754c97cf1ba64e7a801ba158d6c0711"
   head "http://hg.nginx.org/nginx/", :using => :hg
 
+  bottle do
+    sha256 "79d4d0139ee3a8c96cc72ed94bf804cf90e7c40134902196c2470859ae348344" => :tiger_altivec
+  end
+
   env :userpaths
 
   # Before submitting more options to this formula please check they aren't
