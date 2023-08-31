@@ -4,6 +4,10 @@ class Libconfig < Formula
   url "https://github.com/hyperrealm/libconfig/releases/download/v1.7.3/libconfig-1.7.3.tar.gz"
   sha256 "545166d6cac037744381d1e9cc5a5405094e7bfad16a411699bcff40bbb31ee7"
 
+  bottle do
+    sha256 "a5b7163168bb670aaa844fb51bccef93c60ae8d1bf4ead7ba31d035c4e690f3f" => :tiger_altivec
+  end
+
   head do
     url "https://github.com/hyperrealm/libconfig.git"
     depends_on "automake" => :build
