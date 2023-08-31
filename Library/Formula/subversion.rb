@@ -29,6 +29,7 @@ class Subversion < Formula
 
   # use Tigerbrew's version instead of the old one in X11
   depends_on :expat
+  depends_on :ld64
 
   depends_on "pkg-config" => :build
   if MacOS.version > :leopard
