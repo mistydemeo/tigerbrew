@@ -5,6 +5,10 @@ class Subversion < Formula
   mirror "https://archive.apache.org/dist/subversion/subversion-1.14.2.tar.bz2"
   sha256 "c9130e8d0b75728a66f0e7038fc77052e671830d785b5616aad53b4810d3cc28"
 
+  bottle do
+    sha256 "e2805b0c925cfbc666042419b699a9136e19e4e19e3d55241e1f1bf7d83e4dfa" => :tiger_altivec
+  end
+
   deprecated_option "java" => "with-java"
   deprecated_option "perl" => "with-perl"
   deprecated_option "ruby" => "with-ruby"
