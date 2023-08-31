@@ -13,6 +13,10 @@ class Freetype < Formula
   depends_on "libpng"
 
   def install
+    # This file will be installed to bindir, so we want to avoid embedding the
+    # absolute path to the pkg-config shim.
+    inreplace "builds/unix/freetype-config.in", "%PKG_CONFIG%", "pkg-config"
+
     if build.with? "subpixel"
       inreplace "include/freetype/config/ftoption.h",
           "/* #define FT_CONFIG_OPTION_SUBPIXEL_RENDERING */",
@@ -20,9 +24,14 @@ class Freetype < Formula
     end
 
     ENV.universal_binary if build.universal?
-    system "./configure", "--prefix=#{prefix}", "--without-harfbuzz"
+    system "./configure", "--prefix=#{prefix}",
+                          "--enable-freetype-config",
+                          "--without-harfbuzz"
     system "make"
     system "make", "install"
+
+    inreplace [bin/"freetype-config", lib/"pkgconfig/freetype2.pc"],
+      prefix, opt_prefix
   end
 
   test do
