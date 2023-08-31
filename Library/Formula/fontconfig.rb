@@ -4,6 +4,10 @@ class Fontconfig < Formula
   url "https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.2.tar.xz"
   sha256 "dba695b57bce15023d2ceedef82062c2b925e51f5d4cc4aef736cf13f60a468b"
 
+  bottle do
+    sha256 "0203abd547ff858bf1c07d8949e1d7bd8e8303d3627b133044e03731b1a781f1" => :tiger_altivec
+  end
+
   keg_only :provided_pre_mountain_lion
 
   option :universal
