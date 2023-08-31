@@ -15,6 +15,7 @@ class AprUtil < Formula
   option :universal
 
   depends_on "apr"
+  depends_on "expat" if MacOS.version < :tiger
   depends_on "openssl"
   depends_on "postgresql" => :optional
 
