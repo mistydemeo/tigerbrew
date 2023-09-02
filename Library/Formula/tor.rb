@@ -6,10 +6,7 @@ class Tor < Formula
   sha256 "2079172cce034556f110048e26083ce9bea751f3154b0ad2809751815b11ea9d"
 
   bottle do
-    sha256 "10215ccde70597d6bb8efdad496de4b76991aae838a66ffcbb0f1ca033da786c" => :el_capitan
-    sha256 "acf689a5cf4ac59116b04cc271d999aea16d6dac44d8dce3b873a9ac0f854433" => :yosemite
-    sha256 "b6e02ebdbc250b0beb199e55135d9514e88b3c195f442931ef8528bb9de8680c" => :mavericks
-    sha256 "6e4085a67f555cb0b34b74818fb4f43dcc353d653100633aefa85804148f5d5e" => :mountain_lion
+    sha256 "3230770bc388215f44536fef9a36180ab38a76d83fb0074a8c7000527bf42e65" => :tiger_altivec
   end
 
   depends_on "libevent"
