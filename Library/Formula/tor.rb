@@ -14,6 +14,7 @@ class Tor < Formula
 
   depends_on "libevent"
   depends_on "openssl"
+  depends_on "xz"
   depends_on "zlib"
   depends_on "libnatpmp" => :optional
   depends_on "miniupnpc" => :optional
