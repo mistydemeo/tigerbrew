@@ -6,6 +6,11 @@ class Trurl < Formula
   license "curl"
   head "https://github.com/curl/trurl.git", branch: "master"
 
+  bottle do
+    cellar :any
+    sha256 "530bf6eaed6152126a07113e3b412d3da0ec1329acd5a82e65f5d2b7b82a1fc7" => :tiger_altivec
+  end
+
   depends_on "curl" # require libcurl
 
   def install
