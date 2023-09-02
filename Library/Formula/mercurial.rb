@@ -7,8 +7,8 @@ class Mercurial < Formula
   sha256 "33f7de8d8b3607fa2b408cde4b8725e117eb0ad41926a787eaab409ca8a4fc2f"
 
   bottle do
-    cellar :any
-    sha256 "082b89b2ff874f5282bb39ac9acc12fff23939fcdad9b9e1267dcd8cf07ab8e1" => :tiger_altivec
+    cellar :any_skip_relocation
+    sha256 "fb1c3ca13bd02c862cce9475a515c8615c3680f0390f28d280a0b1474babf0c3" => :tiger_altivec
   end
 
   depends_on :python3
