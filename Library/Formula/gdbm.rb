@@ -1,19 +1,14 @@
 class Gdbm < Formula
   desc "GNU database manager"
   homepage "https://www.gnu.org/software/gdbm/"
-  url "http://ftpmirror.gnu.org/gdbm/gdbm-1.11.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/gdbm/gdbm-1.11.tar.gz"
-  sha256 "8d912f44f05d0b15a4a5d96a76f852e905d051bb88022fcdfd98b43be093e3c3"
-
-  bottle do
-    cellar :any
-    revision 3
-    sha256 "85c1dd545b82601a184a20ae048d1d8157226e9882f78f2e6314b52ae14be8ec" => :tiger_g4e
-    sha256 "daac2b17e1515aab9e4a0465b3bf58f674d8232baeae232f4220d1add0d65443" => :leopard_g4e
-  end
+  url "https://ftp.gnu.org/gnu/gdbm/gdbm-1.23.tar.gz"
+  mirror "http://ftpmirror.gnu.org/gdbm/gdbm-1.23.tar.gz"
+  sha256 "74b1081d21fff13ae4bd7c16e5d6e504a4c26f7cde1dca0d963a484174bbcacd"
 
   option :universal
   option "with-libgdbm-compat", "Build libgdbm_compat, a compatibility layer which provides UNIX-like dbm and ndbm interfaces."
+
+  depends_on "readline"
 
   def install
     ENV.universal_binary if build.universal?
