@@ -6,6 +6,10 @@ class Gnupg < Formula
   mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnupg/gnupg-1.4.23.tar.bz2"
   sha256 "c9462f17e651b6507848c08c430c791287cd75491f8b5a8b50c6ed46b12678ba"
 
+  bottle do
+    sha256 "fd396c1c07756a84e164e07e9770ddf5c6593dfdec9c0838ca52791f13ba112c" => :tiger_altivec
+  end
+
   depends_on "curl" if MacOS.version <= :mavericks
 
   def install
