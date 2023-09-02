@@ -1,8 +1,8 @@
 class Popt < Formula
   desc "Library like getopt(3) with a number of enhancements"
-  homepage "http://rpm5.org"
-  url "https://fossies.org/linux/misc/popt-1.16.tar.gz"
-  sha256 "e728ed296fe9f069a0e005003c3d6b2dde3d9cad453422a10d6558616d304cc8"
+  homepage "https://github.com/rpm-software-management/popt"
+  url "http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.19.tar.gz"
+  sha256 "c25a4838fc8e4c1c8aacb8bd620edb3084a3d63bf8987fdad3ca2758c63240f9"
 
   bottle do
     revision 1
