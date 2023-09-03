@@ -7,7 +7,7 @@ class Python < Formula
   revision 1
 
   bottle do
-    sha256 "096bb14744a84346cf80d4fdf668cc3d1469ee28822562ba263f7cf198348258" => :tiger_g4
+    sha256 "2e35834cc056418aef2471eddb7b75a83fd3336b8c832bb0bbf13f140bb68dcc" => :tiger_altivec
   end
 
   # Please don't add a wide/ucs4 option as it won't be accepted.
