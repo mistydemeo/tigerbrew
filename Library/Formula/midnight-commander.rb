@@ -7,6 +7,10 @@ class MidnightCommander < Formula
 
   head "https://github.com/MidnightCommander/mc.git"
 
+  bottle do
+    sha256 "3544876d1ec441cdaba7b0e4c51c832bea76433e910915229f66a7a8b253472a" => :tiger_altivec
+  end
+
   depends_on "pkg-config" => :build
   depends_on "glib"
   depends_on "openssl"
