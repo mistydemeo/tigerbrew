@@ -12,6 +12,10 @@ class Libpng < Formula
     depends_on "libtool" => :build
   end
 
+  bottle do
+    sha256 "646d0fb6bc09cc2742e86f4ccb827cef0403c0e96a09109ff4746449762840ac" => :tiger_altivec
+  end
+
   depends_on "zlib"
   keg_only :provided_pre_mountain_lion
 
