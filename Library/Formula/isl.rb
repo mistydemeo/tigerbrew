@@ -1,15 +1,15 @@
 class Isl < Formula
   desc "Integer Set Library for the polyhedral model"
-  homepage "http://freecode.com/projects/isl"
+  homepage "https://libisl.sourceforge.io"
   # Note: Always use tarball instead of git tag for stable version.
   #
   # Currently isl detects its version using source code directory name
   # and update isl_version() function accordingly.  All other names will
   # result in isl_version() function returning "UNKNOWN" and hence break
   # package detection.
-  url "http://isl.gforge.inria.fr/isl-0.18.tar.xz"
-  mirror "https://mirrors.ocf.berkeley.edu/debian/pool/main/i/isl/isl_0.18.orig.tar.xz"
-  sha256 "0f35051cc030b87c673ac1f187de40e386a1482a0cfdf2c552dd6031b307ddc4"
+  url "https://libisl.sourceforge.io/isl-0.18.tar.bz2"
+  mirror "https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2"
+  sha256 "6b8b0fd7f81d0a957beb3679c81bbb34ccc7568d5682844d8924424a0dadcb1b"
 
   bottle do
     cellar :any
@@ -18,7 +18,7 @@ class Isl < Formula
   end
 
   head do
-    url "http://repo.or.cz/r/isl.git"
+    url "https://repo.or.cz/r/isl.git"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
