@@ -1,14 +1,12 @@
 class Make < Formula
   desc "Utility for directing compilation"
   homepage "https://www.gnu.org/software/make/"
-  url "https://ftpmirror.gnu.org/make/make-4.2.1.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/make/make-4.2.1.tar.bz2"
-  sha256 "d6e262bf3601b42d2b1e4ef8310029e1dcf20083c5446b4b7aa67081fdffc589"
+  url "https://ftpmirror.gnu.org/make/make-4.4.tar.gz"
+  mirror "https://ftp.gnu.org/gnu/make/make-4.4.tar.gz"
+  sha256 "581f4d4e872da74b3941c874215898a7d35802f03732bdccee1d4a7979105d18"
 
   bottle do
-    sha256 "0f0c4fa8340fa5b5269deed987867a647bceecb17d6687276c035dad4753ca8b" => :el_capitan
-    sha256 "8839228946c326de73eec5c256493e00d5130eecffac609c8aa9783f0e103304" => :yosemite
-    sha256 "e36e0bbdd7f750ffdf8726e91a112a8e1145cdf91a6f9fb73cfe0ac1278aea33" => :mavericks
+    sha256 "5093cd5a5970bd2e6cc71924da97099d49bedd0897f3b2a28bb4e7dcfcc30000" => :tiger_altivec
   end
 
   option "with-default-names", "Do not prepend 'g' to the binary"

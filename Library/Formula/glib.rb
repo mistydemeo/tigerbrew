@@ -3,11 +3,10 @@ class Glib < Formula
   homepage "https://developer.gnome.org/glib/"
   url "https://download.gnome.org/sources/glib/2.50/glib-2.50.1.tar.xz"
   sha256 "2ef87a78f37c1eb5b95f4cc95efd5b66f69afad9c9c0899918d04659cf6df7dd"
+  revision 1
 
   bottle do
-    sha256 "4892a83baa553ef938ec2a7cb4d6f72af9bbd45ddef730e42b9640c5c9883fe4" => :sierra
-    sha256 "818420b0efd28fc6ed8fce3be2291cb4761ba264a535b795bf42e251b432c7c2" => :el_capitan
-    sha256 "cfde246fc576b0cf6c4609045b5f1dc4c412133047036326176e350e425e8e4e" => :yosemite
+    sha256 "b2bcafc89c8b6706fa852bc8e792e7508d52b64febd5bdb0a6cfa82aef815472" => :tiger_altivec
   end
 
   option :universal
@@ -60,8 +59,8 @@ class Glib < Formula
   # Fixes g_get_monotonic_time on non-Intel Macs; submitted upstream:
   # https://bugzilla.gnome.org/show_bug.cgi?id=728123
   patch do
-    url "https://bug728123.bugzilla-attachments.gnome.org/attachment.cgi?id=275596"
-    sha1 "5637d98e1c7bbfa8824e60612976a8c13d0c0fb6"
+    url "https://gist.githubusercontent.com/mistydemeo/a34250bb0864a87602f6128784dd87a8/raw/1b0006a1e0cdd2c6740fb0a0223b3104a8ed1c21/g_get_monotonic_time.patch"
+    sha256 "7133b8087952bba71a60cccc2f380aa565c837842b705a90d51ac8beb0fd41cb"
   end
 
   # Reverts GNotification support on macOS.

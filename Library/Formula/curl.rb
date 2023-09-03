@@ -1,67 +1,55 @@
 class Curl < Formula
   desc "Get a file from an HTTP, HTTPS or FTP server"
   homepage "https://curl.haxx.se/"
-  url "https://curl.haxx.se/download/curl-7.50.3.tar.bz2"
-  mirror "http://mirror.sobukus.de/files/src/curl/curl-7.50.3.tar.bz2"
-  sha256 "7b7347d976661d02c84a1f4d6daf40dee377efdc45b9e2c77dedb8acf140d8ec"
+  url "https://curl.se/download/curl-8.2.1.tar.xz"
+  mirror "http://mirror.sobukus.de/files/src/curl/curl-8.2.1.tar.xz"
+  sha256 "dd322f6bd0a20e6cebdfd388f69e98c3d183bed792cf4713c8a7ef498cba4894"
 
   bottle do
     cellar :any
-    sha256 "638108732f8c4dacea7953c81b070d8ab8bde837e0608f0b4ca36124b7ff1055" => :sierra
-    sha256 "b425bee3c2602e9b470db43b00418805e97ab675bfdd292be194e61fca8d9f52" => :el_capitan
-    sha256 "acd850690b6578bf1f7682804734cadf5b922aa17d696ef5154b15d048712319" => :yosemite
-    sha256 "cfbb0a2c28b150d13a239b9a6acd95cdd530cf57f7e26831f966d672e88dfcc0" => :mavericks
+    sha256 "12acf882b1d17208fb42d0d2a06e98c2b619fce3ea53057567a7f63aca1b011b" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
 
-  option "with-libidn", "Build with support for Internationalized Domain Names"
   option "with-rtmpdump", "Build with RTMP support"
   option "with-libssh2", "Build with scp and sftp support"
   option "with-c-ares", "Build with C-Ares async DNS support"
   option "with-gssapi", "Build with GSSAPI/Kerberos authentication support."
-  option "with-libmetalink", "Build with libmetalink support."
   option "with-libressl", "Build with LibreSSL instead of Secure Transport or OpenSSL"
   option "with-nghttp2", "Build with HTTP/2 support (requires OpenSSL or LibreSSL)"
 
-  deprecated_option "with-idn" => "with-libidn"
   deprecated_option "with-rtmp" => "with-rtmpdump"
   deprecated_option "with-ssh" => "with-libssh2"
   deprecated_option "with-ares" => "with-c-ares"
 
-  # HTTP/2 support requires OpenSSL 1.0.2+ or LibreSSL 2.1.3+ for ALPN Support
-  # which is currently not supported by Secure Transport (DarwinSSL).
-  if MacOS.version < :mountain_lion || (build.with?("nghttp2") && build.without?("libressl"))
+  depends_on "zlib"
+
+  # Build fix which can be removed in next release.
+  # https://github.com/curl/curl/pull/11516
+  patch do
+    url "https://github.com/curl/curl/commit/8b7cbe9decc205b08ec8258eb184c89a33e3084b.patch"
+    sha256 "71635c6e071fdce61f3176ed318edef9ec560d8afa7b62ac9492e2de7ebefeb4"
+  end
+
+  if (build.without?("libressl"))
     depends_on "openssl"
-  else
-    option "with-openssl", "Build with OpenSSL instead of Secure Transport"
-    depends_on "openssl" => :optional
   end
 
   depends_on "pkg-config" => :build
-  depends_on "libidn" => :optional
   depends_on "rtmpdump" => :optional
   depends_on "libssh2" => :optional
   depends_on "c-ares" => :optional
-  depends_on "libmetalink" => :optional
   depends_on "libressl" => :optional
   depends_on "nghttp2" => :optional
 
   def install
-    # Fail if someone tries to use both SSL choices.
-    # Long-term, handle conflicting options case in core code.
-    if build.with?("libressl") && build.with?("openssl")
-      odie <<-EOS.undent
-      --with-openssl and --with-libressl are both specified and
-      curl can only use one at a time.
-      EOS
-    end
-
     args = %W[
       --disable-debug
       --disable-dependency-tracking
       --disable-silent-rules
       --prefix=#{prefix}
+      --with-zlib=#{Formula["zlib"].opt_prefix}
     ]
 
     # cURL has a new firm desire to find ssl with PKG_CONFIG_PATH instead of using
@@ -71,17 +59,13 @@ class Curl < Formula
       ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["libressl"].opt_lib}/pkgconfig"
       args << "--with-ssl=#{Formula["libressl"].opt_prefix}"
       args << "--with-ca-bundle=#{etc}/libressl/cert.pem"
-    elsif MacOS.version < :mountain_lion || build.with?("openssl") || build.with?("nghttp2")
+    else
       ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["openssl"].opt_lib}/pkgconfig"
       args << "--with-ssl=#{Formula["openssl"].opt_prefix}"
       args << "--with-ca-bundle=#{etc}/openssl/cert.pem"
-    else
-      args << "--with-darwinssl"
     end
 
     args << (build.with?("libssh2") ? "--with-libssh2" : "--without-libssh2")
-    args << (build.with?("libidn") ? "--with-libidn" : "--without-libidn")
-    args << (build.with?("libmetalink") ? "--with-libmetalink" : "--without-libmetalink")
     args << (build.with?("gssapi") ? "--with-gssapi" : "--without-gssapi")
     args << (build.with?("rtmpdump") ? "--with-librtmp" : "--without-librtmp")
 
@@ -93,11 +77,12 @@ class Curl < Formula
 
     # Tiger/Leopard ship with a horrendously outdated set of certs,
     # breaking any software that relies on curl, e.g. git
-    args << "--with-ca-bundle=#{HOMEBREW_PREFIX}/share/ca-bundle.crt" if MacOS.version < :snow_leopard
+    args << "--with-ca-bundle=#{HOMEBREW_PREFIX}/share/ca-bundle.crt"
 
     system "./configure", *args
     system "make", "install"
-    libexec.install "lib/mk-ca-bundle.pl"
+    system "make", "install", "-C", "scripts"
+    libexec.install "scripts/mk-ca-bundle.pl"
   end
 
   test do
@@ -111,4 +96,24 @@ class Curl < Formula
     assert File.exist?("test.pem")
     assert File.exist?("certdata.txt")
   end
+
+  # Patch the configure script to avoid the autoreconf needed
+  # after the patch we pulled in from github.
+  patch :p0, :DATA
 end
+__END__
+--- configure.orig	2023-08-11 14:31:54.000000000 +0100
++++ configure	2023-08-11 14:41:28.000000000 +0100
+@@ -21707,10 +21707,10 @@
+ int main (void)
+ {
+ 
+-#if (TARGET_OS_OSX)
++#if TARGET_OS_MAC && !(defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
+       return 0;
+ #else
+-#error Not a macOS
++#error Not macOS
+ #endif
+ 
+  ;

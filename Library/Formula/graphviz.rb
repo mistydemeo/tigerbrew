@@ -1,11 +1,12 @@
 class Graphviz < Formula
   desc "Graph visualization software from AT&T and Bell Labs"
   homepage "http://graphviz.org/"
-  url "http://graphviz.org/pub/graphviz/stable/SOURCES/graphviz-2.38.0.tar.gz"
-  sha256 "81aa238d9d4a010afa73a9d2a704fc3221c731e1e06577c2ab3496bdef67859e"
+  url "https://gitlab.com/graphviz/graphviz/-/package_files/6163716/download"
+  sha256 "e90b19ebf131afa2f75a043f13ce5a3555c787ea7c35e74b6c95840d34f056ec"
+  version "2.46.0"
 
   head do
-    url "https://github.com/ellson/graphviz.git"
+    url "https://gitlab.com/graphviz/graphviz"
 
     depends_on "automake" => :build
     depends_on "autoconf" => :build
@@ -13,11 +14,7 @@ class Graphviz < Formula
   end
 
   bottle do
-    revision 1
-    sha256 "cf69eac548a5c02aacc966706fc4a922176059414fbe453680aae4552fc019dc" => :el_capitan
-    sha1 "a3461628baba501e16c63ceaa0414027f7e26c7f" => :yosemite
-    sha1 "dc7f915d199931a49fb2a8eb623b329fed6c619c" => :mavericks
-    sha1 "ec730f7cdd3e9549610960ecab86dac349e2f8ea" => :mountain_lion
+    sha256 "b81798e21bf75f274613ff57060ac767d304fbb3dd18cfd03eb7a35c5a274ebc" => :tiger_altivec
   end
 
   # To find Ruby and Co.
@@ -47,23 +44,13 @@ class Graphviz < Formula
     depends_on :java
   end
 
-  fails_with :clang do
-    build 318
-  end
-
-  patch :p0 do
-    url "https://raw.githubusercontent.com/DomT4/scripts/46364470b/Homebrew_Resources/MacPorts_Import/graphviz/r103168/patch-project.pbxproj.diff"
-    mirror "https://trac.macports.org/export/103168/trunk/dports/graphics/graphviz/files/patch-project.pbxproj.diff"
-    sha256 "7c8d5c2fd475f07de4ca3a4340d722f472362615a369dd3f8524021306605684"
-  end
-
   def install
     ENV.universal_binary if build.universal?
     args = ["--disable-debug",
             "--disable-dependency-tracking",
             "--prefix=#{prefix}",
-            "--without-qt",
-            "--with-quartz"]
+            "--without-qt"]
+    args << "--with-quartz" if MacOS.version >= :leopard
     args << "--with-gts" if build.with? "gts"
     args << "--disable-swig" if build.without? "bindings"
     args << "--without-pangocairo" if build.without? "pango"
@@ -101,6 +88,6 @@ class Graphviz < Formula
     }
     EOS
 
-    system "#{bin}/dot", "-Tpdf", "-o", "sample.pdf", "sample.dot"
+    system "#{bin}/dot", "-Txdot", "-o", "sample.xdot", "sample.dot"
   end
 end

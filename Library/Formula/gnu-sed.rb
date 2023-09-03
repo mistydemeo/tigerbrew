@@ -1,20 +1,15 @@
 class GnuSed < Formula
   desc "GNU implementation of the famous stream editor"
   homepage "https://www.gnu.org/software/sed/"
-  url "http://ftpmirror.gnu.org/sed/sed-4.2.2.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/sed/sed-4.2.2.tar.bz2"
-  sha256 "f048d1838da284c8bc9753e4506b85a1e0cc1ea8999d36f6995bcb9460cddbd7"
-
-  conflicts_with "ssed", :because => "both install share/info/sed.info"
+  url "http://ftpmirror.gnu.org/sed/sed-4.9.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/sed/sed-4.9.tar.xz"
+  sha256 "6e226b732e1cd739464ad6862bd1a1aba42d7982922da7a53519631d24975181"
 
   bottle do
-    cellar :any_skip_relocation
-    revision 2
-    sha256 "e7123ca64185d9b6e01b122a0f5a10154fd2405b5b34d765360db55beb9bafca" => :el_capitan
-    sha256 "a45ed585278029792f71d8882763ee0e1605e3df7bdb06dd02c8f815e2f58c68" => :yosemite
-    sha256 "b074edd2ec60b244284cd1545d83fdf48151ee5b9f8e5f0dc6a509b822d0bb37" => :mavericks
-    sha256 "bc210361d787b929011afbe96bd5a78c77e35a14d953942cd278d04c640183ae" => :mountain_lion
+    sha256 "b22edf98fd285eecdb04ab8dfc92d9109f082d378f3e0b81c31143f410808ff0" => :tiger_altivec
   end
+
+  conflicts_with "ssed", :because => "both install share/info/sed.info"
 
   deprecated_option "default-names" => "with-default-names"
 

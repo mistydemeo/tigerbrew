@@ -8,6 +8,13 @@ class Rhash < Formula
   head "https://github.com/rhash/RHash.git"
 
   bottle do
+    sha256 "fdc0ebee393653a808ddecd5692922b47e5dbab276ec31731f035663ec7f3f32" => :tiger_altivec
+  end
+
+  # wants to pass -install_name to the linker
+  depends_on :ld64
+
+  bottle do
     cellar :any
     sha256 "e957f797d99c99ad3ccba26cf960a1b2bfbf6915694b44496b8c899c322856ce" => :yosemite
     sha256 "f3a728fdbc481c60c42544e2360601e8bc8ed032b82c86a0e4f1e29949a2b653" => :mavericks

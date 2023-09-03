@@ -1,24 +1,22 @@
 class Dovecot < Formula
   desc "IMAP/POP3 server"
   homepage "http://dovecot.org/"
-  url "http://dovecot.org/releases/2.2/dovecot-2.2.18.tar.gz"
-  mirror "https://fossies.org/linux/misc/dovecot-2.2.18.tar.gz"
-  sha256 "b6d8468cea47f1227f47b80618f7fb872e2b2e9d3302adc107a005dd083865bb"
+  url "https://dovecot.org/releases/2.3/dovecot-2.3.20.tar.gz"
+  mirror "https://fossies.org/linux/misc/dovecot-2.3.20.tar.gz"
+  sha256 "caa832eb968148abdf35ee9d0f534b779fa732c0ce4a913d9ab8c3469b218552"
 
   bottle do
-    revision 1
-    sha256 "c4d12d64c360b9f5f45925695e25f23d8adea7ca1241fc9232be4657f88094c6" => :el_capitan
-    sha256 "b0213868f3a9db6992b04d688209c8d35aa472beeb2fd03b937f112857e7f0c0" => :yosemite
-    sha256 "03c6c26881f816b9206efe6ff97df76ceb179696466f8f177ce3d625ad270e2c" => :mavericks
-    sha256 "54ed311a625d029291a644117a3a16c0d9b5ab1158c0ceffe229635ca3a62008" => :mountain_lion
+    sha256 "92e320fa7f06b298fd66382943c69314890887544c1e60a82a6f874f4b0e84dd" => :tiger_altivec
   end
 
   depends_on "openssl"
   depends_on "clucene" => :optional
 
-  option "with-pam", "Build with PAM support"
-
   def install
+    # Need unsetenv(3) to return int, not void
+    ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version == :tiger
+    # dovecot expect newer support from kqueue which Leopard and Tiger lack.
+    # disable ioloop & notify kqueue support otherwise dovect will fail to run.
     args = %W[
       --prefix=#{prefix}
       --disable-dependency-tracking
@@ -29,10 +27,12 @@ class Dovecot < Formula
       --with-sqlite
       --with-zlib
       --with-bzlib
+      --with-ioloop=none
+      --with-notify=none
+      --with-pam
     ]
 
     args << "--with-lucene" if build.with? "clucene"
-    args << "--with-pam" if build.with? "pam"
 
     system "./configure",  *args
     system "make", "install"
@@ -74,4 +74,27 @@ class Dovecot < Formula
   test do
     assert_match /#{version}/, shell_output("#{sbin}/dovecot --version")
   end
+
+  # .data & .used are members of a union, nested in struct buffer
+  patch :p0, :DATA
 end
+__END__
+--- ./src/lib-smtp/test-smtp-params.c.orig	2023-07-21 15:11:25.000000000 +0100
++++ ./src/lib-smtp/test-smtp-params.c	2023-07-21 15:16:23.000000000 +0100
+@@ -26,12 +26,12 @@
+ };
+ 
+ static struct buffer test_params_buffer1 = {
+-	.data = (void*)&test_params1,
+-	.used = sizeof(test_params1)
++	{{ .data = (void*)&test_params1,
++	.used = sizeof(test_params1) }}
+ };
+ static struct buffer test_params_buffer2 = {
+-	.data = (void*)&test_params2,
+-	.used = sizeof(test_params2)
++	{{ .data = (void*)&test_params2,
++	.used = sizeof(test_params2) }}
+ };
+ 
+ /* Valid mail params tests */

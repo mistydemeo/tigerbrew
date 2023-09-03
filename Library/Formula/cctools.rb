@@ -1,14 +1,14 @@
 class Cctools < Formula
   desc "Binary and cross-compilation tools for Apple"
-  homepage "https://opensource.apple.com/"
+  homepage "https://github.com/apple-oss-distributions/cctools/tree/cctools-806"
 
   if MacOS.version >= :snow_leopard
-    url "https://opensource.apple.com/tarballs/cctools/cctools-855.tar.gz"
-    sha256 "751748ddf32c8ea84c175f32792721fa44424dad6acbf163f84f41e9617dbc58"
+    url "https://github.com/apple-oss-distributions/cctools/archive/refs/tags/cctools-855.tar.gz"
+    sha256 "7c31652cefde324fd6dc6f4dabbcd936986430039410a65c98d4a7183695f6d7"
   else
     # 806 (from Xcode 4.1) is the latest version that supports Tiger or PowerPC
-    url "https://opensource.apple.com/tarballs/cctools/cctools-806.tar.gz"
-    sha256 "6116c06920112c634f6df2fa8b2f171ee3b90ff2176137da5856336695a6a676"
+    url "https://github.com/apple-oss-distributions/cctools/archive/refs/tags/cctools-806.tar.gz"
+    sha256 "331b44a2df435f425ea3171688305dcb46aa3b29df2d38b421d82eb27dbd4d2e"
   end
 
   bottle do

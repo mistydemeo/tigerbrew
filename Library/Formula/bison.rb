@@ -1,21 +1,16 @@
 class Bison < Formula
   desc "Parser generator"
   homepage "https://www.gnu.org/software/bison/"
-  url "http://ftpmirror.gnu.org/bison/bison-3.0.4.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/bison/bison-3.0.4.tar.gz"
-  sha256 "b67fd2daae7a64b5ba862c66c07c1addb9e6b1b05c5f2049392cfd8a2172952e"
+  url "http://ftpmirror.gnu.org/bison/bison-3.8.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/bison/bison-3.8.tar.xz"
+  sha256 "1e0a14a8bf52d878e500c33d291026b9ebe969c27b3998d4b4285ab6dbce4527"
 
   bottle do
-    sha256 "17488b69156f6fc91dd438c54920751399c23745f330487abd54c4cbcb49ff6a" => :el_capitan
-    sha1 "4a2c74267f6adff751ed407b18ba5a7e21f756fa" => :yosemite
-    sha1 "d8d02a4fce3fcdcdb8369fd8865f98ca95d12348" => :mavericks
-    sha1 "77b214901733883a054619cc0075af60494d6fb8" => :mountain_lion
+    sha256 "2e6110b42f498d4edcfb07904c56c2cb399677587be77ba0964f22b4493dc79f" => :tiger_altivec
   end
 
   if MacOS.version < :leopard
-    depends_on "automake"
-    # "It also requires GNU Autoconf, GNU m4 and Perl in order to run"
-    depends_on "autoconf"
+    # GNU M4 1.4.6 or later is required; 1.4.16 or newer is recommended.
     depends_on "m4"
   end
 
@@ -55,18 +50,3 @@ class Bison < Formula
     assert_equal "fail", shell_output("echo \"())\" | ./test")
   end
 end
-
-__END__
-diff --git a/examples/local.mk b/examples/local.mk
-index 05e28e1..c79c800 100644
---- a/examples/local.mk
-+++ b/examples/local.mk
-@@ -25,7 +25,7 @@ AM_CXXFLAGS =             \
- 
- doc = $(top_srcdir)/doc/bison.texi
- extexi = $(top_srcdir)/examples/extexi
--extract = VERSION="$(VERSION)" $(PERL) -f $(extexi) $(doc) --
-+extract = VERSION="$(VERSION)" $(PERL) $(extexi) $(doc) --
- extracted =
- CLEANFILES += $(extracted) examples/extracted.stamp
- examples/extracted.stamp: $(doc) $(extexi)

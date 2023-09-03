@@ -4,12 +4,6 @@ class Fish < Formula
   url "https://github.com/fish-shell/fish-shell/releases/download/2.7.1/fish-2.7.1.tar.gz"
   sha256 "e42bb19c7586356905a58578190be792df960fa81de35effb1ca5a5a981f0c5a"
 
-  bottle do
-    sha256 "12616d6225eb804b40cdd12ecc8722252a9d28d0275af61f9afc59ef12a55f87" => :tiger_g3
-    sha256 "0339873032336e84bd169f49b4a9745bcb6ee4e21cfc3cf7a99b05423405498e" => :tiger_altivec
-    sha256 "6b02140be2753196951031ef7836d1297e752270c3cbda8915c6dae7dd948766" => :tiger_g5
-  end
-
   head do
     url "https://github.com/fish-shell/fish-shell.git", :shallow => false
 
@@ -17,6 +11,11 @@ class Fish < Formula
     depends_on "automake" => :build
     depends_on "doxygen" => :build
     depends_on "libtool" => :build
+  end
+
+  bottle do
+    sha256 "931bbe0322164134e8de86f4be1adc3bfd5a7e8e85f12bed2fa1f8aa2d05ade9" => :tiger_g4e
+    sha256 "5a74df5ca15c5b2ddb6b2556d2d7b06006556daa6d623fdf0ade3f9c377b4a50" => :leopard_g4e
   end
 
   needs :cxx11

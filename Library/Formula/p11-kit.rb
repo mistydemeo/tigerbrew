@@ -1,19 +1,18 @@
 class P11Kit < Formula
   desc "Library to load and enumerate PKCS# 11 modules"
   homepage "http://p11-glue.freedesktop.org"
-  url "http://p11-glue.freedesktop.org/releases/p11-kit-0.18.4.tar.gz"
-  sha256 "df5424ec39e17c2b3b98819bf772626e9b8c73871a8b82e54151f6297d8575fd"
+  url "https://github.com/p11-glue/p11-kit/releases/download/0.24.1/p11-kit-0.24.1.tar.xz"
+  sha256 "d8be783efd5cd4ae534cee4132338e3f40f182c3205d23b200094ec85faaaef8"
 
   bottle do
-    sha1 "1f75969e6cbf89921ba4d205e093c6d7bddd755e" => :yosemite
-    sha1 "4baec782e0d55aacb458bcd752d32f4d63de4424" => :mavericks
-    sha1 "1f16ca29e9c9b38ec832ce04c3802d439c2ba896" => :mountain_lion
+    sha256 "25803e9ddf676302940bfb1612f53cdd6cbce52c10caef302508131e6468a8d3" => :tiger_altivec
   end
 
   option :universal
 
   depends_on "pkg-config" => :build
   depends_on "libtasn1"
+  depends_on "libffi"
 
   def install
     ENV.universal_binary if build.universal?

@@ -18,9 +18,11 @@ class Ninja < Formula
   option "without-tests", "Run build-time tests"
 
   resource "gtest" do
-    url "https://googletest.googlecode.com/files/gtest-1.7.0.zip"
+    url "https://web.archive.org/web/20160617081653if_/http://googletest.googlecode.com/files/gtest-1.7.0.zip"
     sha256 "247ca18dd83f53deb1328be17e4b1be31514cedfc1e3424f672bf11fd7e0d60d"
   end
+  
+  patch :DATA if MacOS.version < :leopard
 
   def install
     system "python", "configure.py", "--bootstrap"
@@ -49,3 +51,21 @@ class Ninja < Formula
     system bin/"ninja", "-t", "targets"
   end
 end
+__END__
+diff --git a/src/util.cc b/src/util.cc
+--- a/src/util.cc
++++ b/src/util.cc
+@@ -502,6 +502,13 @@ int GetProcessorCount() {
+   SYSTEM_INFO info;
+   GetNativeSystemInfo(&info);
+   return info.dwNumberOfProcessors;
++#elif defined(__APPLE__)
++  int nm[2] = { CTL_HW, HW_NCPU };
++  size_t len = 4;
++  uint32_t count;
++  sysctl(nm, 2, &count, &len, NULL, 0);
++  if (count < 1) { count = 1; }
++  return (int)count;
+ #else
+   return sysconf(_SC_NPROCESSORS_ONLN);
+ #endif

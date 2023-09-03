@@ -13,6 +13,7 @@ class Libsoxr < Formula
     sha1 "1da33c9683edeaa55a5d79dc08efd40e79a13b53" => :mountain_lion
   end
 
+  depends_on :ld64
   depends_on "cmake" => :build
 
   conflicts_with "sox", :because => "Sox contains soxr. Soxr is purely the resampler."

@@ -1,8 +1,8 @@
 class Bsdmake < Formula
   desc "BSD make (build tool)"
-  homepage "https://opensource.apple.com/"
-  url "https://opensource.apple.com/tarballs/bsdmake/bsdmake-24.tar.gz"
-  sha256 "82a948b80c2abfc61c4aa5c1da775986418a8e8eb3dd896288cfadf2e19c4985"
+  homepage "https://github.com/apple-oss-distributions/bsdmake/tags/bsdmake-24"
+  url "https://github.com/apple-oss-distributions/bsdmake/archive/refs/tags/bsdmake-24.tar.gz"
+  sha256 "096f333f94193215931a9fab86b9bca0713fbd22ec465bf55510067b53940e62"
 
   bottle do
     revision 1

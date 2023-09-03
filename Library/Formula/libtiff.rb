@@ -1,32 +1,35 @@
 class Libtiff < Formula
   desc "TIFF library and utilities"
-  homepage "http://www.remotesensing.org/libtiff/"
-  url "http://download.osgeo.org/libtiff/tiff-4.0.6.tar.gz"
-  mirror "ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz"
-  sha256 "4d57a50907b510e3049a4bba0d7888930fdfc16ce49f1bf693e5b6247370d68c"
+  homepage "https://libtiff.gitlab.io/libtiff/"
+  url "https://download.osgeo.org/libtiff/tiff-4.5.0.tar.xz"
+  sha256 "dafac979c5e7b6c650025569c5a4e720995ba5f17bc17e6276d1f12427be267c"
 
   bottle do
-    cellar :any
-    sha256 "7ee1f796f6355e84b039d8deb626677a512c25fb40685a511d9d9333ebcb23ad" => :tiger_altivec
-    sha256 "ac6deffd0e96ad67b5ecc976daa6b944a1292d0306d8ff1f411e06b817d94c2c" => :leopard_g3
-    sha256 "98294201f9f6e549b752006cc86a2dd029696ecfdc3f54c1b77bc5e38d9bd0ad" => :leopard_altivec
+    sha256 "081c25de5d538d2cda0919bb3dcaa48b806aa5d8663ad9a6a78df39a8acabec1" => :tiger_altivec
   end
 
   option :universal
   option :cxx11
 
   depends_on "jpeg"
+  depends_on "xz"
+  depends_on "zlib"
 
   def install
     ENV.universal_binary if build.universal?
     ENV.cxx11 if build.cxx11?
     jpeg = Formula["jpeg"].opt_prefix
+    xz = Formula["xz"].opt_prefix
+    zlib = Formula["zlib"].opt_prefix
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--without-x",
-                          "--disable-lzma",
                           "--with-jpeg-include-dir=#{jpeg}/include",
-                          "--with-jpeg-lib-dir=#{jpeg}/lib"
+                          "--with-jpeg-lib-dir=#{jpeg}/lib",
+                          "--with-lzma-include-dir=#{xz}/include",
+                          "--with-lzma-lib-dir=#{xz}/lib",
+                          "--with-zlib-include-dir=#{zlib}/include",
+                          "--with-zlib-lib-dir=#{zlib}/lib"
     system "make", "install"
   end
 

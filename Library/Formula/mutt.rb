@@ -11,23 +11,13 @@
 class Mutt < Formula
   desc "Mongrel of mail user agents (part elm, pine, mush, mh, etc.)"
   homepage "http://www.mutt.org/"
-  url "https://bitbucket.org/mutt/mutt/downloads/mutt-1.5.24.tar.gz"
-  mirror "ftp://ftp.mutt.org/pub/mutt/mutt-1.5.24.tar.gz"
-  sha256 "a292ca765ed7b19db4ac495938a3ef808a16193b7d623d65562bb8feb2b42200"
+  url "http://ftp.mutt.org/pub/mutt/mutt-2.2.10.tar.gz"
+  mirror "https://bitbucket.org/mutt/mutt/downloads/mutt-2.2.10.tar.gz"
+  sha256 "4d773f22422f79096f7b94b57bee45654ad9a25165dbb36463c58295b4cd3d88"
+  revision 1
 
   bottle do
-    sha256 "81c99d9cceb46d0c4c6f12aaceb29daa1e27aa83ef67c8201428e2757229b1e1" => :el_capitan
-    sha256 "9d83e71eeca14f5494a07abd68b6a723928cf415157dbf070461a10d0a0d89ae" => :yosemite
-    sha256 "28b3aa2d69d4eb12da355f7639c3e7eb4124337ff0c0d91477b4dd75c161ac67" => :mavericks
-    sha256 "3ed3daff645991c2f4a7f3eb91b6f65facced496e4d1aa28584f1cad29081763" => :mountain_lion
-  end
-
-  head do
-    url "http://dev.mutt.org/hg/mutt#default", :using => :hg
-
-    resource "html" do
-      url "http://dev.mutt.org/doc/manual.html", :using => :nounzip
-    end
+    sha256 "09ef00fa26824bd99870e3db6edf27ce7a9fd74b7e9d4a74291ad79d4c4b8537" => :tiger_altivec
   end
 
   unless Tab.for_name("signing-party").with? "rename-pgpring"
@@ -40,51 +30,30 @@ class Mutt < Formula
 
   option "with-debug", "Build with debug option enabled"
   option "with-s-lang", "Build against slang instead of ncurses"
-  option "with-ignore-thread-patch", "Apply ignore-thread patch"
-  option "with-confirm-attachment-patch", "Apply confirm attachment patch"
-
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
 
   # mutt can't compile against Tiger's system version
   depends_on "cyrus-sasl" if MacOS.version < :leopard
   depends_on "openssl"
   depends_on "tokyo-cabinet"
+  depends_on "zlib"
   depends_on "s-lang" => :optional
   depends_on "gpgme" => :optional
 
-  # original source for this went missing, patch sourced from Arch at
-  # https://aur.archlinux.org/packages/mutt-ignore-thread/
-  if build.with? "ignore-thread-patch"
-    patch do
-      url "https://gist.githubusercontent.com/mistydemeo/5522742/raw/1439cc157ab673dc8061784829eea267cd736624/ignore-thread-1.5.21.patch"
-      sha256 "7290e2a5ac12cbf89d615efa38c1ada3b454cb642ecaf520c26e47e7a1c926be"
-    end
-  end
-
-  if build.with? "confirm-attachment-patch"
-    patch do
-      url "https://gist.githubusercontent.com/tlvince/5741641/raw/c926ca307dc97727c2bd88a84dcb0d7ac3bb4bf5/mutt-attach.patch"
-      sha256 "da2c9e54a5426019b84837faef18cc51e174108f07dc7ec15968ca732880cb14"
-    end
-  end
 
   def install
+    user_in_mail_group = Etc.getgrnam("mail").mem.include?(ENV["USER"])
+    effective_group = Etc.getgrgid(Process.egid).name
+
     args = ["--disable-dependency-tracking",
             "--disable-warnings",
             "--prefix=#{prefix}",
             "--with-ssl=#{Formula["openssl"].opt_prefix}",
             "--with-sasl",
-            "--with-gss",
             "--enable-imap",
             "--enable-smtp",
             "--enable-pop",
             "--enable-hcache",
-            "--with-tokyocabinet",
-            # This is just a trick to keep 'make install' from trying
-            # to chgrp the mutt_dotlock file (which we can't do if
-            # we're running as an unprivileged user)
-            "--with-homespool=.mbox"]
+            "--with-tokyocabinet"]
     args << "--with-slang" if build.with? "s-lang"
     args << "--enable-gpgme" if build.with? "gpgme"
 
@@ -94,11 +63,30 @@ class Mutt < Formula
       args << "--disable-debug"
     end
 
-    system "./prepare", *args
+    system "./configure", *args
     system "make"
+
+    # This permits the `mutt_dotlock` file to be installed under a group
+    # that isn't `mail`.
+    # https://github.com/Homebrew/homebrew/issues/45400
+    inreplace "Makefile", /^DOTLOCK_GROUP =.*$/, "DOTLOCK_GROUP = #{effective_group}" unless user_in_mail_group
+
     system "make", "install"
 
     doc.install resource("html") if build.head?
+  end
+
+  def caveats
+    <<~EOS
+      mutt_dotlock(1) has been installed, but does not have the permissions to lock
+      spool files in /var/mail. To grant the necessary permissions, run
+
+        sudo chgrp mail #{bin}/mutt_dotlock
+        sudo chmod g+s #{bin}/mutt_dotlock
+
+      Alternatively, you may configure `spoolfile` in your .muttrc to a file inside
+      your home directory.
+    EOS
   end
 
   test do

@@ -4,6 +4,7 @@ class Gegl < Formula
   url "http://download.gimp.org/pub/gegl/0.3/gegl-0.3.0.tar.bz2"
   mirror "https://mirrors.kernel.org/debian/pool/main/g/gegl/gegl_0.3.0.orig.tar.bz2"
   sha256 "f0fec8f2e7b8835979d3cf4e38b05d41bb79f68dc80cf899a846484da693bbf7"
+  revision 1
 
   bottle do
     sha256 "6082fe8ebabb6dcd94a8efd95dd32072e7f99cc26b36838368fd5c5937259424" => :yosemite

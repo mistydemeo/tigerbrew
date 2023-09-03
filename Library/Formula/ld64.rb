@@ -1,18 +1,17 @@
 class Ld64 < Formula
   desc "Updated version of the ld shipped by Apple"
-  homepage "https://opensource.apple.com/"
+  homepage "https://github.com/apple-oss-distributions/ld64/tree/ld64-97.17"
   # Latest is 134.9, but it no longer supports building for PPC.
   # 127.2 won't build on Tiger, at least without some patching.
   # Leopard users: if you like, add a 127.2 option or fix the build
   # on Tiger.
   #
-  url "https://opensource.apple.com/tarballs/ld64/ld64-97.17.tar.gz"
-  sha256 "02bd46af0809eaa415d096d7d41c3e8e7d80f7d8d181840866fb87f036b4e089"
+  url "https://github.com/apple-oss-distributions/ld64/archive/refs/tags/ld64-97.17.tar.gz"
+  sha256 "dc609d295365f8f5853b45e8dbcb44ca85e7dbc7a530e6fb5342f81d3c042db5"
+  revision 1
 
   bottle do
-    sha1 "5a42d849b7231d0b5985514ed5e77aa424048853" => :tiger_altivec
-    sha1 "9c32cb4c189dd8c05f5fed54eb05cf7b2220653d" => :leopard_g3
-    sha1 "28728a210881f5b6949c3305e932eed9109b3a10" => :leopard_altivec
+    sha256 "bb9853e7c2428a48282eb917ac0b05672b1a00350cc2c6585a05c8d7d567bfcb" => :tiger_altivec
   end
 
   resource "makefile" do
@@ -27,6 +26,8 @@ class Ld64 < Formula
   depends_on "cctools-headers" => :build
   depends_on "dyld-headers" => :build
   depends_on "libunwind-headers" => :build
+  # No CommonCrypto
+  depends_on "openssl" if MacOS.version < :leopard
 
   keg_only :provided_by_osx,
     "ld64 is an updated version of the ld shipped by Apple."

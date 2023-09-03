@@ -1,21 +1,12 @@
 class Subversion < Formula
   desc "Version control system designed to be a better CVS"
   homepage "https://subversion.apache.org/"
-  url "https://www.apache.org/dyn/closer.cgi?path=subversion/subversion-1.8.13.tar.bz2"
-  mirror "https://archive.apache.org/dist/subversion/subversion-1.8.13.tar.bz2"
-  sha256 "1099cc68840753b48aedb3a27ebd1e2afbcc84ddb871412e5d500e843d607579"
+  url "https://dlcdn.apache.org/subversion/subversion-1.14.2.tar.bz2"
+  mirror "https://archive.apache.org/dist/subversion/subversion-1.14.2.tar.bz2"
+  sha256 "c9130e8d0b75728a66f0e7038fc77052e671830d785b5616aad53b4810d3cc28"
 
   bottle do
-    revision 1
-    sha256 "cc57e488880e76a380434bfc5b8c8b1c1caf5176802f8e60af0cd443913e8974" => :tiger_altivec
-    sha256 "fe1ab0031b738afd2e3f3091725b4e2afd8e7f6c22b13c62ba145e1c2f63d536" => :leopard_g3
-    sha256 "fd8d3d5a7fe7a0361ec2622385c85c1649b3bc7d50f3d56f1b602dda92c9b6ad" => :leopard_altivec
-  end
-
-  devel do
-    url "https://www.apache.org/dyn/closer.cgi?path=subversion/subversion-1.9.0-rc3.tar.bz2"
-    mirror "https://archive.apache.org/dist/subversion/subversion-1.9.0-rc3.tar.bz2"
-    sha256 "c49432a1a2e83fa3babd7a0602d207c8c11feb1d0660828609710f101737fa6d"
+    sha256 "e2805b0c925cfbc666042419b699a9136e19e4e19e3d55241e1f1bf7d83e4dfa" => :tiger_altivec
   end
 
   deprecated_option "java" => "with-java"
@@ -29,12 +20,16 @@ class Subversion < Formula
   option "with-gpg-agent", "Build with support for GPG Agent"
 
   resource "serf" do
-    url "https://serf.googlecode.com/svn/src_releases/serf-1.3.8.tar.bz2", :using => :curl
-    sha256 "e0500be065dbbce490449837bb2ab624e46d64fc0b090474d9acaa87c82b2590"
+    url "https://www.apache.org/dist/serf/serf-1.3.10.tar.bz2", :using => :curl
+    sha256 "be81ef08baa2516ecda76a77adf7def7bc3227eeb578b9a33b45f7b41dc064e6"
   end
+
+  depends_on "lz4"
+  depends_on "zlib"
 
   # use Tigerbrew's version instead of the old one in X11
   depends_on :expat
+  depends_on :ld64
 
   depends_on "pkg-config" => :build
   if MacOS.version > :leopard
@@ -52,22 +47,12 @@ class Subversion < Formula
   depends_on "swig" if build.with?("perl") || build.with?("python") || build.with?("ruby")
 
   # For Serf
-  depends_on :ld64
   depends_on "scons" => :build
   depends_on "openssl"
 
   # Other optional dependencies
   depends_on "gpg-agent" => :optional
   depends_on :java => :optional
-
-  # Fails when linking serf
-  # https://github.com/mistydemeo/tigerbrew/issues/333
-  fails_with :gcc_4_0
-
-  # Fix #23993 by stripping flags swig can't handle from SWIG_CPPFLAGS
-  # Prevent "-arch ppc" from being pulled in from Perl's $Config{ccflags}
-  # Prevent linking into a Python Framework
-  patch :DATA
 
   if build.with?("perl") || build.with?("ruby")
     # If building bindings, allow non-system interpreters
@@ -137,18 +122,18 @@ class Subversion < Formula
 
     ENV.universal_binary if build.universal?
 
-    # Use existing system zlib
     # Use dep-provided other libraries
     # Don't mess with Apache modules (since we're not sudo)
     args = ["--disable-debug",
             "--prefix=#{prefix}",
-            "--with-zlib=/usr",
+            "--with-zlib=#{Formula["zlib"].opt_prefix}",
             "--with-sqlite=#{Formula["sqlite"].opt_prefix}",
             "--with-serf=#{serf_prefix}",
             "--disable-mod-activation",
             "--disable-nls",
             "--without-apache-libexecdir",
-            "--without-berkeley-db"]
+            "--without-berkeley-db",
+            "--with-utf8proc=internal"]
 
     args << "--enable-javahl" << "--without-jikes" if build.with? "java"
     args << "--without-gpg-agent" if build.without? "gpg-agent"
@@ -278,51 +263,3 @@ class Subversion < Formula
     system "#{bin}/svnadmin", "verify", "test"
   end
 end
-
-__END__
-diff --git a/configure b/configure
-index 445251b..6ff4332 100755
---- a/configure
-+++ b/configure
-@@ -25366,6 +25366,8 @@ fi
- SWIG_CPPFLAGS="$CPPFLAGS"
- 
-   SWIG_CPPFLAGS=`echo "$SWIG_CPPFLAGS" | $SED -e 's/-no-cpp-precomp //'`
-+  SWIG_CPPFLAGS=`echo "$SWIG_CPPFLAGS" | $SED -e 's/-F\/[^ ]* //'`
-+  SWIG_CPPFLAGS=`echo "$SWIG_CPPFLAGS" | $SED -e 's/-isystem\/[^ ]* //'`
- 
- 
- 
-diff --git a/subversion/bindings/swig/perl/native/Makefile.PL.in b/subversion/bindings/swig/perl/native/Makefile.PL.in
-index a60430b..bd9b017 100644
---- a/subversion/bindings/swig/perl/native/Makefile.PL.in
-+++ b/subversion/bindings/swig/perl/native/Makefile.PL.in
-@@ -76,10 +76,13 @@ my $apr_ldflags = '@SVN_APR_LIBS@'
- 
- chomp $apr_shlib_path_var;
- 
-+my $config_ccflags = $Config{ccflags};
-+$config_ccflags =~ s/-arch\s+\S+//g;
-+
- my %config = (
-     ABSTRACT => 'Perl bindings for Subversion',
-     DEFINE => $cppflags,
--    CCFLAGS => join(' ', $cflags, $Config{ccflags}),
-+    CCFLAGS => join(' ', $cflags, $config_ccflags),
-     INC  => join(' ', $includes, $cppflags,
-                  " -I$swig_srcdir/perl/libsvn_swig_perl",
-                  " -I$svnlib_srcdir/include",
-
-diff --git a/build/get-py-info.py b/build/get-py-info.py
-index 29a6c0a..dd1a5a8 100644
---- a/build/get-py-info.py
-+++ b/build/get-py-info.py
-@@ -83,7 +83,7 @@ def link_options():
-   options = sysconfig.get_config_var('LDSHARED').split()
-   fwdir = sysconfig.get_config_var('PYTHONFRAMEWORKDIR')
-
--  if fwdir and fwdir != "no-framework":
-+  if fwdir and fwdir != "no-framework" and sys.platform != 'darwin':
-
-     # Setup the framework prefix
-     fwprefix = sysconfig.get_config_var('PYTHONFRAMEWORKPREFIX')

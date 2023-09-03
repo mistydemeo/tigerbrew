@@ -1,24 +1,20 @@
 class Nettle < Formula
   desc "Low-level cryptographic library"
   homepage "https://www.lysator.liu.se/~nisse/nettle/"
-  url "https://www.lysator.liu.se/~nisse/archive/nettle-2.7.1.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/nettle/nettle-2.7.1.tar.gz"
-  sha256 "bc71ebd43435537d767799e414fce88e521b7278d48c860651216e1fc6555b40"
+  url "https://ftp.gnu.org/gnu/nettle/nettle-3.9.1.tar.gz"
+  mirror "https://ftpmirror.gnu.org/gnu/nettle/nettle-3.9.1.tar.gz"
+  sha256 "ccfeff981b0ca71bbd6fbcb054f407c60ffb644389a5be80d6716d5b550c6ce3"
 
   bottle do
-    cellar :any
-    revision 1
-    sha256 "c4d9262d13cae53467788b50eeebdc39b9adbba0367070b1d21d059c99159590" => :el_capitan
-    sha1 "41d80787422ed29f084c147b49e2f7c3a223eded" => :yosemite
-    sha1 "89238f83e4f3f18145553d3c442fe022680cbd7b" => :mavericks
-    sha1 "8f2a4c261926f2f62e9d8f197a8466a2489b37e0" => :mountain_lion
-    sha1 "6c56084887da5b7e99d7c730bf22a68c9af360e9" => :lion
+    sha256 "e53e6fa158121c316a587ab962d3d9bb3c62ab2d1f66e557411ee2dd815d7bb4" => :tiger_altivec
   end
 
   depends_on "gmp"
-  depends_on "openssl" if MacOS.version < :snow_leopard
+  depends_on "openssl"
 
   def install
+    # Tests fail when running test suite
+    ENV.no_optimization
     # see https://github.com/mistydemeo/tigerbrew/issues/89
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
 
@@ -27,6 +23,7 @@ class Nettle < Formula
                           "--enable-shared"
     system "make"
     system "make", "install"
+    # C++ tests which depend on GMP fail to build with GCC 4.0.1
     system "make", "check"
   end
 
@@ -50,11 +47,10 @@ class Nettle < Formula
         for (i = 0; i<SHA1_DIGEST_SIZE; i++)
           printf("%02x", digest[i]);
 
-        printf("\\n");
         return 0;
       }
     EOS
-    system ENV.cc, "test.c", "-lnettle", "-o", "test"
+    system ENV.cc, "test.c", "-lnettle", "-o", "test", "-L#{lib}"
     system "./test"
   end
 end

@@ -1,15 +1,12 @@
 class Zlib < Formula
   desc "General-purpose lossless data-compression library"
   homepage "http://www.zlib.net/"
-  url "http://zlib.net/zlib-1.2.11.tar.gz"
-  mirror "https://downloads.sourceforge.net/project/libpng/zlib/1.2.11/zlib-1.2.11.tar.gz"
-  sha256 "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1"
+  url "https://zlib.net/fossils/zlib-1.3.tar.gz"
+  sha256 "ff0ba4c292013dbc27530b3a81e1f9a813cd39de01ca5e0f8bf355702efa593e"
 
   bottle do
     cellar :any
-    sha256 "6765c51c09a7aa0ad7c06379a9c7a6b7b3b1bfaaf6a37d111cee44153eaab6e2" => :sierra
-    sha256 "c37af2435a876fed3d8ced49698159ac7ab05efeed265de3c40a8e6c3868e332" => :el_capitan
-    sha256 "1c3d8a42f15b8f8f5427e5038c76538178b2b57759c57101fb07cbbe92d0ba21" => :yosemite
+    sha256 "e04b821b59723ea658c6c66a00bde585ec4a5b917fbcfdd2f851e51a9e4ee9ba" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
@@ -22,6 +19,10 @@ class Zlib < Formula
   end
 
   def install
+    # The test in configure to see if shared library support is available
+    # is done so by invoking gcc -w and then falls back to building just a
+    # static library.
+    ENV.enable_warnings if ENV.compiler == :gcc_4_0
     system "./configure", "--prefix=#{prefix}"
     system "make", "install"
   end

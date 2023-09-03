@@ -1,18 +1,15 @@
 class Qemu < Formula
   desc "x86 and PowerPC Emulator"
   homepage "http://wiki.qemu.org"
-  # 2.2.1 is the last version to work pre-10.6
-  # See: https://github.com/mistydemeo/tigerbrew/issues/523
-  url "http://wiki.qemu-project.org/download/qemu-2.2.1.tar.bz2"
-  sha256 "4617154c6ef744b83e10b744e392ad111dd351d435d6563ce24d8da75b1335a0"
-  head "git://git.qemu-project.org/qemu.git"
+  url "https://download.qemu.org/qemu-2.3.1.tar.bz2"
+  sha256 "661d029809421cae06b4b1bc74ac0e560cb4ed47c9523c676ff277fa26dca15f"
 
   depends_on "make" => :build if MacOS.version < :leopard
   depends_on "pkg-config" => :build
   depends_on "libtool" => :build
   depends_on "jpeg"
-  depends_on "gnutls"
   depends_on "glib"
+  depends_on "libutil" if MacOS.version < :leopard
   depends_on "pixman"
   depends_on "vde" => :optional
   depends_on "sdl" => :optional
@@ -21,12 +18,22 @@ class Qemu < Formula
 
   # 3.2MB working disc-image file hosted on upstream's servers for people to use to test qemu functionality.
   resource "armtest" do
-    url "http://wiki.qemu.org/download/arm-test-0.2.tar.gz"
+    url "https://www.nongnu.org/qemu/arm-test-0.2.tar.gz"
     sha256 "4b4c2dce4c055f0a2adb93d571987a3d40c96c6cbfd9244d19b9708ce5aea454"
+  end
+
+  patch do
+    # Portability fix - qemu binaries exit with "qobject/qjson.c:69: failed assertion `obj != NULL'" error
+    # https://lists.gnu.org/archive/html/qemu-devel/2016-11/msg04186.html
+    url "https://gitlab.com/qemu-project/qemu/-/commit/043b5a49516f5037430e7864e23fc2fdd39f2b10.diff"
+    sha256 "db0419e2875a8057580c6b8d18938e6fff300b964b68d90ea77c0c237c582d67"
   end
 
   def install
     ENV["LIBTOOL"] = "glibtool"
+    # Need to tell ar(1) to generate a table of contents otherwise ld(1) errors
+    # ld: in dtc/libfdt/libfdt.a, archive has no table of contents
+    ENV["ARFLAGS"] = "srv" if MacOS.version == :leopard
 
     if MacOS.version < :leopard
       # Needed for certain stdint macros on 10.4
@@ -41,8 +48,7 @@ class Qemu < Formula
       --prefix=#{prefix}
       --cc=#{ENV.cc}
       --host-cc=#{ENV.cc}
-      --disable-bsd-user
-      --disable-guest-agent
+      --disable-vnc-tls
     ]
 
     # Cocoa UI uses features that require 10.5 or newer

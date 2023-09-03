@@ -1,20 +1,15 @@
 class Libarchive < Formula
   desc "Multi-format archive and compression library"
   homepage "http://www.libarchive.org"
-  url "http://www.libarchive.org/downloads/libarchive-3.1.2.tar.gz"
-  mirror "https://github.com/libarchive/libarchive/archive/v3.1.2.tar.gz"
-  sha256 "eb87eacd8fe49e8d90c8fdc189813023ccc319c5e752b01fb6ad0cc7b2c53d5e"
-
-  depends_on "xz" => :optional
+  url "http://www.libarchive.org/downloads/libarchive-3.6.2.tar.gz"
+  sha256 "ba6d02f15ba04aba9c23fd5f236bb234eab9d5209e95d1c4df85c44d5f19b9b3"
 
   bottle do
     cellar :any
-    revision 1
-    sha256 "a73405a0d1395f88af0999215bb0cc342b09113f6270375c7b9fe0bbad870c57" => :el_capitan
-    sha1 "4457352669eb58cd60610f5f4b2429808facdff8" => :yosemite
-    sha1 "708da02bb7015579b48d06174f776f781befc052" => :mavericks
-    sha1 "886851569f64d0d90970af31ed526c2e387dd3d3" => :mountain_lion
+    sha256 "87223352a31f02ebd1a860c61659048ea457b2e665d5e90271782849ecca5df9" => :tiger_altivec
   end
+
+  depends_on "xz" => :optional
 
   keg_only :provided_by_osx
 

@@ -1,16 +1,8 @@
 class Libpng < Formula
   desc "Library for manipulating PNG images"
   homepage "http://www.libpng.org/pub/png/libpng.html"
-  url "ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-1.6.24.tar.xz"
-  mirror "https://dl.bintray.com/homebrew/mirror/libpng-1.6.24.tar.xz"
-  sha256 "7932dc9e5e45d55ece9d204e90196bbb5f2c82741ccb0f7e10d07d364a6fd6dd"
-
-  bottle do
-    cellar :any
-    sha256 "92ae818d3a0237f375767d2f0ce673484789ca298b7295cf34c48da945c0dc3f" => :el_capitan
-    sha256 "d0c673c254660fbce4880f74a6d832f6ce5ce4bd4926ea2e7e0985cb0ac82218" => :yosemite
-    sha256 "91e832b62a0ee289d3835edbffdd7fccb4d5674c7a0d4c1c6ac1d367584b02c4" => :mavericks
-  end
+  url "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.40/libpng-1.6.40.tar.xz"
+  sha256 "535b479b2467ff231a3ec6d92a525906fb8ef27978be4f66dbe05d3f3a01b3a1"
 
   head do
     url "https://github.com/glennrp/libpng.git"
@@ -20,6 +12,11 @@ class Libpng < Formula
     depends_on "libtool" => :build
   end
 
+  bottle do
+    sha256 "646d0fb6bc09cc2742e86f4ccb827cef0403c0e96a09109ff4746449762840ac" => :tiger_altivec
+  end
+
+  depends_on "zlib"
   keg_only :provided_pre_mountain_lion
 
   option :universal
@@ -28,6 +25,7 @@ class Libpng < Formula
     ENV.universal_binary if build.universal?
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
+                          "--with-zlib-prefix=#{Formula["zlib"].opt_prefix}",
                           "--prefix=#{prefix}"
     system "make"
     system "make", "test"

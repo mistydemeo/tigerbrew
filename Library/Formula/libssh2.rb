@@ -1,8 +1,12 @@
 class Libssh2 < Formula
   desc "C library implementing the SSH2 protocol"
   homepage "http://www.libssh2.org/"
-  url "https://libssh2.org/download/libssh2-1.8.0.tar.gz"
-  sha256 "39f34e2f6835f4b992cafe8625073a88e5a28ba78f83e8099610a7b3af4676d4"
+  url "https://libssh2.org/download/libssh2-1.11.0.tar.xz"
+  sha256 "a488a22625296342ddae862de1d59633e6d446eff8417398e06674a49be3d7c2"
+
+  bottle do
+    sha256 "eb70ab12fe7e6a56beaaa7ff9ef43eb43d7c8817286a8086f9786bf76904ad24" => :tiger_altivec
+  end
 
   option "with-libressl", "build with LibreSSL instead of OpenSSL"
 
@@ -14,14 +18,9 @@ class Libssh2 < Formula
     depends_on "libtool" => :build
   end
 
-  bottle do
-    sha256 "4a1e39137bc9461d779a7a84626354928788aeb0650fb0fed75e0fbecb95c0cd" => :sierra
-    sha256 "d6693c1417f0deb8f1b0c6a7c338491a7f60f2cc516675186e572329c1fcaa6c" => :el_capitan
-    sha256 "f7fab0024a104c43a3139b0e70cbc04606c20409b36ffb6deebb326c168c4547" => :yosemite
-  end
-
   depends_on "openssl" => :recommended
   depends_on "libressl" => :optional
+  depends_on "zlib"
 
   def install
     args = %W[
@@ -30,9 +29,9 @@ class Libssh2 < Formula
       --disable-dependency-tracking
       --disable-silent-rules
       --disable-examples-build
-      --with-openssl
       --with-libz
-    ]
+      --with-libz-prefix=#{Formula["zlib"].opt_prefix}
+     ]
 
     if build.with? "libressl"
       args << "--with-libssl-prefix=#{Formula["libressl"].opt_prefix}"

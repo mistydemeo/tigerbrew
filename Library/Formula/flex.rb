@@ -1,14 +1,11 @@
 class Flex < Formula
   desc "Fast Lexical Analyzer, generates Scanners (tokenizers)"
   homepage "http://flex.sourceforge.net"
-  url "https://downloads.sourceforge.net/flex/flex-2.5.39.tar.bz2"
-  sha256 "add2b55f3bc38cb512b48fad7d72f43b11ef244487ff25fc00aabec1e32b617f"
+  url "https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz"
+  sha256 "e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995"
 
   bottle do
-    sha256 "31607eeace06e7460d03b2a0bfb9b13f3ca5b0407eb3e80d75d3b4f1ec43ba0f" => :el_capitan
-    sha1 "a1f8a76465942c6187b00dfa931ac56f22b7ba00" => :yosemite
-    sha1 "533d4351154274d9d68f517b85e1de8e524b2bd5" => :mavericks
-    sha1 "524d471123dbd4ca812e3fc3778afd865df616e6" => :mountain_lion
+    sha256 "81739615809b39fd54aa558c1a4f0a2677813f162459f7b6e63a99ad220d1488" => :tiger_altivec
   end
 
   keg_only :provided_by_osx, "Some formulae require a newer version of flex."

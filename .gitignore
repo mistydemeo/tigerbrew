@@ -1,9 +1,8 @@
 /*
 !/.gitignore
-!/.travis.yml
 !/.yardopts
 !/Library/
-!/CODEOFCONDUCT.md
+!/CODE_OF_CONDUCT.md
 !/CONTRIBUTING.md
 !/LICENSE.txt
 !/README.md
@@ -20,6 +19,8 @@
 /Library/Homebrew/test/vendor
 /Library/Homebrew/test/coverage
 /Library/Homebrew/test/fs_leak_log
+/Library/Homebrew/vendor/portable-curl
+/Library/Homebrew/vendor/portable-ruby
 /Library/LinkedKegs
 /Library/PinnedKegs
 /Library/Taps

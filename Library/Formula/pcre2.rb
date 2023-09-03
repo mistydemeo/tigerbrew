@@ -1,19 +1,22 @@
 class Pcre2 < Formula
   desc "Perl compatible regular expressions library with a new API"
   homepage "https://www.pcre.org/"
-  url "https://ftp.pcre.org/pub/pcre/pcre2-10.30.tar.bz2"
-  sha256 "90bd41c605d30e3745771eb81928d779f158081a51b2f314bbcc1f73de5773db"
+  url "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.42/pcre2-10.42.tar.bz2"
+  sha256 "8d36cd8cb6ea2a4c2bb358ff6411b0c788633a2a45dabbf1aeb4b701d1b5e840"
 
-  head "svn://vcs.exim.org/pcre2/code/trunk"
+  head "https://github.com/PCRE2Project/pcre2"
 
   bottle do
-    cellar :any
-    sha256 "bd0d09c9849ec4ce62bff6bf422cf8c42dfa7d39e684c0d7e7d3d176a749ab76" => :tiger_g3
-    sha256 "032c6cc3f59a97be735e385714da097201d03afb5ecc1ee943d0f5ebf8f06d52" => :tiger_altivec
-    sha256 "23e8ed207c87f4a77e01b49d1972de94795e398ab00e4fe1d2260f1c905306f7" => :tiger_g5
+    sha256 "8994bdc208954bda33063808e865b53f2f1fe3e84a5da2376d5e66275347cfb8" => :tiger_altivec
   end
 
   option :universal
+
+  # Allow building with JIT support on Tiger
+  patch :p0 do
+   url "https://raw.githubusercontent.com/macports/macports-ports/master/devel/pcre/files/no-OSCacheControl-on-tiger.diff"
+   sha256 "eac8b57207586f537382ebce98b0f36476bd50118e349fd8153980a2fc65be02"
+  end
 
   def install
     ENV.universal_binary if build.universal?
