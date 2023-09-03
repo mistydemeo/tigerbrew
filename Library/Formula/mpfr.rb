@@ -5,6 +5,11 @@ class Mpfr < Formula
   mirror "https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.0.tar.xz"
   sha256 "06a378df13501248c1b2db5aa977a2c8126ae849a9d9b7be2546fb4a9c26d993"
 
+  bottle do
+    cellar :any
+    sha256 "6a0f10d445e8c245e4f2d06ea789f7fa1010d0ba5de4f54d7d06177f41152f34" => :tiger_altivec
+  end
+
   option "32-bit"
 
   depends_on "gmp"
