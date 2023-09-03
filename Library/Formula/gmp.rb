@@ -5,6 +5,10 @@ class Gmp < Formula
   mirror "https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.xz"
   sha256 "fd4829912cddd12f84181c3451cc752be224643e87fac497b69edddadc49b4f2"
 
+  bottle do
+    sha256 "8959b62e4b35331839445da5d5047bde738d7a53ab0abfe08f24249f135c3312" => :tiger_altivec
+  end
+
   option "32-bit"
   option :cxx11
 
