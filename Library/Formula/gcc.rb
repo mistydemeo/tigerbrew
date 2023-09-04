@@ -24,11 +24,10 @@ class Gcc < Formula
   url "https://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz"
   mirror "https://ftpmirror.gnu.org/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz"
   sha256 "832ca6ae04636adbb430e865a1451adf6979ab44ca1c8374f61fba65645ce15c"
+  revision 1
 
   bottle do
-    sha256 "dfe5debb5b2d22c65673a38bfc1902042d7094702f49ff3cdfa2ecb30d09308e" => :tiger_g3
-    sha256 "401a75fa8baebfd62260dfa5c1b2668a4599d2543e4634d3dc7c7bb3b120e9d4" => :tiger_altivec
-    sha256 "97ba51fa1021f7fecc5177d7dcff702f5c5bce654a2d851a320d1381fded52a0" => :leopard_g4e
+    sha256 "462a69c56f6ba4fd15ccafb59537a74f5d233530a34c7de58789a89bc9bac12a" => :tiger_altivec
   end
 
   option "with-nls", "Build with native language support (localization)"
