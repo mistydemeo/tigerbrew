@@ -25,6 +25,10 @@ class Gcc5 < Formula
   mirror "https://ftp.gnu.org/gnu/gcc/gcc-5.5.0/gcc-5.5.0.tar.xz"
   sha256 "530cea139d82fe542b358961130c69cfde8b3d14556370b65823d2f91f0ced87"
 
+  bottle do
+    sha256 "7b9d1f0d201000f90d6b634874d1b93239ee88c36ff5b8c0e15c929654d98960" => :tiger_altivec
+  end
+
   # GCC's Go compiler is not currently supported on Mac OS X.
   # See: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=46986
   option "with-java", "Build the gcj compiler"
