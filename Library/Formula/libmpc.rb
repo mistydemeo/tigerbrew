@@ -5,6 +5,11 @@ class Libmpc < Formula
   mirror "http://multiprecision.org/mpc/download/mpc-1.3.1.tar.gz"
   sha256 "ab642492f5cf882b74aa0cb730cd410a81edcdbec895183ce930e706c1c759b8"
 
+  bottle do
+    cellar :any
+    sha256 "91849971ef740d8abcf09becff9c7500afb861edc4f23db3373a36c1c8782185" => :tiger_altivec
+  end
+
   depends_on "gmp"
   depends_on "mpfr"
 
