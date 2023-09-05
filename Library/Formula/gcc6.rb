@@ -21,9 +21,9 @@ class Gcc6 < Formula
 
   desc "The GNU Compiler Collection"
   homepage "https://gcc.gnu.org"
-  url "https://ftpmirror.gnu.org/gcc/gcc-6.2.0/gcc-6.2.0.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/gcc/gcc-6.2.0/gcc-6.2.0.tar.bz2"
-  sha256 "9944589fc722d3e66308c0ce5257788ebd7872982a718aa2516123940671b7c5"
+  url "https://ftpmirror.gnu.org/gcc/gcc-6.5.0/gcc-6.5.0.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/gcc/gcc-6.5.0/gcc-6.5.0.tar.xz"
+  sha256 "7ef1796ce497e89479183702635b14bb7a46b53249209a5e0f999bebf4740945"
 
   bottle do
     sha256 "c30c0898b73794434af820725d3b69d4f26e58357c6d2867028527ce31273b58" => :sierra
@@ -70,6 +70,16 @@ class Gcc6 < Formula
   def install
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
+    # GCC Bug 25127
+    # https://gcc.gnu.org/bugzilla//show_bug.cgi?id=25127
+    # ../../../libgcc/unwind.inc: In function '_Unwind_RaiseException':
+    # ../../../libgcc/unwind.inc:136:1: internal compiler error: in rs6000_emit_prologue, at config/rs6000/rs6000.c:26535
+    ENV.no_optimization if Hardware::CPU.type == :ppc
+    # Make sure we don't generate STABS data
+    # /usr/libexec/gcc/powerpc-apple-darwin8/4.0.1/ld: .libs/libstdc++.lax/libc++98convenience.a/ios_failure.o has both STABS and DWARF debugging info
+    # collect2: error: ld returned 1 exit status
+    ENV.append_to_cflags "-gstabs0"
+    ENV.append "CXXFLAGS", "-gstabs0"
 
     # Otherwise libstdc++ will be incorrectly tagged with cpusubtype 10 (G4e)
     # https://github.com/mistydemeo/tigerbrew/issues/538
@@ -111,9 +121,6 @@ class Gcc6 < Formula
       "--enable-stage1-checking",
       "--enable-checking=release",
       "--enable-lto",
-      # Use 'bootstrap-debug' build configuration to force stripping of object
-      # files prior to comparison during bootstrap (broken by Xcode 6.3).
-      "--with-build-config=bootstrap-debug",
       # A no-op unless --HEAD is built because in head warnings will
       # raise errors. But still a good idea to include.
       "--disable-werror",
@@ -123,12 +130,16 @@ class Gcc6 < Formula
 
     # "Building GCC with plugin support requires a host that supports
     # -fPIC, -shared, -ldl and -rdynamic."
-    args << "--enable-plugin" if MacOS.version > :leopard
+    args << "--enable-plugin" if MacOS.version > :tiger
 
     # The pre-Mavericks toolchain requires the older DWARF-2 debugging data
     # format to avoid failure during the stage 3 comparison of object files.
     # See: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=45248
     args << "--with-dwarf2" if MacOS.version <= :mountain_lion
+
+    # Use 'bootstrap-debug' build configuration to force stripping of object
+    # files prior to comparison during bootstrap (broken by Xcode 6.3).
+    args << "--with-build-config=bootstrap-debug" if MacOS.version >= :mavericks
 
     args << "--disable-nls" if build.without? "nls"
 
