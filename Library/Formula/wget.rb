@@ -16,6 +16,10 @@ class Wget < Formula
     depends_on "gettext"
   end
 
+  bottle do
+    sha256 "a78bbaa576c705ffa755e23889d8c31eb40fed7634146bdf373a642a56eb06da" => :tiger_altivec
+  end
+
   deprecated_option "enable-iri" => "with-iri"
   deprecated_option "enable-debug" => "with-debug"
 
