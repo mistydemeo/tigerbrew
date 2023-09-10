@@ -26,7 +26,7 @@ class Gcc < Formula
   sha256 "b81946e7f01f90528a1f7352ab08cc602b9ccc05d4e44da4bd501c5a189ee661"
 
   bottle do
-    sha256 "462a69c56f6ba4fd15ccafb59537a74f5d233530a34c7de58789a89bc9bac12a" => :tiger_altivec
+    sha256 "b97ce2a43d3d6797d37a09f640e6b42585dfca298e38f83e580e3d67ab08b47e" => :tiger_altivec
   end
 
   option "with-nls", "Build with native language support (localization)"
