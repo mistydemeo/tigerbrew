@@ -5,6 +5,7 @@ class Openconnect < Formula
   sha256 "a2bedce3aa4dfe75e36e407e48e8e8bc91d46def5335ac9564fbf91bd4b2413e"
 
   bottle do
+    sha256 "ac170fd498f2f668253bdc60080039795491eb5b81cd120f39f40cdbf465ac27" => :tiger_altivec
   end
 
   head do
