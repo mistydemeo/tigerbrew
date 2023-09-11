@@ -1,9 +1,9 @@
 class Openssl < Formula
   desc "SSL/TLS cryptography library"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-1.1.1v.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-1.1.1v.tar.gz"
-  sha256 "d6697e2871e77238460402e9362d47d18382b15ef9f246aba6c7bd780d38a6b0"
+  url "https://www.openssl.org/source/openssl-1.1.1w.tar.gz"
+  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-1.1.1w.tar.gz"
+  sha256 "cf3098950cb4d853ad95c0841f1f9c6d3dc102dccfcacd521d93925208b76ac8"
 
   option :universal
   option "without-test", "Skip build-time tests (not recommended)"
@@ -14,7 +14,6 @@ class Openssl < Formula
   depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
 
   bottle do
-    sha256 "193654acb8554f860af0fa6b033b532f1faf2cbcd46ac0b40bd7dfbf0a5717e7" => :tiger_altivec
   end
 
   def arch_args
