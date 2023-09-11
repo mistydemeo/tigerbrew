@@ -11,13 +11,11 @@
 class Mutt < Formula
   desc "Mongrel of mail user agents (part elm, pine, mush, mh, etc.)"
   homepage "http://www.mutt.org/"
-  url "http://ftp.mutt.org/pub/mutt/mutt-2.2.10.tar.gz"
-  mirror "https://bitbucket.org/mutt/mutt/downloads/mutt-2.2.10.tar.gz"
-  sha256 "4d773f22422f79096f7b94b57bee45654ad9a25165dbb36463c58295b4cd3d88"
-  revision 1
+  url "http://ftp.mutt.org/pub/mutt/mutt-2.2.12.tar.gz"
+  mirror "https://bitbucket.org/mutt/mutt/downloads/mutt-2.2.12.tar.gz"
+  sha256 "043af312f64b8e56f7fd0bf77f84a205d4c498030bd9586457665c47bb18ce38"
 
   bottle do
-    sha256 "09ef00fa26824bd99870e3db6edf27ce7a9fd74b7e9d4a74291ad79d4c4b8537" => :tiger_altivec
   end
 
   unless Tab.for_name("signing-party").with? "rename-pgpring"
