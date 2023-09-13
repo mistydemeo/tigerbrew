@@ -1,13 +1,11 @@
 class Curl < Formula
   desc "Get a file from an HTTP, HTTPS or FTP server"
   homepage "https://curl.haxx.se/"
-  url "https://curl.se/download/curl-8.2.1.tar.xz"
-  mirror "http://mirror.sobukus.de/files/src/curl/curl-8.2.1.tar.xz"
-  sha256 "dd322f6bd0a20e6cebdfd388f69e98c3d183bed792cf4713c8a7ef498cba4894"
+  url "https://curl.se/download/curl-8.3.0.tar.xz"
+  sha256 "376d627767d6c4f05105ab6d497b0d9aba7111770dd9d995225478209c37ea63"
 
   bottle do
     cellar :any
-    sha256 "12acf882b1d17208fb42d0d2a06e98c2b619fce3ea53057567a7f63aca1b011b" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
@@ -24,13 +22,6 @@ class Curl < Formula
   deprecated_option "with-ares" => "with-c-ares"
 
   depends_on "zlib"
-
-  # Build fix which can be removed in next release.
-  # https://github.com/curl/curl/pull/11516
-  patch do
-    url "https://github.com/curl/curl/commit/8b7cbe9decc205b08ec8258eb184c89a33e3084b.patch"
-    sha256 "71635c6e071fdce61f3176ed318edef9ec560d8afa7b62ac9492e2de7ebefeb4"
-  end
 
   if (build.without?("libressl"))
     depends_on "openssl"
@@ -97,23 +88,4 @@ class Curl < Formula
     assert File.exist?("certdata.txt")
   end
 
-  # Patch the configure script to avoid the autoreconf needed
-  # after the patch we pulled in from github.
-  patch :p0, :DATA
 end
-__END__
---- configure.orig	2023-08-11 14:31:54.000000000 +0100
-+++ configure	2023-08-11 14:41:28.000000000 +0100
-@@ -21707,10 +21707,10 @@
- int main (void)
- {
- 
--#if (TARGET_OS_OSX)
-+#if TARGET_OS_MAC && !(defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
-       return 0;
- #else
--#error Not a macOS
-+#error Not macOS
- #endif
- 
-  ;
