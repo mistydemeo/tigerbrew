@@ -19,10 +19,6 @@ class Openssh < Formula
   depends_on "openssl"
   depends_on "zlib"
 
-  #uses_from_macos "lsof" => :test
-  #uses_from_macos "krb5"
-  #uses_from_macos "libedit"
-
     # Both these patches are applied by Apple.
     # https://github.com/apple-oss-distributions/OpenSSH/blob/main/openssh/sandbox-darwin.c#L66
     patch do
@@ -40,6 +36,16 @@ class Openssh < Formula
     url "https://raw.githubusercontent.com/apple-oss-distributions/OpenSSH/OpenSSH-268.100.4/com.openssh.sshd.sb"
     sha256 "a273f86360ea5da3910cfa4c118be931d10904267605cdd4b2055ced3a829774"
   end
+
+  # Fix zlib version check for 1.3 and future version.
+  # This can be removed in next version
+  patch do
+    url "https://github.com/openssh/openssh-portable/commit/cb4ed12ffc332d1f72d054ed92655b5f1c38f621.diff"
+    sha256 "60d057bc1752ac6802f9e9cd160c9838678b9e2e615b441ef6cc8ac8cb28f47f"
+  end
+  # Patch configure to avoid autoreconf
+  # This can be removed in next version
+  patch :p0, :DATA
 
   def install
     args = %W[
@@ -84,3 +90,15 @@ class Openssh < Formula
     assert_match "sshd", shell_output("lsof -i :#{port}")
   end
 end
+__END__
+--- configure.orig	2023-09-14 00:32:20.000000000 +0100
++++ configure	2023-09-14 00:33:10.000000000 +0100
+@@ -10889,7 +10889,7 @@
+ 
+ 	int a=0, b=0, c=0, d=0, n, v;
+ 	n = sscanf(ZLIB_VERSION, "%d.%d.%d.%d", &a, &b, &c, &d);
+-	if (n != 3 && n != 4)
++	if (n < 1)
+ 		exit(1);
+ 	v = a*1000000 + b*10000 + c*100 + d;
+ 	fprintf(stderr, "found zlib version %s (%d)\n", ZLIB_VERSION, v);
