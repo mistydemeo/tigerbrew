@@ -1,15 +1,11 @@
 class Coreutils < Formula
   desc "GNU File, Shell, and Text utilities"
   homepage "https://www.gnu.org/software/coreutils"
-  url "https://ftp.gnu.org/gnu/coreutils/coreutils-8.30.tar.xz"
-  mirror "https://ftpmirror.gnu.org/coreutils/coreutils-8.30.tar.xz"
-  sha256 "e831b3a86091496cdba720411f9748de81507798f6130adeaef872d206e1b057"
+  url "https://ftp.gnu.org/gnu/coreutils/coreutils-9.2.tar.xz"
+  mirror "https://ftpmirror.gnu.org/coreutils/coreutils-9.2.tar.xz"
+  sha256 "6885ff47b9cdb211de47d368c17853f406daaf98b148aaecdf10de29cc04b0b3"
 
   bottle do
-    sha256 "45157fb067a46c953bdfcba90de688903b7b3c8fcb39afa1e0b2fef2819eedc5" => :mojave
-    sha256 "77b09dbe66f3d5098998da6babf953e01e828742b8a740a831cc3f3a1f713df7" => :high_sierra
-    sha256 "94844581b7e08ae2d1dc6c77acfd6e95021283cc8b7c1228fed32a423ae826cc" => :sierra
-    sha256 "a5145f88de2525d168ef998f8310d5c0abcead9efee9108fb61c30de91a4869c" => :el_capitan
   end
 
   head do
@@ -52,7 +48,8 @@ class Coreutils < Formula
       --prefix=#{prefix}
       --program-prefix=g
     ]
-    args << "--without-gmp" if build.without? "gmp"
+    args << "--without-libgmp" if build.without? "gmp"
+    args << "--disable-year2038" if MacOS.version < :snow_leopard
     system "./configure", *args
     system "make", "install"
 
