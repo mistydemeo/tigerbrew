@@ -83,6 +83,8 @@ class Curl < Formula
     system "#{bin}/curl", "-L", stable.url, "-o", filename
     filename.verify_checksum stable.checksum
 
+    # so mk-ca-bundle can find it
+    ENV.prepend_path "PATH", Formula["curl"].opt_bin
     system libexec/"mk-ca-bundle.pl", "test.pem"
     assert File.exist?("test.pem")
     assert File.exist?("certdata.txt")
