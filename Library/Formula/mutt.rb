@@ -16,6 +16,7 @@ class Mutt < Formula
   sha256 "043af312f64b8e56f7fd0bf77f84a205d4c498030bd9586457665c47bb18ce38"
 
   bottle do
+    sha256 "397bb66757f31227db8b4d20a476cce30ebca29b610361468680a3cd75eeacd5" => :tiger_altivec
   end
 
   unless Tab.for_name("signing-party").with? "rename-pgpring"
