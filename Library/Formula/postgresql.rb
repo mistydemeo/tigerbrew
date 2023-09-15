@@ -1,11 +1,10 @@
 class Postgresql < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  url "https://ftp.postgresql.org/pub/source/v15.3/postgresql-15.3.tar.bz2"
-  sha256 "ffc7d4891f00ffbf5c3f4eab7fbbced8460b8c0ee63c5a5167133b9e6599d932"
+  url "https://ftp.postgresql.org/pub/source/v15.4/postgresql-15.4.tar.bz2"
+  sha256 "baec5a4bdc4437336653b6cb5d9ed89be5bd5c0c58b94e0becee0a999e63c8f9"
 
   bottle do
-    sha256 "cde4c8d705424b099a632733e1f4ecb2f7b8f354b5506b723aac40d062d33cac" => :tiger_altivec
   end
 
   option "32-bit"
