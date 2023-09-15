@@ -6,6 +6,10 @@ class Openssl3 < Formula
   sha256 "a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539"
   license "Apache-2.0"
 
+  bottle do
+    sha256 "fe3ab2ff13cfdc82c72ee443a2940c96748bab1f604ba9fdcf4e9cc1356d1df3" => :tiger_altivec
+  end
+
   keg_only :provided_by_osx
 
   depends_on "curl-ca-bundle"
