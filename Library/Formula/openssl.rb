@@ -8,10 +8,10 @@ class Openssl < Formula
   option :universal
   option "without-test", "Skip build-time tests (not recommended)"
 
-  # Need a minimum of Perl 5.10 for Configure script
-  depends_on "perl" => :build if MacOS.version < :snow_leopard
+  # Need a minimum of Perl 5.10 for Configure script and Test::More 0.96 for testsuite
+  depends_on "perl" => :build
   depends_on "makedepend" => :build
-  depends_on "curl-ca-bundle" if MacOS.version < :snow_leopard
+  depends_on "curl-ca-bundle"
 
   bottle do
     sha256 "7fa8eeb679ec9e180c5296515c1402207c653b6fd22be981b1c67e81f3fc0c4b" => :tiger_altivec
