@@ -8,6 +8,8 @@ class Lua < Formula
   option "with-completion", "Enables advanced readline support"
   option "without-luarocks", "Don't build with Luarocks support embedded"
 
+  depends_on "readline" if build.with? "completion"
+
   # completion provided by advanced readline power patch
   # See http://lua-users.org/wiki/LuaPowerPatches
   if build.with? "completion"
