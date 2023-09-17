@@ -2,8 +2,9 @@ class Vim < Formula
   desc "Vi \"workalike\" with many additional features"
   homepage "http://www.vim.org/"
   # *** Vim should be updated no more than once every 7 days ***
-  url "https://github.com/vim/vim/archive/v7.4.884.tar.gz"
-  sha256 "39a6b1692c0052ef2c64d8eea838ec0ee7dafdb601e739625600718aceaaa1ab"
+  url "https://github.com/vim/vim/archive/refs/tags/v9.0.1907.tar.gz"
+  sha256 "6b908a868bad5fd4af7b82390dbd371f5d13bcb7c8a913025831cfb3b03b1224"
+  version "9.0.1907"
   head "https://github.com/vim/vim.git"
 
   # We only have special support for finding depends_on :python, but not yet for
@@ -34,6 +35,9 @@ class Vim < Formula
 
   conflicts_with "ex-vi",
     :because => "vim and ex-vi both install bin/ex and bin/view"
+
+  # Enable sound support on El Capitan or newer, build breaks on 10.6 & prior.
+  patch :p0, :DATA
 
   def install
     ENV["LUA_PREFIX"] = HOMEBREW_PREFIX if build.with?("lua") || build.with?("luajit")
@@ -115,3 +119,29 @@ class Vim < Formula
     end
   end
 end
+__END__
+--- src/vim.h.orig	2023-09-17 22:41:28.000000000 +0100
++++ src/vim.h	2023-09-17 22:44:27.000000000 +0100
+@@ -102,6 +102,11 @@
+ # define ROOT_UID 0
+ #endif
+ 
++/* Include MAC_OS_X_VERSION_* macros */
++#ifdef HAVE_AVAILABILITYMACROS_H
++# include <AvailabilityMacros.h>
++#endif
++
+ /*
+  * MACOS_X	    compiling for Mac OS X
+  * MACOS_X_DARWIN   integrating the darwin feature into MACOS_X
+@@ -167,7 +172,9 @@
+ # if defined(FEAT_NORMAL) && !defined(FEAT_CLIPBOARD)
+ #  define FEAT_CLIPBOARD
+ # endif
+-# if defined(FEAT_HUGE) && !defined(FEAT_SOUND)
++# if defined(FEAT_HUGE) && !defined(FEAT_SOUND) && \
++   defined(MAC_OS_X_VERSION_MIN_REQUIRED) && \
++    MAC_OS_X_VERSION_MIN_REQUIRED >= 101100
+ #  define FEAT_SOUND
+ # endif
+ # if defined(FEAT_SOUND)
