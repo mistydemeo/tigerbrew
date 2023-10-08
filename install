@@ -5,9 +5,9 @@
 HOMEBREW_PREFIX = '/usr/local'
 
 CURL_VERSION    = "7.58.0"
-CURL_PPC_URL    = "https://archive.org/download/tigerbrew/portable-curl-#{CURL_VERSION}.tiger_g3.bottle.tar.gz"
+CURL_PPC_URL    = "http://archive.org/download/tigerbrew/portable-curl-#{CURL_VERSION}.tiger_g3.bottle.tar.gz"
 CURL_PPC_SHA1   = "5bbd587871bca54637437359555618a4b1a612ec"
-CURL_INTEL_URL  = "https://archive.org/download/tigerbrew/portable-curl-#{CURL_VERSION}.tiger_i386.bottle.tar.gz"
+CURL_INTEL_URL  = "http://archive.org/download/tigerbrew/portable-curl-#{CURL_VERSION}.tiger_i386.bottle.tar.gz"
 CURL_INTEL_SHA1 = "6e6e7989adb20856c0473aedecd623f443a6ac55"
 
 module Tty extend self
