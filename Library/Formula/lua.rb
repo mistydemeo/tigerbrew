@@ -4,6 +4,10 @@ class Lua < Formula
   url "https://www.lua.org/ftp/lua-5.4.6.tar.gz"
   sha256 "7d5ea1b9cb6aa0b59ca3dde1c6adcb57ef83a1ba8e5432c0ecd06bf439b3ad88"
 
+  bottle do
+    sha256 "6d008ebd444353cc4e9ef0763443be420380e6e85933415b1ac1c616ba720347" => :tiger_altivec
+  end
+
   option :universal
   option "with-completion", "Enables advanced readline support"
   option "without-luarocks", "Don't build with Luarocks support embedded"
