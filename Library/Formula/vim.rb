@@ -7,6 +7,10 @@ class Vim < Formula
   version "9.0.1907"
   head "https://github.com/vim/vim.git"
 
+  bottle do
+    sha256 "9f85df9385e1ddea94abb857ffa0111d4eff0d3ffc1b5fb6b2396e94aa30a379" => :tiger_altivec
+  end
+
   # We only have special support for finding depends_on :python, but not yet for
   # :ruby, :perl etc., so we use the standard environment that leaves the
   # PATH as the user has set it right now.
