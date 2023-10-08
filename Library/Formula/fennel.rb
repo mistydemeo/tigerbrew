@@ -8,6 +8,7 @@ class Fennel < Formula
   bottle do
     cellar :any_skip_relocation
     sha256 "1df9168b5ed9f68a98c9c5cd67798aefeb33a01fda717e86a4a4bb4188b0f650" => :tiger_g3
+    sha256 "1df9168b5ed9f68a98c9c5cd67798aefeb33a01fda717e86a4a4bb4188b0f650" => :tiger_altivec
   end
 
   depends_on "lua"
