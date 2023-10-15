@@ -9,6 +9,11 @@ class Gmp < Formula
     sha256 "8959b62e4b35331839445da5d5047bde738d7a53ab0abfe08f24249f135c3312" => :tiger_altivec
   end
 
+  # "suffix or operands invalid for movq"
+  # https://www.mail-archive.com/gmp-bugs@gmplib.org/msg01321.html
+  # https://gmplib.org/repo/gmp/rev/3ac5afa36be5
+  patch :DATA
+
   option "32-bit"
   option :cxx11
 
@@ -71,3 +76,48 @@ class Gmp < Formula
     system "./test"
   end
 end
+__END__
+--- a/mpn/x86_64/bd1/hamdist.asm	Fri Oct 28 16:31:44 2022 +0200
++++ b/mpn/x86_64/bd1/hamdist.asm	Wed Nov 02 13:48:37 2022 +0100
+@@ -170,7 +170,7 @@
+ 	paddq	%xmm0, %xmm8
+ 	pshufd	$14, %xmm8, %xmm0
+ 	paddq	%xmm8, %xmm0
+-	movq	%xmm0, %rax
++	movd	%xmm0, %rax
+ 	add	%r10, %rax
+ 	FUNC_EXIT()
+ 	ret
+--- a/mpn/x86_64/bd1/popcount.asm	Fri Oct 28 16:31:44 2022 +0200
++++ b/mpn/x86_64/bd1/popcount.asm	Wed Nov 02 13:48:37 2022 +0100
+@@ -167,7 +167,7 @@
+ 	paddq	%xmm5, %xmm8
+ 	pshufd	$14, %xmm8, %xmm0
+ 	paddq	%xmm8, %xmm0
+-	movq	%xmm0, %rax
++	movd	%xmm0, %rax
+ 	add	%rdx, %rax
+ 	FUNC_EXIT()
+ 	ret
+--- a/mpn/x86_64/core2/hamdist.asm	Fri Oct 28 16:31:44 2022 +0200
++++ b/mpn/x86_64/core2/hamdist.asm	Wed Nov 02 13:48:37 2022 +0100
+@@ -191,7 +191,7 @@
+ 	paddq	%xmm4, %xmm8
+ 	pshufd	$14, %xmm8, %xmm0
+ 	paddq	%xmm8, %xmm0
+-	movq	%xmm0, %rax
++	movd	%xmm0, %rax
+ 	ret
+ EPILOGUE()
+ DEF_OBJECT(L(cnsts),16,`JUMPTABSECT')
+--- a/mpn/x86_64/core2/popcount.asm	Fri Oct 28 16:31:44 2022 +0200
++++ b/mpn/x86_64/core2/popcount.asm	Wed Nov 02 13:48:37 2022 +0100
+@@ -166,7 +166,7 @@
+ 	paddq	%xmm4, %xmm8
+ 	pshufd	$14, %xmm8, %xmm0
+ 	paddq	%xmm8, %xmm0
+-	movq	%xmm0, %rax
++	movd	%xmm0, %rax
+ 	ret
+ EPILOGUE()
+ DEF_OBJECT(L(cnsts),16,`JUMPTABSECT')
