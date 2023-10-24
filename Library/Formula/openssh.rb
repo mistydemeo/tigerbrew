@@ -6,9 +6,9 @@ class Openssh < Formula
   version "9.5p1"
   sha256 "f026e7b79ba7fb540f75182af96dc8a8f1db395f922bbc9f6ca603672686086b"
   license "SSH-OpenSSH"
+  revision 1
 
   bottle do
-    sha256 "17cce12458f27b4db3dd5bd4b574764cf213dd6520582919e8e5c79a775d8c27" => :tiger_altivec
   end
 
   # Please don't resubmit the keychain patch option. It will never be accepted.
@@ -16,7 +16,7 @@ class Openssh < Formula
 
   depends_on "pkg-config" => :build
   depends_on "ldns"
-  depends_on "openssl"
+  depends_on "openssl3"
   depends_on "zlib"
 
     # Both these patches are applied by Apple.
@@ -45,7 +45,7 @@ class Openssh < Formula
       --with-libedit
       --with-kerberos5
       --with-pam
-      --with-ssl-dir=#{Formula["openssl"].opt_prefix}
+      --with-ssl-dir=#{Formula["openssl3"].opt_prefix}
       --with-zlib=#{Formula["zlib"].opt_prefix}
     ]
 
