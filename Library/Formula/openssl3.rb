@@ -1,13 +1,12 @@
 class Openssl3 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-3.1.2.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.1.2.tar.gz"
-  sha256 "a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539"
+  url "https://www.openssl.org/source/openssl-3.1.4.tar.gz"
+  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.1.4.tar.gz"
+  sha256 "840af5366ab9b522bde525826be3ef0fb0af81c6a9ebd84caa600fea1731eee3"
   license "Apache-2.0"
 
   bottle do
-    sha256 "fe3ab2ff13cfdc82c72ee443a2940c96748bab1f604ba9fdcf4e9cc1356d1df3" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
