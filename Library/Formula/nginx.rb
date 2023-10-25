@@ -4,9 +4,9 @@ class Nginx < Formula
   url "https://nginx.org/download/nginx-1.25.2.tar.gz"
   sha256 "05dd6d9356d66a74e61035f2a42162f8c754c97cf1ba64e7a801ba158d6c0711"
   head "http://hg.nginx.org/nginx/", :using => :hg
+  revision 1
 
   bottle do
-    sha256 "79d4d0139ee3a8c96cc72ed94bf804cf90e7c40134902196c2470859ae348344" => :tiger_altivec
   end
 
   env :userpaths
@@ -22,7 +22,7 @@ class Nginx < Formula
 
   depends_on "pcre2"
   depends_on "passenger" => :optional
-  depends_on "openssl" => :recommended
+  depends_on "openssl3" => :recommended
   depends_on "libressl" => :optional
   depends_on "zlib"
 
@@ -32,7 +32,7 @@ class Nginx < Formula
     inreplace "conf/nginx.conf", "    #}\n\n}", "    #}\n    include servers/*;\n}"
 
     pcre = Formula["pcre2"]
-    openssl = Formula["openssl"]
+    openssl = Formula["openssl3"]
     libressl = Formula["libressl"]
     zlib = Formula["zlib"]
 
