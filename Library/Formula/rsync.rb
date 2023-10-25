@@ -6,13 +6,13 @@ class Rsync < Formula
   mirror "https://www.mirrorservice.org/sites/rsync.samba.org/rsync-3.2.7.tar.gz"
   sha256 "4e7d9d3f6ed10878c58c5fb724a67dacf4b6aac7340b13e488fb2dc41346f2bb"
   license "GPL-3.0-or-later"
+  revision 1
 
   bottle do
-    sha256 "67bb955b3d96f3c4316770f8633110f7b4d8e7431a3c95d06ce41845ef21371a" => :tiger_altivec
   end
 
   depends_on "lz4"
-  depends_on "openssl"
+  depends_on "openssl3"
   depends_on "popt"
   depends_on "xxhash"
   depends_on "zlib"
