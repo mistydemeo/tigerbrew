@@ -3,10 +3,10 @@ class Curl < Formula
   homepage "https://curl.haxx.se/"
   url "https://curl.se/download/curl-8.4.0.tar.xz"
   sha256 "16c62a9c4af0f703d28bda6d7bbf37ba47055ad3414d70dec63e2e6336f2a82d"
+  revision 1
 
   bottle do
     cellar :any
-    sha256 "0065f0535323140e66b9338dc0bd8397db65e6edecbf1f2f456962fef95d04c4" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
@@ -25,7 +25,7 @@ class Curl < Formula
   depends_on "zlib"
 
   if (build.without?("libressl"))
-    depends_on "openssl"
+    depends_on "openssl3"
   end
 
   depends_on "pkg-config" => :build
@@ -52,9 +52,9 @@ class Curl < Formula
       args << "--with-ssl=#{Formula["libressl"].opt_prefix}"
       args << "--with-ca-bundle=#{etc}/libressl/cert.pem"
     else
-      ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["openssl"].opt_lib}/pkgconfig"
-      args << "--with-ssl=#{Formula["openssl"].opt_prefix}"
-      args << "--with-ca-bundle=#{etc}/openssl/cert.pem"
+      ENV.prepend_path "PKG_CONFIG_PATH", "#{Formula["openssl3"].opt_lib}/pkgconfig"
+      args << "--with-ssl=#{Formula["openssl3"].opt_prefix}"
+      args << "--with-ca-bundle=#{etc}/openssl@3/cert.pem"
     end
 
     args << (build.with?("libssh2") ? "--with-libssh2" : "--without-libssh2")
