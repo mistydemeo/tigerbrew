@@ -7,6 +7,7 @@ class Libevent < Formula
 
   bottle do
     cellar :any
+    sha256 "5519f9a4cf854b58dbb6c9d61d76d49d4c3dbfdea58e13e9eae80bd25b47d358" => :tiger_altivec
   end
 
   head do
