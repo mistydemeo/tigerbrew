@@ -6,6 +6,7 @@ class Ldns < Formula
   revision 1
 
   bottle do
+    sha256 "a5b4184d89dc1d59c0d68f0bff6d3a4ee3913b0137bce0c06f7beb13133470ca" => :tiger_altivec
   end
 
   depends_on :python => :optional
