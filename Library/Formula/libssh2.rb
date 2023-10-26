@@ -6,6 +6,8 @@ class Libssh2 < Formula
   revision 1
 
   bottle do
+    cellar :any
+    sha256 "199ff7918596f64fab5429e23f6bf6f6e3819563dd1c11031cd5aaae620224c7" => :tiger_altivec
   end
 
   option "with-libressl", "build with LibreSSL instead of OpenSSL"
