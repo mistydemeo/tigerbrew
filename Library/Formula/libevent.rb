@@ -3,10 +3,10 @@ class Libevent < Formula
   homepage "http://libevent.org"
   url "https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz"
   sha256 "92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb"
+  revision 1
 
   bottle do
     cellar :any
-    sha256 "a0983219dd22de6526968649699c4a939c2553b5da021874bc2f7cf04fe32cb2" => :tiger_altivec
   end
 
   head do
@@ -19,7 +19,7 @@ class Libevent < Formula
 
   depends_on "doxygen" => [:optional, :build]
   depends_on "pkg-config" => :build
-  depends_on "openssl"
+  depends_on "openssl3"
 
   option :universal
   option "with-doxygen", "Build and install the manpages (using Doxygen)"
