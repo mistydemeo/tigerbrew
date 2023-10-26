@@ -3,14 +3,13 @@ class Ldns < Formula
   homepage "https://nlnetlabs.nl/projects/ldns/"
   url "https://nlnetlabs.nl/downloads/ldns/ldns-1.8.3.tar.gz"
   sha256 "c3f72dd1036b2907e3a56e6acf9dfb2e551256b3c1bbd9787942deeeb70e7860"
+  revision 1
 
   bottle do
-    sha256 "3e739c733f9485b9539ec047787e937838d81ad31352d381b5ae639d06c5113d" => :tiger_g4
-    sha256 "a440a72ed9982f71b913036572fcb8d7897a1f3e81142d37e09f1b3b544bbc7b" => :tiger_g5
   end
 
   depends_on :python => :optional
-  depends_on "openssl"
+  depends_on "openssl3"
   depends_on "swig" => :build if build.with? "python"
 
   def install
@@ -18,7 +17,7 @@ class Ldns < Formula
       --prefix=#{prefix}
       --with-drill
       --with-examples
-      --with-ssl=#{Formula["openssl"].opt_prefix}
+      --with-ssl=#{Formula["openssl3"].opt_prefix}
     ]
 
     args << "--with-pyldns" if build.with? "python"
