@@ -9,6 +9,7 @@ class Rsync < Formula
   revision 1
 
   bottle do
+    sha256 "bafb84b70feffa4c4c695301cd849ca2fae9c92c3b2a46231362eea26187990c" => :tiger_altivec
   end
 
   depends_on "lz4"
