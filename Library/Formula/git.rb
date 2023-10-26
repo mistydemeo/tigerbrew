@@ -4,9 +4,9 @@ class Git < Formula
   url "https://www.kernel.org/pub/software/scm/git/git-2.42.0.tar.xz"
   sha256 "3278210e9fd2994b8484dd7e3ddd9ea8b940ef52170cdb606daa94d887c93b0d"
   head "https://github.com/git/git.git", :shallow => false
+  revision 1
 
   bottle do
-    sha256 "c96ae9197fa159818739fa675d218a0f2c86ed69e2248050d8541778a82aedf0" => :tiger_altivec
   end
 
   resource "html" do
@@ -32,7 +32,7 @@ class Git < Formula
   depends_on :expat
   depends_on "pcre2" => :optional
   depends_on "gettext"
-  depends_on "openssl"
+  depends_on "openssl3"
   depends_on "openssh" => :run
   depends_on "curl"
   depends_on "make" => :build
