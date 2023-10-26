@@ -3,9 +3,9 @@ class Postgresql < Formula
   homepage "https://www.postgresql.org/"
   url "https://ftp.postgresql.org/pub/source/v15.4/postgresql-15.4.tar.bz2"
   sha256 "baec5a4bdc4437336653b6cb5d9ed89be5bd5c0c58b94e0becee0a999e63c8f9"
+  revision 1
 
   bottle do
-    sha256 "16c9282d83e6b64b60bee66764ba6febc5514128aaa9d2e6525d574015765d63" => :tiger_altivec
   end
 
   option "32-bit"
@@ -18,7 +18,7 @@ class Postgresql < Formula
   deprecated_option "enable-dtrace" => "with-dtrace"
   deprecated_option "with-python" => "with-python3"
 
-  depends_on "openssl"
+  depends_on "openssl3"
   depends_on "readline"
   depends_on "libxml2"
   depends_on "libxslt"
