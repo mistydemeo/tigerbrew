@@ -3,6 +3,7 @@ class Irssi < Formula
   homepage "http://irssi.org/"
   url "https://codeberg.org/irssi/irssi/releases/download/1.4.4/irssi-1.4.4.tar.xz"
   sha256 "fefe9ec8c7b1475449945c934a2360ab12693454892be47a6d288c63eb107ead"
+  revision 1
 
   head do
     url "https://github.com/irssi/irssi.git"
@@ -13,7 +14,6 @@ class Irssi < Formula
   end
 
   bottle do
-    sha256 "83c8e6d383114da61ac1aedad66ae58e380721e0b35e2c1cce812c009ff4577f" => :tiger_altivec
   end
 
   # Fix crash on exit with Tiger.
@@ -27,7 +27,7 @@ class Irssi < Formula
 
   depends_on "pkg-config" => :build
   depends_on "glib"
-  depends_on "openssl"
+  depends_on "openssl3"
   depends_on "dante" => :optional
   depends_on "ncurses"
   depends_on "perl" if build.with? "perl"
