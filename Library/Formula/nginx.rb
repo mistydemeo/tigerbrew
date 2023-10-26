@@ -7,6 +7,7 @@ class Nginx < Formula
   revision 1
 
   bottle do
+    sha256 "c2640340f79102c0bbe1db54e8cb280149e88b71a8378dce6ddb2fe10ca2b733" => :tiger_altivec
   end
 
   env :userpaths
