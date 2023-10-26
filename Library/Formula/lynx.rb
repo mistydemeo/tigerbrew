@@ -7,6 +7,7 @@ class Lynx < Formula
   revision 1
 
   bottle do
+    sha256 "700740b3e28325962d8ed7c07aeed624a099843bf91d9a74f4784dec2ca7d0a5" => :tiger_altivec
   end
 
   depends_on "bzip2"
