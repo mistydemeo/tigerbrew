@@ -1,19 +1,18 @@
 class MidnightCommander < Formula
   desc "Terminal-based visual file manager"
   homepage "https://www.midnight-commander.org/"
-  url "http://ftp.midnight-commander.org/mc-4.8.29.tar.xz"
-  mirror "https://mirrors.ocf.berkeley.edu/debian/pool/main/m/mc/mc_4.8.29.orig.tar.xz"
-  sha256 "01d8a3b94f58180cca5bf17257b5078d1fd6fd27a9b5c0e970ec767549540ad4"
+  url "http://ftp.midnight-commander.org/mc-4.8.30.tar.xz"
+  mirror "https://ftp.osuosl.org/pub/midnightcommander/mc-4.8.30.tar.xz"
+  sha256 "5ebc3cb2144b970c5149fda556c4ad50b78780494696cdf2d14a53204c95c7df"
 
   head "https://github.com/MidnightCommander/mc.git"
 
   bottle do
-    sha256 "3544876d1ec441cdaba7b0e4c51c832bea76433e910915229f66a7a8b253472a" => :tiger_altivec
   end
 
   depends_on "pkg-config" => :build
   depends_on "glib"
-  depends_on "openssl"
+  depends_on "openssl3"
   depends_on "s-lang"
   depends_on "libssh2"
 
