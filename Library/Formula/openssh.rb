@@ -9,6 +9,7 @@ class Openssh < Formula
   revision 1
 
   bottle do
+    sha256 "0df72214140fac75a70abaeaa924ca7e15556c8a094abbed3b15d33525201226" => :tiger_altivec
   end
 
   # Please don't resubmit the keychain patch option. It will never be accepted.
