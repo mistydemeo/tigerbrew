@@ -8,6 +8,7 @@ class MidnightCommander < Formula
   head "https://github.com/MidnightCommander/mc.git"
 
   bottle do
+    sha256 "aecc87ac3a43ecac7fe46a14b1a8adb2b98ed58c2bf95cfb2dc981fad583e7b9" => :tiger_altivec
   end
 
   depends_on "pkg-config" => :build
