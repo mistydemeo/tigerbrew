@@ -7,6 +7,7 @@ class Git < Formula
   revision 1
 
   bottle do
+    sha256 "7442d605398815cab539b68c140e496a456036530f81e5be5de7f08121a703d1" => :tiger_altivec
   end
 
   resource "html" do
