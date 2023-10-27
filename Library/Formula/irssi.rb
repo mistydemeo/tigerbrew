@@ -14,6 +14,7 @@ class Irssi < Formula
   end
 
   bottle do
+    sha256 "9cd240467cb01ccd6ecda35bf7b216ea85ebbc1674f02c3a747c0a36c2b7f1db" => :tiger_altivec
   end
 
   # Fix crash on exit with Tiger.
