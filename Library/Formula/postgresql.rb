@@ -6,6 +6,7 @@ class Postgresql < Formula
   revision 1
 
   bottle do
+    sha256 "ed31af40b9f8b7c73afac0004061fca1e3c18a15bb5b5a7b756e8101c379a478" => :tiger_altivec
   end
 
   option "32-bit"
