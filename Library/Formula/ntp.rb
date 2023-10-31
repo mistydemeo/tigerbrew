@@ -5,12 +5,13 @@ class Ntp < Formula
   version "4.2.8p17"
   sha256 "103dd272e6a66c5b8df07dce5e9a02555fcd6f1397bdfb782237328e89d3a866"
   license all_of: ["BSD-2-Clause", "NTP"]
+  revision 1
 
   bottle do
-    sha256 "328717f558bfb5137571df39fbd4402b602019bc14ee891bd86e026ec18fdcdf" => :tiger_altivec
   end
 
-  depends_on "openssl"
+  depends_on "libevent"
+  depends_on "openssl3"
 
   def install
     args = %W[
@@ -18,8 +19,8 @@ class Ntp < Formula
       --disable-dependency-tracking
       --disable-silent-rules
       --prefix=#{prefix}
-      --with-openssl-libdir=#{Formula["openssl"].lib}
-      --with-openssl-incdir=#{Formula["openssl"].include}
+      --with-openssl-libdir=#{Formula["openssl3"].lib}
+      --with-openssl-incdir=#{Formula["openssl3"].include}
       --with-net-snmp-config=no
     ]
 
