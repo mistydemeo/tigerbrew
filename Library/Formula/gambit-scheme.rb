@@ -16,12 +16,12 @@ class GambitScheme < Formula
   option "with-single", "Compile each Scheme module as a single C function - Needs GCC >=5"
   option "with-openssl", "Build with TLS support via OpenSSL"
 
-  depends_on "openssl" if build.with? "openssl"
+  depends_on "openssl3" if build.with? "openssl"
 
   def install
     # The build itself tries to set optimisation flags varying between -O1 & -O3 by default.
     ENV.no_optimization
-    ENV.append "OPENSSL_DIR", "#{Formula["openssl"].opt_prefix}" if build.with? "openssl"
+    ENV.append "OPENSSL_DIR", "#{Formula["openssl3"].opt_prefix}" if build.with? "openssl"
     # Set compiler & interpreter name to avoid conflict with Ghostscript's gsc
     args = %W[
       --disable-debug
