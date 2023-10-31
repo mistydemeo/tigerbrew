@@ -1,15 +1,18 @@
 class Dovecot < Formula
   desc "IMAP/POP3 server"
   homepage "http://dovecot.org/"
-  url "https://dovecot.org/releases/2.3/dovecot-2.3.20.tar.gz"
-  mirror "https://fossies.org/linux/misc/dovecot-2.3.20.tar.gz"
-  sha256 "caa832eb968148abdf35ee9d0f534b779fa732c0ce4a913d9ab8c3469b218552"
+  url "https://dovecot.org/releases/2.3/dovecot-2.3.21.tar.gz"
+  mirror "https://fossies.org/linux/misc/dovecot-2.3.21.tar.gz"
+  sha256 "05b11093a71c237c2ef309ad587510721cc93bbee6828251549fc1586c36502d"
 
   bottle do
-    sha256 "92e320fa7f06b298fd66382943c69314890887544c1e60a82a6f874f4b0e84dd" => :tiger_altivec
   end
 
-  depends_on "openssl"
+  depends_on "bzip2"
+  depends_on "lz4"
+  depends_on "openssl3"
+  depends_on "xz"
+  depends_on "zlib"
   depends_on "clucene" => :optional
 
   def install
@@ -76,6 +79,10 @@ class Dovecot < Formula
   end
 
   # .data & .used are members of a union, nested in struct buffer
+  # lib/compat.h: add ST_?TIME_SEC() macros
+  # https://github.com/dovecot/core/commit/3294f9074a1c6f2b64f956a21dea3b8b51b33aaf
+  # dbox: dbox_mailbox_open() - use ST_?TIME_SEC() macros
+  # https://github.com/dovecot/core/commit/0a6198c690c063f05934b4981793e1ddb7ca24b3
   patch :p0, :DATA
 end
 __END__
@@ -98,3 +105,43 @@ __END__
  };
  
  /* Valid mail params tests */
+--- src/lib/compat.h
++++ src/lib/compat.h
+@@ -56,15 +56,24 @@ typedef unsigned long long uoff_t;
+ #  define ST_ATIME_NSEC(st) ((unsigned long)(st).st_atim.tv_nsec)
+ #  define ST_MTIME_NSEC(st) ((unsigned long)(st).st_mtim.tv_nsec)
+ #  define ST_CTIME_NSEC(st) ((unsigned long)(st).st_ctim.tv_nsec)
++#  define ST_ATIME_SEC(st) ((unsigned long)(st).st_atim.tv_sec)
++#  define ST_MTIME_SEC(st) ((unsigned long)(st).st_mtim.tv_sec)
++#  define ST_CTIME_SEC(st) ((unsigned long)(st).st_ctim.tv_sec)
+ #elif defined (HAVE_STAT_XTIMESPEC)
+ #  define HAVE_ST_NSECS
+ #  define ST_ATIME_NSEC(st) ((unsigned long)(st).st_atimespec.tv_nsec)
+ #  define ST_MTIME_NSEC(st) ((unsigned long)(st).st_mtimespec.tv_nsec)
+ #  define ST_CTIME_NSEC(st) ((unsigned long)(st).st_ctimespec.tv_nsec)
++#  define ST_ATIME_SEC(st) ((unsigned long)(st).st_atimespec.tv_sec)
++#  define ST_MTIME_SEC(st) ((unsigned long)(st).st_mtimespec.tv_sec)
++#  define ST_CTIME_SEC(st) ((unsigned long)(st).st_ctimespec.tv_sec)
+ #else
+ #  define ST_ATIME_NSEC(st) 0UL
+ #  define ST_MTIME_NSEC(st) 0UL
+ #  define ST_CTIME_NSEC(st) 0UL
++#  define ST_ATIME_SEC(st) 0UL
++#  define ST_MTIME_SEC(st) 0UL
++#  define ST_CTIME_SEC(st) 0UL
+ #endif
+ 
+ #ifdef HAVE_ST_NSECS
+--- src/lib-storage/index/dbox-common/dbox-storage.c
++++ src/lib-storage/index/dbox-common/dbox-storage.c
+@@ -305,8 +305,8 @@ int dbox_mailbox_list_cleanup(struct mail_user *user, const char *path,
+ 		   if the directory exists. In case, get also the ctime */
+ 		struct stat stats;
+ 		if (stat(path, &stats) == 0) {
+-			last_temp_file_scan = stats.st_atim.tv_sec;
+-			change_time = stats.st_ctim.tv_sec;
++			last_temp_file_scan = ST_ATIME_SEC(stats);
++			change_time = ST_CTIME_SEC(stats);
+ 		} else {
+ 			if (errno != ENOENT)
+ 				e_error(user->event, "stat(%s) failed: %m", path);
