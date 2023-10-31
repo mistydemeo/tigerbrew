@@ -1,21 +1,18 @@
 class Trurl < Formula
   desc "Command-line tool for URL parsing and manipulation"
   homepage "https://curl.se/trurl/"
-  url "https://github.com/curl/trurl/archive/refs/tags/trurl-0.8.tar.gz"
-  sha256 "7baccde1620062cf8c670121125480269b41bdc81bd4015b7aabe33debb022c6"
+  url "https://github.com/curl/trurl/archive/refs/tags/trurl-0.9.tar.gz"
+  sha256 "848da38c0ea07cd96d6adac4a5e5e141fe26e5bd846039aa350c3ca589a948e0"
   license "curl"
   head "https://github.com/curl/trurl.git", branch: "master"
 
   bottle do
     cellar :any
-    sha256 "530bf6eaed6152126a07113e3b412d3da0ec1329acd5a82e65f5d2b7b82a1fc7" => :tiger_altivec
   end
 
   depends_on "curl" # require libcurl
 
   def install
-    # GCC 4.x defaults to c89 and fails to build
-    ENV.append_to_cflags "-std=gnu99"
     system "make"
     system "make", "install", "PREFIX=#{prefix}"
   end
