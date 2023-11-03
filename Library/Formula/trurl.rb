@@ -8,6 +8,7 @@ class Trurl < Formula
 
   bottle do
     cellar :any
+    sha256 "01e65134c7a07c6f3acc60ef6ec76f657e13b9a8ee226467b03a9742f3256bcc" => :tiger_altivec
   end
 
   depends_on "curl" # require libcurl
