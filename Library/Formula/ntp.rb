@@ -8,6 +8,7 @@ class Ntp < Formula
   revision 1
 
   bottle do
+    sha256 "0cca8aeee41ac7f9f6ffca7d48cf4e9afc5aabb5614a012bda20cf1151084bfe" => :tiger_altivec
   end
 
   depends_on "libevent"
