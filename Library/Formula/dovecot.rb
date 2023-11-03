@@ -6,6 +6,7 @@ class Dovecot < Formula
   sha256 "05b11093a71c237c2ef309ad587510721cc93bbee6828251549fc1586c36502d"
 
   bottle do
+    sha256 "5a844e280812b18bef1cef8139bd7fb191f0ec1c83e8b010b1d093c063546c4f" => :tiger_altivec
   end
 
   depends_on "bzip2"
