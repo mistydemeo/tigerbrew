@@ -44,6 +44,7 @@ class Openconnect < Formula
       --sbindir=#{bin}
       --localstatedir=#{var}
       --with-vpnc-script=#{etc}/vpnc-script
+      --without-gnutls
     ]
 
     system "./configure", *args
