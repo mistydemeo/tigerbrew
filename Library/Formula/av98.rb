@@ -19,6 +19,6 @@ class Av98 < Formula
   end
 
   test do
-    system "#{bin}/av98 gemini.circumlunar.space < /dev/null"
+    system "#{bin}/av98 geminiprotocol.net < /dev/null"
   end
 end
