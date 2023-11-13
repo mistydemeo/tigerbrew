@@ -1,26 +1,17 @@
 class Mpfr < Formula
   desc "C library for multiple-precision floating-point computations"
   homepage "http://www.mpfr.org/"
-  url "https://www.mpfr.org/mpfr-4.2.0/mpfr-4.2.0.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.0.tar.xz"
-  sha256 "06a378df13501248c1b2db5aa977a2c8126ae849a9d9b7be2546fb4a9c26d993"
+  url "https://www.mpfr.org/mpfr-4.2.1/mpfr-4.2.1.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz"
+  sha256 "277807353a6726978996945af13e52829e3abd7a9a5b7fb2793894e18f1fcbb2"
 
   bottle do
     cellar :any
-    sha256 "6a0f10d445e8c245e4f2d06ea789f7fa1010d0ba5de4f54d7d06177f41152f34" => :tiger_altivec
   end
 
   option "32-bit"
 
   depends_on "gmp"
-
-  fails_with :clang do
-    build 421
-    cause <<-EOS.undent
-      clang build 421 segfaults while building in superenv;
-      see https://github.com/Homebrew/homebrew/issues/15061
-      EOS
-  end
 
   def install
     ENV.m32 if build.build_32_bit?
@@ -44,7 +35,7 @@ class Mpfr < Formula
         return 0;
       }
     EOS
-    system ENV.cc, "test.c", "-lgmp", "-lmpfr", "-o", "test"
+    system ENV.cc, "test.c", "-L#{HOMEBREW_PREFIX}/lib", "-lgmp", "-lmpfr", "-o", "test"
     system "./test"
   end
 end
