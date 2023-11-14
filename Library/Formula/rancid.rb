@@ -6,6 +6,9 @@ class Rancid < Formula
   sha256 "7241d2972b1f6f76a28bdaa0e7942b1257e08b404a15d121c9dee568178f8bf5"
 
   bottle do
+    cellar :any_skip_relocation
+
+    sha256 "cab73cea6e86c68592958170f9a9aeae13978928951a9ce107adc35ebb8c1188" => :tiger_altivec
   end
 
   conflicts_with "par", :because => "both install `par` binaries"
