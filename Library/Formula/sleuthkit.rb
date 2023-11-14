@@ -3,7 +3,7 @@ class Sleuthkit < Formula
   homepage "http://www.sleuthkit.org/"
 
   stable do
-    url "https://downloads.sourceforge.net/project/sleuthkit/sleuthkit/4.1.3/sleuthkit-4.1.3.tar.gz"
+    url "https://prdownloads.sourceforge.net/project/sleuthkit/sleuthkit/4.1.3/sleuthkit-4.1.3.tar.gz"
     sha256 "67f9d2a31a8884d58698d6122fc1a1bfa9bf238582bde2b49228ec9b899f0327"
 
     # Upstream fix for https://github.com/sleuthkit/sleuthkit/issues/345

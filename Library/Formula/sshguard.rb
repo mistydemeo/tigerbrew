@@ -1,7 +1,7 @@
 class Sshguard < Formula
   desc "Protect from brute force attacks against SSH"
   homepage "http://www.sshguard.net/"
-  url "https://downloads.sourceforge.net/project/sshguard/sshguard/1.6.1/sshguard-1.6.1.tar.xz"
+  url "https://prdownloads.sourceforge.net/project/sshguard/sshguard/1.6.1/sshguard-1.6.1.tar.xz"
   mirror "https://dl.bintray.com/homebrew/mirror/sshguard-1.6.1.tar.xz"
   sha256 "f431899c20fa2f41fa293605af96ff97d44823b84db41c914ee60da44f1ff6c8"
 

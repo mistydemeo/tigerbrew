@@ -1,7 +1,7 @@
 class ColladaDom < Formula
   desc "C++ library for loading and saving COLLADA data"
   homepage "http://www.collada.org/mediawiki/index.php/Portal:COLLADA_DOM"
-  url "https://downloads.sourceforge.net/project/collada-dom/Collada%20DOM/Collada%20DOM%202.4/collada-dom-2.4.0.tgz"
+  url "https://prdownloads.sourceforge.net/project/collada-dom/Collada%20DOM/Collada%20DOM%202.4/collada-dom-2.4.0.tgz"
   sha256 "5ca2d12f744bdceff0066ed3067b3b23d6859581fb0d657f98ba4487d8fa3896"
 
   depends_on "cmake" => :build

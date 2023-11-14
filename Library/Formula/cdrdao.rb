@@ -1,7 +1,7 @@
 class Cdrdao < Formula
   desc "Record CDs in Disk-At-Once mode"
   homepage "http://cdrdao.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/cdrdao/cdrdao/1.2.3/cdrdao-1.2.3.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/cdrdao/cdrdao/1.2.3/cdrdao-1.2.3.tar.bz2"
   sha256 "8193cb8fa6998ac362c55807e89ad0b3c63edc6b01afaeb3d5042519527fb75e"
 
   depends_on "pkg-config" => :build

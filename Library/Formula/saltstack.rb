@@ -28,7 +28,7 @@ class Saltstack < Formula
   # https://github.com/swig/swig/issues/344
   # https://github.com/martinpaljak/M2Crypto/issues/60
   resource "swig304" do
-    url "https://downloads.sourceforge.net/project/swig/swig/swig-3.0.4/swig-3.0.4.tar.gz"
+    url "https://prdownloads.sourceforge.net/project/swig/swig/swig-3.0.4/swig-3.0.4.tar.gz"
     sha256 "410ffa80ef5535244b500933d70c1b65206333b546ca5a6c89373afb65413795"
   end
 

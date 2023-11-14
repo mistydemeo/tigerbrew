@@ -1,7 +1,7 @@
 class Mcrypt < Formula
   desc "Replacement for the old crypt package and crypt(1) command"
   homepage "http://mcrypt.sourceforge.net"
-  url "https://downloads.sourceforge.net/project/mcrypt/MCrypt/2.6.8/mcrypt-2.6.8.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/mcrypt/MCrypt/2.6.8/mcrypt-2.6.8.tar.gz"
   sha256 "5145aa844e54cca89ddab6fb7dd9e5952811d8d787c4f4bf27eb261e6c182098"
 
   bottle do
@@ -17,7 +17,7 @@ class Mcrypt < Formula
   depends_on "mhash"
 
   resource "libmcrypt" do
-    url "https://downloads.sourceforge.net/project/mcrypt/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.gz"
+    url "https://prdownloads.sourceforge.net/project/mcrypt/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.gz"
     sha256 "e4eb6c074bbab168ac47b947c195ff8cef9d51a211cdd18ca9c9ef34d27a373e"
   end
 

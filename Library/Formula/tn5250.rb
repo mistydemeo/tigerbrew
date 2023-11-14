@@ -1,7 +1,7 @@
 class Tn5250 < Formula
   desc "5250 terminal and printer emulator"
   homepage "http://tn5250.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/tn5250/tn5250/0.17.4/tn5250-0.17.4.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/tn5250/tn5250/0.17.4/tn5250-0.17.4.tar.gz"
   sha256 "354237d400dc46af887cb3ffa4ed1f2c371f5b8bee8be046a683a4ac9db4f9c5"
   revision 1
 

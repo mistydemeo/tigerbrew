@@ -1,7 +1,7 @@
 class OpenOcd < Formula
   desc "On-chip debugging, in-system programming and boundary-scan testing"
   homepage "http://sourceforge.net/projects/openocd/"
-  url "https://downloads.sourceforge.net/project/openocd/openocd/0.9.0/openocd-0.9.0.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/openocd/openocd/0.9.0/openocd-0.9.0.tar.bz2"
   sha256 "837042ac9a156b9363cbffa1fcdaf463bfb83a49331addf52e63119642b5f443"
 
   bottle do

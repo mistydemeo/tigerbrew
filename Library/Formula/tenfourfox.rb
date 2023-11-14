@@ -2,7 +2,7 @@ require 'formula'
 
 class Tenfourfox < Formula
   homepage 'http://www.floodgap.com/software/tenfourfox/'
-  urlbase = 'https://downloads.sourceforge.net/tenfourfox/'
+  urlbase = 'https://prdownloads.sourceforge.net/tenfourfox/'
   version '32.5.0-fpr'
 
   # depends_on :arch => :ppc

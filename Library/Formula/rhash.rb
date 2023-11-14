@@ -1,7 +1,7 @@
 class Rhash < Formula
   desc "Utility for computing and verifying hash sums of files"
   homepage "http://rhash.anz.ru/"
-  url "https://downloads.sourceforge.net/project/rhash/rhash/1.3.3/rhash-1.3.3-src.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/rhash/rhash/1.3.3/rhash-1.3.3-src.tar.gz"
   mirror "https://mirrors.kernel.org/debian/pool/main/r/rhash/rhash_1.3.3.orig.tar.gz"
   sha256 "5b520b597bd83f933d316fce1382bb90e0b0b87b559b8c9c9a197551c935315a"
 

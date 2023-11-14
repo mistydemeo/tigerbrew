@@ -30,7 +30,7 @@ class TclTk < Formula
   end
 
   resource "tcllib" do
-    url "https://downloads.sourceforge.net/project/tcllib/tcllib/1.21/tcllib-1.21.tar.xz"
+    url "https://prdownloads.sourceforge.net/project/tcllib/tcllib/1.21/tcllib-1.21.tar.xz"
     sha256 "10c7749e30fdd6092251930e8a1aa289b193a3b7f1abf17fee1d4fa89814762f"
   end
 

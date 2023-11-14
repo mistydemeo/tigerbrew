@@ -1,7 +1,7 @@
 class Opensc < Formula
   desc "Tools and libraries for smart cards"
   homepage "https://github.com/OpenSC/OpenSC/wiki"
-  url "https://downloads.sourceforge.net/project/opensc/OpenSC/opensc-0.15.0/opensc-0.15.0.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/opensc/OpenSC/opensc-0.15.0/opensc-0.15.0.tar.gz"
   sha256 "399b2107a69e3f67e4e76dc2dbd951dbced8e534b1e0f919e176aea9b85970d7"
   head "https://github.com/OpenSC/OpenSC.git"
 

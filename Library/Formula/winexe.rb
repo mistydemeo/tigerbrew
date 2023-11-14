@@ -1,7 +1,7 @@
 class Winexe < Formula
   desc "Remote Windows-command executor"
   homepage "http://sourceforge.net/projects/winexe/"
-  url "https://downloads.sourceforge.net/project/winexe/winexe-1.00.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/winexe/winexe-1.00.tar.gz"
   sha256 "99238bd3e1c0637041c737c86a05bd73a9375abc9794dca71d2765e22d87537e"
 
   depends_on "pkg-config" => :build

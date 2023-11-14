@@ -1,7 +1,7 @@
 class Fpc < Formula
   desc "Free Pascal: multi-architecture Pascal compiler"
   homepage "http://www.freepascal.org/"
-  url "https://downloads.sourceforge.net/project/freepascal/Source/2.6.4/fpc-2.6.4.source.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/freepascal/Source/2.6.4/fpc-2.6.4.source.tar.gz"
   sha256 "c16f2e6e0274c7afc0f1d2dded22d0fec98fe329b1d5b2f011af1655f3a1cc29"
 
   bottle do
@@ -12,7 +12,7 @@ class Fpc < Formula
   end
 
   resource "bootstrap" do
-    url "https://downloads.sourceforge.net/project/freepascal/Bootstrap/2.6.4/universal-macosx-10.5-ppcuniversal.tar.bz2"
+    url "https://prdownloads.sourceforge.net/project/freepascal/Bootstrap/2.6.4/universal-macosx-10.5-ppcuniversal.tar.bz2"
     sha256 "e7243e83e6a04de147ebab7530754ec92cd1fbabbc9b6b00a3f90a796312f3e9"
   end
 

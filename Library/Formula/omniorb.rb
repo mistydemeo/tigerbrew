@@ -1,7 +1,7 @@
 class Omniorb < Formula
   desc "IOR and naming service utilities for omniORB"
   homepage "http://omniorb.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/omniorb/omniORB/omniORB-4.2.0/omniORB-4.2.0.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/omniorb/omniORB/omniORB-4.2.0/omniORB-4.2.0.tar.bz2"
   sha256 "74c273fc997c2881b128feb52182dbe067acfecc4cf37475f43c104338eba8bc"
 
   bottle do
@@ -13,7 +13,7 @@ class Omniorb < Formula
   depends_on "pkg-config" => :build
 
   resource "bindings" do
-    url "https://downloads.sourceforge.net/project/omniorb/omniORBpy/omniORBpy-4.2.0/omniORBpy-4.2.0.tar.bz2"
+    url "https://prdownloads.sourceforge.net/project/omniorb/omniORBpy/omniORBpy-4.2.0/omniORBpy-4.2.0.tar.bz2"
     sha256 "c82b3bafacbb93cfaace41765219155f2b24eb3781369bba0581feb1dc50fe5e"
   end
 

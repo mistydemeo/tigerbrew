@@ -1,7 +1,7 @@
 class Zabbix < Formula
   desc "Availability and monitoring solution"
   homepage "https://www.zabbix.com/"
-  url "https://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/2.4.6/zabbix-2.4.6.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/2.4.6/zabbix-2.4.6.tar.gz"
   sha256 "0ebc6a3326e506cee18826baf2940e39fca3667650f7187e4aa103bf6f7f613c"
 
   bottle do

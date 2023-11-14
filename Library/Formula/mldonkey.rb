@@ -1,7 +1,7 @@
 class Mldonkey < Formula
   desc "OCaml/GTK client for the eDonkey P2P network"
   homepage "http://mldonkey.sourceforge.net/Main_Page"
-  url "https://downloads.sourceforge.net/project/mldonkey/mldonkey/3.1.5/mldonkey-3.1.5.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/mldonkey/mldonkey/3.1.5/mldonkey-3.1.5.tar.bz2"
   sha256 "74f9d4bcc72356aa28d0812767ef5b9daa03efc5d1ddabf56447dc04969911cb"
 
   bottle do

@@ -1,7 +1,7 @@
 class Squashfs < Formula
   desc "Compressed read-only file system for Linux"
   homepage "http://squashfs.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/squashfs/squashfs/squashfs4.3/squashfs4.3.tar.gz"
   sha256 "0d605512437b1eb800b4736791559295ee5f60177e102e4d4ccd0ee241a5f3f6"
 
   bottle do

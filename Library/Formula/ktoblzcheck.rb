@@ -1,7 +1,7 @@
 class Ktoblzcheck < Formula
   desc "Library for German banks"
   homepage "http://ktoblzcheck.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/ktoblzcheck/ktoblzcheck-1.48.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/ktoblzcheck/ktoblzcheck-1.48.tar.gz"
   sha256 "0f4e66d3a880355b1afc88870d224755e078dfaf192242d9c6acb8853f5bcf58"
 
   bottle do

@@ -1,7 +1,7 @@
 class CmuSphinxbase < Formula
   desc "Lightweight speech recognition engine for mobile devices"
   homepage "http://cmusphinx.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/cmusphinx/sphinxbase/0.8/sphinxbase-0.8.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/cmusphinx/sphinxbase/0.8/sphinxbase-0.8.tar.gz"
   sha256 "55708944872bab1015b8ae07b379bf463764f469163a8fd114cbb16c5e486ca8"
 
   head do

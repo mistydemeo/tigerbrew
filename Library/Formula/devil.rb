@@ -1,7 +1,7 @@
 class Devil < Formula
   desc "Cross-platform image library"
   homepage "http://sourceforge.net/projects/openil/"
-  url "https://downloads.sourceforge.net/project/openil/DevIL/1.7.8/DevIL-1.7.8.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/openil/DevIL/1.7.8/DevIL-1.7.8.tar.gz"
   sha256 "682ffa3fc894686156337b8ce473c954bf3f4fb0f3ecac159c73db632d28a8fd"
   revision 2
 

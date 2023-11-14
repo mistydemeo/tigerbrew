@@ -1,7 +1,7 @@
 class Libodbcxx < Formula
   desc "C++ development environment for SQL database access"
   homepage "http://libodbcxx.sourceforge.net"
-  url "https://downloads.sourceforge.net/project/libodbcxx/libodbc++/0.2.5/libodbc++-0.2.5.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/libodbcxx/libodbc++/0.2.5/libodbc++-0.2.5.tar.gz"
   sha256 "0731a475b4693514e6a99121441a40305df3fe1dce3756df20c7b6758aa53b57"
 
   bottle do

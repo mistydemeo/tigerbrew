@@ -3,7 +3,7 @@ class Gmtl < Formula
   homepage "http://ggt.sourceforge.net/"
 
   stable do
-    url "https://downloads.sourceforge.net/project/ggt/Generic%20Math%20Template%20Library/0.6.1/gmtl-0.6.1.tar.gz"
+    url "https://prdownloads.sourceforge.net/project/ggt/Generic%20Math%20Template%20Library/0.6.1/gmtl-0.6.1.tar.gz"
     sha256 "f7d8e6958d96a326cb732a9d3692a3ff3fd7df240eb1d0921a7c5c77e37fc434"
 
     # Build assumes that Python is a framework, which isn't always true. See:

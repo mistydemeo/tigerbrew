@@ -1,7 +1,7 @@
 class Owfs < Formula
   desc "Monitor and control physical environment using Dallas/Maxim 1-wire system"
   homepage "http://owfs.org/"
-  url "https://downloads.sourceforge.net/project/owfs/owfs/3.1p0/owfs-3.1p0.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/owfs/owfs/3.1p0/owfs-3.1p0.tar.gz"
   version "3.1p0"
   sha256 "62fca1b3e908cd4515c9eb499bf2b05020bbbea4a5b73611ddc6f205adec7a54"
 

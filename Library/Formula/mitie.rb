@@ -19,7 +19,7 @@ class Mitie < Formula
   option "without-models", "Don't download the v0.2 models (~415MB)"
 
   resource "models-english" do
-    url "https://downloads.sourceforge.net/project/mitie/binaries/MITIE-models-v0.2.tar.bz2"
+    url "https://prdownloads.sourceforge.net/project/mitie/binaries/MITIE-models-v0.2.tar.bz2"
     sha256 "dc073eaef980e65d68d18c7193d94b9b727beb254a0c2978f39918f158d91b31"
   end
 

@@ -1,7 +1,7 @@
 class Qjson < Formula
   desc "Map JSON to QVariant objects"
   homepage "http://qjson.sourceforge.net"
-  url "https://downloads.sourceforge.net/project/qjson/qjson/0.8.1/qjson-0.8.1.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/qjson/qjson/0.8.1/qjson-0.8.1.tar.bz2"
   mirror "https://mirrors.kernel.org/debian/pool/main/q/qjson/qjson_0.8.1.orig.tar.bz2"
   sha256 "cd4db5b956247c4991a9c3e95512da257cd2a6bd011357e363d02300afc814d9"
   head "https://github.com/flavio/qjson.git"

@@ -1,7 +1,7 @@
 class Msdl < Formula
   desc "Downloader for various streaming protocols"
   homepage "http://msdl.sourceforge.net"
-  url "https://downloads.sourceforge.net/msdl/msdl-1.2.7-r2.tar.gz"
+  url "https://prdownloads.sourceforge.net/msdl/msdl-1.2.7-r2.tar.gz"
   version "1.2.7-r2"
   sha256 "0297e87bafcab885491b44f71476f5d5bfc648557e7d4ef36961d44dd430a3a1"
 

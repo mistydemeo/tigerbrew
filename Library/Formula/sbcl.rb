@@ -1,7 +1,7 @@
 class Sbcl < Formula
   desc "Steel Bank Common Lisp system"
   homepage "http://www.sbcl.org/"
-  url "https://downloads.sourceforge.net/project/sbcl/sbcl/1.2.15/sbcl-1.2.15-source.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/sbcl/sbcl/1.2.15/sbcl-1.2.15-source.tar.bz2"
   sha256 "d95a6e8a4b658f9973825f8d44d6195a645b0d6a33d865324c0c658b8bcb1651"
 
   head "git://sbcl.git.sourceforge.net/gitroot/sbcl/sbcl.git"
@@ -27,12 +27,12 @@ class Sbcl < Formula
   # Current binary versions are listed at http://sbcl.sourceforge.net/platform-table.html
 
   resource "bootstrap64" do
-    url "https://downloads.sourceforge.net/project/sbcl/sbcl/1.1.8/sbcl-1.1.8-x86-64-darwin-binary.tar.bz2"
+    url "https://prdownloads.sourceforge.net/project/sbcl/sbcl/1.1.8/sbcl-1.1.8-x86-64-darwin-binary.tar.bz2"
     sha256 "729054dc27d6b53bd734eac4dffeaa9e231e97bdbe4927d7a68c8f0210cad700"
   end
 
   resource "bootstrap32" do
-    url "https://downloads.sourceforge.net/project/sbcl/sbcl/1.1.6/sbcl-1.1.6-x86-darwin-binary.tar.bz2"
+    url "https://prdownloads.sourceforge.net/project/sbcl/sbcl/1.1.6/sbcl-1.1.6-x86-darwin-binary.tar.bz2"
     sha256 "5801c60e2a875d263fccde446308b613c0253a84a61ab63569be62eb086718b3"
   end
 

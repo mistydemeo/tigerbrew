@@ -1,7 +1,7 @@
 class Smartmontools < Formula
   desc "SMART hard drive monitoring"
   homepage "https://www.smartmontools.org/"
-  url "https://downloads.sourceforge.net/project/smartmontools/smartmontools/6.5/smartmontools-6.5.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/smartmontools/smartmontools/6.5/smartmontools-6.5.tar.gz"
   sha256 "89e8bb080130bc6ce148573ba5bb91bfe30236b64b1b5bbca26515d4b5c945bc"
 
   bottle do

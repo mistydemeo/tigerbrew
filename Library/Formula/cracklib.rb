@@ -1,7 +1,7 @@
 class Cracklib < Formula
   desc "LibCrack password checking library"
   homepage "http://cracklib.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/cracklib/cracklib/2.9.5/cracklib-2.9.5.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/cracklib/cracklib/2.9.5/cracklib-2.9.5.tar.gz"
   sha256 "59ab0138bc8cf90cccb8509b6969a024d5e58d2d02bcbdccbb9ba9b88be3fa33"
 
   bottle do
@@ -13,7 +13,7 @@ class Cracklib < Formula
   end
 
   resource "cracklib-words" do
-    url "https://downloads.sourceforge.net/project/cracklib/cracklib-words/2008-05-07/cracklib-words-20080507.gz"
+    url "https://prdownloads.sourceforge.net/project/cracklib/cracklib-words/2008-05-07/cracklib-words-20080507.gz"
     sha256 "e0c7f452c1fd80d551ae4a7d1afa7fa19cbf47c2d6d5dafc1255c1e76502cb71"
   end
 

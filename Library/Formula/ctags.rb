@@ -1,7 +1,7 @@
 class Ctags < Formula
   desc "Reimplementation of ctags(1)"
   homepage "http://ctags.sourceforge.net/"
-  url "https://downloads.sourceforge.net/ctags/ctags-5.8.tar.gz"
+  url "https://prdownloads.sourceforge.net/ctags/ctags-5.8.tar.gz"
   sha256 "0e44b45dcabe969e0bbbb11e30c246f81abe5d32012db37395eb57d66e9e99c7"
   revision 1
 

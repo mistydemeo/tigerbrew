@@ -1,7 +1,7 @@
 class Ctorrent < Formula
   desc "BitTorrent command-line client"
   homepage "http://www.rahul.net/dholmes/ctorrent/"
-  url "https://downloads.sourceforge.net/project/dtorrent/dtorrent/3.3.2/ctorrent-dnh3.3.2.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/dtorrent/dtorrent/3.3.2/ctorrent-dnh3.3.2.tar.gz"
   sha256 "c87366c91475931f75b924119580abd06a7b3cb3f00fef47346552cab1e24863"
   revision 1
 

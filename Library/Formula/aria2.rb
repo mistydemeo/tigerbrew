@@ -1,7 +1,7 @@
 class Aria2 < Formula
   desc "Download with resuming and segmented downloading"
   homepage "http://aria2.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/aria2/stable/aria2-1.19.0/aria2-1.19.0.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/aria2/stable/aria2-1.19.0/aria2-1.19.0.tar.bz2"
   mirror "https://mirrors.kernel.org/debian/pool/main/a/aria2/aria2_1.19.0.orig.tar.bz2"
   sha256 "ae2b6fce7a0974c9156415cccf2395cd258580ab34eec2b34a8e76120b7240ce"
 

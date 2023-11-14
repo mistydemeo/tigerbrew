@@ -1,7 +1,7 @@
 class Pcre < Formula
   desc "Perl compatible regular expressions library"
   homepage "http://www.pcre.org/"
-  url "https://downloads.sourceforge.net/project/pcre/pcre/8.45/pcre-8.45.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/pcre/pcre/8.45/pcre-8.45.tar.bz2"
   sha256 "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8"
 
   bottle do

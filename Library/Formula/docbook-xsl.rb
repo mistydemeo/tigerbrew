@@ -1,7 +1,7 @@
 class DocbookXsl < Formula
   desc "XML vocabulary to create presentation-neutral documents"
   homepage "http://docbook.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/docbook/docbook-xsl/1.78.1/docbook-xsl-1.78.1.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/docbook/docbook-xsl/1.78.1/docbook-xsl-1.78.1.tar.bz2"
   sha256 "c98f7296ab5c8ccd2e0bc07634976a37f50847df2d8a59bdb1e157664700b467"
   revision 1
 
@@ -15,7 +15,7 @@ class DocbookXsl < Formula
   depends_on "docbook"
 
   resource "ns" do
-    url "https://downloads.sourceforge.net/project/docbook/docbook-xsl-ns/1.78.1/docbook-xsl-ns-1.78.1.tar.bz2"
+    url "https://prdownloads.sourceforge.net/project/docbook/docbook-xsl-ns/1.78.1/docbook-xsl-ns-1.78.1.tar.bz2"
     sha256 "cf8ede7284d7f825c24b95ea273551439c55e9af9a4209ac89e3a7d915607af4"
   end
 

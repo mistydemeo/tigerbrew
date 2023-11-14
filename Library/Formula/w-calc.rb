@@ -1,5 +1,5 @@
 class WCalc < Formula
-  url "https://downloads.sourceforge.net/w-calc/wcalc-2.5.tar.bz2"
+  url "https://prdownloads.sourceforge.net/w-calc/wcalc-2.5.tar.bz2"
   bottle do
     cellar :any
     sha1 "dcd1bc693b7536d7f7707e82de4214a7327d9af3" => :yosemite

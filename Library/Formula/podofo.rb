@@ -1,7 +1,7 @@
 class Podofo < Formula
   desc "Library to work with the PDF file format"
   homepage "http://podofo.sourceforge.net"
-  url "https://downloads.sourceforge.net/podofo/podofo-0.9.3.tar.gz"
+  url "https://prdownloads.sourceforge.net/podofo/podofo-0.9.3.tar.gz"
   sha256 "ec261e31e89dce45b1a31be61e9c6bb250532e631a02d68ec5bb849ef0a222d8"
   revision 1
 

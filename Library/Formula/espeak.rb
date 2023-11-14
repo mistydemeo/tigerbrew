@@ -1,7 +1,7 @@
 class Espeak < Formula
   desc "Text to speech, software speech synthesizer"
   homepage "http://espeak.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/espeak/espeak/espeak-1.48/espeak-1.48.04-source.zip"
+  url "https://prdownloads.sourceforge.net/project/espeak/espeak/espeak-1.48/espeak-1.48.04-source.zip"
   sha256 "bf9a17673adffcc28ff7ea18764f06136547e97bbd9edf2ec612f09b207f0659"
 
   bottle do

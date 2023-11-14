@@ -1,7 +1,7 @@
 class Chadwick < Formula
   desc "Chadwick tools for parsing Retrosheet MLB play-by-play files."
   homepage "http://chadwick.sourceforge.net/doc/index.html"
-  url "https://downloads.sourceforge.net/project/chadwick/chadwick-0.6/chadwick-0.6.4/chadwick-0.6.4.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/chadwick/chadwick-0.6/chadwick-0.6.4/chadwick-0.6.4.tar.gz"
   sha256 "2fcc44b4110c3aebf8b9f3daaccf22ccaba3760d3d878e65d38b86127b913559"
 
   bottle do
@@ -13,7 +13,7 @@ class Chadwick < Formula
 
   resource "event_files" do
     url "http://www.retrosheet.org/events/2014eve.zip"
-    sha256 "f2bdcf2c587ea8b67d5c5485edad67c688a8e02325c2b787362ab360b79abdbd"
+    sha256 "a699c9be2cfd5d3fb8baa56401e1ff47ee2cb3e4194b5053b7f94a73d2cf7da3"
   end
 
   def install

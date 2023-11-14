@@ -1,7 +1,7 @@
 class Portmidi < Formula
   desc "Cross-platform library for real-time MIDI I/O"
   homepage "http://sourceforge.net/apps/trac/portmedia/wiki/portmidi"
-  url "https://downloads.sourceforge.net/project/portmedia/portmidi/217/portmidi-src-217.zip"
+  url "https://prdownloads.sourceforge.net/project/portmedia/portmidi/217/portmidi-src-217.zip"
   sha256 "08e9a892bd80bdb1115213fb72dc29a7bf2ff108b378180586aa65f3cfd42e0f"
 
   option "with-java", "Build java based app and bindings. You need the Java SDK for this."

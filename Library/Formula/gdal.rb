@@ -100,7 +100,7 @@ class Gdal < Formula
   end
 
   resource "numpy" do
-    url "https://downloads.sourceforge.net/project/numpy/NumPy/1.8.1/numpy-1.8.1.tar.gz"
+    url "https://prdownloads.sourceforge.net/project/numpy/NumPy/1.8.1/numpy-1.8.1.tar.gz"
     sha256 "3d722fc3ac922a34c50183683e828052cd9bb7e9134a95098441297d7ea1c7a9"
   end
 

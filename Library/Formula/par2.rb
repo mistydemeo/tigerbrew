@@ -1,7 +1,7 @@
 class Par2 < Formula
   desc "Parchive: Parity Archive Volume Set for data recovery"
   homepage "http://parchive.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/parchive/par2cmdline/0.4/par2cmdline-0.4.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/parchive/par2cmdline/0.4/par2cmdline-0.4.tar.gz"
   sha256 "9e32b7dbcf7bca8249f98824757d4868714156fe2276516504cd26f736e9f677"
 
   bottle do

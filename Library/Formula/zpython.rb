@@ -20,7 +20,7 @@ class Zpython < Formula
   homepage "https://bitbucket.org/ZyX_I/zsh"
 
   stable do
-    url "https://downloads.sourceforge.net/project/zsh/zsh/5.0.5/zsh-5.0.5.tar.bz2"
+    url "https://prdownloads.sourceforge.net/project/zsh/zsh/5.0.5/zsh-5.0.5.tar.bz2"
     mirror "http://www.zsh.org/pub/zsh-5.0.5.tar.bz2"
 
     # Note, non-head version is completly implemented in this lengthy patch

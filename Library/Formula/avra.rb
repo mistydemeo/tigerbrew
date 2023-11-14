@@ -1,7 +1,7 @@
 class Avra < Formula
   desc "Assember for the Atmel AVR microcontroller family"
   homepage "http://avra.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/avra/1.3.0/avra-1.3.0.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/avra/1.3.0/avra-1.3.0.tar.bz2"
   sha256 "a62cbf8662caf9cc4e75da6c634efce402778639202a65eb2d149002c1049712"
 
   bottle do

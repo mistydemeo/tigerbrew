@@ -1,7 +1,7 @@
 class Libnet < Formula
   desc "C library for creating IP packets"
   homepage "https://github.com/sam-github/libnet"
-  url "https://downloads.sourceforge.net/project/libnet-dev/libnet-1.1.6.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/libnet-dev/libnet-1.1.6.tar.gz"
   sha256 "d392bb5825c4b6b672fc93a0268433c86dc964e1500c279dc6d0711ea6ec467a"
 
   bottle do

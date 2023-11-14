@@ -1,7 +1,7 @@
 class Luciddb < Formula
   desc "DBMS optimized for business intelligence"
   homepage "http://www.luciddb.org/"
-  url "https://downloads.sourceforge.net/project/luciddb/luciddb/luciddb-0.9.4/luciddb-bin-macos32-0.9.4.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/luciddb/luciddb/luciddb-0.9.4/luciddb-bin-macos32-0.9.4.tar.bz2"
   sha256 "fe6caa93d63a97e412e2bc478e1a1bd99c2aa736b1dcfea665cbab94b8da8593"
 
   def shim_script(target)

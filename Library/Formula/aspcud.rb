@@ -1,7 +1,7 @@
 class Aspcud < Formula
   desc "Package dependency solver"
   homepage "http://potassco.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/potassco/aspcud/1.9.1/aspcud-1.9.1-source.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/potassco/aspcud/1.9.1/aspcud-1.9.1-source.tar.gz"
   sha256 "e0e917a9a6c5ff080a411ff25d1174e0d4118bb6759c3fe976e2e3cca15e5827"
 
   bottle do

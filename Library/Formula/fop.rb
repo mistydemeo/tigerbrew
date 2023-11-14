@@ -13,7 +13,7 @@ class Fop < Formula
   end
 
   resource "hyph" do
-    url "https://downloads.sourceforge.net/project/offo/offo-hyphenation-utf8/0.1/offo-hyphenation-fop-stable-utf8.zip"
+    url "https://prdownloads.sourceforge.net/project/offo/offo-hyphenation-utf8/0.1/offo-hyphenation-fop-stable-utf8.zip"
     sha256 "0b4e074635605b47a7b82892d68e90b6ba90fd2af83142d05878d75762510128"
   end
 

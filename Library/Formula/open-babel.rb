@@ -3,7 +3,7 @@ class OpenBabel < Formula
   homepage "http://www.openbabel.org"
 
   stable do
-    url "https://downloads.sourceforge.net/project/openbabel/openbabel/2.3.2/openbabel-2.3.2.tar.gz"
+    url "https://prdownloads.sourceforge.net/project/openbabel/openbabel/2.3.2/openbabel-2.3.2.tar.gz"
     sha256 "4eaca26679aa6cc85ebf96af19191472ac63ca442c36b0427b369c3a25705188"
 
     # Patch to support libc++ in OS X 10.9+, backport of upstream commit c3abbddae78e654df9322ad1020ff79dd6332946

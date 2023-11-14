@@ -1,7 +1,7 @@
 class Cunit < Formula
   desc "Lightweight unit testing framework for C"
   homepage "http://cunit.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/cunit/CUnit/2.1-3/CUnit-2.1-3.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/cunit/CUnit/2.1-3/CUnit-2.1-3.tar.bz2"
   sha256 "f5b29137f845bb08b77ec60584fdb728b4e58f1023e6f249a464efa49a40f214"
 
   bottle do

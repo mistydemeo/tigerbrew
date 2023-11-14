@@ -1,7 +1,7 @@
 class Nagios < Formula
   desc "Network monitoring and management system"
   homepage "http://www.nagios.org/"
-  url "https://downloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.6/nagios-4.0.6.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.6/nagios-4.0.6.tar.gz"
   sha256 "d400190c771eb90e0ba16351f6358fa7e22e42a7be986f2066db63518a14397b"
 
   depends_on "gd"

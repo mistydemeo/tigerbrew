@@ -1,7 +1,7 @@
 class Queequeg < Formula
   desc "English grammar checker for non-native speakers"
   homepage "http://queequeg.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/queequeg/queequeg/queequeg-0.91/queequeg-0.91.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/queequeg/queequeg/queequeg-0.91/queequeg-0.91.tar.gz"
   sha256 "44e2f2bb8b68d08b7ee95ece24cefeeea8ec6ff9150851922015b73fc8908136"
 
   bottle do

@@ -3,7 +3,7 @@ class Allegro < Formula
   homepage "http://liballeg.org/"
 
   stable do
-    url "https://downloads.sourceforge.net/project/alleg/allegro/5.0.11/allegro-5.0.11.tar.gz"
+    url "https://prdownloads.sourceforge.net/project/alleg/allegro/5.0.11/allegro-5.0.11.tar.gz"
     sha256 "49fe14c9571463ba08db4ff778d1fbb15e49f9c33bdada3ac8599e04330ea531"
   end
   bottle do
@@ -15,7 +15,7 @@ class Allegro < Formula
   end
 
   devel do
-    url "https://downloads.sourceforge.net/project/alleg/allegro-unstable/5.1.11/allegro-5.1.11.tar.gz"
+    url "https://prdownloads.sourceforge.net/project/alleg/allegro-unstable/5.1.11/allegro-5.1.11.tar.gz"
     sha256 "7a071635e39105ce52cd82c8641a8f3841efbdfe8fdb39f7a5ae1be6db3be07f"
 
     depends_on "theora" => :recommended

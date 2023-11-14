@@ -1,7 +1,7 @@
 class Gputils < Formula
   desc "GNU PIC Utilities"
   homepage "http://gputils.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/gputils/gputils/1.4.0/gputils-1.4.0-1.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/gputils/gputils/1.4.0/gputils-1.4.0-1.tar.gz"
   sha256 "d0ce93b6bcf266b8dfa0d0d589d5626a04b950a4e450ff27ef62534243ac7edb"
 
   bottle do

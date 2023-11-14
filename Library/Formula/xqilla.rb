@@ -1,7 +1,7 @@
 class Xqilla < Formula
   desc "XQuery and XPath 2 command-line interpreter"
   homepage "http://xqilla.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/xqilla/XQilla-2.3.1.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/xqilla/XQilla-2.3.1.tar.gz"
   sha256 "5ba1c1060c7d7e1dae537d4e1388d23b278a2177c7652e33121d481907d25d68"
 
   bottle do

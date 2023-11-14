@@ -1,7 +1,7 @@
 class Qwt < Formula
   desc "Qt Widgets for Technical Applications (v5.1)"
   homepage "http://qwt.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/qwt/qwt/6.1.2/qwt-6.1.2.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/qwt/qwt/6.1.2/qwt-6.1.2.tar.bz2"
   sha256 "2b08f18d1d3970e7c3c6096d850f17aea6b54459389731d3ce715d193e243d0c"
 
   bottle do

@@ -1,7 +1,7 @@
 class Mpg321 < Formula
   desc "Command-line MP3 player"
   homepage "http://mpg321.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/mpg321/mpg321/0.3.2/mpg321_0.3.2.orig.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/mpg321/mpg321/0.3.2/mpg321_0.3.2.orig.tar.gz"
   sha256 "056fcc03e3f5c5021ec74bb5053d32c4a3b89b4086478dcf81adae650eac284e"
 
   depends_on "mad"

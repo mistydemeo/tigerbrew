@@ -1,7 +1,7 @@
 class SilcClient < Formula
   desc "SILC conferencing client"
   homepage "http://silcnet.org/client.html"
-  url "https://downloads.sourceforge.net/project/silc/silc/client/sources/silc-client-1.1.11.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/silc/silc/client/sources/silc-client-1.1.11.tar.gz"
   sha256 "8cedf2f3c15322296afe094de60504bc27e349f1942713a2f322c7ef6ad5089e"
   bottle do
     sha1 "3222c80d0b58f752bab07c29679dc0585d43d067" => :yosemite

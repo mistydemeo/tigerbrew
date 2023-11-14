@@ -1,7 +1,7 @@
 class Ngrep < Formula
   desc "network grep"
   homepage "http://ngrep.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/ngrep/ngrep/1.45/ngrep-1.45.tar.bz2"
+  url "https://prdownloads.sourceforge.net/project/ngrep/ngrep/1.45/ngrep-1.45.tar.bz2"
   sha256 "aea6dd337da8781847c75b3b5b876e4de9c58520e0d77310679a979fc6402fa7"
   revision 1
 
