@@ -1,18 +1,23 @@
 class Re2c < Formula
   desc "Generate C-based recognizers from regular expressions"
   homepage "http://re2c.org"
-  url "https://downloads.sourceforge.net/project/re2c/re2c/0.14.3/re2c-0.14.3.tar.gz"
-  sha256 "1c6806df599f3aef0804b576cfdf64bdba5ad590626dfca2d44e473460917e84"
+  url "https://github.com/skvadrik/re2c/releases/download/3.1/re2c-3.1.tar.xz"
+  sha256 "0ac299ad359e3f512b06a99397d025cfff81d3be34464ded0656f8a96676c029"
+  license :public_domain
+
+  # Need a compiler with C++11 support, GCC 4.8.1 or newer.
+  fails_with :gcc_4_0
+  fails_with :gcc
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "63da94c4a7566d3c95c6e85ab3dcfc57b8e9178faa6c8e6e8e605f01c7a5a354" => :el_capitan
-    sha256 "7040c6d1946125f13649a16b21ac9d44afd3c0539dfc2ce97e376c436b768141" => :yosemite
-    sha256 "06528f7fb154253ba75560e7ea77845fda54e2cbb9257244c4ea63afd40d6fe4" => :mavericks
-    sha256 "1cafc788466d50c7d1f68719b0fd62b9f2599a5909c4c280043d91e17d4aa183" => :mountain_lion
   end
 
+  depends_on :python3 => :build
+
   def install
+    # Configure tries to do the right thing and sets -std to c++11 which doesn't work here.
+    ENV.append "CXXFLAGS", "-std=gnu++11"
     system "./configure", "--disable-debug",
                           "--disable-dependency-tracking",
                           "--prefix=#{prefix}"
