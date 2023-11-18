@@ -1,21 +1,11 @@
 class Aspell < Formula
   desc "Spell checker with better logic than ispell"
   homepage "http://aspell.net/"
-  url "http://ftpmirror.gnu.org/aspell/aspell-0.60.6.1.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/aspell/aspell-0.60.6.1.tar.gz"
-  sha256 "f52583a83a63633701c5f71db3dc40aab87b7f76b29723aeb27941eff42df6e1"
+  url "http://mirror.koddos.net/gnu/aspell/aspell-0.60.8.tar.gz"
+  mirror "https://ftp.gnu.org/gnu/aspell/aspell-0.60.8.tar.gz"
+  sha256 "f9b77e515334a751b2e60daab5db23499e26c9209f5e7b7443b05235ad0226f2"
 
   bottle do
-    sha256 "ccc60cb56f23d7ad911ae2b564c1257ba0e5136e069b9cff6372a12bd720ce64" => :el_capitan
-    sha1 "2dc302f844040241b90625896d90f8167a7fed2e" => :yosemite
-    sha1 "1bbcc135fd6b28bd3c604805b1e24aee42d4b194" => :mavericks
-    sha1 "8408ca154004072598e294aad2d17d4665d5b313" => :mountain_lion
-  end
-
-  devel do
-    url "ftp://alpha.gnu.org/gnu/aspell/aspell-0.60.7-20110707.tar.gz"
-    sha256 "084005bd37013f17b725eca033fe19053b2ab33144e990685486746cb10416a5"
-    version "0.60.7-20110707"
   end
 
   option "with-lang-af", "Install af dictionary"
@@ -111,16 +101,16 @@ class Aspell < Formula
 
   option "with-lang-da", "Install da dictionary"
   resource "da" do
-    url "http://ftpmirror.gnu.org/aspell/dict/da/aspell5-da-1.4.42-1.tar.bz2"
-    mirror "https://ftp.gnu.org/gnu/aspell/dict/da/aspell5-da-1.4.42-1.tar.bz2"
-    sha256 "f74a079617979c1623e8e7313e4ecd3bc260db92ce55b1f2a3a5e7077dacd3c1"
+    url "http://ftpmirror.gnu.org/aspell/dict/da/aspell6-da-1.6.36-11-0.tar.bz2"
+    mirror "https://ftp.gnu.org/gnu/aspell/dict/da/aspell6-da-1.6.36-11-0.tar.bz2"
+    sha256 "dbc6cbceaa7a4528f3756f0b5cce5c3d0615c2103d3899b47e9df2ed9582e2f7"
   end
 
   option "with-lang-de", "Install de dictionary"
   resource "de" do
-    url "http://ftpmirror.gnu.org/aspell/dict/de/aspell6-de-20030222-1.tar.bz2"
-    mirror "https://ftp.gnu.org/gnu/aspell/dict/de/aspell6-de-20030222-1.tar.bz2"
-    sha256 "ba6c94e11bc2e0e6e43ce0f7822c5bba5ca5ac77129ef90c190b33632416e906"
+    url "http://ftpmirror.gnu.org/aspell/dict/de/aspell6-de-20161207-7-0.tar.bz2"
+    mirror "https://ftp.gnu.org/gnu/aspell/dict/de/aspell6-de-20161207-7-0.tar.bz2"
+    sha256 "c2125d1fafb1d4effbe6c88d4e9127db59da9ed92639c7cbaeae1b7337655571"
   end
 
   option "with-lang-de_alt", "Install de_alt dictionary"
@@ -132,15 +122,15 @@ class Aspell < Formula
 
   option "with-lang-el", "Install el dictionary"
   resource "el" do
-    url "http://ftpmirror.gnu.org/aspell/dict/el/aspell-el-0.50-3.tar.bz2"
-    mirror "https://ftp.gnu.org/gnu/aspell/dict/el/aspell-el-0.50-3.tar.bz2"
-    sha256 "3f6508937dcaa64a6c70ee5f722f088b46b202a6409961b93b705d4ec4f56380"
+    url "http://ftpmirror.gnu.org/aspell/dict/el/aspell6-el-0.08-0.tar.bz2"
+    mirror "https://ftp.gnu.org/gnu/aspell/dict/el/aspell6-el-0.08-0.tar.bz2"
+    sha256 "4af60f1a8adf8b1899680deefdf49288d7406a2c591658f880628bf7c1604cd2"
   end
 
   option "with-lang-en", "Install en dictionary"
   resource "en" do
-    url "http://ftpmirror.gnu.org/aspell/dict/en/aspell6-en-2015.02.15-0.tar.bz2"
-    mirror "https://ftp.gnu.org/gnu/aspell/dict/en/aspell6-en-2015.02.15-0.tar.bz2"
+    url "http://ftpmirror.gnu.org/aspell/dict/en/aspell6-en-2020.12.07-0.tar.bz2"
+    mirror "https://ftp.gnu.org/gnu/aspell/dict/en/aspell6-en-2020.12.07-0.tar.bz2"
     sha256 "865ba3492b54cad102d9de4c0e59494710ca018e0341057ade66bde32d58182a"
   end
 
@@ -312,12 +302,13 @@ class Aspell < Formula
     sha256 "523912082848d891746dbb233f2ddb2cdbab6750dc76c38b3f6e000c9eb37308"
   end
 
-  option "with-lang-is", "Install is dictionary"
-  resource "is" do
-    url "http://ftpmirror.gnu.org/aspell/dict/is/aspell-is-0.51.1-0.tar.bz2"
-    mirror "https://ftp.gnu.org/gnu/aspell/dict/is/aspell-is-0.51.1-0.tar.bz2"
-    sha256 "3035bd29dad929ce66e6acdc7c29670df458e0d13fe178241b212f481111e3d6"
-  end
+  # /usr/bin/tar: aspell-is-0.51.1-0/\355slenska.alias: Cannot open: Invalid argument
+  #option "with-lang-is", "Install is dictionary"
+  #resource "is" do
+  #  url "http://ftpmirror.gnu.org/aspell/dict/is/aspell-is-0.51.1-0.tar.bz2"
+  #  mirror "https://ftp.gnu.org/gnu/aspell/dict/is/aspell-is-0.51.1-0.tar.bz2"
+  #  sha256 "3035bd29dad929ce66e6acdc7c29670df458e0d13fe178241b212f481111e3d6"
+  #end
 
   option "with-lang-it", "Install it dictionary"
   resource "it" do
@@ -424,12 +415,13 @@ class Aspell < Formula
     sha256 "e00fcaad60a90cfed687ba02f62be8c27b8650457dd3c5bdcb064b476da059b4"
   end
 
-  option "with-lang-nb", "Install nb dictionary"
-  resource "nb" do
-    url "http://ftpmirror.gnu.org/aspell/dict/nb/aspell-nb-0.50.1-0.tar.bz2"
-    mirror "https://ftp.gnu.org/gnu/aspell/dict/nb/aspell-nb-0.50.1-0.tar.bz2"
-    sha256 "e7746e8b617b2df576c1172399544818084524504202b16c747f52db5e5d228a"
-  end
+  # /usr/bin/tar: aspell-nb-0.50.1-0/bokm\345l.alias: Cannot open: Invalid argument
+  #option "with-lang-nb", "Install nb dictionary"
+  #resource "nb" do
+  #  url "http://ftpmirror.gnu.org/aspell/dict/nb/aspell-nb-0.50.1-0.tar.bz2"
+  #  mirror "https://ftp.gnu.org/gnu/aspell/dict/nb/aspell-nb-0.50.1-0.tar.bz2"
+  #  sha256 "e7746e8b617b2df576c1172399544818084524504202b16c747f52db5e5d228a"
+  #end
 
   option "with-lang-nds", "Install nds dictionary"
   resource "nds" do
@@ -482,16 +474,16 @@ class Aspell < Formula
 
   option "with-lang-pt_BR", "Install pt_BR dictionary"
   resource "pt_BR" do
-    url "http://ftpmirror.gnu.org/aspell/dict/pt_BR/aspell6-pt_BR-20090702-0.tar.bz2"
-    mirror "https://ftp.gnu.org/gnu/aspell/dict/pt_BR/aspell6-pt_BR-20090702-0.tar.bz2"
-    sha256 "77fc554aa9bbd5f4a87b58edf0d128838e92e4db6299904bb9360bf753a709f8"
+    url "http://ftpmirror.gnu.org/aspell/dict/pt_BR/aspell6-pt_BR-20131030-12-0.tar.bz2"
+    mirror "https://ftp.gnu.org/gnu/aspell/dict/pt_BR/aspell6-pt_BR-20131030-12-0.tar.bz2"
+    sha256 "eb0d99db0b5d5c442133a88bddfe96dd252c0c3df3da36e9326c241dc4bc14f7"
   end
 
   option "with-lang-pt_PT", "Install pt_PT dictionary"
   resource "pt_PT" do
-    url "http://ftpmirror.gnu.org/aspell/dict/pt_PT/aspell6-pt_PT-20070510-0.tar.bz2"
-    mirror "https://ftp.gnu.org/gnu/aspell/dict/pt_PT/aspell6-pt_PT-20070510-0.tar.bz2"
-    sha256 "b8b7a71a480f2a6659a3ab1e6069d4be7a9a929fc520e4a1364f51ce484ad9d6"
+    url "http://ftpmirror.gnu.org/aspell/dict/pt_PT/aspell6-pt_PT-20190329-1-0.tar.bz2"
+    mirror "https://ftp.gnu.org/gnu/aspell/dict/pt_PT/aspell6-pt_PT-20190329-1-0.tar.bz2"
+    sha256 "e5708b890c2afff51276a6cc276af5e6b3b8a026db75eda48b58124f2368a051"
   end
 
   option "with-lang-qu", "Install qu dictionary"
@@ -658,17 +650,9 @@ class Aspell < Formula
   option "with-all-langs", "Install all available dictionaries"
   deprecated_option "all" => "with-all-langs"
 
-  fails_with :llvm do
-    build 2334
-    cause "Segmentation fault during linking."
-  end
-
   def available_languages
     resources.map(&:name)
   end
-
-  # const problems with llvm: http://www.freebsd.org/cgi/query-pr.cgi?pr=180565&cat=
-  patch :DATA
 
   def install
     system "./configure", "--prefix=#{prefix}"
@@ -701,25 +685,3 @@ class Aspell < Formula
                  "worrd"
   end
 end
-
-__END__
-diff --git a/interfaces/cc/aspell.h b/interfaces/cc/aspell.h
-index 9c8e81b..2cd00d4 100644
---- a/interfaces/cc/aspell.h
-+++ b/interfaces/cc/aspell.h
-@@ -237,6 +237,7 @@ void delete_aspell_can_have_error(struct AspellCanHaveError * ths);
- /******************************** errors ********************************/
-
-
-+#ifndef __cplusplus
- extern const struct AspellErrorInfo * const aerror_other;
- extern const struct AspellErrorInfo * const aerror_operation_not_supported;
- extern const struct AspellErrorInfo * const   aerror_cant_copy;
-@@ -322,6 +323,7 @@ extern const struct AspellErrorInfo * const   aerror_missing_magic;
- extern const struct AspellErrorInfo * const   aerror_bad_magic;
- extern const struct AspellErrorInfo * const aerror_expression;
- extern const struct AspellErrorInfo * const   aerror_invalid_expression;
-+#endif
-
-
- /******************************* speller *******************************/
