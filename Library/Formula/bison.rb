@@ -1,12 +1,11 @@
 class Bison < Formula
   desc "Parser generator"
   homepage "https://www.gnu.org/software/bison/"
-  url "http://ftpmirror.gnu.org/bison/bison-3.8.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/bison/bison-3.8.tar.xz"
-  sha256 "1e0a14a8bf52d878e500c33d291026b9ebe969c27b3998d4b4285ab6dbce4527"
+  url "http://ftpmirror.gnu.org/bison/bison-3.8.2.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/bison/bison-3.8.2.tar.xz"
+  sha256 "9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2"
 
   bottle do
-    sha256 "2e6110b42f498d4edcfb07904c56c2cb399677587be77ba0964f22b4493dc79f" => :tiger_altivec
   end
 
   if MacOS.version < :leopard
