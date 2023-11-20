@@ -1,12 +1,11 @@
 class Freetype < Formula
   desc "Software library to render fonts"
   homepage "http://www.freetype.org"
-  url "https://download.savannah.gnu.org/releases/freetype/freetype-2.13.0.tar.xz"
-  mirror "https://downloads.sf.net/project/freetype/freetype2/2.13/freetype-2.13.tar.bz2"
-  sha256 "5ee23abd047636c24b2d43c6625dcafc66661d1aca64dec9e0d05df29592624c"
+  url "https://download.savannah.gnu.org/releases/freetype/freetype-2.13.2.tar.xz"
+  mirror "https://download-mirror.savannah.gnu.org/releases/freetype/freetype-2.13.2.tar.xz"
+  sha256 "12991c4e55c506dd7f9b765933e62fd2be2e06d421505d7950a132e4f1bb484d"
 
   bottle do
-    sha256 "aa82c56e8b33adb68643267a13f4ffa6512b1b4e5e451b1f1c0d86a57e760935" => :tiger_altivec
   end
 
   keg_only :provided_pre_mountain_lion
@@ -14,7 +13,10 @@ class Freetype < Formula
   option :universal
   option "without-subpixel", "Disable sub-pixel rendering (a.k.a. LCD rendering, or ClearType)"
 
+  depends_on "pkg-config" => :build
+  depends_on "bzip2"
   depends_on "libpng"
+  depends_on "zlib"
 
   def install
     # This file will be installed to bindir, so we want to avoid embedding the
