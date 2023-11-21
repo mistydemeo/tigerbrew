@@ -1,18 +1,21 @@
 class Lighttpd < Formula
   desc "Small memory footprint, flexible web-server"
   homepage "http://www.lighttpd.net/"
-  url "https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-1.4.71.tar.xz"
-  sha256 "b8b6915da20396fdc354df3324d5e440169b2e5ea7859e3a775213841325afac"
+  url "https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-1.4.73.tar.xz"
+  sha256 "818816d0b314b0aa8728a7076513435f6d5eb227f3b61323468e1f10dbe84ca8"
 
   bottle do
-    sha256 "e9ebef903fa723298e4eb57e897f8508e4d9cf1442a4ae8f3ab44eafcd180240" => :tiger_altivec
   end
 
   option "with-lua51", "Include Lua scripting support for mod_magnet"
 
+  # provide STAILQ_FOREACH
+  # https://github.com/litespeedtech/ls-hpack/pull/13
+  patch :p0, :DATA
+
   depends_on "pkg-config" => :build
   depends_on "pcre2"
-  depends_on "openssl"
+  depends_on "openssl3"
   depends_on "xxhash"
   depends_on "lua51" => :optional
 
@@ -132,20 +135,8 @@ class Lighttpd < Formula
     EOS
   end
 
-  patch :p0, :DATA
 end
 __END__
---- src/stat_cache.c.orig	2023-08-08 16:12:44.000000000 +0100
-+++ src/stat_cache.c	2023-08-08 16:13:06.000000000 +0100
-@@ -842,7 +842,7 @@
-    #if defined(HAVE_SYS_XATTR_H)
-     ssize_t attrlen;
-     if (0 < (attrlen = getxattr(name, attrname,
--                                attrval, sizeof(attrval)-1)))
-+                                attrval, sizeof(attrval)-1, 0, NULL)))
-    #else
-     int attrlen = sizeof(attrval)-1;
-     if (0 == attr_get(name, attrname, attrval, &attrlen, 0))
 --- src/ls-hpack/lshpack.h.orig	2023-08-08 17:05:52.000000000 +0100
 +++ src/ls-hpack/lshpack.h	2023-08-08 17:06:32.000000000 +0100
 @@ -237,6 +237,13 @@
