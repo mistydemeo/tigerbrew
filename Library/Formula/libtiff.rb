@@ -1,11 +1,10 @@
 class Libtiff < Formula
   desc "TIFF library and utilities"
   homepage "https://libtiff.gitlab.io/libtiff/"
-  url "https://download.osgeo.org/libtiff/tiff-4.5.0.tar.xz"
-  sha256 "dafac979c5e7b6c650025569c5a4e720995ba5f17bc17e6276d1f12427be267c"
+  url "https://download.osgeo.org/libtiff/tiff-4.6.0.tar.xz"
+  sha256 "e178649607d1e22b51cf361dd20a3753f244f022eefab1f2f218fc62ebaf87d2"
 
   bottle do
-    sha256 "081c25de5d538d2cda0919bb3dcaa48b806aa5d8663ad9a6a78df39a8acabec1" => :tiger_altivec
   end
 
   option :universal
@@ -23,7 +22,6 @@ class Libtiff < Formula
     zlib = Formula["zlib"].opt_prefix
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--without-x",
                           "--with-jpeg-include-dir=#{jpeg}/include",
                           "--with-jpeg-lib-dir=#{jpeg}/lib",
                           "--with-lzma-include-dir=#{xz}/include",
