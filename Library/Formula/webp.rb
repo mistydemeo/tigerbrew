@@ -1,9 +1,9 @@
 class Webp < Formula
   desc "Image format providing lossless and lossy compression for web images"
   homepage "https://developers.google.com/speed/webp/"
-  url "http://downloads.webmproject.org/releases/webp/libwebp-0.4.3.tar.gz"
-  sha256 "efbe0d58fda936f2ed99d0b837ed7087d064d6838931f282c4618d2a3f7390c4"
-  revision 1
+  url "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.3.2.tar.gz"
+  sha256 "2a499607df669e40258e53d0ade8035ba4ec0175244869d1025d460562aa09b4"
+  license "BSD-3-Clause"
 
   bottle do
     cellar :any
@@ -18,10 +18,10 @@ class Webp < Formula
 
   option :universal
 
+  depends_on "giflib"
+  depends_on "jpeg"
   depends_on "libpng"
-  depends_on "jpeg" => :recommended
-  depends_on "libtiff" => :optional
-  depends_on "giflib" => :optional
+  depends_on "libtiff"
 
   def install
     system "./autogen.sh" if build.head?
