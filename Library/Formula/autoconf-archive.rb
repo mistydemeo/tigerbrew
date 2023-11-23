@@ -7,6 +7,7 @@ class AutoconfArchive < Formula
 
   bottle do
     cellar :any_skip_relocation
+    sha256 "85eb453571547a14341cf7d53cfe8361db15969e974c9ad5cc2f14c1c2447cbc" => :tiger_altivec
   end
 
   # autoconf-archive is useless without autoconf
