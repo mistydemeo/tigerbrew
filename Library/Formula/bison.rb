@@ -6,6 +6,7 @@ class Bison < Formula
   sha256 "9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2"
 
   bottle do
+    sha256 "7a9139192cc1d0e5768b80e1857651daafdc708ad1e379a4c050dca324a248af" => :tiger_altivec
   end
 
   if MacOS.version < :leopard
