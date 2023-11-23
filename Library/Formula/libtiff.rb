@@ -5,6 +5,7 @@ class Libtiff < Formula
   sha256 "e178649607d1e22b51cf361dd20a3753f244f022eefab1f2f218fc62ebaf87d2"
 
   bottle do
+    sha256 "bb0a906ad2162c37c63d8222584cec44e712b5478d7a45d931f6782bcc05f695" => :tiger_altivec
   end
 
   option :universal
