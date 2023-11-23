@@ -7,6 +7,7 @@ class Autoconf < Formula
 
   bottle do
     cellar :any_skip_relocation
+    sha256 "640cfafe965e3913c90f07da98494d2906114ae082169f31b84150c47bdab3a4" => :tiger_altivec
   end
 
   # Tiger's m4 is too old.
