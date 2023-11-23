@@ -19,7 +19,9 @@ class Giflib < Formula
     ENV.universal_binary if build.universal?
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
 
-    system "make", "all"
+    # Pass CFLAGS to explicitly override the CFLAGS from the makefile,
+    # which contains some flags that are incompatible with GCC 4.0/4.2
+    system "make", "all", "CFLAGS=#{ENV.cflags}"
     system "make", "install", "PREFIX=#{prefix}"
   end
 
