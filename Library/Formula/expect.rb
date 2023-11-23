@@ -6,6 +6,7 @@ class Expect < Formula
   license :public_domain
 
   bottle do
+    sha256 "57f38ef443814e8bb793a58c351126852a5ddbe2f8ff3d873635c1e8775524c8" => :tiger_altivec
   end
 
   depends_on "tcl-tk"
