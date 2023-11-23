@@ -6,6 +6,7 @@ class Findutils < Formula
   sha256 "a2bfb8c09d436770edc59f50fa483e785b161a3b7b9d547573cb08065fd462fe"
 
   bottle do
+    sha256 "9a4f2d8a09718df3da29ba5bdca5eb4c92cf28b00163966bea7ccd005c7188db" => :tiger_altivec
   end
 
   deprecated_option "default-names" => "with-default-names"
