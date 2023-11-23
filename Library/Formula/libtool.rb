@@ -10,6 +10,7 @@ class Libtool < Formula
 
   bottle do
     cellar :any
+    sha256 "438bff78afd08066e5393c71ddb35875d380016b6e7a1f6f8b381b3635951995" => :tiger_altivec
   end
 
   depends_on "m4" if MacOS.version < :leopard
