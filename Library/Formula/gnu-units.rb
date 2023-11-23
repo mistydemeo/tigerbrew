@@ -6,6 +6,7 @@ class GnuUnits < Formula
   sha256 "5d13e1207721fe7726d906ba1d92dc0eddaa9fc26759ed22e3b8d1a793125848"
 
   bottle do
+    sha256 "4ccc70211c6dfa0588bb1960c7041a53fee6d002704708e87ad555f444de4889" => :tiger_altivec
   end
 
   # gunits_cur is a Python 3 script
