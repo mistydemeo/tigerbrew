@@ -5,6 +5,7 @@ class GnuCobol < Formula
   sha256 "3bb48af46ced4779facf41fdc2ee60e4ccb86eaa99d010b36685315df39c2ee2"
 
   bottle do
+    sha256 "49832dcbed74530fb9844e4ae9b75f8c87ac153f97a6f944fc3af4baab0470e5" => :tiger_altivec
   end
 
   depends_on "berkeley-db4"
