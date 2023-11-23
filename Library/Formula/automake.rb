@@ -6,7 +6,8 @@ class Automake < Formula
   sha256 "f01d58cd6d9d77fbdca9eb4bbd5ead1988228fdb73d6f7a201f5f8d6b118b469"
 
   bottle do
-    cellar :any
+    cellar :any_skip_relocation
+    sha256 "8b0b74e874319bca40c049d01e0816845dfedae4a4607ee5cd91f23170f94996" => :tiger_altivec
   end
 
   depends_on "autoconf" => :run
