@@ -5,6 +5,7 @@ class Lighttpd < Formula
   sha256 "818816d0b314b0aa8728a7076513435f6d5eb227f3b61323468e1f10dbe84ca8"
 
   bottle do
+    sha256 "7252a8fe2a2eb25011d5bbba22bb385fbafce92c52d9b036618cae037d80b830" => :tiger_altivec
   end
 
   option "with-lua51", "Include Lua scripting support for mod_magnet"
