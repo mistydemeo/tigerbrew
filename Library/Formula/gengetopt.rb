@@ -5,6 +5,10 @@ class Gengetopt < Formula
   mirror "https://ftp.gnu.org/gnu/gengetopt/gengetopt-2.23.tar.xz"
   sha256 "b941aec9011864978dd7fdeb052b1943535824169d2aa2b0e7eae9ab807584ac"
 
+  bottle do
+    sha256 "156ab4e381116412f81e438eb9768d4ada3efe672f16e65c42ea9a2bc6ed287b" => :tiger_altivec
+  end
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
