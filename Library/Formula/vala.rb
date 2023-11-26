@@ -1,8 +1,8 @@
 class Vala < Formula
   desc "Compiler for the GObject type system"
   homepage "https://live.gnome.org/Vala"
-  url "http://download.gnome.org/sources/vala/0.56/vala-0.56.9.tar.xz"
-  sha256 "55578c7c4f067ace028e541806af240f8084cb6ff0cc554caa8ac08cbf8bce2f"
+  url "https://download.gnome.org/sources/vala/0.56/vala-0.56.14.tar.xz"
+  sha256 "9382c268ca9bdc02aaedc8152a9818bf3935273041f629c56de410e360a3f557"
 
   depends_on "pkg-config" => :run
   depends_on "gettext"
@@ -11,7 +11,6 @@ class Vala < Formula
   depends_on "libxslt"
 
   bottle do
-    sha256 "f286d25b1ecb8774a540fe105b73534e14e5d20916576abe43538d1fab7b72b9" => :tiger_altivec
   end
 
   def install
