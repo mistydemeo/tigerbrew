@@ -17,6 +17,10 @@ class GobjectIntrospection < Formula
         :revision => "499ac89f8a9ad17d250e907f74912159ea216416"
   end
 
+  bottle do
+    sha256 "3e5c6a2fac8aa4a990ba42bed711a1a220a061f6719c53028436d05fafcf09c6" => :tiger_altivec
+  end
+
   def install
     ENV["GI_SCANNER_DISABLE_CACHE"] = "true"
     ENV.universal_binary if build.universal?
