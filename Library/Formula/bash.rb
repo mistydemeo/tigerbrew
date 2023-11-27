@@ -9,6 +9,7 @@ class Bash < Formula
   head "http://git.savannah.gnu.org/r/bash.git"
 
   bottle do
+    sha256 "7864d94ed3a5513db0b84452cc9f3c7cacb5c35ed597502a93d2fb844a8cf1c7" => :tiger_altivec
   end
 
   depends_on "readline"
