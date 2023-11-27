@@ -6,7 +6,7 @@ class Mtools < Formula
   sha256 "541e179665dc4e272b9602f2074243591a157da89cc47064da8c5829dbd2b339"
 
   bottle do
-    cellar :any
+    sha256 "b947d6cf459d59fb692acb286fedc461858ec1e31622a06eb41bc3c06f46a021" => :tiger_altivec
   end
 
   conflicts_with "multimarkdown", :because => "both install `mmd` binaries"
