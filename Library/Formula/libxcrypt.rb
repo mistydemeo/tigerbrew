@@ -6,6 +6,8 @@ class Libxcrypt < Formula
   license "LGPL-2.1-or-later"
 
   bottle do
+    cellar :any
+    sha256 "c6b64d4c959babe638d70396564564bec0892ee5f703e24d1b64650bb7d7eb66" => :tiger_altivec
   end
 
   # Skip the compile-strong-alias test since it's just a sanity check for future versions
