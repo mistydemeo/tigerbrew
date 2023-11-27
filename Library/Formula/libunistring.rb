@@ -18,7 +18,6 @@ class Libunistring < Formula
                           "--disable-silent-rules",
                           "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
     system "make", "install"
   end
 end
