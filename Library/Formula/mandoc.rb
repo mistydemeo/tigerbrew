@@ -5,6 +5,7 @@ class Mandoc < Formula
   sha256 "8bf0d570f01e70a6e124884088870cbed7537f36328d512909eb10cd53179d9c"
 
   bottle do
+    sha256 "2bb7ad646fc08ae741bde37613ccfa166beac3f106048061f2a79f2dd57de04a" => :tiger_altivec
   end
 
   head "anoncvs@mdocml.bsd.lv:/cvs", :module => "mdocml", :using => :cvs
