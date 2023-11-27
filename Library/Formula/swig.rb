@@ -8,6 +8,10 @@ class Swig < Formula
 
   depends_on "pcre2"
 
+  bottle do
+    sha256 "a707faa9f324e299535d6850747e5ac4e4201aa8226bc4205b521fe7f97da034" => :tiger_altivec
+  end
+
   def install
     ENV.universal_binary if build.universal?
     system "./configure", "--disable-dependency-tracking",
