@@ -6,6 +6,7 @@ class BashCompletion < Formula
 
   bottle do
     cellar :any_skip_relocation
+    sha256 "b6a0ef1ac25ab53f37f73d1fb16646d64189f92cbd413d33e09fd8fb46a002a6" => :tiger_altivec
   end
 
   # bash-completion 2.x needs Bash 4.x minimum
