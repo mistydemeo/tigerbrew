@@ -33,7 +33,7 @@ class Vala < Formula
     valac_args = [ # Build with debugging symbols.
       "-g",
       # Use Homebrew's default C compiler.
-      "--cc=#{ENV.cc}",
+      "--cc=#{ENV.cc} -L#{Formula["gettext"].opt_lib}",
       # Save generated C source code.
       "--save-temps",
       # Vala source code path.
