@@ -11,6 +11,7 @@ class Vala < Formula
   depends_on "libxslt"
 
   bottle do
+    sha256 "eccb9a3e38b00b091c31cff9f922e0651ff39a06ebb4a8727d02ab170d9bc270" => :tiger_altivec
   end
 
   def install
