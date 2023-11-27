@@ -9,6 +9,7 @@ class Mercurial < Formula
 
   bottle do
     cellar :any_skip_relocation
+    sha256 "c9a73ff32f4eaca7570a489d862f73a0eb10bfdbc91fe4518231090989bcbf6b" => :tiger_altivec
   end
 
   depends_on :python3
