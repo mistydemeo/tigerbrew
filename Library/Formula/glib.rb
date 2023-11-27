@@ -5,6 +5,7 @@ class Glib < Formula
   sha256 "664a5dee7307384bb074955f8e5891c7cecece349bbcc8a8311890dc185b428e"
 
   bottle do
+    sha256 "cd2cc4166c82571ca781566650e1600d351669f060ab9782c6c1107be368e65c" => :tiger_altivec
   end
 
   # Fixes g_get_monotonic_time on non-Intel Macs; submitted upstream:
