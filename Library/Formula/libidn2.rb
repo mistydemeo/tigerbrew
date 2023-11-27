@@ -21,9 +21,6 @@ class Libidn2 < Formula
     depends_on "help2man" => :build
     depends_on "libtool" => :build
     depends_on "ronn" => :build
-
-    # uses_from_macos "gperf" => :build
-
   end
 
   depends_on "pkg-config" => :build
