@@ -4,13 +4,13 @@ class Nettle < Formula
   url "https://ftp.gnu.org/gnu/nettle/nettle-3.9.1.tar.gz"
   mirror "https://ftpmirror.gnu.org/gnu/nettle/nettle-3.9.1.tar.gz"
   sha256 "ccfeff981b0ca71bbd6fbcb054f407c60ffb644389a5be80d6716d5b550c6ce3"
+  revision 1
 
   bottle do
-    sha256 "e53e6fa158121c316a587ab962d3d9bb3c62ab2d1f66e557411ee2dd815d7bb4" => :tiger_altivec
   end
 
   depends_on "gmp"
-  depends_on "openssl"
+  depends_on "openssl3"
 
   def install
     # Tests fail when running test suite
