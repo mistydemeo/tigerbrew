@@ -1,16 +1,16 @@
 class Libgcrypt < Formula
   desc "Cryptographic library based on the code from GnuPG"
-  homepage "https://directory.fsf.org/wiki/Libgcrypt"
-  url "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.7.3.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.7.3.tar.bz2"
-  sha256 "ddac6111077d0a1612247587be238c5294dd0ee4d76dc7ba783cc55fb0337071"
+  homepage "https://gnupg.org/software/libgcrypt/"
+  url "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.10.3.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.10.3.tar.bz2"
+  sha256 "8b0870897ac5ac67ded568dcfadf45969cfa8a6beb0fd60af2a9eadc2a3272aa"
 
   bottle do
     cellar :any
-    sha256 "917d24c8069dc9ff48ba3cc0018b5a0740859e3dd6d344e48d00521572739f07" => :el_capitan
-    sha256 "783f5e8ebce20aae53e576a5bb4068c67999168c90f4a66e765abc2d4c94a733" => :yosemite
-    sha256 "b2d5c9c8d60afffa2983e952812ae46e566172b406806877f9675e907fc0db2e" => :mavericks
   end
+
+  # Availability.h appeared in Leopard
+  patch :p0, :DATA
 
   option :universal
 
@@ -51,3 +51,18 @@ class Libgcrypt < Formula
     assert_match "0e824ce7c056c82ba63cc40cffa60d3195b5bb5feccc999a47724cc19211aef6", output
   end
 end
+__END__
+--- random/rndoldlinux.c.orig	2023-11-28 18:04:36.000000000 +0000
++++ random/rndoldlinux.c	2023-11-28 18:05:45.000000000 +0000
+@@ -29,7 +29,11 @@
+ #include <fcntl.h>
+ #include <poll.h>
+ #if defined(__APPLE__) && defined(__MACH__)
++#ifdef __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__
++#if __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ >= 1050
+ #include <Availability.h>
++#endif
++#endif
+ #ifdef __MAC_10_11
+ #include <TargetConditionals.h>
+ #if !defined(TARGET_OS_IPHONE) || TARGET_OS_IPHONE == 0
