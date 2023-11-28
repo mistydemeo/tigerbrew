@@ -1,32 +1,29 @@
 # GnuTLS has previous, current, and next stable branches, we use current.
-# From 3.4.0 GnuTLS will be permanently disabling SSLv3. Every brew uses will need a revision with that.
-# http://nmav.gnutls.org/2014/10/what-about-poodle.html
 class Gnutls < Formula
   desc "GNU Transport Layer Security (TLS) Library"
   homepage "http://gnutls.org"
-  url "ftp://ftp.gnutls.org/gcrypt/gnutls/v3.3/gnutls-3.3.18.tar.xz"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnutls/v3.3/gnutls-3.3.18.tar.xz"
-  sha256 "7a87e7f486d1ada10007356917a412cde6c6114dac018e3569e3aa09e9f29395"
+  url "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.7/gnutls-3.7.10.tar.xz"
+  mirror "http://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnutls/v3.7/gnutls-3.7.10.tar.xz"
+  sha256 "b6e4e8bac3a950a3a1b7bdb0904979d4ab420a81e74de8636dd50b467d36f5a9"
 
   bottle do
     cellar :any
-    sha256 "d3cb42ef5d97d092d2367146c690ffefbc9bb99451e8061e1045943843e57ff6" => :tiger_altivec
-    sha256 "72af0d7211a6e17f9bea7969b8ff17b1a36377958cbc349f1b7a115b291ee172" => :leopard_g3
-    sha256 "8f88d5527c44d52000b3c0243f2740edc27c5fba80ffb5764e0aef2757055c08" => :leopard_altivec
   end
 
+  # Availability.h appeared in Leopard
+  patch :p0, :DATA
+
   depends_on "pkg-config" => :build
+  depends_on "curl-ca-bundle"
   depends_on "libtasn1"
   depends_on "gmp"
   depends_on "nettle"
+  depends_on "libunistring"
+  depends_on "libidn2"
+  depends_on "p11-kit"
+  depends_on "zlib"
   depends_on "guile" => :optional
-  depends_on "p11-kit" => :optional
   depends_on "unbound" => :optional
-
-  fails_with :llvm do
-    build 2326
-    cause "Undefined symbols when linking"
-  end
 
   def install
     args = %W[
@@ -35,7 +32,7 @@ class Gnutls < Formula
       --disable-static
       --prefix=#{prefix}
       --sysconfdir=#{etc}
-      --with-default-trust-store-file=#{etc}/openssl/cert.pem
+      --with-default-trust-store-file=#{gnutlsdir}
       --disable-heartbeat-support
     ]
 
@@ -52,31 +49,32 @@ class Gnutls < Formula
     mv man1/"certtool.1", man1/"gnutls-certtool.1"
   end
 
+  def gnutlsdir
+    etc/"gnutls"
+  end
+
   def post_install
-    keychains = %w[
-      /Library/Keychains/System.keychain
-      /System/Library/Keychains/SystemRootCertificates.keychain
-    ]
-
-    certs_list = `security find-certificate -a -p #{keychains.join(" ")}`
-    certs = certs_list.scan(
-      /-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----/m
-    )
-
-    valid_certs = certs.select do |cert|
-      IO.popen("openssl x509 -inform pem -checkend 0 -noout", "w") do |openssl_io|
-        openssl_io.write(cert)
-      end
-
-      $?.success?
-    end
-
-    openssldir = etc/"openssl"
-    openssldir.mkpath
-    (openssldir/"cert.pem").atomic_write(valid_certs.join("\n"))
+    rm_f gnutlsdir/"cert.pem"
+    gnutlsdir.install_symlink Formula["curl-ca-bundle"].opt_share/"ca-bundle.crt" => "cert.pem"
   end
 
   test do
     system bin/"gnutls-cli", "--version"
   end
 end
+__END__
+--- lib/system/certs.c.orig	2023-11-28 15:21:28.000000000 +0000
++++ lib/system/certs.c	2023-11-28 15:20:40.000000000 +0000
+@@ -47,8 +47,12 @@
+ #ifdef __APPLE__
+ # include <CoreFoundation/CoreFoundation.h>
+ # include <Security/Security.h>
++#ifdef __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__
++#if __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ >= 1050
+ # include <Availability.h>
+ #endif
++#endif
++#endif
+ 
+ /* System specific function wrappers for certificate stores.
+  */
