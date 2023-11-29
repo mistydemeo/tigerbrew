@@ -1,25 +1,23 @@
 class Makedepend < Formula
   desc "Creates dependencies in makefiles"
   homepage "http://x.org"
-  url "http://xorg.freedesktop.org/releases/individual/util/makedepend-1.0.5.tar.bz2"
-  sha256 "f7a80575f3724ac3d9b19eaeab802892ece7e4b0061dd6425b4b789353e25425"
+  url "https://www.x.org/releases/individual/util/makedepend-1.0.8.tar.xz"
+  sha256 "bfb26f8025189b2a01286ce6daacc2af8fe647440b40bb741dd5c397572cba5b"
 
   bottle do
     cellar :any
-    sha256 "3efbcf3b698bdb45bb01841b909da92d418c1e9f117f430c56e84aef1813436e" => :tiger_g4e
-    sha256 "85f976b7a87a58d4d2eb580bfadca0587bc6ec1fe3a067a27d19c8828704090f" => :leopard_g4e
   end
 
   depends_on "pkg-config" => :build
 
   resource "xproto" do
-    url "http://xorg.freedesktop.org/releases/individual/proto/xproto-7.0.25.tar.bz2"
-    sha256 "92247485dc4ffc3611384ba84136591923da857212a7dc29f4ad7797e13909fe"
+    url "https://www.x.org/releases/individual/proto/xproto-7.0.31.tar.bz2"
+    sha256 "c6f9747da0bd3a95f86b17fb8dd5e717c8f3ab7f0ece3ba1b247899ec1ef7747"
   end
 
   resource "xorg-macros" do
-    url "http://xorg.freedesktop.org/releases/individual/util/util-macros-1.18.0.tar.bz2"
-    sha256 "e5e3d132a852f0576ea2cf831a9813c54a58810a59cdb198f56b884c5a78945b"
+    url "https://www.x.org/releases/individual/util/util-macros-1.20.0.tar.xz"
+    sha256 "0b86b262dbe971edb4ff233bc370dfad9f241d09f078a3f6d5b7f4b8ea4430db"
   end
 
   def install
