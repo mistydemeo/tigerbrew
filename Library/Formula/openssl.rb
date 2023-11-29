@@ -10,7 +10,6 @@ class Openssl < Formula
 
   # Need a minimum of Perl 5.10 for Configure script and Test::More 0.96 for testsuite
   depends_on "perl" => :build
-  depends_on "makedepend" => :build
   depends_on "curl-ca-bundle"
 
   bottle do
