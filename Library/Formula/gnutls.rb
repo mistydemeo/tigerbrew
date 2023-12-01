@@ -10,6 +10,10 @@ class Gnutls < Formula
     cellar :any
   end
 
+  # Need a C11/C++11 compiler
+  fails_with :gcc_4_0
+  fails_with :gcc
+
   # Availability.h appeared in Leopard
   patch :p0, :DATA
 
