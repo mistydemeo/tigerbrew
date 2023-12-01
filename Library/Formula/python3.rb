@@ -13,7 +13,6 @@ class Python3 < Formula
   deprecated_option "with-brewed-tk" => "with-tcl-tk"
 
   depends_on "pkg-config" => :build
-  depends_on "sphinx-doc" => :build if MacOS.version > :snow_leopard
   depends_on "readline" => :recommended
   depends_on "sqlite"
   depends_on "gdbm" => :recommended
@@ -168,13 +167,6 @@ class Python3 < Formula
 
     %w[setuptools pip wheel].each do |r|
       (libexec/r).install resource(r)
-    end
-
-    if MacOS.version > :snow_leopard
-      cd "Doc" do
-        system "make", "html"
-        doc.install Dir["build/html/*"]
-      end
     end
 
     # Install unversioned symlinks in libexec/bin.
