@@ -1,19 +1,15 @@
 class Utf8proc < Formula
   desc "Clean C library for processing UTF-8 Unicode data"
   homepage "https://juliastrings.github.io/utf8proc/"
-  url "https://github.com/JuliaStrings/utf8proc/archive/v2.8.0.tar.gz"
-  sha256 "a0a60a79fe6f6d54e7d411facbfcc867a6e198608f2cd992490e46f04b1bcecc"
+  url "https://github.com/JuliaStrings/utf8proc/releases/download/v2.9.0/utf8proc-2.9.0.tar.gz"
+  sha256 "bd215d04313b5bc42c1abedbcb0a6574667e31acee1085543a232204e36384c4"
   license all_of: ["MIT", "Unicode-DFS-2015"]
 
   bottle do
-    sha256 "e39f7d87cb5ba31a4f535ac6d01ebfb66e7fe99cc35a99b5398ce584e780c3f9" => :tiger_altivec
   end
 
-  # Unbreak build on legacy compilers which lack warnings for sign conversion
+  # Unbreak build on legacy compilers which lack warnings for sign conversion & linking
   patch :p0, :DATA
-
-  # Uses -compatibility_version, not present in Tiger
-  depends_on :ld64
 
   def install
     system "make", "install", "prefix=#{prefix}"
@@ -34,8 +30,8 @@ class Utf8proc < Formula
   end
 end
 __END__
---- Makefile.orig	2023-07-21 01:44:12.000000000 +0100
-+++ Makefile	2023-07-21 01:44:32.000000000 +0100
+--- Makefile.orig	2023-12-01 17:22:03.000000000 +0000
++++ Makefile	2023-12-01 17:23:57.000000000 +0000
 @@ -11,7 +11,7 @@
  CFLAGS ?= -O2
  PICFLAG = -fPIC
@@ -45,3 +41,12 @@ __END__
  UCFLAGS = $(CPPFLAGS) $(CFLAGS) $(PICFLAG) $(C99FLAG) $(WCFLAGS) -DUTF8PROC_EXPORTS $(UTF8PROC_DEFINES)
  LDFLAG_SHARED = -shared
  SOFLAG = -Wl,-soname
+@@ -92,7 +92,7 @@
+ 	ln -f -s libutf8proc.so.$(MAJOR).$(MINOR).$(PATCH) $@.$(MAJOR)
+ 
+ libutf8proc.$(MAJOR).dylib: utf8proc.o
+-	$(CC) $(LDFLAGS) -dynamiclib -o $@ $^ -install_name $(libdir)/$@ -Wl,-compatibility_version -Wl,$(MAJOR) -Wl,-current_version -Wl,$(MAJOR).$(MINOR).$(PATCH)
++	$(CC) $(LDFLAGS) -dynamic -o $@ $^ -install_name $(libdir)/$@ -Wl,-compatibility_version -Wl,$(MAJOR) -Wl,-current_version -Wl,$(MAJOR).$(MINOR).$(PATCH) -dynamiclib
+ 
+ libutf8proc.dylib: libutf8proc.$(MAJOR).dylib
+ 	ln -f -s libutf8proc.$(MAJOR).dylib $@
