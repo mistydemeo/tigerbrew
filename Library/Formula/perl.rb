@@ -1,8 +1,8 @@
 class Perl < Formula
   desc "Highly capable, feature-rich programming language"
   homepage "https://www.perl.org/"
-  url "https://www.cpan.org/src/5.0/perl-5.38.0.tar.gz"
-  sha256 "213ef58089d2f2c972ea353517dc60ec3656f050dcc027666e118b508423e517"
+  url "https://www.cpan.org/src/5.0/perl-5.38.2.tar.xz"
+  sha256 "d91115e90b896520e83d4de6b52f8254ef2b70a8d545ffab33200ea9f1cf29e8"
 
   head "https://perl5.git.perl.org/perl.git", :branch => "blead"
 
@@ -13,8 +13,6 @@ class Perl < Formula
   option "with-tests", "Build and run the test suite"
 
   bottle do
-    sha256 "4cc4013fc5a48d3a78a5e55bf39553e5a80b81febf7e9d915ad94173a5c1873f" => :tiger_g43
-    sha256 "cb89c3b3fdb1e0a1efaa6ac8b584294006640bfd959f0747670847dc0783887b" => :tiger_g5
   end
 
   def install
