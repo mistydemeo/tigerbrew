@@ -1,15 +1,14 @@
 class Xxhash < Formula
   desc "Extremely fast non-cryptographic hash algorithm"
   homepage "https://github.com/Cyan4973/xxHash"
-  url "https://github.com/Cyan4973/xxHash/archive/v0.8.1.tar.gz"
-  sha256 "3bb6b7d6f30c591dd65aaaff1c8b7a5b94d81687998ca9400082c739a690436c"
+  url "https://github.com/Cyan4973/xxHash/archive/v0.8.2.tar.gz"
+  sha256 "baee0c6afd4f03165de7a4e67988d16f0f2b257b51d0e3cb91909302a26a79c4"
   license all_of: [
     "BSD-2-Clause", # library
     "GPL-2.0-or-later", # `xxhsum` command line utility
   ]
 
   bottle do
-    sha256 "350a5d19d19e0a9dcd24a8b9c13882ba74af727b41ca3149ce4fc1bcb1b7acac" => :tiger_altivec
   end
 
   def install
