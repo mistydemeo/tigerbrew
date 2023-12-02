@@ -1,13 +1,15 @@
 class Poke < Formula
   desc "Extensible editor for structured binary data"
   homepage "https://jemarch.net/poke"
-  url "https://ftp.gnu.org/gnu/poke/poke-3.2.tar.gz"
-  sha256 "758e551dd53a6cce54ec94d8fc21fa4d6b52a27d1c2667206d599ecdc74f0d97"
+  url "https://ftp.gnu.org/gnu/poke/poke-3.3.tar.gz"
+  sha256 "0080459de85063c83b689ffcfba36872236803c12242d245a42ee793594f956e"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 "c864aa631e8861088c4f65951338eeaaf04503422bf37a261bfa11917afa6b6f" => :tiger_altivec
   end
+
+  # MAP_ANONYMOUS is not defined on Leopard and Tiger
+  patch :p0, :DATA
 
   depends_on "pkg-config" => :build
   depends_on "bdw-gc"
@@ -48,9 +50,6 @@ class Poke < Formula
       assert_match "00000000: feed face", shell_output("#{bin}/poke --quiet -s test.pk")
     end
   end
-
-  # MAP_ANONYMOUS is not defined on Leopard and Tiger
-  patch :p0, :DATA
 end
 __END__
 --- jitter/jitter/jitter-aligned-block.c.orig	2023-07-31 22:30:11.000000000 +0100
