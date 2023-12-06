@@ -15,13 +15,10 @@ class Curl < Formula
   option "with-c-ares", "Build with C-Ares async DNS support"
   option "with-gssapi", "Build with GSSAPI/Kerberos authentication support."
   option "with-libressl", "Build with LibreSSL instead of Secure Transport or OpenSSL"
-  option "with-nghttp2", "Build with HTTP/2 support (requires OpenSSL or LibreSSL)"
 
   deprecated_option "with-rtmp" => "with-rtmpdump"
   deprecated_option "with-ssh" => "with-libssh2"
   deprecated_option "with-ares" => "with-c-ares"
-
-  depends_on "zlib"
 
   if (build.without?("libressl"))
     depends_on "openssl3"
@@ -32,7 +29,8 @@ class Curl < Formula
   depends_on "libssh2" => :optional
   depends_on "c-ares" => :optional
   depends_on "libressl" => :optional
-  depends_on "nghttp2" => :optional
+  depends_on "libnghttp2"
+  depends_on "zlib"
 
   def install
     args = %W[
