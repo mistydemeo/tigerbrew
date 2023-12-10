@@ -7,7 +7,7 @@ class Fatsort < Formula
   depends_on "help2man"
 
   def install
-    system "make", "CC=#{ENV.cc}"
+    system "make", "CC=#{ENV.cc}", "LD=#{ENV.cc}"
     bin.install "src/fatsort"
     man1.install "man/fatsort.1"
   end
