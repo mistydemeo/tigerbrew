@@ -1,12 +1,11 @@
 class Sqlite < Formula
   desc "Command-line interface for SQLite"
   homepage "https://sqlite.org/"
-  url "https://www.sqlite.org/2023/sqlite-autoconf-3430000.tar.gz"
-  version "3.43.0"
-  sha256 "49008dbf3afc04d4edc8ecfc34e4ead196973034293c997adad2f63f01762ae1"
+  url "https://www.sqlite.org/2023/sqlite-autoconf-3440200.tar.gz"
+  version "3.44.2"
+  sha256 "1c6719a148bc41cf0f2bbbe3926d7ce3f5ca09d878f1246fcc20767b175bb407"
 
   bottle do
-    sha256 "29b5d8960e6a17bb06e91f79f3f8080a64f4097b1a0ff303ad8f029b39ebdd31" => :tiger_altivec
   end
 
   keg_only :provided_by_osx, "OS X provides an older sqlite3."
@@ -34,15 +33,17 @@ class Sqlite < Formula
   end
 
   resource "docs" do
-    url "https://www.sqlite.org/2023/sqlite-doc-3430000.zip"
-    version "3.43.0"
-    sha256 "e88f98c5651f996e989ef3b7122ed29b01bd2a0100b0aa72dd96013248442291"
+    url "https://www.sqlite.org/2023/sqlite-doc-3440200.zip"
+    version "3.44.2"
+    sha256 "62e51962552fb204ef0a541d51f8f721499d1a3fffae6e86558d251c96084fcf"
   end
 
   def install
     # sqlite segfaults on Tiger/PPC with our gcc-4.2
     # obviously we need a newer GCC stat!
     ENV.no_optimization if ENV.compiler == :gcc && MacOS.version == :tiger
+    # Need to allow -w when building with extensions
+    ENV.enable_warnings if ENV.compiler == :gcc_4_0
 
     ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_COLUMN_METADATA=1"
     # Default value of MAX_VARIABLE_NUMBER is 999 which is too low for many
