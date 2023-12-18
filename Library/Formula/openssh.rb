@@ -1,15 +1,13 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "https://www.openssh.com/"
-  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.5p1.tar.gz"
-  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.5p1.tar.gz"
-  version "9.5p1"
-  sha256 "f026e7b79ba7fb540f75182af96dc8a8f1db395f922bbc9f6ca603672686086b"
+  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.6p1.tar.gz"
+  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.6p1.tar.gz"
+  version "9.6p1"
+  sha256 "910211c07255a8c5ad654391b40ee59800710dd8119dd5362de09385aa7a777c"
   license "SSH-OpenSSH"
-  revision 1
 
   bottle do
-    sha256 "0df72214140fac75a70abaeaa924ca7e15556c8a094abbed3b15d33525201226" => :tiger_altivec
   end
 
   # Please don't resubmit the keychain patch option. It will never be accepted.
