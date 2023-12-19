@@ -3,11 +3,17 @@ class Libssh2 < Formula
   homepage "http://www.libssh2.org/"
   url "https://libssh2.org/download/libssh2-1.11.0.tar.xz"
   sha256 "a488a22625296342ddae862de1d59633e6d446eff8417398e06674a49be3d7c2"
-  revision 1
+  revision 2
 
   bottle do
     cellar :any
-    sha256 "199ff7918596f64fab5429e23f6bf6f6e3819563dd1c11031cd5aaae620224c7" => :tiger_altivec
+  end
+
+  # add 'strict KEX' to fix CVE-2023-48795 "Terrapin Attack"
+  # Patch can be removed next release
+  patch do
+    url "https://patch-diff.githubusercontent.com/raw/libssh2/libssh2/pull/1291.patch"
+    sha256 "8295d09fcdd5f7db92976920717c527c71da0a57d62f436d2204b5a7903c6cd7"
   end
 
   option "with-libressl", "build with LibreSSL instead of OpenSSL"
