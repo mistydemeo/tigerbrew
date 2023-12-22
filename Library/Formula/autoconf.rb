@@ -1,17 +1,16 @@
 class Autoconf < Formula
   desc "Automatic configure script builder"
   homepage "https://www.gnu.org/software/autoconf"
-  url "https://ftpmirror.gnu.org/autoconf/autoconf-2.71.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/autoconf/autoconf-2.71.tar.xz"
-  sha256 "f14c83cfebcc9427f2c3cea7258bd90df972d92eb26752da4ddad81c87a0faa4"
+  url "https://ftpmirror.gnu.org/autoconf/autoconf-2.72.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz"
+  sha256 "ba885c1319578d6c94d46e9b0dceb4014caafe2490e437a0dbca3f270a223f5a"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "640cfafe965e3913c90f07da98494d2906114ae082169f31b84150c47bdab3a4" => :tiger_altivec
   end
 
-  # Tiger's m4 is too old.
-  depends_on "m4" if MacOS.version == :tiger
+  # Bundled m4 is too old, also need new automake if running test suite.
+  depends_on "m4"
 
   keg_only :provided_until_xcode43
 
