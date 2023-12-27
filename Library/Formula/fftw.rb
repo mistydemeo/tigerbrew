@@ -5,7 +5,7 @@ class Fftw < Formula
   sha256 "56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467"
 
   bottle do
-    cellar :any
+    sha256 "7bae5c73283c14c0b8a10ea46aadd6a7c572e012e729971242fa9686de650dbf" => :tiger_altivec
   end
 
   # Update autoconf m4 components - fixes configure with GCC 4.0.1 on Tiger
