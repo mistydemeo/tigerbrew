@@ -6,7 +6,7 @@ class Fatsort < Formula
 
   bottle do
     cellar :any_skip_relocation
-    cellar "319dd6f027fa9d97dddd49f6434e2d88294147b8f6f6c215220c521097db2a53" => :tiger_altivec
+    sha256 "319dd6f027fa9d97dddd49f6434e2d88294147b8f6f6c215220c521097db2a53" => :tiger_altivec
   end
 
   depends_on "help2man"
