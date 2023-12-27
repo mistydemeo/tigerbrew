@@ -10,6 +10,7 @@ class Libnghttp2 < Formula
   license "MIT"
 
   bottle do
+    sha256 "b5561ecc87f62759d6915200d7a3bd9e6cebf97842a825116e5871a2a0952b7d" => :tiger_altivec
   end
 
   head do
