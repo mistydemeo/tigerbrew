@@ -3,10 +3,11 @@ class Libarchive < Formula
   homepage "http://www.libarchive.org"
   url "http://www.libarchive.org/downloads/libarchive-3.6.2.tar.gz"
   sha256 "ba6d02f15ba04aba9c23fd5f236bb234eab9d5209e95d1c4df85c44d5f19b9b3"
+  revision 1
 
   bottle do
     cellar :any
-    sha256 "87223352a31f02ebd1a860c61659048ea457b2e665d5e90271782849ecca5df9" => :tiger_altivec
+    sha256 "5813acc104cd5b3e718b7554b2cd5e46dd320b845b01ba92e669df8979caf767" => :tiger_altivec
   end
 
   depends_on "xz" => :optional
@@ -17,7 +18,8 @@ class Libarchive < Formula
     system "./configure", "--prefix=#{prefix}",
                           "--without-lzo2",
                           "--without-nettle",
-                          "--without-xml2"
+                          "--without-xml2",
+                          "--without-expat"
     system "make", "install"
   end
 
