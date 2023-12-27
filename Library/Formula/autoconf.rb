@@ -7,6 +7,7 @@ class Autoconf < Formula
 
   bottle do
     cellar :any_skip_relocation
+    sha256 "ef803264de782df052807bc4fdd57454d45fdad5502c029c55e91f34e3756bdc" => :tiger_altivec
   end
 
   # Bundled m4 is too old, also need new automake if running test suite.
