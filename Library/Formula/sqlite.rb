@@ -6,6 +6,7 @@ class Sqlite < Formula
   sha256 "1c6719a148bc41cf0f2bbbe3926d7ce3f5ca09d878f1246fcc20767b175bb407"
 
   bottle do
+    sha256 "ac011e4f98d55b4c15f63c1a03bc5f82d0bb76b49d9f63104144bf05700ea842" => :tiger_altivec
   end
 
   keg_only :provided_by_osx, "OS X provides an older sqlite3."
