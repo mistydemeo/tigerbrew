@@ -7,6 +7,7 @@ class Libssh2 < Formula
 
   bottle do
     cellar :any
+    sha256 "5178b30fa18dfa699be03c2ccd445f8d62056110c2d4c5862b2d62471fb59626" => :tiger_altivec
   end
 
   # add 'strict KEX' to fix CVE-2023-48795 "Terrapin Attack"
