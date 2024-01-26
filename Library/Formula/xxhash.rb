@@ -9,6 +9,7 @@ class Xxhash < Formula
   ]
 
   bottle do
+    sha256 "71d9bf28acbfacdea460858a15298f3571dd0a2692cc7b4ec1911a89a1ea2bb1" => :tiger_altivec
   end
 
   def install
