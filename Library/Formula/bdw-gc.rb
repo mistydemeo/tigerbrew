@@ -6,6 +6,7 @@ class BdwGc < Formula
   revision 1
 
   bottle do
+    sha256 "752d520bbcb5b22bf16a6480b4471dad47f58a83eb7444f018999e482511b32f" => :tiger_altivec
   end
 
   head do
