@@ -6,6 +6,8 @@ class Utf8proc < Formula
   license all_of: ["MIT", "Unicode-DFS-2015"]
 
   bottle do
+    cellar :any
+    sha256 "259035346607c349dac583c42df226ee6d3d84f32b9bfdbc564d304c3ccc7d3c" => :tiger_altivec
   end
 
   # Unbreak build on legacy compilers which lack warnings for sign conversion & linking
