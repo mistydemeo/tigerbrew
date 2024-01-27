@@ -46,7 +46,7 @@ __END__
  
  libutf8proc.$(MAJOR).dylib: utf8proc.o
 -	$(CC) $(LDFLAGS) -dynamiclib -o $@ $^ -install_name $(libdir)/$@ -Wl,-compatibility_version -Wl,$(MAJOR) -Wl,-current_version -Wl,$(MAJOR).$(MINOR).$(PATCH)
-+	$(CC) $(LDFLAGS) -dynamic -o $@ $^ -install_name $(libdir)/$@ -Wl,-compatibility_version -Wl,$(MAJOR) -Wl,-current_version -Wl,$(MAJOR).$(MINOR).$(PATCH) -dynamiclib
++	$(CC) $(LDFLAGS) -dynamiclib -o $@ $^ -install_name $(libdir)/$@ -compatibility_version $(MAJOR) -current_version $(MAJOR).$(MINOR).$(PATCH)
  
  libutf8proc.dylib: libutf8proc.$(MAJOR).dylib
  	ln -f -s libutf8proc.$(MAJOR).dylib $@
