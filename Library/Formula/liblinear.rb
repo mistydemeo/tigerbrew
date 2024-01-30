@@ -1,29 +1,23 @@
 class Liblinear < Formula
   desc "Library for large linear classification"
   homepage "https://www.csie.ntu.edu.tw/~cjlin/liblinear/"
-  url "https://www.csie.ntu.edu.tw/~cjlin/liblinear/oldfiles/liblinear-2.01.tar.gz"
-  sha256 "ebc71999224f5779574b11e248f1e2ef647b5d839c0380c1c5a4ac8789aa95a9"
+  url "https://www.csie.ntu.edu.tw/~cjlin/liblinear/liblinear-2.47.tar.gz"
+  sha256 "99ce98ca3ce7cfb31f2544c42f23ba5bc6c226e536f95d6cd21fe012f94c65e0"
 
   head "https://github.com/cjlin1/liblinear.git"
 
   bottle do
     cellar :any
-    sha256 "9d1752ea126fc0b195c1502813645a462160442855bafe0e2545e007c39f84e8" => :yosemite
-    sha256 "15c7d64502088e250f3b61089f276691c4b5a0bf3382663a3c24e2581a8e4bf8" => :mavericks
-    sha256 "f6c2546bb3b2716c08c5acc80fcbb7b333460209db5c8debd9983c906d30e067" => :mountain_lion
   end
 
   # Fix sonames
-  patch :p0 do
-    url "https://trac.macports.org/export/94156/trunk/dports/math/liblinear/files/patch-Makefile.diff"
-    sha256 "ffb5206f0a6c15832574ec77863cda12eb2012e0f052bacebfe1ad722d31ea22"
-  end
+  patch :p0, :DATA
 
   def install
     system "make", "all"
     bin.install "predict", "train"
-    lib.install "liblinear.dylib"
-    lib.install_symlink "liblinear.dylib" => "liblinear.1.dylib"
+    lib.install "liblinear.5.dylib"
+    lib.install_symlink "liblinear.dylib" => "liblinear.5.dylib"
     include.install "linear.h"
   end
 
@@ -39,3 +33,37 @@ class Liblinear < Formula
     system "#{bin}/train", "train_classification.txt"
   end
 end
+__END__
+--- Makefile.orig	2023-07-09 13:45:51.000000000 +0100
++++ Makefile	2024-01-29 20:39:16.000000000 +0000
+@@ -5,16 +5,20 @@
+ #LIBS = -lblas
+ SHVER = 5
+ OS = $(shell uname)
++PREFIX ?= /usr/local
++
+ ifeq ($(OS),Darwin)
+-	SHARED_LIB_FLAG = -dynamiclib -Wl,-install_name,liblinear.so.$(SHVER)
++	LIBEXT = .$(SHVER).dylib
++	SHARED_LIB_FLAG = -dynamiclib -install_name $(PREFIX)/lib/liblinear$(LIBEXT)
+ else
+-	SHARED_LIB_FLAG = -shared -Wl,-soname,liblinear.so.$(SHVER)
++	LIBEXT = .so.$(SHVER)
++	SHARED_LIB_FLAG = -shared -Wl,-soname,liblinear$(LIBEXT)
+ endif
+ 
+-all: train predict
++all: train predict lib
+ 
+ lib: linear.o newton.o blas/blas.a
+-	$(CXX) $(SHARED_LIB_FLAG) linear.o newton.o blas/blas.a -o liblinear.so.$(SHVER)
++	$(CXX) $(SHARED_LIB_FLAG) linear.o newton.o blas/blas.a -o liblinear$(LIBEXT)
+ 
+ train: newton.o linear.o train.c blas/blas.a
+ 	$(CXX) $(CFLAGS) -o train train.c newton.o linear.o $(LIBS)
+@@ -34,4 +38,4 @@
+ clean:
+ 	make -C blas clean
+ 	make -C matlab clean
+-	rm -f *~ newton.o linear.o train predict liblinear.so.$(SHVER)
++	rm -f *~ newton.o linear.o train predict liblinear.*
