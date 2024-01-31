@@ -6,10 +6,6 @@ class Libftdi < Formula
 
   bottle do
     cellar :any
-    revision 2
-    sha256 "bd138350b6b994aad13e24eb73a90d436a43760484e84b859a517b7dac022e91" => :el_capitan
-    sha256 "706627fb6c9e6a48b891b1bb8fd37aaa8182ea6c711567fca57c552e201e2c20" => :yosemite
-    sha256 "937b569282e624dedab4a56792313cdaf1747844c04a6ad24191d7ff4b5f30d9" => :mavericks
   end
 
   depends_on "cmake" => :build
@@ -18,6 +14,7 @@ class Libftdi < Formula
   depends_on "boost" => :optional
 
   def install
+    ENV.enable_warnings if ENV.compiler == :gcc_4_0
     mkdir "libftdi-build" do
       system "cmake", "..", *std_cmake_args
       system "make", "install"
