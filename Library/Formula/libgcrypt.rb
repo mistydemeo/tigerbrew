@@ -6,7 +6,7 @@ class Libgcrypt < Formula
   sha256 "8b0870897ac5ac67ded568dcfadf45969cfa8a6beb0fd60af2a9eadc2a3272aa"
 
   bottle do
-    cellar :any
+    sha256 "abcc0e5925887190d6150f9d2f395f875c4f072484be1b4729bf9860e228188a" => :tiger_altivec
   end
 
   # Availability.h appeared in Leopard
