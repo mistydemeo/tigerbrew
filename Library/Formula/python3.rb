@@ -178,6 +178,11 @@ class Python3 < Formula
     }.each do |unversioned_name, versioned_name|
       (libexec/"bin").install_symlink (bin/versioned_name).realpath => unversioned_name
     end
+
+    # Installed test data contains prebuilt libraries for 10.9+,
+    # which confuses ld in earlier versions of OS X and breaks
+    # relocation/bottling attempts.
+    (libexec/"wheel/tests/testdata").rmtree
   end
 
   def post_install
