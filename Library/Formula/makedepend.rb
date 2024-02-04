@@ -5,7 +5,8 @@ class Makedepend < Formula
   sha256 "bfb26f8025189b2a01286ce6daacc2af8fe647440b40bb741dd5c397572cba5b"
 
   bottle do
-    cellar :any
+    cellar :any_skip_relocation
+    sha256 "1e38394e12dbf476b306b6b2e83751cea0863fc2fc68df9ee4f5c34ba4c227c1" => :tiger_altivec
   end
 
   depends_on "pkg-config" => :build
