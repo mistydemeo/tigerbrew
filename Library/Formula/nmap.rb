@@ -28,7 +28,6 @@ class Nmap < Formula
   end
 
   bottle do
-    sha256 "7b1c86d1a066b78b82f8288703193a7ad73b9f7baa88369ff034ec8193194b9e" => :tiger_altivec
   end
 
   # Need better C++ support from compiler
