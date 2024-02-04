@@ -21,6 +21,6 @@ class LibgpgError < Formula
   end
 
   test do
-    system "#{bin}/gpg-error-config", "--libs"
+    system "#{bin}/gpgrt-config", "--libs"
   end
 end
