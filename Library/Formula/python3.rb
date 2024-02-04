@@ -5,6 +5,7 @@ class Python3 < Formula
   sha256 "7911051ed0422fd54b8f59ffc030f7cf2ae30e0f61bda191800bb040dce4f9d2"
 
   bottle do
+    sha256 "f7cd90b25ee8a2a977a2063211ec49fb56e22150fc009fffd2ff6b962e7b7aee" => :tiger_altivec
   end
 
   option :universal
