@@ -8,6 +8,7 @@ class Liblinear < Formula
 
   bottle do
     cellar :any
+    sha256 "fbbe47f5c260e033914950c59a5efc00f8f990e97f2e6fe4b4cddd50b355a85c" => :tiger_altivec
   end
 
   # Fix sonames
