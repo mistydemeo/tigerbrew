@@ -6,6 +6,7 @@ class Aspell < Formula
   sha256 "f9b77e515334a751b2e60daab5db23499e26c9209f5e7b7443b05235ad0226f2"
 
   bottle do
+    sha256 "a4ed074d34c9c697fc0f1352ed3daf9ae4f43638095191288a89d44b01684790" => :tiger_altivec
   end
 
   option "with-lang-af", "Install af dictionary"
