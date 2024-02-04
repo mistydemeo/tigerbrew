@@ -7,6 +7,7 @@ class Nettle < Formula
   revision 1
 
   bottle do
+    sha256 "1272ad455c11d0fe71d726782b94f1ba2dd4dc624eb420bf05118465d9abdc27" => :tiger_altivec
   end
 
   depends_on "gmp"
