@@ -131,7 +131,7 @@ class Aspell < Formula
   resource "en" do
     url "http://ftpmirror.gnu.org/aspell/dict/en/aspell6-en-2020.12.07-0.tar.bz2"
     mirror "https://ftp.gnu.org/gnu/aspell/dict/en/aspell6-en-2020.12.07-0.tar.bz2"
-    sha256 "865ba3492b54cad102d9de4c0e59494710ca018e0341057ade66bde32d58182a"
+    sha256 "4c8f734a28a088b88bb6481fcf972d0b2c3dc8da944f7673283ce487eac49fb3"
   end
 
   option "with-lang-eo", "Install eo dictionary"
