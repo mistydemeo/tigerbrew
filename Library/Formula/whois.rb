@@ -6,6 +6,8 @@ class Whois < Formula
   license "GPL-2.0-or-later"
 
   bottle do
+    cellar :any
+    sha256 "a40ae5a6fd644ca1156466e8401dfa7f75a9dbfac90385688ab2f89541e210a0" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
