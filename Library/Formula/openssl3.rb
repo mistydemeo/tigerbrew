@@ -1,17 +1,13 @@
 class Openssl3 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-3.2.0.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.2.0.tar.gz"
-  sha256 "14c826f07c7e433706fb5c69fa9e25dab95684844b4c962a2cf1bf183eb4690e"
+  url "https://www.openssl.org/source/openssl-3.2.1.tar.gz"
+  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.2.1.tar.gz"
+  sha256 "83c7329fe52c850677d75e5d0b0ca245309b97e8ecbcfdc1dfdc4ab9fac35b39"
   license "Apache-2.0"
 
   bottle do
   end
-
-  # Disable build of HWAES on PPC Macs
-  # https://github.com/openssl/openssl/pull/22860
-  patch :DATA
 
   keg_only :provided_by_osx
 
@@ -103,49 +99,3 @@ class Openssl3 < Formula
     end
   end
 end
-__END__
---- a/crypto/aes/build.info
-+++ b/crypto/aes/build.info
-@@ -38,7 +38,11 @@ IF[{- !$disabled{asm} -}]
-   $AESASM_parisc20_64=$AESASM_parisc11
-   $AESDEF_parisc20_64=$AESDEF_parisc11
- 
--  $AESASM_ppc32=aes_core.c aes_cbc.c aes-ppc.s vpaes-ppc.s aesp8-ppc.s
-+  IF[{- $target{sys_id} ne "AIX" && $target{sys_id} ne "MACOSX" -}]
-+    $AESASM_ppc32=aes_core.c aes_cbc.c aes-ppc.s vpaes-ppc.s aesp8-ppc.s
-+  ELSE
-+    $AESASM_ppc32=aes_core.c aes_cbc.c aes-ppc.s vpaes-ppc.s
-+  ENDIF
-   $AESDEF_ppc32=AES_ASM VPAES_ASM
-   $AESASM_ppc64=$AESASM_ppc32
-   $AESDEF_ppc64=$AESDEF_ppc32
-diff --git a/include/crypto/aes_platform.h b/include/crypto/aes_platform.h
-index eb280e754a6a1..a0373187c86d1 100644
---- a/include/crypto/aes_platform.h
-+++ b/include/crypto/aes_platform.h
-@@ -65,16 +65,16 @@ void AES_xts_decrypt(const unsigned char *inp, unsigned char *out, size_t len,
- #   ifdef VPAES_ASM
- #    define VPAES_CAPABLE (OPENSSL_ppccap_P & PPC_ALTIVEC)
- #   endif
--#   define HWAES_CAPABLE  (OPENSSL_ppccap_P & PPC_CRYPTO207)
--#   define HWAES_set_encrypt_key aes_p8_set_encrypt_key
--#   define HWAES_set_decrypt_key aes_p8_set_decrypt_key
--#   define HWAES_encrypt aes_p8_encrypt
--#   define HWAES_decrypt aes_p8_decrypt
--#   define HWAES_cbc_encrypt aes_p8_cbc_encrypt
--#   define HWAES_ctr32_encrypt_blocks aes_p8_ctr32_encrypt_blocks
--#   define HWAES_xts_encrypt aes_p8_xts_encrypt
--#   define HWAES_xts_decrypt aes_p8_xts_decrypt
- #   if !defined(OPENSSL_SYS_AIX) && !defined(OPENSSL_SYS_MACOSX)
-+#    define HWAES_CAPABLE  (OPENSSL_ppccap_P & PPC_CRYPTO207)
-+#    define HWAES_set_encrypt_key aes_p8_set_encrypt_key
-+#    define HWAES_set_decrypt_key aes_p8_set_decrypt_key
-+#    define HWAES_encrypt aes_p8_encrypt
-+#    define HWAES_decrypt aes_p8_decrypt
-+#    define HWAES_cbc_encrypt aes_p8_cbc_encrypt
-+#    define HWAES_ctr32_encrypt_blocks aes_p8_ctr32_encrypt_blocks
-+#    define HWAES_xts_encrypt aes_p8_xts_encrypt
-+#    define HWAES_xts_decrypt aes_p8_xts_decrypt
- #    define PPC_AES_GCM_CAPABLE (OPENSSL_ppccap_P & PPC_MADD300)
- #    define AES_GCM_ENC_BYTES 128
- #    define AES_GCM_DEC_BYTES 128
