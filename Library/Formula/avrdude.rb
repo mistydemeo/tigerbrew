@@ -12,7 +12,7 @@ class Avrdude < Formula
   fails_with :gcc
   fails_with :gcc_4_0
 
-  depends_on "libusb-compat"
+  depends_on "libusb"
   depends_on "libftdi"
   depends_on "libelf"
   depends_on "libhid" => :optional
