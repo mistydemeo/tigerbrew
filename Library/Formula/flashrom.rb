@@ -1,41 +1,32 @@
 class Flashrom < Formula
   desc "Identify, read, write, verify, and erase flash chips"
   homepage "http://flashrom.org/"
-  url "http://download.flashrom.org/releases/flashrom-0.9.8.tar.bz2"
-  sha256 "13dc7c895e583111ecca370363a3527d237d178a134a94b20db7df177c05f934"
+  url "https://download.flashrom.org/releases/flashrom-v1.3.0.tar.bz2"
+  sha256 "a053234453ccd012e79f3443bdcc61625cf97b7fd7cb4cdd8bfbffbe8b149623"
 
   head "svn://flashrom.org/flashrom/trunk"
 
   bottle do
     cellar :any
-    sha256 "aedac2e61e6e5926a8a30207137d509d3f5c5661e2fdf89ae8200e78a5f095dc" => :yosemite
-    sha256 "f5c2516a19df0fe6945a9536dad7a11f3de1c4f21de1890b916211ff2cabb70b" => :mavericks
-    sha256 "bb314be2b1181ad6a4fb41ccabb92b4b72b49fa31c87a180cbe5af85eb56f322" => :mountain_lion
   end
 
+  # Need strndup(3) via helper
+  patch :p0, :DATA
+
+  # Need a compiler with C11 support
+  fails_with :gcc
+  fails_with :gcc_4_0
+
   depends_on "pkg-config" => :build
-  depends_on "libusb-compat"
-  depends_on "libftdi0"
+  depends_on "libusb"
+  depends_on "libftdi"
+  depends_on "make"
 
   def install
-    ENV["CONFIG_GFXNVIDIA"] = "0"
-    ENV["CONFIG_NIC3COM"] = "0"
-    ENV["CONFIG_NICREALTEK"] = "0"
-    ENV["CONFIG_NICNATSEMI"] = "0"
-    ENV["CONFIG_NICINTEL"] = "0"
-    ENV["CONFIG_NICINTEL_SPI"] = "0"
-    ENV["CONFIG_NICINTEL_EEPROM"] = "0"
-    ENV["CONFIG_OGP_SPI"] = "0"
-    ENV["CONFIG_SATAMV"] = "0"
-    ENV["CONFIG_SATASII"] = "0"
-    ENV["CONFIG_DRKAISER"] = "0"
     ENV["CONFIG_RAYER_SPI"] = "0"
-    ENV["CONFIG_INTERNAL"] = "0"
-    ENV["CONFIG_IT8212"] = "0"
-    ENV["CONFIG_ATAHPT"] = "0"
-    ENV["CONFIG_ATAVIA"] = "0"
+    ENV["CONFIG_ENABLE_LIBPCI_PROGRAMMERS"] = "no"
 
-    system "make", "DESTDIR=#{prefix}", "PREFIX=/", "install"
+    system "gmake", "DESTDIR=#{prefix}", "PREFIX=/", "install"
     mv sbin, bin
   end
 
@@ -43,3 +34,29 @@ class Flashrom < Formula
     system "#{bin}/flashrom" " --version"
   end
 end
+__END__
+--- helpers.c.orig	2024-01-31 21:14:43.000000000 +0000
++++ helpers.c	2024-01-31 21:18:42.000000000 +0000
+@@ -102,8 +102,10 @@
+ 	*nextp = str;
+ 	return ret;
+ }
++#endif
+ 
+-/* strndup is a POSIX function not present in MinGW */
++/* strndup is a POSIX function not present in MinGW nor OS X before 10.7 */
++#if (defined(__MINGW32__) || (defined(__MACH__) && defined(__APPLE__) && defined(__APPLE_CC__) && __APPLE_CC__ < 5658))
+ char *strndup(const char *src, size_t maxlen)
+ {
+ 	char *retbuf;
+--- include/flash.h.orig	2024-01-31 21:26:35.000000000 +0000
++++ include/flash.h	2024-01-31 21:26:57.000000000 +0000
+@@ -462,7 +462,7 @@
+ void tolower_string(char *str);
+ uint8_t reverse_byte(uint8_t x);
+ void reverse_bytes(uint8_t *dst, const uint8_t *src, size_t length);
+-#ifdef __MINGW32__
++#if (defined(__MINGW32__) || (defined(__MACH__) && defined(__APPLE__) && defined(__APPLE_CC__) && __APPLE_CC__ < 5658))
+ char* strtok_r(char *str, const char *delim, char **nextp);
+ char *strndup(const char *str, size_t size);
+ #endif
