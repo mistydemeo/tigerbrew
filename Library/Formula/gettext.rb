@@ -21,6 +21,15 @@ class Gettext < Formula
   # https://savannah.gnu.org/bugs/?63866
   patch :p0, :DATA
 
+  # clang shipped with 10.7 & 10.8, use llvm-gcc until gnulib is fixed
+  #  "___atomic_compare_exchange_n", referenced from:
+  #      _asyncsafe_spin_lock in libgettextlib_la-asyncsafe-spin.o
+  #      _asyncsafe_spin_unlock in libgettextlib_la-asyncsafe-spin.o
+  #  "___atomic_store_n", referenced from:
+  #      _asyncsafe_spin_init in libgettextlib_la-asyncsafe-spin.o
+  # ld: symbol(s) not found for architecture x86_64
+  fails_with :clang if MacOS.version == :lion || MacOS.version == :mountain_lion
+
   def install
     ENV.libxml2
     ENV.universal_binary if build.universal?
