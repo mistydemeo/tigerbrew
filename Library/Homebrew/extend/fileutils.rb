@@ -96,17 +96,17 @@ module FileUtils
     system RUBY_BIN/"rake", *args
   end
 
-  # Run `make` 3.81 or newer.
-  # Uses the system make on Leopard and newer, and the
-  # path to the actually-installed make on Tiger or older.
+  # Run `make` 3.81 or newer.  Uses system make from Leopard onward, otherwise brewed make.
   def make(*args)
     if Utils.popen_read("/usr/bin/make", "--version").match(/Make (\d\.\d+)/)[1] > "3.80"
-      system "/usr/bin/make", *args
+      _make = "/usr/bin/make"
+    elsif Formula["make"].installed?
+      _make = Formula["make"].opt_bin/"make"
+      _make = _make.exist? ? _make.to_s : Formula["make"].opt_bin/"gmake".to_s
     else
-      make = Formula["make"].opt_bin/"make"
-      make_path = make.exist? ? make.to_s : (Formula["make"].opt_bin/"gmake").to_s
-      system make_path, *args
+      abort "Your system’s Make program is too old.  Please install the “make” package."
     end
+    system _make, *args
   end
 
   if method_defined?(:ruby)
