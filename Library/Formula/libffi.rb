@@ -1,39 +1,39 @@
 class Libffi < Formula
-  desc "Portable Foreign Function Interface library"
-  homepage "https://sourceware.org/libffi/"
-  url "https://github.com/libffi/libffi/releases/download/v3.4.4/libffi-3.4.4.tar.gz"
-  sha256 "d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676"
+  desc 'Portable Foreign Function Interface library'
+  homepage 'https://sourceware.org/libffi/'
+  url 'https://github.com/libffi/libffi/releases/download/v3.4.4/libffi-3.4.4.tar.gz'
+  sha256 'd66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676'
 
   head do
-    url "https://github.com/atgreen/libffi.git"
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "libtool" => :build
+    url 'https://github.com/atgreen/libffi.git'
+    depends_on 'autoconf' => :build
+    depends_on 'automake' => :build
+    depends_on 'libtool' => :build
   end
 
   bottle do
-    sha256 "f73c477afbca66cf30dd489efa3177fa89ace748e11bd1fd1b6395eeb18a969e" => :tiger_altivec
+    sha256 'f73c477afbca66cf30dd489efa3177fa89ace748e11bd1fd1b6395eeb18a969e' => :tiger_altivec
   end
 
-  keg_only :provided_by_osx, "Some formulae require a newer version of libffi." if MacOS.version > :tiger
+  keg_only :provided_by_osx, 'Some formulae require a newer version of libffi.' if MacOS.version > :tiger
 
   # i386 build fix
   patch do
-    url "https://github.com/libffi/libffi/commit/e70dd1aa240159bd2050cb1eafffb49cdc1d8b22.diff"
-    sha256 "f8716ba642b979756958cdae1cd6a673449fafca7cb695c12cd85a47ab3e4eaf"
+    url 'https://github.com/libffi/libffi/commit/e70dd1aa240159bd2050cb1eafffb49cdc1d8b22.diff'
+    sha256 'f8716ba642b979756958cdae1cd6a673449fafca7cb695c12cd85a47ab3e4eaf'
   end
 
   def install
     ENV.deparallelize # https://github.com/Homebrew/homebrew/pull/19267
     ENV.universal_binary
-    system "./autogen.sh" if build.head?
-    system "./configure", "--disable-debug", "--disable-dependency-tracking",
+    system './autogen.sh' if build.head?
+    system './configure', '--disable-debug', '--disable-dependency-tracking',
                           "--prefix=#{prefix}"
-    system "make", "install"
+    make 'install'
   end
 
   test do
-    (testpath/"closure.c").write <<-TEST_SCRIPT.undent
+    (testpath/'closure.c').write <<-TEST_SCRIPT.undent
      #include <stdio.h>
      #include <ffi.h>
 
@@ -82,8 +82,8 @@ class Libffi < Formula
      }
     TEST_SCRIPT
 
-    flags = ["-L#{lib}", "-lffi", "-I#{lib}/libffi-#{version}/include"]
-    system ENV.cc, "-o", "closure", "closure.c", *(flags + ENV.cflags.to_s.split)
-    system "./closure"
+    flags = %W[-L#{lib} -lffi -I#{include}]
+    system ENV.cc, '-o', 'closure', 'closure.c', *(flags + ENV.cflags.to_s.split)
+    system './closure'
   end
 end
