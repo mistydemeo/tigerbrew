@@ -1,3 +1,4 @@
+require "compilers"
 require "os/mac"
 require "extend/ENV/shared"
 
@@ -293,7 +294,7 @@ module Superenv
     when "clang"
       append "HOMEBREW_CCCFG", "x", ""
       append "HOMEBREW_CCCFG", "g", ""
-    when /gcc-(4\.(8|9)|5)/
+    when GNU_GCC_REGEXP
       append "HOMEBREW_CCCFG", "x", ""
     else
       raise "The selected compiler doesn't support C++11: #{homebrew_cc}"
