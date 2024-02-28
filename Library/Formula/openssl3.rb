@@ -1,13 +1,12 @@
 class Openssl3 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-3.1.4.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.1.4.tar.gz"
-  sha256 "840af5366ab9b522bde525826be3ef0fb0af81c6a9ebd84caa600fea1731eee3"
+  url "https://www.openssl.org/source/openssl-3.2.1.tar.gz"
+  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.2.1.tar.gz"
+  sha256 "83c7329fe52c850677d75e5d0b0ca245309b97e8ecbcfdc1dfdc4ab9fac35b39"
   license "Apache-2.0"
 
   bottle do
-    sha256 "f0dbfc6129c4ed9e94b19940052615049bcaebcea5e22d98a233eaeb2e153838" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
@@ -28,26 +27,30 @@ class Openssl3 < Formula
       no-ssl3-method
       no-zlib
     ]
-    args << "no-asm" if MacOS.version == :tiger
     # No {get,make,set}context support before Leopard
     args << "no-async" if MacOS.version == :tiger
     if Hardware::CPU.ppc?
       args << "darwin-ppc-cc"
     elsif Hardware::CPU.intel?
-      args << (Hardware::CPU.is_64_bit? ? "darwin64-x86_64-cc" : "darwin-i386-cc")
+      args << (Hardware::CPU.is_64_bit? && MacOS.version > :leopard ? "darwin64-x86_64-cc" : "darwin-i386-cc")
     end
     args
   end
 
   def install
+    # The build itself tries to set optimisation flags between none & -O3 by default.
+    ENV.no_optimization
     # Build breaks passing -w
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
 
     # Leopard and newer have the crypto framework
     ENV.append_to_cflags "-DOPENSSL_NO_APPLE_CRYPTO_RANDOM" if MacOS.version == :tiger
 
-    # This could interfere with how we expect OpenSSL to build.
-    ENV.delete("OPENSSL_LOCAL_CONFIG_DIR")
+    # Use timegm()
+    # crypto/asn1/a_time.c: In function 'ossl_asn1_string_to_time_t':
+    # crypto/asn1/a_time.c:659: error: invalid operands to binary -
+    # https://github.com/openssl/openssl/commit/0176fc78d090210cd7e231a7c2c4564464509506
+    ENV.append_to_cflags "-DUSE_TIMEGM" if MacOS.version == :tiger
 
     # This ensures where Homebrew's Perl is needed the Cellar path isn't
     # hardcoded into OpenSSL's scripts, causing them to break every Perl update.
