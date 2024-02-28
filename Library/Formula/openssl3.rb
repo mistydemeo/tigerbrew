@@ -32,7 +32,7 @@ class Openssl3 < Formula
     if Hardware::CPU.ppc?
       args << "darwin-ppc-cc"
     elsif Hardware::CPU.intel?
-      args << (Hardware::CPU.is_64_bit? ? "darwin64-x86_64-cc" : "darwin-i386-cc")
+      args << (Hardware::CPU.is_64_bit? && MacOS.version > :leopard ? "darwin64-x86_64-cc" : "darwin-i386-cc")
     end
     args
   end
