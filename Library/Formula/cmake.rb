@@ -1,14 +1,10 @@
 class Cmake < Formula
   desc "Cross-platform make"
   homepage "http://www.cmake.org/"
-  url "https://cmake.org/files/v3.9/cmake-3.9.6.tar.gz"
-  sha256 "7410851a783a41b521214ad987bb534a7e4a65e059651a2514e6ebfc8f46b218"
+  url "https://cmake.org/files/v3.13/cmake-3.13.2.tar.gz"
+  sha256 "c925e7d2c5ba511a69f43543ed7b4182a7d446c274c7480d0e42cd933076ae25"
 
   head "https://cmake.org/cmake.git"
-
-  bottle do
-    sha256 "7ed83fa411209917e876cd0a1396593ee78af1201e4ec952ab32884cf00e0c50" => :tiger_altivec
-  end
 
   option "without-docs", "Don't build man pages"
   option "with-completion", "Install Bash completion (Has potential problems with system bash)"
@@ -20,6 +16,9 @@ class Cmake < Formula
   depends_on "rhash"
   depends_on "xz" => :build
   depends_on "zlib"
+
+  needs :cxx11
+  patch :DATA
 
   # The `with-qt` GUI option was removed due to circular dependencies if
   # CMake is built with Qt support and Qt is built with MySQL support as MySQL uses CMake.
@@ -179,3 +178,109 @@ class Cmake < Formula
     system "#{bin}/cmake", "."
   end
 end
+
+
+__END__
+diff -u -r cmake-3.13.2/Source/CMakeLists.txt cmake-3.13.2-patched/Source/CMakeLists.txt
+--- cmake-3.13.2/Source/CMakeLists.txt	2018-12-13 12:57:40.000000000 +0100
++++ cmake-3.13.2-patched/Source/CMakeLists.txt	2018-12-16 14:40:06.000000000 +0100
+@@ -793,7 +793,7 @@
+ 
+ # On Apple we need CoreFoundation
+ if(APPLE)
+-  target_link_libraries(CMakeLib "-framework CoreFoundation")
++  target_link_libraries(CMakeLib "-framework CoreFoundation -framework ApplicationServices")
+ endif()
+ 
+ if(WIN32 AND NOT UNIX)
+diff -u -r cmake-3.13.2/Utilities/cmlibuv/src/unix/core.c cmake-3.13.2-patched/Utilities/cmlibuv/src/unix/core.c
+--- cmake-3.13.2/Utilities/cmlibuv/src/unix/core.c	2018-12-13 12:57:42.000000000 +0100
++++ cmake-3.13.2-patched/Utilities/cmlibuv/src/unix/core.c	2018-12-16 14:41:49.000000000 +0100
+@@ -1293,8 +1293,7 @@
+   if (name == NULL)
+     return UV_EINVAL;
+ 
+-  if (unsetenv(name) != 0)
+-    return UV__ERR(errno);
++  unsetenv(name);
+ 
+   return 0;
+ }
+diff -u -r cmake-3.13.2/Utilities/cmlibuv/src/unix/darwin-proctitle.c cmake-3.13.2-patched/Utilities/cmlibuv/src/unix/darwin-proctitle.c
+--- cmake-3.13.2/Utilities/cmlibuv/src/unix/darwin-proctitle.c	2018-12-13 12:57:42.000000000 +0100
++++ cmake-3.13.2-patched/Utilities/cmlibuv/src/unix/darwin-proctitle.c	2018-12-16 16:01:36.000000000 +0100
+@@ -29,6 +29,9 @@
+ #include <TargetConditionals.h>
+ 
+ #if !TARGET_OS_IPHONE
++#undef TCP_NODELAY
++#undef TCP_MAXSEG
++#undef TCP_KEEPALIVE
+ # include <CoreFoundation/CoreFoundation.h>
+ # include <ApplicationServices/ApplicationServices.h>
+ #endif
+diff -u -r cmake-3.13.2/Utilities/cmlibuv/src/unix/fs.c cmake-3.13.2-patched/Utilities/cmlibuv/src/unix/fs.c
+--- cmake-3.13.2/Utilities/cmlibuv/src/unix/fs.c	2018-12-13 12:57:42.000000000 +0100
++++ cmake-3.13.2-patched/Utilities/cmlibuv/src/unix/fs.c	2018-12-16 14:40:06.000000000 +0100
+@@ -60,7 +60,7 @@
+ # include <sys/sendfile.h>
+ #endif
+ 
+-#if defined(__APPLE__)
++#if 0 && defined(__APPLE__)
+ # include <copyfile.h>
+ #elif defined(__linux__) && !defined(FICLONE)
+ # include <sys/ioctl.h>
+@@ -674,7 +674,7 @@
+ 
+     return -1;
+   }
+-#elif defined(__APPLE__)           || \
++#elif 0 && defined(__APPLE__)           || \
+       defined(__DragonFly__)       || \
+       defined(__FreeBSD__)         || \
+       defined(__FreeBSD_kernel__)
+@@ -825,7 +825,7 @@
+ }
+ 
+ static ssize_t uv__fs_copyfile(uv_fs_t* req) {
+-#if defined(__APPLE__) && !TARGET_OS_IPHONE
++#if 0 && defined(__APPLE__) && !TARGET_OS_IPHONE
+   /* On macOS, use the native copyfile(3). */
+   copyfile_flags_t flags;
+ 
+@@ -991,8 +991,8 @@
+   dst->st_mtim.tv_nsec = src->st_mtimespec.tv_nsec;
+   dst->st_ctim.tv_sec = src->st_ctimespec.tv_sec;
+   dst->st_ctim.tv_nsec = src->st_ctimespec.tv_nsec;
+-  dst->st_birthtim.tv_sec = src->st_birthtimespec.tv_sec;
+-  dst->st_birthtim.tv_nsec = src->st_birthtimespec.tv_nsec;
++  dst->st_birthtim.tv_sec = src->st_ctimespec.tv_sec;
++  dst->st_birthtim.tv_nsec = src->st_ctimespec.tv_nsec;
+   dst->st_flags = src->st_flags;
+   dst->st_gen = src->st_gen;
+ #elif defined(__ANDROID__)
+diff -u -r cmake-3.13.2/Utilities/cmlibuv/src/unix/fsevents.c cmake-3.13.2-patched/Utilities/cmlibuv/src/unix/fsevents.c
+--- cmake-3.13.2/Utilities/cmlibuv/src/unix/fsevents.c	2018-12-13 12:57:42.000000000 +0100
++++ cmake-3.13.2-patched/Utilities/cmlibuv/src/unix/fsevents.c	2018-12-16 14:40:06.000000000 +0100
+@@ -21,7 +21,7 @@
+ #include "uv.h"
+ #include "internal.h"
+ 
+-#if TARGET_OS_IPHONE
++#if 1 || TARGET_OS_IPHONE
+ 
+ /* iOS (currently) doesn't provide the FSEvents-API (nor CoreServices) */
+ 
+diff -u -r cmake-3.13.2/Utilities/cmlibuv/src/unix/tty.c cmake-3.13.2-patched/Utilities/cmlibuv/src/unix/tty.c
+--- cmake-3.13.2/Utilities/cmlibuv/src/unix/tty.c	2018-12-13 12:57:42.000000000 +0100
++++ cmake-3.13.2-patched/Utilities/cmlibuv/src/unix/tty.c	2018-12-16 14:40:06.000000000 +0100
+@@ -44,7 +44,7 @@
+   int dummy;
+ 
+   result = ioctl(fd, TIOCGPTN, &dummy) != 0;
+-#elif defined(__APPLE__)
++#elif 0 && defined(__APPLE__)
+   char dummy[256];
+ 
+   result = ioctl(fd, TIOCPTYGNAME, &dummy) != 0;
