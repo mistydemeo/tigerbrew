@@ -6,6 +6,7 @@ class Id3ed < Formula
 
   bottle do
     cellar :any
+    sha256 "2ed5fd5dbb117a28776090fb80aa0b147bb7027372b49584d21ec1741ec3faeb" => :tiger_altivec
   end
 
   # Make sure we link to our readline
