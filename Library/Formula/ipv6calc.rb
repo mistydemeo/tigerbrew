@@ -4,6 +4,11 @@ class Ipv6calc < Formula
   url "https://github.com/pbiering/ipv6calc/archive/refs/tags/4.2.0.tar.gz"
   sha256 "767dbd3d21d04e21aa9764275e2aae726f04daf66bca21fc65f0a652bdc8b50e"
 
+  bottle do
+    cellar :any
+    sha256 "e780bde151c4dc801dd666311ab2de24826e2daca15d2fc8bbdde32e97ca30b5" => :tiger_altivec
+  end
+
   depends_on "openssl3"
 
   def install
