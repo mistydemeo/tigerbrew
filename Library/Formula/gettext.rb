@@ -24,29 +24,26 @@ class Gettext < Formula
     ENV.libxml2
     ENV.universal_binary if build.universal?
 
-    args = %W[
-      --prefix=#{prefix}
-      --disable-dependency-tracking
-      --disable-silent-rules
-      --disable-debug
-      --with-included-gettext
-      --with-included-glib
-      --with-included-libcroco
-      --with-included-libunistring
-      --with-emacs
-      --with-lispdir=#{share}/emacs/site-lisp/gettext
-      --disable-java
-      --disable-csharp
-      --without-git
-      --without-cvs
-      --without-xz
-    ]      # Don't use VCS systems to create these archives
-
-    system "./configure", *args
-    make
-    make "check"
+    system "./configure", "--disable-dependency-tracking",
+                          "--disable-silent-rules",
+                          "--disable-debug",
+                          "--prefix=#{prefix}",
+                          "--with-included-gettext",
+                          "--with-included-glib",
+                          "--with-included-libcroco",
+                          "--with-included-libunistring",
+                          "--with-emacs",
+                          "--with-lispdir=#{share}/emacs/site-lisp/gettext",
+                          "--disable-java",
+                          "--disable-csharp",
+                          # Don't use VCS systems to create these archives
+                          "--without-git",
+                          "--without-cvs",
+                          "--without-xz"
+    system "make"
+    system "make", "check"
     ENV.deparallelize # install doesn't support multiple make jobs
-    make "install"
+    system "make", "install"
   end
 
   test do
