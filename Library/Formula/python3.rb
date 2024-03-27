@@ -1,62 +1,50 @@
 class Python3 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tar.xz"
-  sha256 "7911051ed0422fd54b8f59ffc030f7cf2ae30e0f61bda191800bb040dce4f9d2"
+  url "https://www.python.org/ftp/python/3.10.14/Python-3.10.14.tar.xz"
+  sha256 "9c50481faa8c2832329ba0fc8868d0a606a680fc4f60ec48d26ce8e076751fda"
 
   bottle do
-    sha256 "f7cd90b25ee8a2a977a2063211ec49fb56e22150fc009fffd2ff6b962e7b7aee" => :tiger_altivec
+    sha256 "eaebc29ef8cd0b64b4032694e68c7f8b95352cc790f457c9fd5a3d4bb76f93ab" => :tiger_altivec
   end
 
   option :universal
-  option "with-tcl-tk", "Use Tigerbrew's Tk instead of OS X Tk (has optional Cocoa and threads support)"
-
-  deprecated_option "with-brewed-tk" => "with-tcl-tk"
 
   depends_on "pkg-config" => :build
   depends_on "readline" => :recommended
   depends_on "sqlite"
   depends_on "gdbm" => :recommended
   depends_on "openssl3"
+  depends_on "bzip2"
   depends_on "xz" => :recommended # for the lzma module added in 3.3
-  depends_on "tcl-tk" => :optional
-  depends_on :x11 if build.with?("tcl-tk") && Tab.for_name("tcl-tk").with?("x11")
+  depends_on "tcl-tk"
+  depends_on :x11 if Tab.for_name("tcl-tk").with?("x11")
 
-  skip_clean "bin/pip3", "bin/pip-3.4", "bin/pip-3.5", "bin/pip-3.6", "bin/pip-3.7"
-  skip_clean "bin/easy_install3", "bin/easy_install-3.4", "bin/easy_install-3.5", "bin/easy_install-3.6", "bin/easy_install-3.7"
+  skip_clean "bin/pip3", "bin/pip-3.4", "bin/pip-3.5", "bin/pip-3.6", "bin/pip-3.7", "bin/pip-3.10"
+  skip_clean "bin/easy_install3", "bin/easy_install-3.4", "bin/easy_install-3.5", "bin/easy_install-3.6", "bin/easy_install-3.7", "bin/easy_install-3.10"
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/dc/98/5f896af066c128669229ff1aa81553ac14cfb3e5e74b6b44594132b8540e/setuptools-68.0.0.tar.gz"
-    sha256 "baf1fdb41c6da4cd2eae722e135500da913332ab3f2f5c7d33af9b492acb5235"
+    url "https://files.pythonhosted.org/packages/4d/5b/dc575711b6b8f2f866131a40d053e30e962e633b332acf7cd2c24843d83d/setuptools-69.2.0.tar.gz"
+    sha256 "0ff4183f8f42cd8fa3acea16c45205521a4ef28f73c6391d8a25e92893134f2e"
   end
 
   resource "pip" do
-    url "https://files.pythonhosted.org/packages/1f/7f/4da15e07ccd11c84c1ccc8f6e24288d5e76c99441bf80e315b33542db951/pip-23.3.1.tar.gz"
-    sha256 "1fcaa041308d01f14575f6d0d2ea4b75a3e2871fe4f9c694976f908768e14174"
+    url "https://files.pythonhosted.org/packages/94/59/6638090c25e9bc4ce0c42817b5a234e183872a1129735a9330c472cc2056/pip-24.0.tar.gz"
+    sha256 "ea9bd1a847e8c5774a5777bb398c19e80bcd4e2aa16a4b301b718fe6f593aba2"
   end
 
   resource "wheel" do
-    url "https://files.pythonhosted.org/packages/a4/99/78c4f3bd50619d772168bec6a0f34379b02c19c9cced0ed833ecd021fd0d/wheel-0.41.2.tar.gz"
-    sha256 "0c5ac5ff2afb79ac23ab82bab027a0be7b5dbcf2e54dc50efe4bf507de1f7985"
+    url "https://files.pythonhosted.org/packages/b8/d6/ac9cd92ea2ad502ff7c1ab683806a9deb34711a1e2bd8a59814e8fc27e69/wheel-0.43.0.tar.gz"
+    sha256 "465ef92c69fa5c5da2d1cf8ac40559a8c940886afcef87dcf14b9470862f1d85"
   end
 
   # Homebrew's tcl-tk is built in a standard unix fashion (due to link errors)
   # so we have to stop python from searching for frameworks and linking against
   # X11.
-  patch :DATA if build.with? "tcl-tk"
-
-  fails_with :llvm do
-    build 2336
-    cause <<-EOS.undent
-      Could not find platform dependent libraries <exec_prefix>
-      Consider setting $PYTHONHOME to <prefix>[:<exec_prefix>]
-      python.exe(14122) malloc: *** mmap(size=7310873954244194304) failed (error code=12)
-      *** error: can't allocate region
-      *** set a breakpoint in malloc_error_break to debug
-      Could not import runpy module
-      make: *** [pybuilddir.txt] Segmentation fault: 11
-    EOS
-  end
+  # Add Support for OS X before 10.6
+  # from macports/lang/python310/files/patch-threadid-older-systems.diff
+  # and macports/lang/python310/files/patch-no-copyfile-on-Tiger.diff
+  patch :p0, :DATA
 
   # setuptools remembers the build flags python is built with and uses them to
   # build packages later. Xcode-only systems need different flags.
@@ -70,7 +58,7 @@ class Python3 < Formula
     ENV["PYTHONHOME"] = nil
     ENV["PYTHONPATH"] = nil
 
-    xy = (buildpath/"configure.ac").read.slice(/PYTHON_VERSION, (3\.\d)/, 1)
+    xy = (buildpath/"configure.ac").read.slice(/PYTHON_VERSION, (3\.\d\d)/, 1)
     lib_cellar = prefix/"Frameworks/Python.framework/Versions/#{xy}/lib/python#{xy}"
 
     args = %W[
@@ -96,10 +84,6 @@ class Python3 < Formula
       cflags   << "-isysroot #{MacOS.sdk_path}"
       ldflags  << "-isysroot #{MacOS.sdk_path}"
       cppflags << "-I#{MacOS.sdk_path}/usr/include" # find zlib
-      # For the Xlib.h, Python needs this header dir with the system Tk
-      if build.without? "tcl-tk"
-        cflags << "-I#{MacOS.sdk_path}/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers"
-      end
     end
     # Avoid linking to libgcc http://code.activestate.com/lists/python-dev/112195/
     args << "MACOSX_DEPLOYMENT_TARGET=#{MacOS.version}"
@@ -107,12 +91,13 @@ class Python3 < Formula
     # We want our readline! This is just to outsmart the detection code,
     # superenv makes cc always find includes/libs!
     inreplace "setup.py",
-      "do_readline = self.compiler.find_library_file(lib_dirs, 'readline')",
+      "do_readline = self.compiler.find_library_file(self.lib_dirs,
+                readline_lib)",
       "do_readline = '#{Formula["readline"].opt_lib}/libhistory.dylib'"
 
     inreplace "setup.py" do |s|
       s.gsub! "sqlite_setup_debug = False", "sqlite_setup_debug = True"
-      s.gsub! "for d_ in inc_dirs + sqlite_inc_paths:",
+      s.gsub! "for d_ in self.inc_dirs + sqlite_inc_paths:",
               "for d_ in ['#{Formula["sqlite"].opt_include}']:"
     end
 
@@ -129,11 +114,9 @@ class Python3 < Formula
       f.gsub! "DEFAULT_FRAMEWORK_FALLBACK = [", "DEFAULT_FRAMEWORK_FALLBACK = [ '#{HOMEBREW_PREFIX}/Frameworks',"
     end
 
-    if build.with? "tcl-tk"
-      tcl_tk = Formula["tcl-tk"].opt_prefix
-      ENV.append "CPPFLAGS", "-I#{tcl_tk}/include"
-      ENV.append "LDFLAGS", "-L#{tcl_tk}/lib"
-    end
+    tcl_tk = Formula["tcl-tk"].opt_prefix
+    ENV.append "CPPFLAGS", "-I#{tcl_tk}/include"
+    ENV.append "LDFLAGS", "-L#{tcl_tk}/lib"
 
     args << "CFLAGS=#{cflags.join(" ")}" unless cflags.empty?
     args << "LDFLAGS=#{ldflags.join(" ")}" unless ldflags.empty?
@@ -243,14 +226,9 @@ class Python3 < Formula
 
     # Help distutils find brewed stuff when building extensions
     include_dirs = [HOMEBREW_PREFIX/"include", Formula["openssl3"].opt_include,
-                    Formula["sqlite"].opt_include]
+                    Formula["sqlite"].opt_include, Formula["tcl-tk"].opt_include]
     library_dirs = [HOMEBREW_PREFIX/"lib", Formula["openssl3"].opt_lib,
-                    Formula["sqlite"].opt_lib]
-
-    if build.with? "tcl-tk"
-      include_dirs << Formula["tcl-tk"].opt_include
-      library_dirs << Formula["tcl-tk"].opt_lib
-    end
+                    Formula["sqlite"].opt_lib, Formula["tcl-tk"].opt_lib]
 
     cfg = prefix/"Frameworks/Python.framework/Versions/#{xy}/lib/python#{xy}/distutils/distutils.cfg"
 
@@ -308,7 +286,7 @@ class Python3 < Formula
     if prefix.exist?
       xy = (prefix/"Frameworks/Python.framework/Versions").children.min.basename.to_s
     else
-      xy = version.to_s.slice(/(3\.\d)/) || "3.7"
+      xy = version.to_s.slice(/(3\.\d\d)/) || "3.10"
     end
     text = <<~EOS
       Python has been installed as
@@ -355,26 +333,27 @@ class Python3 < Formula
 end
 
 __END__
-diff --git a/setup.py b/setup.py
-index 2779658..902d0eb 100644
---- a/setup.py
-+++ b/setup.py
-@@ -1699,9 +1699,6 @@ class PyBuildExt(build_ext):
-         # Rather than complicate the code below, detecting and building
-         # AquaTk is a separate method. Only one Tkinter will be built on
-         # Darwin - either AquaTk, if it is found, or X11 based Tk.
--        if (host_platform == 'darwin' and
--            self.detect_tkinter_darwin(inc_dirs, lib_dirs)):
--            return
-
+--- setup.py
++++ setup.py
+@@ -2111,12 +2111,6 @@
+         if self.detect_tkinter_fromenv():
+             return True
+ 
+-        # Rather than complicate the code below, detecting and building
+-        # AquaTk is a separate method. Only one Tkinter will be built on
+-        # Darwin - either AquaTk, if it is found, or X11 based Tk.
+-        if (MACOS and self.detect_tkinter_darwin()):
+-            return True
+-
          # Assume we haven't found any of the libraries or include files
          # The versions with dots are used on Unix, and the versions without
-@@ -1747,22 +1744,6 @@ class PyBuildExt(build_ext):
+         # dots on Windows, for detection by cygwin.
+@@ -2164,22 +2158,6 @@
              if dir not in include_dirs:
                  include_dirs.append(dir)
-
+ 
 -        # Check for various platform-specific directories
--        if host_platform == 'sunos5':
+-        if HOST_PLATFORM == 'sunos5':
 -            include_dirs.append('/usr/openwin/include')
 -            added_lib_dirs.append('/usr/openwin/lib')
 -        elif os.path.exists('/usr/X11R6/include'):
@@ -390,16 +369,124 @@ index 2779658..902d0eb 100644
 -            added_lib_dirs.append('/usr/X11/lib')
 -
          # If Cygwin, then verify that X is installed before proceeding
-         if host_platform == 'cygwin':
+         if CYGWIN:
              x11_inc = find_file('X11/Xlib.h', [], include_dirs)
-@@ -1786,10 +1767,6 @@ class PyBuildExt(build_ext):
-         if host_platform in ['aix3', 'aix4']:
-             libs.append('ld')
-
+@@ -2200,10 +2178,6 @@
+         libs.append('tk'+ version)
+         libs.append('tcl'+ version)
+ 
 -        # Finally, link with the X11 libraries (not appropriate on cygwin)
--        if host_platform != "cygwin":
+-        if not CYGWIN:
 -            libs.append('X11')
 -
-         ext = Extension('_tkinter', ['_tkinter.c', 'tkappinit.c'],
-                         define_macros=[('WITH_APPINIT', 1)] + defs,
-                         include_dirs = include_dirs,
+         # XXX handle these, but how to detect?
+         # *** Uncomment and edit for PIL (TkImaging) extension only:
+         #       -DWITH_PIL -I../Extensions/Imaging/libImaging  tkImaging.c \
+--- Modules/posixmodule.c
++++ Modules/posixmodule.c
+@@ -66,6 +66,8 @@
+  */
+ #if defined(__APPLE__)
+ 
++#include <AvailabilityMacros.h>
++
+ #if defined(__has_builtin)
+ #if __has_builtin(__builtin_available)
+ #define HAVE_BUILTIN_AVAILABLE 1
+@@ -238,7 +240,7 @@ corresponding Unix manual entries for mo
+ #  include <sys/sendfile.h>
+ #endif
+ 
+-#if defined(__APPLE__)
++#if defined(__APPLE__) && MAC_OS_X_VERSION_MAX_ALLOWED >= 1050
+ #  include <copyfile.h>
+ #endif
+ 
+@@ -9997,7 +9999,7 @@ done:
+ #endif /* HAVE_SENDFILE */
+ 
+ 
+-#if defined(__APPLE__)
++#if defined(__APPLE__) && MAC_OS_X_VERSION_MIN_REQUIRED >= 1050
+ /*[clinic input]
+ os._fcopyfile
+ 
+@@ -15440,7 +15442,7 @@ all_ins(PyObject *m)
+ #endif
+ #endif  /* HAVE_EVENTFD && EFD_CLOEXEC */
+ 
+-#if defined(__APPLE__)
++#if defined(__APPLE__) && MAC_OS_X_VERSION_MIN_REQUIRED >= 1050
+     if (PyModule_AddIntConstant(m, "_COPYFILE_DATA", COPYFILE_DATA)) return -1;
+ #endif
+ 
+--- Modules/clinic/posixmodule.c.h
++++ Modules/clinic/posixmodule.c.h
+@@ -5270,7 +5270,7 @@ exit:
+ 
+ #endif /* defined(HAVE_SENDFILE) && !defined(__APPLE__) && !(defined(__FreeBSD__) || defined(__DragonFly__)) */
+ 
+-#if defined(__APPLE__)
++#if defined(__APPLE__) && MAC_OS_X_VERSION_MIN_REQUIRED >= 1050
+ 
+ PyDoc_STRVAR(os__fcopyfile__doc__,
+ "_fcopyfile($module, in_fd, out_fd, flags, /)\n"
+--- Modules/pyexpat.c
++++ Modules/pyexpat.c
+@@ -1185,7 +1185,8 @@ newxmlparseobject(pyexpat_state *state, 
+ static int
+ xmlparse_traverse(xmlparseobject *op, visitproc visit, void *arg)
+ {
+-    for (int i = 0; handler_info[i].name != NULL; i++) {
++    int i;
++    for (i = 0; handler_info[i].name != NULL; i++) {
+         Py_VISIT(op->handlers[i]);
+     }
+     Py_VISIT(Py_TYPE(op));
+@@ -1814,13 +1815,14 @@ add_model_module(PyObject *mod)
+ static int
+ add_features(PyObject *mod)
+ {
++    size_t i;
+     PyObject *list = PyList_New(0);
+     if (list == NULL) {
+         return -1;
+     }
+ 
+     const XML_Feature *features = XML_GetFeatureList();
+-    for (size_t i = 0; features[i].feature != XML_FEATURE_END; ++i) {
++    for (i = 0; features[i].feature != XML_FEATURE_END; ++i) {
+         PyObject *item = Py_BuildValue("si", features[i].name,
+                                        features[i].value);
+         if (item == NULL) {
+--- Python/thread_pthread.h
++++ Python/thread_pthread.h
+@@ -343,7 +346,17 @@ PyThread_get_thread_native_id(void)
+         PyThread_init_thread();
+ #ifdef __APPLE__
+     uint64_t native_id;
++#if MAC_OS_X_VERSION_MAX_ALLOWED < 1060
++    native_id = pthread_mach_thread_np(pthread_self());
++#elif MAC_OS_X_VERSION_MIN_REQUIRED < 1060
++    if (&pthread_threadid_np != NULL) {
++	(void) pthread_threaded_np(NULL, &native_id);
++    } else {
++	native_id = pthread_mach_threaded_np(pthread_self());
++    }
++#else
+     (void) pthread_threadid_np(NULL, &native_id);
++#endif
+ #elif defined(__linux__)
+     pid_t native_id;
+     native_id = syscall(SYS_gettid);
+--- Lib/test/test_shutil.py
++++ Lib/test/test_shutil.py
+@@ -2451,7 +2451,7 @@ class TestZeroCopySendfile(_ZeroCopyFileTest, unittest.TestCase):
+             shutil._USE_CP_SENDFILE = True
+ 
+ 
+-@unittest.skipIf(not MACOS, 'macOS only')
++@unittest.skipIf(not MACOS or not hasattr(posix, "_fcopyfile"), 'macOS with posix._fcopyfile only')
+ class TestZeroCopyMACOS(_ZeroCopyFileTest, unittest.TestCase):
+     PATCHPOINT = "posix._fcopyfile"
+ 
