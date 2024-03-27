@@ -1,4 +1,3 @@
-require "compilers"
 require "hardware"
 require "os/mac"
 require "extend/ENV/shared"
@@ -294,7 +293,7 @@ module Stdenv
     if compiler == :clang
       append "CXX", "-std=c++11"
       append "CXX", "-stdlib=libc++"
-    elsif compiler =~ GNU_GCC_REGEXP
+    elsif compiler =~ GNU_GXX11_REGEXP
       append "CXX", "-std=c++11"
     else
       raise "The selected compiler doesn't support C++11: #{compiler}"
