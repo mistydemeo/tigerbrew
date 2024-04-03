@@ -3,8 +3,9 @@
 class Xz < Formula
   desc "General-purpose data compression with high compression ratio"
   homepage "http://tukaani.org/xz/"
-  url "https://fossies.org/linux/misc/xz-5.4.6.tar.gz"
-  mirror "http://tukaani.org/xz/xz-5.4.6.tar.gz"
+  # url "https://fossies.org/linux/misc/xz-5.4.6.tar.gz"
+  # mirror "http://tukaani.org/xz/xz-5.4.6.tar.gz"
+  url "https://www.geeklan.co.uk/files/tmp/xz-5.4.6.tar.gz"
   sha256 "aeba3e03bf8140ddedf62a0a367158340520f6b384f75ca6045ccc6c0d43fd5c"
 
   bottle do
