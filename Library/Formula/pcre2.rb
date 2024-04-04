@@ -14,7 +14,7 @@ class Pcre2 < Formula
 
   # Allow building with JIT support on Tiger
   patch :p0 do
-   url "https://raw.githubusercontent.com/macports/macports-ports/master/devel/pcre/files/no-OSCacheControl-on-tiger.diff"
+   url "https://raw.githubusercontent.com/macports/macports-ports/661d0212412d4f428a37d31e233fa6ca1efd4331/devel/pcre/files/no-OSCacheControl-on-tiger.diff"
    sha256 "eac8b57207586f537382ebce98b0f36476bd50118e349fd8153980a2fc65be02"
   end
 
