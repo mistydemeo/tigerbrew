@@ -1,17 +1,16 @@
 class Openvpn < Formula
   desc "SSL VPN implementing OSI layer 2 or 3 secure network extension"
   homepage "https://openvpn.net/index.php/download/community-downloads.html"
-  url "https://swupdate.openvpn.org/community/releases/openvpn-2.6.6.tar.gz"
-  mirror "https://build.openvpn.net/downloads/releases/openvpn-2.6.6.tar.gz"
-  sha256 "3b074f392818b31aa529b84f76e8b5e4ad03fca764924f46d906bceaaf421034"
+  url "https://swupdate.openvpn.org/community/releases/openvpn-2.6.10.tar.gz"
+  mirror "https://build.openvpn.net/downloads/releases/openvpn-2.6.10.tar.gz"
+  sha256 "1993bbb7b9edb430626eaa24573f881fd3df642f427fcb824b1aed1fca1bcc9b"
 
   bottle do
-    sha256 "b2470b50caa5095b2f2c7dd0c366d1c0c99796cbce3b38e9e98331d56959edf9" => :tiger_altivec
   end
 
   depends_on "lzo"
   depends_on :tuntap
-  depends_on "openssl"
+  depends_on "openssl3"
   depends_on "lz4"
 
   def install
@@ -26,8 +25,7 @@ class Openvpn < Formula
                           "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--with-crypto-library=openssl",
-                          "--prefix=#{prefix}",
-                          "--enable-password-save"
+                          "--prefix=#{prefix}"
     system "make", "install"
 
     inreplace "sample/sample-config-files/openvpn-startup.sh",
