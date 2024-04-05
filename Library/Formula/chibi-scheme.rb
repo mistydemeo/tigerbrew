@@ -13,6 +13,8 @@ class ChibiScheme < Formula
     cellar :any
   end
 
+  depends_on "libutil"
+
   def install
     ENV.deparallelize
     # unknown option character `w' in: -w
