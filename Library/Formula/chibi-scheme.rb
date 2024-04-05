@@ -3,24 +3,27 @@ class ChibiScheme < Formula
   homepage "http://synthcode.com/wiki/chibi-scheme"
 
   stable do
-    url "http://synthcode.com/scheme/chibi/chibi-scheme-0.7.3.tgz"
-    sha256 "21a0cf669d42a670a11c08f50dc5aedb7b438fae892260900da58f0ed545fc7d"
+    url "http://synthcode.com/scheme/chibi/chibi-scheme-0.10.0.tgz"
+    sha256 "8db67f420c86b07ad47ce42b65ae2948a80e607fb658595cbe3381ef537c40cf"
   end
 
   head "https://github.com/ashinn/chibi-scheme.git"
 
   bottle do
     cellar :any
-    sha256 "9fab20beb2d9afdd48d97434ca022f327f7b1eb3bec7d0a4d2ed6d44a091946a" => :yosemite
-    sha256 "bcd1046b43b40256705c162d6f92f71665811120143f7857d0ba7938f20cc433" => :mavericks
-    sha256 "98b0bb6559ce5b8225b481e56024dc44fcb6e4c71ece3a54a3bcbe8395d8e463" => :mountain_lion
   end
 
   def install
     ENV.deparallelize
+    # unknown option character `w' in: -w
+    ENV.enable_warnings if ENV.compiler == :gcc_4_0
+    # lib/chibi/ast.c:590: error: void value not ignored as it ought to be
+    ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version == :tiger
+    # lib/srfi/160/uvprims.c:292: warning: this decimal constant is unsigned only in ISO C90
+    ENV.append_to_cflags "-std=gnu99"
 
     # "make" and "make install" must be done separately
-    system "make"
+    system "make", "PREFIX=#{prefix}"
     system "make", "install", "PREFIX=#{prefix}"
   end
 
