@@ -1,14 +1,12 @@
 class Expat < Formula
   desc "XML 1.0 parser"
   homepage "http://www.libexpat.org"
-  url "https://github.com/libexpat/libexpat/releases/download/R_2_5_0/expat-2.5.0.tar.bz2"
-  mirror "https://ftp.osuosl.org/pub/blfs/conglomeration/expat/expat-2.5.0.tar.bz2"
-  sha256 "6f0e6e01f7b30025fa05c85fdad1e5d0ec7fd35d9f61b22f34998de11969ff67"
+  url "https://github.com/libexpat/libexpat/releases/download/R_2_6_2/expat-2.6.2.tar.bz2"
+  sha256 "9c7c1b5dcbc3c237c500a8fb1493e14d9582146dd9b42aa8d3ffb856a3b927e0"
 
   head "https://github.com/libexpat/libexpat.git"
 
   bottle do
-    sha256 "29e6fb04afab59f52c7060fea067576c9d805733c058c1212fd62e0194c6175a" => :tiger_altivec
   end
 
   keg_only :provided_by_osx, "OS X includes Expat 1.5." if MacOS.version > :tiger
@@ -19,7 +17,8 @@ class Expat < Formula
     ENV.universal_binary if build.universal?
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--mandir=#{man}"
+                          "--mandir=#{man}",
+                          "--without-tests" # Needs a C++11 compiler
     system "make", "install"
   end
 
