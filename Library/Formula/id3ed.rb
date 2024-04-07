@@ -1,17 +1,22 @@
 class Id3ed < Formula
   desc "ID3 tag editor for MP3 files"
-  homepage "http://code.fluffytapeworm.com/projects/id3ed"
-  url "http://code.fluffytapeworm.com/projects/id3ed/id3ed-1.10.4.tar.gz"
+  homepage "https://web.archive.org/web/20230604094705/http://code.fluffytapeworm.com/projects/id3ed"
+  url "https://web.archive.org/web/20230604094705/http://code.fluffytapeworm.com/projects/id3ed/id3ed-1.10.4.tar.gz"
   sha256 "56f26dfde7b6357c5ad22644c2a379f25fce82a200264b5d4ce62f2468d8431b"
 
   bottle do
     cellar :any
-    sha1 "ef017f7b0b088be78071487e6c39f3a3e0d43cca" => :yosemite
-    sha1 "c40ca26c9c0e89f78c21f852340342063f5b82f9" => :mavericks
-    sha1 "b49bc15f4ed27f61c12bc903cf2a7eb60293c65e" => :mountain_lion
+    sha256 "2ed5fd5dbb117a28776090fb80aa0b147bb7027372b49584d21ec1741ec3faeb" => :tiger_altivec
   end
 
+  # Make sure we link to our readline
+  patch :p0, :DATA
+
+  depends_on "readline"
+
   def install
+    # Need to find libhistory
+    ENV.append "CXXFLAGS", "-L#{Formula["readline"].lib}"
     system "./configure", "--disable-debug",
                           "--disable-dependency-tracking",
                           "--disable-silent-rules",
@@ -27,3 +32,24 @@ class Id3ed < Formula
     system "#{bin}/id3ed", "-r", "-q", test_fixtures("test.mp3")
   end
 end
+__END__
+--- configure.orig	2024-03-23 18:27:47.000000000 +0000
++++ configure	2024-03-23 18:28:53.000000000 +0000
+@@ -926,7 +926,7 @@
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   ac_save_LIBS="$LIBS"
+-LIBS="-lhistory  $LIBS"
++LIBS="$LIB -lhistory"
+ cat > conftest.$ac_ext <<EOF
+ #line 932 "configure"
+ #include "confdefs.h"
+@@ -963,7 +963,7 @@
+ #define $ac_tr_lib 1
+ EOF
+ 
+-  LIBS="-lhistory $LIBS"
++  LIBS="$LIBS -lhistory"
+ 
+ else
+   echo "$ac_t""no" 1>&6
