@@ -70,6 +70,14 @@ class Openssh < Formula
   end
 
   test do
+    require "socket"
+    def free_port
+      server = TCPServer.new 0
+      _, port, = server.addr
+      server.close
+      port
+    end
+
     assert_match "OpenSSH_", shell_output("#{bin}/ssh -V 2>&1")
 
     port = free_port
