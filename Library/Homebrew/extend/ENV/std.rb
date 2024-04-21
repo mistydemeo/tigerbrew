@@ -231,7 +231,7 @@ module Stdenv
     if MacOS::CLT.installed?
       append "CPPFLAGS", "-I/usr/include/libxml2"
     else
-      # Use the includes form the sdk
+      # Use the includes from the sdk
       append "CPPFLAGS", "-I#{MacOS.sdk_path}/usr/include/libxml2"
     end
   end
@@ -274,9 +274,19 @@ module Stdenv
     append "LDFLAGS", "-arch #{Hardware::CPU.arch_64_bit}"
   end
 
+  def un_m64
+    remove_from_cflags "-m64"
+    remove "LDFLAGS", "-arch #{Hardware::CPU.arch_64_bit}"
+  end
+
   def m32
     append_to_cflags "-m32"
     append "LDFLAGS", "-arch #{Hardware::CPU.arch_32_bit}"
+  end
+
+  def un_m32
+    remove_from_cflags "-m32"
+    remove "LDFLAGS", "-arch #{Hardware::CPU.arch_32_bit}"
   end
 
   def universal_binary
@@ -354,7 +364,12 @@ module Stdenv
       # in a VM or on a Hackintosh.
       Hardware.oldest_cpu
     else
-      Hardware::CPU.family
+      native_cpu = Hardware::CPU.family
+      # distinguishing :g5 from :g5_64 is only helpful for bottles; for anything else, having an
+      # extra “-arch” in the compiler flags can really smurf things up.  For example, the actions
+      # of some packages’ Makefiles can trigger surprise generation of fat binaries!
+      native_cpu = :g5 if native_cpu == :g5_64
+      native_cpu
     end
   end
 

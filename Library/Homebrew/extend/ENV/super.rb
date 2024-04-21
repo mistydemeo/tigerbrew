@@ -225,9 +225,16 @@ module Superenv
       Hardware::CPU.optimization_flags.fetch(Hardware.oldest_cpu)
     elsif compiler == :clang
       "-march=native"
-    # This is mutated elsewhere, so return an empty string in this case
+    # # This is mutated elsewhere, so return an empty string in this case
+    # else
+    #   ""
+    # ...that "elsewhere" appears to not yet exist, so, optimize here:
     else
-      ""
+      native_CPU = Hardware::CPU.family
+      # -arch flags, when not being filtered out, belong in ENV['HOMEBREW_ARCHFLAGS']; things can
+      # get messed up if they also appear in ENV['HOMEBREW_OPTFLAGS'], so prevent that:
+      native_CPU = :g5 if arch_flags_permitted? and native_CPU == :g5_64
+      Hardware::CPU.optimization_flags.fetch(native_CPU)
     end
   end
 
@@ -242,11 +249,12 @@ module Superenv
 
   public
 
-  # Removes the MAKEFLAGS environment variable, causing make to use a single job.
+  # Changes the MAKEFLAGS environment variable, causing make to use a single job.
   # This is useful for makefiles with race conditions.
-  # When passed a block, MAKEFLAGS is removed only for the duration of the block and is restored after its completion.
+  # When passed a block, MAKEFLAGS is altered only for the duration of the block and is restored after its completion.
   def deparallelize
-    old = delete("MAKEFLAGS")
+    old = self["MAKEFLAGS"]
+    self["MAKEFLAGS"] = self["MAKEFLAGS"].sub(/(-\w*j)\d+/, "\\11")
     if block_given?
       begin
         yield
@@ -265,6 +273,7 @@ module Superenv
   end
 
   def universal_binary
+    permit_arch_flags
     self["HOMEBREW_ARCHFLAGS"] = Hardware::CPU.universal_archs.as_arch_flags
 
     # GCC doesn't accept "-march" for a 32-bit CPU with "-arch x86_64"
@@ -277,15 +286,30 @@ module Superenv
   end
 
   def permit_arch_flags
-    append "HOMEBREW_CCCFG", "K"
+    append "HOMEBREW_CCCFG", "K" unless arch_flags_permitted?
+  end
+
+  # @private
+  def arch_flags_permitted?
+    self['HOMEBREW_CCCFG'] =~ /K/
   end
 
   def m32
+    permit_arch_flags
     append "HOMEBREW_ARCHFLAGS", "-m32"
   end
 
+  def un_m32
+    remove "HOMEBREW_ARCHFLAGS", "-m32"
+  end
+
   def m64
+    permit_arch_flags
     append "HOMEBREW_ARCHFLAGS", "-m64"
+  end
+
+  def un_m64
+    remove "HOMEBREW_ARCHFLAGS", "-m64"
   end
 
   def cxx11
