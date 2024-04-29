@@ -7,6 +7,7 @@ class Tcpdump < Formula
   head "https://github.com/the-tcpdump-group/tcpdump.git", branch: "master"
 
   bottle do
+    sha256 "887a9a7379b78c01ee9a2be8c91983c6eb9caa7a840e2c16bcbcabc230bdec9e" => :tiger_altivec
   end
 
   depends_on "libpcap"
