@@ -7,6 +7,7 @@ class Cscope < Formula
 
   bottle do
     cellar :any_skip_relocation
+    sha256 "ec47b8ece91dfeb70cca36e19b5b24477bc996426ba3a1c4d349aa86f246e48d" => :tiger_altivec
   end
 
   def install
