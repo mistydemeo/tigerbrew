@@ -11,6 +11,7 @@ class ChibiScheme < Formula
 
   bottle do
     cellar :any
+    sha256 "cc3055eb986362d0012cbe6832b4bf154e3674be67b8e911beb41b2a6b645aaf" => :tiger_altivec
   end
 
   depends_on "libutil"
