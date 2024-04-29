@@ -6,7 +6,7 @@ class Cc65 < Formula
   head "https://github.com/cc65/cc65.git"
 
   # impressively, Makefile causes ancient make to crash
-  depends_on "make"
+  depends_on "make" => :build
 
   def install
     ENV.no_optimization
