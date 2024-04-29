@@ -5,6 +5,10 @@ class GnuIndent < Formula
   mirror "https://ftp.gnu.org/gnu/indent/indent-2.2.13.tar.xz"
   sha256 "1b81ba4e9a006ca8e6eb5cbbe4cf4f75dfc1fc9301b459aa0d40393e85590a0b"
 
+  bottle do
+    sha256 "ceeedf5520df14be36ad8d14d68e29b8ca6da6f427a320546a1331e86306d4c5" => :tiger_altivec
+  end
+
   depends_on "gettext"
 
   deprecated_option "default-names" => "with-default-names"
