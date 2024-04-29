@@ -6,6 +6,7 @@ class Openvpn < Formula
   sha256 "1993bbb7b9edb430626eaa24573f881fd3df642f427fcb824b1aed1fca1bcc9b"
 
   bottle do
+    sha256 "67fa6a36e4a04c3acc88fd4b2ccc0f8432a95fd535987af8fdf66ac9428aa1b2" => :tiger_altivec
   end
 
   depends_on "lzo"
