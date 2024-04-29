@@ -7,6 +7,7 @@ class Osxutils < Formula
   head "https://github.com/vasi/osxutils.git"
 
   bottle do
+    sha256 "829147ce1b532e370070bce1ca301c15c52124e5cdd016feb578d177e2af6a65" => :tiger_altivec
   end
 
   def install
