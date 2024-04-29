@@ -7,6 +7,7 @@ class Autossh < Formula
 
   bottle do
     cellar :any_skip_relocation
+    sha256 "eac52de293d3a1a3afed76bebb8cb5acac07f49f90c81b8f22c0d3437ac36fe4" => :tiger_altivec
   end
 
   patch :DATA
