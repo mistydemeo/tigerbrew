@@ -5,6 +5,7 @@ class Nasm < Formula
   sha256 "1e1b942ea88f22edae89659e15be26fa027eae0747f51413540f52d4eac4790d"
 
   bottle do
+    sha256 "a1963b7daa93237e0725c9f160d138e3a168f8b9442f8dd0afcf273dd4cd4dfc" => :tiger_altivec
   end
 
   option :universal
