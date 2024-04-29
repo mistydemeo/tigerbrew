@@ -5,7 +5,7 @@ class TeensyLoaderCli < Formula
   sha256 "103c691f412d04906c4f46038c234d3e5f78322c1b78ded102df9f900724cd54"
 
   depends_on "make"
-  depends_on "libusb"
+  depends_on "libusb-compat"
 
   # Be flexible about where libusb can be found
   patch :p0, :DATA
