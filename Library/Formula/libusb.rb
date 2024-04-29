@@ -6,6 +6,7 @@ class Libusb < Formula
   license "LGPL-2.1-or-later"
 
   bottle do
+    sha256 "73b540f092915bee23b2afd8735ccc94b3fa150efbcdd7921f7ef3d4da9984e1" => :tiger_altivec
   end
 
   head do
