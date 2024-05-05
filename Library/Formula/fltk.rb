@@ -1,31 +1,21 @@
 class Fltk < Formula
   desc "Cross-platform C++ GUI toolkit"
   homepage "http://www.fltk.org/"
-  url "https://fossies.org/linux/misc/fltk-1.3.3-source.tar.gz"
-  sha256 "f8398d98d7221d40e77bc7b19e761adaf2f1ef8bb0c30eceb7beb4f2273d0d97"
-  revision 1
+  url "https://www.fltk.org/pub/fltk/1.3.9/fltk-1.3.9-source.tar.bz2"
+  sha256 "103441134915402808fd45424d4061778609437e804334434e946cfd26b196c2"
 
   bottle do
-    sha1 "33c75cce41deadbfe54bdcc22ae91d17d3ecc782" => :mavericks
-    sha1 "3674769086a1a667379c94aa50aa59b5f66f75d3" => :mountain_lion
   end
 
   option :universal
 
   depends_on "libpng"
   depends_on "jpeg"
-
-  # Fltk 1.3.4 include support for El Capitan. Remove on update.
-  depends_on MaximumMacOSRequirement => :yosemite
-
-  fails_with :clang do
-    build 318
-    cause "http://llvm.org/bugs/show_bug.cgi?id=10338"
-  end
+  depends_on "zlib"
 
   # Fixes issue with -lpng not found.
   # Based on: https://trac.macports.org/browser/trunk/dports/aqua/fltk/files/patch-src-Makefile.diff
-  patch :DATA
+  patch :p0, :DATA
 
   def install
     ENV.universal_binary if build.universal?
@@ -37,15 +27,14 @@ class Fltk < Formula
 end
 
 __END__
-diff --git a/src/Makefile b/src/Makefile
-index fcad5f0..5a5a850 100644
---- a/src/Makefile
-+++ b/src/Makefile
-@@ -360,7 +360,7 @@ libfltk_images.1.3.dylib: $(IMGOBJECTS) libfltk.1.3.dylib
+--- src/Makefile.orig	2023-12-09 13:58:40.000000000 +0000
++++ src/Makefile	2024-05-05 12:54:44.000000000 +0100
+@@ -361,7 +361,7 @@
  		-install_name $(libdir)/$@ \
- 		-current_version 1.3.1 \
- 		-compatibility_version 1.3.0 \
+ 		-current_version $(FL_VERSION) \
+ 		-compatibility_version $(FL_ABI_VERSION) \
 -		$(IMGOBJECTS)  -L. $(LDLIBS) $(IMAGELIBS) -lfltk
 +		$(IMGOBJECTS)  -L. $(LDLIBS) $(IMAGELIBS) -lfltk $(LDFLAGS)
  	$(RM) libfltk_images.dylib
- 	$(LN) libfltk_images.1.3.dylib libfltk_images.dylib
+ 	$(LN) libfltk_images.$(FL_DSO_VERSION).dylib libfltk_images.dylib
+ 
