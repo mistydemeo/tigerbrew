@@ -10,6 +10,7 @@ class Dillo < Formula
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "openssl3"
+  depends_on "wget" => :run
   depends_on "zlib"
 
   def install
