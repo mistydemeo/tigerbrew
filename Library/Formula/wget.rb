@@ -7,6 +7,7 @@ class Wget < Formula
   url "https://ftpmirror.gnu.org/wget/wget-1.21.3.tar.gz"
   mirror "https://ftp.gnu.org/gnu/wget/wget-1.21.3.tar.gz"
   sha256 "5726bb8bc5ca0f6dc7110f6416e4bb7019e2d2ff5bf93d1ca2ffcc6656f220e5"
+  revision 1
 
   head do
     url "git://git.savannah.gnu.org/wget.git"
@@ -26,7 +27,7 @@ class Wget < Formula
   option "with-iri", "Enable iri support"
   option "with-debug", "Build with debug support"
 
-  depends_on "openssl" => :recommended
+  depends_on "openssl3" => :recommended
   depends_on "libressl" => :optional
   depends_on "libidn" if build.with? "iri"
   depends_on "pcre2" => :optional
