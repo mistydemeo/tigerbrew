@@ -6,6 +6,7 @@ class Nano < Formula
   license "GPL-3.0-or-later"
 
   bottle do
+    sha256 "8f703a4ff4de0aa7b140a5122ad97a7946be8118744d844cc1a8f5ffd322b02e" => :tiger_altivec
   end
 
   depends_on "pkg-config" => :build
