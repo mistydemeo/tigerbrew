@@ -7,6 +7,7 @@ class Newlisp < Formula
   sha256 "dc2d0ff651c2b275bc4af3af8ba59851a6fb6e1eaddc20ae75fb60b1e90126ec"
 
   bottle do
+    sha256 "04e9492ce0ef247cf6674b6220a5a09cebe84314f6da58d91a3ccdcfb3e9f3e7" => :tiger_altivec
   end
 
   # Help find ffi.h
