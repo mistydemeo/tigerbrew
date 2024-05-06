@@ -5,6 +5,10 @@ class Dillo < Formula
   version "3.1.0"
   sha256 "f56766956d90dac0ccca31755917cba8a4014bcf43b3e36c7d86efe1d20f9d92"
 
+  bottle do
+    sha256 "175c4bb73ec0bc8c588f11752e4ec674a77947cd28fec00e4da1038261e35c72" => :tiger_altivec
+  end
+
   depends_on "make" => :build
   depends_on "fltk"
   depends_on "jpeg"
