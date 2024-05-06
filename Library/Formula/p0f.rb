@@ -5,6 +5,7 @@ class P0f < Formula
   sha256 "543b68638e739be5c3e818c3958c3b124ac0ccb8be62ba274b4241dbdec00e7f"
 
   bottle do
+    sha256 "7276547f8ef989f59e75548f900f07b140b4f48452a77dc99136586c22e1bae3" => :tiger_altivec
   end
 
   depends_on "libpcap"
