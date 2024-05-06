@@ -5,6 +5,8 @@ class Ncdu < Formula
   sha256 "30363019180cde0752c7fb006c12e154920412f4e1b5dc3090654698496bb17d"
 
   bottle do
+    cellar :any_skip_relocation
+    sha256 "2a713a0552aba37fe6d8ef9e419169f6902c3402e1a58abba1971631173e16b9" => :tiger_altivec
   end
 
   head do
