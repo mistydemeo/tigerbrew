@@ -5,6 +5,8 @@ class Pngcheck < Formula
   sha256 "c36a4491634af751f7798ea421321642f9590faa032eccb0dd5fb4533609dee6"
 
   bottle do
+    cellar :any
+    sha256 "769af0721d855771c53d5a3c28dbbf203515fef675594db154c885885a364387" => :tiger_altivec
   end
 
   # Allow the compiler to be built with & zlib to use to be specified
