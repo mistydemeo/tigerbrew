@@ -18,7 +18,7 @@ class Wget < Formula
   end
 
   bottle do
-    sha256 "a78bbaa576c705ffa755e23889d8c31eb40fed7634146bdf373a642a56eb06da" => :tiger_altivec
+    sha256 "81581a3befe8af2552a4f6b3a574b712ae9fb0f85b2d1bbe1f1de2e96d4d1a9f" => :tiger_altivec
   end
 
   deprecated_option "enable-iri" => "with-iri"
