@@ -4,6 +4,11 @@ class TeensyLoaderCli < Formula
   url "https://github.com/PaulStoffregen/teensy_loader_cli/archive/refs/tags/2.2.tar.gz"
   sha256 "103c691f412d04906c4f46038c234d3e5f78322c1b78ded102df9f900724cd54"
 
+  bottle do
+    cellar :any
+    sha256 "ab07134993ff4026a4663a81ad0208bd3043a8b66952dbbb8f2cfa12cf9440b1" => :tiger_altivec
+  end
+
   depends_on "make"
   depends_on "libusb-compat"
 
