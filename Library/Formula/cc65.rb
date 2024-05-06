@@ -5,6 +5,10 @@ class Cc65 < Formula
   sha256 "157b8051aed7f534e5093471e734e7a95e509c577324099c3c81324ed9d0de77"
   head "https://github.com/cc65/cc65.git"
 
+  bottle do
+    sha256 "f46036288e98583501e57c9665196b5c456dd4449d6f64bebbac8190d0fd443f" => :tiger_altivec
+  end
+
   # impressively, Makefile causes ancient make to crash
   depends_on "make" => :build
 
