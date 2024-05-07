@@ -21,34 +21,56 @@ class Qt < Formula
     end
   end
 
-  head "https://code.qt.io/qt/qt.git", :branch => "4.8"
-
   # Fixes build on 10.5 - "‘kCFURLIsHiddenKey’ was not declared in this scope"
   # https://github.com/mistydemeo/tigerbrew/issues/303
-  patch :DATA
+  # Support OpenSSL 1.1.1 - TODO
+  # https://github.com/macports/macports-ports/blob/master/aqua/qt4-mac/files/patch-qt4-openssl111.diff
+  # Fix build on macOS 10.4 and 10.5 - missing patch to qpaintengine_mac.cpp because it doesn't apply
+  # https://github.com/cartr/homebrew-qt4/pull/35/files
+  # bodge for src/corelib/io/qfilesystemengine.cpp:285: error: ‘UF_HIDDEN’ was not declared in this scope
+  # QtHelp needs to link against libQtCLucene. 
+  patch :p0, :DATA
 
   option :universal
-  option "with-qt3support", "Build with deprecated Qt3Support module support"
   option "with-docs", "Build documentation"
   option "with-developer", "Build and link with developer options"
 
-  depends_on :macos => :leopard
   depends_on "d-bus" => :optional
   depends_on "mysql" => :optional
   depends_on "postgresql" => :optional
+  depends_on "pkg-config" => :build
+  depends_on "jpeg"
+  depends_on "libpng"
+  depends_on "libtiff"
+  depends_on "sqlite"
+  depends_on "zlib"
 
   deprecated_option "qtdbus" => "with-d-bus"
   deprecated_option "developer" => "with-developer"
 
   def install
     ENV.universal_binary if build.universal?
+    # Build itself sets -O2
+    ENV.no_optimization
 
-    args = ["-prefix", prefix,
-            "-system-zlib",
-            "-qt-libtiff", "-qt-libpng", "-qt-libjpeg",
-            "-confirm-license", "-opensource",
-            "-nomake", "demos", "-nomake", "examples",
-            "-cocoa", "-fast", "-release"]
+    args = %W[
+      -prefix #{prefix}
+      -plugindir #{prefix}/lib/qt4/plugins
+      -importdir #{prefix}/lib/qt4/imports
+      -datadir #{prefix}/etc/qt4
+      -release
+      -opensource
+      -confirm-license
+      -fast
+      -system-zlib
+      -qt-libtiff
+      -qt-libpng
+      -qt-libjpeg
+      -nomake demos
+      -nomake examples
+      -no-webkit
+      -plugin-sql-sqlite
+    ]
 
     if ENV.compiler == :clang
       args << "-platform"
@@ -58,6 +80,13 @@ class Qt < Formula
       else
         args << "unsupported/macx-clang"
       end
+    end
+
+    # Tiger is supported with the Carbon build. Cocoa build needs Leopard.
+    if MacOS.version < :leopard
+      args << "-carbon"
+    else
+      args << "-cocoa"
     end
 
     args << "-plugin-sql-mysql" if build.with? "mysql"
@@ -70,12 +99,6 @@ class Qt < Formula
       args << "-L#{dbus_opt}/lib"
       args << "-ldbus-1"
       args << "-dbus-linked"
-    end
-
-    if build.with? "qt3support"
-      args << "-qt3support"
-    else
-      args << "-no-qt3support"
     end
 
     args << "-nomake" << "docs" if build.without? "docs"
@@ -108,8 +131,6 @@ class Qt < Formula
     # what are these anyway?
     (bin+"pixeltool.app").rmtree
     (bin+"qhelpconverter.app").rmtree
-    # remove porting file for non-humans
-    (prefix+"q3porting.xml").unlink if build.without? "qt3support"
 
     # Some config scripts will only find Qt in a "Frameworks" folder
     frameworks.install_symlink Dir["#{lib}/*.framework"]
@@ -138,8 +159,8 @@ end
 __END__
 diff --git a/src/gui/dialogs/qfiledialog_mac.mm b/src/gui/dialogs/qfiledialog_mac.mm
 index c51f6ad..f4bd8b8 100644
---- a/src/gui/dialogs/qfiledialog_mac.mm
-+++ b/src/gui/dialogs/qfiledialog_mac.mm
+--- src/gui/dialogs/qfiledialog_mac.mm
++++ src/gui/dialogs/qfiledialog_mac.mm
 @@ -297,6 +297,7 @@ QT_USE_NAMESPACE
      CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (CFStringRef)filename, kCFURLPOSIXPathStyle, isDir);
      CFBooleanRef isHidden;
@@ -156,3 +177,184 @@ index c51f6ad..f4bd8b8 100644
      CFRelease(url);
      return errorOrHidden;
  #else
+--- src/corelib/io/qfilesystemengine_unix.cpp.orig	2017-08-31 20:54:04.000000000 +0200
++++ src/corelib/io/qfilesystemengine_unix.cpp	2017-08-31 20:58:13.000000000 +0200
+@@ -83,6 +83,7 @@
+     return (fileInfo->finderFlags & kIsInvisible);
+ }
+ 
++#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+ static bool isPackage(const QFileSystemMetaData &data, const QFileSystemEntry &entry)
+ {
+     if (!data.isDirectory())
+@@ -138,6 +139,7 @@
+     FolderInfo *folderInfo = reinterpret_cast<FolderInfo *>(catalogInfo.finderInfo);
+     return folderInfo->finderFlags & kHasBundle;
+ }
++#endif
+ 
+ #else
+ static inline bool _q_isMacHidden(const char *nativePath)
+@@ -529,8 +531,22 @@
+ 
+ #if !defined(QWS) && !defined(Q_WS_QPA) && defined(Q_OS_MAC)
+     if (what & QFileSystemMetaData::BundleType) {
++#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+         if (entryExists && isPackage(data, entry))
+             data.entryFlags |= QFileSystemMetaData::BundleType;
++#else
++        if (entryExists && data.isDirectory()) {
++            QCFType<CFStringRef> path = CFStringCreateWithBytes(0,
++                    (const UInt8*)nativeFilePath, nativeFilePathLength,
++                    kCFStringEncodingUTF8, false);
++            QCFType<CFURLRef> url = CFURLCreateWithFileSystemPath(0, path,
++                    kCFURLPOSIXPathStyle, true);
++
++            UInt32 type, creator;
++            if (CFBundleGetPackageInfoInDirectory(url, &type, &creator))
++                data.entryFlags |= QFileSystemMetaData::BundleType;
++        }
++#endif
+         data.knownFlagsMask |= QFileSystemMetaData::BundleType;
+     }
+ #endif
+--- src/gui/dialogs/qfontdialog_mac.mm.orig	2017-08-31 21:41:56.000000000 +0200
++++ src/gui/dialogs/qfontdialog_mac.mm	2017-08-31 21:55:51.000000000 +0200
+@@ -141,6 +141,7 @@
+     QFont newFont;
+     if (cocoaFont) {
+         int pSize = qRound([cocoaFont pointSize]);
++#if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+         CTFontDescriptorRef font = CTFontCopyFontDescriptor((CTFontRef)cocoaFont);
+         // QCoreTextFontDatabase::populateFontDatabase() is using localized names
+         QString family = QCFString::toQString((CFStringRef) CTFontDescriptorCopyLocalizedAttribute(font, kCTFontFamilyNameAttribute, NULL));
+@@ -151,6 +152,23 @@
+         newFont.setStrikeOut(resolveFont.strikeOut());
+ 
+         CFRelease(font);
++#else
++	// This pre-Leopard version is buggy and was fixed in 717e36037cf246aa201c0aaf15a5dcbd7883f159
++	// see QTBUG-27415 https://codereview.qt-project.org/#/c/42830/
++        QString family(qt_mac_NSStringToQString([cocoaFont familyName]));
++        QString typeface(qt_mac_NSStringToQString([cocoaFont fontName]));
++
++        int hyphenPos = typeface.indexOf(QLatin1Char('-'));
++        if (hyphenPos != -1) {
++            typeface.remove(0, hyphenPos + 1);
++        } else {
++            typeface = QLatin1String("Normal");
++        }
++
++        newFont = QFontDatabase().font(family, typeface, pSize);
++        newFont.setUnderline(resolveFont.underline());
++        newFont.setStrikeOut(resolveFont.strikeOut());
++#endif
+     }
+     return newFont;
+ }
+--- src/gui/painting/qprintengine_mac.mm.orig	2017-08-31 21:35:19.000000000 +0200
++++ src/gui/painting/qprintengine_mac.mm	2017-08-31 21:37:56.000000000 +0200
+@@ -187,7 +187,11 @@
+             paperMargins.top = topMargin;
+             paperMargins.right = rightMargin;
+             paperMargins.bottom = bottomMargin;
++#if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+             PMPaperCreateCustom(printer, paperId, QCFString("Custom size"), customSize.width(), customSize.height(), &paperMargins, &customPaper);
++#else
++            PMPaperCreate(printer, paperId, QCFString("Custom size"), customSize.width(), customSize.height(), &paperMargins, &customPaper);
++#endif
+             PMPageFormat tmp;
+             PMCreatePageFormatWithPMPaper(&tmp, customPaper);
+             PMCopyPageFormat(tmp, format);
+--- src/gui/text/qfontdatabase_mac.cpp.orig	2017-08-31 22:45:17.000000000 +0200
++++ src/gui/text/qfontdatabase_mac.cpp	2017-08-31 23:10:46.000000000 +0200
+@@ -546,6 +546,7 @@
+ 
+ QString QFontDatabase::resolveFontFamilyAlias(const QString &family)
+ {
++#if defined(QT_MAC_USE_COCOA) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+     QCFString expectedFamily = QCFString(family);
+ 
+     QCFType<CFMutableDictionaryRef> attributes = CFDictionaryCreateMutable(NULL, 0,
+@@ -563,6 +564,10 @@
+ 
+     QCFString familyName = (CFStringRef) CTFontDescriptorCopyLocalizedAttribute(matched, kCTFontFamilyNameAttribute, NULL);
+     return familyName;
++#else
++    // https://bugreports.qt.io/browse/QTBUG-25417?focusedCommentId=185393&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-185393
++    return family;
++#endif
+ }
+ 
+ QT_END_NAMESPACE
+--- src/network/kernel/qnetworkproxy_mac.cpp.orig	2017-08-31 21:05:13.000000000 +0200
++++ src/network/kernel/qnetworkproxy_mac.cpp	2017-08-31 21:05:44.000000000 +0200
+@@ -148,6 +148,7 @@
+ }
+ 
+ 
++#if (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+ static QNetworkProxy proxyFromDictionary(CFDictionaryRef dict)
+ {
+     QNetworkProxy::ProxyType proxyType = QNetworkProxy::DefaultProxy;
+@@ -180,6 +181,7 @@
+ 
+     return QNetworkProxy(proxyType, hostName, port, user, password);
+ }
++#endif
+ 
+ const char * cfurlErrorDescription(SInt32 errorCode)
+ {
+--- src/corelib/io/qfilesystemengine.cpp.orig	2024-05-06 21:17:07.000000000 +0100
++++ src/corelib/io/qfilesystemengine.cpp	2024-05-06 21:19:58.000000000 +0100
+@@ -280,6 +280,7 @@
+     // Attributes
+     entryFlags |= QFileSystemMetaData::ExistsAttribute;
+     size_ = statBuffer.st_size;
++/*
+ #if !defined(QWS) && !defined(Q_WS_QPA) && defined(Q_OS_MAC) \
+         && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+     if (statBuffer.st_flags & UF_HIDDEN) {
+@@ -287,6 +288,7 @@
+         knownFlagsMask |= QFileSystemMetaData::HiddenAttribute;
+     }
+ #endif
++*/
+ 
+     // Times
+ #ifdef Q_OS_SYMBIAN
+--- tools/assistant/tools/assistant/assistant.pro.orig	2024-05-07 16:20:22.000000000 +0100
++++ tools/assistant/tools/assistant/assistant.pro	2024-05-07 16:21:17.000000000 +0100
+@@ -111,6 +111,7 @@
+     ICON = assistant.icns
+     TARGET = Assistant
+     QMAKE_INFO_PLIST = Info_mac.plist
++    LIBS += -lQtCLucene
+ }
+ 
+ contains(CONFIG, static): {
+--- tools/assistant/tools/qhelpgenerator/qhelpgenerator.pro.orig	2024-05-07 16:38:33.000000000 +0100
++++ tools/assistant/tools/qhelpgenerator/qhelpgenerator.pro	2024-05-07 17:06:39.000000000 +0100
+@@ -17,3 +17,4 @@
+            main.cpp
+ 
+ HEADERS += ../shared/helpgenerator.h
++LIBS += -lQtCLucene
+--- tools/assistant/tools/qcollectiongenerator/qcollectiongenerator.pro.orig	2024-05-07 17:09:42.000000000 +0100
++++ tools/assistant/tools/qcollectiongenerator/qcollectiongenerator.pro	2024-05-07 17:10:22.000000000 +0100
+@@ -19,3 +19,4 @@
+     ../shared/collectionconfiguration.cpp
+ HEADERS += ../shared/helpgenerator.h \
+     ../shared/collectionconfiguration.h
++LIBS += -lQtCLucene
+--- tools/assistant/tools/qhelpconverter/qhelpconverter.pro.orig	2024-05-07 17:12:03.000000000 +0100
++++ tools/assistant/tools/qhelpconverter/qhelpconverter.pro	2024-05-07 17:12:38.000000000 +0100
+@@ -40,6 +40,8 @@
+            qhpwriter.h \
+            helpwindow.h
+ 
++LIBS += -lQtCLucene
++
+ FORMS   += inputpage.ui \
+            generalpage.ui \
+            filterpage.ui \
