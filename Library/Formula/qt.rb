@@ -27,7 +27,7 @@ class Qt < Formula
   # https://github.com/macports/macports-ports/blob/master/aqua/qt4-mac/files/patch-qt4-openssl111.diff
   # Fix build on macOS 10.4 and 10.5 - missing patch to qpaintengine_mac.cpp because it doesn't apply
   # https://github.com/cartr/homebrew-qt4/pull/35/files
-  # bodge for src/corelib/io/qfilesystemengine.cpp:285: error: ‘UF_HIDDEN’ was not declared in this scope
+  # UF_HIDDEN shows up in Leopard, confine to Cocoa builds.
   # QtHelp needs to link against libQtCLucene. 
   patch :p0, :DATA
 
@@ -305,24 +305,17 @@ index c51f6ad..f4bd8b8 100644
  
  const char * cfurlErrorDescription(SInt32 errorCode)
  {
---- src/corelib/io/qfilesystemengine.cpp.orig	2024-05-06 21:17:07.000000000 +0100
-+++ src/corelib/io/qfilesystemengine.cpp	2024-05-06 21:19:58.000000000 +0100
-@@ -280,6 +280,7 @@
-     // Attributes
+--- src/corelib/io/qfilesystemengine.cpp.orig	2024-05-10 22:31:54.000000000 +0100
++++ src/corelib/io/qfilesystemengine.cpp	2024-05-10 22:33:02.000000000 +0100
+@@ -281,7 +281,7 @@
      entryFlags |= QFileSystemMetaData::ExistsAttribute;
      size_ = statBuffer.st_size;
-+/*
  #if !defined(QWS) && !defined(Q_WS_QPA) && defined(Q_OS_MAC) \
-         && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+-        && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
++        && defined(QT_MAC_USE_COCOA) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
      if (statBuffer.st_flags & UF_HIDDEN) {
-@@ -287,6 +288,7 @@
+         entryFlags |= QFileSystemMetaData::HiddenAttribute;
          knownFlagsMask |= QFileSystemMetaData::HiddenAttribute;
-     }
- #endif
-+*/
- 
-     // Times
- #ifdef Q_OS_SYMBIAN
 --- tools/assistant/tools/assistant/assistant.pro.orig	2024-05-07 16:20:22.000000000 +0100
 +++ tools/assistant/tools/assistant/assistant.pro	2024-05-07 16:21:17.000000000 +0100
 @@ -111,6 +111,7 @@
