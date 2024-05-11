@@ -38,3 +38,23 @@ __END__
 -	QMAKE_CXX                      = g++-4.2
 -	CONFIG                        += x86 x86_64
 -}
+--- src/gui/Gui.cpp.orig	2024-05-11 20:21:30.000000000 +0100
++++ src/gui/Gui.cpp	2024-05-11 20:17:09.000000000 +0100
+@@ -50,6 +50,7 @@
+ #include "../simulator/Statement.H"
+ #include <QtGui>
+ #include <QProcess>
++#include <unistd.h>
+ 
+ Gui::Gui(QStringList args) : QMainWindow(), 
+    m_options(new Options(this)), 
+--- src/gui/plugins/maze/MazePlugin.cpp.orig	2024-05-11 20:20:06.000000000 +0100
++++ src/gui/plugins/maze/MazePlugin.cpp	2024-05-11 20:20:25.000000000 +0100
+@@ -40,6 +40,7 @@
+ #include "MazeUi.H"
+ #include <QtGui>
+ #include <sstream>
++#include <unistd.h>
+ 
+ #ifdef Q_OS_WIN32
+ // For Sleep()
