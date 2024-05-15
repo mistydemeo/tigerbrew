@@ -1,14 +1,13 @@
 class Libidn2 < Formula
   desc "International domain name library (IDNA2008, Punycode and TR46)"
   homepage "https://www.gnu.org/software/libidn/#libidn2"
-  url "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.4.tar.gz"
-  mirror "https://ftpmirror.gnu.org/libidn/libidn2-2.3.4.tar.gz"
-  mirror "http://ftp.gnu.org/gnu/libidn/libidn2-2.3.4.tar.gz"
-  sha256 "93caba72b4e051d1f8d4f5a076ab63c99b77faee019b72b9783b267986dbb45f"
+  url "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.7.tar.gz"
+  mirror "https://ftpmirror.gnu.org/libidn/libidn2-2.3.7.tar.gz"
+  mirror "http://ftp.gnu.org/gnu/libidn/libidn2-2.3.7.tar.gz"
+  sha256 "4c21a791b610b9519b9d0e12b8097bf2f359b12f8dd92647611a929e6bfd7d64"
   license any_of: ["GPL-2.0-or-later", "LGPL-3.0-or-later"]
 
   bottle do
-    sha256 "443cafce41e04212d9d44d283ed1efed6df3955f86346543ebf761cd18153e23" => :tiger_altivec
   end
 
   head do
