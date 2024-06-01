@@ -1,19 +1,22 @@
 class Fpc < Formula
   desc "Free Pascal: multi-architecture Pascal compiler"
   homepage "http://www.freepascal.org/"
-  url "https://downloads.sourceforge.net/project/freepascal/Source/2.6.4/fpc-2.6.4.source.tar.gz"
-  sha256 "c16f2e6e0274c7afc0f1d2dded22d0fec98fe329b1d5b2f011af1655f3a1cc29"
+
+  # Intel builds require a more recent version of clang than initially provided with Xcode.
+  if MacOS.version >= :mavericks || Hardware::CPU.ppc?
+  url "https://downloads.sourceforge.net/project/freepascal/Source/3.2.2/fpc-3.2.2.source.tar.gz"
+  sha256 "d542e349de246843d4f164829953d1f5b864126c5b62fd17c9b45b33e23d2f44"
+  else
+  url "https://downloads.sourceforge.net/project/freepascal/Source/3.0.4/fpc-3.0.4.source.tar.gz"
+  sha256 "69b3b7667b72b6759cf27226df5eb54112ce3515ff5efb79d95ac14bac742845"
+  end
 
   bottle do
-    cellar :any
-    sha1 "c77e7a5b6b9fb84b9d90bb4515a8557ccb98a253" => :mavericks
-    sha1 "47f760e84fc84f845718efe4737402e086de705c" => :mountain_lion
-    sha1 "90d3b9d4ad5e3d06efc0108e0b1dbd8e58b18034" => :lion
   end
 
   resource "bootstrap" do
-    url "https://downloads.sourceforge.net/project/freepascal/Bootstrap/2.6.4/universal-macosx-10.5-ppcuniversal.tar.bz2"
-    sha256 "e7243e83e6a04de147ebab7530754ec92cd1fbabbc9b6b00a3f90a796312f3e9"
+    url "https://geeklan.co.uk/files/freepascal/fpc-304.universal-darwin.bootstrap.tar.bz2"
+    sha256 "a5cc6c11b12868c3b5cbbfc59ea3d18c8688c190132afc8e8487caa245707ddd"
   end
 
   def install
@@ -23,8 +26,12 @@ class Fpc < Formula
     fpc_compiler = fpc_bootstrap/"ppcuniversal"
     system "make", "build", "PP=#{fpc_compiler}"
     system "make", "install", "PP=#{fpc_compiler}", "PREFIX=#{prefix}"
+  end
 
-    bin.install_symlink lib/"#{name}/#{version}/ppcx64"
+  def caveats; <<-EOS.undent
+    To get started, you need to generate a configuration file to help the compiler find its components.
+    #{Formula["fpc"].opt_lib}/fpc/#{version}/samplecfg #{Formula["fpc"].opt_lib}/fpc/#{version}
+    EOS
   end
 
   test do
@@ -35,7 +42,7 @@ class Fpc < Formula
       end.
     EOS
     (testpath/"hello.pas").write(hello)
-    system "#{bin}/fpc", "hello.pas"
+    system "#{bin}/fpc", "-Fu#{Formula["fpc"].opt_lib}/fpc/#{version}/units/powerpc-darwin/*", "hello.pas"
     assert_equal "Hello Homebrew", `./hello`.strip
   end
 end
