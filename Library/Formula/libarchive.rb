@@ -1,16 +1,17 @@
 class Libarchive < Formula
   desc "Multi-format archive and compression library"
   homepage "http://www.libarchive.org"
-  url "http://www.libarchive.org/downloads/libarchive-3.6.2.tar.gz"
-  sha256 "ba6d02f15ba04aba9c23fd5f236bb234eab9d5209e95d1c4df85c44d5f19b9b3"
-  revision 1
+  url "http://www.libarchive.org/downloads/libarchive-3.7.4.tar.gz"
+  sha256 "7875d49596286055b52439ed42f044bd8ad426aa4cc5aabd96bfe7abb971d5e8"
 
   bottle do
     cellar :any
-    sha256 "5813acc104cd5b3e718b7554b2cd5e46dd320b845b01ba92e669df8979caf767" => :tiger_altivec
   end
 
-  depends_on "xz" => :optional
+  depends_on "bzip2"
+  depends_on "lz4"
+  depends_on "xz"
+  depends_on "zlib"
 
   keg_only :provided_by_osx
 
@@ -19,7 +20,8 @@ class Libarchive < Formula
                           "--without-lzo2",
                           "--without-nettle",
                           "--without-xml2",
-                          "--without-expat"
+                          "--without-expat",
+                          "ac_cv_header_sys_queue_h=no" # Use the up to date copy provided to obtain STAILQ_FOREACH
     system "make", "install"
   end
 
