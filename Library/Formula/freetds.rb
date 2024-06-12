@@ -1,15 +1,10 @@
 class Freetds < Formula
   desc "Libraries to talk to Microsoft SQL Server and Sybase databases"
   homepage "http://www.freetds.org/"
-  url "ftp://ftp.freetds.org/pub/freetds/stable/freetds-0.95.19.tar.gz"
-  mirror "https://fossies.org/linux/privat/freetds-0.95.19.tar.gz"
-  sha256 "4c847f0c43734489ffc6ea8c5eb66e2a24e7a1ba4287acd24b2950f8b2eb7590"
+  url "https://www.freetds.org/files/stable/freetds-1.4.10.tar.gz"
+  sha256 "4f58ee544c94a75263c9e71449ec9cf50be45c899243a4bdb73ba4cb96b8f038"
 
   bottle do
-    sha256 "00fb9daeb14892d7de89ee1fbf0612f49da34d8047315ff6a11725c785aaf34e" => :el_capitan
-    sha256 "46c8bd1ddb9ba17f2245ddb138e8bf73bcb48c38e650d79d4838a52d027b5cd0" => :yosemite
-    sha256 "0705eee494de88ffd20a3df3510d67251189119e2dc8a42ba11a2a1768252803" => :mavericks
-    sha256 "1612e4ecf101341ce1ea78d195ab7b94641e04b20fedf376e854aef163526a6b" => :mountain_lion
   end
 
   head do
@@ -33,23 +28,17 @@ class Freetds < Formula
   deprecated_option "enable-krb" => "with-krb5"
 
   depends_on "pkg-config" => :build
-  depends_on "unixodbc" => :optional
-  depends_on "openssl" => :recommended
+  depends_on "unixodbc"
+  depends_on "openssl3"
 
   def install
     args = %W[
       --prefix=#{prefix}
       --with-tdsver=7.1
       --mandir=#{man}
+      --with-openssl=#{Formula["openssl3"].opt_prefix}
+      --with-unixodbc=#{Formula["unixodbc"].opt_prefix}
     ]
-
-    if build.with? "openssl"
-      args << "--with-openssl=#{Formula["openssl"].opt_prefix}"
-    end
-
-    if build.with? "unixodbc"
-      args << "--with-unixodbc=#{Formula["unixodbc"].opt_prefix}"
-    end
 
     # Translate formula's "--with" options to configuration script's "--enable"
     # options
