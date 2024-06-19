@@ -1,21 +1,22 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.45.0.tar.xz"
-  sha256 "0aac200bd06476e7df1ff026eb123c6827bc10fe69d2823b4bf2ebebe5953429"
+  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.45.2.tar.xz"
+  sha256 "51bfe87eb1c02fed1484051875365eeab229831d30d0cec5d89a14f9e40e9adb"
+  license "GPL-2.0-only"
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
-  end
+  end 
 
   resource "html" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.45.0.tar.xz"
-    sha256 "53b6117470c1aa2b7c8ef387944dcb220ed1c303407bda2ff7727818b7569af1"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.45.2.tar.xz"
+    sha256 "82fdcb1bc184c34f150dd6445efcb0d75498dbec85a362e41f08c16ad8a904bb"
   end
 
   resource "man" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.45.0.tar.xz"
-    sha256 "44b34e9a1f244c2d184afa6de5d93f226fc449f046d05869d980f6203397a7f4"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.45.2.tar.xz"
+    sha256 "0938309e86537063b9d6c39b12aa4a786e16e03d02a4d12866be2f3e0db919df"
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
