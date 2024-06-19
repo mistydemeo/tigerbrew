@@ -172,13 +172,20 @@ class Git < Formula
     end
   end
 
-  def caveats; <<-EOS.undent
+  def caveats
+    osxkeychain_text = <<-EOS.undent
+
     The OS X keychain credential helper has been installed to:
       #{HOMEBREW_PREFIX}/bin/git-credential-osxkeychain
+    EOS
 
+    text = <<-EOS.undent
     The "contrib" directory has been installed to:
       #{HOMEBREW_PREFIX}/share/git-core/contrib
     EOS
+
+    text += osxkeychain_text if MacOS.version >= :lion
+    text
   end
 
   test do
