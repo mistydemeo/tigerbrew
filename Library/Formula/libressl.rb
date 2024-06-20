@@ -1,15 +1,8 @@
 class Libressl < Formula
   desc "Version of the SSL/TLS protocol forked from OpenSSL"
   homepage "http://www.libressl.org/"
-  url "http://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.2.3.tar.gz"
-  sha256 "a1ccc21adf91d60e99246031b99c930c9af5e1b1b5a61b1bec87beef6f16d882"
-
-  bottle do
-    sha256 "bfbaf13c9c7b920d2894bb867934dea3d0cb2d41312f83d47cb57cc478ef1c38" => :el_capitan
-    sha256 "a4e4afd644d5a603e99ad091a87c10cf132b40b7e8bf3990971223e49a290591" => :yosemite
-    sha256 "fcebe2fdce64cbbd8d6b2e3fe0bd876b5591decfc87f614f754013ed170077a7" => :mavericks
-    sha256 "aa98a4c2a616a67e7352ee1dd9432d03703a2f26804fbba45e8d915d2fa05ed6" => :mountain_lion
-  end
+  url "https://cdn.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.9.1.tar.gz"
+  sha256 "6da0b954695f7ee62b03f64200a8a4f02af93717b60cce04ab6c8df262c07a51"
 
   head do
     url "https://github.com/libressl-portable/portable.git"
@@ -22,6 +15,8 @@ class Libressl < Formula
   keg_only "LibreSSL is not linked to prevent conflict with the system OpenSSL."
 
   def install
+    # Tests fail during "make check" stage when built with CPU optimisation
+    ENV.no_optimization
     args = %W[
       --disable-dependency-tracking
       --disable-silent-rules
@@ -29,9 +24,6 @@ class Libressl < Formula
       --with-openssldir=#{etc}/libressl
       --sysconfdir=#{etc}/libressl
     ]
-
-    # https://github.com/libressl-portable/portable/issues/121
-    args << "--disable-asm" if MacOS.version <= :snow_leopard
 
     system "./autogen.sh" if build.head?
     system "./configure", *args
