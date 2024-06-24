@@ -11,6 +11,8 @@ class Openssl3 < Formula
 
   keg_only :provided_by_osx
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "curl-ca-bundle"
   depends_on "perl"
 
@@ -60,8 +62,9 @@ class Openssl3 < Formula
     openssldir.mkpath
     system "perl", "./Configure", *(configure_args)
     system "make"
-    system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
-    system "make", "test"
+    # Save time by skipping on the full HTML documentation set using the install target & only install man pages.
+    system "make", "install_sw", "install_ssldirs", "install_man_docs", "MANDIR=#{man}", "MANSUFFIX=ssl"
+    system "make", "test" if build.with?("tests") || build.bottle?
   end
 
   def openssldir
