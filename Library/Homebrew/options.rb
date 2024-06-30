@@ -106,6 +106,11 @@ class Options
     any? { |opt| opt == o || opt.name == o || opt.flag == o }
   end
 
+  def value(arg)
+    arg = find { |o| o =~ /--#{arg}=(.+)/ }
+    $1 if arg
+  end
+
   alias_method :to_ary, :to_a
 
   def inspect

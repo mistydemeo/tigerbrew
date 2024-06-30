@@ -46,6 +46,11 @@ class BuildOptions
     include? "build-bottle"
   end
 
+  def bottle_arch
+    arch = @args.value "bottle-arch"
+    arch ? arch.to_sym : Hardware.oldest_cpu
+  end
+
   # True if a {Formula} is being built with {Formula.head} instead of {Formula.stable}.
   # <pre>args << "--some-new-stuff" if build.head?</pre>
   # <pre># If there are multiple conditional arguments use a block instead of lines.
