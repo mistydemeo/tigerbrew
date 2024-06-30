@@ -5,6 +5,8 @@ class Libogg < Formula
   sha256 "0eb4b4b9420a0f51db142ba3f9c64b333f826532dc0f48c6410ae51f4799b664"
 
   bottle do
+    cellar :any
+    sha256 "add686d8a8ef1a576a40e537d257706af6224c266f88d3797381b6cf32ec6442" => :tiger_altivec
   end
 
   head do
