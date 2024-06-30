@@ -5,6 +5,10 @@ class Zzuf < Formula
   sha256 "a34f624503e09acd269c70d826aac2a35c03e84dc351873f140f0ba6a792ffd6"
   license "WTFPL"
 
+  bottle do
+    sha256 "dc5911937b4a7a248bed06334cda43b87de29990f4c67ab80e2b703bef20cf3c" => :tiger_altivec
+  end
+
   # MAP_ANON is guarded off on Tiger with #ifndef _POSIX_C_SOURCE
   patch :p0, :DATA
 
