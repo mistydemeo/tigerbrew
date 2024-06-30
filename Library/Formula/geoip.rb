@@ -33,7 +33,7 @@ class Geoip < Formula
     geoip_data.mkpath
 
     resource("database").stage do
-      system "cp", "GeoIP.dat", "#{geoip_data}/GeoIP.dat"
+      cp "GeoIP.dat", "#{geoip_data}/GeoIP.dat"
     end
   end
 
