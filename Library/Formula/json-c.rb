@@ -7,6 +7,8 @@ class JsonC < Formula
   license "MIT"
 
   bottle do
+    cellar :any
+    sha256 "88642f273d8e001a0a77cda519f25d2c43f81f91473d6901d6cf9244df75ffad" => :tiger_altivec
   end
 
   # We build without -Werror, allow build on GCC 4.0.1.
