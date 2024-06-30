@@ -6,7 +6,7 @@ class OpenVcdiff < Formula
   sha256 "2b142b1027fb0a62c41347600e01a53fa274dad15445a7da48083c830c3138b3"
 
   bottle do
-    cellar :any
+    sha256 "c0570dc0989d404f31e3d5ddc26ca1f77f47d01075a9e1c87138e76143f3604b" => :tiger_altivec
   end
 
   def install
