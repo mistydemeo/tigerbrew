@@ -6,6 +6,10 @@ class Z80dasm < Formula
   sha256 "8da2c4a58a3917a8229dec0da97e718f90ede84985424d74456575bf5acfeec8"
   license "GPL-2.0-or-later"
 
+  bottle do
+    sha256 "dc964993ba8cc549020977565dcae802c51741f9b86bb68160b45f3e1f04b747" => :tiger_altivec
+  end
+
   def install
     system "./configure", "--prefix=#{prefix}"
     system "make", "install"
