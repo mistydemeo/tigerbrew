@@ -7,6 +7,7 @@ class Geoip < Formula
 
   bottle do
     cellar :any
+    sha256 "6a0f45120a5136d3d99006399673ed13fb351a7da543c4eca79014cd62f572dc" => :tiger_altivec
   end
 
   depends_on "geoipupdate" => :optional
