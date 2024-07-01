@@ -8,6 +8,7 @@ class Xz < Formula
   sha256 "8db6664c48ca07908b92baedcfe7f3ba23f49ef2476864518ab5db6723836e71"
 
   bottle do
+    sha256 "adbf7a74ab4205a88c3950514c1c9deb793a109a24a0ce1a0e6b8180a54cb338" => :tiger_altivec
   end
 
   option :universal
