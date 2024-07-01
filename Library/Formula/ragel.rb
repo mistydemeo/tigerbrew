@@ -5,6 +5,7 @@ class Ragel < Formula
   sha256 "5f156edb65d20b856d638dd9ee2dfb43285914d9aa2b6ec779dac0270cd56c3f"
 
   bottle do
+    sha256 "41ef311bf2bffb07ccaf90ed909f0b732d2bb26ec929155170df9eabf990f288" => :tiger_altivec
   end
 
   resource "pdf" do
