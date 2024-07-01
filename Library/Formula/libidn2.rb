@@ -8,6 +8,8 @@ class Libidn2 < Formula
   license any_of: ["GPL-2.0-or-later", "LGPL-3.0-or-later"]
 
   bottle do
+    cellar :any
+    sha256 "443cafce41e04212d9d44d283ed1efed6df3955f86346543ebf761cd18153e23" => :tiger_altivec
   end
 
   head do
