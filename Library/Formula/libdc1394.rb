@@ -5,6 +5,8 @@ class Libdc1394 < Formula
   sha256 "2b905fc9aa4eec6bdcf6a2ae5f5ba021232739f5be047dec8fe8dd6049c10fed"
 
   bottle do
+    cellar :any
+    sha256 "3488c0e3611d576663d1b4e6ecda4bcd56fd5479be303ff6eb11bed54d3b1404" => :tiger_altivec
   end
 
   option :universal
