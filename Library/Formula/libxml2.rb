@@ -13,6 +13,7 @@ class Libxml2 < Formula
   end
 
   bottle do
+    sha256 "69550a566cdc2e31f81550b33d3470ff9d2c998dc34ac35ab807b555d91c44e8" => :tiger_altivec
   end
 
   depends_on "python" => :optional
