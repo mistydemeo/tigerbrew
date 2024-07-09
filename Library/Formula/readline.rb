@@ -56,7 +56,7 @@ class Readline < Formula
         return 0;
       }
     EOS
-    system ENV.cc, "test.c", "-lreadline", "-o", "test"
-    assert_equal "Hello, World!", pipe_output("./test", "Hello, World!\n").strip
+    system ENV.cc, "test.c", "-L#{Formula["readline"].opt_lib}", "-I#{Formula["readline"].opt_include}", "-lreadline", "-o", "test"
+    assert_equal "test> Hello, World!\nHello, World!", shell_output("echo Hello, World! | ./test").strip
   end
 end
