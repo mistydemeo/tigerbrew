@@ -17,7 +17,7 @@ class Macvim < Formula
   homepage "https://code.google.com/p/macvim/"
   url "https://github.com/macvim-dev/macvim/archive/snapshot-77.tar.gz"
   version "7.4-77"
-  sha256 "6b7f4b48ecef4a00dca17efef551884fcea1aa9897005497d31f52da7304bc5f"
+  sha256 "4696b2cd6f69093c8a619daee9a0db441ce1a124edfddd3b0b3fed3ac96f8e8d"
 
   head "https://github.com/macvim-dev/macvim.git"
 
