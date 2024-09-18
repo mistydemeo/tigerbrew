@@ -9,10 +9,11 @@ class Gettext < Formula
     sha256 "c64bb31029e29599442653fe1e0f2216ae8fe144451a0541896f6e367df0018f" => :tiger_altivec
   end
 
-  keg_only :shadowed_by_osx, "OS X provides the BSD gettext library and some software gets confused if both are in the library path."
+  unless MacOS.version <= :leopard  # what Mac OS version would be correct here?
+    keg_only :shadowed_by_osx, "OS X provides the BSD gettext library and some software gets confused if both are in the library path."
+  end
 
   option :universal
-  option 'with-examples', 'Keep example files'
 
   # Fix lang-python-* failures when a traditional French locale
   # https://git.savannah.gnu.org/gitweb/?p=gettext.git;a=patch;h=3c7e67be7d4dab9df362ab19f4f5fa3b9ca0836b
@@ -49,6 +50,7 @@ class Gettext < Formula
     system "#{bin}/gettext", "test"
   end
 end
+
 __END__
 --- gettext-tools/tests/lang-python-1.orig	2023-09-18 21:10:32.000000000 +0100
 +++ gettext-tools/tests/lang-python-1	2023-11-30 23:15:43.000000000 +0000
