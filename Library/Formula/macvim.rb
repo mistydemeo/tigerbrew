@@ -104,14 +104,14 @@ class Macvim < Formula
 
     system "./configure", *args
 
-    #if build.with? "custom-icons"
-    #  # Get the custom font used by the icons
-    #  system "make", "-C", "src/MacVim/icons", "getenvy"
-    #else
-    #  # Building custom icons fails for many users, so off by default.
-    #  inreplace "src/MacVim/icons/Makefile", "$(MAKE) -C makeicns", ""
-    #  inreplace "src/MacVim/icons/make_icons.py", "dont_create = False", "dont_create = True"
-    #end
+    if build.with? "custom-icons"
+      # Get the custom font used by the icons
+      system "make", "-C", "src/MacVim/icons", "getenvy"
+    else
+      # Building custom icons fails for many users, so off by default.
+      inreplace "src/MacVim/icons/Makefile", "$(MAKE) -C makeicns", ""
+      inreplace "src/MacVim/icons/make_icons.py", "dont_create = False", "dont_create = True"
+    end
 
     system "make"
 
