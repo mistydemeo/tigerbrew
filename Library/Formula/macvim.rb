@@ -15,9 +15,9 @@ end
 class Macvim < Formula
   desc "GUI for vim, made for OS X"
   homepage "https://code.google.com/p/macvim/"
-  url "https://github.com/macvim-dev/macvim/archive/snapshot-77.tar.gz"
-  version "7.4-77"
-  sha256 "4696b2cd6f69093c8a619daee9a0db441ce1a124edfddd3b0b3fed3ac96f8e8d"
+  url "https://github.com/macvim-dev/macvim/archive/snapshot-80.tar.gz"
+  version "7.4-80"
+  sha256 "b07e0fe35e22f30ad2be5f9700e0fca9d3f4a1e91c68b0fdd607f0f732912923"
 
   head "https://github.com/macvim-dev/macvim.git"
 
@@ -104,14 +104,14 @@ class Macvim < Formula
 
     system "./configure", *args
 
-    if build.with? "custom-icons"
-      # Get the custom font used by the icons
-      system "make", "-C", "src/MacVim/icons", "getenvy"
-    else
-      # Building custom icons fails for many users, so off by default.
-      inreplace "src/MacVim/icons/Makefile", "$(MAKE) -C makeicns", ""
-      inreplace "src/MacVim/icons/make_icons.py", "dont_create = False", "dont_create = True"
-    end
+    #if build.with? "custom-icons"
+    #  # Get the custom font used by the icons
+    #  system "make", "-C", "src/MacVim/icons", "getenvy"
+    #else
+    #  # Building custom icons fails for many users, so off by default.
+    #  inreplace "src/MacVim/icons/Makefile", "$(MAKE) -C makeicns", ""
+    #  inreplace "src/MacVim/icons/make_icons.py", "dont_create = False", "dont_create = True"
+    #end
 
     system "make"
 
