@@ -1,12 +1,11 @@
 class Poke < Formula
   desc "Extensible editor for structured binary data"
   homepage "https://jemarch.net/poke"
-  url "https://ftp.gnu.org/gnu/poke/poke-3.3.tar.gz"
-  sha256 "0080459de85063c83b689ffcfba36872236803c12242d245a42ee793594f956e"
+  url "https://ftp.gnu.org/gnu/poke/poke-4.2.tar.gz"
+  sha256 "8aaf36e61e367a53140ea40e2559e9ec512e779c42bee34e7ac24b34ba119bde"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 "86730dc40a621d8c16d31d9de0501744962949c2a5c427d3f217d82c9f3164de" => :tiger_altivec
   end
 
   # MAP_ANONYMOUS is not defined on Leopard and Tiger
