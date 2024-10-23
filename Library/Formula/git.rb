@@ -1,8 +1,8 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.45.2.tar.xz"
-  sha256 "51bfe87eb1c02fed1484051875365eeab229831d30d0cec5d89a14f9e40e9adb"
+  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.47.0.tar.xz"
+  sha256 "1ce114da88704271b43e027c51e04d9399f8c88e9ef7542dae7aebae7d87bc4e"
   license "GPL-2.0-only"
   head "https://github.com/git/git.git", :shallow => false
 
@@ -10,13 +10,13 @@ class Git < Formula
   end 
 
   resource "html" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.45.2.tar.xz"
-    sha256 "82fdcb1bc184c34f150dd6445efcb0d75498dbec85a362e41f08c16ad8a904bb"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.47.0.tar.xz"
+    sha256 "fab133e8ef4cf825f5014d2fc708461e7a383fd90e52fbbae0b14ca12ede17b6"
   end
 
   resource "man" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.45.2.tar.xz"
-    sha256 "0938309e86537063b9d6c39b12aa4a786e16e03d02a4d12866be2f3e0db919df"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.47.0.tar.xz"
+    sha256 "c8dfefa07bddc9e5c2aa48ff03e80a3461d9baa45f46b17b1a43c8e132b1fab8"
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -200,6 +200,7 @@ class Git < Formula
   # e.g supplied regex(3) is too old, lacks some file system monitoring functionality
   # Needs arc4random_buf(3) which is missing on Leopard and prior so just use openssl
   # since newer implementations were based on AES cipher.
+  # copyfile.h didn't show up until Leopard.
   patch :p0, :DATA
 end
 __END__
@@ -268,3 +269,16 @@ __END__
  BASIC_LDFLAGS =
  
 
+--- t/unit-tests/clar/clar/fs.h.orig	2024-10-23 18:35:26.000000000 +0100
++++ t/unit-tests/clar/clar/fs.h	2024-10-23 18:37:45.000000000 +0100
+@@ -318,7 +318,10 @@
+ #endif
+ 
+ #if defined(__APPLE__)
++# include <AvailabilityMacros.h>
++# if MAC_OS_X_VERSION_MIN_REQUIRED >= 1050
+ # include <copyfile.h>
++# endif
+ #endif
+ 
+ static void basename_r(const char **out, int *out_len, const char *in)
