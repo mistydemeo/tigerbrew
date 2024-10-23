@@ -7,7 +7,7 @@ class Git < Formula
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
-  end 
+  end
 
   resource "html" do
     url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.47.0.tar.xz"
