@@ -1,9 +1,9 @@
 class CAres < Formula
   desc "Asynchronous DNS library"
   homepage "http://c-ares.haxx.se/"
-  url "http://c-ares.haxx.se/download/c-ares-1.10.0.tar.gz"
-  mirror "https://github.com/bagder/c-ares/archive/cares-1_10_0.tar.gz"
-  sha256 "3d701674615d1158e56a59aaede7891f2dde3da0f46a6d3c684e0ae70f52d3db"
+  url "https://c-ares.org/download/c-ares-1.27.0.tar.gz"
+  mirror "https://github.com/c-ares/c-ares/releases/download/cares-1_27_0/c-ares-1.27.0.tar.gz"
+  sha256 "0a72be66959955c43e2af2fbd03418e82a2bd5464604ec9a62147e37aceb420b"
   head "https://github.com/bagder/c-ares.git"
 
   bottle do
