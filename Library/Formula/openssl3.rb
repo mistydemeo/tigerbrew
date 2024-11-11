@@ -20,11 +20,13 @@ class Openssl3 < Formula
   # SSLv3 & zlib are off by default with 1.1.0 but this may not
   # be obvious to everyone, so explicitly state it for now to
   # help debug inevitable breakage.
+  # makedepend slows down the build considerably.
   def configure_args
     args = %W[
       --prefix=#{prefix}
       --openssldir=#{openssldir}
       --libdir=#{lib}
+      no-makedepend
       no-ssl3
       no-ssl3-method
       no-zlib
