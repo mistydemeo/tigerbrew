@@ -31,6 +31,10 @@ class Openssl3 < Formula
       no-ssl3-method
       no-zlib
     ]
+    # as(1) on Tiger/Intel does not support specifying an alignment value for .comm directive.
+    # .comm      _OPENSSL_ia32cap_P,16,2
+    # fails with "Rest of line ignored. 1st junk character valued 44 (,)."
+    args << "no-asm" if MacOS.version == :tiger && Hardware::CPU.intel?
     # No {get,make,set}context support before Leopard
     args << "no-async" if MacOS.version == :tiger
     if Hardware::CPU.ppc?
@@ -55,6 +59,12 @@ class Openssl3 < Formula
     # crypto/asn1/a_time.c:659: error: invalid operands to binary -
     # https://github.com/openssl/openssl/commit/0176fc78d090210cd7e231a7c2c4564464509506
     ENV.append_to_cflags "-DUSE_TIMEGM" if MacOS.version == :tiger
+
+    # Match Tiger/PowerPC behaviour on Intel builds since toolchain is unable to cope
+    # ld: common symbols not allowed with MH_DYLIB output format with the -multi_module option
+    if Hardware::CPU.intel? && MacOS.version == :tiger
+      ENV.append_to_cflags "-fno-common"
+    end
 
     # This ensures where Homebrew's Perl is needed the Cellar path isn't
     # hardcoded into OpenSSL's scripts, causing them to break every Perl update.
