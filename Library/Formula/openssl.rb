@@ -35,6 +35,7 @@ class Openssl < Formula
     args = %W[
       --prefix=#{prefix}
       --openssldir=#{openssldir}
+      no-makedepend
       no-ssl3
       no-ssl3-method
       no-zlib
@@ -42,6 +43,11 @@ class Openssl < Formula
       enable-cms
       threads
     ]
+
+    # as(1) on Tiger/Intel does not support specifying an alignment value for .comm directive.
+    # .comm      _OPENSSL_ia32cap_P,16,2
+    # fails with "Rest of line ignored. 1st junk character valued 44 (,)."
+    args << "no-asm" if MacOS.version == :tiger && Hardware::CPU.intel?
 
     # No {get,make,set}context support before Leopard
     args << "no-async" if MacOS.version == :tiger
@@ -57,6 +63,11 @@ class Openssl < Formula
     ENV.append_to_cflags "-DOPENSSL_NO_APPLE_CRYPTO_RANDOM" if MacOS.version == :tiger
     # Build breaks passing -w
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
+    # Match Tiger/PowerPC behaviour on Intel builds since toolchain is unable to cope
+    # ld: common symbols not allowed with MH_DYLIB output format with the -multi_module option
+    if Hardware::CPU.intel? && MacOS.version == :tiger
+      ENV.append_to_cflags "-fno-common"
+    end
 
     if build.universal?
       ENV.permit_arch_flags
