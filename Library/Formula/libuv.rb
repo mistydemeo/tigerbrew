@@ -1,27 +1,30 @@
 class Libuv < Formula
   desc "Multi-platform support library with a focus on asynchronous I/O"
-  homepage "https://github.com/libuv/libuv"
-  url "https://github.com/libuv/libuv/archive/v1.7.4.tar.gz"
-  sha256 "5f9625845f509029e44974a67c7e599d11ff9333f8c48a301a098e740cf9ba6c"
+  homepage "https://libuv.org"
+  url "https://dist.libuv.org/dist/v1.44.2/libuv-v1.44.2-dist.tar.gz"
+  sha256 "8ff28f6ac0d6d2a31d2eeca36aff3d7806706c7d3f5971f5ee013ddb0bdd2e9e"
   head "https://github.com/libuv/libuv.git", :branch => "v1.x"
 
   bottle do
-    cellar :any
-    sha256 "85f20d13e5df5250b6acc30b89032b2d1994ae6c58e654450aa45a4b3858023d" => :el_capitan
-    sha256 "601d405156f24be8dfb069a0df726b00f310f99a1e72ccc7083453b8826b636a" => :yosemite
-    sha256 "ef03b634cb3eb23aad3e8ff6021a5681d8f37451e0b7365aeca487c946b75a49" => :mavericks
-    sha256 "0f5d4b86eb35d5c3477d2c8221b6d8653646aa98d7e5220010f7878692e3ddf7" => :mountain_lion
   end
+
+  fails_with :gcc_4_0 do
+    cause "lacks __sync_val_compare_and_swap()"
+  end
+
+  # Based on patches from macports
+  # devel/libuv/files/patch-libuv-legacy.diff
+  # devel/libuv/files/patch-libuv-unix-core-close-nocancel.diff
+  # src/unix/solaris.c includes an implementation of strnlen(), copy it
+  # Make up for the lack of _SC_NPROCESSORS_ONLN on Tiger
+  patch :p0, :DATA
 
   option "without-docs", "Don't build and install documentation"
   option "with-check", "Execute compile time checks (Requires internet connection)"
   option :universal
 
   depends_on "pkg-config" => :build
-  depends_on "automake" => :build
-  depends_on "autoconf" => :build
-  depends_on "libtool" => :build
-  depends_on :python => :build if MacOS.version <= :snow_leopard && build.with?("docs")
+  depends_on :python => :build if build.with?("docs")
 
   resource "alabaster" do
     url "https://pypi.python.org/packages/source/a/alabaster/alabaster-0.7.4.tar.gz"
@@ -80,6 +83,8 @@ class Libuv < Formula
 
   def install
     ENV.universal_binary if build.universal?
+    # Expects unsetenv() to return a value
+    ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version == :tiger
 
     if build.with? "docs"
       ENV.prepend_create_path "PYTHONPATH", buildpath/"sphinx/lib/python2.7/site-packages"
@@ -98,7 +103,6 @@ class Libuv < Formula
       end
     end
 
-    system "./autogen.sh"
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}"
@@ -121,7 +125,209 @@ class Libuv < Formula
         return 0;
       }
     EOS
-    system ENV.cc, "test.c", "-luv", "-o", "test"
+    system ENV.cc, "test.c", "-L#{Formula["libuv"].opt_lib}", "-I#{Formula["libuv"].opt_include}", "-luv", "-o", "test"
     system "./test"
   end
 end
+__END__
+--- src/unix/darwin-proctitle.c.orig
++++ src/unix/darwin-proctitle.c
+@@ -41,9 +41,11 @@
+   strncpy(namebuf, name, sizeof(namebuf) - 1);
+   namebuf[sizeof(namebuf) - 1] = '\0';
+ 
++#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MIN_REQUIRED >= 1060)
+   err = pthread_setname_np(namebuf);
+   if (err)
+     return UV__ERR(err);
++#endif
+ 
+   return 0;
+ }
+--- src/unix/process.c.orig
++++ src/unix/process.c
+@@ -36,7 +36,9 @@
+ #include <poll.h>
+ 
+ #if defined(__APPLE__)
++#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1050
+ # include <spawn.h>
++#endif
+ # include <paths.h>
+ # include <sys/kauth.h>
+ # include <sys/types.h>
+@@ -387,7 +389,7 @@
+ #endif
+ 
+ 
+-#if defined(__APPLE__)
++#if defined(__APPLE__) && (MAC_OS_X_VERSION_MIN_REQUIRED >= 1050)
+ typedef struct uv__posix_spawn_fncs_tag {
+   struct {
+     int (*addchdir_np)(const posix_spawn_file_actions_t *, const char *);
+@@ -588,9 +590,11 @@
+       }
+     }
+ 
++#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1070
+     if (fd == use_fd)
+         err = posix_spawn_file_actions_addinherit_np(actions, fd);
+     else
++#endif
+         err = posix_spawn_file_actions_adddup2(actions, use_fd, fd);
+     assert(err != ENOSYS);
+     if (err != 0)
+@@ -839,7 +843,7 @@
+   int exec_errorno;
+   ssize_t r;
+ 
+-#if defined(__APPLE__)
++#if defined(__APPLE__) && (MAC_OS_X_VERSION_MIN_REQUIRED >= 1050)
+   uv_once(&posix_spawn_init_once, uv__spawn_init_posix_spawn);
+ 
+   /* Special child process spawn case for macOS Big Sur (11.0) onwards
+--- src/unix/tty.c.orig
++++ src/unix/tty.c
+@@ -85,7 +85,7 @@
+   int dummy;
+ 
+   result = ioctl(fd, TIOCGPTN, &dummy) != 0;
+-#elif defined(__APPLE__)
++#elif defined(__APPLE__) && MAC_OS_X_VERSION_MAX_ALLOWED >= 1050
+   char dummy[256];
+ 
+   result = ioctl(fd, TIOCPTYGNAME, &dummy) != 0;
+--- src/unix/udp.c.orig
++++ src/unix/udp.c
+@@ -938,6 +938,7 @@
+     !defined(__ANDROID__) &&                                        \
+     !defined(__DragonFly__) &&                                      \
+     !defined(__QNX__) &&                                            \
++    (!defined(__APPLE__) || (MAC_OS_X_VERSION_MAX_ALLOWED >= 1070)) && \
+     !defined(__GNU__)
+ static int uv__udp_set_source_membership4(uv_udp_t* handle,
+                                           const struct sockaddr_in* multicast_addr,
+@@ -1131,6 +1132,7 @@
+     !defined(__ANDROID__) &&                                        \
+     !defined(__DragonFly__) &&                                      \
+     !defined(__QNX__) &&                                            \
++    (!defined(__APPLE__) || (MAC_OS_X_VERSION_MAX_ALLOWED >= 1070)) && \
+     !defined(__GNU__)
+   int err;
+   union uv__sockaddr mcast_addr;
+--- test/test-fs.c.orig
++++ test/test-fs.c
+@@ -1410,7 +1410,7 @@
+   ASSERT(0 == uv_fs_fstat(NULL, &req, file, NULL));
+   ASSERT(req.result == 0);
+   s = req.ptr;
+-# if defined(__APPLE__)
++# if defined(__APPLE__) && (__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ >= 1050)
+   ASSERT(s->st_birthtim.tv_sec == t.st_birthtimespec.tv_sec);
+   ASSERT(s->st_birthtim.tv_nsec == t.st_birthtimespec.tv_nsec);
+ # elif defined(__linux__)
+@@ -1451,7 +1451,7 @@
+   ASSERT(s->st_size == (uint64_t) t.st_size);
+   ASSERT(s->st_blksize == (uint64_t) t.st_blksize);
+   ASSERT(s->st_blocks == (uint64_t) t.st_blocks);
+-#if defined(__APPLE__)
++#if defined(__APPLE__) && (__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ >= 1050)
+   ASSERT(s->st_atim.tv_sec == t.st_atimespec.tv_sec);
+   ASSERT(s->st_atim.tv_nsec == t.st_atimespec.tv_nsec);
+   ASSERT(s->st_mtim.tv_sec == t.st_mtimespec.tv_sec);
+--- src/unix/core.c.orig	2022-07-11 18:06:28.000000000 +0100
++++ src/unix/core.c	2024-11-13 18:22:26.000000000 +0000
+@@ -553,18 +553,31 @@
+  * will unwind the thread when it's in the cancel state. Work around that
+  * by making the system call directly. Musl libc is unaffected.
+  */
++
++#if defined(__GNUC__)
++# define GCC_VERSION \
++	(__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
++#endif
++#if defined(__clang__) || (defined(GCC_VERSION) && (GCC_VERSION >= 40500))
++/* gcc diagnostic pragmas available */
++# define GCC_DIAGNOSTIC_AVAILABLE
++#endif
+ int uv__close_nocancel(int fd) {
+-#if defined(__APPLE__)
+-#pragma GCC diagnostic push
+-#pragma GCC diagnostic ignored "-Wdollar-in-identifier-extension"
+-#if defined(__LP64__) || TARGET_OS_IPHONE
++#if defined(__APPLE__) && (MAC_OS_X_VERSION_MAX_ALLOWED >= 1050)
++# if defined(GCC_DIAGNOSTIC_AVAILABLE)
++#  pragma GCC diagnostic push
++#  pragma GCC diagnostic ignored "-Wdollar-in-identifier-extension"
++# endif
++# if defined(__LP64__) || __LP64__ || (defined(TARGET_OS_IPHONE) && (TARGET_OS_IPHONE > 0))
+   extern int close$NOCANCEL(int);
+   return close$NOCANCEL(fd);
+-#else
++# else
+   extern int close$NOCANCEL$UNIX2003(int);
+   return close$NOCANCEL$UNIX2003(fd);
+-#endif
+-#pragma GCC diagnostic pop
++# endif
++# if defined(GCC_DIAGNOSTIC_AVAILABLE)
++#  pragma GCC diagnostic pop
++# endif
+ #elif defined(__linux__) && defined(__SANITIZE_THREAD__) && defined(__clang__)
+   long rc;
+   __sanitizer_syscall_pre_close(fd);
+@@ -1657,6 +1670,9 @@
+   return (unsigned) rc;
+ #else  /* __linux__ */
+   long rc;
++  #ifndef _SC_NPROCESSORS_ONLN
++  #define _SC_NPROCESSORS_ONLN 58
++  #endif
+ 
+   rc = sysconf(_SC_NPROCESSORS_ONLN);
+   if (rc < 1)
+--- src/unix/darwin.c.orig	2024-11-13 18:37:35.000000000 +0000
++++ src/unix/darwin.c	2024-11-13 18:38:00.000000000 +0000
+@@ -377,3 +377,13 @@
+ 
+   return 0;
+ }
++
++#if !defined(_POSIX_VERSION) || _POSIX_VERSION < 200809L
++size_t strnlen(const char* s, size_t maxlen) {
++  const char* end;
++  end = memchr(s, '\0', maxlen);
++  if (end == NULL)
++    return maxlen;
++  return end - s;
++}
++#endif
+--- src/unix/fs.c.orig	2022-05-25 14:21:41.000000000 +0100
++++ src/unix/fs.c	2024-11-13 18:58:17.000000000 +0000
+@@ -1061,7 +1061,7 @@
+ 
+     return -1;
+   }
+-#elif defined(__APPLE__)           || \
++#elif (defined(__APPLE__) && (MAC_OS_X_VERSION_MAX_ALLOWED >= 1050)) || \
+       defined(__DragonFly__)       || \
+       defined(__FreeBSD__)         || \
+       defined(__FreeBSD_kernel__)
+@@ -1187,7 +1187,7 @@
+   ts[0] = uv__fs_to_timespec(req->atime);
+   ts[1] = uv__fs_to_timespec(req->mtime);
+   return utimensat(AT_FDCWD, req->path, ts, AT_SYMLINK_NOFOLLOW);
+-#elif defined(__APPLE__)          ||                                          \
++#elif defined(__APPLE__) && (MAC_OS_X_VERSION_MAX_ALLOWED >= 1050) ||         \
+       defined(__DragonFly__)      ||                                          \
+       defined(__FreeBSD__)        ||                                          \
+       defined(__FreeBSD_kernel__) ||                                          \
+@@ -1441,7 +1441,7 @@
+   dst->st_blksize = src->st_blksize;
+   dst->st_blocks = src->st_blocks;
+ 
+-#if defined(__APPLE__)
++#if defined(__APPLE__) && (MAC_OS_X_VERSION_MAX_ALLOWED >= 1050)
+   dst->st_atim.tv_sec = src->st_atimespec.tv_sec;
+   dst->st_atim.tv_nsec = src->st_atimespec.tv_nsec;
+   dst->st_mtim.tv_sec = src->st_mtimespec.tv_sec;
