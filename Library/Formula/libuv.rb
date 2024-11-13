@@ -25,6 +25,7 @@ class Libuv < Formula
 
   depends_on "pkg-config" => :build
   depends_on :python => :build if build.with?("docs")
+  depends_on "libutil" if MacOS.version == :tiger
 
   resource "alabaster" do
     url "https://pypi.python.org/packages/source/a/alabaster/alabaster-0.7.4.tar.gz"
