@@ -1,14 +1,12 @@
 class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/3.3a/tmux-3.3a.tar.gz"
-  sha256 "e4fd347843bd0772c4f48d6dde625b0b109b7a380ff15db21e97c11a4dcdf93f"
+  url "https://github.com/tmux/tmux/releases/download/3.5a/tmux-3.5a.tar.gz"
+  sha256 "16216bd0877170dfcc64157085ba9013610b12b082548c7c9542cc0103198951"
   license "ISC"
-  revision 1
 
   bottle do
     cellar :any
-    sha256 "b218dee991147d30827eb3d51ff56ddfe62a6ba70108b3e0cfa7a79d1518e749" => :tiger_altivec
   end
 
   head do
