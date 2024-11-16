@@ -1,37 +1,39 @@
 class Rhash < Formula
   desc "Utility for computing and verifying hash sums of files"
   homepage "http://rhash.anz.ru/"
-  url "https://downloads.sourceforge.net/project/rhash/rhash/1.3.3/rhash-1.3.3-src.tar.gz"
-  mirror "https://mirrors.kernel.org/debian/pool/main/r/rhash/rhash_1.3.3.orig.tar.gz"
-  sha256 "5b520b597bd83f933d316fce1382bb90e0b0b87b559b8c9c9a197551c935315a"
+  url "https://downloads.sourceforge.net/project/rhash/rhash/1.4.5/rhash-1.4.5-src.tar.gz"
+  mirror "https://github.com/rhash/RHash/archive/refs/tags/v1.4.5.tar.gz"
+  sha256 "6db837e7bbaa7c72c5fd43ca5af04b1d370c5ce32367b9f6a1f7b49b2338c09a"
+  license "0BSD"
 
   head "https://github.com/rhash/RHash.git"
 
   bottle do
-    sha256 "fdc0ebee393653a808ddecd5692922b47e5dbab276ec31731f035663ec7f3f32" => :tiger_altivec
   end
 
   # wants to pass -install_name to the linker
   depends_on :ld64
+  depends_on "openssl3"
 
-  bottle do
-    cellar :any
-    sha256 "e957f797d99c99ad3ccba26cf960a1b2bfbf6915694b44496b8c899c322856ce" => :yosemite
-    sha256 "f3a728fdbc481c60c42544e2360601e8bc8ed032b82c86a0e4f1e29949a2b653" => :mavericks
-    sha256 "4d88312b2da6202c1929e5b586ed63780009d1467bdfef2cc6ec3c615e73ab42" => :mountain_lion
-  end
-
-  # Upstream issue: https://github.com/rhash/RHash/pull/7
-  # This patch will need to be in place permanently.
-  patch :DATA
+  # __has_builtin landed in GCC 10
+  # https://github.com/rhash/RHash/issues/269
+  patch :p0, :DATA
 
   def install
-    # install target isn't parallel-safe
-    ENV.j1
+    args = %W[
+      --prefix=#{prefix}
+      --disable-gettext
+      --extra-cflags=-std=gnu99
+      --extra-cflags=-I#{Formula["openssl3"].opt_include}
+      --extra-ldflags=-L#{Formula["openssl3"].opt_lib}
+    ]
+    # posix_memalign(3) showed up in Snow Leopard
+    args << "--extra-cflags=-DNO_POSIX_ALIGNED_ALLOC" if MacOS.version < :snow_leopard
 
-    system "make", "lib-static", "lib-shared", "all", "CC=#{ENV.cc}"
-    system "make", "install-lib-static", "install-lib-shared", "install",
-                   "PREFIX=", "DESTDIR=#{prefix}", "CC=#{ENV.cc}"
+    system "./configure", *args
+    system "make"
+    system "make", "install", "install-pkg-config"
+    system "make", "-C", "librhash", "install-lib-headers"
   end
 
   test do
@@ -42,25 +44,16 @@ class Rhash < Formula
 end
 
 __END__
---- a/librhash/Makefile	2014-04-20 14:20:22.000000000 +0200
-+++ b/librhash/Makefile	2014-04-20 14:40:02.000000000 +0200
-@@ -26,8 +26,8 @@
- INCDIR  = $(PREFIX)/include
- LIBDIR  = $(PREFIX)/lib
- LIBRARY = librhash.a
--SONAME  = librhash.so.0
--SOLINK  = librhash.so
-+SONAME  = librhash.0.dylib
-+SOLINK  = librhash.dylib
- TEST_TARGET = test_hashes
- TEST_SHARED = test_shared
- # Set variables according to GNU coding standard
-@@ -176,8 +176,7 @@
-
- # shared and static libraries
- $(SONAME): $(SOURCES)
--	sed -n '1s/.*/{ global:/p; s/^RHASH_API.* \([a-z0-9_]\+\)(.*/  \1;/p; $$s/.*/local: *; };/p' $(SO_HEADERS) > exports.sym
--	$(CC) -fpic $(ALLCFLAGS) -shared $(SOURCES) -Wl,--version-script,exports.sym,-soname,$(SONAME) $(LIBLDFLAGS) -o $@
-+	$(CC) -fpic $(ALLCFLAGS) -dynamiclib $(SOURCES) $(LIBLDFLAGS) -Wl,-install_name,$(PREFIX)/lib/$@ -o $@
- 	ln -s $(SONAME) $(SOLINK)
- # use 'nm -Cg --defined-only $@' to view exported symbols
+--- common_func.h.orig	2024-11-15 23:59:13.000000000 +0000
++++ common_func.h	2024-11-15 23:59:25.000000000 +0000
+@@ -142,6 +142,10 @@
+ #define rsh_tstrdup(str) rsh_strdup(str)
+ #endif
+ 
++#ifndef __has_builtin
++# define __has_builtin(x) 0
++#endif
++
+ /* get_ctz - count traling zero bits */
+ #if (defined(__GNUC__) && (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4))) || \
+     (defined(__clang__) && __has_builtin(__builtin_ctz))
