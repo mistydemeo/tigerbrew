@@ -41,8 +41,8 @@ class Readline < Formula
   def install
     ENV.universal_binary
     # Since we don't set any CFLAGS, readline adds some
-    # which break the build as they're not supported by GCC 4.2
-    ENV.append_to_cflags "-g -O2" if ENV.compiler == :gcc
+    # which break the build as they're not supported by GCC 4.2 / llvm-gcc
+    ENV.append_to_cflags "-g -O2" if ENV.compiler != :clang
     system "./configure", "--prefix=#{prefix}", "--enable-multibyte"
     system "make", "install"
   end
