@@ -9,6 +9,8 @@ class Zlib < Formula
     sha256 "0ec484b96d45d53be8501f85f4b81b2ac2d70d84fd5d1602ece4668d570b05af" => :tiger_altivec
   end
 
+  option :universal
+
   keg_only :provided_by_osx
 
   # http://zlib.net/zlib_how.html
@@ -19,6 +21,8 @@ class Zlib < Formula
   end
 
   def install
+    ENV.universal_binary if build.universal?
+
     # The test in configure to see if shared library support is available
     # is done so by invoking gcc -w and then falls back to building just a
     # static library.
