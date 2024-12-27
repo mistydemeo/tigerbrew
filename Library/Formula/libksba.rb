@@ -6,6 +6,7 @@ class Libksba < Formula
   sha256 "cf72510b8ebb4eb6693eef765749d83677a03c79291a311040a5bfd79baab763"
 
   bottle do
+    sha256 "34e283a842b400759b886a2f24ddc6f0995afd2f50517f67b6405b34ed504957" => :tiger_altivec
   end
 
   depends_on "libgpg-error"
