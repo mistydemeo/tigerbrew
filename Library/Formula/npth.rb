@@ -18,6 +18,32 @@ class Npth < Formula
   end
 
   test do
-    system "#{bin}/npth-config", "--version"
+    (testpath/"test.c").write <<~C
+      #include <stdio.h>
+      #include <npth.h>
+
+      void* thread_function(void *arg) {
+          printf("Hello from nPth thread!\\n");
+          return NULL;
+      }
+
+      int main() {
+          npth_t thread_id;
+          int status;
+
+          status = npth_init();
+          if (status != 0) {
+              fprintf(stderr, "Failed to initialize nPth.\\n");
+              return 1;
+          }
+
+          status = npth_create(&thread_id, NULL, thread_function, NULL);
+          npth_join(thread_id, NULL);
+          return 0;
+      }
+
+    C
+    system ENV.cc, "test.c", "-L#{lib}", "-lnpth", "-o", "test"
+    assert_match "Hello from nPth thread!", shell_output("./test")
   end
 end
