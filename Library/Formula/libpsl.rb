@@ -5,6 +5,11 @@ class Libpsl < Formula
   version "0.21.5"
   sha256 "1dcc9ceae8b128f3c0b3f654decd0e1e891afc6ff81098f227ef260449dae208"
 
+  bottle do
+    cellar :any
+    sha256 "cc326708975ab3088d1bf2a60e38376ca4280ffe613128cf6363affa15ab6b85" => :tiger_altivec
+  end
+
   depends_on "pkg-config" => :build
   depends_on "gettext"
   depends_on "libiconv"
