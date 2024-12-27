@@ -7,6 +7,7 @@ class Openssl3 < Formula
   license "Apache-2.0"
 
   bottle do
+    sha256 "a3b738e4b3c6af98b0eaea8121c0c15a5dd8230ed481824a713e5a02abfea94b" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
