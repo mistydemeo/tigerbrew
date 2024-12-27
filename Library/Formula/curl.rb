@@ -6,6 +6,7 @@ class Curl < Formula
 
   bottle do
     cellar :any
+    sha256 "a5bcf5e9d0ffc72ddd0b700362d83d4c591d3a8b221fbd7d7ca710eab794acef" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
