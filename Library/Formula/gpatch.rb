@@ -7,6 +7,7 @@ class Gpatch < Formula
   license "GPL-3.0-or-later"
 
   bottle do
+    sha256 "be2c7778681f69650654614191a134d075ec98bbf868605c6d40147038dc69d2" => :tiger_altivec
   end
 
   def install
