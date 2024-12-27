@@ -9,6 +9,7 @@ class Rhash < Formula
   head "https://github.com/rhash/RHash.git"
 
   bottle do
+    sha256 "e488f8e6718441de5eaa6329ab9d5ca6361200d04ed9d2b1b8648752fc31601f" => :tiger_altivec
   end
 
   # wants to pass -install_name to the linker
