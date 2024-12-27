@@ -5,6 +5,8 @@ class Jsoncpp < Formula
   sha256 "73e235c230708a8ac78ec11b886434a018f89691bd9e7fcf9c3128c8e677b435"
 
   bottle do
+    cellar :any
+    sha256 "e6ad7313bdab431b45400910f4a7747de9123f176bf9594aacb4396c94ef4677" => :tiger_altivec
   end
 
   depends_on "scons" => :build
