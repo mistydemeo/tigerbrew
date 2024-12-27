@@ -11,6 +11,7 @@ class Npth < Formula
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
+                          "--enable-install-npth-config",
                           "--prefix=#{prefix}"
     system "make", "install"
   end
