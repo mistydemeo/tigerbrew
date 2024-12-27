@@ -7,7 +7,7 @@ class LibgpgError < Formula
   revision 1
 
   bottle do
-    sha256 "1afca6e0f2ebc686fbaeabaa0835d19a60b8a402c83080e9db9702b023223868" => :tiger_altivec
+    sha256 "ed1d0a4c74d6c32e89dc485803dffb9dd2e32ab783bd13f40aaaf6db216590a7" => :tiger_altivec
   end
 
   option :universal
