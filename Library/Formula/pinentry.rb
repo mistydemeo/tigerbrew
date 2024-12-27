@@ -6,6 +6,7 @@ class Pinentry < Formula
   sha256 "bc72ee27c7239007ab1896c3c2fae53b076e2c9bd2483dc2769a16902bce8c04"
 
   bottle do
+    sha256 "ce92a793a2459459f3983464a6e37dfefc211ae9947bd8de70bb6a451409b674" => :tiger_altivec
   end
 
   depends_on "pkg-config" => :build
