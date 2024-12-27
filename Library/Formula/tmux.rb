@@ -7,6 +7,7 @@ class Tmux < Formula
 
   bottle do
     cellar :any
+    sha256 "2f54bd207e19f0cfb571a10d5e2a923444a731d54d5a368af33ce6fbe8b026e4" => :tiger_altivec
   end
 
   head do
