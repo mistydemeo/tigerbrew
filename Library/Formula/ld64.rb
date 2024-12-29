@@ -26,8 +26,6 @@ class Ld64 < Formula
   depends_on "cctools-headers" => :build
   depends_on "dyld-headers" => :build
   depends_on "libunwind-headers" => :build
-  # No CommonCrypto
-  depends_on "openssl" if MacOS.version < :leopard
 
   keg_only :provided_by_osx,
     "ld64 is an updated version of the ld shipped by Apple."
@@ -60,7 +58,7 @@ class Ld64 < Formula
     inreplace "src/ld/Options.cpp", "@@VERSION@@", version
 
     if MacOS.version < :leopard
-      # No CommonCrypto
+      # No CommonCrypto, use MD5 support in OpenSSL included with OS
       inreplace "src/ld/MachOWriterExecutable.hpp" do |s|
         s.gsub! "<CommonCrypto/CommonDigest.h>", "<openssl/md5.h>"
         s.gsub! "CC_MD5", "MD5"
