@@ -17,7 +17,18 @@ class Gettext < Formula
   # Fix lang-python-* failures when a traditional French locale
   # https://git.savannah.gnu.org/gitweb/?p=gettext.git;a=patch;h=3c7e67be7d4dab9df362ab19f4f5fa3b9ca0836b
   # Skip the gnulib tests as they have their own set of problems which has nothing to do with what's being built.
+  # Fix the Apple clang version cutoff point for a working __has_attribute via Macports
+  # https://savannah.gnu.org/bugs/?63866
   patch :p0, :DATA
+
+  # clang shipped with 10.7 & 10.8, use llvm-gcc until gnulib is fixed
+  #  "___atomic_compare_exchange_n", referenced from:
+  #      _asyncsafe_spin_lock in libgettextlib_la-asyncsafe-spin.o
+  #      _asyncsafe_spin_unlock in libgettextlib_la-asyncsafe-spin.o
+  #  "___atomic_store_n", referenced from:
+  #      _asyncsafe_spin_init in libgettextlib_la-asyncsafe-spin.o
+  # ld: symbol(s) not found for architecture x86_64
+  fails_with :clang if MacOS.version == :lion || MacOS.version == :mountain_lion
 
   def install
     ENV.libxml2
@@ -173,3 +184,91 @@ __END__
  
  # Allow users to use "gnulib-tool --update".
  
+--- gettext-runtime/config.h.in	2023-11-19 14:22:34.000000000 -0600
++++ gettext-runtime/config.h.in	2024-01-29 02:29:09.000000000 -0600
+@@ -1421,7 +1421,7 @@
+ #if (defined __has_attribute \
+      && (!defined __clang_minor__ \
+          || (defined __apple_build_version__ \
+-             ? 6000000 <= __apple_build_version__ \
++             ? 7000000 <= __apple_build_version__ \
+              : 5 <= __clang_major__)))
+ # define _GL_HAS_ATTRIBUTE(attr) __has_attribute (__##attr##__)
+ #else
+--- gettext-runtime/gnulib-lib/cdefs.h	2023-09-18 15:35:08.000000000 -0500
++++ gettext-runtime/gnulib-lib/cdefs.h	2024-01-29 02:29:09.000000000 -0600
+@@ -42,7 +42,7 @@
+ #if (defined __has_attribute \
+      && (!defined __clang_minor__ \
+          || (defined __apple_build_version__ \
+-             ? 6000000 <= __apple_build_version__ \
++             ? 7000000 <= __apple_build_version__ \
+              : 3 < __clang_major__ + (5 <= __clang_minor__))))
+ # define __glibc_has_attribute(attr) __has_attribute (attr)
+ #else
+--- gettext-runtime/intl/config.h.in	2023-11-19 14:22:28.000000000 -0600
++++ gettext-runtime/intl/config.h.in	2024-01-29 02:29:09.000000000 -0600
+@@ -1151,7 +1151,7 @@
+ #if (defined __has_attribute \
+      && (!defined __clang_minor__ \
+          || (defined __apple_build_version__ \
+-             ? 6000000 <= __apple_build_version__ \
++             ? 7000000 <= __apple_build_version__ \
+              : 5 <= __clang_major__)))
+ # define _GL_HAS_ATTRIBUTE(attr) __has_attribute (__##attr##__)
+ #else
+--- gettext-runtime/libasprintf/config.h.in	2023-11-19 14:22:30.000000000 -0600
++++ gettext-runtime/libasprintf/config.h.in	2024-01-29 02:29:09.000000000 -0600
+@@ -691,7 +691,7 @@
+ #if (defined __has_attribute \
+      && (!defined __clang_minor__ \
+          || (defined __apple_build_version__ \
+-             ? 6000000 <= __apple_build_version__ \
++             ? 7000000 <= __apple_build_version__ \
+              : 5 <= __clang_major__)))
+ # define _GL_HAS_ATTRIBUTE(attr) __has_attribute (__##attr##__)
+ #else
+--- gettext-tools/config.h.in	2023-11-19 14:23:03.000000000 -0600
++++ gettext-tools/config.h.in	2024-01-29 02:29:09.000000000 -0600
+@@ -2986,7 +2986,7 @@
+ #if (defined __has_attribute \
+      && (!defined __clang_minor__ \
+          || (defined __apple_build_version__ \
+-             ? 6000000 <= __apple_build_version__ \
++             ? 7000000 <= __apple_build_version__ \
+              : 5 <= __clang_major__)))
+ # define _GL_HAS_ATTRIBUTE(attr) __has_attribute (__##attr##__)
+ #else
+--- gettext-tools/gnulib-lib/cdefs.h	2023-09-18 15:35:52.000000000 -0500
++++ gettext-tools/gnulib-lib/cdefs.h	2024-01-29 02:29:09.000000000 -0600
+@@ -42,7 +42,7 @@
+ #if (defined __has_attribute \
+      && (!defined __clang_minor__ \
+          || (defined __apple_build_version__ \
+-             ? 6000000 <= __apple_build_version__ \
++             ? 7000000 <= __apple_build_version__ \
+              : 3 < __clang_major__ + (5 <= __clang_minor__))))
+ # define __glibc_has_attribute(attr) __has_attribute (attr)
+ #else
+--- gettext-tools/libgrep/cdefs.h	2023-09-18 15:36:21.000000000 -0500
++++ gettext-tools/libgrep/cdefs.h	2024-01-29 02:29:09.000000000 -0600
+@@ -42,7 +42,7 @@
+ #if (defined __has_attribute \
+      && (!defined __clang_minor__ \
+          || (defined __apple_build_version__ \
+-             ? 6000000 <= __apple_build_version__ \
++             ? 7000000 <= __apple_build_version__ \
+              : 3 < __clang_major__ + (5 <= __clang_minor__))))
+ # define __glibc_has_attribute(attr) __has_attribute (attr)
+ #else
+--- libtextstyle/config.h.in	2023-11-19 14:22:53.000000000 -0600
++++ libtextstyle/config.h.in	2024-01-29 02:29:09.000000000 -0600
+@@ -1392,7 +1392,7 @@
+ #if (defined __has_attribute \
+      && (!defined __clang_minor__ \
+          || (defined __apple_build_version__ \
+-             ? 6000000 <= __apple_build_version__ \
++             ? 7000000 <= __apple_build_version__ \
+              : 5 <= __clang_major__)))
+ # define _GL_HAS_ATTRIBUTE(attr) __has_attribute (__##attr##__)
+ #else
