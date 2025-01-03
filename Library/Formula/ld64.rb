@@ -8,10 +8,10 @@ class Ld64 < Formula
   #
   url "https://github.com/apple-oss-distributions/ld64/archive/refs/tags/ld64-97.17.tar.gz"
   sha256 "dc609d295365f8f5853b45e8dbcb44ca85e7dbc7a530e6fb5342f81d3c042db5"
-  revision 1
+  revision 2
 
   bottle do
-    sha256 "bb9853e7c2428a48282eb917ac0b05672b1a00350cc2c6585a05c8d7d567bfcb" => :tiger_altivec
+    sha256 "0806657065f790e10496585ae1c83f427bc4f96f5c044c52cf6454f5be725229" => :tiger_altivec
   end
 
   resource "makefile" do
