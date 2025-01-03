@@ -5,6 +5,10 @@ class Recode < Formula
   sha256 "786aafd544851a2b13b0a377eac1500f820ce62615ccc2e630b501e7743b9f33"
   version "3.7.14"
 
+  bottle do
+    sha256 "b2c366054028f5cc6fc911747e227f2b4dd05230c6a1818037f84fa0d66d300e" => :tiger_altivec
+  end
+
   depends_on "gettext"
   depends_on "libiconv"
   depends_on "libtool" => :build
