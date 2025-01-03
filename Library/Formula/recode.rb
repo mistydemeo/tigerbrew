@@ -9,6 +9,10 @@ class Recode < Formula
   depends_on "libiconv"
   depends_on "libtool" => :build
 
+  # Fails with 4.2 but not 4.0 on Tiger
+  # https://github.com/mistydemeo/tigerbrew/pull/1218
+  fails_with :gcc if MacOS.version < :leopard
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
