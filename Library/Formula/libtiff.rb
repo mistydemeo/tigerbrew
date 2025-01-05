@@ -15,6 +15,10 @@ class Libtiff < Formula
   depends_on "xz"
   depends_on "zlib"
 
+  fails_with :gcc_4_0 if MacOS.version == :tiger && Hardware::CPU.intel? do
+    cause "libtiff/tif_lzw.c calls ___builtin_bswap32() on i386 builds with GCC and that's missing from v4.0 here"
+  end
+
   def install
     ENV.universal_binary if build.universal?
     ENV.cxx11 if build.cxx11?
