@@ -3,12 +3,12 @@
 class Xz < Formula
   desc "General-purpose data compression with high compression ratio"
   homepage "http://tukaani.org/xz/"
-  url "https://fossies.org/linux/misc/xz-5.4.4.tar.gz"
-  mirror "http://tukaani.org/xz/xz-5.4.4.tar.gz"
-  sha256 "aae39544e254cfd27e942d35a048d592959bd7a79f9a624afb0498bb5613bdf8"
+  url "https://fossies.org/linux/misc/xz-5.4.7.tar.gz"
+  mirror "https://github.com/tukaani-project/xz/releases/download/v5.6.2/xz-5.6.2.tar.gz"
+  sha256 "8db6664c48ca07908b92baedcfe7f3ba23f49ef2476864518ab5db6723836e71"
 
   bottle do
-    sha256 "27d90bf43274860a39b46d1f589e6386fd5a74e408d0c7c77c89c14bb54adcc7" => :tiger_altivec
+    sha256 "adbf7a74ab4205a88c3950514c1c9deb793a109a24a0ce1a0e6b8180a54cb338" => :tiger_altivec
   end
 
   option :universal

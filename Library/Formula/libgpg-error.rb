@@ -1,12 +1,13 @@
 class LibgpgError < Formula
   desc "Common error values for all GnuPG components"
   homepage "https://www.gnupg.org/"
-  url "https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.47.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.47.tar.bz2"
-  sha256 "9e3c670966b96ecc746c28c2c419541e3bcb787d1a73930f5e5f5e1bcbbb9bdb"
+  url "https://www.gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.51.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.51.tar.bz2"
+  sha256 "be0f1b2db6b93eed55369cdf79f19f72750c8c7c39fc20b577e724545427e6b2"
+  revision 1
 
   bottle do
-    sha256 "7c535ced4ccce90ce319aaf147b77f96e555d579c7448647aaccefa4afd21436" => :tiger_altivec
+    sha256 "ed1d0a4c74d6c32e89dc485803dffb9dd2e32ab783bd13f40aaaf6db216590a7" => :tiger_altivec
   end
 
   option :universal
@@ -16,6 +17,7 @@ class LibgpgError < Formula
     ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version == :tiger
     system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}",
                           "--disable-silent-rules",
+                          "--enable-install-gpg-error-config",
                           "--enable-static"
     system "make", "install"
   end

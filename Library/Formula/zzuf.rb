@@ -1,17 +1,21 @@
 class Zzuf < Formula
   desc "Transparent application input fuzzer"
   homepage "http://caca.zoy.org/wiki/zzuf"
-  url "http://caca.zoy.org/files/zzuf/zzuf-0.13.tar.gz"
-  sha256 "0842c548522028c3e0d9c9cf7d09f6320b661f33824bb6df19ca209851bdf627"
+  url "https://github.com/samhocevar/zzuf/releases/download/v0.15/zzuf-0.15.tar.gz"
+  sha256 "a34f624503e09acd269c70d826aac2a35c03e84dc351873f140f0ba6a792ffd6"
+  license "WTFPL"
 
-  conflicts_with "libzzip", :because => "both install `zzcat` binaries"
-
-  # Fix OS X-specific bug in zzuf 0.13; see https://trac.macports.org/ticket/29157
-  # This has been fixed upstream and should be included in the next release.
-  patch :p3 do
-    url "https://trac.macports.org/export/78051/trunk/dports/security/zzuf/files/patch-src-libzzuf-lib--mem.c.diff"
-    sha256 "51692d0bfaa8dd9bc8e24be7f96212a296f1eb779253325e7aaa0300d625cb2a"
+  bottle do
+    sha256 "dc5911937b4a7a248bed06334cda43b87de29990f4c67ab80e2b703bef20cf3c" => :tiger_altivec
   end
+
+  # MAP_ANON is guarded off on Tiger with #ifndef _POSIX_C_SOURCE
+  patch :p0, :DATA
+
+  # ld: Undefined symbols:
+  # ___sync_lock_test_and_set
+  # ___sync_synchronize
+  fails_with :gcc_4_0
 
   def install
     system "./configure", "--disable-dependency-tracking",
@@ -20,6 +24,21 @@ class Zzuf < Formula
   end
 
   test do
-    system "#{bin}/zzuf", "hd", "-vn", "32", "/dev/zero"
+    output = pipe_output("#{bin}/zzuf -i -B 4194304 -r 0.271828 -s 314159 -m < /dev/zero").chomp
+    assert_equal "zzuf[s=314159,r=0.271828]: 549e1200590e9c013e907039fe535f41", output
   end
 end
+__END__
+--- src/libzzuf/lib-mem.c.orig	2024-06-20 23:40:20.000000000 +0100
++++ src/libzzuf/lib-mem.c	2024-06-20 23:41:03.000000000 +0100
+@@ -29,8 +29,10 @@
+ /* Use this to get ENOMEM on HP-UX */
+ #define _INCLUDE_POSIX_SOURCE
+ /* Need this to get standard mmap() on OpenSolaris */
++#if defined(__sun)
+ #undef _POSIX_C_SOURCE
+ #define _POSIX_C_SOURCE 3
++#endif
+ /* Need this to get valloc() on OpenSolaris */
+ #define __EXTENSIONS__
+ /* Need this to include <libc.h> on OS X */

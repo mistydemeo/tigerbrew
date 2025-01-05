@@ -3,13 +3,12 @@
 class Mercurial < Formula
   desc "Scalable distributed version control system"
   homepage "https://www.mercurial-scm.org/"
-  url "https://www.mercurial-scm.org/release/mercurial-6.6.tar.gz"
-  sha256 "6bfd71cba0df3b18de424216b30e2a541cca6e0104853d3334be80a2ab09a4ad"
+  url "https://www.mercurial-scm.org/release/mercurial-6.9.tar.gz"
+  sha256 "629604293df2be8171ec856bf4f8b4faa8e4305af13607dce0f89f74132836d6"
   license "GPL-2.0-or-later"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "c9a73ff32f4eaca7570a489d862f73a0eb10bfdbc91fe4518231090989bcbf6b" => :tiger_altivec
   end
 
   depends_on :python3

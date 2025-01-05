@@ -4,6 +4,10 @@ class Libutil < Formula
   url "https://github.com/apple-oss-distributions/libutil/archive/refs/tags/libutil-11.tar.gz"
   sha256 "10f46572a5f1973cca086689a24f64244eedaec26e47e47cede352e06baee78f"
 
+  bottle do
+    sha256 "0dec4c211183778b035db8efc789ae90af48eece125c541c8ce0fedea33785c8" => :tiger_altivec
+  end
+
   # Leopard was the first version to ship libutil
   keg_only :provided_by_macos if MacOS.version > :tiger
 

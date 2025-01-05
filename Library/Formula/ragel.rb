@@ -1,19 +1,16 @@
 class Ragel < Formula
   desc "State machine compiler"
-  homepage "http://www.colm.net/ragel/"
-  url "http://www.colm.net/files/ragel/ragel-6.9.tar.gz"
-  sha256 "6e07be0fab5ca1d9c2d9e177718a018fc666141f594a5d6e7025658620cf660a"
+  homepage "http://www.colm.net/open-source/ragel/"
+  url "http://www.colm.net/files/ragel/ragel-6.10.tar.gz"
+  sha256 "5f156edb65d20b856d638dd9ee2dfb43285914d9aa2b6ec779dac0270cd56c3f"
 
   bottle do
-    cellar :any
-    sha1 "9cde046f905a7f9d31158860974209c6dbaa3576" => :mavericks
-    sha1 "d5a7d2e3cd213a466dd5ed3681f9e5bc04745353" => :mountain_lion
-    sha1 "0394a21200234fe66535505ae8ab7cdfdc354f84" => :lion
+    sha256 "41ef311bf2bffb07ccaf90ed909f0b732d2bb26ec929155170df9eabf990f288" => :tiger_altivec
   end
 
   resource "pdf" do
-    url "http://www.colm.net/files/ragel/ragel-guide-6.9.pdf"
-    sha256 "3f9406b0471facaf775c4d868fb545640d08f4df7ad9578db1e36ddef0afd608"
+    url "http://www.colm.net/files/ragel/ragel-guide-6.10.pdf"
+    sha256 "efa9cf3163640e1340157c497db03feb4bc67d918fc34bc5b28b32e57e5d3a4e"
   end
 
   def install

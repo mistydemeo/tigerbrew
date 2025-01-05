@@ -12,7 +12,7 @@ Please report security issues to security@brew.sh.
 ## Contributing
 Please read:
 
-* [Code of Conduct](https://github.com/mistydemeo/tigerbrew/blob/master/CODEOFCONDUCT.md#code-of-conduct)
+* [Code of Conduct](https://github.com/mistydemeo/tigerbrew/blob/master/CODE_OF_CONDUCT.md#code-of-conduct)
 * [Formula Cookbook](https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/Formula-Cookbook.md)
 * [Acceptable Formulae](https://github.com/mistydemeo/tigerbrew/blob/master/share/doc/homebrew/Acceptable-Formulae.md#acceptable-formulae)
 * [Ruby Style Guide](https://github.com/styleguide/ruby)

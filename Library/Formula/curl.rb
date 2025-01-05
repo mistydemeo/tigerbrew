@@ -1,12 +1,12 @@
 class Curl < Formula
   desc "Get a file from an HTTP, HTTPS or FTP server"
   homepage "https://curl.haxx.se/"
-  url "https://curl.se/download/curl-8.5.0.tar.xz"
-  sha256 "42ab8db9e20d8290a3b633e7fbb3cec15db34df65fd1015ef8ac1e4723750eeb"
+  url "https://curl.se/download/curl-8.10.1.tar.xz"
+  sha256 "73a4b0e99596a09fa5924a4fb7e4b995a85fda0d18a2c02ab9cf134bebce04ee"
 
   bottle do
     cellar :any
-    sha256 "d1e0871cdf4c8824a602986fc041d3dd54a9eafdedff327b06f0f2ce7d218b7a" => :tiger_altivec
+    sha256 "a5bcf5e9d0ffc72ddd0b700362d83d4c591d3a8b221fbd7d7ca710eab794acef" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
@@ -31,6 +31,7 @@ class Curl < Formula
   depends_on "c-ares" => :optional
   depends_on "libressl" => :optional
   depends_on "libnghttp2"
+  depends_on "libpsl"
   depends_on "zlib"
 
   def install

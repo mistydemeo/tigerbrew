@@ -4,6 +4,7 @@ class Openssl < Formula
   url "https://www.openssl.org/source/openssl-1.1.1w.tar.gz"
   mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-1.1.1w.tar.gz"
   sha256 "cf3098950cb4d853ad95c0841f1f9c6d3dc102dccfcacd521d93925208b76ac8"
+  revision 1
 
   option :universal
   option "without-test", "Skip build-time tests (not recommended)"
@@ -13,7 +14,7 @@ class Openssl < Formula
   depends_on "curl-ca-bundle"
 
   bottle do
-    sha256 "7fa8eeb679ec9e180c5296515c1402207c653b6fd22be981b1c67e81f3fc0c4b" => :tiger_altivec
+    sha256 "49e329bab3ffca7c980950ff91457d2fb87990e73f033864fef8aa586870a1dd" => :tiger_altivec
   end
 
   def arch_args
@@ -35,6 +36,7 @@ class Openssl < Formula
     args = %W[
       --prefix=#{prefix}
       --openssldir=#{openssldir}
+      no-makedepend
       no-ssl3
       no-ssl3-method
       no-zlib
@@ -42,6 +44,11 @@ class Openssl < Formula
       enable-cms
       threads
     ]
+
+    # as(1) on Tiger/Intel does not support specifying an alignment value for .comm directive.
+    # .comm      _OPENSSL_ia32cap_P,16,2
+    # fails with "Rest of line ignored. 1st junk character valued 44 (,)."
+    args << "no-asm" if MacOS.version == :tiger && Hardware::CPU.intel?
 
     # No {get,make,set}context support before Leopard
     args << "no-async" if MacOS.version == :tiger
@@ -57,6 +64,11 @@ class Openssl < Formula
     ENV.append_to_cflags "-DOPENSSL_NO_APPLE_CRYPTO_RANDOM" if MacOS.version == :tiger
     # Build breaks passing -w
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
+    # Match Tiger/PowerPC behaviour on Intel builds since toolchain is unable to cope
+    # ld: common symbols not allowed with MH_DYLIB output format with the -multi_module option
+    if Hardware::CPU.intel? && MacOS.version == :tiger
+      ENV.append_to_cflags "-fno-common"
+    end
 
     if build.universal?
       ENV.permit_arch_flags

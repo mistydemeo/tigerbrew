@@ -1,20 +1,18 @@
 class Libdc1394 < Formula
   desc "Provides API for IEEE 1394 cameras"
-  homepage "http://damien.douxchamps.net/ieee1394/libdc1394/"
-  url "https://downloads.sourceforge.net/project/libdc1394/libdc1394-2/2.2.2/libdc1394-2.2.2.tar.gz"
-  sha256 "ff8744a92ab67a276cfaf23fa504047c20a1ff63262aef69b4f5dbaa56a45059"
+  homepage "https://damien.douxchamps.net/ieee1394/libdc1394/"
+  url "https://downloads.sourceforge.net/project/libdc1394/libdc1394-2/2.2.6/libdc1394-2.2.6.tar.gz"
+  sha256 "2b905fc9aa4eec6bdcf6a2ae5f5ba021232739f5be047dec8fe8dd6049c10fed"
 
   bottle do
     cellar :any
-    revision 1
-    sha1 "289ebcfa4d7aea0740a54c5de50df23018f9d742" => :yosemite
-    sha1 "747ac444ec23e13c57ae476d2e1181a2d6c728f0" => :mavericks
-    sha1 "68488e8fc4d387b6dc63e95dba4c26a7509ca59d" => :mountain_lion
+    sha256 "3488c0e3611d576663d1b4e6ecda4bcd56fd5479be303ff6eb11bed54d3b1404" => :tiger_altivec
   end
 
   option :universal
 
   depends_on "sdl"
+  depends_on "libusb"
 
   # fix issue due to bug in OSX Firewire stack
   # libdc1394 author comments here:

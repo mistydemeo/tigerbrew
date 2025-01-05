@@ -1,8 +1,8 @@
 class Perl < Formula
   desc "Highly capable, feature-rich programming language"
   homepage "https://www.perl.org/"
-  url "https://www.cpan.org/src/5.0/perl-5.38.2.tar.xz"
-  sha256 "d91115e90b896520e83d4de6b52f8254ef2b70a8d545ffab33200ea9f1cf29e8"
+  url "https://www.cpan.org/src/5.0/perl-5.40.0.tar.gz"
+  sha256 "c740348f357396327a9795d3e8323bafd0fe8a5c7835fc1cbaba0cc8dfe7161f"
 
   head "https://perl5.git.perl.org/perl.git", :branch => "blead"
 
@@ -13,7 +13,7 @@ class Perl < Formula
   option "with-tests", "Build and run the test suite"
 
   bottle do
-    sha256 "22a0e98c6e0c1356823dffdd096fb150a938992672aceb9dc916cf7834577833" => :tiger_altivec
+    sha256 "0743dbdaa87cc72cc5f206ade56c68d4f5e2ebacad8f047872b8c3827bfa724c" => :tiger_altivec
   end
 
   def install
@@ -122,22 +122,3 @@ __END__
      else {
          plan skip_all => 'Dynaloading not enabled'
              if !$Config{usedl} or $Config{usedl} ne 'define';
---- hints/darwin.sh.orig	2023-08-12 09:55:03.000000000 +0100
-+++ hints/darwin.sh	2023-08-12 09:55:59.000000000 +0100
-@@ -287,14 +287,14 @@
-    ldflags="${ldflags} -flat_namespace"
-    lddlflags="${ldflags} -bundle -undefined suppress"
-    ;;
--[7-9].*)   # OS X 10.3.x - 10.5.x
-+[7-8].*)   # OS X 10.3.x - 10.4.x
-    lddlflags="${ldflags} -bundle -undefined dynamic_lookup"
-    case "$ld" in
-        *MACOSX_DEPLOYMENT_TARGET*) ;;
-        *) ld="env MACOSX_DEPLOYMENT_TARGET=10.3 ${ld}" ;;
-    esac
-    ;;
--*)        # OS X 10.6.x - current
-+*)        # OS X 10.5.x - current
-    # The MACOSX_DEPLOYMENT_TARGET is not needed,
-    # but the -mmacosx-version-min option is always used.
- 

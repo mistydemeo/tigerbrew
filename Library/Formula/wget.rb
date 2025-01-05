@@ -4,33 +4,33 @@
 class Wget < Formula
   desc "Internet file retriever"
   homepage "https://www.gnu.org/software/wget/"
-  url "https://ftpmirror.gnu.org/wget/wget-1.21.3.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/wget/wget-1.21.3.tar.gz"
-  sha256 "5726bb8bc5ca0f6dc7110f6416e4bb7019e2d2ff5bf93d1ca2ffcc6656f220e5"
+  url "https://ftpmirror.gnu.org/wget/wget-1.25.0.tar.gz"
+  mirror "https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz"
+  sha256 "766e48423e79359ea31e41db9e5c289675947a7fcf2efdcedb726ac9d0da3784"
 
   head do
     url "git://git.savannah.gnu.org/wget.git"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
-    depends_on "gettext"
   end
 
   bottle do
-    sha256 "a78bbaa576c705ffa755e23889d8c31eb40fed7634146bdf373a642a56eb06da" => :tiger_altivec
   end
 
-  deprecated_option "enable-iri" => "with-iri"
   deprecated_option "enable-debug" => "with-debug"
 
-  option "with-iri", "Enable iri support"
   option "with-debug", "Build with debug support"
 
-  depends_on "openssl" => :recommended
+  depends_on "pkg-config" => :build
+  depends_on "openssl3" => :recommended
   depends_on "libressl" => :optional
-  depends_on "libidn" if build.with? "iri"
-  depends_on "pcre2" => :optional
+  depends_on "libidn2" => :recommended
+  depends_on "pcre2" => :recommended
+  depends_on "libunistring"
   depends_on "zlib"
+  depends_on "gettext"
+  depends_on "libpsl"
 
   def install
   ENV.append "CFLAGS", "-std=gnu99"
@@ -38,17 +38,18 @@ class Wget < Formula
       --prefix=#{prefix}
       --sysconfdir=#{etc}
       --with-ssl=openssl
+      --disable-pcre
     ]
 
     if build.with? "libressl"
       args << "--with-libssl-prefix=#{Formula["libressl"].opt_prefix}"
     else
-      args << "--with-libssl-prefix=#{Formula["openssl"].opt_prefix}"
+      args << "--with-libssl-prefix=#{Formula["openssl3"].opt_prefix}"
     end
 
     args << "--disable-debug" if build.without? "debug"
-    args << "--disable-iri" if build.without? "iri"
-    args << "--disable-pcre" if build.without? "pcre"
+    args << "--disable-iri" if build.without? "libidn2"
+    args << "--disable-pcre2" if build.without? "pcre2"
 
     system "./bootstrap" if build.head?
     system "./configure", *args
@@ -56,6 +57,6 @@ class Wget < Formula
   end
 
   test do
-    system bin/"wget", "-O", "-", "https://github.com"
+    system bin/"wget", "-O", "/dev/null", "https://example.com"
   end
 end

@@ -1,22 +1,22 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.43.0.tar.xz"
-  sha256 "5446603e73d911781d259e565750dcd277a42836c8e392cac91cf137aa9b76ec"
+  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.47.1.tar.xz"
+  sha256 "f3d8f9bb23ae392374e91cd9d395970dabc5b9c5ee72f39884613cd84a6ed310"
+  license "GPL-2.0-only"
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
-    sha256 "adf92b5f13d8184848e2c1d464e60c7ac1da8e55b5f14d6b39228c9b04f07f93" => :tiger_altivec
   end
 
   resource "html" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.43.0.tar.xz"
-    sha256 "8b02e46a5fb41971be8cd2347dbc14d53802a08b0822adc1f822831da8f31f60"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.47.1.tar.xz"
+    sha256 "97ee550cd54cfd38db2b349fe4bc462b139edaad514503be034a76c80ef3053a"
   end
 
   resource "man" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.43.0.tar.xz"
-    sha256 "ef18df09444a60c70be996a481fde093928996055f61a585e9ea07b5bdc6d4d8"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.47.1.tar.xz"
+    sha256 "ffc2005a89b056c0727b667f6beda0068371619762ea4844ad0229091befee13"
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -108,13 +108,16 @@ class Git < Formula
 
     system "gmake", "install", *args
 
+    if MacOS.version >= :lion
     # Install the OS X keychain credential helper
+    # Needs Security.framework from 10.7 or newer
     cd "contrib/credential/osxkeychain" do
       system "gmake", "CC=#{ENV.cc}",
                      "CFLAGS=#{ENV.cflags}",
                      "LDFLAGS=#{ENV.ldflags}"
       bin.install "git-credential-osxkeychain"
       system "gmake", "clean"
+    end
     end
 
     # Install git-subtree
@@ -158,6 +161,7 @@ class Git < Formula
     # If you need it, install git --with-brewed-openssl.
     rm "#{libexec}/git-core/git-imap-send" if build.without? "brewed-openssl"
 
+    if MacOS.version >= :lion
     # Set the macOS keychain credential helper by default
     # (as Apple's CLT's git also does this).
     (buildpath/"gitconfig").write <<-EOS.undent
@@ -165,15 +169,23 @@ class Git < Formula
       \thelper = osxkeychain
     EOS
     etc.install "gitconfig"
+    end
   end
 
-  def caveats; <<-EOS.undent
+  def caveats
+    osxkeychain_text = <<-EOS.undent
+
     The OS X keychain credential helper has been installed to:
       #{HOMEBREW_PREFIX}/bin/git-credential-osxkeychain
+    EOS
 
+    text = <<-EOS.undent
     The "contrib" directory has been installed to:
       #{HOMEBREW_PREFIX}/share/git-core/contrib
     EOS
+
+    text += osxkeychain_text if MacOS.version >= :lion
+    text
   end
 
   test do
@@ -186,10 +198,9 @@ class Git < Formula
 
   # Fix PowerPC build and support for OS X Tiger & Leopard
   # e.g supplied regex(3) is too old, lacks some file system monitoring functionality
-  # We revert git-credential-osxkeychain to the version from 2.40.1 since we lack
-  # getline(3).
   # Needs arc4random_buf(3) which is missing on Leopard and prior so just use openssl
   # since newer implementations were based on AES cipher.
+  # copyfile.h didn't show up until Leopard.
   patch :p0, :DATA
 end
 __END__
@@ -206,20 +217,20 @@ __END__
  /* Not under GCC-alike or glibc or *BSD or newlib or <processor whitelist> or <os whitelist> */
  #elif defined(SHA1DC_ON_INTEL_LIKE_PROCESSOR)
  /*
---- config.mak.uname.orig	2023-08-12 18:34:07.000000000 +0100
-+++ config.mak.uname	2023-08-12 20:30:51.000000000 +0100
+--- config.mak.uname.orig	2024-04-30 21:58:33.000000000 +0100
++++ config.mak.uname	2024-04-30 22:01:59.000000000 +0100
 @@ -128,6 +128,11 @@
  		OLD_ICONV = UnfortunatelyYes
  		NO_APPLE_COMMON_CRYPTO = YesPlease
- 	endif
-+	ifeq ($(shell test "`expr "$(uname_R)" : '\([0-9][0-9]*\)\.'`" -lt 12 && echo 1),1)
-+		NO_REGEX=YesPlease
-+	else
+         endif
++        ifeq ($(shell test "`expr "$(uname_R)" : '\([0-9][0-9]*\)\.'`" -lt 12 && echo 1),1)
++		NO_REGEX=YesPlease 
++        else
 +		USE_ENHANCED_BASIC_REGULAR_EXPRESSIONS = YesPlease
-+	endif
- 	ifeq ($(shell expr "$(uname_R)" : '[15]\.'),2)
++        endif
+         ifeq ($(shell expr "$(uname_R)" : '[15]\.'),2)
  		NO_STRLCPY = YesPlease
- 	endif
+         endif
 @@ -146,8 +151,7 @@
  	HAVE_BSD_SYSCTL = YesPlease
  	FREAD_READS_DIRECTORIES = UnfortunatelyYes
@@ -230,19 +241,19 @@ __END__
  
  	# Workaround for `gettext` being keg-only and not even being linked via
  	# `brew link --force gettext`, should be obsolete as of
-@@ -160,6 +164,7 @@
- 		endif
- 	endif
+@@ -173,6 +177,7 @@
+                 endif
+         endif
  
 +	ifeq ($(shell test "`expr "$(uname_R)" : '\([0-9][0-9]*\)\.'`" -gt 13 && echo 1), 1)
  	# The builtin FSMonitor on MacOS builds upon Simple-IPC.  Both require
  	# Unix domain sockets and PThreads.
- 	ifndef NO_PTHREADS
-@@ -168,6 +173,7 @@
+         ifndef NO_PTHREADS
+@@ -181,6 +186,7 @@
  	FSMONITOR_OS_SETTINGS = darwin
- 	endif
- 	endif
-+	endif
+         endif
+         endif
++        endif
  
  	BASIC_LDFLAGS += -framework CoreServices
  endif
@@ -258,34 +269,16 @@ __END__
  BASIC_LDFLAGS =
  
 
---- contrib/credential/osxkeychain/git-credential-osxkeychain.c.orig	2023-06-01 08:03:05.000000000 +0100
-+++ contrib/credential/osxkeychain/git-credential-osxkeychain.c	2023-04-24 16:32:11.000000000 +0100
-@@ -113,16 +113,14 @@
+--- t/unit-tests/clar/clar/fs.h.orig	2024-10-23 18:35:26.000000000 +0100
++++ t/unit-tests/clar/clar/fs.h	2024-10-23 18:37:45.000000000 +0100
+@@ -318,7 +318,10 @@
+ #endif
  
- static void read_credential(void)
- {
--	char *buf = NULL;
--	size_t alloc;
--	ssize_t line_len;
-+	char buf[1024];
+ #if defined(__APPLE__)
++# include <AvailabilityMacros.h>
++# if MAC_OS_X_VERSION_MIN_REQUIRED >= 1050
+ # include <copyfile.h>
++# endif
+ #endif
  
--	while ((line_len = getline(&buf, &alloc, stdin)) > 0) {
-+	while (fgets(buf, sizeof(buf), stdin)) {
- 		char *v;
- 
- 		if (!strcmp(buf, "\n"))
- 			break;
--		buf[line_len-1] = '\0';
-+		buf[strlen(buf)-1] = '\0';
- 
- 		v = strchr(buf, '=');
- 		if (!v)
-@@ -167,8 +165,6 @@
- 		 * learn new lines, and the helpers are updated to match.
- 		 */
- 	}
--
--	free(buf);
- }
- 
- int main(int argc, const char **argv)
+ static void basename_r(const char **out, int *out_len, const char *in)

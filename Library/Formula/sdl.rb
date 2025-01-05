@@ -5,12 +5,7 @@ class Sdl < Formula
   sha256 "d6d316a793e5e348155f0dd93b979798933fb98aa1edebcc108829d6474aad00"
 
   bottle do
-    cellar :any
-    revision 2
-    sha256 "c9c66beaee50897468330709dc618246b298d63854309863e958e6b46ecec06a" => :el_capitan
-    sha1 "3f767029ead055192d70e143cf1e5b18a1b18a3e" => :yosemite
-    sha1 "4396e988f0c34d6859f994a4fa89d50a6e4a8cf9" => :mavericks
-    sha1 "1917ce67939b9b539cd33469749e881e7b611b0d" => :mountain_lion
+    sha256 "28830606a56b8a570e4708dff5d546050013e02f09b3b8eae584709e1b56bcfa" => :tiger_altivec
   end
 
   head do
