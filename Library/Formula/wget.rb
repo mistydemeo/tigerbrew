@@ -4,16 +4,15 @@
 class Wget < Formula
   desc "Internet file retriever"
   homepage "https://www.gnu.org/software/wget/"
-  url "https://ftpmirror.gnu.org/wget/wget-1.24.5.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/wget/wget-1.24.5.tar.gz"
-  sha256 "fa2dc35bab5184ecbc46a9ef83def2aaaa3f4c9f3c97d4bd19dcb07d4da637de"
+  url "https://ftpmirror.gnu.org/wget/wget-1.25.0.tar.gz"
+  mirror "https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz"
+  sha256 "766e48423e79359ea31e41db9e5c289675947a7fcf2efdcedb726ac9d0da3784"
 
   head do
     url "git://git.savannah.gnu.org/wget.git"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
-    depends_on "gettext"
   end
 
   bottle do
@@ -30,6 +29,8 @@ class Wget < Formula
   depends_on "pcre2" => :recommended
   depends_on "libunistring"
   depends_on "zlib"
+  depends_on "gettext"
+  depends_on "libpsl"
 
   def install
   ENV.append "CFLAGS", "-std=gnu99"
