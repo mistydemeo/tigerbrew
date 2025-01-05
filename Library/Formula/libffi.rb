@@ -1,8 +1,8 @@
 class Libffi < Formula
   desc "Portable Foreign Function Interface library"
   homepage "https://sourceware.org/libffi/"
-  url "https://github.com/libffi/libffi/releases/download/v3.4.4/libffi-3.4.4.tar.gz"
-  sha256 "d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676"
+  url "https://github.com/libffi/libffi/releases/download/v3.4.5/libffi-3.4.5.tar.gz"
+  sha256 "96fff4e589e3b239d888d9aa44b3ff30693c2ba1617f953925a70ddebcc102b2"
 
   head do
     url "https://github.com/atgreen/libffi.git"
@@ -11,16 +11,16 @@ class Libffi < Formula
     depends_on "libtool" => :build
   end
 
+  # Unknown pseudo-op: .balign
+  depends_on "cctools" => :build if MacOS.version == :tiger && Hardware::CPU.intel?
+
   bottle do
-    sha256 "f73c477afbca66cf30dd489efa3177fa89ace748e11bd1fd1b6395eeb18a969e" => :tiger_altivec
   end
 
   keg_only :provided_by_osx, "Some formulae require a newer version of libffi." if MacOS.version > :tiger
 
-  # i386 build fix
-  patch do
-    url "https://github.com/libffi/libffi/commit/e70dd1aa240159bd2050cb1eafffb49cdc1d8b22.diff"
-    sha256 "f8716ba642b979756958cdae1cd6a673449fafca7cb695c12cd85a47ab3e4eaf"
+  fails_with :gcc_4_0 if MacOS.version == :tiger && Hardware::CPU.intel? do
+    cause "Chokes on comments in src/x86/sysv.S"
   end
 
   def install
