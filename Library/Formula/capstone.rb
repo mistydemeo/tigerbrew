@@ -1,15 +1,14 @@
 class Capstone < Formula
   desc "Multi-platform, multi-architecture disassembly framework"
   homepage "https://www.capstone-engine.org/"
-  url "https://github.com/capstone-engine/capstone/archive/refs/tags/5.0.1.tar.gz"
-  sha256 "2b9c66915923fdc42e0e32e2a9d7d83d3534a45bb235e163a70047951890c01a"
+  url "https://github.com/capstone-engine/capstone/archive/refs/tags/5.0.3.tar.gz"
+  sha256 "3970c63ca1f8755f2c8e69b41432b710ff634f1b45ee4e5351defec4ec8e1753"
   license "BSD-3-Clause"
   head "https://github.com/capstone-engine/capstone.git", branch: "next"
 
   bottle do
   end
 
-  # Switch from binary constants to hex so GCC 4.x can be used
   # Fix OS detection
   patch :p0, :DATA
 
@@ -59,26 +58,6 @@ class Capstone < Formula
   end
 end
 __END__
---- arch/TriCore/TriCoreInstPrinter.c.orig	2024-02-03 00:59:37.000000000 +0000
-+++ arch/TriCore/TriCoreInstPrinter.c	2024-02-03 01:00:45.000000000 +0000
-@@ -402,7 +402,7 @@
- 		case TRICORE_LOOP_sbr:
- 			// {27b’111111111111111111111111111, disp4, 0};
- 			disp = (int32_t)MI->address +
--			       ((0b111111111111111111111111111 << 5) |
-+			       ((0x7FFFFFF << 5) |
- 				(disp << 1));
- 			break;
- 		default:
-@@ -449,7 +449,7 @@
- 	if (MCOperand_isImm(MO)) {
- 		uint32_t imm = MCOperand_getImm(MO);
- 		// {27b’111111111111111111111111111, disp4, 0};
--		imm = 0b11111111111111111111111111100000 | (imm << 1);
-+		imm = 0xFFFFFFE0 | (imm << 1);
- 
- 		printInt32Bang(O, imm);
- 		fill_imm(MI, imm);
 --- Makefile.orig	2024-02-03 01:12:02.000000000 +0000
 +++ Makefile	2024-02-03 01:18:32.000000000 +0000
 @@ -344,7 +344,7 @@
