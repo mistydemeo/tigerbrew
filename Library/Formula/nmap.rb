@@ -45,7 +45,7 @@ class Nmap < Formula
     ]
 
     # cpp-precomp support was exclusive to Apple's compilers
-    # Remove in next release. https://github.com/nmap/nmap/pull/2777
+    # https://github.com/nmap/nmap/pull/2777
     system "sed -i -e '/needs_cpp_precomp=yes/d' configure"
     system "sed -i -e '/needs_cpp_precomp=yes/d' nping/configure"
 
