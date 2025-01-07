@@ -14,6 +14,10 @@ class Libressl < Formula
 
   keg_only "LibreSSL is not linked to prevent conflict with the system OpenSSL."
 
+  option "with-tests", "Build and run the test suite"
+
+  depends_on "curl-ca-bundle"
+
   def install
     # Tests fail during "make check" stage when built with CPU optimisation
     ENV.no_optimization
@@ -21,40 +25,25 @@ class Libressl < Formula
       --disable-dependency-tracking
       --disable-silent-rules
       --prefix=#{prefix}
-      --with-openssldir=#{etc}/libressl
-      --sysconfdir=#{etc}/libressl
+      --with-openssldir=#{libressldir}
+      --sysconfdir=#{libressldir}
     ]
 
     system "./autogen.sh" if build.head?
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 
+  def libressldir
+    etc/"libressl"
+  end
+
   def post_install
-    keychains = %w[
-      /Library/Keychains/System.keychain
-      /System/Library/Keychains/SystemRootCertificates.keychain
-    ]
-
-    certs_list = `security find-certificate -a -p #{keychains.join(" ")}`
-    certs = certs_list.scan(
-      /-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----/m
-    )
-
-    valid_certs = certs.select do |cert|
-      IO.popen("openssl x509 -inform pem -checkend 0 -noout", "w") do |openssl_io|
-        openssl_io.write(cert)
-        openssl_io.close_write
-      end
-
-      $?.success?
-    end
-
-    # LibreSSL install a default pem - We prefer to use OS X for consistency.
-    rm_f etc/"libressl/cert.pem"
-    (etc/"libressl/cert.pem").atomic_write(valid_certs.join("\n"))
+    # LibreSSL installs a default cert.pem - Use curl-ca-bundle's for consistency.
+    rm_f libressldir/"cert.pem"
+    libressldir.install_symlink Formula["curl-ca-bundle"].opt_share/"ca-bundle.crt" => "cert.pem"
   end
 
   def caveats; <<-EOS.undent
