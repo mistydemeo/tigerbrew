@@ -1,8 +1,8 @@
 class Libressl < Formula
   desc "Version of the SSL/TLS protocol forked from OpenSSL"
   homepage "http://www.libressl.org/"
-  url "https://cdn.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.9.1.tar.gz"
-  sha256 "6da0b954695f7ee62b03f64200a8a4f02af93717b60cce04ab6c8df262c07a51"
+  url "https://cdn.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.0.0.tar.gz"
+  sha256 "4d841955f0acc3dfc71d0e3dd35f283af461222350e26843fea9731c0246a1e4"
 
   head do
     url "https://github.com/libressl-portable/portable.git"
