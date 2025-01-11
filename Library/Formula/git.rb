@@ -1,8 +1,8 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.47.1.tar.xz"
-  sha256 "f3d8f9bb23ae392374e91cd9d395970dabc5b9c5ee72f39884613cd84a6ed310"
+  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.48.0.tar.xz"
+  sha256 "4803b809c42696b3b8cce6b0ba6de26febe1197f853daf930a484db93c1ad0d5"
   license "GPL-2.0-only"
   head "https://github.com/git/git.git", :shallow => false
 
@@ -10,13 +10,13 @@ class Git < Formula
   end
 
   resource "html" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.47.1.tar.xz"
-    sha256 "97ee550cd54cfd38db2b349fe4bc462b139edaad514503be034a76c80ef3053a"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.48.0.tar.xz"
+    sha256 "ae8427989f8d0ca4b74521a75630737e5e3e0512ec99cab93f8e682c99a42fef"
   end
 
   resource "man" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.47.1.tar.xz"
-    sha256 "ffc2005a89b056c0727b667f6beda0068371619762ea4844ad0229091befee13"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.48.0.tar.xz"
+    sha256 "1590a164e733b5cc83e59d51e6b323b46e2fdd3dec94ea5bf1fbbd0c129ed0d3"
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -36,6 +36,8 @@ class Git < Formula
   depends_on "openssh" => :run
   depends_on "curl"
   depends_on "make" => :build
+  depends_on "libiconv"
+  depends_on "zlib"
   depends_on "go" => :build if build.with? "persistent-https"
   # Trigger an install of swig before subversion, as the "swig" doesn't get pulled in otherwise
   # See https://github.com/Homebrew/homebrew/issues/34554
