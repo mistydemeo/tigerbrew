@@ -8,6 +8,8 @@ class Automake < Formula
 
   bottle do
     cellar :any_skip_relocation
+
+    sha256 "06e547e2706ad22c0156ec2bb69d6102686590f42f7c0116e8589de7466e64ce" => :tiger_altivec
   end
 
   depends_on "autoconf" => :run
