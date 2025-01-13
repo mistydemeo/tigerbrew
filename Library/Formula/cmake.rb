@@ -3,11 +3,12 @@ class Cmake < Formula
   homepage "http://www.cmake.org/"
   url "https://cmake.org/files/v3.9/cmake-3.9.6.tar.gz"
   sha256 "7410851a783a41b521214ad987bb534a7e4a65e059651a2514e6ebfc8f46b218"
+  revision 1
 
   head "https://cmake.org/cmake.git"
 
   bottle do
-    sha256 "7ed83fa411209917e876cd0a1396593ee78af1201e4ec952ab32884cf00e0c50" => :tiger_altivec
+    sha256 "fbb1622baca1437c0c66a7e5a88b91efca485495e008efb04316e746bc76017d" => :tiger_altivec
   end
 
   option "without-docs", "Don't build man pages"
