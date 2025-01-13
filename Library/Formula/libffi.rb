@@ -15,6 +15,8 @@ class Libffi < Formula
   depends_on "cctools" => :build if MacOS.version == :tiger && Hardware::CPU.intel?
 
   bottle do
+    cellar :any
+    sha256 "6f48d184e53c8df68ec2a869605c9881690e1cbaca23ebaf6829065f2d2833af" => :tiger_altivec
   end
 
   keg_only :provided_by_osx, "Some formulae require a newer version of libffi." if MacOS.version > :tiger
