@@ -7,6 +7,8 @@ class Libiconv < Formula
   license all_of: ["GPL-3.0-or-later", "LGPL-2.0-or-later"]
 
   bottle do
+    cellar :any
+    sha256 "023ae3e3fa34684bde82a94cf9e4b944b691040be3f8c58896e53be70114a318" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
