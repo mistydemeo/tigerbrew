@@ -7,6 +7,8 @@ class Curl < Formula
   license "curl"
 
   bottle do
+    cellar :any
+    sha256 "4a76cdebbd21e9ed40d9626132c94d1f932f0243a6e50d2b7903447bc3c24a53" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
