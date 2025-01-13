@@ -5,6 +5,7 @@ class Rhash < Formula
   mirror "https://github.com/rhash/RHash/archive/refs/tags/v1.4.5.tar.gz"
   sha256 "6db837e7bbaa7c72c5fd43ca5af04b1d370c5ce32367b9f6a1f7b49b2338c09a"
   license "0BSD"
+  revision 1
 
   head "https://github.com/rhash/RHash.git"
 
@@ -35,6 +36,7 @@ class Rhash < Formula
     system "make"
     system "make", "install", "install-pkg-config"
     system "make", "-C", "librhash", "install-lib-headers"
+    lib.install_symlink (lib/"librhash.#{version.major.to_s}.dylib") => "librhash.dylib"
   end
 
   test do
