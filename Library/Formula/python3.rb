@@ -3,6 +3,7 @@ class Python3 < Formula
   homepage "https://www.python.org/"
   url "https://www.python.org/ftp/python/3.10.16/Python-3.10.16.tar.xz"
   sha256 "bfb249609990220491a1b92850a07135ed0831e41738cf681d63cf01b2a8fbd1"
+  revision 1
 
   bottle do
   end
@@ -19,6 +20,8 @@ class Python3 < Formula
   depends_on "xz" => :recommended # for the lzma module added in 3.3
   depends_on "tcl-tk"
   depends_on :x11 if Tab.for_name("tcl-tk").with?("x11")
+  depends_on "zlib"
+  depends_on "libffi"
 
   skip_clean "bin/pip3", "bin/pip-3.4", "bin/pip-3.5", "bin/pip-3.6", "bin/pip-3.7", "bin/pip-3.10"
   skip_clean "bin/easy_install3", "bin/easy_install-3.4", "bin/easy_install-3.5", "bin/easy_install-3.6", "bin/easy_install-3.7", "bin/easy_install-3.10"
@@ -70,6 +73,7 @@ class Python3 < Formula
       --enable-loadable-sqlite-extensions
       --without-ensurepip
       --with-openssl=#{Formula["openssl3"].opt_prefix}
+      --with-system-ffi
     ]
 
     args << "--without-gcc" if ENV.compiler == :clang
@@ -327,7 +331,11 @@ class Python3 < Formula
     # and it can occur that building sqlite silently fails if OSX's sqlite is used.
     system "#{bin}/python#{xy}", "-c", "import sqlite3"
     # Check if some other modules import. Then the linked libs are working.
-    system "#{bin}/python#{xy}", "-c", "import tkinter; root = tkinter.Tk()"
+    # Does not invoke X11 on Tiger and fails, so skip it.
+    system "#{bin}/python#{xy}", "-c", "import tkinter; root = tkinter.Tk()" if MacOS.version >= :leopard
+    # Check FFI support is ok as the build of Python will still succeed with a disabled
+    # module which failed to build, only to find out later when something tries to use it.
+    system "#{bin}/python#{xy}", "-c", "import ctypes"
     system bin/"pip3", "list"
   end
 end
