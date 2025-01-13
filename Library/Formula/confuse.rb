@@ -6,6 +6,8 @@ class Confuse < Formula
   license "ISC"
 
   bottle do
+    cellar :any
+    sha256 "cafa47896501ef96ea47c89128602f7f2c3fda786ff19fb52e0b77e2330ddf00" => :tiger_altivec
   end
 
   depends_on "pkg-config" => :build
