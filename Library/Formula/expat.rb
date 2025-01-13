@@ -58,7 +58,7 @@ class Expat < Formula
         return result;
       }
     EOS
-    system ENV.cc, "test.c", "-lexpat", "-o", "test"
+    system ENV.cc, "test.c", "-L#{lib}", "-I#{include}", "-lexpat", "-o", "test"
     assert_equal "tag:str|data:Hello, world!|", shell_output("./test")
   end
 end
