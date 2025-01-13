@@ -7,6 +7,7 @@ class CurlCaBundle < Formula
 
   bottle do
     cellar :any
+    sha256 "0bd81857043bcd62c6ba1697e3e112f40c3e9b1031ab059a27f39995f419c16e" => :tiger
   end
 
   def install
