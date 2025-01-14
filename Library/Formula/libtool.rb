@@ -4,16 +4,16 @@
 class Libtool < Formula
   desc "Generic library support script"
   homepage "https://www.gnu.org/software/libtool/"
-  url "http://ftpmirror.gnu.org/libtool/libtool-2.4.7.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/libtool/libtool-2.4.7.tar.xz"
-  sha256 "4f7f217f057ce655ff22559ad221a0fd8ef84ad1fc5fcb6990cecc333aa1635d"
+  url "http://ftpmirror.gnu.org/libtool/libtool-2.5.4.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/libtool/libtool-2.5.4.tar.xz"
+  sha256 "f81f5860666b0bc7d84baddefa60d1cb9fa6fceb2398cc3baca6afaa60266675"
+  license "GPL-2.0-or-later"
 
   bottle do
     cellar :any
-    sha256 "438bff78afd08066e5393c71ddb35875d380016b6e7a1f6f8b381b3635951995" => :tiger_altivec
   end
 
-  depends_on "m4" if MacOS.version < :leopard
+  depends_on "m4"
 
   keg_only :provided_until_xcode43
 
@@ -36,5 +36,18 @@ class Libtool < Formula
 
   test do
     system "#{bin}/glibtool", "execute", "/usr/bin/true"
+
+    (testpath/"hello.c").write <<~C
+      #include <stdio.h>
+      int main() { puts("Hello, world!"); return 0; }
+    C
+
+    system bin/"glibtool", "--mode=compile", "--tag=CC",
+      ENV.cc, "-c", "hello.c", "-o", "hello.o"
+    system bin/"glibtool", "--mode=link", "--tag=CC",
+      ENV.cc, "hello.o", "-o", "hello"
+    assert_match "Hello, world!", shell_output("./hello")
+
+    system bin/"glibtoolize", "--ltdl"
   end
 end
