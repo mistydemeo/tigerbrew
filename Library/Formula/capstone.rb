@@ -7,6 +7,8 @@ class Capstone < Formula
   head "https://github.com/capstone-engine/capstone.git", branch: "next"
 
   bottle do
+    cellar :any
+    sha256 "009d483c0a578917986d26bfb08a77b9a350c2dd3ac36842fdbfa8a93c881eca" => :tiger_altivec
   end
 
   # error: #pragma GCC diagnostic not allowed inside functions
