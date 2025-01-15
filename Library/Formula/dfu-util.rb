@@ -8,6 +8,7 @@ class DfuUtil < Formula
 
   bottle do
     cellar :any
+    sha256 "4a6b75f9ecedd3230aedb0aabcd1545e7407180b11a0e7597c5ad57109b41170" => :tiger_altivec
   end
 
   head do
