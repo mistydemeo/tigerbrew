@@ -5,6 +5,7 @@ class Freetds < Formula
   sha256 "3d84a46dc49569550a92a835db84b5060ada45dc9bd4bed7e93c089c7c74980e"
 
   bottle do
+    sha256 "60321e302e3f05ecc25ac4f417655387b1827ec4fe5e4431d31102b2f45c951e" => :tiger_altivec
   end
 
   head do
