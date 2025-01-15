@@ -11,6 +11,9 @@ class Check < Formula
   option :universal
 
   def install
+    # https://trac.macports.org/ticket/58591
+    ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version < :leopard
+
     ENV.universal_binary if build.universal?
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"
