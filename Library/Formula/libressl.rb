@@ -12,6 +12,10 @@ class Libressl < Formula
     depends_on "libtool" => :build
   end
 
+  bottle do
+    sha256 "799aa0abc751239e60eadeaca256d8fa3d208a992090572ec4c5c06d1d59de50" => :tiger_altivec
+  end
+
   keg_only "LibreSSL is not linked to prevent conflict with the system OpenSSL."
 
   option "with-tests", "Build and run the test suite"
