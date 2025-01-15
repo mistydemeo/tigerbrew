@@ -7,6 +7,8 @@ class Pcre2 < Formula
   head "https://github.com/PCRE2Project/pcre2"
 
   bottle do
+    cellar :any
+    sha256 "0e24bffae57d9b29e89fd12d21476d08765a341c1ae7b5109ad478ad3f228e41" => :tiger_altivec
   end
 
   option :universal
