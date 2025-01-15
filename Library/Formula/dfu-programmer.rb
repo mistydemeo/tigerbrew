@@ -6,6 +6,7 @@ class DfuProgrammer < Formula
 
   bottle do
     cellar :any
+    sha256 "e29b8ba67e4ef02ccd429d3b949fb3d8306d3fe7491c83d3cda0c16be77aaba6" => :tiger_altivec
   end
 
   head do
