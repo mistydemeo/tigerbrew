@@ -8,7 +8,7 @@ class Mercurial < Formula
   license "GPL-2.0-or-later"
 
   bottle do
-    cellar :any_skip_relocation
+    sha256 "5f8bbcb62300dcfa8d8c7def95afea47eed5abf89c5d830b8d590a7941af6a85" => :tiger_altivec
   end
 
   depends_on :python3
