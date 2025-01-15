@@ -13,6 +13,7 @@ class Libpng < Formula
   end
 
   bottle do
+    sha256 "857d845d79926ea80367cf6038dc48bc81a6085ffa08389e3fe8f7da0ee14e18" => :tiger_altivec
   end
 
   depends_on "zlib"
