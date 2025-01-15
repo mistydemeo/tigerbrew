@@ -9,6 +9,9 @@ class Capstone < Formula
   bottle do
   end
 
+  # error: #pragma GCC diagnostic not allowed inside functions
+  fails_with :gcc if MacOS.version < :leopard
+
   # Fix OS detection
   patch :p0, :DATA
 
