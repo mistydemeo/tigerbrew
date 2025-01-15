@@ -5,6 +5,7 @@ class Unixodbc < Formula
   sha256 "f210501445ce21bf607ba51ef8c125e10e22dffdffec377646462df5f01915ec"
 
   bottle do
+    sha256 "89d7ceb537c84b193f8dccfa18ec54d3447a71beeddb04799a662bd71fd28d71" => :tiger_altivec
   end
 
   option :universal
