@@ -5,6 +5,8 @@ class Libdnet < Formula
   sha256 "a4a82275c7d83b85b1daac6ebac9461352731922161f1dcdcccd46c318f583c9"
 
   bottle do
+    cellar :any
+    sha256 "c75150ec4b846f6b726839dae1d20d275cca3061f2be19cfc341f66b564b286d" => :tiger_altivec
   end
 
   depends_on "autoconf" => :build
