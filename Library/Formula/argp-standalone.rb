@@ -5,11 +5,7 @@ class ArgpStandalone < Formula
   sha256 "dec79694da1319acd2238ce95df57f3680fea2482096e483323fddf3d818d8be"
 
   bottle do
-    cellar :any
-    revision 1
-    sha1 "72d7282e4ca51c5832e68f06bfdd5c144a73973a" => :yosemite
-    sha1 "500784846c3a83e25194cb578eedbbba6e2600fa" => :mavericks
-    sha1 "232276ab4611f2d1fa315de24fc062a53cfbd7c4" => :mountain_lion
+    sha256 "a63e3f795b21628e8cd1374000b1958c5efe99ed0c371108403229f48809aa33" => :tiger_altivec
   end
 
   # This patch fixes compilation with Clang.
