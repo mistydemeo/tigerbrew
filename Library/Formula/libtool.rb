@@ -10,7 +10,7 @@ class Libtool < Formula
   license "GPL-2.0-or-later"
 
   bottle do
-    cellar :any
+    sha256 "d98af9d92c3312f8e825bfc66dfa5837b3cdafb4768d53c35b90582e49a3eca8" => :tiger_altivec
   end
 
   depends_on "m4"
