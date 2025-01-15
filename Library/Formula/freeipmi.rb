@@ -7,6 +7,7 @@ class Freeipmi < Formula
   license "GPL-3.0-or-later"
 
   bottle do
+    sha256 "0dda664db22f939b03563c3f0b6177d8740198fe5881a7dd1d29f91a21b5c171" => :tiger_altivec
   end
 
   depends_on "argp-standalone"
