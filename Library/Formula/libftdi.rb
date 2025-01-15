@@ -23,10 +23,14 @@ class Libftdi < Formula
   def install
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
     mkdir "libftdi-build" do
-      system "cmake", "..", "-DPYTHON_BINDINGS=OFF",
-                            "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON",
-                            "-DFTDIPP=OFF",
-                            *std_cmake_args
+      args = std_cmake_args
+      args << "-DPYTHON_BINDINGS=OFF"
+      args << "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+      args << "-DFTDIPP=OFF"
+      # gcc-4.2 does not find stdarg.h if the sysroot is set to an SDK
+      args << "-DCMAKE_OSX_SYSROOT=/" if MacOS.version < :leopard
+
+      system "cmake", "..", *args
       system "make", "install"
       pkgshare.install "../examples"
       (pkgshare/"examples/bin").install Dir["examples/*"] \
