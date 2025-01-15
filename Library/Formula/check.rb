@@ -6,6 +6,7 @@ class Check < Formula
 
   bottle do
     cellar :any
+    sha256 "fdfbc2969b7d7010958d658bc59f7a45900f6226ec7657d487c8a4d8890260fc" => :tiger_altivec
   end
 
   option :universal
