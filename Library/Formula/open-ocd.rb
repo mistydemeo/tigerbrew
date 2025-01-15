@@ -6,6 +6,7 @@ class OpenOcd < Formula
   license "GPL-2.0-or-later"
 
   bottle do
+    sha256 "b98629423454d99b9997ab464b6a61dcf55e04effe3c8355060b148ad2e081f6" => :tiger_altivec
   end
 
   # Switch from binary to hex constants to allow builds with GCC older than 4.3
