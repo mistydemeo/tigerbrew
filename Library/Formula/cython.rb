@@ -6,6 +6,7 @@ class Cython < Formula
   license "Apache-2.0"
 
   bottle do
+    sha256 "4a75f4329a48b0068b1754f0187bb5e9c11015173ff42477bd84bb59d3d8dbcb" => :tiger_altivec
   end
 
   keg_only <<~EOS
