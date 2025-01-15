@@ -6,6 +6,7 @@ class Libftdi < Formula
   license "LGPL-2.1-only"
 
   bottle do
+    sha256 "21f34f59a9661a68c5f15b7aa025e7650a0c0ccbed2857828166cb51d186d6cd" => :tiger_altivec
   end
 
   depends_on "cmake" => :build
