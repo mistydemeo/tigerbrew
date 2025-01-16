@@ -48,6 +48,19 @@ class Qt < Formula
   deprecated_option "qtdbus" => "with-d-bus"
   deprecated_option "developer" => "with-developer"
 
+  # Build error on Tiger with GCC 4.2 but not 4.0
+  # In file included from /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Header
+  # s/DriverServices.h:32,
+  #                  from /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Header
+  # s/CarbonCore.h:125,
+  #                  from /System/Library/Frameworks/CoreServices.framework/Headers/CoreServices.h:21,
+  #                  from /System/Library/Frameworks/ApplicationServices.framework/Headers/ApplicationServices.h:2
+  # 0,
+  #                  from generators/mac/pbuilder_pbx.cpp:56:
+  # /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Headers/MachineExceptions.h:
+  # 115: error: expected ‘;’ before ‘unsigned’
+  fails_with :gcc if MacOS.version < :leopard
+
   def install
     ENV.universal_binary if build.universal?
     # Build itself sets -O2
