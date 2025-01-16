@@ -8,6 +8,7 @@ class Qt < Formula
   end
 
   bottle do
+    sha256 "94b2e34789e760c428b0d43a04b723dcd34be4fc4e2f17fd73352470bbc9ecb0" => :tiger_altivec
     sha256 "f677f0739ddd06b0a8f1307ab7e373fb77bce49c0dbc6f0978282546edadc5db" => :leopard_g3
     sha256 "392df462ad214256145f95a627a62e35d17cd765bac92526977890c378a6afe9" => :leopard_altivec
   end
