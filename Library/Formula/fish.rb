@@ -1,42 +1,37 @@
 class Fish < Formula
   desc "User-friendly command-line shell for UNIX-like operating systems"
   homepage "http://fishshell.com"
-  url "https://github.com/fish-shell/fish-shell/releases/download/2.7.1/fish-2.7.1.tar.gz"
-  sha256 "e42bb19c7586356905a58578190be792df960fa81de35effb1ca5a5a981f0c5a"
-  revision 1
-
-  head do
-    url "https://github.com/fish-shell/fish-shell.git", :shallow => false
-
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "doxygen" => :build
-    depends_on "libtool" => :build
-  end
+  url "https://github.com/fish-shell/fish-shell/releases/download/3.0.0/fish-3.0.0.tar.gz"
+  sha256 "ea9dd3614bb0346829ce7319437c6a93e3e1dfde3b7f6a469b543b0d2c68f2cf"
 
   bottle do
-    sha256 "3611b85af5358f8458c54513480a848dab4982b0060ad7aab2a165d859850e9a" => :tiger_altivec
   end
 
   needs :cxx11
+  depends_on "cmake" => :build
+  # Apple ncurses (5.4) is 15+ years old and
+  # has poor support for modern terminals
+  depends_on "ncurses"
   depends_on "pcre2"
 
   def install
-    system "autoreconf", "--no-recursive" if build.head?
     # Necessary to get the standard signature of ttyname_r()
     ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version < :leopard
 
     # In Homebrew's 'superenv' sed's path will be incompatible, so
     # the correct path is passed into configure here.
     args = %W[
-      --prefix=#{prefix}
-      --with-extra-functionsdir=#{HOMEBREW_PREFIX}/share/fish/vendor_functions.d
-      --with-extra-completionsdir=#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d
-      --with-extra-confdir=#{HOMEBREW_PREFIX}/share/fish/vendor_conf.d
-      SED=/usr/bin/sed
+      -DCMAKE_INSTALL_SYSCONFDIR=#{etc}
+      -Dextra_functionsdir=#{HOMEBREW_PREFIX}/share/fish/vendor_functions.d
+      -Dextra_completionsdir=#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d
+      -Dextra_confdir=#{HOMEBREW_PREFIX}/share/fish/vendor_conf.d
     ]
-    system "./configure", *args
-    system "make", "install"
+    args.concat(std_cmake_args)
+
+    mkdir "build" do
+      system "cmake", "-S", "..", *args
+      system "make", "install"
+    end
   end
 
   def caveats; <<-EOS.undent
