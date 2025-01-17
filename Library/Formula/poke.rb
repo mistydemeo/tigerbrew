@@ -6,6 +6,7 @@ class Poke < Formula
   license "GPL-3.0-or-later"
 
   bottle do
+    sha256 "a96324f46875e73261c821327630ce81ee56e160feec8e37585360c672e3923c" => :tiger_altivec
   end
 
   # MAP_ANONYMOUS is not defined on Leopard and Tiger
