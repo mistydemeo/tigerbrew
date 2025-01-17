@@ -21,12 +21,11 @@ class Gcc < Formula
 
   desc "GNU compiler collection"
   homepage "https://gcc.gnu.org"
-  url "https://ftp.gnu.org/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.xz"
-  mirror "https://ftpmirror.gnu.org/gcc/gcc-7.5.0/gcc-7.5.0.tar.xz"
-  sha256 "b81946e7f01f90528a1f7352ab08cc602b9ccc05d4e44da4bd501c5a189ee661"
+  url "https://ftp.gnu.org/gnu/gcc/gcc-8.5.0/gcc-8.5.0.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gcc/gcc-8.5.0/gcc-8.5.0.tar.xz"
+  sha256 "d308841a511bb830a6100397b0042db24ce11f642dab6ea6ee44842e5325ed50"
 
   bottle do
-    sha256 "b97ce2a43d3d6797d37a09f640e6b42585dfca298e38f83e580e3d67ab08b47e" => :tiger_altivec
   end
 
   option "with-nls", "Build with native language support (localization)"
@@ -61,17 +60,6 @@ class Gcc < Formula
 
   def version_suffix
     version.to_s.slice(/\d/)
-  end
-
-  # Fix for libgccjit.so linkage on Darwin
-  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64089
-  patch :DATA
-
-  # Fix an Intel-only build failure on 10.4
-  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64184
-  patch do
-    url "https://gist.githubusercontent.com/mistydemeo/9c5b8dadd892ba3197a9cb431295cc83/raw/582d1ba135511272f7262f51a3f83c9099cd891d/sysdep-unix-tiger-intel.patch"
-    sha256 "17afaf7daec1dd207cb8d06a7e026332637b11e83c3ad552b4cd32827f16c1d8"
   end
 
   def install
@@ -221,37 +209,3 @@ class Gcc < Formula
     assert_equal "Done\n", `./test`
   end
 end
-__END__
-diff --git a/gcc/jit/Make-lang.in b/gcc/jit/Make-lang.in
-index 44d0750..4df2a9c 100644
---- a/gcc/jit/Make-lang.in
-+++ b/gcc/jit/Make-lang.in
-@@ -85,8 +85,7 @@ $(LIBGCCJIT_FILENAME): $(jit_OBJS) \
-	     $(jit_OBJS) libbackend.a libcommon-target.a libcommon.a \
-	     $(CPPLIB) $(LIBDECNUMBER) $(LIBS) $(BACKENDLIBS) \
-	     $(EXTRA_GCC_OBJS) \
--	     -Wl,--version-script=$(srcdir)/jit/libgccjit.map \
--	     -Wl,-soname,$(LIBGCCJIT_SONAME)
-+	     -Wl,-install_name,$(LIBGCCJIT_SONAME)
-
- $(LIBGCCJIT_SONAME_SYMLINK): $(LIBGCCJIT_FILENAME)
-	ln -sf $(LIBGCCJIT_FILENAME) $(LIBGCCJIT_SONAME_SYMLINK)
-diff --git a/gcc/jit/jit-playback.c b/gcc/jit/jit-playback.c
-index 925fa86..01cfd4b 100644
---- a/gcc/jit/jit-playback.c
-+++ b/gcc/jit/jit-playback.c
-@@ -2416,6 +2416,15 @@ invoke_driver (const char *ctxt_progname,
-      time.  */
-   ADD_ARG ("-fno-use-linker-plugin");
-
-+#if defined (DARWIN_X86) || defined (DARWIN_PPC)
-+  /* OS X's linker defaults to treating undefined symbols as errors.
-+     If the context has any imported functions or globals they will be
-+     undefined until the .so is dynamically-linked into the process.
-+     Ensure that the driver passes in "-undefined dynamic_lookup" to the
-+     linker.  */
-+  ADD_ARG ("-Wl,-undefined,dynamic_lookup");
-+#endif
-+
-   /* pex argv arrays are NULL-terminated.  */
-   argvec.safe_push (NULL);
