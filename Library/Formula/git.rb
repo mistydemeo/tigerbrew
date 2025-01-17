@@ -47,6 +47,12 @@ class Git < Formula
     depends_on "subversion" => "with-perl"
   end
 
+  # https://github.com/mistydemeo/tigerbrew/issues/1250
+  fails_with :gcc do
+    build 5553
+    cause "Misoptimization, fails to fetch certain repos"
+  end
+
   def install
     # GCC is invoked with -w
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
