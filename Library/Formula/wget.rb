@@ -16,6 +16,7 @@ class Wget < Formula
   end
 
   bottle do
+    sha256 "a6cc31e4f05842b053fce81c677f41a25e5b56f6b04c67267f1d25b7354dec89" => :tiger_altivec
   end
 
   deprecated_option "enable-debug" => "with-debug"
