@@ -1,8 +1,9 @@
 class Libpng < Formula
   desc "Library for manipulating PNG images"
   homepage "http://www.libpng.org/pub/png/libpng.html"
-  url "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.43/libpng-1.6.43.tar.xz"
-  sha256 "6a5ca0652392a2d7c9db2ae5b40210843c0bbc081cbd410825ab00cc59f14a6c"
+  url "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.45/libpng-1.6.45.tar.xz"
+  sha256 "926485350139ffb51ef69760db35f78846c805fef3d59bfdcb2fba704663f370"
+  license "libpng-2.0"
 
   head do
     url "https://github.com/glennrp/libpng.git"
@@ -13,13 +14,21 @@ class Libpng < Formula
   end
 
   bottle do
-    sha256 "857d845d79926ea80367cf6038dc48bc81a6085ffa08389e3fe8f7da0ee14e18" => :tiger_altivec
   end
 
   depends_on "zlib"
   keg_only :provided_pre_mountain_lion
 
   option :universal
+
+  # pngvalid: read: truecolour+tRNS 8 bit: transform: +rgb_to_gray^0.55556: red/gray output value error: rgba(2,93,95,255): 80 expected: 82 (80.714..82.500)
+  # pngvalid: 1 errors, 0 warnings
+  # FAIL: pngvalid --strict --transform (floating point arithmetic)
+  # FAIL tests/pngvalid-transform (exit status: 1)
+  fails_with :clang do
+    build 500
+    cause "tests/pngvalid-transform fails due to error in floating point arithmetic"
+  end
 
   def install
     ENV.universal_binary if build.universal?
