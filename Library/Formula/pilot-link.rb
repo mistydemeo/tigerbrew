@@ -7,7 +7,6 @@ class PilotLink < Formula
   sha256 "d3f99ec04016b38995fb370265200254710318105c792c017d3aaccfb97a84b2"
 
   depends_on "pkg-config" => :build
-  depends_on "libusb-compat"
   depends_on "libpng"
   depends_on "popt"
   depends_on "readline"
@@ -21,7 +20,6 @@ class PilotLink < Formula
                           "--prefix=#{prefix}",
                           "--mandir=#{man}",
                           "--enable-conduits",
-                          "--enable-libusb",
                           "--enable-threads",
                           "--with-libpng",
                           "--with-pic"
