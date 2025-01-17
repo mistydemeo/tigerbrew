@@ -5,6 +5,11 @@ class Mipscope < Formula
   version "0.3.3"
   sha256 "52df7c7a9eb71f89cbb57f761ed757a8d2712759219f3a896bddc12258c74607"
 
+  bottle do
+    cellar :any
+    sha256 "86474f1dee0650fd1560b7ae7519c1792e04d2ecb582a7ecd32c61b3b89aa741" => :tiger_altivec
+  end
+
   # Allow building on systems older than 10.6
   patch :p0, :DATA
 
