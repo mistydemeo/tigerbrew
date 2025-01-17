@@ -15,6 +15,7 @@ class Sphinx < Formula
   head "http://sphinxsearch.googlecode.com/svn/trunk/"
 
   bottle do
+    sha256 "328b52ebb02d0402fb4122a2f788b81db8f723c07a8f132973d201102d78325d" => :tiger_altivec
   end
 
   # There is an implementation of strnlen in sphinx.cpp, use it
