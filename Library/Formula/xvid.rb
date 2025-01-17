@@ -7,6 +7,7 @@ class Xvid < Formula
   license "GPL-2.0-or-later"
 
   bottle do
+    sha256 "20da2d0cc7cb01ef5868e656eea490d8dc049c632caaee77c53d9e22650d93d7" => :tiger_altivec
   end
 
   def install
