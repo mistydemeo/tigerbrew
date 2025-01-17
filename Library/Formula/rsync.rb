@@ -7,6 +7,7 @@ class Rsync < Formula
   license "GPL-3.0-or-later"
 
   bottle do
+    sha256 "fc4b03aac901bbaff66481f22343d063a74dd80fe5f96d6b598c020262d2b871" => :tiger_altivec
   end
 
   depends_on "lz4"
