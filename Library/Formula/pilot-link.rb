@@ -6,6 +6,11 @@ class PilotLink < Formula
   version "0.12.5"
   sha256 "d3f99ec04016b38995fb370265200254710318105c792c017d3aaccfb97a84b2"
 
+  bottle do
+    cellar :any
+    sha256 "2563594a41dcdfaf2b4b58a55b39b13829e2694b1f8ed597982e039318dbe3ac" => :tiger_altivec
+  end
+
   depends_on "pkg-config" => :build
   depends_on "libpng"
   depends_on "popt"
