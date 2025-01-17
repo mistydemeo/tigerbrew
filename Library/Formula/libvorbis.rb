@@ -7,6 +7,7 @@ class Libvorbis < Formula
   license "BSD-3-Clause"
 
   bottle do
+    sha256 "8bce5dd06c4df02f1ddab00527d818d7d4b680321e836327858677cbccf45f7c" => :tiger_altivec
   end
 
   head do
