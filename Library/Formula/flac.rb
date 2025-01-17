@@ -22,6 +22,7 @@ class Flac < Formula
   end
 
   bottle do
+    sha256 "6b6d60c8d9d3db7c35432f8e7373f4bd0d23b5216cd83eb52f69d56ddf04acd5" => :tiger_altivec
   end
 
   depends_on "pkg-config" => :build
