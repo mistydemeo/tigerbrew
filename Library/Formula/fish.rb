@@ -15,6 +15,7 @@ class Fish < Formula
   end
 
   bottle do
+    sha256 "3611b85af5358f8458c54513480a848dab4982b0060ad7aab2a165d859850e9a" => :tiger_altivec
   end
 
   needs :cxx11
