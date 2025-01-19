@@ -4,6 +4,7 @@ class Gmp < Formula
   url "https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz"
   mirror "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz"
   sha256 "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+  revision 1
 
   bottle do
     sha256 "fe8558bf7580c9c8a3775016eccf61249b8d637b1b2970942dba22444c48da7d" => :tiger_altivec
@@ -39,17 +40,11 @@ class Gmp < Formula
     end
 
     ENV.append_to_cflags "-force_cpusubtype_ALL" if Hardware.cpu_type == :ppc
-    # https://github.com/Homebrew/homebrew/issues/20693
-    args << "--disable-assembly" if build.build_32_bit? || build.bottle?
 
-    system "./configure", "--disable-static", *args
+    system "./configure", *args
     system "make"
     system "make", "check"
     system "make", "install"
-    system "make", "clean"
-    system "./configure", "--disable-shared", "--disable-assembly", *args
-    system "make"
-    lib.install Dir[".libs/*.a"]
   end
 
   test do
@@ -68,6 +63,10 @@ class Gmp < Formula
       }
     EOS
     system ENV.cc, "test.c", "-L#{lib}", "-lgmp", "-o", "test"
+    system "./test"
+
+    # Test the static library to catch potential linking issues
+    system ENV.cc, "test.c", "#{lib}/libgmp.a", "-o", "test"
     system "./test"
   end
 end
