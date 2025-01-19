@@ -76,11 +76,13 @@ class Gcc7 < Formula
   def install
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
-    # GCC Bug 25127
+    # GCC Bug 25127 for PowerPC
     # https://gcc.gnu.org/bugzilla//show_bug.cgi?id=25127
     # ../../../libgcc/unwind.inc: In function '_Unwind_RaiseException':
     # ../../../libgcc/unwind.inc:136:1: internal compiler error: in rs6000_emit_prologue, at config/rs6000/rs6000.c:26535
-    ENV.no_optimization if Hardware::CPU.type == :ppc
+    # GCC 7 fails to install on 10.6 x86_64 at stage3
+    # https://github.com/mistydemeo/tigerbrew/issues/554
+    ENV.no_optimization
 
     # Otherwise libstdc++ will be incorrectly tagged with cpusubtype 10 (G4e)
     # https://github.com/mistydemeo/tigerbrew/issues/538
