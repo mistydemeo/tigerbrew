@@ -7,7 +7,6 @@ class Gmp < Formula
   revision 1
 
   bottle do
-    sha256 "fe8558bf7580c9c8a3775016eccf61249b8d637b1b2970942dba22444c48da7d" => :tiger_altivec
   end
 
   option "32-bit"
