@@ -26,10 +26,9 @@ class Gcc < Formula
   sha256 "d308841a511bb830a6100397b0042db24ce11f642dab6ea6ee44842e5325ed50"
 
   bottle do
-    sha256 "092a1e615cdea11f55784252145d1da94f968d1a0ec59266d4f3a9e846be242d" => :tiger_altivec
   end
 
-  conflicts_with "gcc8", :because => "both install the same version of GCC"
+  conflicts_with "gcc", :because => "both install the same version of GCC"
 
   option "with-nls", "Build with native language support (localization)"
   option "with-jit", "Build just-in-time compiler"
