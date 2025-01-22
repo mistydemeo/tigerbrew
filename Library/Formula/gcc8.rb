@@ -144,8 +144,6 @@ class Gcc < Formula
       system "../configure", *args
       system "make"
       system "make", "install"
-
-      bin.install_symlink bin/"gfortran-#{version_suffix}" => "gfortran"
     end
 
     # Handle conflicts between GCC formulae and avoid interfering
@@ -209,7 +207,7 @@ class Gcc < Formula
       write(*,"(A)") "Done"
       end
     EOS
-    system "#{bin}/gfortran", "-o", "test", "test.f90"
+    system "#{bin}/gfortran-8", "-o", "test", "test.f90"
     assert_equal "Done\n", `./test`
   end
 end
