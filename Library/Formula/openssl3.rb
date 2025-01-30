@@ -10,6 +10,10 @@ class Openssl3 < Formula
     sha256 "a3b738e4b3c6af98b0eaea8121c0c15a5dd8230ed481824a713e5a02abfea94b" => :tiger_altivec
   end
 
+  # 10.6 - 10.8: build with asm broken, due to unsupported directive (.previous)
+  # https://github.com/openssl/openssl/issues/26447
+  patch :DATA
+
   keg_only :provided_by_osx
 
   option "with-tests", "Build and run the test suite"
@@ -115,3 +119,17 @@ class Openssl3 < Formula
     end
   end
 end
+__END__
+--- a/crypto/perlasm/x86_64-xlate.pl
++++ b/crypto/perlasm/x86_64-xlate.pl
+@@ -957,7 +957,9 @@
+                         $current_segment = ".text";
+                         push(@segment_stack, $current_segment);
+                     }
+-		    $self->{value} = $current_segment if ($flavour eq "mingw64");
++                    if ($flavour eq "mingw64" || $flavour eq "macosx") {
++		        $self->{value} = $current_segment;
++                    }
+ 		}
+ 		$$line = "";
+ 		return $self;
