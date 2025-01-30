@@ -39,8 +39,10 @@ class Sqlite < Formula
     sha256 "62e51962552fb204ef0a541d51f8f721499d1a3fffae6e86558d251c96084fcf"
   end
 
-  #___atomic_load_n() / ___atomic_store_n() called but not defined.
-  fails_with :clang if MacOS.version == :lion || MacOS.version == :mountain_lion
+  fails_with :clang do
+    build 500
+    cause "___atomic_load_n() / ___atomic_store_n() called but not defined"
+  end
 
   def install
     # sqlite segfaults on Tiger/PPC with our gcc-4.2
