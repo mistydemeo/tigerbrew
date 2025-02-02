@@ -36,7 +36,7 @@ class PilotLink < Formula
   def caveats; <<-EOS.undent
     For a list of installed utilites and how to connect to your PDA,
     see the pilot-link(7) manual installed at
-    #{man}/man7/pilot-link.7
+    #{man7}/pilot-link.7
     EOS
   end
 
