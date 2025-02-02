@@ -23,7 +23,7 @@ class PrcTools < Formula
 
     args = %W[
         --prefix=#{prefix}
-        --enable-targets=m68k-palmos,arm-palmos
+        --enable-targets=m68k-palmos
         --enable-languages=c,c++
         --with-palmdev-prefix=#{opt_prefix}/palm-os-sdks
         --host=#{arch}-apple-darwin
