@@ -6,6 +6,8 @@ class Lua < Formula
   license "MIT"
 
   bottle do
+    cellar :any_skip_relocation
+    sha256 "2930c247bd260cc41072a170ab6816e063a927bcffa0fc0149953e4bf740d808" => :tiger_altivec
   end
 
   option :universal
