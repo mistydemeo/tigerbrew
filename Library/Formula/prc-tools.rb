@@ -4,6 +4,10 @@ class PrcTools < Formula
   url "https://github.com/jichu4n/prc-tools-remix/archive/refs/tags/v2.3.5.tar.gz"
   sha256 "d8c29e81c197ba7801d8331eddcb94990f780c96b3ccea83b60b08d8349c96a8"
 
+  bottle do
+    sha256 "d6477d9944e0841606d698d8b9c8c5d2e3bd911e25f58a1028efe1b16ed1ac14" => :tiger_altivec
+  end
+
   def arch
     # Configuration x86_64-apple-darwin not supported
     if Hardware::CPU.type == :intel
