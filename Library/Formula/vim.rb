@@ -2,13 +2,12 @@ class Vim < Formula
   desc "Vi \"workalike\" with many additional features"
   homepage "http://www.vim.org/"
   # *** Vim should be updated no more than once every 7 days ***
-  url "https://github.com/vim/vim/archive/refs/tags/v9.1.0990.tar.gz"
-  sha256 "d5c23a86cd21c5f94896867e54ae873b9aedab473b72c83755e3a154cd692d91"
-  version "9.1.0990"
+  url "https://github.com/vim/vim/archive/refs/tags/v9.1.1076.tar.gz"
+  sha256 "cdaa9f3561bd36cb37bd3212642efdc0aa0c0a422487026a1043362484dba4e0"
+  version "9.1.1076"
   head "https://github.com/vim/vim.git"
 
   bottle do
-    sha256 "1838fb3541ec5277d0af8c47afd2efe7cbe9b33878d40521dd556aeb47b09f44" => :tiger_altivec
   end
 
   # We only have special support for finding depends_on :python, but not yet for
