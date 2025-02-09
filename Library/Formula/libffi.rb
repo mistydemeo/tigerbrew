@@ -1,8 +1,8 @@
 class Libffi < Formula
   desc "Portable Foreign Function Interface library"
   homepage "https://sourceware.org/libffi/"
-  url "https://github.com/libffi/libffi/releases/download/v3.4.5/libffi-3.4.5.tar.gz"
-  sha256 "96fff4e589e3b239d888d9aa44b3ff30693c2ba1617f953925a70ddebcc102b2"
+  url "https://github.com/libffi/libffi/releases/download/v3.4.7/libffi-3.4.7.tar.gz"
+  sha256 "138607dee268bdecf374adf9144c00e839e38541f75f24a1fcf18b78fda48b2d"
 
   head do
     url "https://github.com/atgreen/libffi.git"
@@ -16,7 +16,6 @@ class Libffi < Formula
 
   bottle do
     cellar :any
-    sha256 "6f48d184e53c8df68ec2a869605c9881690e1cbaca23ebaf6829065f2d2833af" => :tiger_altivec
   end
 
   keg_only :provided_by_osx, "Some formulae require a newer version of libffi." if MacOS.version > :tiger
@@ -27,7 +26,7 @@ class Libffi < Formula
 
   def install
     ENV.deparallelize # https://github.com/Homebrew/homebrew/pull/19267
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
     system "./autogen.sh" if build.head?
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"
