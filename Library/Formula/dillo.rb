@@ -17,6 +17,7 @@ class Dillo < Formula
   depends_on "make" => :build
   depends_on "fltk"
   depends_on "jpeg"
+  depends_on "libiconv"
   depends_on "libpng"
   depends_on "openssl3"
   depends_on "wget" => :run
