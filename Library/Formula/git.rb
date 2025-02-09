@@ -21,6 +21,14 @@ class Git < Formula
     sha256 "4c0ede7afa4d6dbf602d2f2fd151c36ab57d3224e6b9fd17342e85f05d386886"
   end
 
+  # Fix PowerPC build and support for OS X Tiger & Leopard
+  # e.g supplied regex(3) is too old, lacks some file system monitoring functionality
+  # Needs arc4random_buf(3) which is missing on Leopard and prior so just use openssl
+  # since newer implementations were based on AES cipher.
+  # copyfile.h didn't show up until Leopard.
+  # error: use of undeclared identifier 'O_RDONLY' & 'O_EXLOCK'
+  patch :p0, :DATA
+
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
   option "without-completions", "Disable bash/zsh completions from 'contrib' directory"
   option "with-brewed-svn", "Use Homebrew's version of SVN"
@@ -205,13 +213,6 @@ class Git < Formula
     system bin/"git", "commit", "-a", "-m", "Initial Commit"
     assert_equal "haunted\nhouse", shell_output("#{bin}/git ls-files").strip
   end
-
-  # Fix PowerPC build and support for OS X Tiger & Leopard
-  # e.g supplied regex(3) is too old, lacks some file system monitoring functionality
-  # Needs arc4random_buf(3) which is missing on Leopard and prior so just use openssl
-  # since newer implementations were based on AES cipher.
-  # copyfile.h didn't show up until Leopard.
-  patch :p0, :DATA
 end
 __END__
 --- sha1dc/sha1.c.orig	2023-04-08 03:00:31.000000000 +0000
@@ -292,3 +293,13 @@ __END__
  #endif
  
  static void basename_r(const char **out, int *out_len, const char *in)
+--- contrib/credential/osxkeychain/git-credential-osxkeychain.c.orig	2025-02-09 23:11:13.000000000 +0000
++++ contrib/credential/osxkeychain/git-credential-osxkeychain.c	2025-02-09 23:11:36.000000000 +0000
+@@ -1,6 +1,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdlib.h>
++#include <sys/fcntl.h>
+ #include <Security/Security.h>
+ 
+ #define ENCODING kCFStringEncodingUTF8
