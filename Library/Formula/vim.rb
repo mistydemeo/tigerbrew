@@ -8,6 +8,7 @@ class Vim < Formula
   head "https://github.com/vim/vim.git"
 
   bottle do
+    sha256 "f228e90d45f91d34629c4451803454cd3db7762a9ab04186587165f67041d410" => :tiger_altivec
   end
 
   # We only have special support for finding depends_on :python, but not yet for
