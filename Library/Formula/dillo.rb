@@ -6,6 +6,7 @@ class Dillo < Formula
   sha256 "1066ed42ea7fe0ce19e79becd029c651c15689922de8408e13e70bb5701931bf"
 
   bottle do
+    sha256 "0504dd27ede82deb233f4d79c2afa7c5294458b0bb6abd426d301e14248e5940" => :tiger_altivec
   end
 
   # Drop C++11 requirement.
