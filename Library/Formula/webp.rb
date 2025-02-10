@@ -6,6 +6,7 @@ class Webp < Formula
   license "BSD-3-Clause"
 
   bottle do
+    sha256 "4ee847318ddad2c7c29fe220d80e9650dbd401169298e3bdac11cef99e989b61" => :tiger_altivec
   end
 
   head do
