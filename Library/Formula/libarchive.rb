@@ -7,6 +7,7 @@ class Libarchive < Formula
 
   bottle do
     cellar :any
+    sha256 "adb71dd7ab25554eed13797cf124b3115b3e331aab46e3d6e5199e6213b0c9b3" => :tiger_altivec
   end
 
   depends_on "bzip2"
