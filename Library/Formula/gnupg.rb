@@ -8,6 +8,7 @@ class Gnupg < Formula
   revision 1
 
   bottle do
+    sha256 "8d310b2e00d3dc8d9ba83eac61dc30b6908b4a11bceb2e3a15074ec94d9f3861" => :tiger_altivec
   end
 
   depends_on "curl" if MacOS.version <= :mavericks
