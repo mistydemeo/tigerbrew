@@ -9,6 +9,9 @@ class Libusb < Formula
     sha256 "73b540f092915bee23b2afd8735ccc94b3fa150efbcdd7921f7ef3d4da9984e1" => :tiger_altivec
   end
 
+  # USB 3.0 support showed up in 10.8's IOKit
+  patch :p0, :DATA
+
   head do
     url "https://github.com/libusb/libusb.git", branch: "master"
 
@@ -35,3 +38,15 @@ class Libusb < Formula
     end
   end
 end
+__END__
+--- libusb/os/darwin_usb.c.orig	2025-02-18 13:42:51.000000000 +0000
++++ libusb/os/darwin_usb.c	2025-02-18 13:43:02.000000000 +0000
+@@ -1099,7 +1099,7 @@
+     case kUSBDeviceSpeedLow: dev->speed = LIBUSB_SPEED_LOW; break;
+     case kUSBDeviceSpeedFull: dev->speed = LIBUSB_SPEED_FULL; break;
+     case kUSBDeviceSpeedHigh: dev->speed = LIBUSB_SPEED_HIGH; break;
+-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
++#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
+     case kUSBDeviceSpeedSuper: dev->speed = LIBUSB_SPEED_SUPER; break;
+ #endif
+ #if MAC_OS_X_VERSION_MAX_ALLOWED >= 101200
