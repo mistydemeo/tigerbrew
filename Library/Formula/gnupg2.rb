@@ -29,6 +29,11 @@ class Gnupg2 < Formula
   depends_on "sqlite"
   depends_on "zlib"
 
+  # https://github.com/mistydemeo/tigerbrew/pull/1216#issuecomment-2664287991
+  fails_with :gcc_4_0
+  fails_with :gcc
+  fails_with :llvm
+
   def install
     # sysutils.c:1201: error: void value not ignored as it ought to be
     ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version == :tiger
