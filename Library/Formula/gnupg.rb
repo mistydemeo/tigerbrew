@@ -13,6 +13,11 @@ class Gnupg < Formula
 
   depends_on "curl" if MacOS.version <= :mavericks
 
+  # https://github.com/mistydemeo/tigerbrew/pull/1216#issuecomment-2664287991
+  fails_with :gcc_4_0
+  fails_with :gcc
+  fails_with :llvm
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
