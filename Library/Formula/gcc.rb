@@ -21,40 +21,58 @@ class Gcc < Formula
 
   desc "GNU compiler collection"
   homepage "https://gcc.gnu.org"
-  url "https://ftp.gnu.org/gnu/gcc/gcc-8.5.0/gcc-8.5.0.tar.xz"
-  mirror "https://ftpmirror.gnu.org/gcc/gcc-8.5.0/gcc-8.5.0.tar.xz"
-  sha256 "d308841a511bb830a6100397b0042db24ce11f642dab6ea6ee44842e5325ed50"
-  revision 1
+  url "https://ftp.gnu.org/gnu/gcc/gcc-14.2.0/gcc-14.2.0.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gcc/gcc-14.2.0/gcc-14.2.0.tar.xz"
+  sha256 "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9"
 
   bottle do
-    sha256 "092a1e615cdea11f55784252145d1da94f968d1a0ec59266d4f3a9e846be242d" => :tiger_altivec
   end
 
-  conflicts_with "gcc8", :because => "both install the same version of GCC"
-
   option "with-nls", "Build with native language support (localization)"
-  option "with-jit", "Build just-in-time compiler"
   # enabling multilib on a host that can't run 64-bit results in build failures
   option "without-multilib", "Build without multilib support" if MacOS.prefer_64_bit?
+  # JIT fails to build on i386, or any platform for Tiger
+  if !(Hardware::CPU.type == :intel && !MacOS.prefer_64_bit?) || MacOS.version > :leopard
+    option "with-jit", "Build just-in-time compiler"
+  end
 
+  # System texinfo is too old
+  depends_on "texinfo" => :build
   depends_on "gmp"
   depends_on "libmpc"
   depends_on "mpfr"
-  depends_on "isl018"
+  depends_on "isl"
+  # System zlib is missing crc32_combine on Tiger
+  depends_on "zlib"
 
   if MacOS.version < :leopard
     # The as that comes with Tiger isn't capable of dealing with the
     # PPC asm that comes in libitm
-    depends_on "cctools" => :build
+    depends_on "cctools"
+    # GCC invokes ld with flags the system ld doesn't have
+    depends_on "ld64"
   end
 
-  # Bug 21514 - [DR 488] templates and anonymous enum - fixed in 4.0.2
-  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=21514
+  # Needs a newer tigerbrew-provided GCC to build
   fails_with :gcc_4_0
+  fails_with :gcc
   fails_with :llvm
 
   # GCC bootstraps itself, so it is OK to have an incompatible C++ stdlib
   cxxstdlib_check :skip
+
+  # Applied upstream: https://github.com/gcc-mirror/gcc/commit/1cfe4a4d0d4447b364815d5e5c889deb2e533669
+  # Can remove in a later version.
+  patch :p0 do
+    url "https://github.com/macports/macports-ports/raw/b5a5b6679f59dcad1b21f66bb01e3f8a3a377b4b/lang/gcc14/files/darwin-ppc-fpu.patch"
+    sha256 "7f14356f2e9efdf46503ca1156302c9b294db52569f4d56073267142b6d2ee71"
+  end
+
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=117834
+  patch :p0 do
+    url "https://github.com/macports/macports-ports/raw/b5a5b6679f59dcad1b21f66bb01e3f8a3a377b4b/lang/gcc14/files/darwin8-define-PTHREAD_RWLOCK_INITIALIZER.patch"
+    sha256 "57ffac38f4d5eb4d92634d9e7c339f961e3eb908d13a944d622bfc6915a4f435"
+  end
 
   # The bottles are built on systems with the CLT installed, and do not work
   # out of the box on Xcode-only systems due to an incorrect sysroot.
@@ -63,12 +81,10 @@ class Gcc < Formula
   end
 
   def version_suffix
-    version.to_s.slice(/\d/)
+    version.to_s.slice(/\d\d/)
   end
 
   def install
-    # GCC will suffer build errors if forced to use a particular linker.
-    ENV.delete "LD"
     # GCC Bug 25127 for PowerPC
     # https://gcc.gnu.org/bugzilla//show_bug.cgi?id=25127
     # ../../../libgcc/unwind.inc: In function '_Unwind_RaiseException':
@@ -81,10 +97,6 @@ class Gcc < Formula
     # https://github.com/mistydemeo/tigerbrew/issues/538
     if Hardware::CPU.family == :g3 || ARGV.bottle_arch == :g3
       ENV.append_to_cflags "-force_cpusubtype_ALL"
-    end
-
-    if MacOS.version < :leopard
-      ENV["AS"] = ENV["AS_FOR_TARGET"] = "#{Formula["cctools"].bin}/as"
     end
 
     # We avoiding building:
@@ -106,7 +118,7 @@ class Gcc < Formula
       "--with-gmp=#{Formula["gmp"].opt_prefix}",
       "--with-mpfr=#{Formula["mpfr"].opt_prefix}",
       "--with-mpc=#{Formula["libmpc"].opt_prefix}",
-      "--with-isl=#{Formula["isl018"].opt_prefix}",
+      "--with-isl=#{Formula["isl"].opt_prefix}",
       "--with-system-zlib",
       "--enable-checking=release",
       "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
@@ -131,9 +143,38 @@ class Gcc < Formula
 
     args << "--enable-host-shared" if build.with?("jit")
 
-    # Ensure correct install names when linking against libgcc_s;
-    # see discussion in https://github.com/Homebrew/homebrew/pull/34303
-    inreplace "libgcc/config/t-slibgcc-darwin", "@shlib_slibdir@", "#{HOMEBREW_PREFIX}/lib/gcc/#{version_suffix}"
+    # These two flags are required for zlib to be found in the last stage
+    inreplace "gcc/Makefile.in" do |s|
+      s.change_make_var! "ZLIB", "-L#{Formula["zlib"].opt_lib} -lz"
+      s.change_make_var! "ZLIBINC", "-I#{Formula["zlib"].opt_include}"
+    end
+
+    if MacOS.version < :leopard
+      # We need to use a newer as to build, but we also want the compiler
+      # to use it at runtime
+      ENV["AS"] = ENV["AS_FOR_TARGET"] = "#{Formula["cctools"].bin}/as"
+      # Following Macports on which tools to specify both in the environment
+      # and as configure args
+      args << "--with-as=#{Formula["cctools"].bin}/as"
+      # We'll also configure the compiler to use the rest of the newer cctools
+      ENV["AR_FOR_TARGET"] = "#{Formula["cctools"].bin}/ar"
+      args << "--with-ar=#{Formula["cctools"].bin}/ar"
+      ENV["NM_FOR_TARGET"] = "#{Formula["cctools"].bin}/nm"
+      ENV["RANLIB_FOR_TARGET"] = "#{Formula["cctools"].bin}/ranlib"
+      ENV["STRIP_FOR_TARGET"] = "#{Formula["cctools"].bin}/strip"
+
+      # We need ld both for the build and for the end result compiler to use
+      # Note that unlike the above, which are more nice-to-haves, gcc-14
+      # will actually fail to use the system ld on Tiger.
+      ENV.ld64
+      ENV["LD_FOR_TARGET"] = ENV["LD"]
+      args << "--with-ld=#{ENV["LD"]}"
+
+      # Avoids the need for the ttyname_r patch
+      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=117857
+      # https://github.com/mistydemeo/tigerbrew/pull/1286#issuecomment-2664224824
+      ENV.append_to_cflags "-D__DARWIN_UNIX03"
+    end
 
     mkdir "build" do
       unless MacOS::CLT.installed?
