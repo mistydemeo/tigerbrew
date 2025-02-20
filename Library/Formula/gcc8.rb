@@ -27,6 +27,7 @@ class Gcc8 < Formula
   revision 1
 
   bottle do
+    sha256 "36666a794e7ddca183b156cf499871af08a3f91613ed041bf97008003a85d567" => :tiger_altivec
   end
 
   conflicts_with "gcc", :because => "both install the same version of GCC"
