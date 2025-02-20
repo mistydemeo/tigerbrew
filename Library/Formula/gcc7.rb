@@ -24,9 +24,9 @@ class Gcc7 < Formula
   url "https://ftp.gnu.org/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.xz"
   mirror "https://ftpmirror.gnu.org/gcc/gcc-7.5.0/gcc-7.5.0.tar.xz"
   sha256 "b81946e7f01f90528a1f7352ab08cc602b9ccc05d4e44da4bd501c5a189ee661"
+  revision 1
 
   bottle do
-    sha256 "6aaaec70d0d139ab61709a09365d37bcc0901486704599c068731bcf75681986" => :tiger_altivec
   end
 
   option "with-nls", "Build with native language support (localization)"
@@ -37,7 +37,7 @@ class Gcc7 < Formula
   depends_on "gmp"
   depends_on "libmpc"
   depends_on "mpfr"
-  depends_on "isl"
+  depends_on "isl018"
 
   if MacOS.version < :leopard
     # The as that comes with Tiger isn't capable of dealing with the
@@ -114,7 +114,7 @@ class Gcc7 < Formula
       "--with-gmp=#{Formula["gmp"].opt_prefix}",
       "--with-mpfr=#{Formula["mpfr"].opt_prefix}",
       "--with-mpc=#{Formula["libmpc"].opt_prefix}",
-      "--with-isl=#{Formula["isl"].opt_prefix}",
+      "--with-isl=#{Formula["isl018"].opt_prefix}",
       "--with-system-zlib",
       "--enable-checking=release",
       "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
