@@ -30,8 +30,6 @@ class Gcc8 < Formula
     sha256 "36666a794e7ddca183b156cf499871af08a3f91613ed041bf97008003a85d567" => :tiger_altivec
   end
 
-  conflicts_with "gcc", :because => "both install the same version of GCC"
-
   option "with-nls", "Build with native language support (localization)"
   option "with-jit", "Build just-in-time compiler"
   # enabling multilib on a host that can't run 64-bit results in build failures
