@@ -1,7 +1,7 @@
 # @private
 module CompilerConstants
-  GNU_GCC_VERSIONS = %w[4.3 4.4 4.5 4.6 4.7 4.8 4.9 5 6 7 8]
-  GNU_GCC_REGEXP = /^gcc-(4\.[3-9]|[5-8])$/
+  GNU_GCC_VERSIONS = %w[4.3 4.4 4.5 4.6 4.7 4.8 4.9 5 6 7 8 14]
+  GNU_GCC_REGEXP = /^gcc-(4\.[3-9]|[5-8]|14)$/
   COMPILER_SYMBOL_MAP = {
     "gcc-4.0"  => :gcc_4_0,
     "gcc-4.2"  => :gcc,
