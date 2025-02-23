@@ -48,6 +48,9 @@ class Python3 < Formula
   # Add Support for OS X before 10.6
   # from macports/lang/python310/files/patch-threadid-older-systems.diff
   # and macports/lang/python310/files/patch-no-copyfile-on-Tiger.diff
+  # Avoid Apple LLVM 4.2 for atomic operations
+  # https://bugs.python.org/issue24844
+  # macports/lang/python310/files/patch-configure-xcode4bug.diff
   patch :p0, :DATA
 
   # setuptools remembers the build flags python is built with and uses them to
@@ -496,4 +499,31 @@ __END__
 +@unittest.skipIf(not MACOS or not hasattr(posix, "_fcopyfile"), 'macOS with posix._fcopyfile only')
  class TestZeroCopyMACOS(_ZeroCopyFileTest, unittest.TestCase):
      PATCHPOINT = "posix._fcopyfile"
+ 
+--- configure.orig
++++ configure
+@@ -17359,6 +17359,24 @@
+     int main(void) {
+       __atomic_store_n(&val, 1, __ATOMIC_SEQ_CST);
+       (void)__atomic_load_n(&val, __ATOMIC_SEQ_CST);
++
++      /* https://bugs.python.org/issue24844 */
++      #define VERSION_CHECK(cc_major, cc_minor, req_major, req_minor) \
++          ((cc_major) > (req_major) || \
++          (cc_major) == (req_major) && (cc_minor) >= (req_minor))
++      #if defined(__clang__)
++          #if defined(__apple_build_version__)
++              // either one test or the other should work
++              // #if __apple_build_version__ < 5000000
++              #if !VERSION_CHECK(__clang_major__, __clang_minor__, 5, 0)
++                  #error
++              #endif
++          // not sure if this is 3.3 or 3.4
++          #elif !VERSION_CHECK(__clang_major__, __clang_minor__, 3, 3)
++              #error
++          #endif
++      #endif
++
+       return 0;
+     }
  
