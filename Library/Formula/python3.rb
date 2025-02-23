@@ -77,8 +77,6 @@ class Python3 < Formula
       --with-system-ffi
     ]
 
-    args << "--without-gcc" if ENV.compiler == :clang
-
     cflags   = []
     ldflags  = []
     cppflags = []
