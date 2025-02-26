@@ -22,15 +22,6 @@ class Libpng < Formula
 
   option :universal
 
-  # pngvalid: read: truecolour+tRNS 8 bit: transform: +rgb_to_gray^0.55556: red/gray output value error: rgba(2,93,95,255): 80 expected: 82 (80.714..82.500)
-  # pngvalid: 1 errors, 0 warnings
-  # FAIL: pngvalid --strict --transform (floating point arithmetic)
-  # FAIL tests/pngvalid-transform (exit status: 1)
-  fails_with :clang do
-    build 500
-    cause "tests/pngvalid-transform fails due to error in floating point arithmetic"
-  end
-
   def install
     ENV.universal_binary if build.universal?
     system "./configure", "--disable-dependency-tracking",

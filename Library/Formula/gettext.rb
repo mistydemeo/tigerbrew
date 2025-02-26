@@ -21,11 +21,6 @@ class Gettext < Formula
   # https://savannah.gnu.org/bugs/?63866
   patch :p0, :DATA
 
-  fails_with :clang do
-    build 500
-    cause "___atomic_compare_exchange_n() / ___atomic_store_n() called in gnulib but not defined"
-  end
-
   def install
     ENV.libxml2
     ENV.universal_binary if build.universal?
