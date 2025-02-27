@@ -21,32 +21,13 @@ class Gcc49 < Formula
 
   desc "The GNU Compiler Collection"
   homepage "https://gcc.gnu.org"
-  url "https://ftpmirror.gnu.org/gcc/gcc-4.9.3/gcc-4.9.3.tar.bz2"
-  mirror "https://ftp.gnu.org/gnu/gcc/gcc-4.9.3/gcc-4.9.3.tar.bz2"
-  sha256 "2332b2a5a321b57508b9031354a8503af6fdfb868b8c1748d33028d100a8b67e"
+  url "https://ftpmirror.gnu.org/gcc/gcc-4.9.4/gcc-4.9.4.tar.bz2"
+  mirror "https://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.bz2"
+  sha256 "6c11d292cd01b294f9f84c9a59c230d80e9e4a47e5c6355f046bb36d4f358092"
 
   head "svn://gcc.gnu.org/svn/gcc/branches/gcc-4_9-branch"
 
   bottle do
-    rebuild 3
-    sha256 "0acf2b010e3c2210fcb5fdc03de9dc14f0556cf5295347d8f72f2d8d1cfab4ff" => :el_capitan
-    sha256 "5b635a24e9f7464fb94d2933b00a8d1b1cfc0efb1de140fe568e313d24965140" => :yosemite
-    sha256 "dc24f86a9652fbb0ec0bc9dd0103d23bb68c315bd490ee5d0b10a7144453ecc4" => :mavericks
-  end
-
-  if MacOS.version >= :yosemite
-    # Fixes build with Xcode 7.
-    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
-    patch do
-      url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
-      sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
-    end
-    # Fixes assembler generation with XCode 7
-    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66509
-    patch do
-      url "https://gist.githubusercontent.com/tdsmith/d248e025029add31e7aa/raw/444e292786df41346a3a1cc6267bba587408a007/gcc.diff"
-      sha256 "636b65a160ccb7417cc4ffc263fc815382f8bb895e32262205cd10d65ea7804a"
-    end
   end
 
   option "without-fortran", "Build without the gfortran compiler"
@@ -67,7 +48,7 @@ class Gcc49 < Formula
   depends_on "libmpc08"
   depends_on "mpfr2"
   depends_on "cloog018"
-  depends_on "isl011"
+  depends_on "isl012"
   depends_on "ecj" if build.with?("java") || build.with?("all-languages")
 
   # The bottles are built on systems with the CLT installed, and do not work
@@ -80,6 +61,7 @@ class Gcc49 < Formula
   cxxstdlib_check :skip
 
   def install
+    ENV.no_optimization
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
 
@@ -113,20 +95,10 @@ class Gcc49 < Formula
       "--with-mpfr=#{Formula["mpfr2"].opt_prefix}",
       "--with-mpc=#{Formula["libmpc08"].opt_prefix}",
       "--with-cloog=#{Formula["cloog018"].opt_prefix}",
-      "--with-isl=#{Formula["isl011"].opt_prefix}",
+      "--with-isl=#{Formula["isl012"].opt_prefix}",
       "--with-system-zlib",
-      "--enable-libstdcxx-time=yes",
-      "--enable-stage1-checking",
-      "--enable-checking=release",
-      "--enable-lto",
-      # Use 'bootstrap-debug' build configuration to force stripping of object
-      # files prior to comparison during bootstrap (broken by Xcode 6.3).
-      "--with-build-config=bootstrap-debug",
-      # A no-op unless --HEAD is built because in head warnings will
-      # raise errors. But still a good idea to include.
-      "--disable-werror",
-      "--with-pkgversion=Homebrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/Homebrew/homebrew-versions/issues",
+      "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
+      "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
     ]
 
     # "Building GCC with plugin support requires a host that supports
