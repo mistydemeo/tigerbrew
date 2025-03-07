@@ -28,25 +28,15 @@ class Gcc48 < Formula
   head "svn://gcc.gnu.org/svn/gcc/branches/gcc-4_8-branch"
 
   bottle do
-    rebuild 1
-    sha256 "8cf53c3b1f03049538b9f78ea1ffe7ebf21fcc99a3b4147e4ede8defefc4cef4" => :el_capitan
-    sha256 "ae30faa242deae02d46bc92a318e0f0b8f6f0754521fec2225c2fb0403022e31" => :yosemite
-    sha256 "0bc974cb0c23ed4ca3536eb2b5e7f11e692a5e6246d99b82ad74880685f42736" => :mavericks
   end
 
-  if MacOS.version >= :yosemite
-    # Fixes build on El Capitan
-    # https://trac.macports.org/ticket/48471
-    patch :p0 do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/dcfc5a2e6/gcc48/define_non_standard_clang_macros.patch"
-      sha256 "e727383c9186fdc36f804c69ad550f5cfd2b996e37083be94c0c9aa8fde226ee"
-    end
-    # Fixes build with Xcode 7.
-    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
-    patch do
-      url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
-      sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
-    end
+  # Fixes build with Xcode 7.
+  # error: non-local symbol required in directive
+  #      .no_dead_strip L_OBJC_Module
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
+  patch do
+    url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
+    sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
   end
 
   option "without-fortran", "Build without the gfortran compiler"
@@ -74,8 +64,6 @@ class Gcc48 < Formula
   # PPC asm that comes in libitm
   depends_on "cctools" => :build if MacOS.version < :leopard
 
-  fails_with :gcc_4_0
-
   # The bottles are built on systems with the CLT installed, and do not work
   # out of the box on Xcode-only systems due to an incorrect sysroot.
   def pour_bottle?
@@ -86,6 +74,7 @@ class Gcc48 < Formula
   cxxstdlib_check :skip
 
   def install
+    ENV.no_optimization
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
 
@@ -125,21 +114,9 @@ class Gcc48 < Formula
       "--with-cloog=#{Formula["cloog018"].opt_prefix}",
       "--with-isl=#{Formula["isl011"].opt_prefix}",
       "--with-system-zlib",
-      "--enable-libstdcxx-time=yes",
-      "--enable-stage1-checking",
-      "--enable-checking=release",
-      "--enable-lto",
-      # A no-op unless --HEAD is built because in head warnings will
-      # raise errors. But still a good idea to include.
-      "--disable-werror",
-      "--with-pkgversion=Homebrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/Homebrew/homebrew-versions/issues",
+      "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
+      "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
     ]
-
-    # Use 'bootstrap-debug' build configuration to force stripping of object
-    # files prior to comparison during bootstrap (broken by Xcode 6.3).
-    # This causes bottle errors for gcc48 on Mountain Lion, so scope it to 10.10.
-    args << "--with-build-config=bootstrap-debug" if MacOS.version >= :yosemite
 
     # "Building GCC with plugin support requires a host that supports
     # -fPIC, -shared, -ldl and -rdynamic."
