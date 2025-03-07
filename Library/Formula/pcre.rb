@@ -34,9 +34,6 @@ class Pcre < Formula
               "--enable-pcregrep-libz",
               "--enable-pcregrep-libbz2" ]
 
-    # JIT fails tests very badly on PPC right now
-    args << "--enable-jit" unless Hardware::CPU.type == :ppc
-
     system "./configure", *args
     system "make"
     ENV.deparallelize
