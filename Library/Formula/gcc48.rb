@@ -30,19 +30,13 @@ class Gcc48 < Formula
   bottle do
   end
 
-  if MacOS.version >= :yosemite
-    # Fixes build on El Capitan
-    # https://trac.macports.org/ticket/48471
-    patch :p0 do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/dcfc5a2e6/gcc48/define_non_standard_clang_macros.patch"
-      sha256 "e727383c9186fdc36f804c69ad550f5cfd2b996e37083be94c0c9aa8fde226ee"
-    end
-    # Fixes build with Xcode 7.
-    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
-    patch do
-      url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
-      sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
-    end
+  # Fixes build with Xcode 7.
+  # error: non-local symbol required in directive
+  #      .no_dead_strip L_OBJC_Module
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
+  patch do
+    url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
+    sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
   end
 
   option "without-fortran", "Build without the gfortran compiler"
