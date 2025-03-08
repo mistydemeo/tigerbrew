@@ -24,11 +24,11 @@ class Gcc8 < Formula
   url "https://ftp.gnu.org/gnu/gcc/gcc-8.5.0/gcc-8.5.0.tar.xz"
   mirror "https://ftpmirror.gnu.org/gcc/gcc-8.5.0/gcc-8.5.0.tar.xz"
   sha256 "d308841a511bb830a6100397b0042db24ce11f642dab6ea6ee44842e5325ed50"
+  revision 1
 
   bottle do
+    sha256 "36666a794e7ddca183b156cf499871af08a3f91613ed041bf97008003a85d567" => :tiger_altivec
   end
-
-  conflicts_with "gcc", :because => "both install the same version of GCC"
 
   option "with-nls", "Build with native language support (localization)"
   option "with-jit", "Build just-in-time compiler"
@@ -38,7 +38,7 @@ class Gcc8 < Formula
   depends_on "gmp"
   depends_on "libmpc"
   depends_on "mpfr"
-  depends_on "isl"
+  depends_on "isl018"
 
   if MacOS.version < :leopard
     # The as that comes with Tiger isn't capable of dealing with the
@@ -104,7 +104,7 @@ class Gcc8 < Formula
       "--with-gmp=#{Formula["gmp"].opt_prefix}",
       "--with-mpfr=#{Formula["mpfr"].opt_prefix}",
       "--with-mpc=#{Formula["libmpc"].opt_prefix}",
-      "--with-isl=#{Formula["isl"].opt_prefix}",
+      "--with-isl=#{Formula["isl018"].opt_prefix}",
       "--with-system-zlib",
       "--enable-checking=release",
       "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
