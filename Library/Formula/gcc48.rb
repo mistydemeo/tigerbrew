@@ -138,6 +138,12 @@ class Gcc48 < Formula
       args << "--enable-multilib"
     end
 
+    # clang on Yosemite generates binaries containing different CIE versions
+    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=65733
+    # Use 'bootstrap-debug' build configuration to force stripping of object
+    # files prior to comparison during bootstrap (broken by Xcode 6.3).
+    args << "--with-build-config=bootstrap-debug" if MacOS.version == :yosemite && ENV.compiler == :clang && MacOS.clang_build_version <= 700
+
     # Ensure correct install names when linking against libgcc_s;
     # see discussion in https://github.com/Homebrew/homebrew/pull/34303
     inreplace "libgcc/config/t-slibgcc-darwin", "@shlib_slibdir@", "#{HOMEBREW_PREFIX}/lib/gcc/#{version_suffix}"
