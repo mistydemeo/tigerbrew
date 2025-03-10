@@ -209,5 +209,30 @@ class Gcc48 < Formula
     EOS
     system bin/"gcc-4.8", "-o", "hello-c", "hello-c.c"
     assert_equal "Hello, world!\n", `./hello-c`
+
+    (testpath/"hello-cc.cc").write <<-EOS.undent
+      #include <iostream>
+      int main()
+      {
+        std::cout << "Hello, world!" << std::endl;
+        return 0;
+      }
+    EOS
+    system "#{bin}/g++-4.8", "-o", "hello-cc", "hello-cc.cc"
+    assert_equal "Hello, world!\n", `./hello-cc`
+
+    (testpath/"test.f90").write <<-EOS.undent
+      integer,parameter::m=10000
+      real::a(m), b(m)
+      real::fact=0.5
+
+      do concurrent (i=1:m)
+        a(i) = a(i) + fact*b(i)
+      end do
+      write(*,"(A)") "Done"
+      end
+    EOS
+    system "#{bin}/gfortran-4.8", "-o", "test", "test.f90" if build.with? "fortran"
+    assert_equal "Done\n", `./test` if build.with? "fortran"
   end
 end
