@@ -3,15 +3,12 @@ class Cloog018 < Formula
   homepage "http://www.cloog.org/"
   # Track gcc infrastructure releases.
   url "http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.0.tar.gz"
-  mirror "ftp://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.0.tar.gz"
+  mirror "https://www.mirrorservice.org/sites/sourceware.org/pub/gcc/infrastructure/cloog-0.18.0.tar.gz"
+  mirror "https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.0.tar.gz"
   sha256 "1c4aa8dde7886be9cbe0f9069c334843b21028f61d344a2d685f88cb1dcf2228"
 
   bottle do
     cellar :any
-    revision 1
-    sha256 "95b8d981633d853151cae2efa07bcf6655e5af04dad88418087fc614de8f160d" => :el_capitan
-    sha256 "5befa09d6f42cebefe5085959a9d7267158bd9eb7a1d7d0a95c122c5377ccaa9" => :yosemite
-    sha256 "b64ee12cd97286090e012e25882119b82ce4dc9b8dbaacf7ac17f7570f327cfa" => :mavericks
   end
 
   keg_only "Conflicts with cloog in main repository."
