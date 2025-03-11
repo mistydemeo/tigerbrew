@@ -127,6 +127,9 @@ class Gcc49 < Formula
     # files prior to comparison during bootstrap (broken by Xcode 6.3).
     args << "--with-build-config=bootstrap-debug" if MacOS.version == :yosemite && ENV.compiler == :clang && MacOS.clang_build_version <= 700
 
+    # Looks up _SC_NPROCESSORS_ONLN which Tiger/i386 lacks
+    args << "enable_libcilkrts=no" if Hardware::CPU.intel? && MacOS.version == :tiger
+
     # Ensure correct install names when linking against libgcc_s;
     # see discussion in https://github.com/Homebrew/homebrew/pull/34303
     inreplace "libgcc/config/t-slibgcc-darwin", "@shlib_slibdir@", "#{HOMEBREW_PREFIX}/lib/gcc/#{version_suffix}"
