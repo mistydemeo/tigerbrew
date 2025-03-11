@@ -2,16 +2,12 @@ class Libmpc08 < Formula
   desc "C library for high precision complex numbers"
   homepage "http://multiprecision.org"
   # Track gcc infrastructure releases.
-  url "http://multiprecision.org/mpc/download/mpc-0.8.1.tar.gz"
-  mirror "ftp://gcc.gnu.org/pub/gcc/infrastructure/mpc-0.8.1.tar.gz"
+  url "https://www.multiprecision.org/downloads/mpc-0.8.1.tar.gz"
+  mirror "https://gcc.gnu.org/pub/gcc/infrastructure/mpc-0.8.1.tar.gz"
   sha256 "e664603757251fd8a352848276497a4c79b7f8b21fd8aedd5cc0598a38fee3e4"
 
   bottle do
     cellar :any
-    revision 1
-    sha256 "e3bb3e309c6c5bd709fee9a136a642289357fcc4aa9c793df1c96785947c99d9" => :el_capitan
-    sha256 "79a024cd86280716cc82f35e88ae9695f0606d2b09e585d3d9a0f7fc800eec20" => :yosemite
-    sha256 "105469fc116eae8a19000848c91ea1bea71ad5e3f395624938030c3813eca0ed" => :mavericks
   end
 
   keg_only "Conflicts with libmpc in main repository."
