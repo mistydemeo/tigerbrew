@@ -3,6 +3,8 @@ class Cloog018 < Formula
   homepage "http://www.cloog.org/"
   # Need a minimum of isl 0.12 with v0.18.3 onwards.
   url "http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.1.tar.gz"
+  mirror "https://www.mirrorservice.org/sites/sourceware.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz"
+  mirror "https://gcc.gnu.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz"
   sha256 "02500a4edd14875f94fe84cbeda4290425cb0c1c2474c6f75d75a303d64b4196"
 
   bottle do
