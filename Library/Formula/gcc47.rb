@@ -28,18 +28,13 @@ class Gcc47 < Formula
   head "svn://gcc.gnu.org/svn/gcc/branches/gcc-4_7-branch"
 
   bottle do
-    sha256 "de527788a6fedea2173e340fee47324478e8956ef31868d376c7ac561a8f2952" => :yosemite
-    sha256 "b418cec1d503d859e99cb13928a2df8434a9037524f898fe095ea35f615d87f2" => :mavericks
-    sha256 "fe211028f9a219f48d127bc946d5f7046b7b6e7f792fd4cd63c1deb393484db3" => :mountain_lion
   end
 
-  if MacOS.version >= :el_capitan
-    # Fixes build with Xcode 7.
-    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
-    patch do
-      url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
-      sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
-    end
+  # Fixes build with Xcode 7.
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
+  patch do
+    url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
+    sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
   end
 
   option "with-fortran", "Build the gfortran compiler"
@@ -122,15 +117,8 @@ class Gcc47 < Formula
       # don't wander around telling little children there is no Santa
       # Claus.
       "--enable-version-specific-runtime-libs",
-      "--enable-libstdcxx-time=yes",
-      "--enable-stage1-checking",
-      "--enable-checking=release",
-      "--enable-lto",
-      # A no-op unless --HEAD is built because in head warnings will
-      # raise errors. But still a good idea to include.
-      "--disable-werror",
-      "--with-pkgversion=Homebrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/Homebrew/homebrew-versions/issues",
+      "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
+      "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
     ]
 
     # "Building GCC with plugin support requires a host that supports
@@ -221,5 +209,30 @@ class Gcc47 < Formula
     EOS
     system bin/"gcc-4.7", "-o", "hello-c", "hello-c.c"
     assert_equal "Hello, world!\n", `./hello-c`
+
+    (testpath/"hello-cc.cc").write <<-EOS.undent
+      #include <iostream>
+      int main()
+      {
+        std::cout << "Hello, world!" << std::endl;
+        return 0;
+      }
+    EOS
+    system "#{bin}/g++-4.7", "-o", "hello-cc", "hello-cc.cc"
+    assert_equal "Hello, world!\n", `./hello-cc`
+
+    (testpath/"test.f90").write <<-EOS.undent
+      integer,parameter::m=10000
+      real::a(m), b(m)
+      real::fact=0.5
+
+      do concurrent (i=1:m)
+        a(i) = a(i) + fact*b(i)
+      end do
+      write(*,"(A)") "Done"
+      end
+    EOS
+    system "#{bin}/gfortran-4.7", "-o", "test", "test.f90" if build.with? "fortran"
+    assert_equal "Done\n", `./test` if build.with? "fortran"
   end
 end
