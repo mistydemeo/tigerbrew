@@ -1,10 +1,9 @@
 class Libmpc08 < Formula
   desc "C library for high precision complex numbers"
   homepage "http://multiprecision.org"
-  # Track gcc infrastructure releases.
-  url "https://www.multiprecision.org/downloads/mpc-0.8.1.tar.gz"
-  mirror "https://gcc.gnu.org/pub/gcc/infrastructure/mpc-0.8.1.tar.gz"
-  sha256 "e664603757251fd8a352848276497a4c79b7f8b21fd8aedd5cc0598a38fee3e4"
+  url "https://www.multiprecision.org/downloads/mpc-0.8.2.tar.gz"
+  mirror "https://ftp2.osuosl.org/pub/clfs/conglomeration/mpc/mpc-0.8.2.tar.gz"
+  sha256 "ae79f8d41d8a86456b68607e9ca398d00f8b7342d1d83bcf4428178ac45380c7"
 
   bottle do
     cellar :any
