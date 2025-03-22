@@ -293,7 +293,7 @@ module Stdenv
     if compiler == :clang
       append "CXX", "-std=c++11"
       append "CXX", "-stdlib=libc++"
-    elsif compiler =~ /gcc-(4\.(8|9)|5)/
+    elsif compiler =~ /^gcc-(4\.[8-9]|[5-8]|14)$/
       append "CXX", "-std=c++11"
     else
       raise "The selected compiler doesn't support C++11: #{compiler}"
