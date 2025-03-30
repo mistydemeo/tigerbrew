@@ -7,7 +7,7 @@ class M4 < Formula
   license "GPL-3.0-or-later"
 
   bottle do
-    cellar :any_skip_relocation
+    sha256 "fef063d036e02a3c6af9e3818b2ea25aaa1700b2146a1fa670c58729532b590d" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
