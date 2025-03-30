@@ -5,7 +5,7 @@ class CloogPpl015 < Formula
   sha256 "7cd634d0b2b401b04096b545915ac67f883556e9a524e8e803a6bf6217a84d5f"
 
   bottle do
-    cellar :any
+    sha256 "0ce866bba1f69e724c68c2c35be6fb4b9588cc19b91525c4d208488b238f423b" => :tiger_altivec
   end
 
   keg_only "Conflicts with cloog in main repository."
