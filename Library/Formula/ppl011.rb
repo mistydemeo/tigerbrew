@@ -7,6 +7,7 @@ class Ppl011 < Formula
   revision 1
 
   bottle do
+    sha256 "d7ad69126d21b028d04e4ef0f35eb2a2b2e58b4f3c12a0da0899f3ef40b38566" => :tiger_altivec
   end
 
   depends_on "m4" => :build if MacOS.version < :leopard
