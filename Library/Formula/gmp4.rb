@@ -11,9 +11,7 @@ class Gmp4 < Formula
   bottle do
     cellar :any
     revision 1
-    sha256 "5c5d632ea58479fba37a0844d0b9a4fd1e865e809286ada95d5484d72ab50a78" => :el_capitan
-    sha256 "932a2d0987dd26bbc3cb54b7d38d4cf6b0e5a4bd46fef8442b79b75f067abf6e" => :yosemite
-    sha256 "b7012c46ac9e5b5aa1004184e85a2e99fc047d9f92f1e8b82699ba1f1ea1f7bf" => :mavericks
+    sha256 "80fab08e90d3e536b21d0826580d9f78f0e8542f7f08d5cde866307fcf187db1" => :tiger_altivec
   end
 
   keg_only "Conflicts with gmp in main repository."
