@@ -10,7 +10,6 @@ class Gmp4 < Formula
 
   bottle do
     cellar :any
-    revision 1
     sha256 "80fab08e90d3e536b21d0826580d9f78f0e8542f7f08d5cde866307fcf187db1" => :tiger_altivec
   end
 
