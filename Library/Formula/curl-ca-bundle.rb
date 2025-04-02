@@ -1,14 +1,12 @@
 class CurlCaBundle < Formula
   homepage "http://curl.haxx.se/docs/caextract.html"
-  url "https://curl.se/ca/cacert-2024-12-31.pem",
+  url "https://curl.se/ca/cacert-2025-02-25.pem",
     :using => :nounzip
-  sha256 "a3f328c21e39ddd1f2be1cea43ac0dec819eaa20a90425d7da901a11531b3aa5"
-  version "2024-12-31"
+  sha256 "50a6277ec69113f00c5fd45f09e8b97a4b3e32daa35d3a95ab30137a55386cef"
+  version "2025-02-25"
 
   bottle do
     cellar :any
-    sha256 "0bd81857043bcd62c6ba1697e3e112f40c3e9b1031ab059a27f39995f419c16e" => :tiger_g3
-    sha256 "0bd81857043bcd62c6ba1697e3e112f40c3e9b1031ab059a27f39995f419c16e" => :tiger_altivec
   end
 
   def install
