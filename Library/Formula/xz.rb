@@ -3,16 +3,15 @@
 class Xz < Formula
   desc "General-purpose data compression with high compression ratio"
   homepage "http://tukaani.org/xz/"
-  url "https://downloads.sourceforge.net/project/lzmautils/xz-5.6.4.tar.gz"
-  mirror "https://github.com/tukaani-project/xz/releases/download/v5.6.4/xz-5.6.4.tar.gz"
-  sha256 "269e3f2e512cbd3314849982014dc199a7b2148cf5c91cedc6db629acdf5e09b"
+  url "https://downloads.sourceforge.net/project/lzmautils/xz-5.8.1.tar.gz"
+  mirror "https://github.com/tukaani-project/xz/releases/download/v5.8.1/xz-5.8.1.tar.gz"
+  sha256 "507825b599356c10dca1cd720c9d0d0c9d5400b9de300af00e4d1ea150795543"
   license all_of: [
     "0BSD",
     "GPL-2.0-or-later",
   ]
 
   bottle do
-    sha256 "760804cf395a40ecba005e5dafb3861824490b1be57248d44f14cc66f5cd57ee" => :tiger_altivec
   end
 
   option :universal
