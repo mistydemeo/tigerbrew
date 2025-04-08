@@ -1,18 +1,13 @@
 class Openssl3 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-3.4.0.tar.gz"
-  mirror "https://github.com/openssl/openssl/releases/download/openssl-3.4.0/openssl-3.4.0.tar.gz"
-  sha256 "e15dda82fe2fe8139dc2ac21a36d4ca01d5313c75f99f46c4e8a27709b7294bf"
+  url "https://www.openssl.org/source/openssl-3.5.0.tar.gz"
+  mirror "https://github.com/openssl/openssl/releases/download/openssl-3.5.0/openssl-3.5.0.tar.gz"
+  sha256 "344d0a79f1a9b08029b0744e2cc401a43f9c90acd1044d09a530b4885a8e9fc0"
   license "Apache-2.0"
 
   bottle do
-    sha256 "a3b738e4b3c6af98b0eaea8121c0c15a5dd8230ed481824a713e5a02abfea94b" => :tiger_altivec
   end
-
-  # 10.6 - 10.8: build with asm broken, due to unsupported directive (.previous)
-  # https://github.com/openssl/openssl/issues/26447
-  patch :DATA
 
   keg_only :provided_by_osx
 
@@ -119,17 +114,3 @@ class Openssl3 < Formula
     end
   end
 end
-__END__
---- a/crypto/perlasm/x86_64-xlate.pl
-+++ b/crypto/perlasm/x86_64-xlate.pl
-@@ -957,7 +957,9 @@
-                         $current_segment = ".text";
-                         push(@segment_stack, $current_segment);
-                     }
--		    $self->{value} = $current_segment if ($flavour eq "mingw64");
-+                    if ($flavour eq "mingw64" || $flavour eq "macosx") {
-+		        $self->{value} = $current_segment;
-+                    }
- 		}
- 		$$line = "";
- 		return $self;
