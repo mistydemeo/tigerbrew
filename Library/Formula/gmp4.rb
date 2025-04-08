@@ -16,14 +16,8 @@ class Gmp4 < Formula
   keg_only "Conflicts with gmp in main repository."
 
   option "with-32-bit"
-  option "without-check", "Do not run `make check` to verify libraries"
 
   deprecated_option "32-bit" => "with-32-bit"
-  deprecated_option "skip-check" => "without-check"
-
-  fails_with :gcc_4_0 do
-    cause "Reports of problems using gcc 4.0 on Leopard: https://github.com/mxcl/homebrew/issues/issue/2302"
-  end
 
   # Patches gmp.h to remove the __need_size_t define, which
   # was preventing libc++ builds from getting the ptrdiff_t type
@@ -44,12 +38,9 @@ class Gmp4 < Formula
 
     system "./configure", *args
     system "make"
+    system "make", "check"
     ENV.deparallelize # Doesn't install in parallel on 8-core Mac Pro
     system "make", "install"
-
-    # Different compilers and options can cause tests to fail even
-    # if everything compiles, so yes, we want to do this step.
-    system "make", "check" if build.with? "check"
   end
 
   test do
