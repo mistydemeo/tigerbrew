@@ -41,6 +41,13 @@ class Openssh < Formula
     bin.install_symlink bin/"ssh" => "slogin"
   end
 
+  def caveats; <<-EOS.undent
+    In order to be able to use sshd, you need to enable PAM support by stating
+    UsePAM yes
+    in your #{etc}/ssh/sshd_config
+    EOS
+  end
+
   test do
     require "socket"
     def free_port
