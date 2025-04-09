@@ -1,10 +1,10 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "https://www.openssh.com/"
-  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.9p2.tar.gz"
-  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.9p2.tar.gz"
-  version "9.9p2"
-  sha256 "91aadb603e08cc285eddf965e1199d02585fa94d994d6cae5b41e1721e215673"
+  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.0p1.tar.gz"
+  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.0p1.tar.gz"
+  version "10.0p1"
+  sha256 "021a2e709a0edf4250b1256bd5a9e500411a90dddabea830ed59cef90eb9d85c"
   license "SSH-OpenSSH"
 
   bottle do
@@ -39,6 +39,13 @@ class Openssh < Formula
     # potential to break scripts, so recreate it for now.
     # Debian have done the same thing.
     bin.install_symlink bin/"ssh" => "slogin"
+  end
+
+  def caveats; <<-EOS.undent
+    In order to be able to use sshd, you need to enable PAM support by stating
+    UsePAM yes
+    in your #{etc}/ssh/sshd_config
+    EOS
   end
 
   test do
