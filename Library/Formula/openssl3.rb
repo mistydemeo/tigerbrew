@@ -42,6 +42,10 @@ class Openssl3 < Formula
     elsif Hardware::CPU.intel?
       args << (Hardware::CPU.is_64_bit? && MacOS.version > :leopard ? "darwin64-x86_64-cc" : "darwin-i386-cc")
     end
+    # 01-test_sanity.t fails test_sanity_sleep when on a G5, nanosleep(2) is the suspect.
+    # Switch to using usleep(3) as a workaround.
+    # https://github.com/openssl/openssl/issues/27317
+    args << "-DOPENSSL_USE_USLEEP" if MacOS.version == :leopard && Hardware::CPU.family == :g5
     args
   end
 
