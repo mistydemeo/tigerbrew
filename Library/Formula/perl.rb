@@ -1,8 +1,8 @@
 class Perl < Formula
   desc "Highly capable, feature-rich programming language"
   homepage "https://www.perl.org/"
-  url "https://www.cpan.org/src/5.0/perl-5.40.1.tar.gz"
-  sha256 "02f8c45bb379ed0c3de7514fad48c714fd46be8f0b536bfd5320050165a1ee26"
+  url "https://www.cpan.org/src/5.0/perl-5.40.2.tar.gz"
+  sha256 "10d4647cfbb543a7f9ae3e5f6851ec49305232ea7621aed24c7cfbb0bef4b70d"
   license any_of: ["Artistic-1.0-Perl", "GPL-1.0-or-later"]
 
   head "https://perl5.git.perl.org/perl.git", :branch => "blead"
@@ -14,7 +14,6 @@ class Perl < Formula
   option "with-tests", "Build and run the test suite"
 
   bottle do
-    sha256 "e1662de385c5aaa5c2c037015016c1d6178f458d9f4e2aa9d28d7dd26c6d8b3d" => :tiger_altivec
   end
 
   def install
