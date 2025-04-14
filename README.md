@@ -50,7 +50,7 @@ git reset --hard origin/master
 
 ### How do I run `brew update`?
 
-To be able to clone the repository into `/usr/local`, run `git config --global --add safe.directory /usr/local`.
+If you have trouble running `brew update` when your installation is located in `/usr/local`, run `git config --global --add safe.directory /usr/local`.
 
 ### Something broke!
 
