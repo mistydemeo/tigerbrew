@@ -48,6 +48,10 @@ git fetch origin
 git reset --hard origin/master
 ```
 
+### How do I run `brew update`?
+
+To be able to clone the repository into `/usr/local`, run `git config --global --add safe.directory /usr/local`.
+
 ### Something broke!
 
 Many of the formulae in the repository have been tested, but there are still many that haven't been tested on Tiger and/or PowerPC yet. If something doesn't work, [report a bug][issues] (or submit a [pull request][prs]!) and we'll get it working.
