@@ -10,6 +10,14 @@ class Perl < Formula
   keg_only :provided_by_osx,
     "OS X ships Perl and overriding that can cause unintended issues"
 
+  # Unbreak Perl build on legacy Darwin systems
+  # https://github.com/Perl/perl5/pull/21023
+  # lib/ExtUtils/MM_Darwin.pm: Unbreak Perl build
+  # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/444/files
+  # t/04-xs-rpath-darwin.t: Need Darwin 9 minimum
+  # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/446
+  patch :p0, :DATA
+
   option "with-dtrace", "Build with DTrace probes" if MacOS.version >= :leopard
   option "with-tests", "Build and run the test suite"
 
@@ -51,15 +59,6 @@ class Perl < Formula
     system "#{bin}/perl", "test.pl"
   end
 
-  # Unbreak Perl build on legacy Darwin systems
-  # https://github.com/Perl/perl5/pull/21023
-  # lib/ExtUtils/MM_Darwin.pm: Unbreak Perl build
-  # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/444/files
-  # t/04-xs-rpath-darwin.t: Need Darwin 9 minimum
-  # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/446
-  # -rpath wont work when targeting 10.3 on 10.5
-  # https://github.com/Perl/perl5/pull/21367
-  patch :p0, :DATA
 end
 __END__
 --- cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Darwin.pm.orig	2023-03-02 11:53:45.000000000 +0000
