@@ -67,10 +67,6 @@ class Curl < Formula
       args << "--disable-ares"
     end
 
-    # Tiger/Leopard ship with a horrendously outdated set of certs,
-    # breaking any software that relies on curl, e.g. git
-    args << "--with-ca-bundle=#{HOMEBREW_PREFIX}/share/ca-bundle.crt"
-
     system "./configure", *args
     system "make", "install"
     system "make", "install", "-C", "scripts"
