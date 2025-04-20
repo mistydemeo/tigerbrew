@@ -7,8 +7,8 @@ class Erlang < Formula
 
   stable do
     # Download tarball from GitHub; it is served faster than the official tarball.
-    url "https://github.com/erlang/otp/archive/OTP-18.1.tar.gz"
-    sha256 "1bb9afabbaf11d929f1ca9593db8b443e51388cdc78bd01267217438de7aed20"
+    url "https://github.com/erlang/otp/archive/OTP-18.1.5.tar.gz"
+    sha256 "04824397e6abc91b46b0be26c0a452dc4bc5382f1cbd4fb7b43dd48e7b02bc3a"
   end
 
   head "https://github.com/erlang/otp.git"
@@ -38,10 +38,8 @@ class Erlang < Formula
   deprecated_option "disable-hipe" => "without-hipe"
   deprecated_option "no-docs" => "without-docs"
 
-  depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "openssl"
   depends_on "unixodbc" if MacOS.version >= :mavericks
   depends_on "fop" => :optional # enables building PDF docs
   depends_on "wxmac" => :recommended # for GUI apps like observer
@@ -66,7 +64,7 @@ class Erlang < Formula
       --enable-threads
       --enable-sctp
       --enable-dynamic-ssl-lib
-      --with-ssl=#{Formula["openssl"].opt_prefix}
+      --with-ssl=/usr/include/openssl
       --enable-shared-zlib
       --enable-smp-support
     ]
