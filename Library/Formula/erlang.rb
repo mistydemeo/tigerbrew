@@ -13,13 +13,6 @@ class Erlang < Formula
 
   head "https://github.com/erlang/otp.git"
 
-  bottle do
-    cellar :any
-    sha256 "bf18573b48e421395e4df1b25b6b211b21f3b90319b7098d527884d7292d6cb9" => :el_capitan
-    sha256 "6da625cb19236ae2c0627ae8e1b295e923ada1d54e4ba258c4754680a813a04a" => :yosemite
-    sha256 "79eca633a2d6694827f59360fed2079cec900ed70ba03843288ea734a4e138fb" => :mavericks
-  end
-
   resource "man" do
     url "http://www.erlang.org/download/otp_doc_man_18.1.tar.gz"
     sha256 "e080e656820b26dd45d806b632e12eec7d1de34f38e5de19a7aebc9fd6e5c9b6"
@@ -38,12 +31,11 @@ class Erlang < Formula
   deprecated_option "disable-hipe" => "without-hipe"
   deprecated_option "no-docs" => "without-docs"
 
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
   depends_on "unixodbc" if MacOS.version >= :mavericks
   depends_on "fop" => :optional # enables building PDF docs
   depends_on "wxmac" => :recommended # for GUI apps like observer
-
+  depends_on "zlib"
+  
   fails_with :llvm
 
   def install
