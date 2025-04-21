@@ -3,6 +3,7 @@ class Cowsay < Formula
   homepage "https://web.archive.org/web/20120225123719/http://www.nog.net/~tony/warez/cowsay.shtml"
   url "https://ftp.acc.umu.se/mirror/cdimage/snapshot/Debian/pool/main/c/cowsay/cowsay_3.03+dfsg2.orig.tar.gz"
   sha256 "3b89965c7d6b19f321867e59d14d4aec820d36068f56d2b1e783498beeb4183e"
+  version "3.0.3+dfsg2"
 
   bottle do
     cellar :any_skip_relocation
