@@ -2,7 +2,7 @@ class Geocouch < Formula
   desc "Spatial index for CouchDB"
   homepage "https://github.com/couchbase/geocouch"
   url "https://github.com/couchbase/geocouch/archive/couchdb1.3.x.tar.gz"
-  sha256 "0f678b5b79f5385c5c11349b662bb897047c72e8056dfb19f0f1e484d9348953"
+  sha256 "1bad2275756e2f03151d7b2706c089b3059736130612de279d879db91d4b21e7"
   version "1.3.0"
 
   head "https://github.com/couchbase/geocouch.git"
