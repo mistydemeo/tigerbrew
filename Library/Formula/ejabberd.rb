@@ -1,8 +1,8 @@
 class Ejabberd < Formula
   desc "XMPP application server"
   homepage "https://www.ejabberd.im"
-  url "https://www.process-one.net/downloads/ejabberd/15.07/ejabberd-15.07.tgz"
-  sha256 "87d5001521cbb779b84bc74879e032e2514d9a651e24c4e40cce0907ab405bd1"
+  url "https://github.com/processone/ejabberd/archive/refs/tags/15.11.tar.gz"
+  sha256 "75dcb533c04df5926cc118ca997c843ff5a8a80ef0b49782d860e9d7cbe76ca0"
 
   head "https://github.com/processone/ejabberd.git"
 
@@ -38,6 +38,7 @@ class Ejabberd < Formula
             "--enable-odbc",
             "--enable-pam"]
 
+    system "./autogen.sh"
     system "./configure", *args
     system "make"
     system "make", "install"
