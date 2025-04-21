@@ -33,9 +33,11 @@ class Erlang < Formula
 
   depends_on "unixodbc" if MacOS.version >= :mavericks
   depends_on "fop" => :optional # enables building PDF docs
-  depends_on "wxmac" => :recommended # for GUI apps like observer
+  # Need wxWidgets 2.8.4 or above. Tiger include 2.5.3, 3.x needs Leopard minimum.
+  depends_on "wxmac" => :recommended if MacOS.version > :tiger # for GUI apps like observer
+  depends_on "libutil" if MacOS.version < :leopard
   depends_on "zlib"
-  
+
   fails_with :llvm
 
   def install
@@ -54,9 +56,6 @@ class Erlang < Formula
       --prefix=#{prefix}
       --enable-kernel-poll
       --enable-threads
-      --enable-sctp
-      --enable-dynamic-ssl-lib
-      --with-ssl=/usr/include/openssl
       --enable-shared-zlib
       --enable-smp-support
     ]
@@ -68,6 +67,10 @@ class Erlang < Formula
     # Older Javas not supported by jinterface
     # https://github.com/mistydemeo/tigerbrew/issues/372
     args << "--without-javac" if MacOS.version < :snow_leopard
+    # error: cannot compute sizeof (__int128_t, 77)
+    # In /usr/include/c++/4.0.0/powerpc64-apple-darwin8/bits/stdc++.h.gch/O0g.gch & O2g.gch
+    # symbol is found but configure's test for it fails, breaking the build
+    args << "ac_cv_type___int128_t=no" if MacOS.version == :tiger && Hardware::CPU.family == :g5
 
     if MacOS.version >= :snow_leopard && MacOS::CLT.installed?
       args << "--with-dynamic-trace=dtrace"
