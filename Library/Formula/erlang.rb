@@ -7,18 +7,11 @@ class Erlang < Formula
 
   stable do
     # Download tarball from GitHub; it is served faster than the official tarball.
-    url "https://github.com/erlang/otp/archive/OTP-18.1.tar.gz"
-    sha256 "1bb9afabbaf11d929f1ca9593db8b443e51388cdc78bd01267217438de7aed20"
+    url "https://github.com/erlang/otp/archive/OTP-18.1.5.tar.gz"
+    sha256 "04824397e6abc91b46b0be26c0a452dc4bc5382f1cbd4fb7b43dd48e7b02bc3a"
   end
 
   head "https://github.com/erlang/otp.git"
-
-  bottle do
-    cellar :any
-    sha256 "bf18573b48e421395e4df1b25b6b211b21f3b90319b7098d527884d7292d6cb9" => :el_capitan
-    sha256 "6da625cb19236ae2c0627ae8e1b295e923ada1d54e4ba258c4754680a813a04a" => :yosemite
-    sha256 "79eca633a2d6694827f59360fed2079cec900ed70ba03843288ea734a4e138fb" => :mavericks
-  end
 
   resource "man" do
     url "http://www.erlang.org/download/otp_doc_man_18.1.tar.gz"
@@ -38,13 +31,12 @@ class Erlang < Formula
   deprecated_option "disable-hipe" => "without-hipe"
   deprecated_option "no-docs" => "without-docs"
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
-  depends_on "openssl"
   depends_on "unixodbc" if MacOS.version >= :mavericks
   depends_on "fop" => :optional # enables building PDF docs
-  depends_on "wxmac" => :recommended # for GUI apps like observer
+  # Need wxWidgets 2.8.4 or above. Tiger include 2.5.3, 3.x needs Leopard minimum.
+  depends_on "wxmac" => :recommended if MacOS.version > :tiger # for GUI apps like observer
+  depends_on "libutil" if MacOS.version < :leopard
+  depends_on "zlib"
 
   fails_with :llvm
 
@@ -64,9 +56,6 @@ class Erlang < Formula
       --prefix=#{prefix}
       --enable-kernel-poll
       --enable-threads
-      --enable-sctp
-      --enable-dynamic-ssl-lib
-      --with-ssl=#{Formula["openssl"].opt_prefix}
       --enable-shared-zlib
       --enable-smp-support
     ]
@@ -78,6 +67,10 @@ class Erlang < Formula
     # Older Javas not supported by jinterface
     # https://github.com/mistydemeo/tigerbrew/issues/372
     args << "--without-javac" if MacOS.version < :snow_leopard
+    # error: cannot compute sizeof (__int128_t, 77)
+    # In /usr/include/c++/4.0.0/powerpc64-apple-darwin8/bits/stdc++.h.gch/O0g.gch & O2g.gch
+    # symbol is found but configure's test for it fails, breaking the build
+    args << "ac_cv_type___int128_t=no" if MacOS.version == :tiger && Hardware::CPU.family == :g5
 
     if MacOS.version >= :snow_leopard && MacOS::CLT.installed?
       args << "--with-dynamic-trace=dtrace"

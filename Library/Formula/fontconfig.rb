@@ -14,6 +14,7 @@ class Fontconfig < Formula
 
   depends_on "pkg-config" => :build
   depends_on "freetype"
+  depends_on "python3"
 
   def install
     ENV.universal_binary if build.universal?
