@@ -1,6 +1,6 @@
 class Yaws < Formula
   desc "Webserver for dynamic content (written in Erlang)"
-  homepage "http://yaws.hyber.org"
+  homepage "https://erlyaws.github.io/"
   url "https://github.com/klacke/yaws/archive/yaws-2.0.tar.gz"
   sha256 "1b51a5c442ca70e9de562efd2e1d36a7a4ccde05fbeb961a4b538641b7c8173c"
   head "https://github.com/klacke/yaws.git"
