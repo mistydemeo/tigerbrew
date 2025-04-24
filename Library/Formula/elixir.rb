@@ -31,9 +31,13 @@ class Elixir < Formula
   head "https://github.com/elixir-lang/elixir.git"
 
   depends_on Erlang17Requirement
+  # make: *** virtual memory exhausted.  Stop.
+  depends_on "make" => :build
 
   def install
-    system "make"
+    # The module Mix.State was given as a child to a supervisor but it does not exist.
+    ENV.deparallelize
+    system "gmake"
     bin.install Dir["bin/*"] - Dir["bin/*.{bat,ps1}"]
 
     Dir.glob("lib/*/ebin") do |path|
