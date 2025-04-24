@@ -28,9 +28,24 @@ class Disco < Formula
       s.change_make_var! "localstatedir", var
     end
 
+    # Ignore warnings about erlang:now() deprecation in OTP 18
+    inreplace "master/rebar.config", "warnings_as_errors,", ""
+
     # Disco's "rebar" build tool refuses to build unless it's in a git repo, so
     # make a dummy one
     system "git init && git add master/rebar && git commit -a -m 'dummy commit'"
+
+    # rebar tries to clone goldrush, bear, and meck using git://github.com/ urls
+    # which are no longer offered by github. Clone these dependencies to the expected
+    # place using https.
+    mkdir_p "master/deps"
+    system "git", "clone", "--branch", "0.1.6", "https://github.com/DeadZen/goldrush.git", "master/deps/goldrush"
+    system "git", "clone", "--branch", "0.8.1", "https://github.com/boundary/bear.git", "master/deps/bear"
+    system "git", "clone", "--branch", "0.8.2", "https://github.com/eproxus/meck", "master/deps/meck"
+
+    # fix erlang 18 incompatibility in type name
+    inreplace "master/src/worker_throttle.erl", "-opaque state() :: queue().", "-opaque state() :: queue:queue()."
+    inreplace "master/src/worker_throttle.erl", "-spec throttle(queue()", "-spec throttle(queue:queue()"
 
     system "make"
     system "make", "install"
@@ -46,16 +61,16 @@ class Disco < Formula
     bin.env_script_all_files(libexec+"bin", :PYTHONPATH => ENV["PYTHONPATH"])
   end
 
-  test do
-    system "#{bin}/disco"
-  end
-
   def caveats
     <<-EOS.undent
       Please copy #{etc}/disco/settings.py to ~/.disco and edit it if necessary.
       The DDFS_*_REPLICA settings have been set to 1 assuming a single-machine install.
       Please see http://discoproject.org/doc/disco/start/install.html for further instructions.
     EOS
+  end
+
+  test do
+    system "#{bin}/disco"
   end
 end
 
