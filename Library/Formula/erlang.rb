@@ -5,22 +5,22 @@ class Erlang < Formula
   desc "Erlang Programming Language"
   homepage "http://www.erlang.org"
 
-  stable do
-    # Download tarball from GitHub; it is served faster than the official tarball.
-    url "https://github.com/erlang/otp/archive/OTP-18.1.5.tar.gz"
-    sha256 "04824397e6abc91b46b0be26c0a452dc4bc5382f1cbd4fb7b43dd48e7b02bc3a"
-  end
-
   head "https://github.com/erlang/otp.git"
 
+  stable do
+    # Download tarball from GitHub; it is served faster than the official tarball.
+    url "https://github.com/erlang/otp/archive/OTP-18.3.4.11.tar.gz"
+    sha256 "94f84e8ca0db0dcadd3411fa7a05dd937142b6ae830255dc341c30b45261b01a"
+  end
+
   resource "man" do
-    url "http://www.erlang.org/download/otp_doc_man_18.1.tar.gz"
-    sha256 "e080e656820b26dd45d806b632e12eec7d1de34f38e5de19a7aebc9fd6e5c9b6"
+    url "http://www.erlang.org/download/otp_doc_man_18.3.tar.gz"
+    sha256 "978be100e9016874921b3ad1a65ee46b7b6a1e597b8db2ec4b5ef436d4c9ecc2"
   end
 
   resource "html" do
-    url "http://www.erlang.org/download/otp_doc_html_18.1.tar.gz"
-    sha256 "fe7d035f84492bbf86f8d53891bf31fa327a81ed7dde15c050e9c32615dceb3c"
+    url "http://www.erlang.org/download/otp_doc_html_18.3.tar.gz"
+    sha256 "8fd6980fd05367735779a487df107ace7c53733f52fbe56de7ca7844a355676f"
   end
 
   option "without-hipe", "Disable building hipe; fails on various OS X systems"
@@ -48,7 +48,7 @@ class Erlang < Formula
     ENV["FOP"] = "#{HOMEBREW_PREFIX}/bin/fop" if build.with? "fop"
 
     # Do this if building from a checkout to generate configure
-    system "./otp_build autoconf" if File.exist? "otp_build"
+    system "./otp_build", "autoconf" if File.exist? "otp_build"
 
     args = %W[
       --disable-debug
