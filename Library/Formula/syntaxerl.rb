@@ -13,9 +13,9 @@ class Syntaxerl < Formula
 
   test do
     (testpath/"app.config").write "[{app,[{arg1,1},{arg2,2}]}]."
-    assert_equal "", shell_output("#{bin}/syntaxerl #{testpath}/app.config")
+    assert_equal "", pipe_output("#{bin}/syntaxerl #{testpath}/app.config")
 
     (testpath/"invalid.config").write "]["
-    assert_match /invalid.config:1: syntax error before: '\]'/, shell_output("#{bin}/syntaxerl #{testpath}/invalid.config")
+    assert_match "/invalid.config:1: syntax error before: ']'", pipe_output("#{bin}/syntaxerl #{testpath}/invalid.config")
   end
 end
