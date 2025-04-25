@@ -6,9 +6,14 @@ class Ejabberd < Formula
 
   option "32-bit"
 
-  depends_on "openssl3"
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "rebar" => :build
+
   depends_on "erlang"
   depends_on "libyaml"
+  depends_on "openssl3"
+
   # for CAPTCHA challenges
   depends_on "imagemagick" => :optional
 
@@ -27,16 +32,13 @@ class Ejabberd < Formula
             "--enable-pgsql",
             "--enable-mysql",
             "--enable-odbc",
-            "--enable-pam"
-          ]
+            "--enable-pam"]
+
+    inreplace "rebar.config", 'lager", {tag, "3.2.1', 'lager", {tag, "3.2.4'
 
     system "autoupdate"
     system "./autogen.sh"
     system "./configure", *args
-
-    # rebar tries to clone goldrush using a git://github.com/ url which is no longer offered by github.
-    # Work around by cloning it into the expected place using https.
-    system "git", "clone", "--branch", "0.1.8", "https://github.com/DeadZen/goldrush.git", "deps/goldrush"
 
     # Before Snow Leopard, the pam header files were in /usr/include/pam instead of /usr/include/security.
     # https://trac.macports.org/ticket/26127
