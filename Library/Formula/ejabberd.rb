@@ -1,14 +1,12 @@
 class Ejabberd < Formula
   desc "XMPP application server"
   homepage "https://www.ejabberd.im"
-  url "https://github.com/processone/ejabberd/archive/refs/tags/15.11.tar.gz"
-  sha256 "75dcb533c04df5926cc118ca997c843ff5a8a80ef0b49782d860e9d7cbe76ca0"
-
-  head "https://github.com/processone/ejabberd.git"
+  url "https://github.com/processone/ejabberd/archive/refs/tags/16.12.tar.gz"
+  sha256 "a7eeb9fe49ef141daab1be01838a7612dff9194a28c3dfc922cc691bb8c9b532"
 
   option "32-bit"
 
-  depends_on "openssl"
+  depends_on "openssl3"
   depends_on "erlang"
   depends_on "libyaml"
   # for CAPTCHA challenges
@@ -29,12 +27,26 @@ class Ejabberd < Formula
             "--enable-pgsql",
             "--enable-mysql",
             "--enable-odbc",
-#            "--enable-pam"
+            "--enable-pam"
           ]
 
+    system "autoupdate"
     system "./autogen.sh"
     system "./configure", *args
-    system "git", "clone", "--branch", "0.1.7", "https://github.com/DeadZen/goldrush.git", "deps/goldrush"
+
+    # rebar tries to clone goldrush using a git://github.com/ url which is no longer offered by github.
+    # Work around by cloning it into the expected place using https.
+    system "git", "clone", "--branch", "0.1.8", "https://github.com/DeadZen/goldrush.git", "deps/goldrush"
+
+    # Before Snow Leopard, the pam header files were in /usr/include/pam instead of /usr/include/security.
+    # https://trac.macports.org/ticket/26127
+    if MacOS.version <= :leopard
+      system "git", "clone", "--branch", "1.0.0", "https://github.com/processone/epam", "deps/p1_pam"
+      inreplace "deps/p1_pam/configure", "security/pam_appl.h", "pam/pam_appl.h"
+      inreplace "deps/p1_pam/configure.ac", "security/pam_appl.h", "pam/pam_appl.h"
+      inreplace "deps/p1_pam/c_src/epam.c", "security/pam_appl.h", "pam/pam_appl.h"
+    end
+
     system "make"
     system "make", "install"
 
