@@ -13,14 +13,36 @@ class Disco < Formula
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "erlang"
-  depends_on "simplejson" => :python if MacOS.version <= :leopard
   depends_on "libcmph"
+
+  resource "simplejson" do
+    url "https://files.pythonhosted.org/packages/af/92/51b417685abd96b31308b61b9acce7ec50d8e1de8fbc39a7fd4962c60689/simplejson-3.20.1.tar.gz"
+    sha256 "e64139b4ec4f1f24c142ff7dcafe55a22b811a74d86d66560c8815687143037d"
+  end
+
+  resource "goldrush" do
+    url "https://github.com/DeadZen/goldrush/archive/refs/tags/0.1.6.zip"
+    sha256 "d10a4f593fb879275200693df29a8f08018c1e70d2b4f5258e1a35756dfc1313"
+  end
+
+  resource "bear" do
+    url "https://github.com/boundary/bear/archive/refs/tags/0.8.1.zip"
+    sha256 "cb2c6aabac2942e3d14fd900f820312b0e4a74252d61b9298e76c4443bf05e4d"
+  end
+
+  resource "meck" do
+    url "https://github.com/eproxus/meck/archive/refs/tags/0.8.2.zip"
+    sha256 "c6ba50da30d30e904067f9ea661028dbea3b33c4c5f7631c1fb893ac264f91ec"
+  end
 
   # Modifies config for single-node operation
   patch :DATA
 
   def install
     ENV["PYTHONPATH"] = lib+"python2.7/site-packages"
+    if MacOS.version <= :leopard
+      resource("simplejson").stage { system "python", *Language::Python.setup_install_args(libexec/"vendor") }
+    end
 
     inreplace "Makefile" do |s|
       s.change_make_var! "prefix", prefix
@@ -36,12 +58,12 @@ class Disco < Formula
     system "git init && git add master/rebar && git commit -a -m 'dummy commit'"
 
     # rebar tries to clone goldrush, bear, and meck using git://github.com/ urls
-    # which are no longer offered by github. Clone these dependencies to the expected
-    # place using https.
+    # which are no longer offered by github. Add these dependencies to the expected places.
     mkdir_p "master/deps"
-    system "git", "clone", "--branch", "0.1.6", "https://github.com/DeadZen/goldrush.git", "master/deps/goldrush"
-    system "git", "clone", "--branch", "0.8.1", "https://github.com/boundary/bear.git", "master/deps/bear"
-    system "git", "clone", "--branch", "0.8.2", "https://github.com/eproxus/meck", "master/deps/meck"
+    for dependency in ["goldrush", "bear", "meck"] do
+      resource(dependency).verify_download_integrity(resource(dependency).fetch)
+      resource(dependency).unpack("#{buildpath}/master/deps/#{dependency}")
+    end
 
     # fix erlang 18 incompatibility in type name
     inreplace "master/src/worker_throttle.erl", "-opaque state() :: queue().", "-opaque state() :: queue:queue()."
