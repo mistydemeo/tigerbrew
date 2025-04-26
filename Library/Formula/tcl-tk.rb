@@ -1,12 +1,11 @@
 class TclTk < Formula
   desc "Tool Command Language"
   homepage "https://www.tcl.tk/"
-  url "http://prdownloads.sourceforge.net/tcl/tcl8.6.13-src.tar.gz"
-  version "8.6.13"
-  sha256 "43a1fae7412f61ff11de2cfd05d28cfc3a73762f354a417c62370a54e2caf066"
+  url "http://prdownloads.sourceforge.net/tcl/tcl8.6.16-src.tar.gz"
+  version "8.6.16"
+  sha256 "91cb8fa61771c63c262efb553059b7c7ad6757afa5857af6265e4b0bdc2a14a5"
 
   bottle do
-    sha256 "6c1a82cf1a22895eaccac3cd42dd7efcf5b6eb9d79e10826ea656bf063db4629" => :tiger_altivec
   end
 
   keg_only :provided_by_osx,
@@ -24,14 +23,14 @@ class TclTk < Formula
   depends_on "zlib"
 
   resource "tk" do
-    url "http://prdownloads.sourceforge.net/tcl/tk8.6.13-src.tar.gz"
-    version "8.6.13"
-    sha256 "2e65fa069a23365440a3c56c556b8673b5e32a283800d8d9b257e3f584ce0675"
+    url "http://prdownloads.sourceforge.net/tcl/tk8.6.16-src.tar.gz"
+    version "8.6.16"
+    sha256 "be9f94d3575d4b3099d84bc3c10de8994df2d7aa405208173c709cc404a7e5fe"
   end
 
   resource "tcllib" do
-    url "https://downloads.sourceforge.net/project/tcllib/tcllib/1.21/tcllib-1.21.tar.xz"
-    sha256 "10c7749e30fdd6092251930e8a1aa289b193a3b7f1abf17fee1d4fa89814762f"
+    url "https://downloads.sourceforge.net/project/tcllib/tcllib/2.0/tcllib-2.0.tar.xz"
+    sha256 "642c2c679c9017ab6fded03324e4ce9b5f4292473b62520e82aacebb63c0ce20"
   end
 
   def install
