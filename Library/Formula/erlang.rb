@@ -23,7 +23,7 @@ class Erlang < Formula
     sha256 "8fd6980fd05367735779a487df107ace7c53733f52fbe56de7ca7844a355676f"
   end
 
-  option "without-hipe", "Disable building hipe; fails on various OS X systems"
+  option "without-hipe", "Disable building HiPE (High-Performance Erlang); fails on various OS X systems"
   option "with-native-libs", "Enable native library compilation"
   option "with-dirty-schedulers", "Enable experimental dirty schedulers"
   option "without-docs", "Do not install documentation"
@@ -33,12 +33,15 @@ class Erlang < Formula
 
   depends_on "unixodbc" if MacOS.version >= :mavericks
   depends_on "fop" => :optional # enables building PDF docs
-  # Need wxWidgets 2.8.4 or above. Tiger include 2.5.3, 3.x needs Leopard minimum.
+  # Need wxWidgets 2.8.4 or above. Tiger includes 2.5.3, 3.x needs Leopard minimum.
   depends_on "wxmac" => :recommended if MacOS.version > :tiger # for GUI apps like observer
   depends_on "libutil" if MacOS.version < :leopard
   depends_on "zlib"
 
-  fails_with :llvm
+  fails_with :gcc do
+    build 5666
+    cause "Bus error when attempting to build HiPE"
+  end
 
   def install
     # Unset these so that building wx, kernel, compiler and
@@ -77,7 +80,7 @@ class Erlang < Formula
     end
 
     if build.without? "hipe"
-      # HIPE doesn't strike me as that reliable on OS X
+      # HiPE doesn't strike me as that reliable on OS X
       # http://syntatic.wordpress.com/2008/06/12/macports-erlang-bus-error-due-to-mac-os-x-1053-update/
       # http://www.erlang.org/pipermail/erlang-patches/2008-September/000293.html
       args << "--disable-hipe"
