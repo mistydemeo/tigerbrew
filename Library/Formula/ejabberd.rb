@@ -26,6 +26,9 @@ class Ejabberd < Formula
     ENV["TARGET_DIR"] = ENV["DESTDIR"] = "#{lib}/ejabberd/erlang/lib/ejabberd-#{version}"
     ENV["MAN_DIR"] = man
     ENV["SBIN_DIR"] = sbin
+    mkdir_p("deps/p1_pam")
+    resource("p1_pam").verify_download_integrity(resource("p1_pam").fetch)
+    resource("p1_pam").unpack("#{buildpath}/deps/p1_pam")
 
     if build.build_32_bit?
       ENV.append %w[CFLAGS LDFLAGS], "-arch #{Hardware::CPU.arch_32_bit}"
@@ -39,6 +42,8 @@ class Ejabberd < Formula
             "--enable-odbc",
             "--enable-pam"]
 
+    # lager 3.2.1 uses the git protocol to try and clone its dependency
+    # By 3.2.3 they switched to HTTPS, switch to the most recent minor release.
     inreplace "rebar.config", 'lager", {tag, "3.2.1', 'lager", {tag, "3.2.4'
 
     system "autoupdate"
@@ -48,9 +53,6 @@ class Ejabberd < Formula
     # Before Snow Leopard, the pam header files were in /usr/include/pam instead of /usr/include/security.
     # https://trac.macports.org/ticket/26127
     if MacOS.version <= :leopard
-      mkdir_p("deps/p1_pam")
-      resource("p1_pam").verify_download_integrity(resource("p1_pam").fetch)
-      resource("p1_pam").unpack("#{buildpath}/deps/p1_pam")
       inreplace "deps/p1_pam/configure", "security/pam_appl.h", "pam/pam_appl.h"
       inreplace "deps/p1_pam/configure.ac", "security/pam_appl.h", "pam/pam_appl.h"
       inreplace "deps/p1_pam/c_src/epam.c", "security/pam_appl.h", "pam/pam_appl.h"
