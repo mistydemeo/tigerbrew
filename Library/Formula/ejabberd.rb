@@ -52,7 +52,7 @@ class Ejabberd < Formula
 
     # Before Snow Leopard, the pam header files were in /usr/include/pam instead of /usr/include/security.
     # https://trac.macports.org/ticket/26127
-    if MacOS.version <= :leopard
+    if MacOS.version < :snow_leopard
       inreplace "deps/p1_pam/configure", "security/pam_appl.h", "pam/pam_appl.h"
       inreplace "deps/p1_pam/configure.ac", "security/pam_appl.h", "pam/pam_appl.h"
       inreplace "deps/p1_pam/c_src/epam.c", "security/pam_appl.h", "pam/pam_appl.h"
