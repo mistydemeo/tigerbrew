@@ -1,8 +1,8 @@
 class Wrangler < Formula
   desc "Refactoring tool for Erlang with emacs and Eclipse integration"
-  homepage "http://www.cs.kent.ac.uk/projects/forse/"
-  url "https://github.com/RefactoringTools/wrangler/archive/wrangler1.1.01.tar.gz"
-  sha256 "e61c13ec772e137efdcf5aa8f21210ef424eac3ee2b918efe5e456985bb19626"
+  homepage "https://refactoringtools.github.io/wrangler/"
+  url "https://github.com/RefactoringTools/wrangler/archive/wrangler1.2.tar.gz"
+  sha256 "a6a87ad0513b95bf208c660d112b77ae1951266b7b4b60d8a2a6da7159310b87"
 
   depends_on "erlang"
 
