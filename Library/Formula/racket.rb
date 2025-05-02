@@ -1,24 +1,34 @@
 class Racket < Formula
   desc "Modern programming language in the Lisp/Scheme family"
   homepage "http://racket-lang.org/"
-  url "http://mirror.racket-lang.org/installers/6.2.1/racket-minimal-6.2.1-src-builtpkgs.tgz"
-  version "6.2.1"
-  sha256 "47eceb5f23ab66a939650fa44dd89ffcb17a6227f58c6bc80e90aa8999c86b36"
+  url "https://download.racket-lang.org/releases/8.12/installers/racket-minimal-8.12-src-builtpkgs.tgz"
+  sha256 "af5436cffc1f28ea943750c411c44687d4ff5028aca5cfca84598c426830ea7c"
+  version "8.12"
 
   bottle do
-    sha256 "4d985a857e7556b1665e0f2d8f4c7f9667e34794cd047788d5b2af6fa5e98a13" => :yosemite
-    sha256 "8aab33739c8818a3408f478268d310a2c6f0734ac89b9e9bd5fe1ad10ecf1eb2" => :mavericks
-    sha256 "d10ec37ab262c32ce23cbc253cd52a3b381e285a848b073048a5f593a9446b13" => :mountain_lion
   end
 
+  depends_on "libffi"
+  depends_on "lz4"
+  depends_on "zlib"
+
   def install
+    # unknown option character `w' in: -w
+    ENV.enable_warnings if ENV.compiler == :gcc_4_0
+    # ld: common symbols not allowed with MH_DYLIB output format with the -multi_module option
+    ENV.append_to_cflags "-fno-common"
+
     cd "src" do
       args = ["--disable-debug", "--disable-dependency-tracking",
               "--enable-macprefix",
+              "--enable-libffi",
+              "--enable-libz",
+              "--enable-liblz4",
               "--prefix=#{prefix}",
               "--man=#{man}"]
 
-      args << "--disable-mac64" unless MacOS.prefer_64_bit?
+      args << "--disable-mac64" unless MacOS.prefer_64_bit? && Hardware::CPU.intel?
+      args << "--enable-mach=tppc32osx" if Hardware::CPU.ppc?
 
       system "./configure", *args
       system "make"
@@ -34,8 +44,8 @@ class Racket < Formula
   end
 
   test do
-    output = `'#{bin}/racket' -e '(displayln "Hello Homebrew")'`
+    output = `'#{bin}/racket' -e '(displayln "Hello Tigerbrew")'`
     assert $?.success?
-    assert_match /Hello Homebrew/, output
+    assert_match /Hello Tigerbrew/, output
   end
 end
