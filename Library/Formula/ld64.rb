@@ -26,7 +26,7 @@ class Ld64 < Formula
   depends_on "cctools-headers" => :build
   depends_on "dyld-headers" => :build
   depends_on "libunwind-headers" => :build
-  depends_on "apple-gcc42" => :build if MacOS.version == :tiger && Hardware::CPU.type == :intel
+  depends_on "apple-gcc42" => :build if MacOS.version == :tiger 
 
   keg_only :provided_by_osx,
     "ld64 is an updated version of the ld shipped by Apple."
