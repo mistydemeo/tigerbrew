@@ -75,7 +75,7 @@ class Disco < Formula
 
     # Fix the config file to point at the linked files, not in to cellar
     # This isn't ideal - if there's a settings.py file left over from a previous disco
-    # installation, it'll issue a Warning
+    # installation, it'll issue an error
     inreplace "#{etc}/disco/settings.py" do |s|
       s.gsub!("Cellar/disco/"+version+"/", "")
     end
