@@ -4,16 +4,10 @@ class Disco < Formula
   url "https://github.com/discoproject/disco/archive/0.5.4.tar.gz"
   sha256 "a1872b91fd549cea6e709041deb0c174e18d0e1ea36a61395be37e50d9df1f8f"
 
-  bottle do
-    cellar :any
-    sha1 "f1a4e9775053971dac6ab3b183ebb13d6928c050" => :yosemite
-    sha1 "286325ec178e1bd06a78127333c835a1bf5a2763" => :mavericks
-    sha1 "da6e23c51a8ca6c353e83724746f0e11dba37a99" => :mountain_lion
-  end
-
-  depends_on :python if MacOS.version <= :snow_leopard
+  depends_on :python3 if MacOS.version <= :snow_leopard
   depends_on "erlang"
   depends_on "libcmph"
+  depends_on "git"
 
   resource "simplejson" do
     url "https://files.pythonhosted.org/packages/af/92/51b417685abd96b31308b61b9acce7ec50d8e1de8fbc39a7fd4962c60689/simplejson-3.20.1.tar.gz"
@@ -39,9 +33,9 @@ class Disco < Formula
   patch :DATA
 
   def install
-    ENV["PYTHONPATH"] = lib+"python2.7/site-packages"
+    ENV["PYTHONPATH"] = lib+"python3.10/site-packages"
     if MacOS.version <= :leopard
-      resource("simplejson").stage { system "python", *Language::Python.setup_install_args(libexec/"vendor") }
+      resource("simplejson").stage { system "python3", *Language::Python.setup_install_args(libexec) }
     end
 
     inreplace "Makefile" do |s|
