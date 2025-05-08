@@ -4,7 +4,7 @@ class Disco < Formula
   url "https://github.com/discoproject/disco/archive/0.5.4.tar.gz"
   sha256 "a1872b91fd549cea6e709041deb0c174e18d0e1ea36a61395be37e50d9df1f8f"
 
-  depends_on :python3 if MacOS.version <= :snow_leopard
+  depends_on :python if MacOS.version <= :snow_leopard
   depends_on "erlang"
   depends_on "libcmph"
   depends_on "git"
@@ -33,9 +33,9 @@ class Disco < Formula
   patch :DATA
 
   def install
-    ENV["PYTHONPATH"] = lib+"python3.10/site-packages"
+    ENV["PYTHONPATH"] = lib+"python2.7/site-packages"
     if MacOS.version <= :leopard
-      resource("simplejson").stage { system "python3", *Language::Python.setup_install_args(libexec) }
+      resource("simplejson").stage { system "python", *Language::Python.setup_install_args(libexec) }
     end
 
     inreplace "Makefile" do |s|
