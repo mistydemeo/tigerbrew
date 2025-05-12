@@ -9,7 +9,7 @@ class Vim < Formula
   revision 1
 
   bottle do
-    sha256 "f228e90d45f91d34629c4451803454cd3db7762a9ab04186587165f67041d410" => :tiger_altivec
+    sha256 "c515e77a41984fde7c0ad9ca21a0570b744b87a8004296b1c94239aacc2ceab4" => :tiger_altivec
   end
 
   # We only have special support for finding depends_on :python, but not yet for
