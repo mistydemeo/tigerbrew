@@ -1,6 +1,6 @@
 class Liboil < Formula
   desc "C library of simple functions optimized for various CPUs"
-  homepage "http://liboil.freedesktop.org/"
+  homepage "https://liboil.freedesktop.org/"
   url "http://liboil.freedesktop.org/download/liboil-0.3.17.tar.gz"
   sha256 "105f02079b0b50034c759db34b473ecb5704ffa20a5486b60a8b7698128bfc69"
 

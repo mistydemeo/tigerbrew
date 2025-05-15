@@ -1,6 +1,6 @@
 class Fltk < Formula
   desc "Cross-platform C++ GUI toolkit"
-  homepage "http://www.fltk.org/"
+  homepage "https://www.fltk.org/"
   url "https://github.com/fltk/fltk/releases/download/release-1.3.11/fltk-1.3.11-macOS10.11-source.tar.gz"
   sha256 "0dac140238bf6c0421b3877df5adb45a916d461cf8fc2c82523739ab08870149"
 

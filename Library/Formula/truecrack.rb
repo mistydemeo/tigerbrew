@@ -1,6 +1,6 @@
 class Truecrack < Formula
   desc "Brute-force password cracker for TrueCrypt"
-  homepage "https://code.google.com/p/truecrack/"
+  homepage "https://github.com/lvaccaro/truecrack"
   url "https://truecrack.googlecode.com/files/truecrack_v35.tar.gz"
   sha256 "25bf270fa3bc3591c3d795e5a4b0842f6581f76c0b5d17c0aef260246fe726b3"
   version "3.5"

@@ -1,6 +1,6 @@
 class Augeas < Formula
   desc "Configuration editing tool and API"
-  homepage "http://augeas.net"
+  homepage "https://augeas.net"
   url "http://download.augeas.net/augeas-1.4.0.tar.gz"
   sha256 "659fae7ac229029e60a869a3b88c616cfd51cf2fba286cdfe3af3a052cb35b30"
   revision 1

@@ -1,6 +1,6 @@
 class Seexpr < Formula
   desc "Embeddable expression evaluation engine"
-  homepage "http://www.disneyanimation.com/technology/seexpr.html"
+  homepage "https://www.disneyanimation.com/open-source/"
   url "https://github.com/wdas/SeExpr/archive/rel-1.0.1.tar.gz"
   sha256 "971ee8fff7eb195785031dedd7c06cb3fa8649fba8aa45c6ace746a23b8093a9"
 

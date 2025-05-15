@@ -1,6 +1,6 @@
 class Ccm < Formula
   desc "Create and destroy an Apache Cassandra cluster on localhost"
-  homepage "https://github.com/pcmanus/ccm"
+  homepage "https://github.com/apache/cassandra-ccm"
   url "https://github.com/pcmanus/ccm/archive/ccm-2.0.3.tar.gz"
   sha256 "591c441c6d1b06595d1112951c6edccec29e5e793ee8562c318eeee84fc62301"
   head "https://github.com/pcmanus/ccm.git"

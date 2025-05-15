@@ -2,7 +2,7 @@ require "language/go"
 
 class Mongodb < Formula
   desc "High-performance, schema-free, document-oriented database"
-  homepage "https://www.mongodb.org/"
+  homepage "https://www.mongodb.com/"
 
   stable do
     url "https://fastdl.mongodb.org/src/mongodb-src-r3.0.6.tar.gz"

@@ -1,6 +1,6 @@
 class Nant < Formula
   desc ".NET build tool"
-  homepage "http://nant.sourceforge.net/"
+  homepage "https://nant.sourceforge.net/"
   url "https://downloads.sourceforge.net/nant/nant/nant-0.92-src.tar.gz"
   sha256 "72d4d585267ed7f03e1aa75087d96f4f8d49ee976c32d974c5ab1fef4d4f8305"
 

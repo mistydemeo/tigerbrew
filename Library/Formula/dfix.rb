@@ -1,6 +1,6 @@
 class Dfix < Formula
   desc "Auto-upgrade tool for D source code"
-  homepage "https://github.com/Hackerpilot/dfix"
+  homepage "https://github.com/dlang-community/dfix"
   url "https://github.com/Hackerpilot/dfix.git",
       :tag => "v0.2.2",
       :revision => "ee55825b695fce94a337ab6a2009366372649d46"

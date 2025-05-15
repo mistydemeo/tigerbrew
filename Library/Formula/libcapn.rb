@@ -1,6 +1,6 @@
 class Libcapn < Formula
   desc "C library to send push notifications to Apple devices"
-  homepage "http://libcapn.org/"
+  homepage "https://libcapn.org/"
   url "http://libcapn.org/download/libcapn-1.0.0-src.tar.gz"
   sha256 "2c80b3adedf8e2250c6e4d3047998903b8efc7af018032ed04b712158ea02983"
   head "https://github.com/adobkin/libcapn.git"

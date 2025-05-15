@@ -1,6 +1,6 @@
 class Gh < Formula
   desc "GitHub command-line client"
-  homepage "https://github.com/jingweno/gh"
+  homepage "https://github.com/owenthereal/gh"
   url "https://github.com/jingweno/gh/archive/v2.1.0.tar.gz"
   sha256 "3435c95e78c71589c983e2cafa8948e1abf73aaa033e7fb9d891c052ce25f4f3"
   head "https://github.com/jingweno/gh.git"

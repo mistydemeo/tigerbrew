@@ -1,6 +1,6 @@
 class Libgetdata < Formula
   desc "Reference implementation of the Dirfile Standards"
-  homepage "http://getdata.sourceforge.net/"
+  homepage "https://getdata.sourceforge.net/"
   url "https://downloads.sourceforge.net/project/getdata/getdata/0.8.6/getdata-0.8.6.tar.bz2"
   sha256 "e8d333b89abc5b20e2ecc3df4de26338dce8eb2f20677e0636649c6a1ef6b5b3"
 

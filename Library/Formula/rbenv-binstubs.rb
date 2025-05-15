@@ -1,6 +1,6 @@
 class RbenvBinstubs < Formula
   desc "Make rbenv aware of bundler binstubs"
-  homepage "https://github.com/ianheggie/rbenv-binstubs"
+  homepage "https://github.com/Purple-Devs/rbenv-binstubs"
   url "https://github.com/ianheggie/rbenv-binstubs/archive/v1.4.tar.gz"
   sha256 "2d8fcb626d1ff47dc490d459999b5779802c3a0b0a319fd33750d63590beacb6"
 

@@ -1,6 +1,6 @@
 class Lolcode < Formula
   desc "LOLCODE interpreter"
-  homepage "http://lolcode.org"
+  homepage "http://www.lolcode.org/"
   head "https://github.com/justinmeza/lolcode.git"
   bottle do
     cellar :any

@@ -1,6 +1,6 @@
 class Irssi < Formula
   desc "Modular IRC client"
-  homepage "http://irssi.org/"
+  homepage "https://irssi.org/"
   url "https://codeberg.org/irssi/irssi/releases/download/1.4.4/irssi-1.4.4.tar.xz"
   sha256 "fefe9ec8c7b1475449945c934a2360ab12693454892be47a6d288c63eb107ead"
   revision 1
