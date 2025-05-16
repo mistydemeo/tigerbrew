@@ -1,6 +1,6 @@
 class Ansible < Formula
   desc "Automate deployment, configuration, and upgrading"
-  homepage "http://www.ansible.com/home"
+  homepage "https://www.redhat.com/en/ansible-collaborative?intcmp=7015Y000003t7aWQAQ"
   url "http://releases.ansible.com/ansible/ansible-1.9.3.tar.gz"
   sha256 "2594f642fd800056a427c1026410dc6ed8dfa7c0033f5c3d187abdb2b0d4eeed"
 

@@ -1,6 +1,6 @@
 class Multimarkdown < Formula
   desc "Turn marked-up plain text into well-formatted documents"
-  homepage "http://fletcherpenney.net/multimarkdown/"
+  homepage "https://fletcherpenney.net/multimarkdown/"
   # Use git tag instead of the tarball to get submodules
   url "https://github.com/fletcher/MultiMarkdown-4.git", :tag => "4.7.1",
                                                          :revision => "3083076038cdaceb666581636ef9e1fc68472ff0"

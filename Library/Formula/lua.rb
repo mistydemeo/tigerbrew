@@ -1,6 +1,6 @@
 class Lua < Formula
   desc "Powerful, lightweight programming language"
-  homepage "http://www.lua.org/"
+  homepage "https://www.lua.org/"
   url "https://www.lua.org/ftp/lua-5.4.7.tar.gz"
   sha256 "9fbf5e28ef86c69858f6d3d34eccc32e911c1a28b4120ff3e84aaa70cfbf1e30"
   license "MIT"

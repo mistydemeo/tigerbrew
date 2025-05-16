@@ -1,6 +1,6 @@
 class AbiComplianceChecker < Formula
   desc "Check binary and source compatibility for C/C++"
-  homepage "http://ispras.linuxbase.org/index.php/ABI_compliance_checker"
+  homepage "https://ispras.linuxbase.org/index.php/ABI_compliance_checker"
   url "https://github.com/lvc/abi-compliance-checker/archive/1.99.9.tar.gz"
   sha256 "52b0daca89fcda73cde126497c8015ca823417074ba02fcff68b7acf2f45e516"
 

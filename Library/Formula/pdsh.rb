@@ -1,6 +1,6 @@
 class Pdsh < Formula
   desc "Efficient rsh-like utility, for using hosts in parallel"
-  homepage "https://code.google.com/p/pdsh/"
+  homepage "https://code.google.com/archive/p/pdsh"
   url "https://code.google.com/p/pdsh.git",
       :tag => "pdsh-2.31",
       :revision => "e1c8e71dd6a26b40cd067a8322bd14e10e4f7ded"

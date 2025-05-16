@@ -1,6 +1,6 @@
 class Plzip < Formula
   desc "Data compressor"
-  homepage "http://www.nongnu.org/lzip/plzip.html"
+  homepage "https://www.nongnu.org/lzip/plzip.html"
   url "http://download.savannah.gnu.org/releases/lzip/plzip/plzip-1.4.tar.gz"
   sha256 "2a152ee429495cb96c22a51b618d1d19882db3e24aff79329d9c755a2a2f67bb"
 

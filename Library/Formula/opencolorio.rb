@@ -1,6 +1,6 @@
 class Opencolorio < Formula
   desc "Color management solution geared towards motion picture production"
-  homepage "http://opencolorio.org/"
+  homepage "https://opencolorio.org/"
   url "https://github.com/imageworks/OpenColorIO/archive/v1.0.9.tar.gz"
   sha256 "27c81e691c15753cd2b560c2ca4bd5679a60c2350eedd43c99d44ca25d65ea7f"
 

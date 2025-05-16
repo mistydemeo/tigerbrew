@@ -1,6 +1,6 @@
 class Ghc < Formula
   desc "Glorious Glasgow Haskell Compilation System"
-  homepage "https://haskell.org/ghc/"
+  homepage "https://www.haskell.org/ghc/"
   url "https://downloads.haskell.org/~ghc/7.10.2/ghc-7.10.2-src.tar.xz"
   sha256 "54cd73755b784d78e2f13d5eb161bfa38d3efee9e8a56f7eb6cd9f2d6e2615f5"
 

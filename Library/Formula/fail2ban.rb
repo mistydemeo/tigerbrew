@@ -1,6 +1,6 @@
 class Fail2ban < Formula
   desc "Scan log files and ban IPs showing malicious signs"
-  homepage "http://www.fail2ban.org/"
+  homepage "https://github.com/fail2ban/fail2ban"
   url "https://github.com/fail2ban/fail2ban/archive/0.8.14.tar.gz"
   sha256 "2d579d9f403eb95064781ffb28aca2b258ca55d7a2ba056a8fa2b3e6b79721f2"
 

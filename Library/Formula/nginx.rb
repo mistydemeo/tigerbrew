@@ -1,6 +1,6 @@
 class Nginx < Formula
   desc "HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server"
-  homepage "http://nginx.org/"
+  homepage "https://nginx.org/"
   url "https://nginx.org/download/nginx-1.25.2.tar.gz"
   sha256 "05dd6d9356d66a74e61035f2a42162f8c754c97cf1ba64e7a801ba158d6c0711"
   head "http://hg.nginx.org/nginx/", :using => :hg

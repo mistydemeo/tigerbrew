@@ -2,7 +2,7 @@ require "language/go"
 
 class Ghq < Formula
   desc "Remote repository management made easy"
-  homepage "https://github.com/motemen/ghq"
+  homepage "https://github.com/x-motemen/ghq"
   url "https://github.com/motemen/ghq/archive/v0.7.1.tar.gz"
   sha256 "c43c469e47761ca67103c056c79d976933265905bd7ddd662035162532c76fb2"
 

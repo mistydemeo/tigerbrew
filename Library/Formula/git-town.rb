@@ -1,6 +1,6 @@
 class GitTown < Formula
   desc "High-level command-line interface for Git"
-  homepage "http://www.git-town.com"
+  homepage "https://www.git-town.com/"
   url "https://github.com/Originate/git-town/archive/v0.7.3.tar.gz"
   sha256 "947fd6dac603dcb02467cc2969ef26db1ccdc72312b6b0d70fb8d11179eb09ba"
 

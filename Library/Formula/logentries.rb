@@ -1,6 +1,6 @@
 class Logentries < Formula
   desc "Utility for access to logentries logging infrastructure"
-  homepage "https://logentries.com/doc/agent/"
+  homepage "https://www.rapid7.com/products/insightidr/"
   url "https://github.com/logentries/le/archive/v1.4.19.tar.gz"
   sha256 "400765eef31ec7b453bb41f2fa31f8e6dda797561280af2e8feb643fde84a217"
 

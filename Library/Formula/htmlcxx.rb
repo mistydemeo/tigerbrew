@@ -1,6 +1,6 @@
 class Htmlcxx < Formula
   desc "Non-validating CSS1 and HTML parser for C++"
-  homepage "http://htmlcxx.sourceforge.net/"
+  homepage "https://htmlcxx.sourceforge.net/"
   url "https://downloads.sourceforge.net/project/htmlcxx/htmlcxx/0.85/htmlcxx-0.85.tar.gz"
   sha256 "ab02a0c4addc82f82d564f7d163fe0cc726179d9045381c288f5b8295996bae5"
 

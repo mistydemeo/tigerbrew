@@ -1,6 +1,6 @@
 class Lz4 < Formula
   desc "Lossless compression algorithm"
-  homepage "https://lz4.github.io/lz4"
+  homepage "https://lz4.org"
   url "https://github.com/lz4/lz4/archive/refs/tags/v1.9.3.tar.gz"
   version "r193"
   sha256 "030644df4611007ff7dc962d981f390361e6c97a34e5cbc393ddfbe019ffe2c1"

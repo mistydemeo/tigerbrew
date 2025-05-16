@@ -1,6 +1,6 @@
 class Cloog018 < Formula
   desc "Generate code for scanning Z-polyhedra"
-  homepage "http://www.cloog.org/"
+  homepage "https://cloog.org/"
   # Need a minimum of isl 0.12 with v0.18.3 onwards.
   url "http://www.bastoul.net/cloog/pages/download/count.php3?url=./cloog-0.18.1.tar.gz"
   mirror "https://www.mirrorservice.org/sites/sourceware.org/pub/gcc/infrastructure/cloog-0.18.1.tar.gz"

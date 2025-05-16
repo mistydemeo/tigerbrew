@@ -1,6 +1,6 @@
 class ThcPptpBruter < Formula
   desc "Brute force program against PPTP VPN endpoints (TCP port 1723)"
-  homepage "https://thc.org"
+  homepage "https://www.thc.org/"
   url "https://freeworld.thc.org/releases/thc-pptp-bruter-0.1.4.tar.gz"
   sha1 "88a797ed0dcfb79aba92b319e29d1c5d8c1b14a4"
 

@@ -1,6 +1,6 @@
 class KubernetesCli < Formula
   desc "Command-line tool for kubernetes, a cluster manager for Docker"
-  homepage "http://kubernetes.io/"
+  homepage "https://kubernetes.io/"
   head "https://github.com/kubernetes/kubernetes.git"
 
   stable do
