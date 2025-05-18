@@ -60,6 +60,10 @@ class Erlang < Formula
 
     ENV["FOP"] = "#{HOMEBREW_PREFIX}/bin/fop" if build.with? "fop"
 
+    # Fixes an error with newer GCCs and in6addr
+    # https://github.com/asdf-vm/asdf-erlang/issues/157
+    ENV.append_to_cflags "-Wno-error=implicit-function-declaration"
+
     # Do this if building from a checkout to generate configure
     system "./otp_build", "autoconf" if File.exist? "otp_build"
 
