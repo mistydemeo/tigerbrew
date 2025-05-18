@@ -43,6 +43,11 @@ class Erlang < Formula
   depends_on "libutil" if MacOS.version < :leopard
   depends_on "zlib"
 
+  fails_with :gcc_4_0 do
+    build 5370
+    cause "error: invalid preprocessing directive in HiPE PPC glue"
+  end
+
   fails_with :gcc do
     build 5666
     cause "Bus error when attempting to build HiPE"
