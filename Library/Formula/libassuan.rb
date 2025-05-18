@@ -7,6 +7,8 @@ class Libassuan < Formula
   sha256 "d2931cdad266e633510f9970e1a2f346055e351bb19f9b78912475b8074c36f6"
 
   bottle do
+    cellar :any
+    sha256 "50b8838378f073f622c052cb5477aa40bfe30be43654f433dc17e05fd43103eb" => :tiger_altivec
   end
 
   # Needed for FD_SET(2)
