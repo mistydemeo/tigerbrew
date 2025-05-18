@@ -155,6 +155,8 @@ module OS
         end
     end
 
+    # String format:
+    # gcc-14 (Tigerbrew gcc 14.2.0) 14.2.0
     def non_apple_gcc_version(cc)
       (@non_apple_gcc_version ||= {}).fetch(cc) do
         path = HOMEBREW_PREFIX.join("opt", "gcc", "bin", cc)
