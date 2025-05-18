@@ -6,7 +6,7 @@ class Lzip < Formula
   license "GPL-2.0-or-later"
 
   bottle do
-    cellar :any_skip_relocation
+    sha256 "42a1638e56181be320fb5cd752bc38c8222643a062ae4eafbd9065dee50af1dd" => :tiger_altivec
   end
 
   def install
