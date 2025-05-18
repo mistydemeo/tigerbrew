@@ -53,9 +53,11 @@ class Erlang < Formula
     cause "Bus error when attempting to build HiPE"
   end
 
-  # https://github.com/mistydemeo/tigerbrew/pull/1368
-  fails_with :gcc => "14" do
-    cause "ld64 fails to link - duplicate symbol _erts_allctr_wrappers"
+  # Adds a missing extern to a type definition
+  # https://github.com/erlang/otp/pull/1692
+  patch do
+    url "https://github.com/erlang/otp/commit/58632af80fd43955ec58c021e5c0d04caa1840de.patch?full_index=1"
+    sha256 "39aedcf957511ef67024ea584e9143fb5b8592d0089622e4268f7ec517ef163d"
   end
 
   def install
