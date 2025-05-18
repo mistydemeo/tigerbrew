@@ -53,6 +53,11 @@ class Erlang < Formula
     cause "Bus error when attempting to build HiPE"
   end
 
+  # https://github.com/mistydemeo/tigerbrew/pull/1368
+  fails_with :gcc => "14" do
+    cause "ld64 fails to link - duplicate symbol _erts_allctr_wrappers"
+  end
+
   def install
     # Unset these so that building wx, kernel, compiler and
     # other modules doesn't fail with an unintelligable error.
