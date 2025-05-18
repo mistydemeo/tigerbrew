@@ -5,7 +5,9 @@ require "formula"
 class LinkageChecker
   attr_reader :keg, :formula
   attr_reader :brewed_dylibs, :system_dylibs, :broken_dylibs, :variable_dylibs
-  attr_reader :undeclared_deps, :reverse_links
+  attr_reader :undeclared_deps, :reverse_links, :gcc_dylibs
+
+  GCC_REGEX = %r[#{HOMEBREW_PREFIX}/lib/gcc/(\d+)]
 
   def initialize(keg, formula = nil)
     @keg = keg
@@ -14,6 +16,7 @@ class LinkageChecker
     @system_dylibs = Set.new
     @broken_dylibs = Set.new
     @variable_dylibs = Set.new
+    @gcc_dylibs = Hash.new { |h, k| h[k] = Set.new }
     @undeclared_deps = []
     @reverse_links = Hash.new { |h, k| h[k] = Set.new }
     check_dylibs
@@ -37,6 +40,9 @@ class LinkageChecker
             @system_dylibs << dylib
           rescue Errno::ENOENT
             @broken_dylibs << dylib
+            if match = GCC_REGEX.match(dylib)
+              @gcc_dylibs["gcc#{match[1]}"] << dylib
+            end
           else
             tap = Tab.for_keg(owner).tap
             f = if tap.nil? || tap == "mistydemeo/tigerbrew"
