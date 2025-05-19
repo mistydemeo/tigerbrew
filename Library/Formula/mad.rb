@@ -7,8 +7,8 @@ class Mad < Formula
   bottle do
     cellar :any
     sha256 "5b7a01e35e2f95e2151ed04a10f472c31e4778a5fefbf369a7929bcce3b90e9a" => :tiger_altivec
-    sha1 "9d591d72a744fb6a7d78a4307f83a7628efb731a" => :leopard_g3
-    sha1 "150c5852d8244e6f3429283b87e268dfdce7af79" => :leopard_altivec
+    sha256 "31d0f66ac6bb20b957c01ae971627fa2aa2c6d284c097fd2f4e9626fa9acec15" => :leopard_g3
+    sha256 "6bd736c3b2a8319d340b0da7e448a2b8709224d3efaf235f572b4d7ac5bc48be" => :leopard_altivec
   end
 
   def install
