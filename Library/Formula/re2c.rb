@@ -9,9 +9,6 @@ class Re2c < Formula
   fails_with :gcc_4_0
   fails_with :gcc
 
-  bottle do
-    cellar :any_skip_relocation
-  end
 
   depends_on :python3 => :build
 

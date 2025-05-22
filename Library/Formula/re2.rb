@@ -10,12 +10,6 @@ class Re2 < Formula
 
   head "https://github.com/google/re2.git"
 
-  bottle do
-    cellar :any
-    sha256 "3d23d9919dca4ac70d5c7d675b055a5ce6628103314e001b0b891448da71883e" => :el_capitan
-    sha256 "43f1a2e5dab1357d1ae7e0bce0d21a7a905f2083eab6f7aadaba214e267492c6" => :yosemite
-    sha256 "461fac19a240edb44c105a8f05ff30ed53c1f665e7bfd6f94cf8e2998252684a" => :mavericks
-  end
 
   def install
     system "make", "install", "prefix=#{prefix}"

@@ -5,12 +5,6 @@ class Reposurgeon < Formula
   sha256 "51105e18a2f350146e23c01ea559a07400c3b715f8ec338206f19c19197b0a0f"
   head "https://gitlab.com/esr/reposurgeon.git"
 
-  bottle do
-    cellar :any
-    sha256 "afe3bcd343cfe1897e9951720feef41037de0dd2abb2799747956f98c2930cbb" => :yosemite
-    sha256 "bac28e15ce2610589c4adc6a8b40327843fbdbbf3081195fbfa8eb2bc9a17dbd" => :mavericks
-    sha256 "a2b14e3135d25089933abf0bb28e79048d9788972636c70eadb30a37277e45fa" => :mountain_lion
-  end
 
   option "without-cython", "Build without cython (faster compile)"
 

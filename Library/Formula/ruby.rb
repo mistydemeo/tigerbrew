@@ -5,9 +5,6 @@ class Ruby < Formula
   sha256 "ccfb2d0a61e2a9c374d51e099b0d833b09241ee78fc17e1fe38e3b282160237c"
   revision 1
 
-  bottle do
-  end
-
   head do
     url "http://svn.ruby-lang.org/repos/ruby/trunk/"
     depends_on "autoconf" => :build

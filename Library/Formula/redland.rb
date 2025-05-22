@@ -4,11 +4,6 @@ class Redland < Formula
   url "http://download.librdf.org/source/redland-1.0.17.tar.gz"
   sha256 "de1847f7b59021c16bdc72abb4d8e2d9187cd6124d69156f3326dd34ee043681"
 
-  bottle do
-    sha1 "5f4840ede53c1f9ab9c7387355fc682be3a524b7" => :yosemite
-    sha1 "db4d3fdde92412bafe55e19def76b3447168595c" => :mavericks
-    sha1 "523752a1bd434159e361f66a7a72b45412d30a7a" => :mountain_lion
-  end
 
   revision 1
 

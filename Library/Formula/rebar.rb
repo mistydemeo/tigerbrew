@@ -6,8 +6,6 @@ class Rebar < Formula
 
   head "https://github.com/rebar/rebar.git"
 
-  bottle do
-  end
 
   depends_on "erlang"
 
