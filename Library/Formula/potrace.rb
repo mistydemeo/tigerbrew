@@ -1,6 +1,6 @@
 class Potrace < Formula
   desc "Convert bitmaps to vector graphics"
-  homepage "http://potrace.sourceforge.net"
+  homepage "https://potrace.sourceforge.net/"
   url "http://potrace.sourceforge.net/download/1.12/potrace-1.12.tar.gz"
   sha256 "b0bbf1d7badbebfcb992280f038936281b47ddbae212e8ae91e863ce0b76173b"
 
