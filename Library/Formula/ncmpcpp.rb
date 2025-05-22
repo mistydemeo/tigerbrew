@@ -5,12 +5,6 @@ class Ncmpcpp < Formula
   sha256 "08807dc515b4e093154a6e91cdd17ba64ebedcfcd7aa34d0d6eb4d4cc28a217b"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "72cb60d16336585f1f75462fd96712aee088aa9c927ce0bf873a202e78dc5307" => :el_capitan
-    sha256 "ef74125f6a199f229f26ad4b3e3d095367bd35daff220c99f4bb78c00e7b5221" => :yosemite
-    sha256 "6a6f27e66b8ddc8dca51515032d9a36d8c660910ac3815aa16b960e9d747acb4" => :mavericks
-  end
 
   head do
     url "git://repo.or.cz/ncmpcpp.git"

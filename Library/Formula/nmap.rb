@@ -6,9 +6,6 @@ class Nmap < Formula
   license :cannot_represent
   head "https://svn.nmap.org/nmap/"
 
-  bottle do
-  end
-
   # Need better C++ support from compiler
   # osscan.h:157: error: ‘const class std::map<ShortStr<5u>, FingerPrintDef::TestID, std::less<ShortStr<5u> >, std::allocator<std::pair<const ShortStr<5u>, FingerPrintDef::TestID> > >’ has no member named ‘at’
   # osscan.h:158: error: ‘const class std::map<ShortStr<5u>, FingerPrintDef::TestID, std::less<ShortStr<5u> >, std::allocator<std::pair<const ShortStr<5u>, FingerPrintDef::TestID> > >’ has no member named ‘at’
