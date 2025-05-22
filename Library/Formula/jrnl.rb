@@ -4,13 +4,6 @@ class Jrnl < Formula
   url "https://github.com/maebert/jrnl/archive/1.9.7.tar.gz"
   sha256 "789de4bffe0c22911a4968e525feeb20a6c7c4f4fe762a936ce2dac2213cd855"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "b5f24dc1ba2c58e7a9cebd7ae0492be6fbab0c05c3fa96e2f7cf9f9e9513bfd5" => :el_capitan
-    sha1 "85aeed5404abd7a962fe30cb68151f461e944070" => :yosemite
-    sha1 "cec814646e140a72c994c9e7a55a4428a6b7e336" => :mavericks
-    sha1 "127d73c4f50620bfab34bd398102c8f9f1821f12" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
 

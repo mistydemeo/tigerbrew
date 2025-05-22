@@ -8,12 +8,6 @@ class Jvgrep < Formula
 
   head "https://github.com/mattn/jvgrep.git"
 
-  bottle do
-    cellar :any
-    sha256 "4481c6cdb2281a4f51c2049792ea2ac28dbfa35020157e8853e27933b0ae4583" => :yosemite
-    sha256 "ee066a8848a150969807647723de09cea8cc8b8ed38ce31220d058b1e62cc312" => :mavericks
-    sha256 "a46b5a7f23dc31bc9df5fcc89fe1618a2a0063dc1a75a466b21059c7a02db386" => :mountain_lion
-  end
 
   depends_on "go" => :build
 
