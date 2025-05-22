@@ -5,12 +5,6 @@ class Tth < Formula
   sha256 "8e750f7532d87d97d0df380c688214885925f5c2032dc0c9d555af7f816416d1"
   revision 1
 
-  bottle do
-    cellar :any
-    sha1 "694f5f4dea4af1acfcec5b53d949ec58dec75459" => :yosemite
-    sha1 "ea2b08272a5cc8f5e890d36624f1f94b003c0a0b" => :mavericks
-    sha1 "5be595e24438680c3c06f1812ff1e1e9a03c1732" => :mountain_lion
-  end
 
   def install
     system ENV.cc, "-o", "tth", "tth.c"

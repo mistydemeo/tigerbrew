@@ -5,13 +5,6 @@ class TranslateToolkit < Formula
   sha256 "11e332f2a29d8644364b4ca79b4ac079df328626ec8c27ac0e8cc454696719ca"
   head "https://github.com/translate/translate.git"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "b06dbd6f29d109d1afe8854ea4e3256a0305c775" => :yosemite
-    sha1 "a2642c64d692c38b057be500196fcfaad76c69fb" => :mavericks
-    sha1 "5b36a52a091ee936ed0ed414cd86879f742827d0" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
 

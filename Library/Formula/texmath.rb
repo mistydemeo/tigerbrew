@@ -10,11 +10,6 @@ class Texmath < Formula
 
   revision 1
 
-  bottle do
-    sha256 "ba657b85f95ff38251a9a60146702dc15b3622649881d13075e70cac4213e307" => :yosemite
-    sha256 "33deabb7df69aec183d03eb169f99be6ba65a13f518c5be6528bd624b9015904" => :mavericks
-    sha256 "70545b7f939bb5156cccf4537f5364c1ec00605099ab2d9fc653da66cbbbcbc5" => :mountain_lion
-  end
 
   depends_on "ghc" => :build
   depends_on "cabal-install" => :build

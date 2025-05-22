@@ -6,11 +6,6 @@ class Trafficserver < Formula
   sha256 "e6c33c7cfb629406a320a61217e08db3123cfe4b77c2eaef0eaa520065dbeb43"
   revision 1
 
-  bottle do
-    sha256 "adf4707016dadcae715e667fce18c743c5fb93be11c3c8d8faba2d4fabde83ec" => :yosemite
-    sha256 "ec2b11799c68cf87c2a9b141ccabb9f65ffabc562499b6b258666f8ac44b294d" => :mavericks
-    sha256 "af9c959c4f8960240a4c990f651c76c9d61554da9a93fdb7d3838f4f6c7cd021" => :mountain_lion
-  end
 
   head do
     url "https://github.com/apache/trafficserver.git"

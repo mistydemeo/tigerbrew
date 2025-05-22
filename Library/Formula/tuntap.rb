@@ -7,12 +7,6 @@ class Tuntap < Formula
   tag = Hardware::CPU.ppc? ? 'release_20090913' : 'release_20111101'
   url 'git://git.code.sf.net/p/tuntaposx/code', :tag => tag
 
-  bottle do
-    cellar :any
-    sha256 "517b3b6aa063bfe66b41f99b58a33c18951bf89ffdbdd5156822b067907ea3d0" => :tiger_altivec
-    sha256 "62f4775179574e59661badc00178cce7b334f24dc4f5a2cc06de5a0a618906f7" => :leopard_g3
-    sha256 "d2ffdd7c5441e054152a8491cf378dc5fc7fb5ab1cab6eccc9b44ef7298f7f4b" => :leopard_altivec
-  end
 
   depends_on UnsignedKextRequirement => [:cask => "tuntap",
                                          :download => "http://sourceforge.net/projects/tuntaposx/files/tuntap/"]
