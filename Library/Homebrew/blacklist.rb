@@ -81,5 +81,9 @@ def blacklisted?(name)
     A binary installer is available:
       https://www.haskell.org/platform/mac.html
     EOS
+  when "arm" then <<-EOS.undent
+    Arm has been renamed to Nyx (https://nyx.torproject.org/) and is available through PyPI.
+    To install it: pip install nyx
+    EOS
   end
 end
