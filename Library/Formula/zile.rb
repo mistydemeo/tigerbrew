@@ -5,11 +5,6 @@ class Zile < Formula
   mirror "https://ftp.gnu.org/gnu/zile/zile-2.4.11.tar.gz"
   sha256 "1fd27bbddc61491b1fbb29a345d0d344734aa9e80cfa07b02892eedf831fa9cc"
 
-  bottle do
-    sha1 "6112330f840500f201c9903a67003f22c484e458" => :mavericks
-    sha1 "0daeecd50c14a9338527fcfc367f96487d538cd4" => :mountain_lion
-    sha1 "1a32cf3d3c235bba1fd570e7bff81190851ec411" => :lion
-  end
 
   # https://github.com/mistydemeo/tigerbrew/issues/215
   fails_with :gcc_4_0 do

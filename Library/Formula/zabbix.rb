@@ -4,11 +4,6 @@ class Zabbix < Formula
   url "https://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/2.4.6/zabbix-2.4.6.tar.gz"
   sha256 "0ebc6a3326e506cee18826baf2940e39fca3667650f7187e4aa103bf6f7f613c"
 
-  bottle do
-    sha256 "ea0c555731f24f86bc0b2b721a339ae6a265116f7ca88a572c64b5ee0e70f3cd" => :yosemite
-    sha256 "c6d0238be50628da5cd0b201bac7c50dfada43f2f4725317f39371a6055623b9" => :mavericks
-    sha256 "bd5661ac3cb78386872bcb22e5bc85dbb5858be9cbc0cf0ac9ae077e2d30da55" => :mountain_lion
-  end
 
   option "with-mysql", "Use Zabbix Server with MySQL library instead PostgreSQL."
   option "without-server-proxy", "Install only the Zabbix Agent without Server and Proxy."

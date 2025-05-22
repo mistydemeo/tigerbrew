@@ -17,13 +17,6 @@ class Zookeeper < Formula
     end
   end
 
-  bottle do
-    cellar :any
-    revision 2
-    sha256 "12241242d81eb12e9d6f520bfd9a20c7a52682bc08435952109fe49e8257b7c3" => :el_capitan
-    sha256 "568d84b98466d842c3a1fa799892e01769bfa06069809fcd2d52f15c40285e50" => :yosemite
-    sha256 "49ae8ae95b5f631b2883f88ca0a91c23aea84c334f018a24734a16e828ca8dbd" => :mavericks
-  end
 
   head do
     url "https://svn.apache.org/repos/asf/zookeeper/trunk"
