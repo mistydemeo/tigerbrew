@@ -5,12 +5,6 @@ class CenterIm < Formula
   sha256 "93ce15eb9c834a4939b5aa0846d5c6023ec2953214daf8dc26c85ceaa4413f6e"
   revision 2
 
-  bottle do
-    revision 1
-    sha256 "5a51f0130fcd601aeed50ae6f66008aaa0ec96f6ac3e7bc828b627f04b46b9f2" => :yosemite
-    sha256 "673992c76745d9509dd32e71c964946018584db447b37d02a21f332b508c619d" => :mavericks
-    sha256 "934ab216ab1f6eb9033cfb1bbbe720f2a7fa5190eb64c245d2140694c832a965" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "gettext"

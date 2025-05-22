@@ -11,13 +11,6 @@ class Cctools < Formula
     sha256 "331b44a2df435f425ea3171688305dcb46aa3b29df2d38b421d82eb27dbd4d2e"
   end
 
-  bottle do
-    cellar :any_skip_relocation
-    revision 1
-    sha256 "80262f4d2c2ed5e7e9b2e80d8a0c30937f9239a3f1958010ad247a1b731e49a2" => :tiger_altivec
-    sha256 "4adc7c27e720a59d8bdb177dd06b8cd5ca7ff3c0b8199e29c1b04db417966986" => :leopard_g3
-    sha256 "426f3d48789f9f19bed020a3912daf6d808a8491fb86bb24ff702c9d02113aa4" => :leopard_altivec
-  end
 
   depends_on :ld64
 

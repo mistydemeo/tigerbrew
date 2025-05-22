@@ -7,12 +7,6 @@ class Caf < Formula
   head "https://github.com/actor-framework/actor-framework.git",
     :branch => "develop"
 
-  bottle do
-    cellar :any
-    sha256 "5b0d8d5b21051111480c9213132570c2d8c944b00a2ef1c21ba7338777a9d9d9" => :el_capitan
-    sha256 "e247d4384eccd86021cb1bb67fd552e05d32dacb5ebd292053008834fd0defb5" => :yosemite
-    sha256 "3d5b7662c7cf136f6ba87864f4ce67464228d2db2d31ffe8e470c7803d34bac4" => :mavericks
-  end
 
   needs :cxx11
 

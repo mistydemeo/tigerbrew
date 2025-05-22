@@ -4,13 +4,6 @@ class Colordiff < Formula
   url "http://www.colordiff.org/colordiff-1.0.15.tar.gz"
   sha256 "595ee4e9796ba02fad0b181e21df3ee34ae71d1611e301e146c0bf00c5269d45"
 
-  bottle do
-    cellar :any
-    sha256 "ec28e4b2776cb039710428718fd0df6a246968aea0db6391c9222272cad9d601" => :el_capitan
-    sha256 "c5ed797abdaedc5a5f163bafce625307249408afd87bd1a2d31b086af29e02d6" => :yosemite
-    sha256 "a316bce78fc4bfd7fead8f6a6ce87161e9bd862e61882c72be60bcc42d248db1" => :mavericks
-    sha256 "45232a4a2de9ccf1848b28593d2a870efaf38017b465fdb8f04e261f7ccad8e7" => :mountain_lion
-  end
 
   patch :DATA
 

@@ -5,12 +5,6 @@ class Cmocka < Formula
   mirror "https://mirrors.kernel.org/debian/pool/main/c/cmocka/cmocka_1.0.1.orig.tar.xz"
   sha256 "b36050d7a1224296803d216cba1a9d4c58c31bf308b2d6d6649d61aa5a36753b"
 
-  bottle do
-    cellar :any
-    sha256 "33765424588cf149679e394842f6132dbb003913e774bc30d0115294952c3cad" => :yosemite
-    sha256 "28ea3d6de51e920dae544f9b4f36288a04f1ee6215dd34f833c6e98bc43de0f9" => :mavericks
-    sha256 "544f9a2bd42b2a868322cc9942afb191733260bb33e8a2731a53311b6c538d7d" => :mountain_lion
-  end
 
   depends_on "cmake" => :build
 

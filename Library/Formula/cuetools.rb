@@ -6,12 +6,6 @@ class Cuetools < Formula
 
   head "https://github.com/svend/cuetools.git"
 
-  bottle do
-    cellar :any
-    sha256 "81d06ef2e3d98061f332a535b810102c1be0505371c1ac1aed711cf2ae8de5a3" => :yosemite
-    sha256 "95216c0df3840b2602e61dd3bef7d4c9b65cec0315e5b23ac87329320d9f6be9" => :mavericks
-    sha256 "cc5240434bb054a51ebb4e4bb3adc8e97844da66aa425fc667f54ecf53ad9aa6" => :mountain_lion
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

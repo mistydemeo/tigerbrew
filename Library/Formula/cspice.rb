@@ -5,12 +5,6 @@ class Cspice < Formula
   sha256 "c009981340de17fb1d9b55e1746f32336e1a7a3ae0b4b8d68f899ecb6e96dd5d"
   version "65"
 
-  bottle do
-    cellar :any
-    sha1 "095c1b894921f82dcfe230dc5519fa5b0d69e586" => :mavericks
-    sha1 "24d4dbac215fa337c642f1b5f962c83fb73ad774" => :mountain_lion
-    sha1 "c9c33e2601e87f6608c4b58ba51b549b6e04a0c9" => :lion
-  end
 
   def install
     rm_f Dir["lib/*"]

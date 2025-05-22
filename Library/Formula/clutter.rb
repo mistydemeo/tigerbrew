@@ -4,11 +4,6 @@ class Clutter < Formula
   url "https://download.gnome.org/sources/clutter/1.24/clutter-1.24.0.tar.xz"
   sha256 "85c87d5745b97af7633776419a47421aae7cea66c1b870f88cc5e06a4c5626e6"
 
-  bottle do
-    sha256 "ed5bd7a2b8dd5ee04ddc871299c39a8b9483fd325d93b033d1e58ea933f65209" => :el_capitan
-    sha256 "fb7691feb447f9e00f925ccb4c308d3a9be01e47d705205cc969bda627ecb611" => :yosemite
-    sha256 "046c2bf23f70c21011f49f642d1ff282a78b02f68afe409dc2552d5e09aff20a" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "glib"
