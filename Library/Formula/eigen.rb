@@ -1,6 +1,6 @@
 class Eigen < Formula
   desc "C++ template library for linear algebra"
-  homepage "http://eigen.tuxfamily.org/"
+  homepage "https://eigen.tuxfamily.org/index.php?title=Main_Page"
   url "https://bitbucket.org/eigen/eigen/get/3.2.5.tar.bz2"
   sha256 "5f6e6cb88188e34185f43cb819d7dab9b48ef493774ff834e568f4805d3dc2f9"
 
