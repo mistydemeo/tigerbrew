@@ -11,11 +11,6 @@ class Vifm < Formula
     depends_on "autoconf" => :build
   end
 
-  bottle do
-    sha256 "bbd822c0eb5c57e044d256ca2e45a8a8511ef2a500a99b293975e99e36e9da8e" => :yosemite
-    sha256 "ef3ee7dcece9fd892e284cff8887ab050b08bc976d8131cd5c511957724d2fc5" => :mavericks
-    sha256 "4adfb953326729dbcd921343719c833483340012da18760e4d3951dc6a758758" => :mountain_lion
-  end
 
   def install
     args = %W[--disable-dependency-tracking --prefix=#{prefix}]

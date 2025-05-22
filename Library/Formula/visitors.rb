@@ -4,12 +4,6 @@ class Visitors < Formula
   url "http://www.hping.org/visitors/visitors-0.7.tar.gz"
   sha256 "d2149e33ffe96b1f52b0587cff65973b0bc0b24ec43cdf072a782c1bd52148ab"
 
-  bottle do
-    cellar :any
-    sha1 "928de6f2794afa9e0158067ebf008e6389ef91f0" => :mavericks
-    sha1 "74a01b10e5eba82754b52c4db7bf03c5f19470f0" => :mountain_lion
-    sha1 "af85dc4e113dfc1d54661d7b762c191dca5f8fb9" => :lion
-  end
 
   def install
     system "make"

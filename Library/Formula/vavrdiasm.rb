@@ -4,12 +4,6 @@ class Vavrdiasm < Formula
   url "https://github.com/vsergeev/vavrdisasm/archive/v3.1.tar.gz"
   sha256 "4fe5edde40346cb08c280bd6d0399de7a8d2afdf20fb54bf41a8abb126636360"
 
-  bottle do
-    cellar :any
-    sha1 "3cd688a816ee9f7a4046db6170e8d42467877ee5" => :yosemite
-    sha1 "840d8e147085e86941da55763625d82e44b2ca79" => :mavericks
-    sha1 "5ce2eed553cbe8e522b29106eda55b559ce55ac5" => :mountain_lion
-  end
 
   # Patch:
   # - BSD `install(1)' does not have a GNU-compatible `-D' (create intermediate

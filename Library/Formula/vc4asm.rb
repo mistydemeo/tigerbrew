@@ -4,12 +4,6 @@ class Vc4asm < Formula
   url "https://github.com/maazl/vc4asm/archive/V0.1.8.tar.gz"
   sha256 "6e98d5263879c7e24762f707961fa3e31db9c43e6ffc2ef5b22d5d44a180d666"
 
-  bottle do
-    cellar :any
-    sha256 "61d33586464106166ab596587e9e568d966073f328830b96b895cbd0e7f387b7" => :yosemite
-    sha256 "9a4abc2e869f51c8045468e7bc261ae5d863e9fd3eabefd797c898a88580bfc9" => :mavericks
-    sha256 "8c78b6050331c1580dfe22a330a0e449a8b94e18d6432078668f08a2ffc99583" => :mountain_lion
-  end
 
   depends_on "cmake" => :build
 
