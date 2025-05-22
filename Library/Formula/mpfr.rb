@@ -1,6 +1,6 @@
 class Mpfr < Formula
   desc "C library for multiple-precision floating-point computations"
-  homepage "http://www.mpfr.org/"
+  homepage "https://www.mpfr.org/"
   url "https://www.mpfr.org/mpfr-4.2.1/mpfr-4.2.1.tar.xz"
   mirror "https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz"
   sha256 "277807353a6726978996945af13e52829e3abd7a9a5b7fb2793894e18f1fcbb2"
