@@ -6,12 +6,6 @@ class ArgyllCms < Formula
   sha256 "59bdfaeace35d2007c90fc53234ba33bf8a64cffc08f7b27a297fc5f85455377"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "ef22744d8bc625c0add4604e2cfbf4fec94734d8abe1382812099ec85353dc0d" => :el_capitan
-    sha256 "9988670d522fba259ab47efe710987fec598e208c6255b489a5cbc7ac40681a3" => :yosemite
-    sha256 "924c116ab58fc4267d9e8059e22d337c32e47535bba7648360c9dbaaa7a6c1ea" => :mavericks
-  end
 
   depends_on "jam" => :build
   depends_on "jpeg"
