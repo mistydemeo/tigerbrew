@@ -6,10 +6,6 @@ class Flashrom < Formula
   license "GPL-2.0-or-later"
   head "https://review.coreboot.org/flashrom.git", branch: "master"
 
-  bottle do
-    cellar :any
-  end
-
   # Need strndup(3) via helper
   patch :p0, :DATA
 

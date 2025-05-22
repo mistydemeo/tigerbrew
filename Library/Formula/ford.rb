@@ -6,12 +6,6 @@ class Ford < Formula
 
   head "https://github.com/cmacmackin/ford.git"
 
-  bottle do
-    cellar :any
-    sha256 "1f69c2ad783b780f5f98d4ffb6f9f9e4bf9421c1fe409ab4c4e8d41aa1472d6e" => :yosemite
-    sha256 "ef663ce6c97e57e3d3aac8a4944a9efe90c850749bfab219bb4ac3a26c9a5544" => :mavericks
-    sha256 "ce4bc86826ecbd61f9bf7a344dcf1cd623f5449b0e9282b551c8c486a44791ab" => :mountain_lion
-  end
 
   depends_on "graphviz"
   depends_on :python if MacOS.version <= :snow_leopard

@@ -4,12 +4,6 @@ class Fpc < Formula
   url "https://downloads.sourceforge.net/project/freepascal/Source/2.6.4/fpc-2.6.4.source.tar.gz"
   sha256 "c16f2e6e0274c7afc0f1d2dded22d0fec98fe329b1d5b2f011af1655f3a1cc29"
 
-  bottle do
-    cellar :any
-    sha1 "c77e7a5b6b9fb84b9d90bb4515a8557ccb98a253" => :mavericks
-    sha1 "47f760e84fc84f845718efe4737402e086de705c" => :mountain_lion
-    sha1 "90d3b9d4ad5e3d06efc0108e0b1dbd8e58b18034" => :lion
-  end
 
   resource "bootstrap" do
     url "https://downloads.sourceforge.net/project/freepascal/Bootstrap/2.6.4/universal-macosx-10.5-ppcuniversal.tar.bz2"
