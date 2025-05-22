@@ -1,6 +1,6 @@
 class Libiodbc < Formula
   desc "Database connectivity layer based on ODBC. (alternative to unixodbc)"
-  homepage "http://www.iodbc.org/dataspace/iodbc/wiki/iODBC/"
+  homepage "https://www.iodbc.org/"
   url "https://downloads.sourceforge.net/project/iodbc/iodbc/3.52.10/libiodbc-3.52.10.tar.gz"
   sha256 "1568b42b4e97f36110af661d39bfea7d94ac4ff020014574b16a7199f068e11f"
 
