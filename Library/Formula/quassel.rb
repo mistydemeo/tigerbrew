@@ -1,6 +1,6 @@
 class Quassel < Formula
   desc "Distributed IRC client (Qt-based)"
-  homepage "http://www.quassel-irc.org/"
+  homepage "https://www.quassel-irc.org/"
   head "https://github.com/quassel/quassel.git"
 
   stable do
