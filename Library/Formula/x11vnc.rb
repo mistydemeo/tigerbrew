@@ -5,12 +5,6 @@ class X11vnc < Formula
   sha256 "f6829f2e629667a5284de62b080b13126a0736499fe47cdb447aedb07a59f13b"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "a32bb68e7b1ebb96de7acd8ce4d602038fed7ae0d7e6c6adca294fc688f2a8ad" => :yosemite
-    sha256 "6e92c88b0c90fbda1ffc73f62c7ef2482b42b544595232b02caa54a6ab7c7021" => :mavericks
-    sha256 "104e7c7dfd642f901e9f8be417b77540242c1ef2bf8e8aba6bee64e5d9f2a215" => :mountain_lion
-  end
 
   depends_on :x11 => :optional
   depends_on "openssl"

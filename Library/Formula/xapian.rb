@@ -4,13 +4,6 @@ class Xapian < Formula
   url "http://oligarchy.co.uk/xapian/1.2.19/xapian-core-1.2.19.tar.xz"
   sha256 "4a78260388ff1b042f0ab5d18afdd524a530ae609690d0339990ddc147a54785"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "223966e50beed39b091f1e0e9c99113420211d99c7a959efcc44a66507506f89" => :el_capitan
-    sha256 "6ffe866abf19269399d42d4f77f6251b2fa99abfa6ea0c3ccedf1b554f6bd26b" => :yosemite
-    sha256 "2bffd7ca22b71a06537138c43b3a0dc010d2af5bb3bd26b190d57cfb998e4434" => :mavericks
-  end
 
   option "java",   "Java bindings"
   option "php",    "PHP bindings"
