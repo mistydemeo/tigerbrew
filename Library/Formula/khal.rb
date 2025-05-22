@@ -5,12 +5,6 @@ class Khal < Formula
   sha256 "1a2e8d56d20b12ed2c3ef2468ff0ce0c658a8a566b249821b0f4b30cce8ada9a"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "1796df34f81473c1ad2eb8527803b8b30c993e20199e00d3457b8c3289b07244" => :yosemite
-    sha256 "67b02a0db471f4799ee54b65b39a3067af158a18d8bea6537eb681185456a4f3" => :mavericks
-    sha256 "06f4f64db39be3cf026439ab604bdb6e83c1db0ef25ce0e3a49076c74764c8d2" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
 

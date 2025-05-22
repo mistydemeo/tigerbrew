@@ -13,12 +13,6 @@ class Knot < Formula
     depends_on "pkg-config" => :build
   end
 
-  bottle do
-    cellar :any
-    sha256 "cb802cbc1c228a0acaffd49483c7a144eb223bd69955b610a18c5f77b567e988" => :yosemite
-    sha256 "e537709607541d660b68546fd28e06ec5b226b247f2b3e36ca8bb3645d3d1925" => :mavericks
-    sha256 "90dc89d5fb73b6675dfa808ad6d1a96a6bc26e9516009b4841d77ecc88ab5ea2" => :mountain_lion
-  end
 
   depends_on "gnutls"
   depends_on "jansson"
