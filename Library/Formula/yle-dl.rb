@@ -6,12 +6,6 @@ class YleDl < Formula
 
   head "https://github.com/aajanki/yle-dl.git"
 
-  bottle do
-    cellar :any
-    sha256 "2792ad1b8a6a2aa7bc9ba5821037ac5a691f9b650ebc18551cb3955ec53f7d84" => :yosemite
-    sha256 "0af5fb9456cc26b7c92f7a03462189597d27b9229a74800a2094edac79125a09" => :mavericks
-    sha256 "cb4a209ac0e68d168df8424813d6436501493850fef66ec710e5cdb41415cc44" => :mountain_lion
-  end
 
   depends_on "rtmpdump"
   depends_on :python if MacOS.version <= :snow_leopard
