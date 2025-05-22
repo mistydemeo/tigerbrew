@@ -1,6 +1,6 @@
 class OpenBabel < Formula
   desc "Chemical toolbox"
-  homepage "http://www.openbabel.org"
+  homepage "https://openbabel.org/"
 
   stable do
     url "https://downloads.sourceforge.net/project/openbabel/openbabel/2.3.2/openbabel-2.3.2.tar.gz"

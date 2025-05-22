@@ -1,6 +1,6 @@
 class OpenMesh < Formula
   desc "Generic data structure to represent and manipulate polygonal meshes"
-  homepage "http://openmesh.org"
+  homepage "https://www.graphics.rwth-aachen.de/software/openmesh/"
   url "http://www.openmesh.org/media/Releases/4.1/OpenMesh-4.1.tar.gz"
   sha256 "32e8d2218ebcb1c8ad9bd8645dcead26b76ee7d0980fc7a866683ac9860e5f20"
 
