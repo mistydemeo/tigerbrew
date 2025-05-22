@@ -1,7 +1,7 @@
 class DBus < Formula
   # releases: even (1.10.x) = stable, odd (1.11.x) = development
   desc "Message bus system, providing inter-application communication"
-  homepage "https://wiki.freedesktop.org/www/Software/dbus"
+  homepage "https://wiki.freedesktop.org/www/Software/dbus/"
   head "git://anongit.freedesktop.org/dbus/dbus.git"
  
   stable do
