@@ -1,6 +1,6 @@
 class Freetype < Formula
   desc "Software library to render fonts"
-  homepage "http://www.freetype.org"
+  homepage "https://freetype.org/"
   url "https://download.savannah.gnu.org/releases/freetype/freetype-2.13.2.tar.xz"
   mirror "https://download-mirror.savannah.gnu.org/releases/freetype/freetype-2.13.2.tar.xz"
   sha256 "12991c4e55c506dd7f9b765933e62fd2be2e06d421505d7950a132e4f1bb484d"
