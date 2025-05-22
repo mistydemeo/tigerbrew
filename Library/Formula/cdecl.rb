@@ -1,6 +1,6 @@
 class Cdecl < Formula
   desc "Turn English phrases to C or C++ declarations"
-  homepage "http://cdecl.org/"
+  homepage "https://cdecl.org/"
   url "http://cdecl.org/files/cdecl-blocks-2.5.tar.gz"
   sha256 "9ee6402be7e4f5bb5e6ee60c6b9ea3862935bf070e6cecd0ab0842305406f3ac"
 

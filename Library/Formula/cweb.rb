@@ -1,6 +1,6 @@
 class Cweb < Formula
   desc "Literate documentation system for C, C++, and Java"
-  homepage "http://www-cs-faculty.stanford.edu/~uno/cweb.html"
+  homepage "https://www-cs-faculty.stanford.edu/~knuth/cweb.html"
   url "ftp://ftp.cs.stanford.edu/pub/cweb/cweb-3.64ad.tar.gz"
   sha256 "1f0bb7aa35b8d43b721d588ed5003620d38de1959652f23bac2847ffcb922c0f"
 
