@@ -6,12 +6,6 @@ class Hiredis < Formula
 
   head "https://github.com/redis/hiredis.git"
 
-  bottle do
-    cellar :any
-    sha256 "9c5dd3b595179560b3a22c685b87b32466edbfaea059659c72399e6b8c86b181" => :el_capitan
-    sha256 "f038cdff672abde1099b34daac067172cf9545e04b49248f6a580732d242183d" => :yosemite
-    sha256 "70fed127330cd583478cef89d89d34af112b60e5341cc7f42aa5d06f4b9575ce" => :mavericks
-  end
 
   def install
     # Architecture isn't detected correctly on 32bit Snow Leopard without help
