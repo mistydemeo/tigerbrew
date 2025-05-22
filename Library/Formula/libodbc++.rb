@@ -4,10 +4,6 @@ class Libodbcxx < Formula
   url "https://downloads.sourceforge.net/project/libodbcxx/libodbc++/0.2.5/libodbc++-0.2.5.tar.gz"
   sha256 "0731a475b4693514e6a99121441a40305df3fe1dce3756df20c7b6758aa53b57"
 
-  bottle do
-    cellar :any
-    sha1 "2bbe061284cc6a3188e776c8bb9544fad672862e" => :mountain_lion
-  end
 
   # Two patches are included:
   # The first: Fixes a compilation error on 64bit machines:

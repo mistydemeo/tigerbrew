@@ -4,13 +4,6 @@ class Lastfmlib < Formula
   url "https://lastfmlib.googlecode.com/files/lastfmlib-0.4.0.tar.gz"
   sha256 "28ecaffe2efecd5ac6ac00ba8e0a07b08e7fb35b45dfe384d88392ad6428309a"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "764db4a4f10b803d6fccf6552a47427634e70c18" => :yosemite
-    sha1 "dcb26b1acf66e30f694543ad32f3b4433745667d" => :mavericks
-    sha1 "61c0b04548eefedd3c546e3bbf392987d667c2b9" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
 

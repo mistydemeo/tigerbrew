@@ -5,11 +5,6 @@ class Lablgtk < Formula
   sha256 "975bebf2f9ca74dc3bf7431ebb640ff6a924bb80c8ee5f4467c475a7e4b0cbaf"
   revision 1
 
-  bottle do
-    sha256 "8b30f87a6c0a13f4ba20c6f6b1047bcba4d1d9f24c98ee99866535d4d516cdbd" => :yosemite
-    sha256 "7452a64cdcf4fc7a6cc705099012cdbd9ffcf2f68395755df53f8c2c04922189" => :mavericks
-    sha256 "d1bd4b3bf0b983183c677a81f2ba2667057a17f743e5f02b066ab370e3edfe23" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "camlp4" => :build

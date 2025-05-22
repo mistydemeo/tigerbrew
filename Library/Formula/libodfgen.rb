@@ -5,12 +5,6 @@ class Libodfgen < Formula
   mirror "https://downloads.sourceforge.net/project/libwpd/libodfgen/libodfgen-0.1.4/libodfgen-0.1.4.tar.bz2"
   sha256 "f74999d2c93ac0cc077a0a9c36340daff29dc772992160ae81dd010345f72b80"
 
-  bottle do
-    cellar :any
-    sha256 "e5192c0d6bbdb0d3cee6ad5be6596cbd6126deac94276a47a31d5f2224d31615" => :yosemite
-    sha256 "3d24cbc82f9434cb605d2a660557d04b8ff8c997f8159888e999523018c0477a" => :mavericks
-    sha256 "10fdb44c42193be8a30b1b3b6e207d27124b9070ec0bcc6ee7effc4e813e4254" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "boost" => :build

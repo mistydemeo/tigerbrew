@@ -6,14 +6,6 @@ class Libstrophe < Formula
   head "https://github.com/strophe/libstrophe.git"
   revision 1
 
-  bottle do
-    cellar :any
-    revision 2
-    sha256 "b533ba5fbc93054ff666907002045eb057decaa582223610135bf5240f2f579b" => :el_capitan
-    sha1 "cba04617714a99e25d71ab0efd9d26d046d336c4" => :yosemite
-    sha1 "1f824c9bcb4d8e370e5423d26b75bc926de23afc" => :mavericks
-    sha1 "5ed9df92858ba19d256cfc99c1459649b4840f68" => :mountain_lion
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

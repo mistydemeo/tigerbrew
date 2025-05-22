@@ -4,12 +4,6 @@ class Liblunar < Formula
   url "https://liblunar.googlecode.com/files/liblunar-2.2.5.tar.gz"
   sha256 "c24a7cd3ccbf7ab739d752a437f1879f62b975b95abcf9eb9e1dd623982bc167"
 
-  bottle do
-    revision 1
-    sha1 "8113fe85f888c12a9841aa6281016406ec7b9799" => :yosemite
-    sha1 "b92965d3651332b69eb42a1f6341b5daf12b9632" => :mavericks
-    sha1 "69b6824161e90b0578e314efcae5db056930ed2e" => :mountain_lion
-  end
 
   option "python", "Build python bindings using pygobject"
 

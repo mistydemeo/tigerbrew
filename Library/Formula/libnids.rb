@@ -4,13 +4,6 @@ class Libnids < Formula
   url "https://downloads.sourceforge.net/project/libnids/libnids/1.24/libnids-1.24.tar.gz"
   sha256 "314b4793e0902fbf1fdb7fb659af37a3c1306ed1aad5d1c84de6c931b351d359"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "49f12f0277e954aad59221c16f28d1ac86838ea1" => :yosemite
-    sha1 "fcb4eed5e69d8f80e5f7bacd6dad1d09d942e4f7" => :mavericks
-    sha1 "23f8aaac028f2fd18323cebd0f5e06c74e708893" => :mountain_lion
-  end
 
   deprecated_option "disable-libnet" => "without-libnet"
   deprecated_option "disable-libglib" => "without-glib"

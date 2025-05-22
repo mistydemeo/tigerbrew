@@ -4,12 +4,6 @@ class Libwps < Formula
   url "http://dev-www.libreoffice.org/src/libwps-0.3.0.tar.bz2"
   sha256 "243d1dfc9bb53ac9d05405379a119e9b7d999714de3a3d56f4d3c505cedad43a"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "6da56fae08558950c9134a762f6e7491fabbb7b8" => :yosemite
-    sha1 "a1785cc9c07420d3e88a7000e7b42bb96091baea" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "boost" => :build

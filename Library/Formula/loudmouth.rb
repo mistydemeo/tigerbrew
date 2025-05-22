@@ -6,12 +6,6 @@ class Loudmouth < Formula
   sha256 "d8ff057dc98c99ab19a68c3890c7f5ab47870e45d67bb65891f01a78c77dfcf9"
   revision 1
 
-  bottle do
-    cellar :any
-    sha1 "036bfd7eb2c9b064596bdbbf241bcd91247fbdb5" => :yosemite
-    sha1 "ea2c830197162a650c5b24b6e86b78f1ef9e878f" => :mavericks
-    sha1 "0b77821cecfa2ea9e3cd9789c21b2e8857f43be0" => :mountain_lion
-  end
 
   head "https://github.com/mcabber/loudmouth.git"
 

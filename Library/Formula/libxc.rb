@@ -5,12 +5,6 @@ class Libxc < Formula
   sha256 "6ca1d0bb5fdc341d59960707bc67f23ad54de8a6018e19e02eee2b16ea7cc642"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "21c14d74f3b61c2a90518208500aee11fc18d0f0449cb76b0d3d30a0e8ec0fe9" => :yosemite
-    sha256 "c6d5ac5639158a1c0c7e66abd31bdfe5fa3d036c702dc64d75d3d4a625897e4a" => :mavericks
-    sha256 "63b05a1fb40be747e31c0d7addf8d424df06d42dd028a907e92ea738d1b0e684" => :mountain_lion
-  end
 
   depends_on :fortran
 

@@ -3,12 +3,6 @@ class Luabind < Formula
   homepage "http://www.rasterbar.com/products/luabind.html"
   url "https://downloads.sourceforge.net/project/luabind/luabind/0.9.1/luabind-0.9.1.tar.gz"
   sha256 "80de5e04918678dd8e6dac3b22a34b3247f74bf744c719bae21faaa49649aaae"
-  bottle do
-    cellar :any
-    sha1 "aa32def1a41203aa36c907e55aa48741927e4de8" => :yosemite
-    sha1 "6c7fe3fd06a62aa7e8cd37775ca52c101fa045bb" => :mavericks
-    sha1 "dbe4488b6e323e142684949abb1589de9490ca7e" => :mountain_lion
-  end
 
   revision 1
 

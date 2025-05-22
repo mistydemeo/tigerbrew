@@ -4,13 +4,6 @@ class Libstfl < Formula
   url "http://www.clifford.at/stfl/stfl-0.22.tar.gz"
   sha256 "2dddafd331e61ad04baf1251ccecb3a69feaf99880dd75155be8423c1cc55418"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "99bd2857185a922489e9bf91250b5e65451293ed" => :yosemite
-    sha1 "28a41ab85a27163fd350764df8b2d704fd4f9269" => :mavericks
-    sha1 "c6858e2c5dfca711d1ce75693abe9d6604847071" => :mountain_lion
-  end
 
   depends_on :python => :optional
   depends_on "swig" => :build

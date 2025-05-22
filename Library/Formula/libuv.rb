@@ -5,13 +5,6 @@ class Libuv < Formula
   sha256 "5f9625845f509029e44974a67c7e599d11ff9333f8c48a301a098e740cf9ba6c"
   head "https://github.com/libuv/libuv.git", :branch => "v1.x"
 
-  bottle do
-    cellar :any
-    sha256 "85f20d13e5df5250b6acc30b89032b2d1994ae6c58e654450aa45a4b3858023d" => :el_capitan
-    sha256 "601d405156f24be8dfb069a0df726b00f310f99a1e72ccc7083453b8826b636a" => :yosemite
-    sha256 "ef03b634cb3eb23aad3e8ff6021a5681d8f37451e0b7365aeca487c946b75a49" => :mavericks
-    sha256 "0f5d4b86eb35d5c3477d2c8221b6d8653646aa98d7e5220010f7878692e3ddf7" => :mountain_lion
-  end
 
   option "without-docs", "Don't build and install documentation"
   option "with-check", "Execute compile time checks (Requires internet connection)"
