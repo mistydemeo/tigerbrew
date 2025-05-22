@@ -5,13 +5,6 @@ class Minidlna < Formula
   sha256 "8477ad0416bb2af5cd8da6dde6c07ffe1a413492b7fe40a362bc8587be15ab9b"
   revision 1
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "a1720c0519c4c628f1741e340b4462f92a2b20a00f8ed319d7a98602d4ad27a5" => :el_capitan
-    sha256 "f59f5cc914bbd49af01f7421e5d0b368b05eca5a3f63b32be446c61b6ab151cc" => :yosemite
-    sha256 "00a50390c52a5fd7fed585776d586ef285c27ff98e7239ca219325577cf2c10d" => :mavericks
-  end
 
   head do
     url "git://git.code.sf.net/p/minidlna/git"
