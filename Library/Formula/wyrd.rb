@@ -4,11 +4,6 @@ class Wyrd < Formula
   url "http://pessimization.com/software/wyrd/wyrd-1.4.6.tar.gz"
   sha256 "b2b51d6fb38f8b8b3ec30ee72093f791ba9b6fe35418191bc2011d2c8079997e"
 
-  bottle do
-    sha1 "dde6d73145bc484a9f0f62c909c20b26f5029e8d" => :yosemite
-    sha1 "92ee61c12e83ece68b9a28d8eb3cb9b95f201dca" => :mavericks
-    sha1 "dc2c60f856f3a7b7751a169c4c1ad2e860612af7" => :mountain_lion
-  end
 
   depends_on "remind"
   depends_on "ocaml" => :build

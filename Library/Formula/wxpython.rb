@@ -17,11 +17,6 @@ class Wxpython < Formula
   url "https://downloads.sourceforge.net/project/wxpython/wxPython/3.0.2.0/wxPython-src-3.0.2.0.tar.bz2"
   sha256 "d54129e5fbea4fb8091c87b2980760b72c22a386cb3b9dd2eebc928ef5e8df61"
 
-  bottle do
-    sha1 "e73ade83e5802db3b824ebdc8b8fc62d0c70ae6f" => :yosemite
-    sha1 "739ab76d3bc7e0f804ea487d14274630ae0e19cc" => :mavericks
-    sha1 "76bd0e1a6ce0fba459b4847836c3dfd0ac4a31af" => :mountain_lion
-  end
 
   if MacOS.version <= :snow_leopard
     depends_on :python

@@ -5,10 +5,6 @@ class Whereami < Formula
   sha256 "75efa77897102e657ab6d23c97222dea4e7a2c9a1702664fd56506a7a187cf62"
   head "https://github.com/victor/whereami.git", :branch => "swift"
 
-  bottle do
-    cellar :any
-    sha1 "f1b35d4c5180a303169d0ba251daf39375c20065" => :yosemite
-  end
 
   depends_on :xcode => ["6.1.1", :build]
   depends_on :macos => :yosemite
