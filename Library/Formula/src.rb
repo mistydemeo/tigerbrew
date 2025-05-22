@@ -9,12 +9,6 @@ class Src < Formula
     depends_on "asciidoc" => :build
   end
 
-  bottle do
-    cellar :any
-    sha256 "654b13895e6e8e7c1f99a007a17d0c6ab26625e2dd732631016dcaeddd5d942d" => :yosemite
-    sha256 "91d3fd19e7d8189930d72f03ab1b092a1291252b47076c72c1c1988f69d822e5" => :mavericks
-    sha256 "22e3c9dd3842b0d308c56832a04116f7ce8b0a6055a95c4b42c2d3548f02fe5d" => :mountain_lion
-  end
 
   conflicts_with "srclib", :because => "both install a 'src' binary"
 

@@ -5,12 +5,6 @@ class Szl < Formula
   sha256 "af5c647276fd0dea658eae6016957b7ad09ac68efe13ae2a3c867043b5889f87"
   revision 5
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "92a10b08dae8394ac7ac5db90d351fad99bc74ff94f966bb888d3797e78c2891" => :yosemite
-    sha256 "235f69f9ca8061937fe3f72c6f2467027fe2083837cebbeb2d98e33a25c09b83" => :mavericks
-  end
 
   depends_on :macos => :mavericks
 

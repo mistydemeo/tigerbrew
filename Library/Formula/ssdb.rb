@@ -5,12 +5,6 @@ class Ssdb < Formula
   sha256 "2fe10689a0e1e9e9ca67acbe9e0fa3607810dca90dcc9f0813b2661cc6d4e826"
   head "https://github.com/ideawu/ssdb.git"
 
-  bottle do
-    cellar :any
-    sha256 "1970e505fd1e8f6166010a892e66a718a39cbab1bcdd515bd6fdd4ec7c185600" => :yosemite
-    sha256 "61430871ab15a312f8a6b0caf68003d379fc8e52199702747b84f86f3887d911" => :mavericks
-    sha256 "16b3c20d79519328e01139ccf8fc71832f90d5df1c55c9ba32ab150a0cddf77e" => :mountain_lion
-  end
 
   def install
     inreplace "Makefile", "PREFIX=/usr/local/ssdb", "PREFIX=#{prefix}"

@@ -5,12 +5,6 @@ class Squirrel < Formula
   version "3.0.7"
   sha256 "c7c2548e2d2d74116303445118e197f585a3a5e6bde06fdfe668c05b1cb43fa2"
 
-  bottle do
-    cellar :any
-    sha1 "24ac32cfb018ba9ed7a68b1fd7314de307e6b60e" => :yosemite
-    sha1 "7a4e09d82eaf35d16962df098d9342c3f1a95b81" => :mavericks
-    sha1 "8d3ec975ba7dde650f11985df813ce49daa6f830" => :mountain_lion
-  end
 
   def install
     system "make"

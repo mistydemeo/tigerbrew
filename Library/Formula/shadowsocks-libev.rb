@@ -5,12 +5,6 @@ class ShadowsocksLibev < Formula
   sha256 "80e55840e4e3fb61f9ec13b2cad75acb1f5a39212a5141ff5751c6a147a3218b"
   head "https://github.com/shadowsocks/shadowsocks-libev.git"
 
-  bottle do
-    cellar :any
-    sha256 "1443f6eef1c4984f458907168beef526c1172fa4f3df54c8880748e44aefa005" => :el_capitan
-    sha256 "cd1dde0eaec1c872c098b33dc540902693803fc85e2242d41720b3578f97fa3c" => :yosemite
-    sha256 "f87760e9d3e366bc4f81d0e129db617c13378b9f1fb4fca6a674956362eb158d" => :mavericks
-  end
 
   depends_on "openssl"
 

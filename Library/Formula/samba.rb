@@ -4,13 +4,6 @@ class Samba < Formula
   url "https://download.samba.org/pub/samba/stable/samba-3.6.25.tar.gz"
   sha256 "8f2c8a7f2bd89b0dfd228ed917815852f7c625b2bc0936304ac3ed63aaf83751"
 
-  bottle do
-    revision 1
-    sha256 "da0c666f7090e0d838a9232e69a6669c27c54ac2f296cdd0fb3267e019abafe9" => :el_capitan
-    sha256 "f1fc6a41e7ff919d7c0d2459df72df4dfa84d557481301338cbb74489e80b659" => :yosemite
-    sha256 "3fe2b2aa3b3623dd7d8bc3f2ef7308600125eed03817ecf0fa9d10c0c9911705" => :mavericks
-    sha256 "f6c02ca7f1dd074a3b5c021810351904cbe8b447bd81adc9598e64e1eb342e10" => :mountain_lion
-  end
 
   conflicts_with "talloc", :because => "both install `include/talloc.h`"
 
