@@ -1,6 +1,6 @@
 class Galen < Formula
   desc "Automated testing of look and feel for responsive websites"
-  homepage "http://galenframework.com/"
+  homepage "https://galenframework.com/"
   url "https://github.com/galenframework/galen/releases/download/galen-2.1.2/galen-bin-2.1.2.zip"
   sha256 "46c94af882845bca40168860f5ed35630a0b5416d18c37f479807da86c1c067e"
 

@@ -1,6 +1,6 @@
 class GitReview < Formula
   desc "Submit git branches to gerrit for review"
-  homepage "https://git.openstack.org/cgit/openstack-infra/git-review"
+  homepage "https://opendev.org/opendev/git-review"
   url "https://pypi.python.org/packages/source/g/git-review/git-review-1.25.0.tar.gz"
   sha256 "087e0a7dc2415796a9f21c484a6f652c5410e6ba4562c36291c5399f9395a11d"
 
