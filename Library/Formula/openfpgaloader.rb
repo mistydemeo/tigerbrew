@@ -6,8 +6,6 @@ class Openfpgaloader < Formula
   license "Apache-2.0"
   head "https://github.com/trabucayre/openFPGALoader.git", branch: "master"
 
-  bottle do
-  end
 
   needs :cxx11
 

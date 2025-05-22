@@ -4,12 +4,6 @@ class Ooniprobe < Formula
   url "https://pypi.python.org/packages/source/o/ooniprobe/ooniprobe-1.3.1.tar.gz"
   sha256 "0d90b85f74c9dd98f8f111c058a2a734aa5e0aea927b2653f7a0387c93e090b2"
 
-  bottle do
-    cellar :any
-    sha256 "07723f65b43ed2262115f2d3e854e68ddd19c3656fa26dabaa4774ef7067e894" => :el_capitan
-    sha256 "4afd88781ca598afe301f838eea08e511bf032591d51a21006298a75c435ac69" => :yosemite
-    sha256 "900d2bee5c9769e72ef89f6f20d7a8ee46811810e42fb2a645dceceffdcb1a01" => :mavericks
-  end
 
   depends_on "geoip"
   depends_on "libdnet"

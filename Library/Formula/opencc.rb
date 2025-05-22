@@ -4,11 +4,6 @@ class Opencc < Formula
   url "https://dl.bintray.com/byvoid/opencc/opencc-1.0.3.tar.gz"
   sha256 "5738c6996c6576539e8c5dea103456d86005b0656b476b9d97c65d468a9e7d97"
 
-  bottle do
-    sha256 "017b96bc4e668ce364e70f4b960b8a56d4593f27c9244e3b2e79a4ce53353cfa" => :yosemite
-    sha256 "65527b74afd6a34dcdfd454c6bf365683bec1a63ffd6cea0d0a580790f85ae0e" => :mavericks
-    sha256 "71c920c49cf7173a77cf1532cb445b83f7aef1a47817540b879432b631b768c1" => :mountain_lion
-  end
 
   depends_on "cmake" => :build
 

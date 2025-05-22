@@ -4,11 +4,6 @@ class OpenZwave < Formula
   url "http://old.openzwave.com/downloads/openzwave-1.2.919.tar.gz"
   sha256 "473229f3dd3d6b260e6584b17e5c5f2e09e61805f89763f486a9f7aa2b4181ba"
 
-  bottle do
-    sha1 "0aea65c0a849243fd77171b8331670bec815c296" => :yosemite
-    sha1 "bdc7fd5fe1a9bcd8a3d2f3a881120dbb5192c06e" => :mavericks
-    sha1 "ab857cbb029a40ede770184e6262344db82f9832" => :mountain_lion
-  end
 
   # Patch to build a .dylib instead of a .so
   # This patch has been merged upstream and can be removed after the next release:

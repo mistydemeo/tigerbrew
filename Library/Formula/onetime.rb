@@ -4,12 +4,6 @@ class Onetime < Formula
   url "http://red-bean.com/onetime/onetime-1.81.tar.gz"
   sha256 "36a83a83ac9f4018278bf48e868af00f3326b853229fae7e43b38d167e628348"
 
-  bottle do
-    cellar :any
-    sha1 "efecf649c941cde0917e4660db0ba460f2193554" => :mavericks
-    sha1 "ec09cda341e360b493e28cf05b2ef847caafd90d" => :mountain_lion
-    sha1 "b243466379b50a72945aaa124405a5e350dc9203" => :lion
-  end
 
   devel do
     url "http://red-bean.com/onetime/onetime-2.0-beta3.tar.gz"
