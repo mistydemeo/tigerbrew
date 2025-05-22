@@ -7,13 +7,6 @@ class PerconaToolkit < Formula
 
   head "lp:percona-toolkit", :using => :bzr
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "bbfa6abe8440109e4fc32bd7296cfb2518d9c81150023717cff41f8fbab7d584" => :el_capitan
-    sha256 "a99afd6d4c648b3666fd23950e84a5d36929c0f8210acd40cc3536f58f7175ab" => :yosemite
-    sha256 "0a54b83fa09232f2067af907ae89d48ff8e270bab8b9a6ddbe6b7d9b91ea354a" => :mavericks
-  end
 
   depends_on :mysql
   depends_on "openssl"

@@ -5,11 +5,6 @@ class Pike < Formula
   sha256 "0b12e1a99bd8bdd9c8a2daa46e623ac718bc0737290236a0c8474091359b594e"
   revision 1
 
-  bottle do
-    sha256 "e1c276b7fdf4ce90cb6f512d6c93f494a56432e878567d05a63f63657cbba7d6" => :yosemite
-    sha256 "baad545207c59dbd86f57ed20155f4c0ef0aaa1f3b3291adc1eb304c4d66e987" => :mavericks
-    sha256 "3240c7771fad0948975677e1553bf5cc4b48ec7541efe42ca838576f90a66113" => :mountain_lion
-  end
 
   depends_on "nettle"
   depends_on "gmp"

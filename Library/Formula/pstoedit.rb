@@ -4,13 +4,6 @@ class Pstoedit < Formula
   url "https://downloads.sourceforge.net/project/pstoedit/pstoedit/3.70/pstoedit-3.70.tar.gz"
   sha256 "06b86113f7847cbcfd4e0623921a8763143bbcaef9f9098e6def650d1ff8138c"
 
-  bottle do
-    revision 1
-    sha256 "ebead6381ae8729b99868e77f53433123293b0153adea4399ce52b481dc79a30" => :el_capitan
-    sha256 "7aaeb9a02ccedc2487890d021e56a5303d0e3b9a45a2ebb1a79d82136f5f98eb" => :yosemite
-    sha256 "edf89792e82fd205773febafd90e9af391566fc20c1a48799854aa2ef1bf6888" => :mavericks
-    sha256 "d1f51d8a33fe2f1d69200cee962bd8a0eb78cd891f174efa872a6d91fe11b35b" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "plotutils"

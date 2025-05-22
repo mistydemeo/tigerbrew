@@ -5,11 +5,6 @@ class Proj < Formula
   sha256 "60bf9ad1ed1c18158e652dfff97865ba6fb2b67f1511bc8dceae4b3c7e657796"
   head "http://svn.osgeo.org/metacrs/proj/trunk/proj"
 
-  bottle do
-    sha256 "b38c33321502ff9d808f06e1f8ff932c0c2c2c832c121c61cd30d5cd98fbaf8e" => :el_capitan
-    sha256 "8146548590a89b1c82a115594b282f6d6708067490dd8c2f83d1e0d8a03845c3" => :yosemite
-    sha256 "d76df7d958194e3e71993de9496480f0ee636170251b50013f79628ae27c9888" => :mavericks
-  end
 
   option "with-vdatum", "Install vertical datum files (~380 MB)"
 

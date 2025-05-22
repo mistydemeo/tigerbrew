@@ -6,8 +6,6 @@ class Poke < Formula
   sha256 "a84cb9175d50d45a411f2481fd0662b83cb32ce517316b889cfb570819579373"
   license "GPL-3.0-or-later"
 
-  bottle do
-  end
 
   # MAP_ANONYMOUS is not defined on Leopard and Tiger
   patch :p0, :DATA
