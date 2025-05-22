@@ -4,11 +4,6 @@ class Gdl < Formula
   url "https://download.gnome.org/sources/gdl/3.18/gdl-3.18.0.tar.xz"
   sha256 "1499884e4fce375a963cf2b98b90e6724144f9b1f1ac8b84d765f4c85a2140b2"
 
-  bottle do
-    sha256 "2510a3cf303aad9f105ee5615e2d23cbbb2c43e73f53bdbeffd815f9818dbcb5" => :el_capitan
-    sha256 "b7ddc50c5dee0c1cc2483cbf5a78b9f06e84aa33d4d06fc025f2af29efcde7f1" => :yosemite
-    sha256 "35e50781d2c3fbbde6599b50b2533411404c96cf1a30e51a4a62a930ce376951" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

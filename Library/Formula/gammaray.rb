@@ -6,11 +6,6 @@ class Gammaray < Formula
   sha256 "d3da28ff1f7ac5534e518a9d4a7b5d7d22267490d3ab3ae094b0592d33244799"
   head "https://github.com/KDAB/GammaRay.git"
 
-  bottle do
-    sha256 "149fcf14623364258624a74de84c1ab286ab7de0cc978dd83f3ddc8a2d39322b" => :yosemite
-    sha256 "3ea0e2da59b8b73f0d51cc4b35f67f950ad06f7b00f0592efa4645e786c6ce5d" => :mavericks
-    sha256 "1e11205cfd53296ea2a45f08d64c510bade4e910288202bb2d695e3511c9178e" => :mountain_lion
-  end
 
   option "without-qt4", "Build against Qt5 instead of Qt4 (default)"
   option "with-vtk", "Build with VTK-with-Qt support, for object 3D visualizer"

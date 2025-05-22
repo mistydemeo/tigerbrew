@@ -5,13 +5,6 @@ class Gtkmm < Formula
   sha256 "443a2ff3fcb42a915609f1779000390c640a6d7fd19ad8816e6161053696f5ee"
   revision 1
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "76257dfe3f07dce5eeeea79365183fc261f54effd8d26abbea4dc177b275892f" => :el_capitan
-    sha256 "1b6d592966b1f14c3258567f0acc6227f1809cae90a9a0755a4f1f06d7dc65f9" => :yosemite
-    sha256 "2d0c4729c2237587eadfeda43cd385487f05d1b53e155ef5b36f09e5881ee3d0" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "glibmm"

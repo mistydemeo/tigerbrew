@@ -4,11 +4,6 @@ class Gtkx3 < Formula
   url "https://download.gnome.org/sources/gtk+/3.16/gtk+-3.16.7.tar.xz"
   sha256 "19689d14de54d182fad538153dbff6d41f53841f940aa871585fdea0306c7fba"
 
-  bottle do
-    sha256 "0688f5f68465a8abe79833403bf30e2a223f07d260ae53817b66991b89274923" => :el_capitan
-    sha256 "fccf4080d63cd651e85af9284ec0d48ee2885a6f9810ef5f13d0459b0bbd54f1" => :yosemite
-    sha256 "c232edec5f498d704a74cc6e7837e28bcfdd66f16d51d31ebb119cc5df0b539d" => :mavericks
-  end
 
   option :universal
   option "with-quartz-relocation", "Build with quartz relocation support"

@@ -5,11 +5,6 @@ class GlobusToolkit < Formula
   url "http://toolkit.globus.org/ftppub/gt6/installers/src/globus_toolkit-6.0.tar.gz"
   sha256 "c38473a0477bc7a941868d78dd8d8a3d5dd99d0fc3d127580c629663202e8c7d"
 
-  bottle do
-    sha1 "ad1c40f3be3184206addd9c8f5c091b6eac1023c" => :yosemite
-    sha1 "0388612635950a8c971e8fe61bc99a70293f4cb3" => :mavericks
-    sha1 "4ab429c5c616124872ba7102dfc0014232320371" => :mountain_lion
-  end
 
   depends_on "openssl"
   depends_on "libtool" => :run

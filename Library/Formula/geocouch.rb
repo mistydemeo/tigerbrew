@@ -7,8 +7,6 @@ class Geocouch < Formula
 
   head "https://github.com/couchbase/geocouch.git"
 
-  bottle do
-  end
 
   depends_on "couchdb"
   depends_on "erlang" => :build

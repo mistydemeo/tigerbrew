@@ -28,9 +28,6 @@ class Gcc49 < Formula
 
   head "svn://gcc.gnu.org/svn/gcc/branches/gcc-4_9-branch"
 
-  bottle do
-  end
-
   option "without-fortran", "Build without the gfortran compiler"
   option "with-java", "Build the gcj compiler"
   option "with-all-languages", "Enable all compilers and languages, except Ada"

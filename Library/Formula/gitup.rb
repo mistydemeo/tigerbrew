@@ -5,12 +5,6 @@ class Gitup < Formula
     :revision => "10494e677bba19622acfa3fc62093a06451c8562",
     :tag => "v0.3"
 
-  bottle do
-    cellar :any
-    sha256 "0b5f3064bcdc561e931afbd126bd472a7d7ad87a68c02f5c03defbdb9c140d85" => :yosemite
-    sha256 "c0b86146ca84fd6962066a3bc11634d504c97df17bcf113f77ea3ff16543aa41" => :mavericks
-    sha256 "030291b81b361518a13917c16235fac9bb06ce12ce8f9c7ebb8ae38a9e4ad531" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
 

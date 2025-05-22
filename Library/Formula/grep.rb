@@ -5,12 +5,6 @@ class Grep < Formula
   mirror "https://ftp.gnu.org/gnu/grep/grep-3.0.tar.xz"
   sha256 "e2c81db5056e3e8c5995f0bb5d0d0e1cad1f6f45c3b2fc77b6e81435aed48ab5"
 
-  bottle do
-    cellar :any
-    sha256 "bb9a99c94bca06d1ac13a26db05916cd069e1f58aba803ee3290ee2caa15b326" => :sierra
-    sha256 "d97ddcf459bf893cbabc2129ff2425c2ff8668ad996c3d96fcef85f0a06fd948" => :el_capitan
-    sha256 "4674ad09c934d919a5251461cb2b200627d5ad950875f131da3ddb517835af32" => :yosemite
-  end
 
   option "with-default-names", "Do not prepend 'g' to the binary"
   deprecated_option "default-names" => "with-default-names"

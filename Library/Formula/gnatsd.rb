@@ -5,12 +5,6 @@ class Gnatsd < Formula
   sha256 "de495dc1b52e16a61e2750bcab29a6c9de2a57c591476740dcbae3134494e1c1"
   head "https://github.com/apcera/gnatsd.git"
 
-  bottle do
-    cellar :any
-    sha256 "106c9bbfddbe20ce2a0e0df337b365df34cefe20a824e78be8d37d09521a14e0" => :yosemite
-    sha256 "b95020cc3e1a0050320c087a2fd454e275e2031bd1c304fc59ac6af3b23908de" => :mavericks
-    sha256 "4d3caabcd86477fb34213524a0aedff60751931acc37b5d9a23c63d81a08170b" => :mountain_lion
-  end
 
   depends_on "go" => :build
 

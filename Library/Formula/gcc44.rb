@@ -25,10 +25,6 @@ class Gcc44 < Formula
   mirror "https://ftp.gnu.org/gnu/gcc/gcc-4.4.7/gcc-4.4.7.tar.bz2"
   sha256 "5ff75116b8f763fa0fb5621af80fc6fb3ea0f1b1a57520874982f03f26cd607f"
 
-  bottle do
-    sha256 "361c84608ef1ddaca2f9a3996aeface6bb08f4525388c563a09b8f20fcd40386" => :mavericks
-    sha256 "c5a7a27d0bfc30a3e6ecce048c786cefa7e3bb4038ad6ea3fdeeb3c6e6454bd1" => :mountain_lion
-  end
 
   option "with-fortran", "Build the gfortran compiler"
   option "with-java", "Build the gcj compiler"

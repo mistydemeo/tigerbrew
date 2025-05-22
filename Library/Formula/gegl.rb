@@ -6,11 +6,6 @@ class Gegl < Formula
   sha256 "f0fec8f2e7b8835979d3cf4e38b05d41bb79f68dc80cf899a846484da693bbf7"
   revision 1
 
-  bottle do
-    sha256 "6082fe8ebabb6dcd94a8efd95dd32072e7f99cc26b36838368fd5c5937259424" => :yosemite
-    sha256 "a94b94d6a7fc27012d3fca0fa665782896e6357deafd5762ecfa31936e20d69c" => :mavericks
-    sha256 "866ed590a4ae9803708e7b2c64f25fdda627781509010eb8bafc66c30ffb7bbc" => :mountain_lion
-  end
 
   head do
     # Use the Github mirror because official git unreliable.

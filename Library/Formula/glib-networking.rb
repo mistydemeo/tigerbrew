@@ -4,12 +4,6 @@ class GlibNetworking < Formula
   url "https://download.gnome.org/sources/glib-networking/2.46/glib-networking-2.46.0.tar.xz"
   sha256 "3655526d6dbfc697c22cd9b279e14599f8449f5802b12d84485bdc52d96482f0"
 
-  bottle do
-    cellar :any
-    sha256 "3c1b629da76dcdb2f6525fe68849f63afc822e772b86170c1b9af84ad6c1df3d" => :el_capitan
-    sha256 "9912eeb2398fedbe1339ab96880af9925cefa8f9de43c6bc503fbc3e569b8d72" => :yosemite
-    sha256 "a1d967fe99e015e6463e2079a26cbe26405f531076dceebb95593f4530701c79" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

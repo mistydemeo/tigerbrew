@@ -10,11 +10,6 @@ class GstPluginsGood < Formula
     depends_on "check" => :optional
   end
 
-  bottle do
-    sha256 "f0b959674f1bf2135378c640853971899df115830e047d0a33784671c35d17d4" => :el_capitan
-    sha256 "1a3009aa7e6dc2cd2cffd598a0c9e1f3183a268460aa15ebd1f750153a4d0f9d" => :yosemite
-    sha256 "cd42820977c3cdb2ca5315f7c86c1e041b523960fac07e767175958c873ff683" => :mavericks
-  end
 
   head do
     url "git://anongit.freedesktop.org/gstreamer/gst-plugins-good"

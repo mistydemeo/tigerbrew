@@ -4,12 +4,6 @@ class Gtkextra < Formula
   url "https://downloads.sourceforge.net/project/gtkextra/3.1/gtkextra-3.1.5.tar.gz"
   sha256 "967115bddfa48878f43baf0b90cefcd46d6bc5b25b5f8069730e1ffe3873d52d"
 
-  bottle do
-    cellar :any
-    sha256 "b9a528da831f1964e2b545202af406a5d6619a60ed0716f789d55c1900c2cc4c" => :yosemite
-    sha256 "99457033f673a382b11bbeadbbca32abb058392dd63a5f50fc789b1bc05116d6" => :mavericks
-    sha256 "6b515a3f94f88d42005bccb0f28681e50b15d9f2f9fd752d8fc74c87d59c9da3" => :mountain_lion
-  end
 
   depends_on "gtk+"
   depends_on "pkg-config" => :build
