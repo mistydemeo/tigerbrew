@@ -5,12 +5,6 @@ class Dcraw < Formula
   sha256 "85791d529e037ad5ca09770900ae975e2e4cc1587ca1da4192ca072cbbfafba3"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "b4fff769c26b35834bf4996164577e71d242ab52a925f600e0774da4dffa5102" => :yosemite
-    sha256 "a20cf18c984fe285f3196d7df3f5b623b857a18f024b122959974777c4e1c7d8" => :mavericks
-    sha256 "c653cd57a595fe076eaa5f602473c5d9276f3776b1caf3c273af175f024ad977" => :mountain_lion
-  end
 
   depends_on "jpeg"
   depends_on "jasper"

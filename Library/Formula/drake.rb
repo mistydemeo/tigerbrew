@@ -6,12 +6,6 @@ class Drake < Formula
   sha256 "adeb0bb14dbe39789273c5c766da9a019870f2a491ba1f0c8c328bd9a95711cc"
   head "https://github.com/Factual/drake.git"
 
-  bottle do
-    cellar :any
-    sha256 "e4ee3af345696cf803595939d098879912dae3e6ba2527609ebd53b6d0f1eae3" => :yosemite
-    sha256 "aecf20701580e0bf885180114d019b0892f9ee108da60a8aba5bc119897a9d13" => :mavericks
-    sha256 "70caad1ee5b8f61aaa9cd62f5ff3f4bd456b4e2fc9a6309c127a45cee4375c76" => :mountain_lion
-  end
 
   resource "jar" do
     url "https://github.com/Factual/drake/releases/download/1.0.1/drake.jar"
