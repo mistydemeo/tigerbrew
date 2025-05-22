@@ -1,6 +1,6 @@
 class Treeline < Formula
   desc "Advanced outliner and personal information manager"
-  homepage "http://treeline.bellz.org/"
+  homepage "https://treeline.bellz.org/"
   url "https://downloads.sourceforge.net/project/treeline/2.0.0/treeline-2.0.0.tar.gz"
   sha256 "71af995fca9e0eaf4e6205d72eb4ee6a979a45ea2a1f6600ed8a39bb1861d118"
   revision 1
