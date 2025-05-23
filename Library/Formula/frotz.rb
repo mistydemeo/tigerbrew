@@ -5,7 +5,6 @@ class Frotz < Formula
   sha256 "dbb5eb3bc95275dcb984c4bdbaea58bc1f1b085b20092ce6e86d9f0bf3ba858f"
 
   depends_on "pkg-config" => :build
-  depends_on "ncurses"
 
   resource "testdata" do
     url "https://gitlab.com/DavidGriffith/frotz/-/raw/2.53/src/test/etude/etude.z5"
