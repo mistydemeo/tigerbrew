@@ -6,12 +6,6 @@ class Aubio < Formula
 
   head "https://github.com/piem/aubio.git", :branch => "develop"
 
-  bottle do
-    cellar :any
-    sha256 "4b9b7780d8523f46b4de9da1da42de9a81af06bbe87b1c36125860b8eb014533" => :yosemite
-    sha256 "f23c2aeef3734dadeaa2369da75e20a50269650ab18e9a1a5639df9de8eb43d2" => :mavericks
-    sha256 "770f58a1601edce01bcdd4fffcb6bc7a75c81c3119eab6592cd51c911fe0bc24" => :mountain_lion
-  end
 
   option :universal
 

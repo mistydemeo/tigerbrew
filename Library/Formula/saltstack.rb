@@ -9,12 +9,6 @@ class Saltstack < Formula
   sha256 "71e1cb2eb1d4b30f3247f5590c00a2089190b8f9a90c9330dc9a65fae517ec9b"
   head "https://github.com/saltstack/salt.git", :branch => "develop", :shallow => false
 
-  bottle do
-    cellar :any
-    sha256 "77ee45a43b886a6f9e4744fabb03ec60ab4b3dfc9fcc99d1738894ea3d63158b" => :el_capitan
-    sha256 "eca29cf538c0fba986d2160f72f195f5bfce221ef5601f9bf584085107385d4a" => :yosemite
-    sha256 "c28dc5586b07390c04125d55547ef9f46516ac080fc66a5527440c111bab9cf6" => :mavericks
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "zeromq"

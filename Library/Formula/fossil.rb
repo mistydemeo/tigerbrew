@@ -6,14 +6,6 @@ class Fossil < Formula
 
   head "https://www.fossil-scm.org/", :using => :fossil
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "b7ef31ca95673d3c2056c4a8f7e8fd117f362a4d402ab2573ddccb46edcfe45d" => :el_capitan
-    sha256 "39418c8caef8df38e4366e25fb5be3fe26220e379235e68961fb727fca8d0ca9" => :yosemite
-    sha256 "1cb30f778d37395a1128af80aa961e8c7759f15e70a202411cb8c67dfca60668" => :mavericks
-    sha256 "e64bead6791751dcd19625189f491e494f2a574247b9e581cabdfca6f5a02225" => :mountain_lion
-  end
 
   option "without-json", "Build without 'json' command support"
   option "without-tcl", "Build without the tcl-th1 command bridge"

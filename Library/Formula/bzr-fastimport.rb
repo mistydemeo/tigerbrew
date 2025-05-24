@@ -5,12 +5,6 @@ class BzrFastimport < Formula
   sha256 "5e296dc4ff8e9bf1b6447e81fef41e1217656b43368ee4056a1f024221e009eb"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "1155531ccdff247dcf8ab9cae133263199cbd708a1ae6ddc4d6e68133d1ab712" => :yosemite
-    sha256 "d784f0b66db2e31f53f7b21fa5263c3d050b490a45684d0f206c9488ca0335a6" => :mavericks
-    sha256 "fab457013d0f24e2d88b2dd76ad72d6b0101b9356e231bb0255b71866d318259" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "bazaar"

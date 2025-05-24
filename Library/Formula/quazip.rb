@@ -4,12 +4,6 @@ class Quazip < Formula
   url "https://downloads.sourceforge.net/project/quazip/quazip/0.7.1/quazip-0.7.1.tar.gz"
   sha256 "78c984103555c51e6f7ef52e3a2128e2beb9896871b2cc4d4dbd4d64bff132de"
 
-  bottle do
-    cellar :any
-    sha256 "d15a12c624d377bd818458635ad078782659f313c223836f1689ed89cca32a63" => :yosemite
-    sha256 "d6ea39c00ad991be78e2b6fdd1d69a5c4079fc85ef6dbdbedab7c8becf77d0c7" => :mavericks
-    sha256 "a6a988cb89a12f6e7c2d5bd8ebe180f40b18f586f3bd1e09a6b881350daee637" => :mountain_lion
-  end
 
   depends_on "qt"
 

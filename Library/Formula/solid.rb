@@ -4,12 +4,6 @@ class Solid < Formula
   url "http://www.dtecta.com/files/solid-3.5.6.tgz"
   sha256 "4acfa20266f0aa5722732794f8e93d7bb446e467719c947a3ca583f197923af0"
 
-  bottle do
-    cellar :any
-    sha1 "f7c0aa5b2b75678c27f4d003ab55e7a0ea9f9921" => :yosemite
-    sha1 "fca885d1b9f9cd78fbe6b8f018b5513a8fd7d29a" => :mavericks
-    sha1 "9ad7a31ab3b9a2dc7effaa14ac1e0d0a09ba1e6f" => :mountain_lion
-  end
 
   deprecated_option "enable-doubles" => "with-doubles"
   deprecated_option "enable-tracer" => "with-tracer"

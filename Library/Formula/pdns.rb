@@ -13,11 +13,6 @@ class Pdns < Formula
     depends_on "ragel"
   end
 
-  bottle do
-    sha256 "aff809d5d325a08d0f15df934561f76357eb08568919143ccdc93d1a3cba545e" => :yosemite
-    sha256 "92f2c51e1c07bc971871c7c495dc85b354efbf511f4bfd1c8b4a66536c8dba25" => :mavericks
-    sha256 "723e2b4f9b9e92e657a6ef37f4fb3e9b6d7823d933517e92b569314300934322" => :mountain_lion
-  end
 
   option "with-pgsql", "Enable the PostgreSQL backend"
 

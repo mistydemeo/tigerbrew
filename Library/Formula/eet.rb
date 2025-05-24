@@ -5,12 +5,6 @@ class Eet < Formula
   sha256 "c424821eb8ba09884d3011207b1ecec826bc45a36969cd4978b78f298daae1ee"
   revision 1
 
-  bottle do
-    cellar :any
-    sha1 "73d9599c2ab8fa5067ff4fc4fddacbeb19b825c4" => :yosemite
-    sha1 "36315f8d5bc59d56c6082e76e8dd2a9bfaec3735" => :mavericks
-    sha1 "dcc57b32e7225fe86c83a5bfaade296d828b9ba0" => :mountain_lion
-  end
 
   head do
     url "https://git.enlightenment.org/legacy/eet.git/"

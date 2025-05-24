@@ -5,10 +5,6 @@ class Libqalculate < Formula
   sha256 "9a6d97ce3339d104358294242c3ecd5e312446721e93499ff70acc1604607955"
   revision 1
 
-  bottle do
-    sha1 "334b9bbf28268f858997dda432dd1ee6c48ca168" => :mavericks
-    sha1 "b25b47d582d12a3017eb57fe42463f2ddfd859c7" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "cln"

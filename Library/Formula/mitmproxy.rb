@@ -5,12 +5,6 @@ class Mitmproxy < Formula
   sha256 "f35b90d836693dbb02a589ddee056bb4fdb7b679a1dfe230b0492216a8e3dcfa"
   head "https://github.com/mitmproxy/mitmproxy.git"
 
-  bottle do
-    cellar :any
-    sha256 "b6f1e94bb7c2b6f78903c7223781d1956a27e841ac5b2602b7753be4093fd74c" => :el_capitan
-    sha256 "6c98cac287bf19f150bdab659c532af1f9a45152eeb749650be51a95914cf2d1" => :yosemite
-    sha256 "e9547ab49fa877da7e5e559cc4a4940a54a87cdd24f34694dbb12c266f2c4431" => :mavericks
-  end
 
   option "with-pyamf", "Enable action message format (AMF) support for python"
   option "with-cssutils", "Enable beautification of CSS responses"

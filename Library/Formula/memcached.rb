@@ -4,13 +4,6 @@ class Memcached < Formula
   url "http://www.memcached.org/files/memcached-1.4.24.tar.gz"
   sha256 "08a426c504ecf64633151eec1058584754d2f54e62e5ed2d6808559401617e55"
 
-  bottle do
-    cellar :any
-    sha256 "da6347788e34f2914ec939c1f14d5a36b70ce2e546d04bf95123a01f98084674" => :el_capitan
-    sha256 "5524972e73c753e43289f06eb615a3100831eb7c33ce15489ea65d2904344acf" => :yosemite
-    sha256 "0ff0b4273be5860850878f391e4cc6f1492fe13ffe7f80388634511210ff473f" => :mavericks
-    sha256 "ad37c20bd1dfc1275c055ec33cb3fae594ed22463a264b80f08b01db3f7d0578" => :mountain_lion
-  end
 
   depends_on "libevent"
 

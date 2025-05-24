@@ -5,9 +5,6 @@ class Libmpc08 < Formula
   mirror "https://ftp2.osuosl.org/pub/clfs/conglomeration/mpc/mpc-0.8.2.tar.gz"
   sha256 "ae79f8d41d8a86456b68607e9ca398d00f8b7342d1d83bcf4428178ac45380c7"
 
-  bottle do
-    cellar :any
-  end
 
   keg_only "Conflicts with libmpc in main repository."
 

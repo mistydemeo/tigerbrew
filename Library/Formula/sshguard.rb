@@ -5,12 +5,6 @@ class Sshguard < Formula
   mirror "https://dl.bintray.com/homebrew/mirror/sshguard-1.6.1.tar.xz"
   sha256 "f431899c20fa2f41fa293605af96ff97d44823b84db41c914ee60da44f1ff6c8"
 
-  bottle do
-    cellar :any
-    sha256 "d1939f763079959ce9bd3c49db2b56b0cb2dac3206c33c6c69ff14d07407790b" => :yosemite
-    sha256 "0ab30d0a677d360f02ead6c98f510bd86ddbd9a693c63f87e6a5e7c79e830474" => :mavericks
-    sha256 "2c115efec5b401a9c3463b830031db885db06b6bb432d29c81db4a0596de28bd" => :mountain_lion
-  end
 
   depends_on "automake" => :build
   depends_on "autoconf" => :build

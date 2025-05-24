@@ -6,8 +6,6 @@ class Radare2 < Formula
   license "LGPL-3.0-only"
   head "https://github.com/radareorg/radare2.git", branch: "master"
 
-  bottle do
-  end
 
   # Fix Darwin/PowerPC support
   patch :p0, :DATA

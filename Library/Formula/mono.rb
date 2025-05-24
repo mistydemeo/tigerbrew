@@ -8,12 +8,6 @@ class Mono < Formula
   # be executable
   skip_clean "lib/mono"
 
-  bottle do
-    sha256 "a3f48223279dd8b2b468511542319e25ca6c29bc266ae1affd5e06114f32640e" => :el_capitan
-    sha256 "0c18edef9deeb162ff119527a3113ee1d98b308f70d266f6f5d66619ecd12d12" => :yosemite
-    sha256 "8b70a9ae0465cbb4648ef3d7042ed8d7aab7d2eca25ae1b8f686696b37ac28aa" => :mavericks
-    sha256 "d3d9b118a27e3af2455925e83de0c44d4464660886c07fe5d21695f21471377a" => :mountain_lion
-  end
 
   resource "monolite" do
     url "http://storage.bos.xamarin.com/mono-dist-4.2.0-release/9b/9b990f2b19b1a534925cce3ddaabb70654b76066/monolite-135-latest.tar.gz"

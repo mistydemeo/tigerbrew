@@ -5,12 +5,6 @@ class Dasm < Formula
   sha256 "a9330adae534aeffbfdb8b3ba838322b92e1e0bb24f24f05b0ffb0a656312f36"
   head "svn://svn.code.sf.net/p/dasm-dillon/code/trunk"
 
-  bottle do
-    cellar :any
-    sha1 "16a36f8d3d57693ea2b2fea55ab264e538ddcfaf" => :mavericks
-    sha1 "5bf2a732a5e3d3b9963ad405c6b526b0a9cb74d0" => :mountain_lion
-    sha1 "14895b0dee0237dec3cc7cedafeba2fdb4b88bad" => :lion
-  end
 
   def install
     system "make"

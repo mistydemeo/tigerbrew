@@ -4,11 +4,6 @@ class Redshift < Formula
   url "https://github.com/jonls/redshift/releases/download/v1.10/redshift-1.10.tar.xz"
   sha256 "5bc2e70aa414f42dafb45c6e06ea90157d7d4b298af48877144ff442639aeea6"
 
-  bottle do
-    sha1 "1cb7c9779ea9bbd693deed7c74187efe45e1a924" => :yosemite
-    sha1 "699455a7634fb9ad524c4cdc9bafa7c4561b8de4" => :mavericks
-    sha1 "4fc7ff402d12a09ab6abc2a9c91ee03b2483cc8d" => :mountain_lion
-  end
 
   head do
     url "https://github.com/jonls/redshift.git"

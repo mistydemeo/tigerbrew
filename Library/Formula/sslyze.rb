@@ -5,12 +5,6 @@ class Sslyze < Formula
   version "0.12.0"
   sha256 "5b3220d42cb66067b18d9055a2234252d849090e9fba660af52a3da18fa8a899"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "afb0e576d8c7a2243ea746af6259149b32972f739e372d83ef1a025a8b6f2418" => :el_capitan
-    sha256 "01b9a548c4114b9ea6387ee6bc279e1eadff9326ecf32bcfde66130d4bc3cbe9" => :yosemite
-    sha256 "0fab1f496b3f52e7637e0ed8ef23d8b435b925150ca15b85899c95cf61084e8b" => :mavericks
-  end
 
   depends_on :arch => :x86_64
   depends_on :python if MacOS.version <= :snow_leopard

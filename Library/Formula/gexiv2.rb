@@ -5,11 +5,6 @@ class Gexiv2 < Formula
   sha256 "390cfb966197fa9f3f32200bc578d7c7f3560358c235e6419657206a362d3988"
   revision 1
 
-  bottle do
-    sha256 "270b4350e13add5b48f08a9fa739b59a39efe29dac5ccc06fb2b063f8845787c" => :yosemite
-    sha256 "dd5152129614cb1654578833d768b4bc39c24a55a49e3e528d1c32af30add549" => :mavericks
-    sha256 "7faf7188a9bbbae5258108f6ed767fa9e32a183ba4c76aab596a90e428742192" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "libtool" => :build

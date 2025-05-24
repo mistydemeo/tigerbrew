@@ -5,12 +5,6 @@ class Libwmf < Formula
   sha256 "5b345c69220545d003ad52bfd035d5d6f4f075e65204114a9e875e84895a7cf8"
   revision 2
 
-  bottle do
-    revision 1
-    sha256 "a062ace9cbca36cd99122a6389b80a431326de7ef362dc860c74b500ed35e64c" => :el_capitan
-    sha1 "47baf7411f61408bd715f3f0570531080b3d8665" => :yosemite
-    sha1 "d195e1c4297a0563a021a76a5e1ee61dd2b1be4d" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "gd"

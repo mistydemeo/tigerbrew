@@ -11,10 +11,6 @@ class Dos2unix < Formula
     version "7.5.3-beta7"
   end
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "8d544ca271fb9e39d267fb82735eeb6c9927fc63fd238539bddb579f95a22fcd" => :tiger_altivec
-  end
 
   option "with-gettext", "Build with Native Language Support"
 

@@ -5,12 +5,6 @@ class Sysbench < Formula
   sha256 "83fa7464193e012c91254e595a89894d8e35b4a38324b52a5974777e3823ea9e"
   revision 1
 
-  bottle do
-    cellar :any
-    sha1 "de4a0e7d639cb56d767a937268ddd02f90737504" => :yosemite
-    sha1 "5b14feb02648fa246ff2b3117bda9aa7700737fe" => :mavericks
-    sha1 "1b5819b0214bd5fdebe25171fe6840362593e08e" => :mountain_lion
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

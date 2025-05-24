@@ -5,12 +5,6 @@ class Mpw < Formula
   sha256 "6ea76592eb8214329072d04f651af99d73de188a59ef76975d190569c7fa2b90"
   version "2.1-cli4"
 
-  bottle do
-    cellar :any
-    sha1 "67cc0d3615113021c944212cb3a8c5d07d404a58" => :yosemite
-    sha1 "9a41c1d203ec3fbb31e8e4c6daceba7c7f7ceb91" => :mavericks
-    sha1 "05f7d8d6eac5b6195e33c4ba9d928897b26b561a" => :mountain_lion
-  end
 
   depends_on "automake" => :build
   depends_on "autoconf" => :build

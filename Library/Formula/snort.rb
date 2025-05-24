@@ -4,12 +4,6 @@ class Snort < Formula
   url "https://www.snort.org/downloads/snort/snort-2.9.7.3.tar.gz"
   sha256 "8cc3613b888fc54947a2beec773c76d9a20368f2659b31d45a9f0b11e66cc229"
 
-  bottle do
-    cellar :any
-    sha256 "500a6e7527ccd71d95cad8dc6fa2ee4c09ea516c7c866357efecda0dca70389f" => :yosemite
-    sha256 "a9a9f2afbe4ebcad4814da730399510ca68c6eed201ca71e17069cc97ce6092c" => :mavericks
-    sha256 "2b4871dcf9ac94c842458fcf190ee35390ecc49be2c077cce1c074b3ebc306fb" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "luajit"

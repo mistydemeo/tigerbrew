@@ -6,12 +6,6 @@ class Rtpbreak < Formula
   mirror "https://dl.bintray.com/homebrew/mirror/rtpbreak-1.3a.tgz"
   sha256 "9ec7276e3775c13306bcf90ba573cfb77b8162a18f90d5805a3c5a288f4466f8"
 
-  bottle do
-    cellar :any
-    sha1 "0ba5286070de0faeb39197d9ce96a5b28cb5d01e" => :yosemite
-    sha1 "f2105bfaefd67bf150b6d3bb80afba5c43f82cf6" => :mavericks
-    sha1 "a58e0738e815217695e288c4b2f1b75207fe6767" => :mountain_lion
-  end
 
   depends_on "libnet"
 

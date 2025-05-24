@@ -5,12 +5,6 @@ class AppscaleTools < Formula
   sha256 "ed765d8ddfc88eb9a776f37f038601cb367ed0f6ab810914eb7d1fc967b4eb01"
   head "https://github.com/AppScale/appscale-tools.git"
 
-  bottle do
-    cellar :any
-    sha256 "a3c01cae001ec7b67047e168fc1209f614ae7d2a9fff33ca999d2dab2a322436" => :el_capitan
-    sha256 "5d5001d13d3f88e2be5aee7a0bcebd0df05733b4fbd18e3460c12e7d3aee0495" => :yosemite
-    sha256 "3af02a990a8ac57e2dbb16a482cc21efa1574acf8ef2d830a4448d67368349c3" => :mavericks
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "libyaml"

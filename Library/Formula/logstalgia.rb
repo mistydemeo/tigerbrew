@@ -5,11 +5,6 @@ class Logstalgia < Formula
   sha256 "a81b94742cce64b0b2d1b1683f2f7ac6d06456056f353896153b1b8181855f34"
   revision 2
 
-  bottle do
-    sha256 "20b927dd78f1928df830897968d6da6a0daf066130a8ef1c557d24543831595d" => :yosemite
-    sha256 "429ab4722b200bf635fdac39a9918c758c585bf9dfa061d6b7e45edb09371f04" => :mavericks
-    sha256 "18bfe2a7c25387223f86e368a0f44cab8016c8b31282f1cc40755f899c6dcd58" => :mountain_lion
-  end
 
   head do
     url "https://github.com/acaudwell/Logstalgia.git"

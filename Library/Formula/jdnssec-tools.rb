@@ -6,12 +6,6 @@ class JdnssecTools < Formula
 
   head "https://github.com/dblacka/jdnssec-tools.git"
 
-  bottle do
-    cellar :any
-    sha256 "c4a33ea5bff8ff14d8438a1dddb62da5983611d64288cd1e057b4c5419a58a87" => :yosemite
-    sha256 "e5899718ae9f0b57628ecbb0bc5e6d338e7847e2a0f931992849e4c27ffc6edf" => :mavericks
-    sha256 "9f87e73931c928a4b490f7a9dd858c40abde1d51f83f1c63a2212a520e8552e2" => :mountain_lion
-  end
 
   depends_on :java
 

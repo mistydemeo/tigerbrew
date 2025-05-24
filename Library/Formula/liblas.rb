@@ -7,11 +7,6 @@ class Liblas < Formula
 
   head "https://github.com/libLAS/libLAS.git"
 
-  bottle do
-    sha256 "d50ad495d6ee1081ec857374fa72fa9f0eae2f861ff41760922aa437ec45acd8" => :yosemite
-    sha256 "d7d6cf27f274a7ec08dee5a4dbceb7156e2f9fab989a002ff4c6687146f042e5" => :mavericks
-    sha256 "c628a4cd7a2904e9536b494f9ad015046184ae2b44c5ab7bbc662e43f844b6c5" => :mountain_lion
-  end
 
   option "with-test", "Verify during install with `make test`"
 

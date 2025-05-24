@@ -6,12 +6,6 @@ class Magit < Formula
 
   head "https://github.com/magit/magit.git", :shallow => false
 
-  bottle do
-    cellar :any
-    sha256 "048842721bb6f95aebd3ad00a81d5d62c87e8803252e4152e66652deeca6773f" => :yosemite
-    sha256 "37969f18c4d5fa5c485670ffa27af504f38505f369447dc778771cc771ad61cb" => :mavericks
-    sha256 "566bc0c62bf9633e7c8010877c2e884eacca730a0d3e626c2c22f0f964e09ca8" => :mountain_lion
-  end
 
   depends_on :emacs => "24.4"
 

@@ -5,11 +5,6 @@ class BbftpClient < Formula
   sha256 "4000009804d90926ad3c0e770099874084fb49013e8b0770b82678462304456d"
   revision 1
 
-  bottle do
-    sha1 "4e5112365ba0915eb0d1d12c5714f20e01ef6630" => :yosemite
-    sha1 "50eedb1c7b58d4c8a78a8e5906235e6333a725f8" => :mavericks
-    sha1 "8b0f23cbcd8f3385a9d2e86a66e713cf6f3b36f3" => :mountain_lion
-  end
 
   depends_on "openssl"
 

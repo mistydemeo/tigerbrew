@@ -6,12 +6,6 @@ class Libkate < Formula
   sha256 "c40e81d5866c3d4bf744e76ce0068d8f388f0e25f7e258ce0c8e76d7adc87b68"
   revision 1
 
-  bottle do
-    revision 2
-    sha1 "fd0287aca68b310e7c9d856c352b7453de2042c3" => :yosemite
-    sha1 "3cdb628edf85be70d407a15070a3c9bc10b83215" => :mavericks
-    sha1 "f47ba4978a5b1ff7a3aa7e9a6590e5d799cc2226" => :mountain_lion
-  end
 
   option "with-docs", "Build documentation"
   option "with-examples", "Build example streams"

@@ -5,12 +5,6 @@ class Ffmpegthumbnailer < Formula
   sha256 "68125d98d72347a676ab2f9bc93ddd3537ff39d6a81145e2a58a6de5d3958e4e"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "6140aa9ec7a7d6bcdfe29e196d4c6f49bd9f1d5fbcec2dd0f482d880796930c0" => :yosemite
-    sha256 "31ca101a649a39f1a2e45aacb57465ae34b80eb6b5de663d397a899a35bfa0a3" => :mavericks
-    sha256 "35fb2908a936f82fef0d09985648f977b35a47768d989093b5acede20e590556" => :mountain_lion
-  end
 
   # Look for upstream to replace the GNU build process with CMake in the future
   depends_on "autoconf" => :build

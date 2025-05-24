@@ -12,12 +12,6 @@ class Gmtl < Formula
     patch :DATA
   end
 
-  bottle do
-    cellar :any
-    sha1 "905af4149c167870069b22d3cb082897f8bf1259" => :mavericks
-    sha1 "09ef2b92b09f46a1ee33866fda35494bbe545819" => :mountain_lion
-    sha1 "3444ed4b6eb1859a64f3f7250656ae5c1e074fd3" => :lion
-  end
 
   head "https://ggt.svn.sourceforge.net/svnroot/ggt/trunk/"
 

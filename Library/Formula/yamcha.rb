@@ -4,11 +4,6 @@ class Yamcha < Formula
   url "http://chasen.org/~taku/software/yamcha/src/yamcha-0.33.tar.gz"
   sha256 "413d4fc0a4c13895f5eb1468e15c9d2828151882f27aea4daf2399c876be27d5"
 
-  bottle do
-    sha1 "7ba7244f3d95d350ee13686492d04267090cf024" => :yosemite
-    sha1 "5900e590dad8c01bb3598bdd0cb512f929130646" => :mavericks
-    sha1 "4f7d40d5d02e0a431486450d119e83564f795a70" => :mountain_lion
-  end
 
   depends_on "tinysvm"
 

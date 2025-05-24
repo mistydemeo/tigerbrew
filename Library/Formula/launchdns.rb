@@ -7,11 +7,6 @@ class Launchdns < Formula
 
   depends_on :macos => :yosemite
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "d9434fae9c609c44264c90bef1e52b66db7f1ce2ef12cb8f2498a89d2ba4d0e0" => :el_capitan
-    sha256 "bdc3fea3f9a6c59908a2b81f1d3bb373dbe807efe62f4b6e0c00fac4dbf0d2c7" => :yosemite
-  end
 
   def install
     ENV["PREFIX"] = prefix

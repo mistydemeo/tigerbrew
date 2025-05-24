@@ -7,9 +7,6 @@ class Gnupg2 < Formula
   sha256 "7b24706e4da7e0e3b06ca068231027401f238102c41c909631349dcc3b85eb46"
   license "GPL-3.0-or-later"
 
-  bottle do
-  end
-
   # Unbreak --enable-gpg-is-gpg2
   # https://lists.gnupg.org/pipermail/gnupg-devel/2024-November/035673.html
   patch :DATA

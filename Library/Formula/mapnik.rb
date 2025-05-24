@@ -6,12 +6,6 @@ class Mapnik < Formula
   sha256 "d8f771d45b236d987aab44819a517f4c1ed6d7ff2c42c2e51160e37d28c89cc3"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "ba96b1394a1949a96dedd2db67a4cf60a23238b80c130a1d980968e56c83c134" => :el_capitan
-    sha256 "1ce438112b93ccfe5bb117dffb32dc3f06b7d58636a1e03edcb7291e30d14fac" => :yosemite
-    sha256 "4143fcb493a169569b6317337dc26c35be03dd8713aba78b080ff5e5dbec4a37" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "freetype"

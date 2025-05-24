@@ -6,12 +6,6 @@ class Links < Formula
   sha256 "87f7f927d6394f1dc45886dd5ff89234c4e0fb321132ceaa009db5bcc26f123f"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "8779e7a0cf9424c4115ca1fcc7ebc894e576cee06ce16be100dcfbd7e9a496bf" => :el_capitan
-    sha256 "3fb2262ebfabe71227d8bc1ccaa13e54e4b44b85792b7720874c27a0975cf6de" => :yosemite
-    sha256 "c02773c8a66a69990669d35e712852db52c8f64a3f801af9e10222d811351869" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "openssl" => :recommended

@@ -8,12 +8,6 @@ class Davix < Formula
 
   head "https://github.com/cern-it-sdc-id/davix.git"
 
-  bottle do
-    cellar :any
-    sha256 "4bab71124c9638ab089f1784dd01805d814ee81e037fc6f8d7ddfd70a2ab785a" => :yosemite
-    sha256 "8cdd2495b9286226b7be91e111a72f3d6d565b0245d5741f53901eb44266be3f" => :mavericks
-    sha256 "00709d9ef997292d7154e92903c5375d5c9d572d6581814f1bd843b5319a76ab" => :mountain_lion
-  end
 
   depends_on "cmake" => :build
   depends_on "doxygen" => :build

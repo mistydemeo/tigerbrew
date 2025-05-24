@@ -4,12 +4,6 @@ class ClutterGst < Formula
   url "https://download.gnome.org/sources/clutter-gst/3.0/clutter-gst-3.0.10.tar.xz"
   sha256 "2dbdbc3292e92684bbdbf1694c61f6b781f5810e4d79a415dfdee2f7ee42148c"
 
-  bottle do
-    revision 1
-    sha256 "93044b081e811fda6cfef3450fda71fef0253fa90c2125dbce1de1839ceae061" => :el_capitan
-    sha256 "1728ff5dc8fcd9bd2041b332ec179e16b72046a0da772d34a224de527fe7e67d" => :yosemite
-    sha256 "d2b0f46bcf88ad8ff13594973d2c2d55ee929bc27fe331882f0eb84cc718c992" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "clutter"

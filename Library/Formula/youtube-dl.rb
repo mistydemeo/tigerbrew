@@ -7,12 +7,6 @@ class YoutubeDl < Formula
   url "https://github.com/rg3/youtube-dl/releases/download/2016.10.26/youtube-dl-2016.10.26.tar.gz"
   sha256 "df9f9848198ef225bc351db016d54843fb93252704a786e7e34418f60617b1a5"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "e40ae095cbaba2f389e52d08d856cbe2d7bfef2d92da751dc71ed027d5ea20c6" => :sierra
-    sha256 "e40ae095cbaba2f389e52d08d856cbe2d7bfef2d92da751dc71ed027d5ea20c6" => :el_capitan
-    sha256 "e40ae095cbaba2f389e52d08d856cbe2d7bfef2d92da751dc71ed027d5ea20c6" => :yosemite
-  end
 
   head do
     url "https://github.com/rg3/youtube-dl.git"

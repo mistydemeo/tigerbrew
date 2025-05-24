@@ -6,12 +6,6 @@ class Ledger < Formula
   head "https://github.com/ledger/ledger.git"
   revision 1
 
-  bottle do
-    sha256 "c4ba63c2f50664ce2d32028e02a11c88ee9e087597368c1fd7f17ef8b49003b7" => :el_capitan
-    sha256 "a9caafb67ee6b9bef882d7dff8e24747f3997a84bacb82b456b96c5c6448e899" => :yosemite
-    sha256 "7c396585b474187340429297f151435a545c0ab0509f094461599f338eb8d045" => :mavericks
-    sha256 "a47cc33ddd2ef9df9921d1ad333eac68e791e32dad86b497c9abbe8bc707a5b2" => :mountain_lion
-  end
 
   resource "utfcpp" do
     url "https://downloads.sourceforge.net/project/utfcpp/utf8cpp_2x/Release%202.3.4/utf8_v2_3_4.zip"

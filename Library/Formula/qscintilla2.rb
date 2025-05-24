@@ -4,11 +4,6 @@ class Qscintilla2 < Formula
   url "https://downloads.sf.net/project/pyqt/QScintilla2/QScintilla-2.8.4/QScintilla-gpl-2.8.4.tar.gz"
   sha256 "9b7b2d7440cc39736bbe937b853506b3bd218af3b79095d4f710cccb0fabe80f"
 
-  bottle do
-    sha256 "57dffa7ac659217580352a4da1d323457bad735a7761237b923c0fda5363c33c" => :yosemite
-    sha256 "1c5482dc22059dfecf734268c6f1626f51055c242e8be9759854bc88c323dd13" => :mavericks
-    sha256 "d487010da4ab0eee416ae7dcd1f22e2be2ed60984dda8da1b579094351e173f4" => :mountain_lion
-  end
 
   depends_on :python => :recommended
   depends_on :python3 => :optional

@@ -13,12 +13,6 @@ class Mplayershell < Formula
 
   head "https://github.com/donmelton/MPlayerShell.git"
 
-  bottle do
-    cellar :any
-    sha1 "5b280e20e9f690914906c41da02671b6c4667657" => :yosemite
-    sha1 "e12cbcf444c89071bdc4a0d8cea731d222444817" => :mavericks
-    sha1 "4993ca2b08d334843db0c31a35003424a4342a66" => :mountain_lion
-  end
 
   depends_on MPlayerRequirement
   depends_on :macos => :lion

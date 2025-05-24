@@ -5,13 +5,6 @@ class Clucene < Formula
   sha256 "ddfdc433dd8ad31b5c5819cc4404a8d2127472a3b720d3e744e8c51d79732eab"
   head "git://clucene.git.sourceforge.net/gitroot/clucene/clucene"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "182db4f73e058e9d28b77cbbd642c40ecc403fbf1d9dc8357387b2c54dba8d1e" => :yosemite
-    sha256 "f85cdb67e53bc6eb380ae1bd8e087b42faca7c65f665f9719209adfa8aaa7b31" => :mavericks
-    sha256 "97f955d2b9fa3ab41f65d9871f82a357cad400237cbaf553d585bae62207d51f" => :mountain_lion
-  end
 
   depends_on "cmake" => :build
 

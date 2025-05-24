@@ -13,12 +13,6 @@ class KubernetesCli < Formula
     end
   end
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "91799da5fb9586873854f01476f1c4f38802c8eed113eb8019e2a920fd8f12cb" => :el_capitan
-    sha256 "ce5e54feefc1130146a4dc603dad37cfd6951ecc5509c008d7afd1965757ceb7" => :yosemite
-    sha256 "2914487bb8a3230dfcd6b155db1012bb2f1b214c10227cffd7db008318938613" => :mavericks
-  end
 
   depends_on "go" => :build
 

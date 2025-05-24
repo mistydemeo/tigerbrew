@@ -6,11 +6,6 @@ class Dcd < Formula
       :revision => "5310b346304e060c7633521fe3fd5afc2a16de88"
   head "https://github.com/Hackerpilot/dcd.git", :shallow => false
 
-  bottle do
-    sha256 "4c374caea3609ac4852a5aac8ee12c0949d1c7cd856740c2d1f639befa386259" => :yosemite
-    sha256 "b30a4329fb2c3cb80c18f0ff1c4691037832cd995cc7f8a371f97019f9d9dce5" => :mavericks
-    sha256 "9367b7f6fced915d49a20e9ec30ba399a3ad827096aea7ade765e0028eae6c51" => :mountain_lion
-  end
 
   depends_on "dmd" => :build
 

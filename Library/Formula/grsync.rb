@@ -5,12 +5,6 @@ class Grsync < Formula
   sha256 "4f1443154f7c85ca7b0e93d5fea438e2709776005e7cfc97da89f4899b1c12e5"
   revision 1
 
-  bottle do
-    revision 1
-    sha256 "39e1387923c5a9f9d591bb5e8f6d3ed9fa1dedc94c521285e7948a272597549e" => :yosemite
-    sha256 "6ec80e0362bff0bac9976c1ca2088d5152273e926b1a6cb3a331e8435c8d4c0c" => :mavericks
-    sha256 "b95620a523c2bd02260a75ddfcf97dc428629ac4314ab0d12b763376eed357cd" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

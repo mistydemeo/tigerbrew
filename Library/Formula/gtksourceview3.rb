@@ -4,11 +4,6 @@ class Gtksourceview3 < Formula
   url "https://download.gnome.org/sources/gtksourceview/3.18/gtksourceview-3.18.0.tar.xz"
   sha256 "54b111264e6985e26a878dec88ff94fd0a9ae0dc4cfcdf08f4a6b5f655d4b693"
 
-  bottle do
-    sha256 "809a9a7c643c4740bd2c1c746496bce955b2611c2ec593df2f3b8856bd4099d7" => :el_capitan
-    sha256 "1691cfa374f3bfe0d443cc5fddb038d5d11446f9b8d63b89e90043d253a57940" => :yosemite
-    sha256 "0d103d508a33ca16ce22f13faa6c5c8648a7c714f6b1eba5a4d16a9a58168dd8" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

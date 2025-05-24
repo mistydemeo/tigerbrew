@@ -4,12 +4,6 @@ class Aeskeyfind < Formula
   url "https://citp.princeton.edu/memory-content/src/aeskeyfind-1.0.tar.gz"
   sha256 "1417e5c1b61e86bb9527db1f5bee1995a0eea82475db3cbc880e04bf706083e4"
 
-  bottle do
-    cellar :any
-    sha1 "ae159914bc1563e9c8590bafd698fe7bec3d84b5" => :yosemite
-    sha1 "ad2ec5824cc627e30699eaaa759e778e18c549be" => :mavericks
-    sha1 "f84ccc33df3d7627f91d8088d3fbbe1e2fd48d05" => :mountain_lion
-  end
 
   def install
     system "make"

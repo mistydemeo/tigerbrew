@@ -7,12 +7,6 @@ class AndroidSdk < Formula
   version "24.4"
   sha256 "a1cb0c9b2036d597e18986de1bd43918b6113373ff3bf6fdb81b6cce4ec3efd7"
 
-  bottle do
-    cellar :any
-    sha256 "6813bb19eb0127850832a32cddd55cfd0106a8d079726c3a9e8e18855efe0165" => :el_capitan
-    sha256 "7210e0118c1bbba916add540c9a1b7dc9b14b0c2cfbdbea9a1e0ca0e6b0143ec" => :yosemite
-    sha256 "e148339aa960c019ae70e967b3cadcd57fe93838067453b21264a8e330818a42" => :mavericks
-  end
 
   conflicts_with "android-platform-tools",
     :because => "The Android Platform-Tools need to be installed as part of the SDK."

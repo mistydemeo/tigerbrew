@@ -6,12 +6,6 @@ class V8 < Formula
   url "https://github.com/v8/v8-git-mirror/archive/4.5.103.35.tar.gz"
   sha256 "93de92efb1185384e0b3a046aae8816138b3ccb6f5bc148ad59d94a9a2869aaa"
 
-  bottle do
-    cellar :any
-    sha256 "6647353a6717a0028e7e627e85fe1e943cf68869f95d2250a662b167ddc50c29" => :el_capitan
-    sha256 "0f577159738f985afbc85fa47c52b32c0551922cadbf1ad24895a8737d70cecc" => :yosemite
-    sha256 "affd5c033afa20e071b60f05f5de78d00eaedd67df7f1f305645c8dcfb41774d" => :mavericks
-  end
 
   option "with-readline", "Use readline instead of libedit"
 

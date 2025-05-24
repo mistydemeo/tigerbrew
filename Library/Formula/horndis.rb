@@ -4,11 +4,6 @@ class Horndis < Formula
   url "https://github.com/jwise/HoRNDIS/archive/rel7.tar.gz"
   sha256 "62963e3c4e7fc81f3babd6843e516fde682f5065730d6eb62dc58480719917cd"
 
-  bottle do
-    cellar :any
-    sha1 "0d55b2656caeb26a77ee1eb5d6785bbf85529a0b" => :mavericks
-    sha1 "5f8c5a67a3c3eaa99e60f59e1b2910a95ca2bdb6" => :mountain_lion
-  end
 
   depends_on UnsignedKextRequirement
   depends_on :xcode => :build

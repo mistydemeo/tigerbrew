@@ -4,11 +4,6 @@ class Ola < Formula
   url "https://github.com/OpenLightingProject/ola/releases/download/0.9.7/ola-0.9.7.tar.gz"
   sha256 "ce0edd8eac644fc753f2289c1998e5a4829d74246acecd06f73619a5a09206e1"
 
-  bottle do
-    sha256 "09a866a6f770a69f9be12217189501f9c13d6d72c58b9a624615d527c41be9a9" => :yosemite
-    sha256 "b4a59afd88a9c787300ef3aa70da5addb90ebc65035cbbe616cd29c52adfd42e" => :mavericks
-    sha256 "38e1cde54e670907b074398fdb0ef61c84dfa136278090b9232a90d9e76b5db8" => :mountain_lion
-  end
 
   head do
     url "https://github.com/OpenLightingProject/ola.git"

@@ -4,12 +4,6 @@ class Libb2 < Formula
   url "https://blake2.net/libb2-0.97.tar.gz"
   sha256 "7829c7309347650239c76af7f15d9391af2587b38f0a65c250104a2efef99051"
 
-  bottle do
-    cellar :any
-    sha256 "4c604799e388530022494535a551c06bf08baba5d6d37fd5622f9fe50773b860" => :yosemite
-    sha256 "513444d15673a2bba2b8042522db8fc68e25154955d18cb8eff6b8bb9bb4503f" => :mavericks
-    sha256 "686a12f6cd03b3ed92c4f900f8a75a0467fd33c9b703678b06ad1060773b16b5" => :mountain_lion
-  end
 
   def install
     system "./configure", "--disable-dependency-tracking",

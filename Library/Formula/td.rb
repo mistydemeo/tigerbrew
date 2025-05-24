@@ -6,12 +6,6 @@ class Td < Formula
   url "https://github.com/Swatto/td/archive/1.3.0.tar.gz"
   sha256 "d138fd1798cf828fe6291cf3faf447ce9abbfa29ae5ff5ede977b7cb5dfc8db0"
 
-  bottle do
-    cellar :any
-    sha256 "38428b68601f84a7cf0360bea09b17d891bd5bb2a5d6fbc6bce420011de698d2" => :yosemite
-    sha256 "f73a1a4e82115217791c73e95938f474f906f5215164abd71d71c9304674895e" => :mavericks
-    sha256 "c3e12ecfa1b4c9530f2f27c6707cf8e493377ca6132170814476d715564c536f" => :mountain_lion
-  end
 
   depends_on "go" => :build
 

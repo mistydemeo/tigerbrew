@@ -4,13 +4,6 @@ class YamlCpp < Formula
   url "https://github.com/jbeder/yaml-cpp/archive/release-0.5.2.tar.gz"
   sha256 "6fb92f6f5925e0af918ffbb90acf19b7b88706ebcd40fc186b7caa76609b6350"
 
-  bottle do
-    cellar :any
-    sha256 "88c3a00522e35571fbd6e8a7ad065956442edd7e8a7ad57b4804f7249450c85d" => :el_capitan
-    sha256 "9727c8af2fe48f0d3c7cd3a031f92cb22a5f475bf8aeebecacf81d3bc425aff8" => :yosemite
-    sha256 "58eb6496d8d6e95398fab4d4ace176c0d42284c44ccb9cda3cc9304b29804395" => :mavericks
-    sha256 "6eeeae8bcc43b2425f09184666cdf7b8df9228d94ca64761d6fefc57c7936918" => :mountain_lion
-  end
 
   option :cxx11
   option :universal

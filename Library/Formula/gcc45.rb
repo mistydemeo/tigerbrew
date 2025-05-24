@@ -25,11 +25,6 @@ class Gcc45 < Formula
   mirror "https://ftp.gnu.org/gnu/gcc/gcc-4.5.4/gcc-4.5.4.tar.bz2"
   sha256 "eef3f0456db8c3d992cbb51d5d32558190bc14f3bc19383dd93acc27acc6befc"
 
-  bottle do
-    sha256 "16c2a3e56e2da8ec6b38b36c54112d7c56bc05f71168fb867f586cb190c5fef7" => :yosemite
-    sha256 "51b73412c9628a593e765105a098ed1500b04574145391f3f93972e54d5b1b05" => :mavericks
-    sha256 "06806e0a4aa703b0cacb4a3e10b4c8738d3d97535c6dd52796ec5a85eee0638d" => :mountain_lion
-  end
 
   option "with-fortran", "Build the gfortran compiler"
   option "with-java", "Build the gcj compiler"

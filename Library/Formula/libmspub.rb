@@ -4,13 +4,6 @@ class Libmspub < Formula
   url "http://dev-www.libreoffice.org/src/libmspub/libmspub-0.1.2.tar.xz"
   sha256 "b0baabf82d20c08ad000e80fa02154ce2f2ffde1ee60240d6e3a917c3b35560f"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "36884363243b833417a5e67d7736ec9248c0f51690147cb1281ad43131c951ec" => :yosemite
-    sha256 "9edf701810bf5a7759a0d904b850499f8844a9832c2e8e1586a06609863d743d" => :mavericks
-    sha256 "8c1dd1e2707a7f0846c16ff631be7158043b8e24485bcc5f9a1a8d249831c074" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "boost" => :build

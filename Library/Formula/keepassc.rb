@@ -6,12 +6,6 @@ class Keepassc < Formula
   head "https://github.com/raymontag/keepassc.git", :branch => "development"
   revision 1
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "1af4bc97f7d8f7cce8c84ddf604ad5965fa36b42272db522c9d36d075a30249a" => :yosemite
-    sha256 "f728d5979d69d58d4838e8b4140deaaa3b1080c625f36902ac8e6c00734e5fdb" => :mavericks
-    sha256 "b2fbb08796c545c2a3f76de8ea61aa432fc023a06bc15441f87f78031e0be647" => :mountain_lion
-  end
 
   depends_on :python3
 

@@ -6,12 +6,6 @@ class Gistit < Formula
 
   head "https://github.com/jrbasso/gistit.git"
 
-  bottle do
-    cellar :any
-    sha1 "ef2f453dfcd08d831396992392f377fe8fba96bf" => :yosemite
-    sha1 "20bb22672bfc53b1f51e469846eeece2babdbd65" => :mavericks
-    sha1 "b0be23b824c1ea269c0812a6a8ddaecd6917c549" => :mountain_lion
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

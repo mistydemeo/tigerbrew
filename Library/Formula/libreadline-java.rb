@@ -5,13 +5,6 @@ class LibreadlineJava < Formula
   sha256 "cdcfd9910bfe2dca4cd08b2462ec05efee7395e9b9c3efcb51e85fa70548c890"
   revision 1
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "6e108ba60e76149db1d0d1275ba5806eda0f2a69" => :yosemite
-    sha1 "d69632b706e1bc325f53a2fab43d86258760368d" => :mavericks
-    sha1 "7bd2a8227ce2c9055471fd864a19faf943a10263" => :mountain_lion
-  end
 
   depends_on "readline"
   depends_on :java => "1.6"

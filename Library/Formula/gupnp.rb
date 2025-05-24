@@ -13,12 +13,6 @@ class Gupnp < Formula
     depends_on "libtool" => :build
   end
 
-  bottle do
-    cellar :any
-    sha256 "1109087b4b77ce974f4e435e4c27cd3b1aa49b0d2993ff1aed0f9148dd4c6033" => :yosemite
-    sha256 "239c762f839d1aea6aebbe320e87cac9602986ef54c8994b88b650e6977f8ce2" => :mavericks
-    sha256 "07e09de0ee06b0140bcd99d9f25f5d2163d21ae50f4e3ec1147ac25b978b6466" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

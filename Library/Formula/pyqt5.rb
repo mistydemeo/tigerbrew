@@ -5,11 +5,6 @@ class Pyqt5 < Formula
   sha256 "cdd1bb55b431acdb50e9210af135428a13fb32d7b1ab86e972ac7101f6acd814"
   revision 1
 
-  bottle do
-    sha256 "ce5dbd7dbf9d8377500226050ee1205d979679340443c18612d5d66f3ffb3ee2" => :yosemite
-    sha256 "d40d3b90566540600d830931ff7f493ecaac3baf9f723a444116a945d7203660" => :mavericks
-    sha256 "9f07294fb874a412a62f93f90382d22a1177f29c589c2b7bf331974b7656d952" => :mountain_lion
-  end
 
   option "enable-debug", "Build with debug symbols"
   option "with-docs", "Install HTML documentation and python examples"

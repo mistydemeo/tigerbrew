@@ -6,12 +6,6 @@ class Xonsh < Formula
   head "https://github.com/scopatz/xonsh.git"
   revision 2
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "0bc48de85eb1b8ca387bb6aa1a5336b4c0111110e68c76ba4806c8c9b87cc098" => :yosemite
-    sha256 "1ac713cb81b80a8fc065137b6b200337a9eeca1ebc37be7c712998074f41c35d" => :mavericks
-    sha256 "d511c4c1d3c0de59601ea85d62a4b13b4802f22f062791f3464ed4a9b247f694" => :mountain_lion
-  end
 
   depends_on :python3
 

@@ -4,12 +4,6 @@ class Libraw < Formula
   url "http://www.libraw.org/data/LibRaw-0.16.0.tar.gz"
   sha256 "71f43871ec2535345c5c9b748f07813e49915170f9510b721a2be6478426cf96"
 
-  bottle do
-    cellar :any
-    sha1 "49b78411b56fbf825d5170fadb9e81cc0473ab11" => :yosemite
-    sha1 "af54b03cb2b500969ede436f0c15e282b89e8968" => :mavericks
-    sha1 "d527170bd8c1e2bc8b0d755ba69938c4f0cec335" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "jasper"

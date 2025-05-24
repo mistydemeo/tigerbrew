@@ -8,12 +8,6 @@ class Forego < Formula
 
   head "https://github.com/ddollar/forego.git"
 
-  bottle do
-    cellar :any
-    sha256 "d868a7568c0c80b6af1cb8582b5c7341c1aa42b7aa1f7dc384f20ccca6bb1497" => :yosemite
-    sha256 "f0a098da6534c7a2f13e05ef129ab33a6a738251ffaaffe9792d28f300a992f2" => :mavericks
-    sha256 "8b544fd274c115758cf3ecec09e5c2f66e9f54663bc28b86d55bb310c94e57a2" => :mountain_lion
-  end
 
   depends_on "go" => :build
 

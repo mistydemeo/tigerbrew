@@ -5,12 +5,6 @@ class SigningParty < Formula
   mirror "https://mirrors.kernel.org/debian/pool/main/s/signing-party/signing-party_2.1.orig.tar.gz"
   sha256 "ca87849a74ea4c271e92422bfe6b1be2bfe2c2de9a723bf11aa088e4ea88965d"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "0692c36cb488a6513418aa680b047f66330a48b6273c80d7f7d64c4a56a5bf48" => :el_capitan
-    sha256 "33115eca8d24439f772797d16e727b158befc4f71f119cdde01cd795c73b7e17" => :yosemite
-    sha256 "fb5a0eb7e0ddda57f16b2d12d7f11325cea737cb180c8a29f44cd88af13d29ab" => :mavericks
-  end
 
   option "with-rename-pgpring", "Install pgpring as pgppubring to avoid conflicting with mutt"
 

@@ -6,12 +6,6 @@ class Mypy < Formula
   head "https://github.com/JukkaL/mypy.git"
   revision 1
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "cc2780459f9cbb98805a0873ca7c5e6286bfad54545ba8d6898c663658867fea" => :yosemite
-    sha256 "2c5872aed4f6c1fe965bb6962f448e47d412930bc270e4fbfc50427a094b3a23" => :mavericks
-    sha256 "6a67aefdf446d5600f06aa0f7e9de8c79a7165cb73edfbd6e2dd73aba072ff73" => :mountain_lion
-  end
 
   option "without-docs", "Don't build documentation"
 

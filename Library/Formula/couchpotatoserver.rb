@@ -6,12 +6,6 @@ class Couchpotatoserver < Formula
 
   head "https://github.com/RuudBurger/CouchPotatoServer.git"
 
-  bottle do
-    cellar :any
-    sha256 "060521cab660a6fb15265e8239d9685dc9034a65100f1960b5249b8a84a563af" => :yosemite
-    sha256 "b2c7bbcd61a338c4b35cebc76a393c3564d7b5dc35c494df3ecda65c88d174d9" => :mavericks
-    sha256 "f2ea47a3082dce305db9efd82001a5a7479475abfe1ce1efd7332ebcbc29f145" => :mountain_lion
-  end
 
   def install
     prefix.install_metafiles

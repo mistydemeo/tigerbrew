@@ -4,13 +4,6 @@ class Libnfc < Formula
   url "https://libnfc.googlecode.com/files/libnfc-1.7.0.tar.bz2"
   sha256 "f14df0727c301f9149608dc6e1fbad81ec48372dcd7a364ac1cb805a7a2b2b8b"
 
-  bottle do
-    revision 2
-    sha256 "76437c13d93466c6f64ebcdee2a8aea6fa54bf129755f368844713a7817b263e" => :el_capitan
-    sha1 "55ecc37dabd8c848975f3bbf20a8ab7eb191a788" => :yosemite
-    sha1 "13c61f303c9a2dc90d316f81ce7c615b8bb0e2f1" => :mavericks
-    sha1 "4d9b2216eb876d9a63fe0c0b168b2de0766d0a21" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "libusb-compat"

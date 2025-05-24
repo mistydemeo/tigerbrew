@@ -5,13 +5,6 @@ class Lightning < Formula
   mirror "https://ftp.gnu.org/gnu/lightning/lightning-2.1.0.tar.gz"
   sha256 "1fa3a2421852598b3162d6765645bb3cd0fccb5f0c105d0800c64c8428b749a6"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "6acd9f1ee9f3762d8e63a1fc2ee63c8ac83b67f4" => :yosemite
-    sha1 "f0a3c6d0415677ad7e741c0e5b954d513f433833" => :mavericks
-    sha1 "15b34af17f282400e8792e74787d7b8cf7308c30" => :mountain_lion
-  end
 
   depends_on "binutils" => [:build, :optional]
 

@@ -5,12 +5,6 @@ class Libquicktime < Formula
   sha256 "1c53359c33b31347b4d7b00d3611463fe5e942cae3ec0fefe0d2fd413fd47368"
   revision 2
 
-  bottle do
-    revision 1
-    sha1 "15ba1227bfc6f81475ea8d57d59019d211117a82" => :yosemite
-    sha1 "95a530bd3c46303f6df49fc0c0bb3d18b43706f2" => :mavericks
-    sha1 "97260df51e133923c94c88aeee5d84a216617490" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "gettext"

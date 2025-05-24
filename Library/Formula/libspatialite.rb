@@ -4,12 +4,6 @@ class Libspatialite < Formula
   url "https://www.gaia-gis.it/gaia-sins/libspatialite-sources/libspatialite-4.3.0a.tar.gz"
   sha256 "88900030a4762904a7880273f292e5e8ca6b15b7c6c3fb88ffa9e67ee8a5a499"
 
-  bottle do
-    cellar :any
-    sha256 "5625de09ec052a43deb949bf6af8c278aa891bbcc9094698165a61c8ed78bf82" => :el_capitan
-    sha256 "691322bc757ee5270e8accff2894223407c97e573feb09016cc6a00310c1b284" => :yosemite
-    sha256 "dff59638a007dcb918114d2f6f341226158a62b374dbf187800b8bb84326bb5d" => :mavericks
-  end
 
   head do
     url "https://www.gaia-gis.it/fossil/libspatialite", :using => :fossil

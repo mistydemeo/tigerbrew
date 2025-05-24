@@ -4,9 +4,6 @@ class Smartmontools < Formula
   url "https://downloads.sourceforge.net/project/smartmontools/smartmontools/7.4/smartmontools-7.4.tar.gz"
   sha256 "e9a61f641ff96ca95319edfb17948cd297d0cd3342736b2c49c99d4716fb993d"
 
-  bottle do
-  end
-
   needs :cxx11
 
   def install

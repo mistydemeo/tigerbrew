@@ -5,12 +5,6 @@ class Euca2ools < Formula
   sha256 "1d232d6c389b1fa1de9132abd04356bd3e28160e8410a0e5a41f5e0f3da4a125"
   head "https://github.com/eucalyptus/euca2ools.git"
 
-  bottle do
-    cellar :any
-    sha256 "8c7ef23097472b3b801d13abdfb4d416ea8156ea69915b5ab09051f7bbc1e4c8" => :yosemite
-    sha256 "fe63a3a7c44cd0f276962ff87e3f39d02ed667f09006f1357a30ce96616a0b34" => :mavericks
-    sha256 "fd09cae80f9a8648fc1a7048bd8eb3f2856c6df746baeae2ded8f33829eafb5b" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
 

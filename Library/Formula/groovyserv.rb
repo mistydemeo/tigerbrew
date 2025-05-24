@@ -5,12 +5,6 @@ class Groovyserv < Formula
   sha256 "2e684f589792aad638ef5391fbad7a6b3c2e7e1d7f35e098cb1d3d60a8b1882b"
   head "https://github.com/kobo/groovyserv.git"
 
-  bottle do
-    cellar :any
-    sha1 "2acd972802f63afcdebb622015ab059c23423789" => :yosemite
-    sha1 "b2cb34764f861b8ef374ead20bac89f1866d03d4" => :mavericks
-    sha1 "9936c0eadffe669dca07631c0609bc5a07968800" => :mountain_lion
-  end
 
   depends_on "go" => :build
 

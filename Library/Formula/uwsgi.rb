@@ -8,11 +8,6 @@ class Uwsgi < Formula
     sha256 "75a7d3138cfa9cd81a760c2f8a43f3d80961edc8e4f27043dc1412206c926287"
   end
 
-  bottle do
-    sha256 "436efd8be3e0436ba29c8bf0d78481509f3e5f0385822dbe39f4990b22695ff9" => :yosemite
-    sha256 "3c2cd79b3dca8a375b4948dcd1ba7639b0485bc16e970b1e280d69eef7d99837" => :mavericks
-    sha256 "82e388d191e58db251720c9b54cafc7f8d09de8924d400971cb5cb2652a18e33" => :mountain_lion
-  end
 
   # See https://github.com/unbit/uwsgi/issues/334
   depends_on :ld64

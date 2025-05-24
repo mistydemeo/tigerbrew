@@ -5,13 +5,6 @@ class EchoprintCodegen < Formula
   sha256 "c40eb79af3abdb1e785b6a48a874ccfb0e9721d7d180626fe29c72a29acd3845"
   head "https://github.com/echonest/echoprint-codegen.git"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "64d6275b2830c9eb0543e2a0cb9c9807a3fc8995" => :yosemite
-    sha1 "f0f20a5b66a1dd4f16b5676c0593ebb8872f20fb" => :mavericks
-    sha1 "0a7c0d80cfe1213e2831d5bf26351de4886da60a" => :mountain_lion
-  end
 
   revision 1
 

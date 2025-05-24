@@ -4,11 +4,6 @@ class Goaccess < Formula
   url "http://tar.goaccess.io/goaccess-0.9.4.tar.gz"
   sha256 "8a6e167f6a9330ccf37c652e577792c9c626d7134d64f841eb54fefcdff6c5ce"
 
-  bottle do
-    sha256 "e55d00891372ed68169bb759c7113fb47951793146287f58542f05033966b0a6" => :el_capitan
-    sha256 "e823561ca8d621ab0e33fa32e8750c9a29eb381ac8f3ed14001a6d90dce14812" => :yosemite
-    sha256 "ea928044dc0a5309be812828d29e75d4cba36300b269aa355f117a2489c8274f" => :mavericks
-  end
 
   head do
     url "https://github.com/allinurl/goaccess.git"

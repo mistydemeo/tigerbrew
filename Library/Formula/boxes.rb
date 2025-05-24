@@ -5,11 +5,6 @@ class Boxes < Formula
   head "https://github.com/ascii-boxes/boxes.git"
   sha256 "4d5e536be91b476ee48640bef9122f3114b16fe2da9b9906947308b94682c5fe"
 
-  bottle do
-    sha1 "fc7adbf52e65497a6203df64bd46c5187b6202ca" => :yosemite
-    sha1 "692ee3b2ce7a9209fb2e5dea6b210e05d93a4ffd" => :mavericks
-    sha1 "7a53ae56f1202d8c908cbaa8caddf7f501b07158" => :mountain_lion
-  end
 
   def install
     ENV.m32

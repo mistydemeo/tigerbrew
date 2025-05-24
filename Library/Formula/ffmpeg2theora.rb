@@ -16,13 +16,6 @@ class Ffmpeg2theora < Formula
     depends_on "libkate" => :optional
   end
 
-  bottle do
-    cellar :any
-    revision 2
-    sha256 "9b5c5a894bbb3988a4b6d9039eb107f3e46021d944eba03c666c3cbdfa20ec3a" => :yosemite
-    sha256 "ae5c9ad2515591001a8e759c67bc23d2580ed429266c6fba4c8ddb4923dd9c89" => :mavericks
-    sha256 "0fd532c961a5b677ff4975ed60d5c950d34e9fc079f493b45c7a0f30bda8f322" => :mountain_lion
-  end
 
   head do
     url "https://git.xiph.org/ffmpeg2theora.git"

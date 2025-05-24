@@ -5,9 +5,6 @@ class Cloog < Formula
   sha256 "460c6c740acb8cdfbfbb387156b627cf731b3837605f2ec0001d079d89c69734"
   revision 1
 
-  bottle do
-    cellar :any
-  end
 
   head do
     url "http://repo.or.cz/r/cloog.git"

@@ -6,13 +6,6 @@ class Consul < Formula
   url "https://github.com/hashicorp/consul.git",
     :tag => "v0.5.2", :revision => "9a9cc9341bb487651a0399e3fc5e1e8a42e62dd9"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "202a4b756ed7e56a67505e1ea924ee83c7fc12969f1b27f1af16d2cf0dbfe997" => :yosemite
-    sha256 "6378dbdd6bf1e16b2a7b21b12f9e5f2ea2656229d1a376e69653f290736566a1" => :mavericks
-    sha256 "3e4c6a01071652f3012ce25744925ab773231a5762f6f574e4100728736b5817" => :mountain_lion
-  end
 
   option "with-web-ui", "Installs the consul web ui"
 

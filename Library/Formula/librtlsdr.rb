@@ -5,13 +5,6 @@ class Librtlsdr < Formula
   url "https://github.com/steve-m/librtlsdr/archive/v0.5.3.tar.gz"
   sha256 "98fb5c34ac94d6f2235a0bb41a08f8bed7949e1d1b91ea57a7c1110191ea58de"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "8680ce437b474e7032b29cb74707a83dccd31a94" => :yosemite
-    sha1 "c1e932c691bf46a96c254907201dbf00165f33e5" => :mavericks
-    sha1 "e9acc1e44e8cf4c6814b1dee47ea226a24a06d9e" => :mountain_lion
-  end
 
   option :universal
 

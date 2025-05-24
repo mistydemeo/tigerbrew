@@ -5,12 +5,6 @@ class Dsd < Formula
   url "https://github.com/szechyjs/dsd/archive/v1.6.0.tar.gz"
   sha256 "44fa3ae108d2c11b4b67388d37fc6a63e8b44fc72fdd5db7b57d9eb045a9df58"
 
-  bottle do
-    cellar :any
-    sha1 "078526fcb83180832b34282f717a9811f54d6d85" => :yosemite
-    sha1 "a86e78c5668c89567b9c0c3a46c630268901f4d7" => :mavericks
-    sha1 "7c835fae91c450e912811b7c5d3c173564283623" => :mountain_lion
-  end
 
   patch do
     # Fixes build on MacOS X.

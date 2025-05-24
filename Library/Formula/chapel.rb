@@ -5,11 +5,6 @@ class Chapel < Formula
   sha256 "307b156d9cf0968bad90a2f7225366d90f6a5d948eb42be1d33f0efc6979949b"
   head "https://github.com/chapel-lang/chapel.git"
 
-  bottle do
-    sha256 "364aabb29b63231fb16fd528232a60685fc6ee49358d0f8623eaccd6356d666e" => :yosemite
-    sha256 "7b600c3db7fb0fcccaed605cf112bf6331930d9a1fb29cf9b522723b8db0e46c" => :mavericks
-    sha256 "dd6605f94bad0dfbc342657d2dc43e037a482c2237c7f1c6aad3a1fa74df4236" => :mountain_lion
-  end
 
   def install
     libexec.install Dir["*"]

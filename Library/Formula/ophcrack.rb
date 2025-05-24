@@ -6,12 +6,6 @@ class Ophcrack < Formula
   sha256 "79219baa03afd7e52bc6d365dd5a445bc73dfac2e88216e7b050ad7749191893"
   revision 1
 
-  bottle do
-    cellar :any
-    sha1 "708bc9a7d0d55c7bc40c658193b7f8c132a4b03a" => :mavericks
-    sha1 "dada805fde40ab311f1819bc51b1280cdc224bfe" => :mountain_lion
-    sha1 "4c4e177a30674d11e10fd825d3567d41773d952b" => :lion
-  end
 
   depends_on "openssl"
 

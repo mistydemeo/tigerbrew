@@ -9,12 +9,6 @@ class Influxdb < Formula
     sha256 "a15dcb1173ca4016111d2d8dcea75c098f10838f54d67256b384e65b1cbcf2de"
   end
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "76d669cdbf1c2ad3619bd75c5e1d696f4a95723f52f6c4a7d07c78cbfa79c305" => :el_capitan
-    sha256 "5cafef5188c19e37b309e4bc7b296b228105ef968e3af763f591523b7acf07f4" => :yosemite
-    sha256 "fe38534f8108c8f6174cad83ff042519b1ac73690a8b97cbce97158b1851ea2c" => :mavericks
-  end
 
   head do
     url "https://github.com/influxdb/influxdb.git"

@@ -4,11 +4,6 @@ class GeocodeGlib < Formula
   url "https://download.gnome.org/sources/geocode-glib/3.18/geocode-glib-3.18.0.tar.xz"
   sha256 "8fb7f0d569e3e6696aaa1fdf275cb3094527ec5e9fa36fd88dd633dfec63495d"
 
-  bottle do
-    sha256 "f85aee0dbf1e2b66693efac35cd0a9340c277bbdb1dedcf09bb467dace95ffd1" => :el_capitan
-    sha256 "e14086597467c257fce1e2654cd35980da46f544ea548af0d5425505906dee98" => :yosemite
-    sha256 "d20e9d72630794b217e9d0c4a46e704cc7201a98d1aa2a821da737f276ba2959" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "gtk+3"

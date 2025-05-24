@@ -8,12 +8,6 @@ class Contacts < Formula
   version "1.1a-3"
   sha256 "e3dd7e592af0016b28e9215d8ac0fe1a94c360eca5bfbdafc2b0e5d76c60b871"
 
-  bottle do
-    cellar :any
-    sha1 "ab0a67bacf53d9f1e6320b34cbaf33cc50ffa8ed" => :mavericks
-    sha1 "b6dcc58b8cc4d849a81718a72372a3571d8c48b6" => :mountain_lion
-    sha1 "68aa40140ff5abed8464415a8d45cead2782a998" => :lion
-  end
 
   depends_on :xcode => :build
 

@@ -4,12 +4,6 @@ class NetSnmp < Formula
   url "https://downloads.sourceforge.net/project/net-snmp/net-snmp/5.7.3/net-snmp-5.7.3.tar.gz"
   sha256 "12ef89613c7707dc96d13335f153c1921efc9d61d3708ef09f3fc4a7014fb4f0"
 
-  bottle do
-    revision 2
-    sha256 "92956eecd7dcaa9743527af24d68d52c772555c3f512f10d773aa6083a1e3290" => :yosemite
-    sha256 "3c045453d9c666ec873b90477b1efe10d5c8583994b65666e3d445eb2e5670c8" => :mavericks
-    sha256 "f2c4102f61ee8d6ad151bdbe6da97a5fc5127e84e7939f5e1672f81414a28873" => :mountain_lion
-  end
 
   depends_on "openssl"
   depends_on :python => :optional

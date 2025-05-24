@@ -10,12 +10,6 @@ class Suricata < Formula
     version "2.1beta4"
   end
 
-  bottle do
-    revision 1
-    sha256 "c60577cacc930289e30fc51adf5bc3a9f2e2a96dc405221e8e7dd9a3792244f0" => :yosemite
-    sha256 "525504681cc58b1c0efa3ab6d77c36f18aff3d11ade6632a59e5a586beed620c" => :mavericks
-    sha256 "6c166db0c146fbe09ee5783cf37d6b261b7c214af8b7877e5c34d7616a32547e" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "pkg-config" => :build

@@ -4,11 +4,6 @@ class Plplot < Formula
   url "https://downloads.sourceforge.net/project/plplot/plplot/5.11.1%20Source/plplot-5.11.1.tar.gz"
   sha256 "289dff828c440121e57b70538b3f0fb4056dc47159bc1819ea444321f2ff1c4c"
 
-  bottle do
-    sha256 "81eb90e08ac42f6f5ea9f41159baf2cbf95f93f6f1390ddd1b12f00bb415e079" => :yosemite
-    sha256 "7e4c364b66c61d7f35cb6a5417ee5ef1d06fe7a30d78b8d237a36b4beaa458f8" => :mavericks
-    sha256 "b779762659e485d6c9cad54206b1e72f2db5e82950b19a356439e9ce3ef79138" => :mountain_lion
-  end
 
   option "with-java"
 

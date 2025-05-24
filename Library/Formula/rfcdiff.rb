@@ -4,12 +4,6 @@ class Rfcdiff < Formula
   url "https://tools.ietf.org/tools/rfcdiff/rfcdiff-1.42.tgz"
   sha256 "1ff5f34a007e9219725d9e3d40767aec5e895d9f890085bec554d0e2a4150634"
 
-  bottle do
-    cellar :any
-    sha1 "d6fe59c07cbbe0ba0d268a5d84691a5720a0d16e" => :yosemite
-    sha1 "88884113013f1e061f180aeb2c4b0eaea1919334" => :mavericks
-    sha1 "62c13793f7558377afd40fde2aa18b93d96e034e" => :mountain_lion
-  end
 
   depends_on "wdiff"
   depends_on "gawk" => :recommended

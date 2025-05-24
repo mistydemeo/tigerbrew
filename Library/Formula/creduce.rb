@@ -6,10 +6,6 @@ class Creduce < Formula
   head "https://github.com/csmith-project/creduce.git"
   revision 2
 
-  bottle do
-    sha256 "e946da51208fa460a8bdd203a20bbc8a80f2a2f508f97294ae3c598891b1230a" => :yosemite
-    sha256 "2a82aa51b0c3bf17438d0bf11c42ec7df2141b92c5dbd05d8311d07f8cd093f6" => :mavericks
-  end
 
   depends_on "astyle"
   depends_on "delta"

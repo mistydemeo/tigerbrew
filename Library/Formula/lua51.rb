@@ -8,13 +8,6 @@ class Lua51 < Formula
   sha256 "2640fc56a795f29d28ef15e13c34a47e223960b0240e8cb0a82d9b0738695333"
   revision 2
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "1518b45f3864b3f4dd63d373bab7e1c3928e8de4139bf8722522b1cb0a5a2582" => :el_capitan
-    sha256 "61b7ab098625551c83f4493c9b4d1c6dbbdf67bf56a7a373c75c23844497073e" => :yosemite
-    sha256 "fe4e727ab2c7ec85d75219953d24adcfccc72afa3bdc1d59df60989baa62b0a2" => :mavericks
-  end
 
   fails_with :llvm do
     build 2326

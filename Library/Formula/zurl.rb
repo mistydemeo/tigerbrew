@@ -4,12 +4,6 @@ class Zurl < Formula
   url "https://dl.bintray.com/fanout/source/zurl-1.4.9.tar.bz2"
   sha256 "88f2135aeb57690f3d81992fd5bb8d8c68185d4a084f0752b4bb2dbb35235d4f"
 
-  bottle do
-    cellar :any
-    sha256 "e98b5c41095623595234603fb4a8b07ee85fab64ca7d33843421923b3e4d45fd" => :yosemite
-    sha256 "44103feec406a21e4f3df5d2536b21f24bed9c751b180eeeff10526f715af201" => :mavericks
-    sha256 "4ada68da925c8f59cf29e9319098e2219b72e7a8406e5f4df3604cf5cb176031" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "curl" if MacOS.version < :lion

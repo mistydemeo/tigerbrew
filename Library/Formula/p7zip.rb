@@ -9,13 +9,6 @@ class P7zip < Formula
     sha1 "6b1eccf272d8b141a94758f80727ae633568ba69"
   end
 
-  bottle do
-    cellar :any_skip_relocation
-    revision 2
-    sha256 "ca8c3e999af9b2dcd7ba4889c94111b0ab8971eb4234f4935a5d0d644ec755d8" => :el_capitan
-    sha256 "d92cf7a481836bfc5b2292d636d45333b1946b82835510329eb0aa17483978ed" => :yosemite
-    sha256 "c621e245f8b0912e135861756e3b3f443858f3d8291887d2438acbf3c09f4ee3" => :mavericks
-  end
 
   option "32-bit"
 

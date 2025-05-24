@@ -10,12 +10,6 @@ class Snapraid < Formula
     depends_on "autoconf" => :build
   end
 
-  bottle do
-    cellar :any
-    sha256 "10123687aa79706617cf0d62ee0a2d5e27d43ab633d9dc914089d325b3e22464" => :yosemite
-    sha256 "d5a7af73bdf89fd946d96139ae94dcb8e5b4e437a8836ba6c9c9a21d618af763" => :mavericks
-    sha256 "b5f0e760a5448d744cc279df69686d65d4aaa3d8523ca8d9a8731615ef55d059" => :mountain_lion
-  end
 
   def install
     system "./autogen.sh" if build.head?

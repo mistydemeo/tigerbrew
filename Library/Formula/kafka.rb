@@ -6,13 +6,6 @@ class Kafka < Formula
   mirror "https://archive.apache.org/dist/kafka/0.8.2.1/kafka-0.8.2.1-src.tgz"
   sha256 "a043655be6f3b6ec3f7eea25cc6525fd582da825972d3589b24912af71493a21"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "6421db989eae488bbd6491f22ced46753500cb3534f0dec47b2f2132afa4425d" => :yosemite
-    sha256 "4adacd36a38bbef07e4326224d56c74cdc34b906ec60594035f4c354aa25381e" => :mavericks
-    sha256 "63fca4b6a35aaa7c50771d93ffca044c1cbe6ae66f6b76617408533b40ff8687" => :mountain_lion
-  end
 
   depends_on "gradle"
   depends_on "zookeeper"

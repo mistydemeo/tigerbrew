@@ -5,13 +5,6 @@ class Smlnj < Formula
   version "110.78"
   sha256 "e2dd00b39b00ad892f182ce3f824d1540b0e350f2aee748ca971d44b5d340c05"
 
-  bottle do
-    revision 1
-    sha256 "148c036610f5a5e21543254c9e3af39ea9dfe73b8ed83b999ab70e492ed516d1" => :el_capitan
-    sha256 "bc060f3794995fe9919d77a606de7084654d27b6185b51725db78cdf62736f4e" => :yosemite
-    sha256 "d65bdd75825461dc6fd3f15f50de7ebe339b0644e7cb21132b0f2cd742cd293f" => :mavericks
-    sha256 "ae8daf8491c3b2d6d2b12ce101fba322791591065b69129ff734325a1a1be063" => :mountain_lion
-  end
 
   resource "cm" do
     url "http://smlnj.cs.uchicago.edu/dist/working/110.78/cm.tgz"

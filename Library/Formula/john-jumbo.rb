@@ -5,13 +5,6 @@ class JohnJumbo < Formula
   sha256 "bac93d025995a051f055adbd7ce2f1975676cac6c74a6c7a3ee4cfdd9c160923"
   version "1.8.0"
 
-  bottle do
-    cellar :any
-    revision 4
-    sha256 "04f9b2b3b714abd6e9e0cf8778e10b8fe901260b4e5816e7277e9d5a6465c228" => :el_capitan
-    sha256 "6e3a37dad1ed67b9a87003e869934c7d2b8786ff18f59465ea6c0201b9e605b1" => :yosemite
-    sha256 "0e7e105617faa98f4d636b05c780844e0c9f9d65c4a92b8b9b605bacd58e954b" => :mavericks
-  end
 
   conflicts_with "john", :because => "both install the same binaries"
 

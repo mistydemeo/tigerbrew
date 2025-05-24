@@ -4,12 +4,6 @@ class Tinysvm < Formula
   url "http://chasen.org/~taku/software/TinySVM/src/TinySVM-0.09.tar.gz"
   sha256 "e377f7ede3e022247da31774a4f75f3595ce768bc1afe3de9fc8e962242c7ab8"
 
-  bottle do
-    cellar :any
-    sha1 "3d4091d59c33a861cade86fc324f0dfc337c818c" => :yosemite
-    sha1 "4a779733c331e5b32d4ba79a51c4ec288ca29314" => :mavericks
-    sha1 "ae5f0cd4fdb3b6c6e951791496ba0a0487fb687c" => :mountain_lion
-  end
 
   # Use correct compilation flag
   patch :p0 do

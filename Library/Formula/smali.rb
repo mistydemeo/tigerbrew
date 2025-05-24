@@ -5,12 +5,6 @@ class Smali < Formula
   sha256 "fcadc564a35b121361930223a4e6431e000b24b3cc992ca63dd2e35f7b28746d"
   revision 1
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "48eefb1d2ad76ccdaed3201af6bf2db59d160df687b9f4aafcfddac90037ca71" => :el_capitan
-    sha256 "8f0e302e316b2854cab3a410eb48b59039a7b19818c0f30dfa1c441a03142737" => :yosemite
-    sha256 "a0cedabdb27dc89526183ecab69efd986b569ef320d77fcd5530bb3e43250779" => :mavericks
-  end
 
   resource "baksmali-jar" do
     url "https://bitbucket.org/JesusFreke/smali/downloads/baksmali-2.0.6.jar"

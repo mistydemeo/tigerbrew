@@ -4,12 +4,6 @@ class Mysql < Formula
   url "https://cdn.mysql.com/archives/mysql-5.6/mysql-5.6.35.tar.gz"
   sha256 "dddcba169b98844d7c65346cbd791c853edf942d78440381685087b84aa35020"
 
-  bottle do
-    revision 1
-    sha256 "00cc217c1db3a3bb4dda4aef59e27bd66127cb68bcb3d840051a0788a4399912" => :el_capitan
-    sha256 "dbfa58e04a6837311d7a708279657cfbea272b94523de9d5cb64c59735e0e717" => :yosemite
-    sha256 "9331682dcd7ad18a659d3af31e208d20d33620aae3639c0cb5ce8fc50b95aba9" => :mavericks
-  end
 
   depends_on :ld64
   depends_on "cmake" => :build

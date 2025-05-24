@@ -4,12 +4,6 @@ class Supersonic < Formula
   url "https://supersonic.googlecode.com/files/supersonic-0.9.4.tar.gz"
   sha256 "1592dfd2dc73f0b97298e0d25e51528dc9a94e9e7f4ab525569f63db0442d769"
 
-  bottle do
-    revision 1
-    sha256 "75c8903d7d637aa495c83eb3a3569b627fbdf9799e907a7d0fff536cf3ddb155" => :yosemite
-    sha256 "c72cb21c7f1efc5a790be376e55dcc4a1edc76cda6686c2ba7d3d7f8c2937321" => :mavericks
-    sha256 "2869dba7bb685f7f6e4df504b87e01a7dda685afc3f27fa1c6010c150982317f" => :mountain_lion
-  end
 
   if MacOS.version < :mavericks
     depends_on "protobuf" => "c++11"

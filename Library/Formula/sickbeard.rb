@@ -5,11 +5,6 @@ class Sickbeard < Formula
   url "https://github.com/midgetspy/Sick-Beard/archive/build-507.tar.gz"
   sha256 "eaf95ac78e065f6dd8128098158b38674479b721d95d937fe7adb892932e9101"
 
-  bottle do
-    sha1 "d144a55f9a667036255b373f7fcf294455d447e2" => :yosemite
-    sha1 "2c47e5cec2a12f46f57cff89f29cb34f14b72183" => :mavericks
-    sha1 "1a2abb4fcbae529e5c378d5ca75f506c726a8a0b" => :mountain_lion
-  end
 
   resource "Markdown" do
     url "https://pypi.python.org/packages/source/M/Markdown/Markdown-2.4.1.tar.gz"

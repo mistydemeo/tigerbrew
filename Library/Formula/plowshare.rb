@@ -4,11 +4,6 @@ class Plowshare < Formula
   url "https://github.com/mcrapet/plowshare/archive/v2.1.1.tar.gz"
   sha256 "96b3acd1dba1b14f3009334520969af4c00c8f4b7f5d924a26decc4b4a817e53"
 
-  bottle do
-    sha256 "f8337922b92d53f801a91b71b28c6cf0160c9acdf92ee8a95009606d0a4f9109" => :yosemite
-    sha256 "1fc4fd994f341d73c252b6f9bb7918f307bb245e6ee4d63d8247d81143262eb2" => :mavericks
-    sha256 "76caa88591b4d4832bf0b4e8674816672850f88baec7293290cb7eca1d19db17" => :mountain_lion
-  end
 
   depends_on "aview"
   depends_on "bash"

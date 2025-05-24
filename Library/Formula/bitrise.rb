@@ -6,12 +6,6 @@ class Bitrise < Formula
   url "https://github.com/bitrise-io/bitrise/archive/1.1.2.tar.gz"
   sha256 "95f381dce0c5bef8609f8e3af44a8e6844a5f7ac10e95d4d4ad78d7490bd60c8"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "4a13574be7cde8d80107e61f06ee6357c6c2e345247f6b152e5151cec6409919" => :el_capitan
-    sha256 "0b4b7ee7555cd3adb3b66f97bcf15a968bbeaa60da68d28b6d68213945d22362" => :yosemite
-    sha256 "d014dd50793d58e7943a5ad10239488ea73375051478ce7b0ec18e15be255f90" => :mavericks
-  end
 
   depends_on "go" => :build
 

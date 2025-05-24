@@ -7,12 +7,6 @@ class Analog < Formula
   sha256 "31c0e2bedd0968f9d4657db233b20427d8c497be98194daf19d6f859d7f6fcca"
   revision 2
 
-  bottle do
-    revision 1
-    sha1 "499ddf1e97314126055e0f695f2af7e4a5325839" => :yosemite
-    sha1 "0b74be8dfd6706d330c65a9407d99470ac5c9ccf" => :mavericks
-    sha1 "4c9f29b3324e2229ec4c7dc8be46b638507d23ee" => :mountain_lion
-  end
 
   depends_on "gd"
   depends_on "jpeg"

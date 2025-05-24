@@ -4,12 +4,6 @@ class Trafshow < Formula
   url "http://distcache.freebsd.org/ports-distfiles/trafshow-5.2.3.tgz"
   sha256 "ea7e22674a66afcc7174779d0f803c1f25b42271973b4f75fab293b8d7db11fc"
 
-  bottle do
-    cellar :any
-    sha1 "c41e1061e5300760e840f7cfde4ae669b24800e8" => :mavericks
-    sha1 "13881774f1b3a0ba6886dda9fe12aea126f2fefd" => :mountain_lion
-    sha1 "86097cbc1a851ae8a07b591ef6da823926b132cc" => :lion
-  end
 
   depends_on "libtool" => :build
 

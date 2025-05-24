@@ -4,11 +4,6 @@ class Libgit2Glib < Formula
   url "https://download.gnome.org/sources/libgit2-glib/0.23/libgit2-glib-0.23.6.tar.xz"
   sha256 "5c8d6b5cb81ab64b96cb0c52ef37463b6d8998a40ce77a08eda9db66fb781144"
 
-  bottle do
-    sha256 "9879907a8960a0b92143308f51835cd06ceecddcb7d6882928bd8c55fd86120b" => :el_capitan
-    sha256 "878b8264d9ee4a13d9f8433e6c548e9e8d7e2472d49a41b7258e6e071f28e3a8" => :yosemite
-    sha256 "b00b6989a1544380a206a250824dec67e09d37b0f21c42a3735a1ff9f99e2cd9" => :mavericks
-  end
 
   head do
     url "https://github.com/GNOME/libgit2-glib.git"

@@ -5,11 +5,6 @@ class Monotone < Formula
   sha256 "f95cf60a22d4e461bec9d0e72f5d3609c9a4576fb1cc45f553d0202ce2e38c88"
   revision 1
 
-  bottle do
-    sha1 "3f8cc11197707cb011089291af5979ef092934f5" => :mavericks
-    sha1 "4e46602d065c8e2b5ed4ad0dbc943b89bd87b1b0" => :mountain_lion
-    sha1 "f7556d0774f7fce3e8465460af011fa8e6d1f332" => :lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "gettext"

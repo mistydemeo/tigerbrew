@@ -6,9 +6,6 @@ class Valabind < Formula
 
   head "https://github.com/radare/valabind.git"
 
-  bottle do
-  end
-
   depends_on "pkg-config" => :build
   depends_on "swig" => :run
   depends_on "vala"

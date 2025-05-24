@@ -5,13 +5,6 @@ class GnuTime < Formula
   mirror "https://ftp.gnu.org/gnu/time/time-1.7.tar.gz"
   sha256 "e37ea79a253bf85a85ada2f7c632c14e481a5fd262a362f6f4fd58e68601496d"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "d0b40a36430314f548ab3e5d362c3695b9ab38e83933a7a459deaccfa705232f" => :yosemite
-    sha256 "f69ffe3bd6748843ff7013c016bf69a58efde8fb936251b0f6e9e4a2352e1450" => :mavericks
-    sha256 "0b28fad39645760e643d90a93c994df01151d4ff43dc8b3c63efa8d59d17783f" => :mountain_lion
-  end
 
   option "with-default-names", "Do not prepend 'g' to the binary"
 

@@ -4,13 +4,6 @@ class Libxmlsec1 < Formula
   url "https://www.aleksey.com/xmlsec/download/xmlsec1-1.2.20.tar.gz"
   sha256 "3221593ca50f362b546a0888a1431ad24be1470f96b2469c0e0df5e1c55e7305"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "b98f9b1317679104e80fda88cc0a5da4ec0686f08386839999c29dc1608ebc1f" => :el_capitan
-    sha256 "7381ad6025f574148ed52eb26ddde32d4a033b298e0ec8fe7fc13eba6953fb6d" => :yosemite
-    sha256 "0b3751ff6f6ca7b4e2899d5d0f29c2b1c17b980805da5748c3abbb060d4e630d" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "libxml2" if MacOS.version <= :lion

@@ -4,11 +4,6 @@ class Strongswan < Formula
   url "https://download.strongswan.org/strongswan-5.3.3.tar.bz2"
   sha256 "39d2e8f572a57a77dda8dd8bdaf2ee47ad3cefeb86bbb840d594aa75f00f33e2"
 
-  bottle do
-    sha256 "8e8362e1186bd840387c072baff610e6e5903aa21add508ef43f5ed20963c918" => :el_capitan
-    sha256 "74b6831a6b2cc79023d64de1bc34860d4a05930ac436980b34e7ea48c450693d" => :yosemite
-    sha256 "9798290ab105adbd94e3d17063d17e540fb2da899b04bddebd90d117970730ce" => :mavericks
-  end
 
   head do
     url "https://git.strongswan.org/strongswan.git"

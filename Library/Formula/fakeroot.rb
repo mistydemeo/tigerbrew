@@ -5,13 +5,6 @@ class Fakeroot < Formula
   mirror "https://mirrors.ocf.berkeley.edu/debian/pool/main/f/fakeroot/fakeroot_1.20.2.orig.tar.bz2"
   sha256 "7c0a164d19db3efa9e802e0fc7cdfeff70ec6d26cdbdc4338c9c2823c5ea230c"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "33ae18f3adadf47b0266d5e8ef7d2ec6d87f49a4" => :yosemite
-    sha1 "96ab6f2489b44639d575f61604401eba046ff08c" => :mavericks
-    sha1 "3f4c8d4554f6311d38dcdccc7844e1a62e4de13b" => :mountain_lion
-  end
 
   # Compile is broken. https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=766649
   # Patches submitted upstream on 24/10/2014, but no reply from maintainer thus far.

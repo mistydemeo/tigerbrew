@@ -4,13 +4,6 @@ class Tinyxml < Formula
   url "https://downloads.sourceforge.net/project/tinyxml/tinyxml/2.6.2/tinyxml_2_6_2.tar.gz"
   sha256 "15bdfdcec58a7da30adc87ac2b078e4417dbe5392f3afb719f9ba6d062645593"
 
-  bottle do
-    cellar :any
-    sha256 "16e6052892b43e68c45f5122b6802e9bc32001dc9478dfcd89511a24544660e5" => :el_capitan
-    sha1 "c0939c0120467f4f27f53e62ed9e262935a240f7" => :yosemite
-    sha1 "4c8aa1d3c529a87e3aebae4e2f7c425e0c96e29f" => :mavericks
-    sha1 "a36a2ebad9f8ec43591edbb522cc7371c60a490d" => :mountain_lion
-  end
 
   option :universal
 

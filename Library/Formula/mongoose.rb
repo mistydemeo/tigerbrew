@@ -4,14 +4,6 @@ class Mongoose < Formula
   url "https://github.com/cesanta/mongoose/archive/5.6.tar.gz"
   sha256 "cc2557c7cf9f15e1e691f285a4c6c705cc7e56cb70c64cb49703a428a0677065"
 
-  bottle do
-    cellar :any
-    revision 2
-    sha256 "5bf038e627db9453b463a081a58b7e289b112cdf8965209547e40eec047c258a" => :el_capitan
-    sha256 "158f24303e018ec3f9ee05d3ffe10a2399b700cfdf869e9fe2970f68105b1fe5" => :yosemite
-    sha256 "53cbd378f59876d7922ba743c99dedc305707c13caeea0339667bf5006080b24" => :mavericks
-    sha256 "e9ee23cf028f5be715fbae963cf661dffc9850b71039c90f2aae70e07c410fda" => :mountain_lion
-  end
 
   depends_on "openssl" => :recommended
 

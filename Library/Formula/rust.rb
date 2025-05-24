@@ -25,11 +25,6 @@ class Rust < Formula
     end
   end
 
-  bottle do
-    sha256 "d3223136640440ae5255ad5aa7488d20d740e5474bf6506e924d8d4ed822252b" => :el_capitan
-    sha256 "a1820e100d565929c584aa3575000330dbcab20e1abeb990467f548e97094fdf" => :yosemite
-    sha256 "04f68ef26b4ca636b35be1d17ad2b641727bbc10cec52582a9e3a64b5784dbeb" => :mavericks
-  end
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build

@@ -4,11 +4,6 @@ class CouchdbLucene < Formula
   url "https://github.com/rnewson/couchdb-lucene/archive/v1.0.2.tar.gz"
   sha256 "c3f33890670160b14515fd1e26aa30df89f6101f36148639f213c40a6fff8e7d"
 
-  bottle do
-    sha1 "6df93e1cf958760cd4d822822728693092d2289f" => :yosemite
-    sha1 "ae4d677f930935654b3cc727650c4c21dffbc501" => :mavericks
-    sha1 "2248e7029a5a565e151c52f67cc2bfeae12e2bdd" => :mountain_lion
-  end
 
   depends_on "couchdb"
   depends_on "maven" => :build

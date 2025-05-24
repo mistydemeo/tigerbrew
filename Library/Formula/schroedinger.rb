@@ -5,13 +5,6 @@ class Schroedinger < Formula
   mirror "https://mirrors.kernel.org/debian/pool/main/s/schroedinger/schroedinger_1.0.11.orig.tar.gz"
   sha256 "1e572a0735b92aca5746c4528f9bebd35aa0ccf8619b22fa2756137a8cc9f912"
 
-  bottle do
-    cellar :any
-    sha256 "1b2986f82784266c17734725e126c50bf3075c47530bf7befc16778629bf3dda" => :el_capitan
-    sha1 "a1e426a2099a31cbacdea032bef1b21fbc48ebe8" => :yosemite
-    sha1 "ba01918d1a3b8874530b6ecc0fb04bdf67249724" => :mavericks
-    sha1 "25945536569871536fe60e0fc97bdfc49d83e309" => :mountain_lion
-  end
 
   head do
     url "git://diracvideo.org/git/schroedinger.git"

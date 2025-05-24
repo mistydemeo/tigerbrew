@@ -7,12 +7,6 @@ class Ldc < Formula
 
   head "https://github.com/ldc-developers/ldc.git", :shallow => false
 
-  bottle do
-    revision 1
-    sha256 "fa6b927c78ab8c9e3654681896aa52dfb9429dc4c4eb159cc36104a8c195d440" => :el_capitan
-    sha256 "d881f7491f5e27659f4e6f1b12c363b99d02e73073b8003d6e648bebc1a53204" => :yosemite
-    sha256 "f5f1741065b18bdcd4051f29f4df5a93b85cee1e8c5e8a3598477c10d123be8e" => :mavericks
-  end
 
   devel do
     url "https://github.com/ldc-developers/ldc/releases/download/v0.16.0-beta1/ldc-0.16.0-beta1-src.tar.gz"

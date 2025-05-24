@@ -6,12 +6,6 @@ class Getdns < Formula
 
   head "https://github.com/getdnsapi/getdns.git"
 
-  bottle do
-    cellar :any
-    sha256 "66be49d1fe111e14d181aa1054041fa14b87a5cddabb0333bbb6cdc29e4c580f" => :yosemite
-    sha256 "5910d400f5e2f83b49ccc01379691e7a2b2300af815bc517d079811f7968fcf9" => :mavericks
-    sha256 "b3eb2d9b1db54455204c1bdb0e40ea5b44cc1fe9b4ef6de13085e9553c1f0366" => :mountain_lion
-  end
 
   depends_on "openssl"
   depends_on "ldns"

@@ -12,11 +12,6 @@ class Osh < Formula
     sha256 "411184449da48c59c9f341de748b1b6ea2a1c898848bf3bbf2b523e33ef62518"
   end
 
-  bottle do
-    sha1 "7216e6df8d89efb36f07bdae0f7eedb667ad0ff5" => :yosemite
-    sha1 "5afde1b872117f02f951f6292c684e13d9f19332" => :mavericks
-    sha1 "b1f9dab5fcce8f3d8a1a791edb19d765a7361053" => :mountain_lion
-  end
 
   def install
     system "make", "install", "PREFIX=#{prefix}", "SYSCONFDIR=#{etc}"

@@ -6,12 +6,6 @@ class Putty < Formula
   mirror "ftp://ftp.chiark.greenend.org.uk/users/sgtatham/putty-latest/putty-0.65.tar.gz"
   sha256 "d543c1fd4944ea51d46d4abf31bfb8cde9bd1c65cb36dc6b83e51ce875660ca0"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "5e5da01a4f37e647305cc87c5575c0cc028ea11661558cd47e4563876a52b17f" => :el_capitan
-    sha256 "b076e4778143be23784e906689e7fc687073d2120fedf89fedc0a950f5ee69be" => :yosemite
-    sha256 "60d408eac949404d999cdd12fb9045516c03dce628b091e6379593ae3ecbc76c" => :mavericks
-  end
 
   conflicts_with "pssh", :because => "both install `pscp` binaries"
 

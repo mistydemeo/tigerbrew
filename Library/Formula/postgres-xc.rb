@@ -5,12 +5,6 @@ class PostgresXc < Formula
   sha256 "60ae1e42e977f78785090743161867dc838e3c8e1db0ac836dcfa23c8f1db8dd"
   revision 2
 
-  bottle do
-    revision 1
-    sha1 "21bd6d6b471211de5ac391200055ed3637c40c25" => :mavericks
-    sha1 "3eb982b371f865a2f9738d211486467a414bec9c" => :mountain_lion
-    sha1 "ad1057744dfba12797cd1ecffadcd42dd17b6093" => :lion
-  end
 
   depends_on :arch => :x86_64
   depends_on :python => :optional

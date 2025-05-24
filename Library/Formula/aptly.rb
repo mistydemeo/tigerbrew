@@ -8,13 +8,6 @@ class Aptly < Formula
 
   head "https://github.com/smira/aptly.git"
 
-  bottle do
-    cellar :any_skip_relocation
-    revision 1
-    sha256 "50233a52a6021e47b50a0280263984fda75bfe8811a384f31fc1975e579646a1" => :yosemite
-    sha256 "c12651d38a4145136c2d8441c0a1a77e4f4da14697ff9983482b4ce95a728683" => :mavericks
-    sha256 "9d3780503b8d9416435f4e8bfd85673e9caf4745657bfaba889ba7000c7e1bb0" => :mountain_lion
-  end
 
   depends_on :hg => :build
   depends_on "go" => :build

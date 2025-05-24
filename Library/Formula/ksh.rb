@@ -7,13 +7,6 @@ class Ksh < Formula
   sha256 "e6192cfa52a6a9fd20618cbaf3fa81f0cc9fd83525500757e83017275e962851"
   version "93u+" # Versioning scheme: + means "+ patches", - means "beta/alpha".
 
-  bottle do
-    cellar :any
-    revision 2
-    sha256 "d644c2bebf9e735a0b1086409fc273f4e28df09ae9a1540490f60f87bac94ddc" => :yosemite
-    sha256 "5693e654a561ba55c873574a6853a04f0fd2716219d45e3df5568e211bc3f730" => :mavericks
-    sha256 "e5994a299c82f27d5ee78649b2ad5dc5d6202d305fd50ca57809b711ccf0ddc7" => :mountain_lion
-  end
 
   resource "init" do
     url "http://www2.research.att.com/~astopen/download/tgz/INIT.2012-08-01.tgz",

@@ -5,11 +5,6 @@ class Efl < Formula
   sha256 "e5699d8183c1540fe45dddaf692254632f9131335e97a09cc313e866a150b42c"
   revision 1
 
-  bottle do
-    sha256 "783d8e344e04e4f36e624d403a312194c1e2868ffbea4dfab97fbbe167f58e48" => :yosemite
-    sha256 "7d2ad69ce6a98cdfd0c4867b8f302dcf1b5504eeec98a284d528e811084f0e39" => :mavericks
-    sha256 "c6e468a5f11395f2989f6001ddf8eb15232521dcba7f5131fa30b08bd57942de" => :mountain_lion
-  end
 
   conflicts_with "eina", :because => "efl aggregates formerly distinct libs, one of which is eina"
   conflicts_with "evas", :because => "efl aggregates formerly distinct libs, one of which is evas"

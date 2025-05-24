@@ -4,12 +4,6 @@ class Afio < Formula
   url "http://members.chello.nl/~k.holtman/afio-2.5.1.tgz"
   sha256 "363457a5d6ee422d9b704ef56d26369ca5ee671d7209cfe799cab6e30bf2b99a"
 
-  bottle do
-    cellar :any
-    sha1 "1a3bbc0e6d6ff0926a75141af4204a6f167af533" => :mavericks
-    sha1 "ffda2ae983cf6e1212aff8f4933799f124ec136f" => :mountain_lion
-    sha1 "68ecadc2fc7e8dd268ac9e6a63fc12927d60f897" => :lion
-  end
 
   # Note - The Freecode website is being no longer being updated and alternative links should be found from now on.
 

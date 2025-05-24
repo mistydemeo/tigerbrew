@@ -6,12 +6,6 @@ class Falcon < Formula
 
   head "http://git.falconpl.org/falcon.git"
 
-  bottle do
-    revision 1
-    sha256 "e5dc11f9529c43c216dc304df212eab022ce654fc551ad244a291a6b861931b8" => :yosemite
-    sha256 "bf2a677c2d6777b577bffc22d3c75a65525700bef6478035dececa002e5e11ec" => :mavericks
-    sha256 "9730e050c70ad2803afdf9cd03b108b8c4bb57b797bd92595523ad0731639b81" => :mountain_lion
-  end
 
   option "with-editline", "Use editline instead of readline"
   option "with-feathers", "Include feathers (extra libraries)"

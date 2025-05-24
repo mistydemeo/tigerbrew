@@ -4,12 +4,6 @@ class AescryptPacketizer < Formula
   url "https://www.aescrypt.com/download/v3/linux/aescrypt-3.10.tgz"
   sha256 "153da7971cc3084610943dba44e0284848af72c06d019a3c913656f8c0ad48f1"
 
-  bottle do
-    cellar :any
-    sha256 "21d60280f0f3f7878b3014cf9073aa67864a6211769ef6eff9995eeb241f7e48" => :yosemite
-    sha256 "9d4487b8ef937395e99477e199b8ecc6f961b03d45bcf1d8abcb8b73eb70e5c1" => :mavericks
-    sha256 "2b4523df88634d5b65d95dc3e5f7448d67b53c847517c9c8ed0be5d04f4189dc" => :mountain_lion
-  end
 
   head do
     url "https://github.com/paulej/AESCrypt.git"

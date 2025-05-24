@@ -4,12 +4,6 @@ class Gssdp < Formula
   url "https://download.gnome.org/sources/gssdp/0.14/gssdp-0.14.11.tar.xz"
   sha256 "7bf5aeaf2119fe0bec5f3632ecf39dae15bc85276c72c2ad8dd4b0e345c6535a"
 
-  bottle do
-    cellar :any
-    sha256 "f0346d2cdac6d5e2a2fc40b282426582c09e177c6d7202961cd51522bf680551" => :yosemite
-    sha256 "b0554ba681354f342915e358ce628a06164b1984ee9486b6fcb56b78f26efc55" => :mavericks
-    sha256 "f598056ff1d988ee2f96b3f8bd34e83fc23418e1880b85bd215766de20029262" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

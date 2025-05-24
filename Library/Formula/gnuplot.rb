@@ -5,13 +5,6 @@ class Gnuplot < Formula
   sha256 "7cbc557e71df581ea520123fb439dea5f073adcc9010a2885dc80d4ed28b3c47"
   revision 2
 
-  bottle do
-    revision 1
-    sha256 "964f6fc53e9c698e1b5c198ef38a1dabd7f3c404c5f850e29364f76ae4bf48fb" => :el_capitan
-    sha256 "083a5efbc783c1375d549c89a15c6ec77f6a319be8ec08b5217b368356ae8270" => :yosemite
-    sha256 "fa1003970c98d29f3c85cf646753603cfe89c428dba78b26733ae39a3bea4b99" => :mavericks
-    sha256 "e8b857d4951c4ceaae42d792be9685dfe4a33387e49a7e42987efb85d51d892a" => :mountain_lion
-  end
 
   head do
     url ":pserver:anonymous:@gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot", :using => :cvs

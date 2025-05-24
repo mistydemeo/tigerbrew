@@ -4,13 +4,6 @@ class Notmuch < Formula
   url "http://notmuchmail.org/releases/notmuch-0.20.2.tar.gz"
   sha256 "f741a26345bff389fd8a4a119c4174c6585730f71844809583a54ef2a865adec"
 
-  bottle do
-    cellar :any
-    sha256 "9242a69747a74542b5eafce2e9011621f47754f26abbe6343fdd66a9ec00eaef" => :el_capitan
-    sha256 "71dec597c7bdc80560dae9a7be082f1338198e05ff58b11433f6ef5cee47c5c1" => :yosemite
-    sha256 "a5e09b5d4f8f441208d27769170d3bb75b55ea7c9c871a2d34ca2807af52f98f" => :mavericks
-    sha256 "78bd94ae533358108c9dfcebec77b8b3e77ba77f3056f536d0ebd4d2a1b648d5" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "emacs" => :optional

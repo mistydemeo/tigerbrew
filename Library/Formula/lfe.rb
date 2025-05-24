@@ -6,9 +6,6 @@ class Lfe < Formula
 
   head "https://github.com/lfe/lfe.git", :branch => "develop"
 
-  bottle do
-  end
-
   # Skip on trying to run mandb which doesn't exist on OS X
   patch :p0, :DATA
 

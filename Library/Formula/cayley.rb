@@ -7,12 +7,6 @@ class Cayley < Formula
   sha256 "d61f969128bcff1bce1e14e0afa68b9f25e4f3ab8e5f77930a384426f3b3bbce"
   head "https://github.com/google/cayley.git"
 
-  bottle do
-    cellar :any
-    sha256 "999dbf6a51615becf310f6cb5cdd71c9939fc93cc6e743234d2511d20a561641" => :yosemite
-    sha256 "56395b48c4025e8242cbbe1e365a67a639bdb3b350799db0ad0e495c7d6c59f0" => :mavericks
-    sha256 "1a96db8eb29e1e985a430970f84bb31db44024dd9ab264ac1f83ad7e1c9251ab" => :mountain_lion
-  end
 
   depends_on "bazaar" => :build
   depends_on :hg => :build

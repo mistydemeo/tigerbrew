@@ -4,11 +4,6 @@ class Folly < Formula
   url "https://github.com/facebook/folly/archive/v0.48.0.tar.gz"
   sha256 "e0b6b3cd143b5d581e8cef470aea1b6f8aeaa4e7431522058872e245cac5c144"
 
-  bottle do
-    cellar :any
-    sha256 "7f63861d73f611c756c2e701d3a66293dcb025ea6741708931757a1014dbd87d" => :yosemite
-    sha256 "5138bd78569d3e6e2e01ada415d606f689f702448dc4c2c2f82cdae33b035d49" => :mavericks
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

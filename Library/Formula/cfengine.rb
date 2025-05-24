@@ -5,12 +5,6 @@ class Cfengine < Formula
   version "3.7.0"
   sha256 "53e3fcae50b14d29a7a86920e13586cafed4eb5e2d081597dc9a7e34393c7f77"
 
-  bottle do
-    cellar :any
-    sha256 "9f385aae7fcd38256be3a72ce91fbcc1b86c6b3345b959db87161a75186134db" => :yosemite
-    sha256 "b5ad2d8d0cb6f5c1be9bd3c8d27e7a3ca8b8bc0e266a60daed62fe7e671ad86a" => :mavericks
-    sha256 "ede0bd07c38d96d290c74303e4469f5dfa3da29f23e539b67ea411c450f008ab" => :mountain_lion
-  end
 
   resource "masterfiles" do
     url "https://cfengine-package-repos.s3.amazonaws.com/tarballs/cfengine-masterfiles-3.7.0-2.tar.gz"

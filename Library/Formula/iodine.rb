@@ -7,12 +7,6 @@ class Iodine < Formula
 
   head "https://github.com/yarrick/iodine.git"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "4bb3858d87351246c6786ddf1f3c09f9f266c83087b6f31755f2c1b610325718" => :mavericks
-    sha256 "371c3443aeebef21ec9ec072e2bcc472bd76d4909466744c66f67a9bbce5d41f" => :mountain_lion
-  end
 
   depends_on :tuntap
 

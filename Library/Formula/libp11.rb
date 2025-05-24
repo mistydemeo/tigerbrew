@@ -5,12 +5,6 @@ class Libp11 < Formula
   sha256 "a4121015503ade98074b5e2a2517fc8a139f8b28aed10021db2bb77283f40691"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "1daf29346c2b73f53d9df61e42876f7d4c813389c0340e7b9385fb97b3e16a94" => :yosemite
-    sha256 "2cb4d5a038448daee4c6c4078ea53afb88037645d8e28ef6a17e5644785f573d" => :mavericks
-    sha256 "3853daccf8c51561cf882bb2f43e4b7a0ca70aebe9c9680b84f793bfe73d2a2e" => :mountain_lion
-  end
 
   head do
     url "https://github.com/OpenSC/libp11.git"

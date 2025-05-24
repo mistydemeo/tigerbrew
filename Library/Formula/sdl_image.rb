@@ -5,12 +5,6 @@ class SdlImage < Formula
   sha256 "0b90722984561004de84847744d566809dbb9daf732a9e503b91a1b5a84e5699"
   revision 2
 
-  bottle do
-    cellar :any
-    sha1 "749b98364474c43f58f73b9de1b920b34b0bfdad" => :tiger_altivec
-    sha1 "50f4ce105c48cfb33e6c15a6a02d9c512c54d559" => :leopard_g3
-    sha1 "e20ee9d975ac83022dd64913654dfc83c36e1561" => :leopard_altivec
-  end
 
   depends_on "pkg-config" => :build
   depends_on "sdl"

@@ -6,12 +6,6 @@ class Mruby < Formula
 
   head "https://github.com/mruby/mruby.git"
 
-  bottle do
-    cellar :any
-    sha1 "fc1d5229e1194203799bd2d59861d3a6919e04c9" => :yosemite
-    sha1 "3e5b89430eca272eff626c5bd45eb6845ba33bcc" => :mavericks
-    sha1 "4b3da67cad42fd5beba2ef64af5c58e3adc9ae7c" => :mountain_lion
-  end
 
   depends_on "bison" => :build
 

@@ -4,12 +4,6 @@ class Pdnsrec < Formula
   url "https://downloads.powerdns.com/releases/pdns-recursor-3.7.3.tar.bz2"
   sha256 "859ca6071147dd2e2ac1b2a5c3d5c2cbff0f5cbc501660db4259e7cbf27fea11"
 
-  bottle do
-    cellar :any
-    sha256 "68e80d6dd093d9ab1c986d9f68c97dfe9d8b46b228c4b27d64ce4bcd47105250" => :yosemite
-    sha256 "afc4630468ea74d4a7aec183f5f5f3c4872b3bcca1aac7a58c9a579aa7d0cbcc" => :mavericks
-    sha256 "a9faf9edf0e71de5e9ec9fa70d27811f353a8451b41746208fbdc0d592aa5910" => :mountain_lion
-  end
 
   depends_on :macos => :lion
   depends_on "boost"

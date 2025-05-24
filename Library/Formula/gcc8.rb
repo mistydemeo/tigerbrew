@@ -26,9 +26,6 @@ class Gcc8 < Formula
   sha256 "d308841a511bb830a6100397b0042db24ce11f642dab6ea6ee44842e5325ed50"
   revision 1
 
-  bottle do
-    sha256 "36666a794e7ddca183b156cf499871af08a3f91613ed041bf97008003a85d567" => :tiger_altivec
-  end
 
   option "with-nls", "Build with native language support (localization)"
   option "with-jit", "Build just-in-time compiler"

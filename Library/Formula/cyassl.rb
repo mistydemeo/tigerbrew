@@ -5,12 +5,6 @@ class Cyassl < Formula
   sha256 "50243fa7124a1af611acb916ec11d98a2a91ac5079b7a6a51562e8970cbd942e"
   head "https://github.com/wolfSSL/wolfssl.git"
 
-  bottle do
-    cellar :any
-    sha256 "6ef0f5121a7486d05fc097e5d12abb0930a5a5c4d0fa470a4584a93718eb40b4" => :yosemite
-    sha256 "ec404ac09e2a16219c53bbfe235363cf2a940ffcff53f01bb811420ac5bece22" => :mavericks
-    sha256 "3a77e9919894765aeab5b9c08bbea00bf590bf0e85afbcbfd43d6207fc29d451" => :mountain_lion
-  end
 
   option "without-check", "Skip compile-time tests."
 

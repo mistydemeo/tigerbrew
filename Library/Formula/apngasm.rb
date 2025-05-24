@@ -6,12 +6,6 @@ class Apngasm < Formula
 
   head "https://github.com/apngasm/apngasm.git"
 
-  bottle do
-    cellar :any
-    sha256 "ab2011a6528d8e9fb38b72473fda3932f1087d4bdc8fd1402adbcac8f19ca678" => :yosemite
-    sha256 "37fca4b69383dfbaf247ce99e8f7414fa3046bda30f3443c0291c3906a21d298" => :mavericks
-    sha256 "a1898e9debc434fcbc93ae2a0e62a2ae8175eaca856b4118d9fcb99df7dc6d94" => :mountain_lion
-  end
 
   depends_on "cmake" => :build
   depends_on "boost"

@@ -6,12 +6,6 @@ class Rsstail < Formula
 
   head "https://github.com/flok99/rsstail.git"
 
-  bottle do
-    cellar :any
-    sha256 "8ed1aaca7c992bf95097a85fef0afb82601056217e0a5992c03276be407cedfa" => :yosemite
-    sha256 "40d3d3b8f001e4be990b5280faa46cc577d8f77c4b82445759bb2a017ebb8d56" => :mavericks
-    sha256 "35d9f648c3081a208b555739b80fd26002a0182a3c8571e836e9f7152c38c76f" => :mountain_lion
-  end
 
   depends_on "libmrss"
 

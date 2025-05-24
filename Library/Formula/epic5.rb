@@ -6,11 +6,6 @@ class Epic5 < Formula
 
   head "http://git.epicsol.org/epic5.git"
 
-  bottle do
-    sha256 "21c86223a3d8d5fa76787b6b9670d5cb3034903d6037bfeda91b7c912e8dd6d9" => :yosemite
-    sha256 "45ed5c8350884f3cd696a502f7c3aba90e3a270ee525aeeccd4caffbc15460bd" => :mavericks
-    sha256 "00465cf85fbd1c8382d990d3279104915b6a986c972edde7cadf001a2fc6b244" => :mountain_lion
-  end
 
   devel do
     url "http://ftp.epicsol.org/pub/epic/EPIC5-PRODUCTION/epic5-1.4.tar.xz"

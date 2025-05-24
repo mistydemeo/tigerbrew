@@ -4,13 +4,6 @@ class Libsvm < Formula
   url "https://www.csie.ntu.edu.tw/~cjlin/libsvm/libsvm-3.20.tar.gz"
   sha256 "0f122480bef44dec4df6dae056f468c208e4e08c00771ec1b6dae2707fd945be"
 
-  bottle do
-    cellar :any
-    sha256 "2e5b46978c3d94b6c75fc07648c7c9a45735a304889a490908259c73c93b873b" => :el_capitan
-    sha1 "9a87d885fd4d943448c9107fe572ed0b5687bf5b" => :yosemite
-    sha1 "8fcd71c75841c4def48a4f57312ab5aae4ee628e" => :mavericks
-    sha1 "90e7456fa54524a2a12f563ae3e9bcab57d6ade7" => :mountain_lion
-  end
 
   def install
     system "make", "CFLAGS=#{ENV.cflags}"

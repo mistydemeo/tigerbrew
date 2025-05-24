@@ -6,12 +6,6 @@ class Pushpin < Formula
 
   head "https://github.com/fanout/pushpin.git"
 
-  bottle do
-    cellar :any
-    sha256 "5cf360e17906df91764cb18379a429eb9541974a6c8b8bcf961302dcef0c23d3" => :yosemite
-    sha256 "bb470fe80c924be13c5f91cb3a597ddece614969df88fb79a7683b02dde7ea94" => :mavericks
-    sha256 "901b72b2601c0702d60b27e3c36ed1f7b2099a2f3784fe73a468428532271181" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "qt"

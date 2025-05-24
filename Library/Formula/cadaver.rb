@@ -5,12 +5,6 @@ class Cadaver < Formula
   sha256 "fd4ce68a3230ba459a92bcb747fc6afa91e46d803c1d5ffe964b661793c13fca"
   revision 2
 
-  bottle do
-    revision 1
-    sha1 "0829bec6edbe68f27cac9698755b16ba0781bb88" => :mavericks
-    sha1 "d65e0588474bd227e077fab167e6bbdf848296b5" => :mountain_lion
-    sha1 "fdef244b44064695da2d0c2107bc4721ee47e613" => :lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "gettext"

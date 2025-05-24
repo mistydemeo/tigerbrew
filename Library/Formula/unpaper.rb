@@ -13,12 +13,6 @@ class Unpaper < Formula
   depends_on "pkg-config" => :build
   depends_on "ffmpeg"
 
-  bottle do
-    cellar :any
-    sha256 "b0bb6934af1df4298a04c6d5520aac607184025cc2217d0e139a4a004d43410f" => :yosemite
-    sha256 "bc7e3b90cdc1b5d285788e33024afc81a5b3632485346e34fb852d2d86917899" => :mavericks
-    sha256 "a4cd97fa61392b0092b5b61e459e5e9a956193715fc6ff19a582ec6190629b38" => :mountain_lion
-  end
 
   def install
     system "autoreconf", "-i" if build.head?

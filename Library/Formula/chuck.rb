@@ -4,13 +4,6 @@ class Chuck < Formula
   url "http://chuck.cs.princeton.edu/release/files/chuck-1.3.5.1.tgz"
   sha256 "d141ca61547131edd2b29bdb88183835e4133ef09807674bfa33a4e6e09d1f53"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "e90d7190c6f06ba2107d4f3bf85ca798840642f00c6bb1f3872cc0a05efa3b83" => :yosemite
-    sha256 "ae23a194badab407ea3489991314f295f2ec7c6942dd60f0e81925eb94333dec" => :mavericks
-    sha256 "87d6cc4e3a3b868ee1a98f2e148060ed4a69d2cd593944ebed83fe887c7cd080" => :mountain_lion
-  end
 
   # Fixes OS X version detection to include 10.11 through (thinking ahead) 10.13
   patch :DATA

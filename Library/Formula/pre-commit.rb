@@ -4,12 +4,6 @@ class PreCommit < Formula
   url "https://github.com/pre-commit/pre-commit/archive/v0.5.3.tar.gz"
   sha256 "1260ea96c54f517b3adb835170be119d6f233aff7a7fd3227bc5a8f984b602e1"
 
-  bottle do
-    cellar :any
-    sha256 "03cb591bd311bfeb69f51dac23f67883723cd11c424ac9450307364bb47cee2d" => :yosemite
-    sha256 "ee8d6ba1b28bf12d5f1b2e7033685a2598a4b0bfc605803e532fdbf1e87c148b" => :mavericks
-    sha256 "cf901c3773156e2de5bb08852d3ca94527b83088003c0ed369e3ab94067e6b90" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
 

@@ -7,11 +7,6 @@ class Pdf2htmlex < Formula
 
   head "https://github.com/coolwanglu/pdf2htmlEX.git"
 
-  bottle do
-    sha256 "11a4583c47f559b362693610991d292b68413898d635be42a1fd157b4e537b2f" => :el_capitan
-    sha256 "ad75b68dd45816aeee6730953f9d3aa9df6a2ebdec450ce33cd902f727c2d673" => :yosemite
-    sha256 "da5c6edc1d82b834bcb6f01f2bb0dc8bfd47cbc051b12ecedc9b5b026381e4ec" => :mavericks
-  end
 
   # Pdf2htmlex use an outdated, customised Fontforge installation.
   # See https://github.com/coolwanglu/pdf2htmlEX/wiki/Building

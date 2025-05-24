@@ -5,12 +5,6 @@ class Vsftpd < Formula
   mirror "https://fossies.org/linux/misc/vsftpd-3.0.3.tar.gz"
   sha256 "9d4d2bf6e6e2884852ba4e69e157a2cecd68c5a7635d66a3a8cf8d898c955ef7"
 
-  bottle do
-    cellar :any
-    sha256 "1b89166674f7558a158bab938d9f96211d5e81410a47488980498bf4a45b8cb1" => :yosemite
-    sha256 "acdbf0783edeb56df1e85eec01bf4bb41495023f38fb45236ba05a092c61962b" => :mavericks
-    sha256 "2f375a416262bf9a71446ea1088dc1ade8b8264eed5dc2a232dea5159a1842b9" => :mountain_lion
-  end
 
   depends_on "openssl" => :optional
 

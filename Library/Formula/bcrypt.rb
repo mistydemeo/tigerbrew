@@ -4,12 +4,6 @@ class Bcrypt < Formula
   url "http://bcrypt.sourceforge.net/bcrypt-1.1.tar.gz"
   sha256 "b9c1a7c0996a305465135b90123b0c63adbb5fa7c47a24b3f347deb2696d417d"
 
-  bottle do
-    cellar :any
-    sha1 "c762b0073e30fd3a8cb615b30d7b39668c8d672b" => :yosemite
-    sha1 "03c15bc2a81e3ff43fddb2594428897b1c44bee1" => :mavericks
-    sha1 "d48a408b10ce81e33f21301b9885e0e9878ddd63" => :mountain_lion
-  end
 
   def install
     system "make", "CC=#{ENV.cc}",

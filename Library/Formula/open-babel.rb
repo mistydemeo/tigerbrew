@@ -18,11 +18,6 @@ class OpenBabel < Formula
       sha256 "52141601c7c87eaf3dec877b9120ac0eac2d1a75e3f0c1d82b6521f32410a892"
     end
   end
-  bottle do
-    sha256 "e632200d401723ed2f24181a785eb10234d2698a5d360f22356a13063bd46f0e" => :yosemite
-    sha256 "4e18fbaba55efdc7a2f07743afeda5cb32d13ac987c1929968bef8ef16d3859b" => :mavericks
-    sha256 "0350407844a4bbc86dbf0c6dd562ca6bac7b71b92251cfdf222a9f1d2a092306" => :mountain_lion
-  end
 
   head do
     url "https://github.com/openbabel/openbabel.git"

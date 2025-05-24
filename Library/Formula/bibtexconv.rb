@@ -5,12 +5,6 @@ class Bibtexconv < Formula
   sha256 "f7fd69ff99cd48a77e53aed4219defaf1f45485a07978faec01c2b9074886e03"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "1bd6912245b0f2b9dfaa69729633e20b6843bf24141f6f7d03a437ec8593df7d" => :yosemite
-    sha256 "93e1e693a5688ef09514412752ade4272d04f918810b6e4b76e7a7060f783b9a" => :mavericks
-    sha256 "a571ad33e62649abf68d26a569de9f7ba013202022883d684f243144feeffcdb" => :mountain_lion
-  end
 
   head do
     url "https://github.com/dreibh/bibtexconv.git"

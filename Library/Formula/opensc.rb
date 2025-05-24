@@ -5,11 +5,6 @@ class Opensc < Formula
   sha256 "399b2107a69e3f67e4e76dc2dbd951dbced8e534b1e0f919e176aea9b85970d7"
   head "https://github.com/OpenSC/OpenSC.git"
 
-  bottle do
-    sha256 "46276adb22e13910a2a9718dfe22ff498b5db4c9bebc2670f7a90d985aedabc3" => :yosemite
-    sha256 "1d3b371fa3644bb199f6fa8bf9728188a877ad76eac92e89d565ec50c059022c" => :mavericks
-    sha256 "55b76e1388a8c9941adebe1ec1f9c7b86e7f0f636d5cc0aff64c88e419942b57" => :mountain_lion
-  end
 
   stable do
     patch :p1 do

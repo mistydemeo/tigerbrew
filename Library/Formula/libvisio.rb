@@ -5,12 +5,6 @@ class Libvisio < Formula
   sha256 "4b510168d1465516fdf6e57c01e2f9eae1fc0ae232c74e44e70693bbc49227f1"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "2baf447a0865b93ddcf93afb2fbbe0ab2c0f0e37f0d5ebe6d2f7d4b618e428f2" => :yosemite
-    sha256 "b2432c53569d0c8e0eb0befcb3b2f10ebdebcf8ca09c6f06299486652429a075" => :mavericks
-    sha256 "2257bf59998222573140be09039f3a49ebf0a6c5badf3c896e1928b75baa25dd" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "boost" => :build

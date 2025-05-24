@@ -5,12 +5,6 @@ class Reclass < Formula
   url "https://github.com/madduck/reclass/archive/reclass-1.4.1.tar.gz"
   sha256 "48271fcd3b37d8945047ed70c478b387f87ffef2fd209fe028761724ed2f97fb"
 
-  bottle do
-    cellar :any
-    sha1 "4c055763f00605f006fb585f34ccae585b514dc8" => :yosemite
-    sha1 "bf1b1acdd4475d3271f8b27eb41b0f414dac6147" => :mavericks
-    sha1 "4d1a4805aef3db3858c6d6fa01e982eae3a8cd1b" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
 

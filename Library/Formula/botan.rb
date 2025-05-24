@@ -9,12 +9,6 @@ class Botan < Formula
     patch :DATA
   end
 
-  bottle do
-    cellar :any
-    sha256 "8a78b816e7523d9a333bb27f9065af459fe42b1df09095e7bcca49724aedf6ad" => :yosemite
-    sha256 "8f59de29b4f33d1fc7eb17101e6832a8441267e5af4b510bf3ffe253e0e79b99" => :mavericks
-    sha256 "021e96762fd63d37cf932422248e44b0a7fad4fc4928e24c82f075b9e770955a" => :mountain_lion
-  end
 
   devel do
     url "http://botan.randombit.net/releases/Botan-1.11.19.tgz"

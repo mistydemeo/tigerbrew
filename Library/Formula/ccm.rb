@@ -5,12 +5,6 @@ class Ccm < Formula
   sha256 "591c441c6d1b06595d1112951c6edccec29e5e793ee8562c318eeee84fc62301"
   head "https://github.com/pcmanus/ccm.git"
 
-  bottle do
-    cellar :any
-    sha256 "8655aa728be65e6a231da79889fdf82e0d2b9f48e2a048ef83ad36154e3068ec" => :yosemite
-    sha256 "46d15b6f0f213b3b4228bb83f744326edf0ef443b80e7990d338e722150102b6" => :mavericks
-    sha256 "d2f00ee08b94a6d26bc6ef4004c8c68b6365c7de0ff88e0aa57b9d326e85cfd8" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
 

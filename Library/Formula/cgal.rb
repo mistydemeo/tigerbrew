@@ -4,12 +4,6 @@ class Cgal < Formula
   url "https://gforge.inria.fr/frs/download.php/file/35138/CGAL-4.6.3.tar.gz"
   sha256 "f90fc9d319a0bdb66b09570a8a0399671c25caeb5db1dc8c555f876d795c74ff"
 
-  bottle do
-    cellar :any
-    sha256 "5b3cad763f75f91d6ad2bc57a9d3a369a8b83f81d0f82bc381fc1d567c75e749" => :el_capitan
-    sha256 "8a38a19843bc8442bacbc6a9e658c65db442dca61816962d529af42856921b59" => :yosemite
-    sha256 "60a58e7d9f2c32351c783420b82ff6a63dc4858c59d297e5ec81ad0b7f2f4c90" => :mavericks
-  end
 
   option :cxx11
 

@@ -4,12 +4,6 @@ class Libxmlxx < Formula
   url "https://download.gnome.org/sources/libxml++/2.40/libxml++-2.40.0.tar.xz"
   sha256 "a7b9703203696972cae50436e150979ef187d9b03c95519bdd89623b4068162a"
 
-  bottle do
-    cellar :any
-    sha256 "d571c8ca1855776bf6225caadf3934c13a71b3e127391182a23eff2f2b9d445b" => :el_capitan
-    sha256 "c9593a976101711fe8d6f73b8ebfa67533efec340b5623b1561b960c950a50a8" => :yosemite
-    sha256 "a79e800605c8f7d1b929ad3f525a3715c1b9f83154166bff59dfb026f654dee0" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "glibmm"

@@ -4,12 +4,6 @@ class Clhep < Formula
   url "https://proj-clhep.web.cern.ch/proj-clhep/DISTRIBUTION/tarFiles/clhep-2.2.0.8.tgz"
   sha256 "2be2a0386967720df8fc06e16ea0ccaf97822425b2f5e0d4919ba00ca057e892"
 
-  bottle do
-    cellar :any
-    sha256 "2bd3b78f6bba745c5b629dba5b906e9c6e9291c587abe9a9b3468b7f69328309" => :yosemite
-    sha256 "4b05bfd4b0eaea17f6df4956c080f8325063513ce6975ba8e0dadf00f95075ef" => :mavericks
-    sha256 "4db90c676d11907ff0f4585c07060a9a411cf59a132ef3fedc958a40a5e43f11" => :mountain_lion
-  end
 
   head do
     url "http://git.cern.ch/pub/CLHEP", :using => :git

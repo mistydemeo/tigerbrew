@@ -21,12 +21,6 @@ class Psqlodbc < Formula
     depends_on "libtool" => :build
   end
 
-  bottle do
-    cellar :any
-    sha256 "cb3f7f8239315732ba9e380b149edc0d14e74a3e7b8c87563dad5f23a463e8ec" => :yosemite
-    sha256 "4a1d5a33b5910e87caebf9414bfe1f699b1b15b8da6401ccb683babe6b652206" => :mavericks
-    sha256 "03cfeabccdb83370de666f11525b12f4775c7c79977740c1725334f90f4e1b91" => :mountain_lion
-  end
 
   depends_on "openssl"
   depends_on "unixodbc"

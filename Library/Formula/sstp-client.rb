@@ -5,12 +5,6 @@ class SstpClient < Formula
   sha256 "d3d8a26485b2cf0b24e148301b94b3ab9cdb17700ecd7c408b8fd6ad16f7fc4e"
   revision 1
 
-  bottle do
-    cellar :any
-    sha1 "844e03c512067d1f378acd6af678654915882edd" => :yosemite
-    sha1 "d8f68257b54af08c4942a60892c36616a8f03a05" => :mavericks
-    sha1 "0984d3b9beed2cf92a47218bfb43bf4ff3b606b1" => :mountain_lion
-  end
 
   depends_on "libevent"
   depends_on "openssl"

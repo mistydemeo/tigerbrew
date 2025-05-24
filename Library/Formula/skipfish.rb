@@ -5,11 +5,6 @@ class Skipfish < Formula
   sha256 "1a4fbc9d013f1f9b970946ea7228d943266127b7f4100c994ad26c82c5352a9e"
   revision 1
 
-  bottle do
-    sha256 "b897550f5399004d0082a8a5acb0aa7c4f20c92a9033d486c6172da30bd260d3" => :el_capitan
-    sha256 "a055fdc76fae7fc46cf6c2098ac21b7e88bfcc63c29c88e9727f0ecb83a4e99d" => :yosemite
-    sha256 "ed0cf629f0dd2f23782ff21bb728efe019d8bd84605f9ca85a317ef9841b5d8b" => :mavericks
-  end
 
   depends_on "libidn"
   depends_on "pcre"

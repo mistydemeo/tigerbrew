@@ -5,12 +5,6 @@ class BulkExtractor < Formula
   sha256 "297a57808c12b81b8e0d82222cf57245ad988804ab467eb0a70cf8669594e8ed"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "ed6cd0603df49a8158e02fa3e4e3edc10998314fc914e6441e33dd578451996e" => :yosemite
-    sha256 "07dfbefa2dda0b17f587febe7da274c1f8eb62b7c3c5c9655b85debb1f282d71" => :mavericks
-    sha256 "32545b00c77303269a7488641005aeac27145f6e1eb8f6182fe91e14347be228" => :mountain_lion
-  end
 
   depends_on "afflib" => :optional
   depends_on "boost"

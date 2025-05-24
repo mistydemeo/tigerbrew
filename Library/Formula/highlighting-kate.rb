@@ -12,11 +12,6 @@ class HighlightingKate < Formula
 
   revision 1
 
-  bottle do
-    sha256 "db7a73bbcb74eb2d4842fdcf0a45d2622b55f5e8253002fcebbc72ffd9802418" => :yosemite
-    sha256 "2399e5d788f4a5df5cb982391469a1ce098a2949e07edefd6360b6ebdae86ad9" => :mavericks
-    sha256 "92acb3a9ceca6de37a683647f0fa16e2d2ffa2e2910bb6bdcb99afc91f589f42" => :mountain_lion
-  end
 
   depends_on "ghc" => :build
   depends_on "cabal-install" => :build

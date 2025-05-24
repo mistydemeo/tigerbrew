@@ -5,13 +5,6 @@ class Beecrypt < Formula
   sha256 "286f1f56080d1a6b1d024003a5fa2158f4ff82cae0c6829d3c476a4b5898c55d"
   revision 3
 
-  bottle do
-    cellar :any
-    sha256 "fc46a6b9206548c73e24032b794e94b79f71bc0a9e70546997ef0a0fae69ad7d" => :el_capitan
-    sha256 "1e0e605e9f684ec4ae25018b0f50427700a8cf12db37758d45181e30bbf1b151" => :yosemite
-    sha256 "4f66c5f28a672bd27652b82fef016763b2140de962f8b34defa8fda82d98b070" => :mavericks
-    sha256 "9baaefc4c2af1220ec4d8f8d3328f8d2107bd43a4c0499fc2402b647684d9b04" => :mountain_lion
-  end
 
   depends_on "icu4c"
   depends_on "libtool" => :build

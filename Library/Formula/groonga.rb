@@ -4,11 +4,6 @@ class Groonga < Formula
   url "http://packages.groonga.org/source/groonga/groonga-5.0.8.tar.gz"
   sha256 "9bc8aca52842a90cbeeb816a2a8ad9c89b226c14fca4c18661039e54587a5a29"
 
-  bottle do
-    sha256 "696fa3bede74506be0a48cb3922c4b8b892bb2ef7422ffb23674658f5a42f51b" => :el_capitan
-    sha256 "ccca48f11abdb8fc0179c4fd551b5dd09f985c2c2124fbaeef265c806fc11c19" => :yosemite
-    sha256 "97f66a1f7d66d8d53396af2bb918afef2f4706da4d091d4b4db479c9ee7daf3d" => :mavericks
-  end
 
   option "with-benchmark", "With benchmark program for developer use"
 

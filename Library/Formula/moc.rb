@@ -4,12 +4,6 @@ class Moc < Formula
   url "http://ftp.daper.net/pub/soft/moc/stable/moc-2.5.0.tar.bz2"
   sha256 "d29ea52240af76c4aa56fa293553da9d66675823e689249cee5f8a60657a6091"
 
-  bottle do
-    revision 1
-    sha256 "3188a4355200b250e6a63c909c6ef8a7a458e25377a6a17d6f62455072b38e40" => :yosemite
-    sha256 "ccfd6919a5d64861ecc66f6ad01e8b4f259295dbe3772b459bb139ab0908b2e0" => :mavericks
-    sha256 "94cca91c117a1575aa61a10f288e95672e61bfe0c1d473b2fac70c480c0d92ab" => :mountain_lion
-  end
 
   head do
     url "svn://daper.net/moc/trunk"

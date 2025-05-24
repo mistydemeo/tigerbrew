@@ -4,11 +4,6 @@ class Ucommon < Formula
   url "http://ftpmirror.gnu.org/commonc++/ucommon-6.2.2.tar.gz"
   sha256 "1ddcef26dc5c930225de6ab9adc3c389cb3f585eba0b0f164206f89d2dafea66"
 
-  bottle do
-    sha1 "4fc88a216680dde8e5aa696a8839beaa0fb37231" => :yosemite
-    sha1 "599bda579daf84ad9975a0c7c96f406c716f17dd" => :mavericks
-    sha1 "1001ef2f9cf1fc1d4d982a6a03dd2a70f3754126" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "gnutls"

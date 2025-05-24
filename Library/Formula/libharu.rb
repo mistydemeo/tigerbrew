@@ -5,12 +5,6 @@ class Libharu < Formula
   sha256 "8f9e68cc5d5f7d53d1bc61a1ed876add1faf4f91070dbc360d8b259f46d9a4d2"
   head "https://github.com/libharu/libharu.git"
 
-  bottle do
-    cellar :any
-    sha1 "24ef451318dd8dba2a121585120bd29b0713001c" => :yosemite
-    sha1 "e0d113830d149a48a558f7eab1c44152f2e91fbf" => :mavericks
-    sha1 "0911c2c32d551471d7f0e185271bb48e06d2e9d7" => :mountain_lion
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

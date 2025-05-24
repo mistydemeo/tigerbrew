@@ -4,11 +4,6 @@ class Tinyscheme < Formula
   url "https://downloads.sourceforge.net/project/tinyscheme/tinyscheme/tinyscheme-1.40/tinyscheme-1.40.tar.gz"
   sha256 "c594c84633b1dcfe832e0416cbc9f889b6bae352845e14503883119a941a12fc"
 
-  bottle do
-    sha1 "4946723ab6e7e3689ca087574a3ae7078d50ff84" => :mavericks
-    sha1 "7c272214c941b749a3e9b57744fbd33564151b78" => :mountain_lion
-    sha1 "f2f6def9dc2ef11876dd1e307634ac454302ed11" => :lion
-  end
 
   # Modify compile flags for Mac OS X per instructions
   patch :DATA

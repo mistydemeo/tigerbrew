@@ -4,11 +4,6 @@ class Ipe < Formula
   url "https://github.com/otfried/ipe/raw/master/releases/7.1/ipe-7.1.8-src.tar.gz"
   sha256 "6a7b8dfb0a012ef9e96b62c317974d910ab6904bef29ae7636d5ac1cb26fa6ff"
 
-  bottle do
-    sha256 "67068ec329e946fd27356eafbbecd9448f5ac0781912a46a4e7baa939fa682dd" => :yosemite
-    sha256 "fae4394322876c9610076164a48d37cc4bc15d7f7f369312241a86c3c3f2e28b" => :mavericks
-    sha256 "6e786c07223ddfe324ea3e5581740f4b02d31b79ccf5c3e1340ab09e69e27a99" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "makeicns" => :build

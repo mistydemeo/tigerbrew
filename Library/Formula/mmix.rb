@@ -4,12 +4,6 @@ class Mmix < Formula
   url "http://mmix.cs.hm.edu/src/mmix-20131017.tgz"
   sha256 "aa64c4b9dc3cf51f07b330791f8ce542b0ae8a1132e098fa95a19b31350050b4"
 
-  bottle do
-    cellar :any
-    sha1 "3203586ea18c63f2332cd7d52e739f87c6bf71c6" => :mavericks
-    sha1 "cc8eeb7fe526992122ddf3a42fc422837b18a0d4" => :mountain_lion
-    sha1 "d1cddd4fff7468c8234f3362d42b2a4bfbd17cee" => :lion
-  end
 
   depends_on "cweb" => :build
 

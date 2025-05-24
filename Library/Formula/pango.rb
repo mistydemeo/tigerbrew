@@ -7,11 +7,6 @@ class Pango < Formula
     sha256 "1d4e75974bad853ee9ac5fc5caee5e7ab235abbd945d51d01f3806e04e7c226c"
   end
 
-  bottle do
-    sha256 "35609b5fd72070c55965ff9ed2a2221e885c0c9901aa37005a92b223cc96d3b6" => :el_capitan
-    sha256 "4c45bd9bda3be814c8b89673360bc90ab444741023c980e8744fe218d94562ba" => :yosemite
-    sha256 "61049900a101f9dc393bb825a3a00378f57e925f55b904abcd5537f3c8c130f0" => :mavericks
-  end
 
   head do
     url "https://git.gnome.org/browse/pango.git"

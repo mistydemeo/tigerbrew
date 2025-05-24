@@ -68,12 +68,6 @@ class Qt5 < Formula
     end
   end
 
-  bottle do
-    revision 1
-    sha256 "587d272ec5ebb3265e43f51a71f57ad36b3a0809775370b80e9c6f69c7fc8733" => :el_capitan
-    sha256 "c195539679685c0349e2a31b9be19561b44dde97490a361e5dd3b3c129a81370" => :yosemite
-    sha256 "c2d85c78b20b0bc60b3118b112a997890e9dba1aa76e38fb0755e2ec93fc252d" => :mavericks
-  end
 
   keg_only "Qt 5 conflicts Qt 4 (which is currently much more widely used)."
 

@@ -4,12 +4,6 @@ class Libxmp < Formula
   url "https://downloads.sourceforge.net/project/xmp/libxmp/4.3.9/libxmp-4.3.9.tar.gz"
   sha256 "8acdcc7c4b97558b36279ec26fd03d3c34b4fed20e06a84fa0ce667816c78a95"
 
-  bottle do
-    cellar :any
-    sha256 "157fc6129d524c09e4a579518ce188232c57289796bd12dbc2336903db96585e" => :yosemite
-    sha256 "1deb9f6fbcc61ed06c214689e28dd4eb928e0fc48d7b4f195957127c9a63f30f" => :mavericks
-    sha256 "404246eba6c82c4768baef86453a8317fb4ec911619cd74e391332675c62d45e" => :mountain_lion
-  end
 
   # CC BY-NC-ND licensed set of five mods by Keith Baylis/Vim! for testing purposes
   # Mods from Mod Soul Brother: http://web.archive.org/web/20120215215707/http://www.mono211.com/modsoulbrother/vim.html
