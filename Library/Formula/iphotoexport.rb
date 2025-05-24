@@ -1,6 +1,6 @@
 class Iphotoexport < Formula
   desc "Export and synchronize iPhoto library to a folder tree"
-  homepage "https://code.google.com/p/iphotoexport/"
+  homepage "https://code.google.com/archive/p/iphotoexport"
   url "https://iphotoexport.googlecode.com/files/iphotoexport-1.6.4.zip"
   sha256 "85644b5be1541580a35f1ea6144d832267f1284ac3ca23fe9bcd9eda5aaea5d3"
 

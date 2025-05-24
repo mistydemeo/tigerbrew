@@ -1,6 +1,6 @@
 class Lastfmlib < Formula
   desc "Implements Last.fm v1.2 submissions protocol for scrobbling"
-  homepage "https://code.google.com/p/lastfmlib/"
+  homepage "https://code.google.com/archive/p/lastfmlib"
   url "https://lastfmlib.googlecode.com/files/lastfmlib-0.4.0.tar.gz"
   sha256 "28ecaffe2efecd5ac6ac00ba8e0a07b08e7fb35b45dfe384d88392ad6428309a"
 

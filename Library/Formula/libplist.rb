@@ -1,6 +1,6 @@
 class Libplist < Formula
   desc "Library for Apple Binary- and XML-Property Lists"
-  homepage "http://www.libimobiledevice.org"
+  homepage "https://libimobiledevice.org/"
   url "http://www.libimobiledevice.org/downloads/libplist-1.12.tar.bz2"
   sha256 "0effdedcb3de128c4930d8c03a3854c74c426c16728b8ab5f0a5b6bdc0b644be"
 

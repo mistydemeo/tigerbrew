@@ -1,6 +1,6 @@
 class XmlToolingC < Formula
   desc "Provides a higher level interface to XML processing"
-  homepage "https://wiki.shibboleth.net/confluence/display/OpenSAML/XMLTooling-C"
+  homepage "https://shibboleth.atlassian.net/wiki/spaces/OpenSAML/pages/1573290010/XMLTooling-C"
   url "http://shibboleth.net/downloads/c++-opensaml/2.5.3/xmltooling-1.5.3.tar.gz"
   sha256 "90e453deb738574b04f1f1aa08ed7cc9d8746bcbf93eb59f401a6e38f2ec9574"
 

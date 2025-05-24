@@ -1,6 +1,6 @@
 class Autoenv < Formula
   desc "Per-project, per-directory shell environments"
-  homepage "https://github.com/kennethreitz/autoenv"
+  homepage "https://github.com/hyperupcall/autoenv"
   url "https://github.com/kennethreitz/autoenv/archive/v0.1.0.tar.gz"
   sha256 "5e0fb3af642ee54b050b9d04f7f32fef1c6db14a6a3b6c6d05796b5681aeec90"
 

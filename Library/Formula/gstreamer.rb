@@ -1,6 +1,6 @@
 class Gstreamer < Formula
   desc "GStreamer is a development framework for multimedia applications"
-  homepage "http://gstreamer.freedesktop.org/"
+  homepage "https://gstreamer.freedesktop.org/"
   url "https://download.gnome.org/sources/gstreamer/1.6/gstreamer-1.6.0.tar.xz"
   sha256 "52ef885647afef11c8b7645a9afefe04aa09e8971c4b932e7717872ab8a30fcc"
 

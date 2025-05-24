@@ -1,6 +1,6 @@
 class Onetime < Formula
   desc "Encryption with one-time pads"
-  homepage "http://red-bean.com/onetime/"
+  homepage "https://red-bean.com/onetime/"
   url "http://red-bean.com/onetime/onetime-1.81.tar.gz"
   sha256 "36a83a83ac9f4018278bf48e868af00f3326b853229fae7e43b38d167e628348"
 

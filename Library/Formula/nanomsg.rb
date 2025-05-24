@@ -1,6 +1,6 @@
 class Nanomsg < Formula
   desc "Socket library in C"
-  homepage "http://nanomsg.org"
+  homepage "https://nanomsg.org/"
   url "https://github.com/nanomsg/nanomsg/releases/download/0.6-beta/nanomsg-0.6-beta.tar.gz"
   sha256 "69e2098446c9cd2c067b5ba38567c9ba30bf861a515b3d0a9302cb21c1167a69"
 

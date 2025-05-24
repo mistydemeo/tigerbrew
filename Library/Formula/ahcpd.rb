@@ -1,6 +1,6 @@
 class Ahcpd < Formula
   desc "Autoconfiguration protocol for IPv6 and IPv6/IPv4 networks"
-  homepage "http://www.pps.univ-paris-diderot.fr/~jch/software/ahcp/"
+  homepage "https://www.irif.fr/~jch/software/ahcp/"
   url "http://www.pps.univ-paris-diderot.fr/~jch/software/files/ahcpd-0.53.tar.gz"
   sha256 "a4622e817d2b2a9b878653f085585bd57f3838cc546cca6028d3b73ffcac0d52"
 

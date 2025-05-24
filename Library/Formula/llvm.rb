@@ -19,7 +19,7 @@ end
 
 class Llvm < Formula
   desc "llvm (Low Level Virtual Machine): a next-gen compiler infrastructure"
-  homepage "http://llvm.org/"
+  homepage "https://llvm.org/"
 
   stable do
     url "http://llvm.org/releases/3.6.2/llvm-3.6.2.src.tar.xz"

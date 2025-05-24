@@ -1,6 +1,6 @@
 class Nspr < Formula
   desc "Platform-neutral API for system-level and libc-like functions"
-  homepage "https://developer.mozilla.org/docs/Mozilla/Projects/NSPR"
+  homepage "https://firefox-source-docs.mozilla.org/nspr/"
   url "https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.10.9/src/nspr-4.10.9.tar.gz"
   sha256 "4112ff6ad91d32696ca0c6c3d4abef6367b5dc0127fa172fcb3c3ab81bb2d881"
 

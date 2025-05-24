@@ -1,6 +1,6 @@
 class Premake < Formula
   desc "Premake is a build script generator"
-  homepage "http://industriousone.com/premake"
+  homepage "https://premake.github.io/"
   url "https://downloads.sourceforge.net/project/premake/Premake/4.3/premake-4.3-src.zip"
   sha256 "36536490f8928d8ecde135da80cd8b751ea5bebe50cabba5c0de49cd41cb2780"
 
