@@ -652,7 +652,7 @@ _brew_to_completion ()
     _brew
 }
 
-if [ `echo "${BASH_VERSION}" | sed "s/\([0-9]*\).*/\1/"` -le 2 ]; then 
+if [ $BASH_VERSINFO -le 2 ]; then 
     complete -o default -F _brew brew
 else
     complete -o bashdefault -o default -F _brew brew
