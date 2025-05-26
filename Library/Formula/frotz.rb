@@ -13,6 +13,7 @@ class Frotz < Formula
 
   def install
     inreplace "Makefile", "PREFIX = /usr/local", "PREFIX = #{prefix}"
+    inreplace "Makefile", "MAN_PREFIX = $(PREFIX)", "MAN_PREFIX = #{man}/.."
     system "make", "all"
     system "make", "install"
     system "make", "install_dumb"
