@@ -3,6 +3,7 @@ class Frotz < Formula
   homepage "https://davidgriffith.gitlab.io/frotz/"
   url "https://gitlab.com/DavidGriffith/frotz/-/archive/2.44/frotz-2.44.tar.gz"
   sha256 "dbb5eb3bc95275dcb984c4bdbaea58bc1f1b085b20092ce6e86d9f0bf3ba858f"
+  revision 1
 
   depends_on "pkg-config" => :build
 
@@ -12,11 +13,9 @@ class Frotz < Formula
   end
 
   def install
-    inreplace "Makefile", "PREFIX = /usr/local", "PREFIX = #{prefix}"
-    inreplace "Makefile", "MAN_PREFIX = $(PREFIX)", "MAN_PREFIX = #{man}/.."
     system "make", "all"
-    system "make", "install"
-    system "make", "install_dumb"
+    system "make", "install", "PREFIX=#{prefix}", "MAN_PREFIX=#{share}", "CONFIG_DIR=#{etc}"
+    system "make", "install_dumb", "PREFIX=#{prefix}", "MAN_PREFIX=#{share}", "CONFIG_DIR=#{etc}"
   end
 
   test do
