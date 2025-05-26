@@ -72,7 +72,7 @@ __brew_complete_formulae ()
 __brew_complete_installed ()
 {
     local cur="${COMP_WORDS[COMP_CWORD]}"
-    local inst=$(\ls $(brew --cellar))
+    local inst="$(command ls "$(brew --cellar)" 2>/dev/null)"
     COMPREPLY=($(compgen -W "$inst" -- "$cur"))
 }
 
@@ -94,7 +94,7 @@ __brew_complete_versions ()
 __brew_complete_logs ()
 {
     local cur="${COMP_WORDS[COMP_CWORD]}"
-    local logs=$(ls ${HOMEBREW_LOGS:-~/Library/Logs/Homebrew/})
+    local logs="$(command ls "${HOMEBREW_LOGS:-${HOME}/Library/Logs/Homebrew/}" 2>/dev/null)"
     COMPREPLY=($(compgen -W "$logs" -- "$cur"))
 }
 
@@ -316,6 +316,7 @@ _brew_linkapps ()
         return
         ;;
     esac
+    __brew_complete_installed
 }
 
 _brew_list ()
@@ -589,6 +590,11 @@ _brew ()
 
     if [[ $i -eq $COMP_CWORD ]]; then
         __brewcomp "$(brew commands --quiet --include-aliases)"
+        # Do not auto-complete "instal" abbreviation for "install" command.
+        # Prefix newline to prevent not checking the first command.
+        # https://github.com/Homebrew/legacy-homebrew/pull/45086
+        local cmds=$'\n'"$(brew commands --quiet --include-aliases)"
+        __brewcomp "${cmds/$'\n'instal$'\n'/$'\n'}"
         return
     fi
 
@@ -610,7 +616,7 @@ _brew ()
     install|instal|reinstall)   _brew_install ;;
     irb)                        _brew_irb ;;
     link|ln)                    _brew_link ;;
-    linkapps)                   _brew_linkapps ;;
+    linkapps|unlinkapps)        _brew_linkapps ;;
     list|ls)                    _brew_list ;;
     log)                        _brew_log ;;
     man)                        _brew_man ;;
