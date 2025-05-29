@@ -36,8 +36,8 @@ class BashCompletion < Formula
 
   def caveats; <<-EOS.undent
     Add the following lines to your ~/.bash_profile:
-      if [ -f $(brew --prefix)/etc/bash_completion.d/brew_bash_completion.sh ]; then
-        . $(brew --prefix)/etc/bash_completion.d/brew_bash_completion.sh
+      if [ -f $(brew --prefix)/etc/bash_completion ]; then
+        . $(brew --prefix)/etc/bash_completion
       fi
 
     Homebrew's own bash completion script has been installed to

@@ -7,9 +7,9 @@ class Pianobar < Formula
 
   bottle do
     cellar :any
-    sha256 "ef2d4e3cb2478c1efa40986b53d6dbde50d147fa53e726f5a5145697c0bbbc3e" => :tiger_altivec
-    sha256 "bf1d6fe5f2785d51f7dad6fdb080d840548298eb467bac014b5e7ed10073f5d3" => :leopard_g3
-    sha256 "d0923378f486ead741c0eeaebb2f1c7d3b661975cc4a6a863d122f0d6b11c240" => :leopard_altivec
+    sha1 "ac594a508ff186a483fc74d56e35460ec1c3127a" => :tiger_altivec
+    sha1 "d4aa59c4411f32c1c3655b7fcd16195ced843ff6" => :leopard_g3
+    sha1 "2d79864486410f89d28ebe287bd13d5b14c6267a" => :leopard_altivec
   end
 
   depends_on "make" => :build if MacOS.version < :leopard

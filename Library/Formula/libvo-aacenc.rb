@@ -6,9 +6,9 @@ class LibvoAacenc < Formula
 
   bottle do
     cellar :any
-    sha256 "cc1f30fc2ebcf4d2197c17ad6dd8874ef922232929d1042bdb0611b53236fe78" => :tiger_altivec
-    sha256 "050d5885633b5cc5d050ce432dc0be0d96553eaf74280e6d0fd2c3c11be58433" => :leopard_g3
-    sha256 "9825387b4c10d94aab5f13f94150021062a9077956f4d038124f1aca28f9c094" => :leopard_altivec
+    sha1 "db988fca9280de51d16bddcf04bd22e9b3422b58" => :tiger_altivec
+    sha1 "b75add72a8f671b9fbfeeeb0e5335a7e08adcc05" => :leopard_g3
+    sha1 "1028521d75673ce18bc33018598e3a09b2aeee36" => :leopard_altivec
   end
 
   def install

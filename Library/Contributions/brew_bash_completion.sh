@@ -1,9 +1,19 @@
 # Bash completion script for brew(1)
 #
-# To use, install the bash-completion package. Alternately, can be used with 
-# older versions of bash by adding the following to your .bashrc:
+# To use, add the following to your .bashrc:
 #
 #    . $(brew --repository)/Library/Contributions/brew_bash_completion.sh
+#
+# Alternatively, if you have installed the bash-completion package,
+# you can create a symlink to this file in one of the following directories:
+#
+#    $(brew --prefix)/etc/bash_completion.d
+#    $(brew --prefix)/share/bash-completion/completions
+#
+# Installing to etc/bash_completion.d will cause bash-completion to load
+# it automatically at shell startup time. If you choose to install it to
+# share/bash-completion/completions, it will be loaded on-demand (i.e. the
+# first time you invoke the `brew` command in a shell session).
 
 __brewcomp_words_include ()
 {
@@ -72,7 +82,7 @@ __brew_complete_formulae ()
 __brew_complete_installed ()
 {
     local cur="${COMP_WORDS[COMP_CWORD]}"
-    local inst="$(command ls "$(brew --cellar)" 2>/dev/null)"
+    local inst=$(\ls $(brew --cellar))
     COMPREPLY=($(compgen -W "$inst" -- "$cur"))
 }
 
@@ -94,7 +104,7 @@ __brew_complete_versions ()
 __brew_complete_logs ()
 {
     local cur="${COMP_WORDS[COMP_CWORD]}"
-    local logs="$(command ls "${HOMEBREW_LOGS:-${HOME}/Library/Logs/Homebrew/}" 2>/dev/null)"
+    local logs=$(ls ${HOMEBREW_LOGS:-~/Library/Logs/Homebrew/})
     COMPREPLY=($(compgen -W "$logs" -- "$cur"))
 }
 
@@ -316,7 +326,6 @@ _brew_linkapps ()
         return
         ;;
     esac
-    __brew_complete_installed
 }
 
 _brew_list ()
@@ -590,11 +599,6 @@ _brew ()
 
     if [[ $i -eq $COMP_CWORD ]]; then
         __brewcomp "$(brew commands --quiet --include-aliases)"
-        # Do not auto-complete "instal" abbreviation for "install" command.
-        # Prefix newline to prevent not checking the first command.
-        # https://github.com/Homebrew/legacy-homebrew/pull/45086
-        local cmds=$'\n'"$(brew commands --quiet --include-aliases)"
-        __brewcomp "${cmds/$'\n'instal$'\n'/$'\n'}"
         return
     fi
 
@@ -616,7 +620,7 @@ _brew ()
     install|instal|reinstall)   _brew_install ;;
     irb)                        _brew_irb ;;
     link|ln)                    _brew_link ;;
-    linkapps|unlinkapps)        _brew_linkapps ;;
+    linkapps)                   _brew_linkapps ;;
     list|ls)                    _brew_list ;;
     log)                        _brew_log ;;
     man)                        _brew_man ;;
@@ -652,8 +656,4 @@ _brew_to_completion ()
     _brew
 }
 
-if [ $BASH_VERSINFO -le 2 ]; then 
-    complete -o default -F _brew brew
-else
-    complete -o bashdefault -o default -F _brew brew
-fi
+complete -o bashdefault -o default -F _brew brew

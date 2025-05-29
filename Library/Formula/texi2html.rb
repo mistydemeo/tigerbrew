@@ -6,9 +6,9 @@ class Texi2html < Formula
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "6dc3e72f8bc538ccbbf7488479cf5d28877640cef1d19282a59ddff2a77228a5" => :tiger_altivec
-    sha256 "37a5199a826a4e6751f637332f77eaa64f166c61f97c663e56da372678ea6482" => :leopard_g3
-    sha256 "0a9c1562ae122910318a97a19624f998a7dee16edb8f501d6ad4d52298b70070" => :leopard_altivec
+    sha1 "dab75b6b742681e2808178d0c2ea659ac20ccf19" => :tiger_altivec
+    sha1 "58cb2e4901212c31394dfdf317d1394a365eb98c" => :leopard_g3
+    sha1 "59304169ba3f1d720f2e0db52f41204a0d275e5e" => :leopard_altivec
   end
 
   keg_only :provided_pre_mountain_lion
