@@ -6,6 +6,8 @@ class Tree < Formula
   license "GPL-2.0-or-later"
 
   bottle do
+    cellar :any_skip_relocation
+    sha256 "c7750aaeff29f4cce1dd6709cf5ec7fb3575dba30d6c2add57df1bf0b8abd60d" => :tiger_altivec
   end
 
   def install

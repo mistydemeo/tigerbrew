@@ -43,9 +43,21 @@ class Erlang < Formula
   depends_on "libutil" if MacOS.version < :leopard
   depends_on "zlib"
 
+  fails_with :gcc_4_0 do
+    build 5370
+    cause "error: invalid preprocessing directive in HiPE PPC glue"
+  end
+
   fails_with :gcc do
     build 5666
     cause "Bus error when attempting to build HiPE"
+  end
+
+  # Adds a missing extern to a type definition
+  # https://github.com/erlang/otp/pull/1692
+  patch do
+    url "https://github.com/erlang/otp/commit/58632af80fd43955ec58c021e5c0d04caa1840de.patch?full_index=1"
+    sha256 "39aedcf957511ef67024ea584e9143fb5b8592d0089622e4268f7ec517ef163d"
   end
 
   def install
@@ -54,6 +66,10 @@ class Erlang < Formula
     %w[LIBS FLAGS AFLAGS ZFLAGS].each { |k| ENV.delete("ERL_#{k}") }
 
     ENV["FOP"] = "#{HOMEBREW_PREFIX}/bin/fop" if build.with? "fop"
+
+    # Fixes an error with newer GCCs and in6addr
+    # https://github.com/asdf-vm/asdf-erlang/issues/157
+    ENV.append_to_cflags "-Wno-error=implicit-function-declaration"
 
     # Do this if building from a checkout to generate configure
     system "./otp_build", "autoconf" if File.exist? "otp_build"
@@ -79,6 +95,11 @@ class Erlang < Formula
     # In /usr/include/c++/4.0.0/powerpc64-apple-darwin8/bits/stdc++.h.gch/O0g.gch & O2g.gch
     # symbol is found but configure's test for it fails, breaking the build
     args << "ac_cv_type___int128_t=no" if MacOS.version == :tiger && Hardware::CPU.family == :g5
+    # configure iritatingly picks a different compiler than CC in this one place
+    # It's set to prioritize a compiler named "gcc-4.2"
+    # over "gcc" if present, which causes build failures for Tiger users with
+    # apple-gcc42 installed
+    args << "ac_cv_prog_emu_cc=#{ENV.cc}"
 
     if MacOS.version >= :snow_leopard && MacOS::CLT.installed?
       args << "--with-dynamic-trace=dtrace"

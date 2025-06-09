@@ -6,8 +6,8 @@ class Lame < Formula
 
   bottle do
     cellar :any
-    sha1 "ac89c99c2024cd109cd7aaa1d1edc9424715ac88" => :leopard_g3
-    sha1 "975485f851402e9f57ae26fe61115a9d295c02fb" => :leopard_altivec
+    sha256 "c792746e24c1585b7e03f58c21d42cbe7d581cad314dbc91e48b59a6b4841d92" => :leopard_g3
+    sha256 "9b704aef2371963a8941329c67c46a59cf8ed506e2af6f1380721a020d76edce" => :leopard_altivec
   end
 
   option :universal

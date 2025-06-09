@@ -9,9 +9,9 @@ class Faad2 < Formula
 
   bottle do
     cellar :any
-    sha1 "96262445fa48886dc6ee84308b8b6118b7b796dc" => :tiger_altivec
-    sha1 "025ba2eeae000895a18647ac2e1560f620dffa81" => :leopard_g3
-    sha1 "3115d2defb838d13093d8a5401266178fc6fd6fe" => :leopard_altivec
+    sha256 "c64b6d56f3464fe198697cc666c717c897f0c3b5e079e0d2fbb641d525950bfe" => :tiger_altivec
+    sha256 "9824e92e089976d8cbca8f48dae86183dd0573bf82b495b32fb954b7fdb26322" => :leopard_g3
+    sha256 "0ba8b1ba5235248ae43646e11a70b8365e09141fc38b18556fc3af52440fe4ef" => :leopard_altivec
   end
 
   def install
