@@ -1,6 +1,6 @@
 class Dovecot < Formula
   desc "IMAP/POP3 server"
-  homepage "http://dovecot.org/"
+  homepage "https://www.dovecot.org/"
   url "https://dovecot.org/releases/2.3/dovecot-2.3.21.tar.gz"
   mirror "https://fossies.org/linux/misc/dovecot-2.3.21.tar.gz"
   sha256 "05b11093a71c237c2ef309ad587510721cc93bbee6828251549fc1586c36502d"

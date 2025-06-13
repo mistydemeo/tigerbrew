@@ -1,6 +1,6 @@
 class Chicken < Formula
   desc "Compiler for the Scheme programming language"
-  homepage "http://www.call-cc.org/"
+  homepage "https://www.call-cc.org/"
   url "https://code.call-cc.org/releases/5.3.0/chicken-5.3.0.tar.gz"
   sha256 "c3ad99d8f9e17ed810912ef981ac3b0c2e2f46fb0ecc033b5c3b6dca1bdb0d76"
 

@@ -1,6 +1,6 @@
 class Pypy3 < Formula
   desc "Implementation of Python 3 in Python"
-  homepage "http://pypy.org/"
+  homepage "https://pypy.org/"
   url "https://bitbucket.org/pypy/pypy/downloads/pypy3-2.4.0-src.tar.bz2"
   sha256 "d9ba207d6eecf8a0dc4414e9f4e92db1abd143e8cc6ec4a6bdcac75b29f104f3"
 

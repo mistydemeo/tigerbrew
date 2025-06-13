@@ -1,7 +1,6 @@
 class Libtomcrypt < Formula
   desc "Modular and portable cryptographic toolkit"
-  # homepage/url down since ~May 2015
-  homepage "http://libtom.org/?page=features&whatfile=crypt"
+  homepage "https://web.archive.org/web/20141021074954/https://libtom.org/"
   url "http://libtom.org/files/crypt-1.17.tar.bz2"
   mirror "https://distfiles.macports.org/libtomcrypt/crypt-1.17.tar.bz2"
   sha256 "e33b47d77a495091c8703175a25c8228aff043140b2554c08a3c3cd71f79d116"

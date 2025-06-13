@@ -1,6 +1,6 @@
 class BerkeleyDb < Formula
   desc "High performance key/value database"
-  homepage "https://www.oracle.com/technology/products/berkeley-db/index.html"
+  homepage "https://www.oracle.com/technology/products/berkeley-db/"
   url "http://download.oracle.com/berkeley-db/db-6.1.26.tar.gz"
   sha256 "dd1417af5443f326ee3998e40986c3c60e2a7cfb5bfa25177ef7cadb2afb13a6"
 

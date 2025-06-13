@@ -1,6 +1,6 @@
 class Libevent < Formula
   desc "Asynchronous event library"
-  homepage "http://libevent.org"
+  homepage "https://libevent.org/"
   url "https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz"
   sha256 "92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb"
   revision 1

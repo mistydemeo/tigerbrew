@@ -1,6 +1,6 @@
 class PdflibLite < Formula
   desc "Subset of the functionality of PDFlib 7"
-  homepage "http://www.pdflib.com/download/free-software/pdflib-lite/"
+  homepage "https://www.pdflib.com/products/pdflib-family/overview/?pdfliblite"
   url "http://www.pdflib.com/binaries/PDFlib/705/PDFlib-Lite-7.0.5p3.tar.gz"
   version "7.0.5p3"
   sha256 "e5fb30678165d28b2bf066f78d5f5787e73a2a28d4902b63e3e07ce1678616c9"

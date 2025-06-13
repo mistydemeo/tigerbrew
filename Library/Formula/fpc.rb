@@ -1,6 +1,6 @@
 class Fpc < Formula
   desc "Free Pascal: multi-architecture Pascal compiler"
-  homepage "http://www.freepascal.org/"
+  homepage "https://www.freepascal.org/"
   url "https://downloads.sourceforge.net/project/freepascal/Source/2.6.4/fpc-2.6.4.source.tar.gz"
   sha256 "c16f2e6e0274c7afc0f1d2dded22d0fec98fe329b1d5b2f011af1655f3a1cc29"
 

@@ -1,6 +1,6 @@
 class Gucharmap < Formula
   desc "GNOME Character Map, based on the Unicode Character Database"
-  homepage "https://live.gnome.org/Gucharmap"
+  homepage "https://wiki.gnome.org/Apps(2f)Gucharmap.html"
   url "https://download.gnome.org/sources/gucharmap/3.18/gucharmap-3.18.0.tar.xz"
   sha256 "121d2652f59a26c9426c96e7c6ca73295c45b675dd4ef0ccdb1b50bc0b4f3830"
 

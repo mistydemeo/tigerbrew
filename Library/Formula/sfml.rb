@@ -1,7 +1,7 @@
 class Sfml < Formula
   # Don't update SFML until there's a corresponding CSFML release
   desc "Multi-media library with bindings for multiple languages"
-  homepage "http://www.sfml-dev.org/"
+  homepage "https://www.sfml-dev.org/"
 
   # SFML 2.2+ require Lion or newer
   if MacOS.version < :lion

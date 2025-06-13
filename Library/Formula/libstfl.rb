@@ -1,6 +1,6 @@
 class Libstfl < Formula
   desc "Library implementing a curses-based widget set for terminals"
-  homepage "http://www.clifford.at/stfl/"
+  homepage "https://clifford.fm/stfl"
   url "http://www.clifford.at/stfl/stfl-0.22.tar.gz"
   sha256 "2dddafd331e61ad04baf1251ccecb3a69feaf99880dd75155be8423c1cc55418"
 

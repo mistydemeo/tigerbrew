@@ -1,6 +1,6 @@
 class Ntopng < Formula
   desc "Next generation version of the original ntop"
-  homepage "http://www.ntop.org/products/ntop/"
+  homepage "https://www.ntop.org/products/traffic-analysis/ntop/"
   url "https://downloads.sourceforge.net/project/ntop/ntopng/ntopng-2.0.tar.gz"
   sha256 "3cbfd6de1bc44d65f7c7f0de282d122d11f493f1261ba137c3b5b202e08e0251"
 

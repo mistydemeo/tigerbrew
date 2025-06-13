@@ -2,7 +2,7 @@ require "language/go"
 
 class Packer < Formula
   desc "Tool for creating identical machine images for multiple platforms"
-  homepage "https://packer.io"
+  homepage "https://developer.hashicorp.com/packer"
 
   # buildscript requires the .git directory be present
   url "https://github.com/mitchellh/packer.git",

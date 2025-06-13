@@ -1,6 +1,6 @@
 class Verilator < Formula
   desc "Verilog simulator"
-  homepage "http://www.veripool.org/wiki/verilator"
+  homepage "https://www.veripool.org/verilator/"
   url "http://www.veripool.org/ftp/verilator-3.874.tgz"
   mirror "https://mirrors.kernel.org/debian/pool/main/v/verilator/verilator_3.874.orig.tar.gz"
   sha256 "d20086626fdf6346d309e435881600c2d8bc8da8b3106e22d4ca4a70b98d0b1c"

@@ -1,6 +1,6 @@
 class Neko < Formula
   desc "High-level, dynamically typed programming language"
-  homepage "http://nekovm.org"
+  homepage "https://nekovm.org/"
   # revision includes recent parameterized build targets for mac.  Use a :tag
   # on the next release
   url "https://github.com/HaxeFoundation/neko.git", :revision => "22c49a89b56b9f106d7162710102e9475227e882"

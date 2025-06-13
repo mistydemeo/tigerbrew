@@ -1,6 +1,6 @@
 class GitMultipush < Formula
   desc "Push a branch to multiple remotes in one command"
-  homepage "https://code.google.com/p/git-multipush/"
+  homepage "https://github.com/gavinbeatty/git-multipush"
   url "https://git-multipush.googlecode.com/files/git-multipush-2.3.tar.bz2"
   sha256 "1f3b51e84310673045c3240048b44dd415a8a70568f365b6b48e7970afdafb67"
 

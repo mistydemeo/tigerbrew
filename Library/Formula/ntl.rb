@@ -1,6 +1,6 @@
 class Ntl < Formula
   desc "C++ number theory library"
-  homepage "http://www.shoup.net/ntl"
+  homepage "https://libntl.org"
   url "http://www.shoup.net/ntl/ntl-9.3.0.tar.gz"
   sha256 "8f31508a9176b3fc843f08468b1632017f2450677bfd5147ead5136e0f24b68f"
 

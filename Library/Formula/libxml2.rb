@@ -1,6 +1,6 @@
 class Libxml2 < Formula
   desc "GNOME XML library"
-  homepage "http://xmlsoft.org"
+  homepage "https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home"
   url "https://download.gnome.org/sources/libxml2/2.11/libxml2-2.11.8.tar.xz"
   sha256 "53961af1721b72246180cd844b7ddae36ea8e1e4e27b683567990a1ee78b02c1"
 

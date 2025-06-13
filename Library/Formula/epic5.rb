@@ -1,6 +1,6 @@
 class Epic5 < Formula
   desc "Enhanced, programmable IRC client"
-  homepage "http://www.epicsol.org/"
+  homepage "https://www.epicsol.org/"
   url "http://ftp.epicsol.org/pub/epic/EPIC5-PRODUCTION/epic5-1.2.0.tar.xz"
   sha256 "cfdbc1fcbe75e5441adcb7ef9ca5b1d6827815d358a38db60d1448964c2513da"
 

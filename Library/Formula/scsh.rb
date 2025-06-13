@@ -1,6 +1,6 @@
 class Scsh < Formula
   desc "Scheme shell"
-  homepage "http://www.scsh.net/"
+  homepage "https://scsh.net/"
   url "http://ftp.scsh.net/pub/scsh/0.6/scsh-0.6.7.tar.gz"
   sha256 "c4a9f7df2a0bb7a7aa3dafc918aa9e9a566d4ad33a55f0192889de172d1ddb7f"
 

@@ -1,6 +1,6 @@
 class Povray < Formula
   desc "Persistence Of Vision RAYtracer (POVRAY)"
-  homepage "http://www.povray.org/"
+  homepage "https://www.povray.org/"
   url "https://github.com/POV-Ray/povray/archive/v3.7.0.0.tar.gz"
   sha256 "bf68861d648e3acafbd1d83a25016a0c68547b257e4fa79fb36eb5f08d665f27"
   revision 2

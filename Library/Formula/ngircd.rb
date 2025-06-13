@@ -1,6 +1,6 @@
 class Ngircd < Formula
   desc "Next generation IRC daemon"
-  homepage "http://ngircd.barton.de"
+  homepage "https://ngircd.barton.de"
   url "http://ngircd.barton.de/pub/ngircd/ngircd-22.1.tar.gz"
   mirror "http://ngircd.mirror.3rz.org/pub/ngircd/ngircd-22.1.tar.gz"
   sha256 "17ad08d0420c00a180b71e7284d1b6a8d2f6f39dbac756fe104f6ca59a9c66f5"
