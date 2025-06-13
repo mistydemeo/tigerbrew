@@ -103,7 +103,7 @@ module Homebrew
     end
 
     unless HOMEBREW_GITHUB_API_TOKEN
-      puts "Create a personal Github access token at: https://github.com/settings/tokens"
+      puts "Create a personal Github access token at https://github.com/settings/tokens/new?scopes=gist,public_repo"
       puts "and then set the environment variable HOMEBREW_GITHUB_API_TOKEN to its value."
       return
     end
