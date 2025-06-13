@@ -50,11 +50,11 @@ module Homebrew
   end
 
   def create_gist(files)
-    post("/gists", "public" => true, "files" => files)["html_url"]
+    post("/gists", "public" => true, "files" => files)
   end
 
   def new_issue(repo, title, body)
-    post("/repos/#{repo}/issues", { "title" => title, "body" => body })["html_url"]
+    post("/repos/#{repo}/issues", { "title" => title, "body" => body })
   end
 
   def http
@@ -89,19 +89,9 @@ module Homebrew
 
     case response = http.request(request)
     when Net::HTTPCreated
-      Utils::JSON.load get_body(response)
+      /"html_url": "([^\"]+)"/.match(response.body)[1]
     else
       raise "HTTP #{response.code} #{response.message} (expected 201)"
-    end
-  end
-
-  def get_body(response)
-    if !response.body.respond_to?(:force_encoding)
-      response.body
-    elsif response["Content-Type"].downcase == "application/json; charset=utf-8"
-      response.body.dup.force_encoding(Encoding::UTF_8)
-    else
-      response.body.encode(Encoding::UTF_8, :undef => :replace)
     end
   end
 
