@@ -1,6 +1,6 @@
 class PangoxCompat < Formula
   desc "Library for laying out and rendering of text"
-  homepage "http://pango.org"
+  homepage "https://www.gtk.org/docs/architecture/pango"
   url "https://download.gnome.org/sources/pangox-compat/0.0/pangox-compat-0.0.2.tar.xz"
   sha256 "552092b3b6c23f47f4beee05495d0f9a153781f62a1c4b7ec53857a37dfce046"
   revision 1

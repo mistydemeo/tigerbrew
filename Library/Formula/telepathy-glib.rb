@@ -1,6 +1,6 @@
 class TelepathyGlib < Formula
   desc "Telepathy GLib library for clients and connection managers"
-  homepage "http://telepathy.freedesktop.org/wiki/"
+  homepage "https://telepathy.freedesktop.org/wiki/"
   url "http://telepathy.freedesktop.org/releases/telepathy-glib/telepathy-glib-0.24.0.tar.gz"
   sha256 "ae0002134991217f42e503c43dea7817853afc18863b913744d51ffa029818cf"
 

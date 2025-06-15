@@ -1,6 +1,6 @@
 class Rfcdiff < Formula
   desc "Compare RFC Internet Draft versions"
-  homepage "https://tools.ietf.org/tools/rfcdiff/"
+  homepage "https://github.com/ietf-tools/rfcdiff"
   url "https://tools.ietf.org/tools/rfcdiff/rfcdiff-1.42.tgz"
   sha256 "1ff5f34a007e9219725d9e3d40767aec5e895d9f890085bec554d0e2a4150634"
 

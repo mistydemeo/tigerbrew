@@ -12,7 +12,7 @@ end
 
 class Coq < Formula
   desc "Proof assistant for higher-order logic"
-  homepage "https://coq.inria.fr/"
+  homepage "https://rocq-prover.org/"
   url "https://coq.inria.fr/distrib/V8.4pl6/files/coq-8.4pl6.tar.gz"
   version "8.4pl6"
   sha256 "a540a231a9970a49353ca039f3544616ff86a208966ab1c593779ae13c91ebd6"

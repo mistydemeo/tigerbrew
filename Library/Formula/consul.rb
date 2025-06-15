@@ -2,7 +2,7 @@ require "language/go"
 
 class Consul < Formula
   desc "Tool for service discovery, monitoring and configuration"
-  homepage "https://www.consul.io"
+  homepage "https://developer.hashicorp.com/consul"
   url "https://github.com/hashicorp/consul.git",
     :tag => "v0.5.2", :revision => "9a9cc9341bb487651a0399e3fc5e1e8a42e62dd9"
 

@@ -1,6 +1,6 @@
 class DfuProgrammer < Formula
   desc "Device firmware update based USB programmer for Atmel chips"
-  homepage "http://dfu-programmer.github.io"
+  homepage "https://dfu-programmer.github.io"
   url "https://github.com/dfu-programmer/dfu-programmer/releases/download/v1.1.0/dfu-programmer-1.1.0.tar.gz"
   sha256 "844e469be559657bc52c9d9d03c30846acd11ffbb1ddd42438fa8af1d2b8587d"
 

@@ -1,6 +1,6 @@
 class Pulseaudio < Formula
   desc "Sound system for POSIX OSes"
-  homepage "http://pulseaudio.org"
+  homepage "https://www.freedesktop.org/wiki/Software/PulseAudio/"
   url "http://www.freedesktop.org/software/pulseaudio/releases/pulseaudio-6.0.tar.xz"
   mirror "https://mirrors.kernel.org/debian/pool/main/p/pulseaudio/pulseaudio_6.0.orig.tar.xz"
   sha256 "b50640e0b80b1607600accfad2e45aabb79d379bf6354c9671efa2065477f6f6"

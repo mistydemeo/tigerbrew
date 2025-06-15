@@ -1,6 +1,6 @@
 class Legit < Formula
   desc "Command-line interface for Git, optimized for workflow simplicity"
-  homepage "http://www.git-legit.org/"
+  homepage "https://frostming.github.io/legit/"
   head "https://github.com/kennethreitz/legit.git", :branch => "develop"
   revision 1
 

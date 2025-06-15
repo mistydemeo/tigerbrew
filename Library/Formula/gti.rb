@@ -1,6 +1,6 @@
 class Gti < Formula
   desc "ASCII-art displaying typo-corrector for commands"
-  homepage "http://r-wos.org/hacks/gti"
+  homepage "https://r-wos.org/hacks/gti"
   url "https://github.com/rwos/gti/archive/v1.2.0.tar.gz"
   sha256 "e76a3d44610c1445263860391f8243cde622f58945101075f750e96d96063762"
 

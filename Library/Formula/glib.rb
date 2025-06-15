@@ -1,6 +1,6 @@
 class Glib < Formula
   desc "Core application library for C"
-  homepage "https://developer.gnome.org/glib/"
+  homepage "https://docs.gtk.org/glib/"
   url "https://www.mirrorservice.org/sites/ftp.gnome.org/pub/GNOME/sources/glib/2.59/glib-2.59.0.tar.xz"
   sha256 "664a5dee7307384bb074955f8e5891c7cecece349bbcc8a8311890dc185b428e"
 

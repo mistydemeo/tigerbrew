@@ -1,6 +1,6 @@
 class Bonniexx < Formula
   desc "Benchmark suite for file systems and hard drives"
-  homepage "http://www.coker.com.au/bonnie++/"
+  homepage "https://www.coker.com.au/bonnie++/"
   url "http://www.coker.com.au/bonnie++/experimental/bonnie++-1.97.tgz"
   sha256 "44f5a05937648a6526ba99354555d7d15f2dd392e55d3436f6746da6f6c35982"
 

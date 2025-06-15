@@ -1,6 +1,6 @@
 class Httpie < Formula
   desc "User-friendly cURL replacement (command-line HTTP client)"
-  homepage "https://github.com/jakubroztocil/httpie"
+  homepage "https://github.com/httpie/cli"
   url "https://github.com/jakubroztocil/httpie/archive/0.9.2.tar.gz"
   sha256 "1f0b0b6563de25bad0ed190d62f1130573124201382824756d015b1422a234cc"
   revision 1

@@ -1,5 +1,5 @@
 class Ppl011 < Formula
-  homepage "http://bugseng.com/products/ppl/"
+  homepage "https://www.bugseng.com/ppl"
   # Track gcc infrastructure releases.
   url "https://bugseng.com/products/ppl/download/ftp/releases/0.11/ppl-0.11.tar.gz"
   mirror "https://gcc.gnu.org/pub/gcc/infrastructure/ppl-0.11.tar.gz"

@@ -1,6 +1,6 @@
 class Ezlupdate < Formula
   desc "Create .ts files for eZ publish"
-  homepage "http://ezpedia.org/ez/ezlupdate"
+  homepage "https://web.archive.org/web/20150322165637/https://ezpedia.org/ez/ezlupdate"
   url "https://github.com/ezsystems/ezpublish-legacy/archive/v2015.01.3.tar.gz"
   sha256 "cb365cfad2f5036908dc60bbca599383fc2b61435682dacacdb7bf27ff427ce6"
 

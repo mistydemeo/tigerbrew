@@ -1,6 +1,6 @@
 class Khal < Formula
   desc "CLI calendar application."
-  homepage "https://github.com/geier/khal"
+  homepage "https://lostpackets.de/khal/"
   url "https://pypi.python.org/packages/source/k/khal/khal-0.6.0.tar.gz"
   sha256 "1a2e8d56d20b12ed2c3ef2468ff0ce0c658a8a566b249821b0f4b30cce8ada9a"
   revision 1

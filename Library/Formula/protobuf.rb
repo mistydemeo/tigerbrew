@@ -1,6 +1,6 @@
 class Protobuf < Formula
   desc "Protocol buffers (Google's data interchange format)"
-  homepage "https://github.com/google/protobuf/"
+  homepage "https://github.com/protocolbuffers/protobuf"
 
   stable do
     url "https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.bz2"

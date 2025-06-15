@@ -2,7 +2,7 @@ require "language/go"
 
 class Gor < Formula
   desc "Real-time HTTP traffic replay tool written in Go"
-  homepage "https://github.com/buger/gor/"
+  homepage "https://goreplay.org/"
   url "https://github.com/buger/gor/archive/0.9.8.tar.gz"
   sha256 "be29561352db89d5d8892443d1a6b1bb8454ec28b00854d2aecb7d91d570f4b3"
   head "https://github.com/buger/gor.git"

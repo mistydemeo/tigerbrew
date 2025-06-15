@@ -2,7 +2,7 @@ require "formula"
 
 class Vrpn < Formula
   desc "Virtual reality peripheral network"
-  homepage "http://vrpn.org"
+  homepage "https://github.com/vrpn/vrpn/wiki"
   url "https://github.com/vrpn/vrpn/releases/download/v07.33/vrpn_07_33.zip"
   sha256 "3cb9e71f17eb756fbcf738e6d5084d47b3b122b68b66d42d6769105cb18a79be"
 

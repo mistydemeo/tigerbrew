@@ -1,6 +1,6 @@
 class Librsync < Formula
   desc "Library that implements the rsync remote-delta algorithm"
-  homepage "http://librsync.sourceforge.net/"
+  homepage "https://librsync.sourceforge.net/"
   url "https://downloads.sourceforge.net/project/librsync/librsync/0.9.7/librsync-0.9.7.tar.gz"
   sha256 "6633e4605662763a03bb6388529cbdfd3b11a9ec55b8845351c1bd9a92bc41d6"
 

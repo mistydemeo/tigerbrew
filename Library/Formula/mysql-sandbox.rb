@@ -1,6 +1,6 @@
 class MysqlSandbox < Formula
   desc "Install one or more MySQL servers"
-  homepage "http://mysqlsandbox.net"
+  homepage "https://github.com/datacharmer/mysql-sandbox"
   url "https://launchpad.net/mysql-sandbox/mysql-sandbox-3/mysql-sandbox-3/+download/MySQL-Sandbox-3.0.50.tar.gz"
   sha256 "c709c4dec711ab37265c5c596330ad3af01866f418e8158cdf949efcdcab96d8"
 

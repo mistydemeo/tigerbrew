@@ -2,7 +2,7 @@
 # package, and upstream has not had any movement in a long time.
 class Iftop < Formula
   desc "Display an interface's bandwidth usage"
-  homepage "http://www.ex-parrot.com/~pdw/iftop/"
+  homepage "https://pdw.ex-parrot.com/iftop/"
   url "http://www.ex-parrot.com/pdw/iftop/download/iftop-1.0pre4.tar.gz"
   version "1.0pre4"
   sha256 "f733eeea371a7577f8fe353d86dd88d16f5b2a2e702bd96f5ffb2c197d9b4f97"

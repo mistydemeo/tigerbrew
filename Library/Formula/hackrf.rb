@@ -1,6 +1,6 @@
 class Hackrf < Formula
   desc "Low cost software radio platform"
-  homepage "https://github.com/mossmann/hackrf"
+  homepage "https://greatscottgadgets.com/hackrf/"
   url "https://github.com/mossmann/hackrf/archive/v2015.07.2.tar.gz"
   sha256 "00eaca20eceb3f2ed4c23c80353b20dac3a29458b8d33654ff287699d2ed8877"
 

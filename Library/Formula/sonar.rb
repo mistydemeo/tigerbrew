@@ -1,6 +1,6 @@
 class Sonar < Formula
   desc "Manage code quality"
-  homepage "http://www.sonarqube.org/"
+  homepage "https://www.sonarsource.com/products/sonarqube/"
   url "http://dist.sonar.codehaus.org/sonarqube-5.1.2.zip"
   sha256 "a8d63d837242d0d07c0b3f65cfa9c84d5ae82ee51c6cbb52248bcf0d1bc58491"
 

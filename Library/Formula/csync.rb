@@ -1,6 +1,6 @@
 class Csync < Formula
   desc "File synchronizer especially designed for normal users"
-  homepage "https://www.csync.org/"
+  homepage "https://csync.org/"
   url "https://open.cryptomilk.org/attachments/download/27/csync-0.50.0.tar.xz"
   sha256 "c07526942a93c1e213d354dc45fd61fbc0430c60e109e7a2f0fcaf6213a45c86"
 
