@@ -1,6 +1,6 @@
 class Bazaar < Formula
   desc "Human-friendly source code management (or 'version control')"
-  homepage "http://bazaar.canonical.com/"
+  homepage "https://web.archive.org/web/20230506175749/http://bazaar.canonical.com/en/"
   url "https://launchpad.net/bzr/2.6/2.6.0/+download/bzr-2.6.0.tar.gz"
   sha256 "0994797182eb828867eee81cccc79480bd2946c99304266bc427b902cf91dab0"
   revision 2
