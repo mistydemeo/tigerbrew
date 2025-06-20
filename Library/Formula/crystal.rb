@@ -1,6 +1,6 @@
 class Crystal < Formula
   desc "Code generator for every language, library and framework"
-  homepage "http://crystal.sh"
+  homepage "https://web.archive.org/web/20151022055041/http://crystal.sh/"
   url "https://github.com/crystal/crystal/archive/v0.5.1.tar.gz"
   sha256 "6c022ad59a10cec58856dba858a030b745333909108c08bd326c20ac0cb144fb"
 
