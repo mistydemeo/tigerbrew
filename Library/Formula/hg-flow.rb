@@ -1,6 +1,6 @@
 class HgFlow < Formula
   desc "Development model for mercurial inspired by git-flow"
-  homepage "https://bitbucket.org/yujiewu/hgflow"
+  homepage "https://web.archive.org/web/20200701232650/https://bitbucket.org/yujiewu/hgflow/wiki/Home"
   url "https://bitbucket.org/yujiewu/hgflow/downloads/hgflow-v0.9.8.tar.bz2"
   sha256 "0078d5a562f7a0e1eaf2b1018de10540c56756d91f5f1c3b1b40b753cbccab95"
 
