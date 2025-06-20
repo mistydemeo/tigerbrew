@@ -1,6 +1,6 @@
 class Gbdfed < Formula
   desc "Bitmap Font Editor"
-  homepage "http://sofia.nmsu.edu/~mleisher/Software/gbdfed/"
+  homepage "https://web.archive.org/web/20220819145019/http://sofia.nmsu.edu/~mleisher/Software/gbdfed/"
   url "http://sofia.nmsu.edu/~mleisher/Software/gbdfed/gbdfed-1.6.tar.gz"
   sha256 "8042575d23a55a3c38192e67fcb5eafd8f7aa8d723012c374acb2e0a36022943"
   revision 1
