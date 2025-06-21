@@ -1,6 +1,6 @@
 class Creduce < Formula
   desc "Reduce a C/C++ program while keeping a property of interest"
-  homepage "https://embed.cs.utah.edu/creduce/"
+  homepage "https://web.archive.org/web/20230527105454/https://embed.cs.utah.edu/creduce/"
   url "https://github.com/csmith-project/creduce/archive/creduce-2.3.0.tar.gz"
   sha256 "47a42751aab8b51bc10d8df62f359bdc1b4a644f16feb85b9f7325f0c5bce4a3"
   head "https://github.com/csmith-project/creduce.git"

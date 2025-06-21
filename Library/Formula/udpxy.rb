@@ -1,6 +1,6 @@
 class Udpxy < Formula
   desc "UDP-to-HTTP multicast traffic relay daemon"
-  homepage "http://www.udpxy.com/"
+  homepage "https://web.archive.org/web/20220316191744/https://www.udpxy.com/"
   url "http://www.udpxy.com/download/1_23/udpxy.1.0.23-9-prod.tar.gz"
   sha256 "6ce33b1d14a1aeab4bd2566aca112e41943df4d002a7678d9a715108e6b714bd"
   version "1.0.23-9"

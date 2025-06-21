@@ -1,6 +1,6 @@
 class Serialosc < Formula
   desc "Opensound control server for monome devices"
-  homepage "http://docs.monome.org/doku.php?id=app:serialosc"
+  homepage "https://web.archive.org/web/20121212220208/http://docs.monome.org/doku.php?id=app:serialosc"
   url "https://github.com/monome/serialosc/archive/1.2.tar.gz"
   sha256 "9b4852b8ea402f2675b39bec98ec976fdd718f3295713743e3e898349e0f1b77"
 

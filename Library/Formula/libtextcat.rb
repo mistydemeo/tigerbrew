@@ -1,6 +1,6 @@
 class Libtextcat < Formula
   desc "N-gram-based text categorization library"
-  homepage "http://software.wise-guys.nl/libtextcat/"
+  homepage "https://web.archive.org/web/20230819195621/http://software.wise-guys.nl/libtextcat/"
   url "http://software.wise-guys.nl/download/libtextcat-2.2.tar.gz"
   sha256 "5677badffc48a8d332e345ea4fe225e3577f53fc95deeec8306000b256829655"
 

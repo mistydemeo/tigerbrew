@@ -1,6 +1,6 @@
 class BpmTools < Formula
   desc "Detect tempo of audio files using beats-per-minute (BPM)"
-  homepage "http://www.pogo.org.uk/~mark/bpm-tools/"
+  homepage "https://www.pogo.org.uk/~mark/bpm-tools/"
   head "http://www.pogo.org.uk/~mark/bpm-tools.git"
   url "http://www.pogo.org.uk/~mark/bpm-tools/releases/bpm-tools-0.3.tar.gz"
   sha256 "37efe81ef594e9df17763e0a6fc29617769df12dfab6358f5e910d88f4723b94"

@@ -1,6 +1,6 @@
 class Mdxmini < Formula
   desc "Plays music in X68000 MDX chiptune format"
-  homepage "http://clogging.web.fc2.com/psp/"
+  homepage "https://web.archive.org/web/20111221150031/http://clogging.web.fc2.com/psp/"
   url "https://github.com/BouKiCHi/mdxplayer/archive/ae219b67a9d2a82f43ba35323c1d85d33959d319.tar.gz"
   version "20140608"
   sha256 "a3c4f1b60a3771826de9d3615a7485126818811a3b119ee1354e7b1cb84b66b3"

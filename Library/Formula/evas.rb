@@ -1,6 +1,6 @@
 class Evas < Formula
   desc "Display canvas API that implements a scene graph"
-  homepage "https://docs.enlightenment.org/auto/eet/evas_main.html"
+  homepage "https://www.enlightenment.org/_legacy_embed/evas_main.html"
   url "https://download.enlightenment.org/releases/evas-1.7.10.tar.gz"
   sha256 "9c6c8679608ab0f2aa78e83f2ac1f9133d5bb615dabd5491bbbd30fcec4fc82b"
 

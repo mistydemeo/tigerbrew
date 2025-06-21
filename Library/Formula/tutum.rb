@@ -1,6 +1,6 @@
 class Tutum < Formula
   desc "Docker platform for dev and ops"
-  homepage "https://www.tutum.co/"
+  homepage "https://web.archive.org/web/20160316213212/https://www.tutum.co/"
   url "https://pypi.python.org/packages/source/t/tutum/tutum-0.16.21.tar.gz"
   sha256 "0804d5b6bcbd3aef26b74033bfda9ad33deb23547b176b7ef0ee4272f425503d"
 

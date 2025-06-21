@@ -1,6 +1,6 @@
 class Pmdmini < Formula
   desc "Plays music in PC-88/98 PMD chiptune format"
-  homepage "https://github.com/BouKiCHi/mdxplayer"
+  homepage "https://github.com/mistydemeo/mdxplayer"
   url "https://github.com/BouKiCHi/mdxplayer/archive/aa55d9d3128f06aac4a15d5cefc083bd7b66d814.tar.gz"
   version "20120115"
   sha256 "df886dd2dd65f40860bba7d80db8273992f27fcd3f3aedf613c4da3a6336ff64"

@@ -1,6 +1,6 @@
 class Libvorbis < Formula
   desc "Vorbis General Audio Compression Codec"
-  homepage "http://vorbis.com"
+  homepage "https://xiph.org/vorbis/"
   url "https://downloads.xiph.org/releases/vorbis/libvorbis-1.3.7.tar.xz"
   mirror "https://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.7.tar.xz"
   sha256 "b33cc4934322bcbf6efcbacf49e3ca01aadbea4114ec9589d1b1e9d20f72954b"

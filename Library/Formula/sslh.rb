@@ -1,6 +1,6 @@
 class Sslh < Formula
   desc "Forward connections based on first data packet sent by client"
-  homepage "http://www.rutschle.net/tech/sslh.shtml"
+  homepage "https://www.rutschle.net/tech/sslh/README.html"
 
   stable do
     url "http://www.rutschle.net/tech/sslh-v1.17.tar.gz"

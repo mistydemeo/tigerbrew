@@ -1,6 +1,6 @@
 class Rcssserver < Formula
   desc "Server for RoboCup Soccer Simulator"
-  homepage "http://sserver.sourceforge.net/"
+  homepage "https://rcsoccersim.github.io/"
   url "https://downloads.sourceforge.net/sserver/rcssserver/15.2.2/rcssserver-15.2.2.tar.gz"
   sha256 "329b3008689dac16d1f39ad8f5c8341aef283ef3750d137dcf299d1fbc30355a"
   revision 1

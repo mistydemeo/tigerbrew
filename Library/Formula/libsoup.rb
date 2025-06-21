@@ -1,6 +1,6 @@
 class Libsoup < Formula
   desc "HTTP client/server library for GNOME"
-  homepage "https://live.gnome.org/LibSoup"
+  homepage "https://wiki.gnome.org/Projects/libsoup"
   url "https://download.gnome.org/sources/libsoup/2.52/libsoup-2.52.0.tar.xz"
   sha256 "6c6c366622a1a9d938e0cea9b557fa536f088784251d31381ccd1b115a466785"
 

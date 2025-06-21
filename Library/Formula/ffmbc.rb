@@ -1,6 +1,6 @@
 class Ffmbc < Formula
   desc "FFmpeg customized for broadcast and professional usage"
-  homepage "https://code.google.com/p/ffmbc/"
+  homepage "https://code.google.com/archive/p/ffmbc"
   url "https://drive.google.com/uc?export=download&id=0B0jxxycBojSwTEgtbjRZMXBJREU"
   version "0.7.2"
   sha256 "caaae2570c747077142db34ce33262af0b6d0a505ffbed5c4bdebce685d72e42"

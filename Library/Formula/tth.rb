@@ -1,6 +1,6 @@
 class Tth < Formula
   desc "TeX/LaTeX to HTML converter"
-  homepage "http://hutchinson.belmont.ma.us/tth/"
+  homepage "https://web.archive.org/web/20230225164741/http://hutchinson.belmont.ma.us/tth/"
   url "http://hutchinson.belmont.ma.us/tth/tth_distribution/tth_4.06.tgz"
   sha256 "8e750f7532d87d97d0df380c688214885925f5c2032dc0c9d555af7f816416d1"
   revision 1

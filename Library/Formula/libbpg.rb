@@ -1,6 +1,6 @@
 class Libbpg < Formula
   desc "Image format meant to improve on JPEG quality and file size"
-  homepage "http://bellard.org/bpg/"
+  homepage "https://bellard.org/bpg/"
   url "http://bellard.org/bpg/libbpg-0.9.5.tar.gz"
   sha256 "30de1d0099920e24b7c9aae4d4e6b62f446823f0a1d52eb195dfc25c662ee203"
   revision 1

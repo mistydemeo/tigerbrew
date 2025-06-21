@@ -1,6 +1,6 @@
 class Ctemplate < Formula
   desc "Template language for C++"
-  homepage "https://ctemplate.googlecode.com/"
+  homepage "https://github.com/olafvdspek/ctemplate"
   head "http://ctemplate.googlecode.com/svn/trunk/"
   url "http://ctemplate.googlecode.com/svn/tags/ctemplate-2.3/"
   version "2.3"

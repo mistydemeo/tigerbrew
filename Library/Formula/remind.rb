@@ -1,6 +1,6 @@
 class Remind < Formula
   desc "Sophisticated calendar and alarm"
-  homepage "https://www.roaringpenguin.com/products/remind"
+  homepage "https://dianne.skoll.ca/projects/remind/"
   url "https://www.roaringpenguin.com/files/download/remind-03.01.15.tar.gz"
   sha256 "8adab4c0b30a556c34223094c5c74779164d5f3b8be66b8039f44b577e678ec1"
 

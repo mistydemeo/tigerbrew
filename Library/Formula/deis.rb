@@ -2,7 +2,7 @@ require "language/go"
 
 class Deis < Formula
   desc "Deploy and manage applications on your own servers"
-  homepage "http://deis.io"
+  homepage "https://web.archive.org/web/20141207151343/http://deis.io/"
   url "https://github.com/deis/deis/archive/v1.10.0.tar.gz"
   sha256 "afdb0ae576a9c05af2e634a3ac83df9bae99cef17cfd2f1e2c8b7713107e769b"
 

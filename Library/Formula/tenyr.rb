@@ -1,6 +1,6 @@
 class Tenyr < Formula
   desc "32-bit computing environment"
-  homepage "http://tenyr.info/"
+  homepage "https://kulp.github.io/tenyr/
   url "https://github.com/kulp/tenyr/archive/v0.6.0.tar.gz"
   sha256 "fc9ed9f6f46c79470163ed5e9f2f820aab74c7bd972315862d3cca547988684c"
 

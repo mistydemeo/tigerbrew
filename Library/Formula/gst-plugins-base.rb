@@ -1,6 +1,6 @@
 class GstPluginsBase < Formula
   desc "GStreamer plugins (well-supported, basic set)"
-  homepage "http://gstreamer.freedesktop.org/"
+  homepage "https://gstreamer.freedesktop.org/"
   url "https://download.gnome.org/sources/gst-plugins-base/1.6/gst-plugins-base-1.6.0.tar.xz"
   sha256 "314fd1b707f65caf8eb6164d9422fc51e2b220a890ccd2de6ec03a2883d77231"
 

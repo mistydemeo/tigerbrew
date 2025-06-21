@@ -1,6 +1,6 @@
 class GnomeThemesStandard < Formula
   desc "Default themes for the GNOME desktop environment"
-  homepage "https://git.gnome.org/browse/gnome-themes-standard/"
+  homepage "https://gitlab.gnome.org/Archive/gnome-themes-extra"
   url "https://download.gnome.org/sources/gnome-themes-standard/3.16/gnome-themes-standard-3.16.2.tar.xz"
   sha256 "59eb79a59d44b5cd8daa8de1e7559fb5186503dcd78e47d0b72cb896d8654b9f"
 

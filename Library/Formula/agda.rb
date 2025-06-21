@@ -4,7 +4,7 @@ class Agda < Formula
   include Language::Haskell::Cabal
 
   desc "Dependently typed functional programming language"
-  homepage "http://wiki.portal.chalmers.se/agda/"
+  homepage "https://wiki.portal.chalmers.se/agda/"
   url "https://hackage.haskell.org/package/Agda-2.4.2.3/Agda-2.4.2.3.tar.gz"
   mirror "https://github.com/agda/agda/archive/2.4.2.3.tar.gz"
   sha256 "bc6def45e32498f51863d67acfbe048c039d630c6a36761ed27e99a5f68d7b27"

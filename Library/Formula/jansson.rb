@@ -1,6 +1,6 @@
 class Jansson < Formula
   desc "C library for encoding, decoding, and manipulating JSON"
-  homepage "http://www.digip.org/jansson/"
+  homepage "https://digip.org/jansson/"
   url "http://www.digip.org/jansson/releases/jansson-2.7.tar.gz"
   sha256 "7905e6590fb316c0ff943df3dc6a21cd81a59cff7a6d12514054c359d04d78d7"
 

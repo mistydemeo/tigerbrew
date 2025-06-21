@@ -1,6 +1,6 @@
 class Akka < Formula
   desc "Toolkit for building concurrent, distributed, and fault tolerant apps"
-  homepage "http://akka.io/"
+  homepage "https://akka.io/"
 
   stable do
     url "https://downloads.typesafe.com/akka/akka_2.11-2.3.11.zip"

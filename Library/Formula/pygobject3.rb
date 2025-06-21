@@ -1,6 +1,6 @@
 class Pygobject3 < Formula
   desc "GLib/GObject/GIO Python bindings for Python 3"
-  homepage "https://live.gnome.org/PyGObject"
+  homepage "https://pygobject.gnome.org/"
   url "https://download.gnome.org/sources/pygobject/3.16/pygobject-3.16.2.tar.xz"
   sha256 "de620e00fe7ecb788aa2dc0d664e41f71b8e718e728168e8d982cf193a9e7e64"
 

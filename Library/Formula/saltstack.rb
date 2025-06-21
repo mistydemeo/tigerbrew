@@ -1,6 +1,6 @@
 class Saltstack < Formula
   desc "Dynamic infrastructure communication bus"
-  homepage "http://www.saltstack.org"
+  homepage "https://docs.saltproject.io/salt/install-guide/en/latest/"
   # please use sdists published as release downloads
   # (URLs starting with https://github.com/saltstack/salt/releases/download)
   # github tag archives will report wrong version number

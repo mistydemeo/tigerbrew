@@ -1,6 +1,6 @@
 class Rinetd < Formula
   desc "Internet TCP redirection server"
-  homepage "http://www.boutell.com/rinetd/"
+  homepage "https://web.archive.org/web/20190927072248/https://boutell.com/rinetd/"
   url "http://www.boutell.com/rinetd/http/rinetd.tar.gz"
   version "0.62"
   sha256 "0c68d27c5bd4b16ce4f58a6db514dd6ff37b2604a88b02c1dfcdc00fc1059898"

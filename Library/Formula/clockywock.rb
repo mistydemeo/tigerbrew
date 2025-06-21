@@ -1,6 +1,6 @@
 class Clockywock < Formula
   desc "Ncurses analog clock"
-  homepage "http://soomka.com/"
+  homepage "https://web.archive.org/web/20210619081758/http://soomka.com/"
   url "http://soomka.com/clockywock-0.3.1a.tar.gz"
   sha256 "278c01e0adf650b21878e593b84b3594b21b296d601ee0f73330126715a4cce4"
 

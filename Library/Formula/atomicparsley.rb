@@ -1,6 +1,6 @@
 class Atomicparsley < Formula
   desc "MPEG-4 command-line tool"
-  homepage "https://bitbucket.org/wez/atomicparsley/overview/"
+  homepage "https://web.archive.org/web/20190301211932/https://bitbucket.org/wez/atomicparsley/overview/"
   url "https://bitbucket.org/dinkypumpkin/atomicparsley/downloads/atomicparsley-0.9.6.tar.bz2"
   sha256 "49187a5215520be4f732977657b88b2cf9203998299f238067ce38f948941562"
 

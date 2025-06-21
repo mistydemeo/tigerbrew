@@ -1,6 +1,6 @@
 class Esound < Formula
   desc "Enlightened sound daemon"
-  homepage "http://www.tux.org/~ricdude/EsounD.html"
+  homepage "https://web.archive.org/web/20160411164635/http://www.tux.org/~ricdude/EsounD.html"
   url "https://download.gnome.org/sources/esound/0.2/esound-0.2.41.tar.bz2"
   sha256 "5eb5dd29a64b3462a29a5b20652aba7aa926742cef43577bf0796b787ca34911"
 

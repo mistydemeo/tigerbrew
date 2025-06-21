@@ -9,7 +9,7 @@ end
 
 class Distcc < Formula
   desc "Distributed compiler client and server"
-  homepage "https://code.google.com/p/distcc/"
+  homepage "https://www.distcc.org/"
   url "https://distcc.googlecode.com/files/distcc-3.2rc1.tar.gz"
   sha256 "8cf474b9e20f5f3608888c6bff1b5f804a9dfc69ae9704e3d5bdc92f0487760a"
 

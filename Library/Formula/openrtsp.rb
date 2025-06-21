@@ -1,6 +1,6 @@
 class Openrtsp < Formula
   desc "Command-line RTSP client"
-  homepage "http://www.live555.com/openRTSP"
+  homepage "http://www.live555.com/openRTSP/"
   url "http://www.live555.com/liveMedia/public/live.2015.08.07.tar.gz"
   sha256 "1a27410aea9723e9e0c60850c57b52a08eed32a4ecfa88942026d2b9c0ac3fdc"
 

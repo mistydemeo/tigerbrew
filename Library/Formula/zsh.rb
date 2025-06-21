@@ -1,6 +1,6 @@
 class Zsh < Formula
   desc "UNIX shell (command interpreter)"
-  homepage "http://www.zsh.org/"
+  homepage "https://www.zsh.org/"
   url "https://downloads.sourceforge.net/project/zsh/zsh/5.9/zsh-5.9.tar.xz"
   mirror "http://www.zsh.org/pub/zsh-5.9.tar.xz"
   sha256 "9b8d1ecedd5b5e81fbf1918e876752a7dd948e05c1a0dba10ab863842d45acd5"

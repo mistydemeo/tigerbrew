@@ -1,6 +1,6 @@
 class Netperf < Formula
   desc "Benchmarks performance of many different types of networking"
-  homepage "http://netperf.org"
+  homepage "https://web.archive.org/web/20080516015741/http://www.netperf.org/"
   url "ftp://ftp.netperf.org/netperf/netperf-2.7.0.tar.bz2"
   sha256 "842af17655835c8be7203808c3393e6cb327a8067f3ed1f1053eb78b4e40375a"
 

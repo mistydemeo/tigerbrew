@@ -1,6 +1,6 @@
 class Ats2Postiats < Formula
   desc "ATS programming language implementation"
-  homepage "http://www.ats-lang.org/"
+  homepage "https://www.cs.bu.edu/~hwxi/atslangweb/"
   url "https://downloads.sourceforge.net/project/ats2-lang/ats2-lang/ats2-postiats-0.2.3/ATS2-Postiats-0.2.3.tgz"
   sha256 "a2a50305ddfc8c88d475e0378a9f476887d11c0a64f381b849f2b9f1746258cd"
 

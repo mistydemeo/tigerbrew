@@ -1,6 +1,6 @@
 class Makeicns < Formula
   desc "Create icns files from the command-line"
-  homepage "https://bitbucket.org/mkae/makeicns"
+  homepage "http://amnoid.de/icns/makeicns.html"
   url "https://bitbucket.org/mkae/makeicns/downloads/makeicns-1.4.10a.tar.bz2"
   sha256 "10e44b8d84cb33ed8d92b9c2cfa42f46514586d2ec11ae9832683b69996ddeb8"
   bottle do

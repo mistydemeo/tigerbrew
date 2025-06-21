@@ -1,6 +1,6 @@
 class Norm < Formula
   desc "NACK-Oriented Reliable Multicast"
-  homepage "https://www.nrl.navy.mil/itd/ncs/products/norm"
+  homepage "https://www.nrl.navy.mil/Our-Work/Areas-of-Research/Information-Technology/NCS/NORM/"
   url "https://downloads.pf.itd.nrl.navy.mil/norm/archive/src-norm-1.5r6.tgz"
   mirror "https://web.archive.org/web/20161223160402/https://downloads.pf.itd.nrl.navy.mil/norm/archive/src-norm-1.5r6.tgz"
   version "1.5r6"

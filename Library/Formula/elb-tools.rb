@@ -1,6 +1,6 @@
 class ElbTools < Formula
   desc "Client interface to the Amazon Elastic Load Balancing web service"
-  homepage "https://aws.amazon.com/developertools/2536"
+  homepage "https://aws.amazon.com/developer/tools/"
   url "https://ec2-downloads.s3.amazonaws.com/ElasticLoadBalancing.zip"
   version "1.0.35.0"
   sha256 "31d9aa0ca579c270f8e3579f967b6048bc070802b7b41a30a9fa090fbffba62b"

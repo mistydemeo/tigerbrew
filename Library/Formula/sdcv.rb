@@ -1,6 +1,6 @@
 class Sdcv < Formula
   desc "StarDict Console Version"
-  homepage "http://sdcv.sourceforge.net/"
+  homepage "https://sdcv.sourceforge.net/"
   url "http://svn.code.sf.net/p/sdcv/code/trunk", :revision => "76"
   version "0.5-2013-09-10"
   revision 1

@@ -1,6 +1,6 @@
 class Daemon < Formula
   desc "Turn other processes into daemons"
-  homepage "http://libslack.org/daemon/"
+  homepage "https://libslack.org/daemon/"
   url "http://libslack.org/daemon/download/daemon-0.6.4.tar.gz"
   sha256 "c4b9ea4aa74d55ea618c34f1e02c080ddf368549037cb239ee60c83191035ca1"
 

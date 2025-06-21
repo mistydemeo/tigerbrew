@@ -1,6 +1,6 @@
 class Libmpc08 < Formula
   desc "C library for high precision complex numbers"
-  homepage "http://multiprecision.org"
+  homepage "https://web.archive.org/web/20250617204647/http://www.multiprecision.org/"
   url "https://www.multiprecision.org/downloads/mpc-0.8.2.tar.gz"
   mirror "https://ftp2.osuosl.org/pub/clfs/conglomeration/mpc/mpc-0.8.2.tar.gz"
   sha256 "ae79f8d41d8a86456b68607e9ca398d00f8b7342d1d83bcf4428178ac45380c7"

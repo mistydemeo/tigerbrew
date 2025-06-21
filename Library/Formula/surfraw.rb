@@ -1,6 +1,6 @@
 class Surfraw < Formula
   desc "Shell Users' Revolutionary Front Rage Against the Web"
-  homepage "https://surfraw.alioth.debian.org/"
+  homepage "https://web.archive.org/web/20180517055745/https://surfraw.alioth.debian.org/"
   url "https://surfraw.alioth.debian.org/dist/surfraw-2.2.9.tar.gz"
   sha256 "aa97d9ac24ca4299be39fcde562b98ed556b3bf5ee9a1ae497e0ce040bbcc4bb"
 

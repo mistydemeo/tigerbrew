@@ -1,6 +1,6 @@
 class Redland < Formula
   desc "RDF Library"
-  homepage "http://librdf.org/"
+  homepage "https://librdf.org/"
   url "http://download.librdf.org/source/redland-1.0.17.tar.gz"
   sha256 "de1847f7b59021c16bdc72abb4d8e2d9187cd6124d69156f3326dd34ee043681"
 
