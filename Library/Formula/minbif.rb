@@ -1,6 +1,6 @@
 class Minbif < Formula
   desc "IRC-to-other-IM-networks gateway using Pidgin library"
-  homepage "http://minbif.im/"
+  homepage "https://web.archive.org/web/20120330164430/http://minbif.im/"
   url "http://ftp.de.debian.org/debian/pool/main/m/minbif/minbif_1.0.5+git20120508.orig.tar.gz"
   version "1.0.5"
   sha256 "307bd98e367c1202cfa119ee8f33ff5b5a2a05d2544709f850a2d26b7919d697"
