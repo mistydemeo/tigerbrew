@@ -1,6 +1,6 @@
 class Libmpc < Formula
   desc "C library for the arithmetic of high precision complex numbers"
-  homepage "http://multiprecision.org"
+  homepage "https://web.archive.org/web/20250617204647/http://www.multiprecision.org/"
   url "https://ftpmirror.gnu.org/mpc/mpc-1.3.1.tar.gz"
   mirror "https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz"
   mirror "https://www.multiprecision.org/downloads/mpc-1.3.1.tar.gz"
