@@ -1,6 +1,6 @@
 class Jshon < Formula
   desc "Parse, read, and create JSON from the shell"
-  homepage "http://kmkeen.com/jshon/"
+  homepage "https://web.archive.org/web/20240206155217/http://kmkeen.com/jshon/"
   url "http://kmkeen.com/jshon/jshon.tar.gz"
   version "8"
   sha256 "bb8ffdbda89a24f15d23af06d23fc4a9a4319503eb631cc64a5eb4c25afd45fb"

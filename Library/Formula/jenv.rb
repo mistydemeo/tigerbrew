@@ -1,6 +1,6 @@
 class Jenv < Formula
   desc "Manage your Java environment"
-  homepage "http://www.jenv.be"
+  homepage "https://web.archive.org/web/20250101090426/https://www.jenv.be/"
   url "https://github.com/gcuisinier/jenv/archive/0.4.3.tar.gz"
   sha256 "aa8e5f9da2e89f3c28550bdcc49746b29b14a82ee0b06025dda4a859aa26b69b"
   head "https://github.com/gcuisinier/jenv.git"
