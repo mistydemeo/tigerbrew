@@ -1,6 +1,6 @@
 class Sysdig < Formula
   desc "System-level exploration and troubleshooting tool"
-  homepage "http://www.sysdig.org/"
+  homepage "https://sysdig.com/"
   url "https://github.com/draios/sysdig/archive/0.1.102.tar.gz"
   sha256 "e0bac2262f075ec75cc2c01a002b6d47bb5ee5c80b47925b44152db639093f57"
 
