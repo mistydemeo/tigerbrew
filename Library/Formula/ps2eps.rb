@@ -1,6 +1,6 @@
 class Ps2eps < Formula
   desc "Convert PostScript to EPS files"
-  homepage "https://www.tm.uka.de/~bless/ps2eps"
+  homepage "https://web.archive.org/web/20220626145655/https://www.tm.uka.de/~bless/ps2eps"
   url "https://www.tm.uka.de/~bless/ps2eps-1.68.tar.gz"
   sha256 "b08f12eed88965d1891261fb70e87c7e3a3f3172ebc31bdb7994a7ce854dd925"
 

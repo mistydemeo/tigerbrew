@@ -1,6 +1,6 @@
 class Png2ico < Formula
   desc "PNG to icon converter"
-  homepage "http://www.winterdrache.de/freeware/png2ico/"
+  homepage "https://web.archive.org/web/20250404143911/http://www.winterdrache.de/freeware/png2ico/"
   url "http://www.winterdrache.de/freeware/png2ico/data/png2ico-src-2002-12-08.tar.gz"
   sha256 "d6bc2b8f9dacfb8010e5f5654aaba56476df18d88e344ea1a32523bb5843b68e"
   bottle do

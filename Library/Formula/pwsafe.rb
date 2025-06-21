@@ -1,6 +1,6 @@
 class Pwsafe < Formula
   desc "Generate passwords and manage encrypted password databases"
-  homepage "http://nsd.dyndns.org/pwsafe/"
+  homepage "https://web.archive.org/web/20190116040527/http://nsd.dyndns.org/pwsafe/"
   url "http://nsd.dyndns.org/pwsafe/releases/pwsafe-0.2.0.tar.gz"
   sha256 "61e91dc5114fe014a49afabd574eda5ff49b36c81a6d492c03fcb10ba6af47b7"
   revision 2
