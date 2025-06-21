@@ -1,6 +1,6 @@
 class Vmalloc < Formula
   desc "Standalone aso+cdt+vmalloc library"
-  homepage "http://www2.research.att.com/sw/download/"
+  homepage "https://web.archive.org/web/20150910171014/http://www2.research.att.com/~astopen/download/ref/vmalloc/vmalloc.html"
   url "http://www2.research.att.com/~astopen/download/tgz/vmalloc.2013-05-31.tgz",
     :user => "I accept www.opensource.org/licenses/eclipse:."
   sha256 "0847d6695f502024a8f3c07a417fa370397e86a954fffec7afe32634f1c130e2"

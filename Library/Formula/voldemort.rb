@@ -1,6 +1,6 @@
 class Voldemort < Formula
   desc "Distributed key-value storage system"
-  homepage "http://www.project-voldemort.com/"
+  homepage "https://github.com/voldemort/voldemort/"
   url "https://github.com/voldemort/voldemort/archive/release-1.9.5-cutoff.tar.gz"
   sha256 "d521943873665d863a207c93557dc322c091e22a4293df4e3b86eb298ebbda7c"
 
