@@ -1,6 +1,6 @@
 class Kestrel < Formula
   desc "Distributed message queue"
-  homepage "https://twitter.github.io/kestrel/"
+  homepage "https://web.archive.org/web/20160627135039/https://twitter.github.io/kestrel/"
   url "https://twitter.github.io/kestrel/download/kestrel-2.4.1.zip"
   sha256 "5d72a301737cc6cc3908483ce73d4bdb6e96521f3f8c96f93b732d740aaea80c"
 
