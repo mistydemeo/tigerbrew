@@ -1,6 +1,6 @@
 class Zpaq < Formula
   desc "Incremental, journaling command-line archiver"
-  homepage "http://mattmahoney.net/dc/zpaq.html"
+  homepage "https://mattmahoney.net/dc/zpaq.html"
   url "http://mattmahoney.net/dc/zpaq705.zip"
   sha256 "d8abe3e3620d4c6f3ddc1da149acffa4c24296fd9c74c9d7b62319e308b63334"
   version "7.05"
