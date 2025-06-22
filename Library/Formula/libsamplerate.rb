@@ -1,6 +1,6 @@
 class Libsamplerate < Formula
   desc "Library for sample rate conversion of audio data"
-  homepage "http://www.mega-nerd.com/SRC"
+  homepage "http://www.mega-nerd.com/SRC/"
   url "http://www.mega-nerd.com/SRC/libsamplerate-0.1.8.tar.gz"
   sha256 "93b54bdf46d5e6d2354b7034395fe329c222a966790de34520702bb9642f1c06"
 

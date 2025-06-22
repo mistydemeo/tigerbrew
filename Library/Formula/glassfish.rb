@@ -2,7 +2,7 @@ require "formula"
 
 class Glassfish < Formula
   desc "Java EE application server"
-  homepage "https://glassfish.java.net"
+  homepage "https://glassfish.org/"
   url "http://download.java.net/glassfish/4.1/release/glassfish-4.1.zip"
   sha256 "3edc5fc72b8be241a53eae83c22f274479d70e15bdfba7ba2302da5260f23e9d"
 

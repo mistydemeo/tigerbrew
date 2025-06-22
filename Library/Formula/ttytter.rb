@@ -1,6 +1,6 @@
 class Ttytter < Formula
   desc "Twitter command-line client"
-  homepage "http://www.floodgap.com/software/ttytter/"
+  homepage "https://www.floodgap.com/software/ttytter/"
   url "http://www.floodgap.com/software/ttytter/dist2/2.1.00.txt"
   sha256 "86c6e7767c65e3179d4ed6368e27df5c4b200285207c3df3164c5a84a73517b1"
 

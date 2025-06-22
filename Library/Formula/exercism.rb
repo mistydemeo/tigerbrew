@@ -2,7 +2,7 @@ require "language/go"
 
 class Exercism < Formula
   desc "command-line tool to interact with exercism.io"
-  homepage "http://cli.exercism.io"
+  homepage "https://web.archive.org/web/20180712133122/http://cli.exercism.io/"
   url "https://github.com/exercism/cli/archive/v2.2.1.tar.gz"
   sha256 "a4d71b98fc3e28f96868bcef140b3888a6fb85f942c4cbe168abaea253177aab"
   head "https://github.com/exercism.git"

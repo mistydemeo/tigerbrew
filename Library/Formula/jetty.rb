@@ -1,6 +1,6 @@
 class Jetty < Formula
   desc "Java servlet engine and webserver"
-  homepage "https://www.eclipse.org/jetty/"
+  homepage "https://jetty.org/"
   url "http://download.eclipse.org/jetty/9.3.3.v20150827/dist/jetty-distribution-9.3.3.v20150827.tar.gz"
   version "9.3.3.v20150827"
   sha256 "decd6788232646f9a2980c15aa076ecbd919e61867913d056ddb3251ac31415c"

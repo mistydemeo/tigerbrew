@@ -1,6 +1,6 @@
 class Pigz < Formula
   desc "Parallel gzip"
-  homepage "http://www.zlib.net/pigz/"
+  homepage "https://www.zlib.net/pigz/"
   url "http://www.zlib.net/pigz/pigz-2.3.3.tar.gz"
   sha256 "4e8b67b432ce7907575a549f3e1cac4709781ba0f6b48afea9f59369846b509c"
 

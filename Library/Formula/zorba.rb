@@ -1,6 +1,6 @@
 class Zorba < Formula
   desc "NoSQL query processor"
-  homepage "http://www.zorba.io/"
+  homepage "https://web.archive.org/web/20250214081557/http://www.zorba.io/home"
   url "https://github.com/28msec/zorba/archive/3.0.tar.gz"
   sha256 "75661fed35fb143498ba6539314a21e0e2b0cc18c4eaa5782d488430ac4dd9c8"
   revision 1

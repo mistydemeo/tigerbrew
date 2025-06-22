@@ -1,6 +1,6 @@
 class Xmlto < Formula
   desc "Convert XML to another format (based on XSL or other tools)"
-  homepage "https://fedorahosted.org/xmlto/"
+  homepage "https://pagure.io/xmlto/"
   url "https://releases.pagure.org/xmlto/xmlto-0.0.26.tar.bz2"
   sha256 "efb49b2fb3bc27c1a1e24fe34abf19b6bf6cbb40844e6fd58034cdf21c54b5ec"
 

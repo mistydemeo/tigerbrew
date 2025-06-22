@@ -1,6 +1,6 @@
 class Libslax < Formula
   desc "Implementation of the SLAX language (an XSLT alternative)"
-  homepage "http://www.libslax.org/"
+  homepage "https://github.com/Juniper/libslax/wiki"
   url "https://github.com/Juniper/libslax/releases/download/0.19.0/libslax-0.19.0.tar.gz"
   sha256 "a80e88709459791a3193ee665d7272109c61aa3e717c68bc95a29e6718ae2191"
 

@@ -1,6 +1,6 @@
 class GtkMurrineEngine < Formula
   desc "Murrine GTK+ engine"
-  homepage "https://github.com/GNOME/murrine"
+  homepage "https://web.archive.org/web/20081222140632/http://www.cimitan.com/murrine/"
   url "https://download.gnome.org/sources/murrine/0.98/murrine-0.98.2.tar.xz"
   sha256 "e9c68ae001b9130d0f9d1b311e8121a94e5c134b82553ba03971088e57d12c89"
   revision 1

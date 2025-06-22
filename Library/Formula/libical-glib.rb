@@ -1,6 +1,6 @@
 class LibicalGlib < Formula
   desc "Wrapper of libical with support of GObject Introspection"
-  homepage "https://wiki.gnome.org/Projects/libical-glib"
+  homepage "https://wiki.gnome.org/Projects(2f)libical(2d)glib.html"
   url "https://download.gnome.org/sources/libical-glib/1.0/libical-glib-1.0.3.tar.xz"
   sha256 "75373fb778352656c6368ffa7b371afa2fd2e2579874b0ec653a443da7a72d36"
 

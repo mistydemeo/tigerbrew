@@ -1,6 +1,6 @@
 class Rhash < Formula
   desc "Utility for computing and verifying hash sums of files"
-  homepage "http://rhash.anz.ru/"
+  homepage "https://rhash.sourceforge.io/"
   url "https://downloads.sourceforge.net/project/rhash/rhash/1.4.5/rhash-1.4.5-src.tar.gz"
   mirror "https://github.com/rhash/RHash/archive/refs/tags/v1.4.5.tar.gz"
   sha256 "6db837e7bbaa7c72c5fd43ca5af04b1d370c5ce32367b9f6a1f7b49b2338c09a"

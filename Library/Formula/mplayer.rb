@@ -1,6 +1,6 @@
 class Mplayer < Formula
   desc "UNIX movie player"
-  homepage "https://www.mplayerhq.hu/"
+  homepage "https://mplayerhq.hu/design7/news.html"
   revision 1
 
   stable do

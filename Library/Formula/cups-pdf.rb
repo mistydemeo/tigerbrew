@@ -1,6 +1,6 @@
 class CupsPdf < Formula
   desc "Print-to-PDF feature through CUPS"
-  homepage "http://www.cups-pdf.de/"
+  homepage "https://www.cups-pdf.de/"
   url "http://www.cups-pdf.de/src/cups-pdf_2.6.1.tar.gz"
   sha256 "04e17eb563dceea048e1a435edcbcf52faa5288f85e8390cd64d702edb6745f1"
 

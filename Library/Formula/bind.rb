@@ -1,6 +1,6 @@
 class Bind < Formula
   desc "Implementation of the DNS protocols"
-  homepage "https://www.isc.org/downloads/bind/"
+  homepage "https://www.isc.org/bind/"
   url "https://ftp.isc.org/isc/bind9/9.10.3/bind-9.10.3.tar.gz"
   mirror "https://fossies.org/linux/misc/dns/bind9/9.10.3/bind-9.10.3.tar.gz"
   sha256 "9ac33bd8754ab4b6ee449b1b2aa88e09f51cda088486f4ab1585acd920b98ff0"

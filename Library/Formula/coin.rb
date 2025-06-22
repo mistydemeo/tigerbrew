@@ -1,6 +1,6 @@
 class Coin < Formula
   desc "Retained-mode toolkit for 3D graphics development"
-  homepage "https://bitbucket.org/Coin3D/coin/wiki/Home"
+  homepage "https://github.com/coin3d/coin"
   url "https://bitbucket.org/Coin3D/coin/downloads/Coin-3.1.3.tar.gz"
   sha256 "583478c581317862aa03a19f14c527c3888478a06284b9a46a0155fa5886d417"
 

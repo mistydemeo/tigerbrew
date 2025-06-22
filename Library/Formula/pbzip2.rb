@@ -1,6 +1,6 @@
 class Pbzip2 < Formula
   desc "Parallel bzip2"
-  homepage "http://compression.ca/pbzip2/"
+  homepage "https://compression.great-site.net/pbzip2/"
   url "https://launchpad.net/pbzip2/1.1/1.1.12/+download/pbzip2-1.1.12.tar.gz"
   sha256 "573bb358a5a7d3bf5f42f881af324cedf960c786e8d66dd03d448ddd8a0166ee"
 

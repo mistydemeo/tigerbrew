@@ -1,6 +1,6 @@
 class Sickbeard < Formula
   desc "PVR application to search and manage TV shows"
-  homepage "http://www.sickbeard.com/"
+  homepage "https://code.google.com/archive/p/sickbeard/"
   head "https://github.com/midgetspy/Sick-Beard.git"
   url "https://github.com/midgetspy/Sick-Beard/archive/build-507.tar.gz"
   sha256 "eaf95ac78e065f6dd8128098158b38674479b721d95d937fe7adb892932e9101"

@@ -1,6 +1,6 @@
 class Ccze < Formula
   desc "Robust and modular log colorizer"
-  homepage "https://packages.debian.org/wheezy/ccze"
+  homepage "https://packages.debian.org/sid/ccze"
   url "http://ftp.de.debian.org/debian/pool/main/c/ccze/ccze_0.2.1.orig.tar.gz"
   sha256 "8263a11183fd356a033b6572958d5a6bb56bfd2dba801ed0bff276cfae528aa3"
 

@@ -1,6 +1,6 @@
 class Getmail < Formula
   desc "Extensible mail retrieval system with POP3, IMAP4, SSL support"
-  homepage "http://pyropus.ca/software/getmail/"
+  homepage "https://pyropus.ca./software/getmail/"
   url "http://pyropus.ca/software/getmail/old-versions/getmail-4.48.0.tar.gz"
   mirror "https://mirrors.kernel.org/debian/pool/main/g/getmail4/getmail4_4.48.0.orig.tar.gz"
   sha256 "49441e92eed577127331caf9b97f2ddaea14e97e8a49259efd9184a766a9b94c"

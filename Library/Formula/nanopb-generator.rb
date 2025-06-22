@@ -1,6 +1,6 @@
 class NanopbGenerator < Formula
   desc "ANSI C library for encoding and decoding Protocol Buffer messages"
-  homepage "https://koti.kapsi.fi/jpa/nanopb/docs/index.html"
+  homepage "https://jpa.kapsi.fi/nanopb/docs/index.html"
   url "https://koti.kapsi.fi/~jpa/nanopb/download/nanopb-0.3.4.tar.gz"
   sha256 "300e3025ed64cc8e557341c92cd613ef56567f87bb63d75b3718b5899c00f69c"
 

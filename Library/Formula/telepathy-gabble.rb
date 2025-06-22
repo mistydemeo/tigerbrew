@@ -1,6 +1,6 @@
 class TelepathyGabble < Formula
   desc "Telepathy Jabber/XMPP connection manager"
-  homepage "http://telepathy.freedesktop.org/wiki/Components/"
+  homepage "https://telepathy.freedesktop.org/wiki/Components/"
   url "http://telepathy.freedesktop.org/releases/telepathy-gabble/telepathy-gabble-0.18.3.tar.gz"
   sha256 "8ec714607e9bcb8d5a3f44adf871e7b07d5db8e326e47536e74e09cba59989c2"
   revision 1

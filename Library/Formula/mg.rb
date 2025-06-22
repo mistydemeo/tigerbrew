@@ -1,6 +1,6 @@
 class Mg < Formula
   desc "Small Emacs-like editor"
-  homepage "http://homepage.boetes.org/software/mg/"
+  homepage "https://github.com/hboetes/mg"
   url "http://homepage.boetes.org/software/mg/mg-20131118.tar.gz"
   sha256 "b99fe10cb8473e035ff43bf3fbf94a24035e4ebb89484d48e5b33075d22d79f3"
 

@@ -1,6 +1,6 @@
 class Rock < Formula
   desc "ooc compiler written in ooc"
-  homepage "https://ooc-lang.org/"
+  homepage "https://web.archive.org/web/20240425051316/https://ooc-lang.org/"
   url "https://github.com/fasterthanlime/rock/archive/v0.9.10.tar.gz"
   sha256 "39ac190ee457b2ea3c650973899bcf8930daab5b9e7e069eb1bc437a08e8b6e8"
 

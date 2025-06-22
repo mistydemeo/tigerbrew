@@ -1,7 +1,7 @@
 # GnuTLS has previous, current, and next stable branches, we use current.
 class Gnutls < Formula
   desc "GNU Transport Layer Security (TLS) Library"
-  homepage "http://gnutls.org"
+  homepage "https://gnutls.org"
   url "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.7/gnutls-3.7.10.tar.xz"
   mirror "http://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnutls/v3.7/gnutls-3.7.10.tar.xz"
   sha256 "b6e4e8bac3a950a3a1b7bdb0904979d4ab420a81e74de8636dd50b467d36f5a9"

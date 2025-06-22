@@ -1,6 +1,6 @@
 class Nu < Formula
   desc "Object-oriented, Lisp-like programming language"
-  homepage "http://programming.nu"
+  homepage "https://programming-nu.github.io/"
   url "https://github.com/timburks/nu/archive/v2.1.1.tar.gz"
   sha256 "5bdf8234855ecdec54b716c806a332c78812c73c8e7f626520dd273382d3de17"
 

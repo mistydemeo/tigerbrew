@@ -1,6 +1,6 @@
 class Gmtl < Formula
   desc "Lightweight math library"
-  homepage "http://ggt.sourceforge.net/"
+  homepage "https://ggt.sourceforge.net/"
 
   stable do
     url "https://downloads.sourceforge.net/project/ggt/Generic%20Math%20Template%20Library/0.6.1/gmtl-0.6.1.tar.gz"

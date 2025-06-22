@@ -1,6 +1,6 @@
 class ObjcCodegenutils < Formula
   desc "Three small tools to help work with XCode"
-  homepage "https://github.com/square/objc-codegenutils"
+  homepage "https://github.com/puls/objc-codegenutils"
   url "https://github.com/square/objc-codegenutils/archive/v1.0.tar.gz"
   sha256 "98b8819e77e18029f1bda56622d42c162e52ef98f3ba4c6c8fcf5d40c256e845"
 

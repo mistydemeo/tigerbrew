@@ -1,6 +1,6 @@
 class Libpointing < Formula
   desc "Provides direct access to HID pointing devices"
-  homepage "http://libpointing.org"
+  homepage "https://libpointing.org/"
   url "http://libpointing.org/homebrew/libpointing-0.92.tar.gz"
   sha256 "df7b36d3af35c24fb82564e8109c72c8bda59e9e909bf8372118e28cf0ac5114"
 

@@ -1,6 +1,6 @@
 class Nvi < Formula
   desc "44BSD re-implementation of vi"
-  homepage "https://sites.google.com/a/bostic.com/keithbostic/vi/"
+  homepage "https://web.archive.org/web/20230324091142/https://sites.google.com/a/bostic.com/keithbostic/vi/"
   url "http://ftp.de.debian.org/debian/pool/main/n/nvi/nvi_1.81.6.orig.tar.gz"
   sha256 "8bc348889159a34cf268f80720b26f459dbd723b5616107d36739d007e4c978d"
 

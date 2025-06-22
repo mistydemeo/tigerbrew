@@ -1,6 +1,6 @@
 class Giflossy < Formula
   desc "Lossy LZW compression, reduces GIF file sizes by 30-50%"
-  homepage "https://pornel.net/lossygif"
+  homepage "https://kornel.ski/lossygif"
   url "https://github.com/pornel/giflossy/archive/lossy/1.82.1.tar.gz"
   sha256 "a0d048f0c2274c81532a988d2f3ea16c3f1cbb6878f13deeb425d34826e4ed23"
   head "https://github.com/pornel/giflossy.git"

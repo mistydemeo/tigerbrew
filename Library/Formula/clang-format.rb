@@ -1,6 +1,6 @@
 class ClangFormat < Formula
   desc "C, C++, Obj-C, Java, JavaScript, TypeScript formatting tools and editor plugins"
-  homepage "http://clang.llvm.org/docs/ClangFormat.html"
+  homepage "https://clang.llvm.org/docs/ClangFormat.html"
   version "2015-07-31"
 
   bottle do

@@ -1,6 +1,6 @@
 class Qrencode < Formula
   desc "QR Code generation"
-  homepage "https://fukuchi.org/works/qrencode/index.html.en"
+  homepage "https://fukuchi.org/en/works/qrencode/index.html"
   url "https://fukuchi.org/works/qrencode/qrencode-3.4.4.tar.gz"
   sha256 "e794e26a96019013c0e3665cb06b18992668f352c5553d0a553f5d144f7f2a72"
 

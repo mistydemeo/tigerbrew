@@ -1,6 +1,6 @@
 class Vcprompt < Formula
   desc "Provide version control info in shell prompts"
-  homepage "https://bitbucket.org/gward/vcprompt"
+  homepage "https://web.archive.org/web/20160825183648/https://bitbucket.org/gward/vcprompt"
   url "https://bitbucket.org/gward/vcprompt/downloads/vcprompt-1.2.1.tar.gz"
   sha256 "98c2dca278a34c5cdbdf4a5ff01747084141fbf4c50ba88710c5a13c3cf9af09"
 

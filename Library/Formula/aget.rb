@@ -1,6 +1,6 @@
 class Aget < Formula
   desc "Multithreaded HTTP download accelerator"
-  homepage "http://www.enderunix.org/aget/"
+  homepage "https://github.com/EnderUNIX/Aget"
   url "http://www.enderunix.org/aget/aget-0.4.1.tar.gz"
   sha256 "d17393c7f44aab38028ae71f14b572ba1839b6e085fb2092b6ebe68bc931df4d"
   head "https://github.com/EnderUNIX/Aget.git"

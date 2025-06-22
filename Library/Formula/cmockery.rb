@@ -1,6 +1,6 @@
 class Cmockery < Formula
   desc "Unit testing and mocking library for C"
-  homepage "https://code.google.com/p/cmockery/"
+  homepage "https://github.com/google/cmockery"
   url "https://cmockery.googlecode.com/files/cmockery-0.1.2.tar.gz"
   sha256 "b9e04bfbeb45ceee9b6107aa5db671c53683a992082ed2828295e83dc84a8486"
 

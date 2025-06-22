@@ -1,6 +1,6 @@
 class CppNetlib < Formula
   desc "C++ libraries for high level network programming"
-  homepage "http://cpp-netlib.org"
+  homepage "https://cpp-netlib.org/"
   url "http://downloads.cpp-netlib.org/0.11.2/cpp-netlib-0.11.2-final.tar.gz"
   version "0.11.2"
   sha256 "71953379c5a6fab618cbda9ac6639d87b35cab0600a4450a7392bc08c930f2b1"

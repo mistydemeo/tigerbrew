@@ -1,6 +1,6 @@
 class Xapian < Formula
   desc "C++ search engine library with many bindings"
-  homepage "http://xapian.org"
+  homepage "https://xapian.org/"
   url "http://oligarchy.co.uk/xapian/1.2.19/xapian-core-1.2.19.tar.xz"
   sha256 "4a78260388ff1b042f0ab5d18afdd524a530ae609690d0339990ddc147a54785"
 

@@ -1,6 +1,6 @@
 class Nailgun < Formula
   desc "Command-line client, protocol and server for Java programs"
-  homepage "http://www.martiansoftware.com/nailgun/"
+  homepage "https://www.martiansoftware.com/nailgun/"
 
   stable do
     url "https://github.com/martylamb/nailgun/archive/nailgun-all-0.9.1.tar.gz"

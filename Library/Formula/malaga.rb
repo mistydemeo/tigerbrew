@@ -1,6 +1,6 @@
 class Malaga < Formula
   desc "Grammar development environment for natural languages"
-  homepage "http://home.arcor.de/bjoern-beutel/malaga/"
+  homepage "https://web.archive.org/web/20150801232341/http://home.arcor.de/bjoern-beutel/malaga/"
   url "https://launchpad.net/ubuntu/+archive/primary/+files/malaga_7.12.orig.tar.gz"
   sha256 "8811e5feaae03e1b6e3008116fdc7471a53b6c0c5036751c637b15058f855ace"
 

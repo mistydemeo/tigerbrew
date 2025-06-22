@@ -1,6 +1,6 @@
 class John < Formula
   desc "Featureful UNIX password cracker"
-  homepage "http://www.openwall.com/john/"
+  homepage "https://www.openwall.com/john/"
   url "http://www.openwall.com/john/j/john-1.8.0.tar.xz"
   sha256 "952cf68369fb5b27f2d112ce7ca1eb16b975c85cbce8c658abb8bc5a20e1b266"
 

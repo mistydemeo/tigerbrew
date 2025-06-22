@@ -1,6 +1,6 @@
 class Picocom < Formula
   desc "Minimal dump-terminal emulation program"
-  homepage "https://code.google.com/p/picocom/"
+  homepage "https://github.com/npat-efault/picocom"
   url "https://picocom.googlecode.com/files/picocom-1.7.tar.gz"
   sha256 "d0f31c8f7a215a76922d30c81a52b9a2348c89e02a84935517002b3bc2c1129e"
 

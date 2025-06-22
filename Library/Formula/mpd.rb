@@ -1,6 +1,6 @@
 class Mpd < Formula
   desc "Music Player Daemon"
-  homepage "http://www.musicpd.org/"
+  homepage "https://www.musicpd.org/"
   revision 1
 
   stable do

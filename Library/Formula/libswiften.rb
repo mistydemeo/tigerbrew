@@ -1,6 +1,6 @@
 class Libswiften < Formula
   desc "C++ library for implementing XMPP applications"
-  homepage "https://swift.im/swiften"
+  homepage "https://swift.im/swiften.html"
   revision 1
 
   stable do

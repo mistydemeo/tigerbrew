@@ -1,6 +1,6 @@
 class Genstats < Formula
   desc "Generate statistics about stdin or textfiles"
-  homepage "http://www.vanheusden.com/genstats/"
+  homepage "https://web.archive.org/web/20180628003836/http://www.vanheusden.com/genstats/"
   url "http://www.vanheusden.com/genstats/genstats-1.2.tgz"
   sha256 "f0fb9f29750cdaa85dba648709110c0bc80988dd6a98dd18a53169473aaa6ad3"
 

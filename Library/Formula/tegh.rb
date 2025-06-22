@@ -1,6 +1,6 @@
 class Tegh < Formula
   desc "Command-line client for Prontserve"
-  homepage "https://github.com/D1plo1d/tegh"
+  homepage "https://github.com/D1plo1d/tegh-cli"
   url "https://s3.amazonaws.com/tegh_binaries/0.3.1/tegh-0.3.1-brew.tar.gz"
   sha256 "1aa9bdcc9579e8d56ab6a7b50704a1f32a6e5b8950ee2042f463b0a3b31daf4e"
 

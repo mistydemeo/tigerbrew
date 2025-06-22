@@ -1,6 +1,6 @@
 class MysqlConnectorC < Formula
   desc "MySQL database connector for C applications"
-  homepage "https://dev.mysql.com/downloads/connector/c/"
+  homepage "https://dev.mysql.com/downloads/c-api/"
   url "https://dev.mysql.com/get/Downloads/Connector-C/mysql-connector-c-6.1.6-src.tar.gz"
   sha256 "2222433012c415871958b61bc4f3683e1ebe77e3389f698b267058c12533ea78"
 

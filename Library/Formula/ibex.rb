@@ -1,6 +1,6 @@
 class Ibex < Formula
   desc "C++ library for constraint processing over real numbers."
-  homepage "http://www.ibex-lib.org/"
+  homepage "https://ibex-team.github.io/ibex-lib/"
   url "http://www.ibex-lib.org/sites/default/files/ibex-2.1.16.tar.gz"
   sha256 "d92ff32f14d27ad7b390ae693beb311b58cf6babccac85bbdaa5f5d0b8648845"
 

@@ -1,6 +1,6 @@
 class PerconaToolkit < Formula
   desc "Percona Toolkit for MySQL"
-  homepage "https://www.percona.com/software/percona-toolkit/"
+  homepage "https://www.percona.com/percona-toolkit"
   url "https://www.percona.com/downloads/percona-toolkit/2.2.14/tarball/percona-toolkit-2.2.14.tar.gz"
   mirror "https://mirrors.kernel.org/debian/pool/main/p/percona-toolkit/percona-toolkit_2.2.14.orig.tar.gz"
   sha256 "dd02bedef65536321af6ad3fc6fd8f088e60830267daa613189a14c10ad3a0d0"

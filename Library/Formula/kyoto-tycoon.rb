@@ -1,6 +1,6 @@
 class KyotoTycoon < Formula
   desc "Database server with interface to Kyoto Cabinet"
-  homepage "http://fallabs.com/kyototycoon/"
+  homepage "https://web.archive.org/web/20230608213921/http://fallabs.com/kyototycoon/"
   url "http://fallabs.com/kyototycoon/pkg/kyototycoon-0.9.56.tar.gz"
   sha256 "553e4ea83237d9153cc5e17881092cefe0b224687f7ebcc406b061b2f31c75c6"
   revision 1

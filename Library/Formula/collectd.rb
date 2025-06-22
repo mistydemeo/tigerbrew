@@ -1,6 +1,6 @@
 class Collectd < Formula
   desc "Statistics collection and monitoring daemon"
-  homepage "https://collectd.org/"
+  homepage "https://www.collectd.org/"
 
   bottle do
     revision 1

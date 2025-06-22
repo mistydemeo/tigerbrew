@@ -1,6 +1,6 @@
 class Synfigstudio < Formula
   desc "Vector-based 2D animation package"
-  homepage "http://synfig.org"
+  homepage "https://www.synfig.org/"
   url "https://downloads.sourceforge.net/project/synfig/releases/1.0/source/synfigstudio-1.0.tar.gz"
   sha256 "2b23916ca0be4073edad9b0cb92fd30311dd3b8f73372c836ba735100251ee28"
 

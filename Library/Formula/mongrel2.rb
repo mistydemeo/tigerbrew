@@ -2,7 +2,7 @@ require "formula"
 
 class Mongrel2 < Formula
   desc "Application, language, and network architecture agnostic web server"
-  homepage "http://mongrel2.org/"
+  homepage "https://mongrel2.org/"
   url "https://github.com/mongrel2/mongrel2/releases/download/v1.9.3/mongrel2-v1.9.3.tar.bz2"
   sha256 "40ee0e804053f812cc36906464289ea656a4fc53b4a82d49796cafbe37f97425"
 

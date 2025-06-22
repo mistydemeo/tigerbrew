@@ -1,6 +1,6 @@
 class CloudWatch < Formula
   desc "Amazon CloudWatch command-line Tool"
-  homepage "https://aws.amazon.com/developertools/2534"
+  homepage "https://aws.amazon.com/developer/tools/"
   url "https://ec2-downloads.s3.amazonaws.com/CloudWatch-2010-08-01.zip"
   version "1.0.20.0"
   sha256 "7b241dc6b49ea2aafdeb66f859be9d30128fb0ab5833074f6596762c9bd84417"

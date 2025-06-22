@@ -1,6 +1,6 @@
 class Valgrind < Formula
   desc "Dynamic analysis tools (memory, debug, profiling)"
-  homepage "http://www.valgrind.org/"
+  homepage "https://valgrind.org/"
 
   stable do
     url "http://valgrind.org/downloads/valgrind-3.11.0.tar.bz2"

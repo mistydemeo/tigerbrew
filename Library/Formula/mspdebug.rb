@@ -1,6 +1,6 @@
 class Mspdebug < Formula
   desc "Debugger for use with MSP430 MCUs"
-  homepage "http://mspdebug.sourceforge.net/"
+  homepage "https://dlbeer.co.nz/mspdebug/"
   url "https://downloads.sourceforge.net/project/mspdebug/mspdebug-0.22.tar.gz"
   sha256 "9a0550f3c7911bcc4e3231fff652c8f14763eb6a945609ce715db7164bf76c55"
 

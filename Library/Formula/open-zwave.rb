@@ -1,6 +1,6 @@
 class OpenZwave < Formula
   desc "Library for selected Z-Wave PC controllers"
-  homepage "http://www.openzwave.com"
+  homepage "https://web.archive.org/web/20220901163725/http://www.openzwave.com/"
   url "http://old.openzwave.com/downloads/openzwave-1.2.919.tar.gz"
   sha256 "473229f3dd3d6b260e6584b17e5c5f2e09e61805f89763f486a9f7aa2b4181ba"
 

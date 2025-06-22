@@ -1,6 +1,6 @@
 class Mdbtools < Formula
   desc "Tools to facilitate the use of Microsoft Access databases"
-  homepage "https://github.com/brianb/mdbtools/"
+  homepage "https://github.com/mdbtools/mdbtools"
   url "https://github.com/brianb/mdbtools/archive/0.7.1.tar.gz"
   sha256 "dcf310dc7b07e7ad2f9f6be16047dc81312cfe1ab1bd94d0fa739c8059af0b16"
   revision 1

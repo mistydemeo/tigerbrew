@@ -1,6 +1,6 @@
 class Pdf2htmlex < Formula
   desc "PDF to HTML converter"
-  homepage "https://coolwanglu.github.io/pdf2htmlEX/"
+  homepage "https://wang-lu.com/pdf2htmlEX/"
   url "https://github.com/coolwanglu/pdf2htmlEX/archive/v0.13.6.tar.gz"
   sha256 "fc133a5791bfd76a4425af16c6a6a2460f672501b490cbda558213cb2b03d5d7"
   revision 4

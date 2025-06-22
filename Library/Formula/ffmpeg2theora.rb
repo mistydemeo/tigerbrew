@@ -1,6 +1,6 @@
 class Ffmpeg2theora < Formula
   desc "Convert video files to Ogg Theora format"
-  homepage "http://v2v.cc/~j/ffmpeg2theora/"
+  homepage "https://web.archive.org/web/20230829205453/http://v2v.cc/~j/ffmpeg2theora/"
   revision 1
 
   stable do

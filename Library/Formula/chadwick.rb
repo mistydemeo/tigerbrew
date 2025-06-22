@@ -1,6 +1,6 @@
 class Chadwick < Formula
   desc "Chadwick tools for parsing Retrosheet MLB play-by-play files."
-  homepage "http://chadwick.sourceforge.net/doc/index.html"
+  homepage "https://chadwick.sourceforge.net/"
   url "https://downloads.sourceforge.net/project/chadwick/chadwick-0.6/chadwick-0.6.4/chadwick-0.6.4.tar.gz"
   sha256 "2fcc44b4110c3aebf8b9f3daaccf22ccaba3760d3d878e65d38b86127b913559"
 

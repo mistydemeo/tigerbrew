@@ -1,6 +1,6 @@
 class DwarfFortress < Formula
   desc "Open-ended rogelike game"
-  homepage "http://bay12games.com/dwarves/"
+  homepage "https://bay12games.com/dwarves/"
   # The final PowerPC-compatible release
   url "http://www.bay12games.com/dwarves/df_28_181_40d_m.zip"
   version "0.28.181.40d"

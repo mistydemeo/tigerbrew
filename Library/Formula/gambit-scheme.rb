@@ -1,6 +1,6 @@
 class GambitScheme < Formula
   desc "Complete, portable implementation of Scheme"
-  homepage "http://gambitscheme.org"
+  homepage "https://gambitscheme.org"
   url "http://gambitscheme.org/latest/gambit-v4_9_5.tgz"
   sha256 "e28ef8db5f0e7b1159720c150053dcab8f7c4cae1f0e5c838944797073f8c1dc"
 

@@ -1,6 +1,6 @@
 class Kibana < Formula
   desc "Visualization tool for elasticsearch"
-  homepage "https://www.elastic.co/products/kibana"
+  homepage "https://www.elastic.co/kibana"
   url "https://github.com/elastic/kibana/archive/v4.1.1.tar.gz"
   sha256 "3f91e99e20e82d4e84ec141007822fea8f9454c71595551f9348ea2609c98284"
   head "https://github.com/elastic/kibana.git"

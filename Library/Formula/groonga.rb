@@ -1,6 +1,6 @@
 class Groonga < Formula
   desc "Fulltext search engine and column store"
-  homepage "http://groonga.org/"
+  homepage "https://groonga.org/"
   url "http://packages.groonga.org/source/groonga/groonga-5.0.8.tar.gz"
   sha256 "9bc8aca52842a90cbeeb816a2a8ad9c89b226c14fca4c18661039e54587a5a29"
 

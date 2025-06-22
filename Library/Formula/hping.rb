@@ -1,6 +1,6 @@
 class Hping < Formula
   desc "Command-line oriented TCP/IP packet assembler/analyzer"
-  homepage "http://www.hping.org/"
+  homepage "https://github.com/antirez/hping"
   url "http://www.hping.org/hping3-20051105.tar.gz"
   mirror "https://dl.bintray.com/homebrew/mirror/hping-3.20051105.tar.gz"
   version "3.20051105"

@@ -1,6 +1,6 @@
 class Goffice < Formula
   desc "Gnumeric spreadsheet program"
-  homepage "https://developer.gnome.org/goffice/"
+  homepage "https://gitlab.gnome.org/GNOME/goffice"
   url "https://download.gnome.org/sources/goffice/0.10/goffice-0.10.23.tar.xz"
   sha256 "1325fc38f2476977bd8d71588ccb2a57aa418260406b7c28a20098b6b4e33f9f"
 

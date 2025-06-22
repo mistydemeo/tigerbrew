@@ -1,6 +1,6 @@
 class Emscripten < Formula
   desc "LLVM bytecode to JavaScript compiler"
-  homepage "https://kripken.github.io/emscripten-site/"
+  homepage "https://emscripten.org/"
 
   stable do
     url "https://github.com/kripken/emscripten/archive/1.34.6.tar.gz"

@@ -1,6 +1,6 @@
 class DfuUtil < Formula
   desc "USB programmer"
-  homepage "http://dfu-util.sourceforge.net/"
+  homepage "https://dfu-util.sourceforge.net/"
   # Upstream moved, no releases yet, using debian mirror until then.
   # (see #34047 and #39181)
   url "https://prdownloads.sourceforge.net/project/dfu-util/dfu-util-0.11.tar.gz"

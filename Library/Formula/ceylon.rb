@@ -1,6 +1,6 @@
 class Ceylon < Formula
   desc "Programming language for writing large programs in teams"
-  homepage "http://ceylon-lang.org/"
+  homepage "https://projects.eclipse.org/projects/technology.ceylon"
   url "http://ceylon-lang.org/download/dist/1_1_0"
   sha256 "c08a900b13f42c38a38b403d620afd436cd18f2fe9a0942b626254bf4ad821c1"
 

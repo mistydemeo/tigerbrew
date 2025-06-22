@@ -1,6 +1,6 @@
 class Sbtenv < Formula
   desc "Command-line tool for managing sbt environments"
-  homepage "https://github.com/mazgi/sbtenv"
+  homepage "https://github.com/sbtenv/sbtenv"
   url "https://github.com/mazgi/sbtenv/archive/version/0.0.9.tar.gz"
   sha256 "0c5809eda41a0041d073bb22e92e8de00a8f17b91af2b78c32f0cf5ebea2cd54"
 

@@ -1,6 +1,6 @@
 class Unixodbc < Formula
   desc "ODBC 3 connectivity for UNIX"
-  homepage "http://www.unixodbc.org/"
+  homepage "https://www.unixodbc.org/"
   url "https://www.unixodbc.org/unixODBC-2.3.12.tar.gz"
   sha256 "f210501445ce21bf607ba51ef8c125e10e22dffdffec377646462df5f01915ec"
 

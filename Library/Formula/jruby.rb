@@ -1,6 +1,6 @@
 class Jruby < Formula
   desc "Ruby implementation in pure Java"
-  homepage "http://www.jruby.org"
+  homepage "https://www.jruby.org/"
   url "https://s3.amazonaws.com/jruby.org/downloads/9.0.1.0/jruby-bin-9.0.1.0.tar.gz"
   sha256 "3cab8ead2f080eb9cdf16fc30cbc1974c36a4a4e6c9d321d5a3bbd973b64527f"
 

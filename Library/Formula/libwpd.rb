@@ -1,6 +1,6 @@
 class Libwpd < Formula
   desc "General purpose library for reading WordPerfect files"
-  homepage "http://libwpd.sourceforge.net/"
+  homepage "https://libwpd.sourceforge.net/"
   url "http://dev-www.libreoffice.org/src/libwpd-0.10.0.tar.bz2"
   sha256 "f2bf5d65156a351ce404550dd822c8db8ab8740b393f61dba828d1b2cb33fe91"
 

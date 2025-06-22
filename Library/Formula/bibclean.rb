@@ -1,6 +1,6 @@
 class Bibclean < Formula
   desc "BibTeX bibliography file pretty printer and syntax checker"
-  homepage "http://www.math.utah.edu/~beebe/software/bibclean/bibclean-03.html#HDR.3"
+  homepage "https://www.math.utah.edu/~beebe/software/bibclean/bibclean-03.html#HDR.3"
   url "http://ftp.math.utah.edu/pub/bibclean/bibclean-2.16.tar.gz"
   sha256 "b8e7f89219e04a2b130d9d506b79265e9981b065ad32652a912211a6057428df"
 

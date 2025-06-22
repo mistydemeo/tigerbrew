@@ -1,6 +1,6 @@
 class Snownews < Formula
   desc "Text mode RSS newsreader"
-  homepage "https://kiza.eu/software/snownews"
+  homepage "https://web.archive.org/web/20171026225353/https://kiza.eu/software/snownews/"
   url "https://kiza.eu/media/software/snownews/snownews-1.5.12.tar.gz"
   sha256 "26dd96e9345d9cbc1c0c9470417080dd0c3eb31e7ea944f78f3302d7060ecb90"
   revision 1

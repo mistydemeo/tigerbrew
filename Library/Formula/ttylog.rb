@@ -1,6 +1,6 @@
 class Ttylog < Formula
   desc "Serial port logger: print everything from a serial device"
-  homepage "http://ttylog.sourceforge.net/"
+  homepage "https://ttylog.sourceforge.net/"
   url "https://downloads.sourceforge.net/project/ttylog/ttylog/0.25/ttylog-0.25.tar.gz"
   sha256 "80d0134ae4e29b650fff661169a6e667d22338465720ee768b2776f68aac8614"
 

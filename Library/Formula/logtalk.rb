@@ -1,6 +1,6 @@
 class Logtalk < Formula
   desc "Object-oriented logic programming language"
-  homepage "http://logtalk.org"
+  homepage "https://logtalk.org/"
   url "https://github.com/LogtalkDotOrg/logtalk3/archive/lgt3004stable.tar.gz"
   sha256 "2f1275d43ec5c4c65161b4673ed214311272a8af131a748c37e2ffec33532dfc"
   version "3.00.4"

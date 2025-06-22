@@ -1,6 +1,6 @@
 class Distribution < Formula
   desc "Create ASCII graphical histograms in the terminal"
-  homepage "https://github.com/philovivero/distribution"
+  homepage "https://github.com/time-less-ness/distribution"
   url "https://github.com/philovivero/distribution/archive/v1.2.1.tar.gz"
   sha256 "5f6bea7da09eb47f7f9e9db5ae90db5bcfd67974efbaa984bbe25be458ea151f"
   head "https://github.com/philovivero/distribution.git"

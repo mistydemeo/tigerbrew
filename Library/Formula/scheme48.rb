@@ -1,6 +1,6 @@
 class Scheme48 < Formula
   desc "Scheme byte-code interpreter"
-  homepage "http://www.s48.org/"
+  homepage "https://www.s48.org/"
   url "https://s48.org/1.9.3/scheme48-1.9.3.tgz"
   sha256 "6ef5a9f3fca14110b0f831b45801d11f9bdfb6799d976aa12e4f8809daf3904c"
 

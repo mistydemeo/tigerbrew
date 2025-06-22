@@ -1,6 +1,6 @@
 class Osh < Formula
   desc "Two ports of /bin/sh from V6 UNIX (circa 1975)"
-  homepage "http://v6shell.org"
+  homepage "https://etsh.dev/"
   url "http://v6shell.org/src/osh-20150115.tar.gz"
   sha256 "711151f222a7f3e7cb9500d11ded7bb19a66f94641f352e0ccb316dd9665aa1d"
   head "https://github.com/JNeitzel/v6shell.git"

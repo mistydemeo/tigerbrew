@@ -1,6 +1,6 @@
 class Botan < Formula
   desc "Cryptographic algorithms and formats library in C++"
-  homepage "http://botan.randombit.net/"
+  homepage "https://botan.randombit.net/"
 
   stable do
     url "http://botan.randombit.net/releases/Botan-1.10.10.tgz"

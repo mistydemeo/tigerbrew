@@ -1,6 +1,6 @@
 class Cdrtools < Formula
   desc "CD/DVD/Blu-ray premastering and recording software"
-  homepage "http://cdrecord.org/"
+  homepage "https://cdrecord.org/"
 
   stable do
     url "https://downloads.sourceforge.net/project/cdrtools/cdrtools-3.01.tar.bz2"

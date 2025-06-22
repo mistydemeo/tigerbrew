@@ -1,6 +1,6 @@
 class Lfe < Formula
   desc "A Concurrent Lisp for the Erlang VM"
-  homepage "http://lfe.io/"
+  homepage "https://lfe.io/"
   url "https://github.com/lfe/lfe/archive/refs/tags/2.2.0.tar.gz"
   sha256 "5c9de979c64de245ac3ae2f9694559a116b538ca7d18bb3ef07716e0e3a696f3"
 

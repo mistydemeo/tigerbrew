@@ -1,6 +1,6 @@
 class Libopkele < Formula
   desc "C++ implementation of OpenID decentralized identity system"
-  homepage "http://kin.klever.net/libopkele/"
+  homepage "https://kin.klever.net/libopkele/"
   revision 1
 
   stable do

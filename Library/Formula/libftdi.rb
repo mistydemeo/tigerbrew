@@ -1,6 +1,6 @@
 class Libftdi < Formula
   desc "Library to talk to FTDI chips"
-  homepage "https://www.intra2net.com/en/developer/libftdi"
+  homepage "https://www.intra2net.com/en/developer/libftdi/"
   url "https://www.intra2net.com/en/developer/libftdi/download/libftdi1-1.5.tar.bz2"
   sha256 "7c7091e9c86196148bd41177b4590dccb1510bfe6cea5bf7407ff194482eb049"
   license "LGPL-2.1-only"

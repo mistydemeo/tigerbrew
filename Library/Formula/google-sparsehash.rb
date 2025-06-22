@@ -1,6 +1,6 @@
 class GoogleSparsehash < Formula
   desc "Extremely memory-efficient hash_map implementation"
-  homepage "https://code.google.com/p/google-sparsehash/"
+  homepage "https://github.com/sparsehash/sparsehash"
   url "https://sparsehash.googlecode.com/files/sparsehash-2.0.2.tar.gz"
   sha256 "2ed639a7155607c097c2029af5f4287296595080b2e5dd2e2ebd9bbb7450b87c"
 

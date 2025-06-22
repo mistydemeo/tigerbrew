@@ -1,6 +1,6 @@
 class FbAdb < Formula
   desc "Shell for Android devices that does much of what adb does and more"
-  homepage "https://github.com/facebook/fb-adb"
+  homepage "https://github.com/facebookarchive/fb-adb"
   url "https://github.com/facebook/fb-adb/archive/1.4.4.tar.gz"
   sha256 "c712cde3d4bfc16f8ea7da9a56d3cf567b8b9f1ae3c6c6bb052c95308b5752d9"
 

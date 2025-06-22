@@ -1,6 +1,6 @@
 class Darkice < Formula
   desc "Live audio streamer"
-  homepage "https://code.google.com/p/darkice/"
+  homepage "https://code.google.com/archive/p/darkice"
   url "https://darkice.googlecode.com/files/darkice-1.2.tar.gz"
   sha256 "b3fba9be2d9c72f36b0659cd9ce0652c8f973b5c6498407f093da9a364fdb254"
 

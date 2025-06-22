@@ -1,6 +1,6 @@
 class Rocksdb < Formula
   desc "Persistent key-value store for fast storage environments"
-  homepage "http://rocksdb.org"
+  homepage "https://rocksdb.org/"
   url "https://github.com/facebook/rocksdb/archive/rocksdb-3.13.tar.gz"
   sha256 "8e96926b194159835e4c0ee754432e1af059b8768efee6de688187a58f4f4434"
 

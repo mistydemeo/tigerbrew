@@ -1,6 +1,6 @@
 class Pixman < Formula
   desc "Low-level library for pixel manipulation"
-  homepage "http://cairographics.org/"
+  homepage "https://www.cairographics.org/"
   url "https://www.cairographics.org/releases/pixman-0.42.2.tar.gz"
   sha256 "ea1480efada2fd948bc75366f7c349e1c96d3297d09a3fe62626e38e234a625e"
 

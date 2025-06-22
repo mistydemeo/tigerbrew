@@ -1,6 +1,6 @@
 class Arangodb < Formula
   desc "Universal open-source database with a flexible data model"
-  homepage "https://www.arangodb.com/"
+  homepage "https://arangodb.com/"
   url "https://www.arangodb.com/repositories/Source/ArangoDB-2.6.8.tar.gz"
   sha256 "5d6f7b5a8c94a3ccf645c03dea37f8d4c28bfd3f6ab1a418365bdc4e162630f1"
 

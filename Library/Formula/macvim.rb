@@ -14,7 +14,7 @@ end
 # Reference: https://github.com/macvim-dev/macvim/wiki/building
 class Macvim < Formula
   desc "GUI for vim, made for OS X"
-  homepage "https://code.google.com/p/macvim/"
+  homepage "https://macvim.org/"
   url "https://github.com/macvim-dev/macvim/archive/snapshot-77.tar.gz"
   version "7.4-77"
   sha256 "4696b2cd6f69093c8a619daee9a0db441ce1a124edfddd3b0b3fed3ac96f8e8d"

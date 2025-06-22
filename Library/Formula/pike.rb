@@ -1,6 +1,6 @@
 class Pike < Formula
   desc "Dynamic programming language"
-  homepage "http://pike.lysator.liu.se"
+  homepage "https://pike.lysator.liu.se"
   url "http://pike.lysator.liu.se/pub/pike/all/7.8.866/Pike-v7.8.866.tar.gz"
   sha256 "0b12e1a99bd8bdd9c8a2daa46e623ac718bc0737290236a0c8474091359b594e"
   revision 1

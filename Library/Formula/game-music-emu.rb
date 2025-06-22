@@ -1,6 +1,6 @@
 class GameMusicEmu < Formula
   desc "Videogame music file emulator collection"
-  homepage "https://code.google.com/p/game-music-emu/"
+  homepage "https://github.com/libgme/game-music-emu"
   url "https://game-music-emu.googlecode.com/files/game-music-emu-0.6.0.tar.bz2"
   sha256 "506e81d0c61e1a26d503fbf5351503e0b31f9fbb374cb1f09979758b46a24987"
 

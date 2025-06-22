@@ -1,7 +1,7 @@
 class Csfml < Formula
   # Don't update CSFML until there's a corresponding SFML release
   desc "SMFL bindings for C"
-  homepage "http://www.sfml-dev.org/"
+  homepage "https://www.sfml-dev.org/"
 
   # SFML 2.2+ require Lion or newer
   case MacOS.version

@@ -1,6 +1,6 @@
 class Libmodbus < Formula
   desc "Portable modbus library"
-  homepage "http://libmodbus.org"
+  homepage "https://libmodbus.org/"
   url "http://libmodbus.org/site_media/build/libmodbus-3.1.1.tar.gz"
   sha256 "76d93aff749d6029f81dcf1fb3fd6abe10c9b48d376f3a03a4f41c5197c95c99"
 

@@ -1,6 +1,6 @@
 class GstPluginsBad < Formula
   desc "GStreamer plugins (less supported, missing docs, not fully tested)"
-  homepage "http://gstreamer.freedesktop.org/"
+  homepage "https://gstreamer.freedesktop.org/"
   url "http://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-1.6.0.tar.xz"
   sha256 "d8ff26128d4ecd2ffeb28e14843808d2d971b09056b7cee6f08afcae01fc0f49"
 

@@ -1,6 +1,6 @@
 class RbenvGemRehash < Formula
   desc "Automatically runs `rbenv rehash`"
-  homepage "https://github.com/sstephenson/rbenv-gem-rehash"
+  homepage "https://github.com/rbenv/rbenv-gem-rehash"
   url "https://github.com/sstephenson/rbenv-gem-rehash/archive/v1.0.0.tar.gz"
   sha256 "93bdefa3e1376f0bea5a9ab7d24a26ae7d7f15ae3cd55cd0b6b03548ada7eed3"
 

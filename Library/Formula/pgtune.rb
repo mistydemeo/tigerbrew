@@ -1,6 +1,6 @@
 class Pgtune < Formula
   desc "Tuning wizard for postgresql.conf"
-  homepage "http://pgfoundry.org/projects/pgtune"
+  homepage "https://github.com/gregs1104/pgtune"
   url "http://pgfoundry.org/frs/download.php/2449/pgtune-0.9.3.tar.gz"
   sha256 "31ac5774766dd9793d8d2d3681d1edb45760897c8eda3afc48b8d59350dee0ea"
 

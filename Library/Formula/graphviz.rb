@@ -1,6 +1,6 @@
 class Graphviz < Formula
   desc "Graph visualization software from AT&T and Bell Labs"
-  homepage "http://graphviz.org/"
+  homepage "https://graphviz.org/"
   url "https://gitlab.com/graphviz/graphviz/-/package_files/6163716/download"
   sha256 "e90b19ebf131afa2f75a043f13ce5a3555c787ea7c35e74b6c95840d34f056ec"
   version "2.46.0"

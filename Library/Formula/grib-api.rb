@@ -1,6 +1,6 @@
 class GribApi < Formula
   desc "Encode and decode grib messages (editions 1 and 2)"
-  homepage "https://software.ecmwf.int/wiki/display/GRIB/Home"
+  homepage "https://web.archive.org/web/20171004020600/https://software.ecmwf.int/wiki/display/GRIB/Home"
   url "https://software.ecmwf.int/wiki/download/attachments/3473437/grib_api-1.14.0-Source.tar.gz"
   sha256 "67a4d8d059994e325aa4b74cfab84f4c7050c42b030b9ba40493b9c487d0972d"
 

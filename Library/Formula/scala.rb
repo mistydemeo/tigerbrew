@@ -1,6 +1,6 @@
 class Scala < Formula
   desc "Scala programming language"
-  homepage "http://www.scala-lang.org/"
+  homepage "https://www.scala-lang.org/"
 
   depends_on :java => "1.6+"
 

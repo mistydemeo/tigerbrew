@@ -1,6 +1,6 @@
 class Ino < Formula
   desc "Command-line toolkit for working with Arduino hardware"
-  homepage "http://inotool.org"
+  homepage "https://inotool.org/"
   url "https://pypi.python.org/packages/source/i/ino/ino-0.3.6.tar.gz"
   sha256 "9b675dc69d7a332ff65632bdffd671537b5eedce4e110ee4daca956299fbd44c"
 

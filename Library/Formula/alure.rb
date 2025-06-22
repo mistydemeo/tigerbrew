@@ -1,6 +1,6 @@
 class Alure < Formula
   desc "Manage common tasks with OpenAL applications"
-  homepage "http://kcat.strangesoft.net/alure.html"
+  homepage "https://web.archive.org/web/20200927044901/http://kcat.strangesoft.net/alure.html"
   url "http://kcat.strangesoft.net/alure-releases/alure-1.2.tar.bz2"
   sha256 "465e6adae68927be3a023903764662d64404e40c4c152d160e3a8838b1d70f71"
 

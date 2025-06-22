@@ -1,6 +1,6 @@
 class GdalGrass < Formula
   desc "Geospatial Data Abstraction Library"
-  homepage "http://www.gdal.org"
+  homepage "https://gdal.org/"
   url "http://download.osgeo.org/gdal/gdal-grass-1.4.3.tar.gz"
   sha256 "ea18d1e773e8875aaf3261a6ccd2a5fa22d998f064196399dfe73d991688f1dd"
 

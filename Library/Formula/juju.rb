@@ -1,6 +1,6 @@
 class Juju < Formula
   desc "DevOps management tool"
-  homepage "https://juju.ubuntu.com"
+  homepage "https://juju.is/"
   url "https://launchpad.net/juju-core/1.24/1.24.6/+download/juju-core_1.24.6.tar.gz"
   sha256 "00928687041e3520146d7d937a51d1e7caf9b588bb9c80f02846addebe452cbd"
 

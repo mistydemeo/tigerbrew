@@ -1,6 +1,6 @@
 class Vcodex < Formula
   desc "Standalone vczip command and vcodex library"
-  homepage "http://www2.research.att.com/~astopen/download/ref/vcodex/vcodex.html"
+  homepage "https://web.archive.org/web/20140620114834/http://www2.research.att.com/sw/download/"
   url "http://www2.research.att.com/~astopen/download/tgz/vcodex.2013-05-31.tgz",
     :user => "I accept www.opensource.org/licenses/eclipse:."
   sha256 "3d690a5596d4b1a3f1f99a3511fd8cc9d65fc2b63ce0178a8d23677e72c2f83d"

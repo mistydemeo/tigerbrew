@@ -1,6 +1,6 @@
 class Libdnet < Formula
   desc "Portable low-level networking library"
-  homepage "https://code.google.com/p/libdnet/"
+  homepage "https://github.com/ofalk/libdnet"
   url "https://github.com/ofalk/libdnet/archive/refs/tags/libdnet-1.18.0.tar.gz"
   sha256 "a4a82275c7d83b85b1daac6ebac9461352731922161f1dcdcccd46c318f583c9"
 
