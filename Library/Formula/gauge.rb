@@ -2,7 +2,7 @@ require "language/go"
 
 class Gauge < Formula
   desc "Test automation tool that supports executable documentation"
-  homepage "http://getgauge.io"
+  homepage "https://gauge.org/"
   url "https://github.com/getgauge/gauge/archive/v0.1.8.tar.gz"
   sha256 "d554a3909dec284992b3d067e8cfe86c8fa8fa330db81864c78c69d6e0570df4"
 

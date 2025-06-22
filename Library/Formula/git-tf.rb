@@ -1,6 +1,6 @@
 class GitTf < Formula
   desc "Share changes between TFS and git"
-  homepage "http://gittf.codeplex.com/"
+  homepage "https://web.archive.org/web/20180108004730/http://gittf.codeplex.com/"
   url "http://download.microsoft.com/download/A/E/2/AE23B059-5727-445B-91CC-15B7A078A7F4/git-tf-2.0.3.20131219.zip"
   sha256 "91fd12e7db19600cc908e59b82104dbfbb0dbfba6fd698804a8330d6103aae74"
 

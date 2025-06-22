@@ -1,6 +1,6 @@
 class Ghostscript < Formula
   desc "Interpreter for PostScript and PDF"
-  homepage "http://www.ghostscript.com/"
+  homepage "https://www.ghostscript.com/"
 
   stable do
     url "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/ghostscript-9.19.tar.gz"

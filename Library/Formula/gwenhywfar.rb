@@ -1,6 +1,6 @@
 class Gwenhywfar < Formula
   desc "Utility library required by aqbanking and related software"
-  homepage "http://www.aqbanking.de/"
+  homepage "https://www.aquamaniac.de/"
   url "http://www.aquamaniac.de/sites/download/download.php?package=01&release=78&file=01&dummy=gwenhywfar-4.13.1.tar.gz"
   sha256 "4beca892c1235548ea0ae30132a6d2e57911c22340746585395ccb01d84ec72b"
   head "http://git.aqbanking.de/git/gwenhywfar.git"

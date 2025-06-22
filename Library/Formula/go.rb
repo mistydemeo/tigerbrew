@@ -1,6 +1,6 @@
 class Go < Formula
   desc "Go programming environment"
-  homepage "https://golang.org"
+  homepage "https://go.dev/"
   url "https://storage.googleapis.com/golang/go1.5.1.src.tar.gz"
   mirror "https://fossies.org/linux/misc/go1.5.1.src.tar.gz"
   version "1.5.1"

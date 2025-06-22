@@ -1,6 +1,6 @@
 class Gtkmm < Formula
   desc "C++ interfaces for GTK+ and GNOME"
-  homepage "http://www.gtkmm.org/"
+  homepage "https://gtkmm.gnome.org/"
   url "https://download.gnome.org/sources/gtkmm/2.24/gtkmm-2.24.4.tar.xz"
   sha256 "443a2ff3fcb42a915609f1779000390c640a6d7fd19ad8816e6161053696f5ee"
   revision 1

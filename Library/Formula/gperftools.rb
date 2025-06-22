@@ -1,6 +1,6 @@
 class Gperftools < Formula
   desc "Multi-threaded malloc() and performance analysis tools"
-  homepage "https://code.google.com/p/gperftools/"
+  homepage "https://github.com/gperftools/gperftools"
   url "https://googledrive.com/host/0B6NtGsLhIcf7MWxMMF9JdTN3UVk/gperftools-2.4.tar.gz"
   sha256 "982a37226eb42f40714e26b8076815d5ea677a422fb52ff8bfca3704d9c30a2d"
 

@@ -1,6 +1,6 @@
 class Gd < Formula
   desc "Graphics library to dynamically manipulate images"
-  homepage "https://libgd.bitbucket.org/"
+  homepage "https://web.archive.org/web/20161201091816/https://libgd.bitbucket.org/"
   url "https://bitbucket.org/libgd/gd-libgd/downloads/libgd-2.1.1.tar.xz"
   sha256 "9ada1ed45594abc998ebc942cef12b032fbad672e73efc22bc9ff54f5df2b285"
   revision 1
