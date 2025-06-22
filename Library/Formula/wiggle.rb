@@ -1,6 +1,6 @@
 class Wiggle < Formula
   desc "Program for applying patches with conflicting changes"
-  homepage "http://neil.brown.name/blog/20100324064620"
+  homepage "https://web.archive.org/web/20201020001650/http://neil.brown.name/blog/20100324064620"
   url "http://neil.brown.name/wiggle/wiggle-1.0.tar.gz"
   sha256 "44c97b2d47a109c709cdd4181d9ba941fee50dbb64448018b91d4a2fffe69cf2"
 

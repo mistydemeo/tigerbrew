@@ -1,6 +1,6 @@
 class Wavpack < Formula
   desc "Hybrid lossless audio compression"
-  homepage "http://www.wavpack.com/"
+  homepage "https://www.wavpack.com/"
 
   stable do
     url "http://www.wavpack.com/wavpack-4.75.0.tar.bz2"
