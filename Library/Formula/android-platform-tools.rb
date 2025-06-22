@@ -1,6 +1,6 @@
 class AndroidPlatformTools < Formula
   desc "Tools for the Android SDK"
-  homepage "https://developer.android.com/sdk"
+  homepage "https://developer.android.com/studio"
   # the url is from:
   # https://dl.google.com/android/repository/repository-10.xml
   url "https://dl.google.com/android/repository/platform-tools_r23-macosx.zip"

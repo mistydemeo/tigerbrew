@@ -1,8 +1,6 @@
 class Analog < Formula
   desc "Logfile analyzer"
-  homepage "https://tracker.debian.org/pkg/analog"
-  # The previous long-time homepage and url are stone-cold dead. Using Debian instead.
-  # homepage "http://analog.cx"
+  homepage "https://web.archive.org/web/20130805071936/http://analog.cx/"
   url "https://mirrors.kernel.org/debian/pool/main/a/analog/analog_6.0.orig.tar.gz"
   sha256 "31c0e2bedd0968f9d4657db233b20427d8c497be98194daf19d6f859d7f6fcca"
   revision 2

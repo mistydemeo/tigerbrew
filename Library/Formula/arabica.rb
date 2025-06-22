@@ -1,6 +1,6 @@
 class Arabica < Formula
   desc "XML toolkit written in C++"
-  homepage "http://www.jezuk.co.uk/cgi-bin/view/arabica"
+  homepage "https://www.jezuk.co.uk/tags/arabica.html"
   url "https://downloads.sourceforge.net/project/arabica/arabica/November-12/arabica-2012-November.tar.gz"
   version "20121126"
   sha256 "2e64e38d773ff37f5d7da181fe07d6dde2c35e633b9772b604439a286cd4f98b"

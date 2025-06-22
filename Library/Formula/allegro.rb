@@ -1,6 +1,6 @@
 class Allegro < Formula
   desc "C/C++ multimedia library for cross-platform game development"
-  homepage "http://liballeg.org/"
+  homepage "https://liballeg.org/"
 
   stable do
     url "https://downloads.sourceforge.net/project/alleg/allegro/5.0.11/allegro-5.0.11.tar.gz"

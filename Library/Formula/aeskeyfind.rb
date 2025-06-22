@@ -1,6 +1,6 @@
 class Aeskeyfind < Formula
   desc "Program for automatic key-finding"
-  homepage "https://citp.princeton.edu/research/memory/code/"
+  homepage "https://web.archive.org/web/20190512072829/https://citp.princeton.edu/research/memory/code/"
   url "https://citp.princeton.edu/memory-content/src/aeskeyfind-1.0.tar.gz"
   sha256 "1417e5c1b61e86bb9527db1f5bee1995a0eea82475db3cbc880e04bf706083e4"
 
