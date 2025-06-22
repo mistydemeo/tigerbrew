@@ -1,6 +1,6 @@
 class Icu4c < Formula
   desc "C/C++ and Java libraries for Unicode and globalization"
-  homepage "http://site.icu-project.org/"
+  homepage "https://icu.unicode.org/"
   head "https://github.com/unicode-org/icu.git"
   url "https://downloads.sourceforge.net/project/icu/ICU4C/55.1/icu4c-55_1-src.tgz"
   mirror "https://ftp.osuosl.org/pub/blfs/conglomeration/icu/icu4c-55_1-src.tgz"

@@ -1,6 +1,6 @@
 class Io < Formula
   desc "Small prototype-based programming language"
-  homepage "http://iolanguage.com/"
+  homepage "https://iolanguage.com/"
   url "https://github.com/stevedekorte/io/archive/2013.12.04.tar.gz"
   sha256 "e31e8aded25069d945b55732960b3553ba69851a61bd8698b68dfca27b6724cd"
   revision 1

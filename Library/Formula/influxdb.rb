@@ -2,7 +2,7 @@ require "language/go"
 
 class Influxdb < Formula
   desc "Time series, events, and metrics database"
-  homepage "https://influxdb.com"
+  homepage "https://www.influxdata.com/"
 
   stable do
     url "https://github.com/influxdb/influxdb/archive/v0.9.4.1.tar.gz"
