@@ -1,6 +1,6 @@
 class Uade < Formula
   desc "Play Amiga tunes through UAE emulation"
-  homepage "http://zakalwe.fi/uade/"
+  homepage "https://zakalwe.fi/uade/"
 
   stable do
     url "http://zakalwe.fi/uade/uade2/uade-2.13.tar.bz2"
