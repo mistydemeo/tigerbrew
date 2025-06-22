@@ -1,6 +1,6 @@
 class NagiosPlugins < Formula
   desc "Plugins for the nagios network monitoring system"
-  homepage "https://www.nagios-plugins.org/"
+  homepage "https://nagios-plugins.org/"
   url "https://www.nagios-plugins.org/download/nagios-plugins-2.0.3.tar.gz"
   sha256 "8f0021442dce0138f0285ca22960b870662e28ae8973d49d439463588aada04a"
 

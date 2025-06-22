@@ -1,6 +1,6 @@
 class Nss < Formula
   desc "Libraries for security-enabled client and server applications"
-  homepage "https://developer.mozilla.org/docs/NSS"
+  homepage "https://firefox-source-docs.mozilla.org/security/nss/"
   url "https://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_3_20_RTM/src/nss-3.20.tar.gz"
   sha256 "5e38d4b9837ca338af966b97fc91c07f67ad647fb38dc4af3cfd0d84e477d15c"
 
