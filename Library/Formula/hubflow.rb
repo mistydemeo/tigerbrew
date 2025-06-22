@@ -1,7 +1,7 @@
 # Note: pull from git tag to get submodules
 class Hubflow < Formula
   desc "GitFlow for GitHub"
-  homepage "https://datasift.github.io/gitflow/"
+  homepage "https://web.archive.org/web/20230603182434/https://datasift.github.io/gitflow/"
   url "https://github.com/datasift/gitflow.git", :tag => "1.5.2"
   head "https://github.com/datasift/gitflow.git"
 

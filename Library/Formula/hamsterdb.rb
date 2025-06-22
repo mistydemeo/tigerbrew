@@ -1,6 +1,6 @@
 class Hamsterdb < Formula
   desc "Database for embedded devices"
-  homepage "http://hamsterdb.com"
+  homepage "https://web.archive.org/web/20160312170709/https://hamsterdb.com/"
   url "http://files.hamsterdb.com/dl/hamsterdb-2.1.10.tar.gz"
   sha256 "8fced5607847e234133b2baa379e7ff3d763ffa51546b27f1e3c5f1aef33493e"
 

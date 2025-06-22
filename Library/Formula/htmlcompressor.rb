@@ -1,6 +1,6 @@
 class Htmlcompressor < Formula
   desc "Minify HTML or XML"
-  homepage "https://code.google.com/p/htmlcompressor/"
+  homepage "https://code.google.com/archive/p/htmlcompressor"
   url "https://htmlcompressor.googlecode.com/files/htmlcompressor-1.5.3.jar"
   sha256 "88894e330cdb0e418e805136d424f4c262236b1aa3683e51037cdb66310cb0f9"
 

@@ -1,6 +1,6 @@
 class Haxe < Formula
   desc "Multi-platform programming language"
-  homepage "http://haxe.org"
+  homepage "https://haxe.org/"
 
   stable do
     url "https://github.com/HaxeFoundation/haxe.git", :tag => "3.2.0", :revision => "77d171b15c94932d265e2a03d476bafc9b3a1894"
