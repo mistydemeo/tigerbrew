@@ -1,6 +1,6 @@
 class Rssh < Formula
   desc "Restricted shell for use with OpenSSH"
-  homepage "http://www.pizzashack.org/rssh"
+  homepage "https://web.archive.org/web/20241206013853/http://www.pizzashack.org/rssh/"
   url "https://downloads.sourceforge.net/project/rssh/rssh/2.3.4/rssh-2.3.4.tar.gz"
   sha256 "f30c6a760918a0ed39cf9e49a49a76cb309d7ef1c25a66e77a41e2b1d0b40cd9"
 

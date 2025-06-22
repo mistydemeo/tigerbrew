@@ -1,6 +1,6 @@
 class Rfcstrip < Formula
   desc "Strips headers and footers from RFCs and Internet-Drafts"
-  homepage "https://trac.tools.ietf.org/tools/rfcstrip/"
+  homepage "https://web.archive.org/web/20161229204352/https://trac.tools.ietf.org/tools/rfcstrip/"
   url "https://trac.tools.ietf.org/tools/rfcstrip/rfcstrip-1.03.tgz"
   sha256 "db5cccb14b2dfdb5e0e3b4ac98d5af29d1f2f647787bcd470a866e02173d4e5b"
 

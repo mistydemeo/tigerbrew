@@ -1,6 +1,6 @@
 class Restund < Formula
   desc "Modular STUN/TURN server"
-  homepage "http://www.creytiv.com"
+  homepage "https://web.archive.org/web/20200727170749/http://www.creytiv.com/restund.html"
   url "http://www.creytiv.com/pub/restund-0.4.11.tar.gz"
   sha256 "d4630dfb8777f12cc48ed118da0ea6445bc60e94ff916ab0ca5d436c74bdc2d7"
 

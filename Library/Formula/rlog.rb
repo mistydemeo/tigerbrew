@@ -1,6 +1,6 @@
 class Rlog < Formula
   desc "Flexible message logging facility for C++"
-  homepage "http://www.arg0.net/rlog"
+  homepage "https://web.archive.org/web/20210618172120/https://www.arg0.net/rlog"
   url "https://rlog.googlecode.com/files/rlog-1.4.tar.gz"
   sha256 "a938eeedeb4d56f1343dc5561bc09ae70b24e8f70d07a6f8d4b6eed32e783f79"
 

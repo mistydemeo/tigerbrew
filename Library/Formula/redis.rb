@@ -1,6 +1,6 @@
 class Redis < Formula
   desc "Persistent key-value database, with built-in net interface"
-  homepage "http://redis.io/"
+  homepage "https://redis.io/"
   url "http://download.redis.io/releases/redis-3.0.4.tar.gz"
   sha256 "a35e90ad581925134aa0fc92e969cc825f5cdee8e13c36a87d4d6995316112cf"
 
