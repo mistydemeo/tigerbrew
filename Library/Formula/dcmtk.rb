@@ -1,6 +1,6 @@
 class Dcmtk < Formula
   desc "OFFIS DICOM toolkit command-line utilities"
-  homepage "http://dicom.offis.de/dcmtk.php.en"
+  homepage "https://dicom.offis.de/dcmtk.php.en"
 
   # Current snapshot used for stable now.
   url "http://dicom.offis.de/download/dcmtk/snapshot/dcmtk-3.6.1_20150629.tar.gz"

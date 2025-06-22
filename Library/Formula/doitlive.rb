@@ -1,6 +1,6 @@
 class Doitlive < Formula
   desc "Replay stored shell commands for live presentations"
-  homepage "https://doitlive.readthedocs.org/en/latest/"
+  homepage "https://doitlive.readthedocs.io/en/latest/"
   url "https://pypi.python.org/packages/source/d/doitlive/doitlive-2.3.1.tar.gz"
   sha256 "ab1e5965910be74bd56beb71d533ea1f4ae84b807271ca1605607834163b6e24"
 
