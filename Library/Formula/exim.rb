@@ -2,7 +2,7 @@ require "formula"
 
 class Exim < Formula
   desc "Complete replacement for sendmail"
-  homepage "http://exim.org"
+  homepage "https://exim.org/"
   url "http://ftp.exim.org/pub/exim/exim4/old/exim-4.85.tar.bz2"
   mirror "https://www.mirrorservice.org/sites/ftp.exim.org/pub/exim/exim4/old/exim-4.85.tar.bz2"
   sha256 "13211f2bbc5400d095a9b4be075eb1347e0d98676fdfe4be8a3b4d56281daaa4"

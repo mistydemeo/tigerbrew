@@ -3,7 +3,7 @@
 # elixir are compatible.
 class Erlang < Formula
   desc "Erlang Programming Language"
-  homepage "http://www.erlang.org"
+  homepage "https://www.erlang.org/"
 
   head "https://github.com/erlang/otp.git"
 

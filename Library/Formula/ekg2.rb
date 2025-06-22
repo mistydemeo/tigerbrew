@@ -1,6 +1,6 @@
 class Ekg2 < Formula
   desc "Multiplatform, multiprotocol, plugin-based instant messenger"
-  homepage "http://ekg2.org"
+  homepage "https://web.archive.org/web/20171217043954/http://en.ekg2.org/index.php"
   url "http://pl.ekg2.org/ekg2-0.3.1.tar.gz"
   sha256 "6ad360f8ca788d4f5baff226200f56922031ceda1ce0814e650fa4d877099c63"
   revision 1

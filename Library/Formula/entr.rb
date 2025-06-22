@@ -1,6 +1,6 @@
 class Entr < Formula
   desc "Run arbitrary commands when files change"
-  homepage "http://entrproject.org/"
+  homepage "https://eradman.com/entrproject/"
   url "http://entrproject.org/code/entr-3.2.tar.gz"
   mirror "https://bitbucket.org/eradman/entr/get/entr-3.2.tar.gz"
   sha256 "b1eee00afbeccf03010c1c557436854be6aaf0ef9b72ab8d44b94affdd7d7146"
