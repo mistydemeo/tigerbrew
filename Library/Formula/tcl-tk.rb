@@ -1,6 +1,6 @@
 class TclTk < Formula
   desc "Tool Command Language"
-  homepage "https://www.tcl.tk/"
+  homepage "https://www.tcl-lang.org/"
   url "http://prdownloads.sourceforge.net/tcl/tcl8.6.16-src.tar.gz"
   version "8.6.16"
   sha256 "91cb8fa61771c63c262efb553059b7c7ad6757afa5857af6265e4b0bdc2a14a5"

@@ -1,6 +1,6 @@
 class Tachyon < Formula
   desc "Distributed storage system to enable data sharing across cluster frameworks"
-  homepage "http://tachyon-project.org/"
+  homepage "https://web.archive.org/web/20160211184442/http://tachyon-project.org/"
   url "https://github.com/amplab/tachyon/releases/download/v0.6.4/tachyon-0.6.4-bin.tar.gz"
   sha256 "c105e2e984cc7139933e1d1debc4b393fe22ef33fb90776edc5be7148829b820"
 

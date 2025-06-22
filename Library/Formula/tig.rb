@@ -1,6 +1,6 @@
 class Tig < Formula
   desc "Text interface for Git repositories"
-  homepage "http://jonas.nitro.dk/tig/"
+  homepage "https://jonas.github.io/tig/"
   url "http://jonas.nitro.dk/tig/releases/tig-2.1.1.tar.gz"
   sha256 "50c5179fd564b829b6b2cec087e66f10cf8799601de19350df0772ae77e4852f"
   head "https://github.com/jonas/tig.git"

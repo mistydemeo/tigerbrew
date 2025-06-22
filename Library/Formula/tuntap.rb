@@ -1,6 +1,6 @@
 class Tuntap < Formula
   desc "Virtual network interfaces for OS X"
-  homepage "http://tuntaposx.sourceforge.net/"
+  homepage "https://tuntaposx.sourceforge.net/"
 
   # 20111101 dropped support for PowerPC, but still runs on 10.4
   # 20090913 is the last release that supports PowerPC at all.

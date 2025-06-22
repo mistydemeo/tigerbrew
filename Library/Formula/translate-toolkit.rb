@@ -1,6 +1,6 @@
 class TranslateToolkit < Formula
   desc "Toolkit for localization engineers"
-  homepage "http://toolkit.translatehouse.org/"
+  homepage "https://toolkit.translatehouse.org/"
   url "https://github.com/translate/translate/releases/download/1.12.0/translate-toolkit-1.12.0.tar.bz2"
   sha256 "11e332f2a29d8644364b4ca79b4ac079df328626ec8c27ac0e8cc454696719ca"
   head "https://github.com/translate/translate.git"

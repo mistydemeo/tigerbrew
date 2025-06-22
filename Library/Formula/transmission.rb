@@ -1,6 +1,6 @@
 class Transmission < Formula
   desc "Lightweight BitTorrent client"
-  homepage "http://www.transmissionbt.com/"
+  homepage "https://transmissionbt.com/"
   url "https://transmission.cachefly.net/transmission-2.84.tar.xz"
   sha256 "a9fc1936b4ee414acc732ada04e84339d6755cd0d097bcbd11ba2cfc540db9eb"
 

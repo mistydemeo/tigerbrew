@@ -1,6 +1,6 @@
 class Taktuk < Formula
   desc "Deploy commands to (a potentially large set of) remote nodes"
-  homepage "http://taktuk.gforge.inria.fr/"
+  homepage "https://web.archive.org/web/20210307192624/http://taktuk.gforge.inria.fr/"
   url "http://gforge.inria.fr/frs/download.php/30903/taktuk-3.7.5.tar.gz"
   sha256 "62d1b72616a1b260eb87cecde2e21c8cbb844939f2dcafad33507fcb16ef1cb1"
 
