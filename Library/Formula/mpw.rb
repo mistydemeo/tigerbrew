@@ -1,6 +1,6 @@
 class Mpw < Formula
   desc "Master Password for the terminal"
-  homepage "http://masterpasswordapp.com"
+  homepage "https://spectre.app/"
   url "https://ssl.masterpasswordapp.com/mpw-2.1-cli4-0-gf6b2287.tar.gz"
   sha256 "6ea76592eb8214329072d04f651af99d73de188a59ef76975d190569c7fa2b90"
   version "2.1-cli4"

@@ -1,6 +1,6 @@
 class Mvptree < Formula
   desc "Perceptual hash library"
-  homepage "http://www.phash.org"
+  homepage "https://www.phash.org"
   url "http://www.phash.org/releases/mvptree-1.0.tar.gz"
   sha256 "cbb89e7368785f4823200d4ba81975cdabe77797d736047b1ea14b02e6a61839"
 

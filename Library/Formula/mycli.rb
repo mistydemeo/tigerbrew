@@ -1,6 +1,6 @@
 class Mycli < Formula
   desc "CLI for MySQL with auto-completion and syntax highlighting"
-  homepage "http://mycli.net/"
+  homepage "https://www.mycli.net/"
   url "https://pypi.python.org/packages/source/m/mycli/mycli-1.4.0.tar.gz"
   sha256 "117f65f4825c621e0b6fde85a3fb209366a4477cc4a521a60ede230c53843015"
 

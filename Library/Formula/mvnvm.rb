@@ -1,6 +1,6 @@
 class Mvnvm < Formula
   desc "Maven version manager"
-  homepage "http://mvnvm.org"
+  homepage "https://bitbucket.org/mjensen/mvnvm/src/master/"
   url "https://bitbucket.org/mjensen/mvnvm/get/mvnvm-1.0.7.zip"
   sha256 "1cd930d2d00bb8cdbc3f3a6c8e2ff1b98ba2bc5ffd77d639219b3dce273f826b"
 

@@ -1,6 +1,6 @@
 class Mpfr2 < Formula
   desc "Multiple-precision floating-point computations C lib"
-  homepage "http://www.mpfr.org/"
+  homepage "https://www.mpfr.org/"
   # Track gcc infrastructure releases.
   url "https://www.mpfr.org/mpfr-2.4.2/mpfr-2.4.2.tar.bz2"
   mirror "https://www.mirrorservice.org/sites/sourceware.org/pub/gcc/infrastructure/mpfr-2.4.2.tar.bz2"

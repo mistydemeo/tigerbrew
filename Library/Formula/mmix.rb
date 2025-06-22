@@ -1,6 +1,6 @@
 class Mmix < Formula
   desc "64-bit RISC architecture designed by Donald Knuth"
-  homepage "http://mmix.cs.hm.edu/"
+  homepage "https://mmix.cs.hm.edu/"
   url "http://mmix.cs.hm.edu/src/mmix-20131017.tgz"
   sha256 "aa64c4b9dc3cf51f07b330791f8ce542b0ae8a1132e098fa95a19b31350050b4"
 

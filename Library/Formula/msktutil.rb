@@ -1,6 +1,6 @@
 class Msktutil < Formula
   desc "Program for interoperability with Active Directory"
-  homepage "https://code.google.com/p/msktutil/"
+  homepage "https://github.com/msktutil/msktutil"
   url "https://msktutil.googlecode.com/files/msktutil-0.5.1.tar.bz2"
   sha256 "ec02f7f19aa5600c5d20f327beaef88ee70211841dc01fa42eb258ae840ae6f0"
 

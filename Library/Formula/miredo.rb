@@ -1,6 +1,6 @@
 class Miredo < Formula
   desc "Teredo IPv6 tunneling through NATs"
-  homepage "http://www.remlab.net/miredo/"
+  homepage "https://www.remlab.net/miredo/"
   url "http://www.remlab.net/files/miredo/miredo-1.2.6.tar.xz"
   sha256 "fa26d2f4a405415833669e2e2e22677b225d8f83600844645d5683535ea43149"
 
