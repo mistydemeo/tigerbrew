@@ -1,6 +1,6 @@
 class Splint < Formula
   desc "Secure Programming Lint"
-  homepage "http://www.splint.org/"
+  homepage "https://splint.org/"
   url "http://www.splint.org/downloads/splint-3.1.2.src.tgz"
   sha256 "c78db643df663313e3fa9d565118391825dd937617819c6efc7966cdf444fb0a"
 

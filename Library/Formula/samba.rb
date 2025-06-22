@@ -1,6 +1,6 @@
 class Samba < Formula
   desc "SMB/CIFS file, print, and login server for UNIX"
-  homepage "https://samba.org/"
+  homepage "https://www.samba.org/"
   url "https://download.samba.org/pub/samba/stable/samba-3.6.25.tar.gz"
   sha256 "8f2c8a7f2bd89b0dfd228ed917815852f7c625b2bc0936304ac3ed63aaf83751"
 

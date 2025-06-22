@@ -1,6 +1,6 @@
 class Sleuthkit < Formula
   desc "Forensic toolkit"
-  homepage "http://www.sleuthkit.org/"
+  homepage "https://www.sleuthkit.org/"
 
   stable do
     url "https://downloads.sourceforge.net/project/sleuthkit/sleuthkit/4.1.3/sleuthkit-4.1.3.tar.gz"

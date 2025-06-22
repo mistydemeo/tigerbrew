@@ -1,6 +1,6 @@
 class Shntool < Formula
   desc "Multi-purpose tool for manipulating and analyzing WAV files"
-  homepage "http://etree.org/shnutils/shntool/"
+  homepage "https://web.archive.org/web/20180916135356/http://etree.org/shnutils/shntool/"
   url "http://etree.org/shnutils/shntool/dist/src/shntool-3.0.10.tar.gz"
   sha256 "74302eac477ca08fb2b42b9f154cc870593aec8beab308676e4373a5e4ca2102"
 

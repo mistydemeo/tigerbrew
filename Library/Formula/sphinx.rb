@@ -1,6 +1,6 @@
 class Sphinx < Formula
   desc "Sphinx is a full-text search engine"
-  homepage "http://www.sphinxsearch.com"
+  homepage "https://sphinxsearch.com/"
 
   stable do
     url "http://sphinxsearch.com/files/sphinx-2.2.11-release.tar.gz"

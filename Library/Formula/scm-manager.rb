@@ -1,6 +1,6 @@
 class ScmManager < Formula
   desc "Manage Git, Mercurial, and Subversion repos over HTTP"
-  homepage "https://www.scm-manager.org"
+  homepage "https://scm-manager.org/"
   url "https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/1.46/scm-server-1.46-app.tar.gz"
   version "1.46"
   sha256 "984737422d403f2db95bdd9f268f900a537413b1d78721929faa53785bf7b54c"
