@@ -1,6 +1,6 @@
 class Jslint4java < Formula
   desc "Java wrapper for JavaScript Lint (jsl)"
-  homepage "https://code.google.com/p/jslint4java/"
+  homepage "https://code.google.com/archive/p/jslint4java"
   url "https://jslint4java.googlecode.com/files/jslint4java-2.0.5-dist.zip"
   sha256 "078240b17256a0472f9981d68f11556238658ebaa67be49ea49958adafc96a81"
 

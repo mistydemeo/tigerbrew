@@ -1,6 +1,6 @@
 class Jrnl < Formula
   desc "Command-line note taker"
-  homepage "https://maebert.github.io/jrnl/"
+  homepage "https://jrnl.sh/en/stable/"
   url "https://github.com/maebert/jrnl/archive/1.9.7.tar.gz"
   sha256 "789de4bffe0c22911a4968e525feeb20a6c7c4f4fe762a936ce2dac2213cd855"
 

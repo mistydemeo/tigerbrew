@@ -3,7 +3,7 @@
 
 class Jless < Formula
   desc "Jless file pager supporting ISO2022"
-  homepage "http://www.greenwoodsoftware.com/less/"
+  homepage "https://www.greenwoodsoftware.com/less/"
   url "http://ftp.de.debian.org/debian/pool/main/j/jless/jless_382-iso262.orig.tar.gz"
   version "382+iso262+ext03"
   sha256 "d33cc51f220647d015fd526b3782cde03c5d8b18c5233e6388a0047a70446fe7"

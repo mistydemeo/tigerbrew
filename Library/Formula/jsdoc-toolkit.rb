@@ -1,6 +1,6 @@
 class JsdocToolkit < Formula
   desc "Generate documentation from JavaScript source code"
-  homepage "https://code.google.com/p/jsdoc-toolkit/"
+  homepage "https://code.google.com/archive/p/jsdoc-toolkit"
   url "https://jsdoc-toolkit.googlecode.com/files/jsdoc_toolkit-2.4.0.zip"
   sha256 "82c79957b37b193bc64cc4363220517f1c76700863f1430aef8c94ecd4917b44"
 

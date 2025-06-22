@@ -7,7 +7,7 @@
 # Please see https://github.com/Homebrew/homebrew/pull/22043 for more info
 class Jack < Formula
   desc "Jack Audio Connection Kit (JACK)"
-  homepage "http://jackaudio.org"
+  homepage "https://jackaudio.org/"
   url "http://jackaudio.org/downloads/jack-audio-connection-kit-0.124.1.tar.gz"
   sha256 "eb42df6065576f08feeeb60cb9355dce4eb53874534ad71534d7aa31bae561d6"
 

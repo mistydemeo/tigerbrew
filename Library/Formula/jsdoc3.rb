@@ -1,6 +1,6 @@
 class Jsdoc3 < Formula
   desc "Inline API documentation processor for JavaScript"
-  homepage "http://usejsdoc.org/"
+  homepage "https://jsdoc.app/"
   head "https://github.com/jsdoc3/jsdoc.git"
   url "https://github.com/jsdoc3/jsdoc/archive/v3.2.2.tar.gz"
   sha256 "c101896d2cf08be636332a5eaaf38fe318ae7f639c37735abd1643b1b973254b"
