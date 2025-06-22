@@ -2,7 +2,7 @@
 # https://github.com/Homebrew/homebrew/pull/21419
 class Xz < Formula
   desc "General-purpose data compression with high compression ratio"
-  homepage "http://tukaani.org/xz/"
+  homepage "https://tukaani.org/xz/"
   url "https://downloads.sourceforge.net/project/lzmautils/xz-5.8.1.tar.gz"
   mirror "https://github.com/tukaani-project/xz/releases/download/v5.8.1/xz-5.8.1.tar.gz"
   sha256 "507825b599356c10dca1cd720c9d0d0c9d5400b9de300af00e4d1ea150795543"

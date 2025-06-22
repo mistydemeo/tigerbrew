@@ -21,7 +21,7 @@ end
 
 class Xulrunner < Formula
   desc "Mozilla runtime package to bootstrap XUL+XPCOM applications"
-  homepage "https://developer.mozilla.org/docs/XULRunner"
+  homepage "https://web.archive.org/web/20210418164615/https://developer.mozilla.org/en-US/docs/Archive/Mozilla/XULRunner"
 
   stable do
     # Always use direct URLs (releases/<version>/) instead of releases/latest/
