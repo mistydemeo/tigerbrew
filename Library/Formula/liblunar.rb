@@ -1,6 +1,6 @@
 class Liblunar < Formula
   desc "Lunar date calendar"
-  homepage "https://code.google.com/p/liblunar/"
+  homepage "https://code.google.com/archive/p/liblunar"
   url "https://liblunar.googlecode.com/files/liblunar-2.2.5.tar.gz"
   sha256 "c24a7cd3ccbf7ab739d752a437f1879f62b975b95abcf9eb9e1dd623982bc167"
 

@@ -1,6 +1,6 @@
 class Libnice < Formula
   desc "GLib ICE implementation"
-  homepage "http://nice.freedesktop.org/wiki/"
+  homepage "https://libnice.freedesktop.org/"
   url "http://nice.freedesktop.org/releases/libnice-0.1.7.tar.gz"
   sha256 "4ed165aa2203136dce548c7cef735d8becf5d9869793f96b99dcbbaa9acf78d8"
 

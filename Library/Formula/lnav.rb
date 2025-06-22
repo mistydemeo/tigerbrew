@@ -1,6 +1,6 @@
 class Lnav < Formula
   desc "Curses-based tool for viewing and analyzing log files"
-  homepage "http://lnav.org"
+  homepage "https://lnav.org/"
   url "https://github.com/tstack/lnav/releases/download/v0.7.3/lnav-0.7.3.tar.gz"
   sha256 "7eb052a8dc60bef6c5f4a8e7135b7089b4413edbf156cc8bafce0557d3166df3"
   revision 1

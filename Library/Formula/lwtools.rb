@@ -1,6 +1,6 @@
 class Lwtools < Formula
   desc "Cross-development tools for Motorola 6809 and Hitachi 6309 microprocessors"
-  homepage "http://lwtools.projects.l-w.ca/"
+  homepage "http://www.lwtools.ca/"
   url "http://lwtools.projects.l-w.ca/releases/lwtools/lwtools-4.9.tar.gz"
   sha256 "e0c96e4f1e10ef00a1c5b1f55ccba8f5924d826ac89837bef96382a474ccf975"
 

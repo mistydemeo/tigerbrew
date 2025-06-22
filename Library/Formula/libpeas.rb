@@ -1,6 +1,6 @@
 class Libpeas < Formula
   desc "GObject plugin library"
-  homepage "https://developer.gnome.org/libpeas/stable/"
+  homepage "https://gitlab.gnome.org/GNOME/libpeas"
   url "https://download.gnome.org/sources/libpeas/1.14/libpeas-1.14.0.tar.xz"
   sha256 "5e4b3a8968b71497ab26a7a528c414c4c640c5724328fa3507854f04788e2d76"
 

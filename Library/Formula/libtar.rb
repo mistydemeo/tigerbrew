@@ -1,6 +1,6 @@
 class Libtar < Formula
   desc "C library for manipulating POSIX tar files"
-  homepage "http://repo.or.cz/w/libtar.git"
+  homepage "https://web.archive.org/web/20150607234252/https://www.feep.net/libtar/"
   url "http://repo.or.cz/libtar.git",
       :tag => "v1.2.20",
       :revision => "0907a9034eaf2a57e8e4a9439f793f3f05d446cd"

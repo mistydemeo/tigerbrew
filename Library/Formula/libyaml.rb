@@ -1,6 +1,6 @@
 class Libyaml < Formula
   desc "YAML Parser"
-  homepage "http://pyyaml.org/wiki/LibYAML"
+  homepage "https://pyyaml.org/wiki/LibYAML"
   url "https://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz"
   mirror "https://github.com/yaml/libyaml/releases/download/0.2.5/yaml-0.2.5.tar.gz"
   sha256 "c642ae9b75fee120b2d96c712538bd2cf283228d2337df2cf2988e3c02678ef4"

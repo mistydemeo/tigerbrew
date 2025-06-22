@@ -1,6 +1,6 @@
 class Lcdproc < Formula
   desc "Display real-time system information on a LCD"
-  homepage "http://www.lcdproc.org/"
+  homepage "https://www.lcdproc.org/"
   url "https://downloads.sourceforge.net/project/lcdproc/lcdproc/0.5.6/lcdproc-0.5.6.tar.gz"
   sha256 "bd2f43c30ff43b30f43110abe6b4a5bc8e0267cb9f57fa97cc5e5ef9488b984a"
 

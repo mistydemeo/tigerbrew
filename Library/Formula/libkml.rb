@@ -1,6 +1,6 @@
 class Libkml < Formula
   desc "Library to parse, generate and operate on KML"
-  homepage "https://code.google.com/p/libkml/"
+  homepage "https://code.google.com/archive/p/libkml"
 
   stable do
     url "https://libkml.googlecode.com/files/libkml-1.2.0.tar.gz"

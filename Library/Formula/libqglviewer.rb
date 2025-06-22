@@ -1,6 +1,6 @@
 class Libqglviewer < Formula
   desc "C++ Qt library to create OpenGL 3D viewers"
-  homepage "http://www.libqglviewer.com/"
+  homepage "https://web.archive.org/web/20230706070633/http://www.libqglviewer.com/"
   url "http://www.libqglviewer.com/src/libQGLViewer-2.6.1.tar.gz"
   sha256 "9312c1a3d7fcf60ffc0bb1c8588b223034b06dab8f7e203f1a7e4ebc9b846c16"
 

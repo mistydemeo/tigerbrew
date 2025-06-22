@@ -1,6 +1,6 @@
 class Liquidprompt < Formula
   desc "Adaptive prompt for bash and zsh shells"
-  homepage "https://github.com/nojhan/liquidprompt"
+  homepage "https://liquidprompt.readthedocs.io/en/stable/"
   url "https://github.com/nojhan/liquidprompt/archive/v_1.9.tar.gz"
   sha256 "4751665b6dbf37517ba8e7b6af067369937006b60ca23fc320fd5416b1a065fd"
 
