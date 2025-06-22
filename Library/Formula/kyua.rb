@@ -1,6 +1,6 @@
 class Kyua < Formula
   desc "Testing framework for infrastructure software"
-  homepage "https://github.com/jmmv/kyua"
+  homepage "https://github.com/freebsd/kyua/wiki"
   url "https://github.com/jmmv/kyua/releases/download/kyua-0.11/kyua-0.11.tar.gz"
   sha256 "2b8b64a458b642df75086eeb73e8073d105b8d9cff04c9b1a905b68bc8502560"
 
