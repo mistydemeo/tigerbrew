@@ -1,6 +1,6 @@
 class Bmake < Formula
   desc "Portable version of NetBSD make(1)"
-  homepage "http://www.crufty.net/help/sjg/bmake.html"
+  homepage "https://www.crufty.net/help/sjg/bmake.html"
   url "http://www.crufty.net/ftp/pub/sjg/bmake-20150606.tar.gz"
   mirror "https://mirrors.kernel.org/debian/pool/main/b/bmake/bmake_20150606.orig.tar.gz"
   sha256 "c3147540fd5f64d5f2c1c7cd5d65d64d69bc5573e02707774d8eee349f043946"

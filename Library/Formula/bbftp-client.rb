@@ -1,6 +1,6 @@
 class BbftpClient < Formula
   desc "Secure file transfer software, optimized for large files"
-  homepage "http://doc.in2p3.fr/bbftp/"
+  homepage "https://web.archive.org/web/20130601084926/http://doc.in2p3.fr/bbftp/"
   url "http://doc.in2p3.fr/bbftp/dist/bbftp-client-3.2.1.tar.gz"
   sha256 "4000009804d90926ad3c0e770099874084fb49013e8b0770b82678462304456d"
   revision 1

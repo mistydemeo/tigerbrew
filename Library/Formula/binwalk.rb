@@ -1,6 +1,6 @@
 class Binwalk < Formula
   desc "Searches a binary image for embedded files and executable code"
-  homepage "http://binwalk.org/"
+  homepage "https://github.com/ReFirmLabs/binwalk"
   revision 1
   stable do
     url "https://github.com/devttys0/binwalk/archive/v2.0.1.tar.gz"

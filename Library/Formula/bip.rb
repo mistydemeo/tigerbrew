@@ -1,6 +1,6 @@
 class Bip < Formula
   desc "IRC proxy"
-  homepage "https://bip.milkypond.org" # Self-signed cert.
+  homepage "https://bip.milkypond.org"
   url "https://mirrors.kernel.org/debian/pool/main/b/bip/bip_0.8.9.orig.tar.gz"
   sha256 "3c950f71ef91c8b686e6835f9b722aa7ccb88d3da4ec1af19617354fd3132461"
   revision 1

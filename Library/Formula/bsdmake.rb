@@ -1,6 +1,6 @@
 class Bsdmake < Formula
   desc "BSD make (build tool)"
-  homepage "https://github.com/apple-oss-distributions/bsdmake/tags/bsdmake-24"
+  homepage "https://github.com/apple-oss-distributions/bsdmake/"
   url "https://github.com/apple-oss-distributions/bsdmake/archive/refs/tags/bsdmake-24.tar.gz"
   sha256 "096f333f94193215931a9fab86b9bca0713fbd22ec465bf55510067b53940e62"
 
