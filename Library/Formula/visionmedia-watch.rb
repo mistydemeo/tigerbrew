@@ -1,6 +1,6 @@
 class VisionmediaWatch < Formula
   desc "Periodically executes the given command"
-  homepage "https://github.com/visionmedia/watch"
+  homepage "https://github.com/tj/watch"
   url "https://github.com/visionmedia/watch/archive/0.3.1.tar.gz"
   sha256 "769196a9f33d069b1d6c9c89e982e5fdae9cfccd1fd4000d8da85e9620faf5a6"
 

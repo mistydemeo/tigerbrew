@@ -1,6 +1,6 @@
 class Vte3 < Formula
   desc "Terminal emulator widget used by GNOME terminal"
-  homepage "https://developer.gnome.org/vte/"
+  homepage "https://wiki.gnome.org/Apps/Terminal/VTE"
   url "https://download.gnome.org/sources/vte/0.40/vte-0.40.2.tar.xz"
   sha256 "9b68fbc16b27f2d79e6271f2b0708808594ac5acf979d0fccea118608199fd2d"
 

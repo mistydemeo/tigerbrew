@@ -1,6 +1,6 @@
 class Valabind < Formula
   desc "Vala bindings for radare, reverse engineering framework"
-  homepage "http://radare.org/"
+  homepage "https://radare.org/n/"
   url "https://github.com/radare/valabind/archive/refs/tags/1.8.0.tar.gz"
   sha256 "3eba8c36c923eda932a95b8d0c16b7b30e8cdda442252431990436519cf87cdd"
 

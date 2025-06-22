@@ -2,7 +2,7 @@ require "language/go"
 
 class Vault < Formula
   desc "secures, stores, and tightly controls access to secrets"
-  homepage "https://vaultproject.io/"
+  homepage "https://developer.hashicorp.com/vault"
   url "https://github.com/hashicorp/vault.git",
       :tag => "v0.3.0",
       :revision => "347f48c55bae0fa7a36d8eae6028de9a6eeefc01"

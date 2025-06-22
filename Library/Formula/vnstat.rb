@@ -1,6 +1,6 @@
 class Vnstat < Formula
   desc "Console-based network traffic monitor"
-  homepage "http://humdi.net/vnstat/"
+  homepage "https://humdi.net/vnstat/"
   url "http://humdi.net/vnstat/vnstat-1.14.tar.gz"
   sha256 "f8462a47d85d0890493dc9eaeafbc725ae631aa5b103fb7f8af4ddb2314e8386"
 
