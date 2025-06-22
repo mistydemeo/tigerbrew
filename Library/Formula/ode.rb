@@ -1,6 +1,6 @@
 class Ode < Formula
   desc "Library for simulating articulated rigid body dynamics"
-  homepage "http://www.ode.org/"
+  homepage "https://ode.org/"
   url "https://bitbucket.org/odedevs/ode/downloads/ode-0.13.1.tar.gz"
   sha256 "35e55e05c6c6ebb813a546017285a7aceedb3e8e55c8ff102e80e26bd84c5658"
 

@@ -1,6 +1,6 @@
 class Ooniprobe < Formula
   desc "Network interference detection tool"
-  homepage "https://ooni.torproject.org/"
+  homepage "https://ooni.org/"
   url "https://pypi.python.org/packages/source/o/ooniprobe/ooniprobe-1.3.1.tar.gz"
   sha256 "0d90b85f74c9dd98f8f111c058a2a734aa5e0aea927b2653f7a0387c93e090b2"
 

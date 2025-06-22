@@ -1,6 +1,6 @@
 class Opendetex < Formula
   desc "Tool to strip TeX or LaTeX commands from documents"
-  homepage "https://code.google.com/p/opendetex/"
+  homepage "https://code.google.com/archive/p/opendetex"
   url "https://opendetex.googlecode.com/files/opendetex-2.8.1.tar.bz2"
   sha256 "8a47e4c7052672dfe5e0a4214dd5db42ac4322eb382efe6fd1fb271b409d051e"
 
