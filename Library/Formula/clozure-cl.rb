@@ -1,6 +1,6 @@
 class ClozureCl < Formula
   desc "Common Lisp implementation with a long history"
-  homepage "http://ccl.clozure.com/"
+  homepage "https://ccl.clozure.com/"
   url "http://ccl.clozure.com/ftp/pub/release/1.10/ccl-1.10-darwinx86.tar.gz"
   version "1.10"
   sha256 "5ec70087e6ba54e1992210575d444ebb2e12dbd33ac2816fed1112d24d595ec9"

@@ -1,6 +1,6 @@
 class CdDiscid < Formula
   desc "Read CD and get CDDB discid information"
-  homepage "http://linukz.org/cd-discid.shtml"
+  homepage "https://linukz.org/cd-discid.shtml"
   url "http://linukz.org/download/cd-discid-1.4.tar.gz"
   mirror "https://mirrors.kernel.org/debian/pool/main/c/cd-discid/cd-discid_1.4.orig.tar.gz"
   sha256 "ffd68cd406309e764be6af4d5cbcc309e132c13f3597c6a4570a1f218edd2c63"

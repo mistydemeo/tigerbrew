@@ -1,6 +1,6 @@
 class Corkscrew < Formula
   desc "Tunnel SSH through HTTP proxies"
-  homepage "http://www.agroman.net/corkscrew/"
+  homepage "https://web.archive.org/web/20160412000407/http://www.agroman.net/corkscrew/"
   url "http://www.agroman.net/corkscrew/corkscrew-2.0.tar.gz"
   sha256 "0d0fcbb41cba4a81c4ab494459472086f377f9edb78a2e2238ed19b58956b0be"
 

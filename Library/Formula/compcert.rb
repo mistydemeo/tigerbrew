@@ -1,6 +1,6 @@
 class Compcert < Formula
   desc "CompCert C verified compiler"
-  homepage "http://compcert.inria.fr"
+  homepage "https://compcert.org/"
   url "https://github.com/AbsInt/CompCert/archive/v2.5.tar.gz"
   sha256 "36847b00fa5436ac8e052489b728adef2bc68064fe22dbdc18bf22256856fd95"
 

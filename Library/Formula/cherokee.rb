@@ -1,6 +1,6 @@
 class Cherokee < Formula
   desc "Cherokee web server"
-  homepage "http://cherokee-project.com/"
+  homepage "https://cherokee-project.com/"
 
   stable do
     url "http://pkgs.fedoraproject.org/repo/pkgs/cherokee/cherokee-1.2.103.tar.gz/527b3de97ef9727bfd5f6832043cf916/cherokee-1.2.103.tar.gz"

@@ -1,6 +1,6 @@
 class Cdargs < Formula
   desc "Bookmarks for the shell"
-  homepage "http://www.skamphausen.de/cgi-bin/ska/CDargs"
+  homepage "https://www.skamphausen.de/cgi-bin/ska/CDargs"
   url "http://www.skamphausen.de/downloads/cdargs/cdargs-1.35.tar.gz"
   sha256 "ee35a8887c2379c9664b277eaed9b353887d89480d5749c9ad957adf9c57ed2c"
 

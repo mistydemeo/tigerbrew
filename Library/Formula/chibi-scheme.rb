@@ -1,6 +1,6 @@
 class ChibiScheme < Formula
   desc "Small footprint Scheme for use as a C Extension Language"
-  homepage "http://synthcode.com/wiki/chibi-scheme"
+  homepage "https://synthcode.com/wiki/chibi-scheme"
 
   stable do
     url "http://synthcode.com/scheme/chibi/chibi-scheme-0.10.0.tgz"
