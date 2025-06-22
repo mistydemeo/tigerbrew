@@ -1,6 +1,6 @@
 class Pgtap < Formula
   desc "Unit testing framework for PostgreSQL"
-  homepage "http://pgtap.org/"
+  homepage "https://pgtap.org/"
   url "http://api.pgxn.org/dist/pgtap/0.94.0/pgtap-0.94.0.zip"
   sha256 "c590ce9edb19a95dbd7caef84f677ff433fd87eaa68effdc4a7ac0fdf29be4cc"
   head "https://github.com/theory/pgtap.git"

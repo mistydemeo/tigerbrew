@@ -1,6 +1,6 @@
 class Puddletag < Formula
   desc "Powerful, simple, audio tag editor."
-  homepage "http://puddletag.sf.net"
+  homepage "https://puddletag.sourceforge.net/"
   url "https://github.com/keithgg/puddletag/archive/v1.0.5.tar.gz"
   sha256 "f94ebcc4ed31389574c187197b99256bec1f96e1e7d4dd61730e88f79deeaba2"
 

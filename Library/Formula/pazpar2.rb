@@ -1,6 +1,6 @@
 class Pazpar2 < Formula
   desc "Metasearching middleware webservice"
-  homepage "http://www.indexdata.com/pazpar2"
+  homepage "https://www.indexdata.com/resources/software/pazpar2/"
   url "http://ftp.indexdata.dk/pub/pazpar2/pazpar2-1.11.3.tar.gz"
   sha256 "bee8d3529a129cda7c5281b7e9b50ca5d9a2ed1647f4e7cae7da6b568c00eb7a"
 

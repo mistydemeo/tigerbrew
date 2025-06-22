@@ -1,6 +1,6 @@
 class Ptex < Formula
   desc "Texture mapping system"
-  homepage "http://ptex.us"
+  homepage "https://ptex.us"
   url "https://github.com/wdas/ptex/archive/v2.0.42.tar.gz"
   sha256 "4abdee8b51fa239d576d6b5a70f10d9ea56f51fa50408fe6b9440e11fe646658"
 

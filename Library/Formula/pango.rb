@@ -1,6 +1,6 @@
 class Pango < Formula
   desc "Framework for layout and rendering of i18n text"
-  homepage "http://www.pango.org/"
+  homepage "https://www.gtk.org/docs/architecture/pango"
 
   stable do
     url "https://download.gnome.org/sources/pango/1.38/pango-1.38.0.tar.xz"

@@ -1,6 +1,6 @@
 class PreCommit < Formula
   desc "Framework for managing multi-language pre-commit hooks"
-  homepage "http://pre-commit.com/"
+  homepage "https://pre-commit.com/"
   url "https://github.com/pre-commit/pre-commit/archive/v0.5.3.tar.gz"
   sha256 "1260ea96c54f517b3adb835170be119d6f233aff7a7fd3227bc5a8f984b602e1"
 

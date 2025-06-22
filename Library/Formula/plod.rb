@@ -1,6 +1,6 @@
 class Plod < Formula
   desc "Keep an online journal of what you're working on"
-  homepage "http://www.deer-run.com/~hal/"
+  homepage "https://web.archive.org/web/20210416025636/http://www.deer-run.com/~hal/"
   url "http://www.deer-run.com/~hal/plod/plod.shar"
   version "1.9"
   sha256 "1b7b8267c41b11c2f5413a8d6850099e0547b7506031b0c733121ed5e8d182f5"
@@ -63,8 +63,8 @@ class Plod < Formula
 
   test do
     ENV["LOGDIR"] = testpath/".logdir"
-    system "#{bin}/plod", "this", "is", "Homebrew"
+    system "#{bin}/plod", "this", "is", "Tigerbrew"
     assert File.directory? "#{testpath}/.logdir"
-    assert_match(/this is Homebrew/, shell_output("#{bin}/plod -P"))
+    assert_match(/this is Tigerbrew/, shell_output("#{bin}/plod -P"))
   end
 end

@@ -1,6 +1,6 @@
 class P11Kit < Formula
   desc "Library to load and enumerate PKCS# 11 modules"
-  homepage "http://p11-glue.freedesktop.org"
+  homepage "https://p11-glue.github.io/p11-glue/index.html"
   url "https://github.com/p11-glue/p11-kit/releases/download/0.24.1/p11-kit-0.24.1.tar.xz"
   sha256 "d8be783efd5cd4ae534cee4132338e3f40f182c3205d23b200094ec85faaaef8"
 
