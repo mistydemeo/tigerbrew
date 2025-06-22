@@ -1,6 +1,6 @@
 class Qemu < Formula
   desc "x86 and PowerPC Emulator"
-  homepage "http://wiki.qemu.org"
+  homepage "https://wiki.qemu.org/Main_Page"
   url "https://download.qemu.org/qemu-2.3.1.tar.bz2"
   sha256 "661d029809421cae06b4b1bc74ac0e560cb4ed47c9523c676ff277fa26dca15f"
 

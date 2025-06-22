@@ -1,6 +1,6 @@
 class Qwtpolar < Formula
   desc "Library for displaying values on a polar coordinate system"
-  homepage "http://qwtpolar.sourceforge.net/"
+  homepage "https://qwtpolar.sourceforge.io/"
   url "https://downloads.sf.net/project/qwtpolar/qwtpolar/1.1.0/qwtpolar-1.1.0.tar.bz2"
   sha256 "e45a1019b481f52a63483c536c5ef3225f1cced04abf45d7d0ff8e06d30e2355"
 

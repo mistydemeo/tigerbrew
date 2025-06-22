@@ -1,6 +1,6 @@
 class Qtfaststart < Formula
   desc "Utility for Quicktime files"
-  homepage "https://libav.org/"
+  homepage https://web.archive.org/web/20221220014926/https://libav.org/"
   url "https://libav.org/releases/libav-11.2.tar.gz"
   sha256 "1f1448e1245444a1fae2f077f6846fedb47dfb294bef797e6742c095a6b4d769"
 
