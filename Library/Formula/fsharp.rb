@@ -1,6 +1,6 @@
 class Fsharp < Formula
   desc "F#, a functional-first programming language"
-  homepage "http://fsharp.org/"
+  homepage "https://fsharp.org/"
   url "https://github.com/fsharp/fsharp.git", :tag => "3.1.2.4",
                                               :revision => "8d02a54a75de362d6b649dcaaacfefe6db9caf41"
 

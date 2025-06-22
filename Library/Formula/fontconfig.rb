@@ -1,6 +1,6 @@
 class Fontconfig < Formula
   desc "XML-based font configuration API for X Windows"
-  homepage "http://fontconfig.org/"
+  homepage "https://fontconfig.org/"
   url "https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.2.tar.xz"
   sha256 "dba695b57bce15023d2ceedef82062c2b925e51f5d4cc4aef736cf13f60a468b"
 

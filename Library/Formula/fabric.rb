@@ -1,6 +1,6 @@
 class Fabric < Formula
   desc "Library and command-line tool for SSH"
-  homepage "http://www.fabfile.org"
+  homepage "https://www.fabfile.org"
   url "https://github.com/fabric/fabric/archive/1.10.2.tar.gz"
   sha256 "f142aca5a20624036a35faa387dd5c409ad534a130f39172115fd57d7e9c3a8d"
 

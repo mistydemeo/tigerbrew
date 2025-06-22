@@ -1,6 +1,6 @@
 class Freeling < Formula
   desc "Suite of language analyzers"
-  homepage "http://nlp.lsi.upc.edu/freeling/"
+  homepage "https://nlp.lsi.upc.edu/freeling/"
   url "http://devel.cpl.upc.edu/freeling/downloads/32"
   version "3.1"
   sha256 "e98471ceb3f58afbe70369584d8d316323d13fcc51d09b2fd7f431a3220982ba"

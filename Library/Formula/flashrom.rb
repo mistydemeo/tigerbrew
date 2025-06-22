@@ -1,6 +1,6 @@
 class Flashrom < Formula
   desc "Identify, read, write, verify, and erase flash chips"
-  homepage "http://flashrom.org/"
+  homepage "https://flashrom.org/"
   url "https://download.flashrom.org/releases/flashrom-1.4.0.tar.xz"
   sha256 "ad7ee1b49239c6fb4f8f55e36706fcd731435db1a4bd2fab3d80f1f72508ccee"
   license "GPL-2.0-or-later"

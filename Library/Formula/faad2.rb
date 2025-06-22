@@ -1,6 +1,6 @@
 class Faad2 < Formula
   desc "ISO AAC audio decoder"
-  homepage "http://www.audiocoding.com/faad2.html"
+  homepage "https://faac.sourceforge.net/"
   url "https://downloads.sourceforge.net/project/faac/faad2-src/faad2-2.7/faad2-2.7.tar.bz2"
   sha256 "14561b5d6bc457e825bfd3921ae50a6648f377a9396eaf16d4b057b39a3f63b5"
 
