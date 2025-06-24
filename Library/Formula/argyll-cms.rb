@@ -1,7 +1,7 @@
 class ArgyllCms < Formula
   desc "ICC compatible color management system"
   homepage "http://www.argyllcms.com/"
-  url "http://www.argyllcms.com/Argyll_V1.8.2_src.zip"
+  url "https://web.archive.org/web/20151009105931/http://www.argyllcms.com/Argyll_V1.8.2_src.zip"
   version "1.8.2"
   sha256 "59bdfaeace35d2007c90fc53234ba33bf8a64cffc08f7b27a297fc5f85455377"
   revision 1
