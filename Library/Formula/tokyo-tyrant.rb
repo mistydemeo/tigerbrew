@@ -1,7 +1,7 @@
 class TokyoTyrant < Formula
   desc "Lightweight database server"
   homepage "http://fallabs.com/tokyotyrant/"
-  url "http://fallabs.com/tokyotyrant/tokyotyrant-1.1.41.tar.gz"
+  url "https://web.archive.org/web/20221222202446/http://fallabs.com/tokyotyrant/tokyotyrant-1.1.41.tar.gz"
   sha256 "42af70fb9f2795d4e05c3e37941ce392a9eaafc991e230c48115370f6d64b88f"
   revision 1
 
