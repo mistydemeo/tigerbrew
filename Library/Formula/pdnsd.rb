@@ -1,7 +1,7 @@
 class Pdnsd < Formula
   desc "Proxy DNS server with permanent caching"
   homepage "http://members.home.nl/p.a.rombouts/pdnsd/"
-  url "http://members.home.nl/p.a.rombouts/pdnsd/releases/pdnsd-1.2.9a-par.tar.gz"
+  url "https://web.archive.org/web/20200323100335/http://members.home.nl/p.a.rombouts/pdnsd/releases/pdnsd-1.2.9a-par.tar.gz"
   version "1.2.9a-par"
   sha256 "bb5835d0caa8c4b31679d6fd6a1a090b71bdf70950db3b1d0cea9cf9cb7e2a7b"
 

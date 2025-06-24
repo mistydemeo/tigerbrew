@@ -1,7 +1,7 @@
 class ProofGeneral < Formula
   desc "Emacs-based generic interface for theorem provers"
   homepage "http://proofgeneral.inf.ed.ac.uk"
-  url "http://proofgeneral.inf.ed.ac.uk/releases/ProofGeneral-4.2.tgz"
+  url "https://web.archive.org/web/20160414054158/https://proofgeneral.inf.ed.ac.uk/releases/ProofGeneral-4.2.tgz"
   sha256 "3567b68077798396ccd55c501b7ea7bd2c4d6300e4c74ff609dc19837d050b27"
 
   devel do

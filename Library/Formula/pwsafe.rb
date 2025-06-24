@@ -1,7 +1,7 @@
 class Pwsafe < Formula
   desc "Generate passwords and manage encrypted password databases"
   homepage "http://nsd.dyndns.org/pwsafe/"
-  url "http://nsd.dyndns.org/pwsafe/releases/pwsafe-0.2.0.tar.gz"
+  url "https://web.archive.org/web/20160604031349/http://nsd.dyndns.org/pwsafe/releases/pwsafe-0.2.0.tar.gz"
   sha256 "61e91dc5114fe014a49afabd574eda5ff49b36c81a6d492c03fcb10ba6af47b7"
   revision 2
 
@@ -17,7 +17,7 @@ class Pwsafe < Formula
 
   # A password database for testing is provided upstream. How nice!
   resource "test-pwsafe-db" do
-    url "http://nsd.dyndns.org/pwsafe/test.dat"
+    url "https://web.archive.org/web/20181014074859/http://nsd.dyndns.org/pwsafe/test.dat"
     sha256 "7ecff955871e6e58e55e0794d21dfdea44a962ff5925c2cd0683875667fbcc79"
   end
 
