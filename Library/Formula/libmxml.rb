@@ -1,7 +1,7 @@
 class Libmxml < Formula
   desc "Mini-XML library"
   homepage "http://www.minixml.org/"
-  url "https://www.msweet.org/files/project3/mxml-2.9.tar.gz"
+  url "https://web.archive.org/web/20160616223104/https://www.msweet.org/files/project3/mxml-2.9.tar.gz"
   sha256 "cded54653c584b24c4a78a7fa1b3b4377d49ac4f451ddf170ebbc8161d85ff92"
 
   head "http://svn.msweet.org/mxml/"

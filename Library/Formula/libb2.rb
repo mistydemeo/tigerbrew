@@ -1,7 +1,7 @@
 class Libb2 < Formula
   desc "Secure hashing function"
   homepage "https://blake2.net/"
-  url "https://blake2.net/libb2-0.97.tar.gz"
+  url "https://web.archive.org/web/20150801153422/https://blake2.net/libb2-0.97.tar.gz"
   sha256 "7829c7309347650239c76af7f15d9391af2587b38f0a65c250104a2efef99051"
 
   bottle do

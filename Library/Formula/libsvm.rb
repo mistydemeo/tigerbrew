@@ -1,7 +1,7 @@
 class Libsvm < Formula
   desc "Library for support vector machines"
   homepage "https://www.csie.ntu.edu.tw/~cjlin/libsvm/"
-  url "https://www.csie.ntu.edu.tw/~cjlin/libsvm/libsvm-3.20.tar.gz"
+  url "https://web.archive.org/web/20150805024258/https://www.csie.ntu.edu.tw/~cjlin/libsvm/libsvm-3.20.tar.gz"
   sha256 "0f122480bef44dec4df6dae056f468c208e4e08c00771ec1b6dae2707fd945be"
 
   bottle do

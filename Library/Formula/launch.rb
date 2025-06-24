@@ -5,7 +5,7 @@ class Launch < Formula
   head "https://github.com/nriley/launch.git"
 
   stable do
-    url "http://sabi.net/nriley/software/launch-1.2.2.tar.gz"
+  url "https://web.archive.org/web/20140624180514/https://sabi.net/nriley/software/launch-1.2.2.tar.gz"
     sha256 "94509ce5b55a768f3f8da9996193ae01baf78f239a4d0fca637735f2684eed87"
 
     # Upstream commits to fix the build on 10.10+

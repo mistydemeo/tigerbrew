@@ -1,7 +1,7 @@
 class Languagetool < Formula
   desc "Style and grammar checker"
   homepage "https://www.languagetool.org/"
-  url "https://www.languagetool.org/download/LanguageTool-3.0.zip"
+  url "https://web.archive.org/web/20230408153027/https://www.languagetool.org/download/LanguageTool-3.0.zip"
   sha256 "52f7b27a7c040db3e824bf115302ea0737a5f0b4573b0c012c2a26a96680fc3d"
 
   def server_script(server_jar); <<-EOS.undent
