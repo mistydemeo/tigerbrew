@@ -17,7 +17,7 @@ end
 class Cvs2svn < Formula
   desc "Tool for converting from CVS to Subversion"
   homepage "http://cvs2svn.tigris.org/"
-  url "http://cvs2svn.tigris.org/files/documents/1462/49237/cvs2svn-2.4.0.tar.gz"
+  url "https://web.archive.org/web/20150802093003/http://cvs2svn.tigris.org/files/documents/1462/49237/cvs2svn-2.4.0.tar.gz"
   sha256 "a6677fc3e7b4374020185c61c998209d691de0c1b01b53e59341057459f6f116"
 
   depends_on PythonWithGdbmRequirement

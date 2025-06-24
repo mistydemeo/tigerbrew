@@ -1,7 +1,7 @@
 class Cadubi < Formula
   desc "Creative ASCII drawing utility"
   homepage "http://langworth.com/pub/cadubi/"
-  url "http://langworth.com/pub/cadubi-1.3.tar.gz"
+  url "https://web.archive.org/web/20051217142307/https://langworth.com/pub/cadubi-1.3.tar.gz"
   sha256 "ca8b6ea305e0eccb11add7fc165beeee7ef33f9f0106e84efa1b364f082df0ab"
 
   def install
