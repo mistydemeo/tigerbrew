@@ -8,7 +8,7 @@
 class Jack < Formula
   desc "Jack Audio Connection Kit (JACK)"
   homepage "http://jackaudio.org"
-  url "http://jackaudio.org/downloads/jack-audio-connection-kit-0.124.1.tar.gz"
+  url "https://web.archive.org/web/20160315075626/https://jackaudio.org/downloads/jack-audio-connection-kit-0.124.1.tar.gz"
   sha256 "eb42df6065576f08feeeb60cb9355dce4eb53874534ad71534d7aa31bae561d6"
 
   bottle do

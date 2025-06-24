@@ -1,7 +1,7 @@
 class Jigdo < Formula
   desc "Tool to distribute very large files over the internet"
   homepage "http://atterer.org/jigdo/"
-  url "http://atterer.org/sites/atterer/files/2009-08/jigdo/jigdo-0.7.3.tar.bz2"
+  url "https://web.archive.org/web/20250221145919/http://atterer.org/sites/atterer/files/2009-08/jigdo/jigdo-0.7.3.tar.bz2"
   sha256 "875c069abad67ce67d032a9479228acdb37c8162236c0e768369505f264827f0"
   revision 2
 
