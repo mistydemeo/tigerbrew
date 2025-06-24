@@ -4,7 +4,7 @@ class Qca < Formula
   head "git://anongit.kde.org/qca.git"
 
   stable do
-    url "http://delta.affinix.com/download/qca/2.0/qca-2.1.0.tar.gz"
+  url "https://web.archive.org/web/20160412200215/http://delta.affinix.com/download/qca/2.0/qca-2.1.0.tar.gz"
     sha256 "226dcd76138c3738cdc15863607a96b3758a4c3efd3c47295939bcea4e7a9284"
 
     # Fixes build with Qt 5.5 by adding a missing include (already fixed in HEAD).
