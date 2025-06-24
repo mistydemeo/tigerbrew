@@ -1,7 +1,7 @@
 class Nikto < Formula
   desc "Web server scanner"
   homepage "http://cirt.net/nikto2"
-  url "https://www.cirt.net/nikto/nikto-2.1.5.tar.bz2"
+  url "https://web.archive.org/web/20180808014232/https://www.cirt.net/nikto/nikto-2.1.5.tar.bz2"
   sha256 "65b99c1fdec14d1d5e7cbc964f70fce162cbec50aee878e1500e2d22df079b34"
 
   def install
