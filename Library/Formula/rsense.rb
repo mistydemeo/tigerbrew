@@ -1,7 +1,7 @@
 class Rsense < Formula
   desc "Ruby development tools for Emacs and Vim"
   homepage "http://cx4a.org/software/rsense/"
-  url "http://cx4a.org/pub/rsense/rsense-0.3.tar.bz2"
+  url "https://web.archive.org/web/20150805143641/https://www.cx4a.org/pub/rsense/rsense-0.3.tar.bz2"
   sha256 "508795d2f11784e708cbbc39c3e4149a3e87baab7161db3df60b68a321bb534b"
 
   def install
