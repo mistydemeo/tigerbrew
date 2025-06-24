@@ -1,7 +1,7 @@
 class Libnfc < Formula
   desc "Low level NFC SDK and Programmers API"
   homepage "http://www.libnfc.org/"
-  url "https://libnfc.googlecode.com/files/libnfc-1.7.0.tar.bz2"
+  url "https://web.archive.org/web/20140815093123/https://libnfc.googlecode.com/files/libnfc-1.7.0.tar.bz2"
   sha256 "f14df0727c301f9149608dc6e1fbad81ec48372dcd7a364ac1cb805a7a2b2b8b"
 
   bottle do

@@ -1,7 +1,7 @@
 class Libtess2 < Formula
   desc "Refactored version of GLU tesselator"
   homepage "https://code.google.com/p/libtess2/"
-  url "https://libtess2.googlecode.com/files/libtess2-1.0.zip"
+  url "https://web.archive.org/web/20160315084649/https://libtess2.googlecode.com/files/libtess2-1.0.zip"
   sha256 "1938805e1859cbc4459797920743def39fd04154fe60da2ee3ee2198143b96bb"
 
   bottle do
