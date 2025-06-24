@@ -1,7 +1,7 @@
 class Udns < Formula
   desc "DNS resolver library"
   homepage "http://www.corpit.ru/mjt/udns.html"
-  url "http://www.corpit.ru/mjt/udns/udns-0.4.tar.gz"
+  url "https://web.archive.org/web/20240804152801/http://www.corpit.ru/mjt/udns/udns-0.4.tar.gz"
   sha256 "115108dc791a2f9e99e150012bcb459d9095da2dd7d80699b584ac0ac3768710"
 
   # Build target for dylib. See:
