@@ -1,7 +1,7 @@
 class Exiftool < Formula
   desc "Perl lib for reading and writing EXIF metadata"
   homepage "https://exiftool.org/index.html"
-  url "https://exiftool.org/Image-ExifTool-12.74.tar.gz"
+  url "https://web.archive.org/web/20240123213025/https://exiftool.org/Image-ExifTool-12.74.tar.gz"
   sha256 "aedb28b1427c53205ab261fa31ff3feda73e7f17a0c181453651680e5666c48a"
 
   bottle do
