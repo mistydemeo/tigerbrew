@@ -1,7 +1,7 @@
 class Uchardet < Formula
   desc "Encoding detector library"
   homepage "https://code.google.com/p/uchardet/"
-  url "https://uchardet.googlecode.com/files/uchardet-0.0.1.tar.gz"
+  url "https://web.archive.org/web/20160509093937/https://uchardet.googlecode.com/files/uchardet-0.0.1.tar.gz"
   sha256 "e238c212350e07ebbe1961f8f128faaa40f71b70d37b63ffa2fe12c664269ee6"
 
   depends_on "cmake" => :build
