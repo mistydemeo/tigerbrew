@@ -1,7 +1,7 @@
 class Cmockery < Formula
   desc "Unit testing and mocking library for C"
   homepage "https://code.google.com/p/cmockery/"
-  url "https://cmockery.googlecode.com/files/cmockery-0.1.2.tar.gz"
+  url "https://web.archive.org/web/20160529000312/https://cmockery.googlecode.com/files/cmockery-0.1.2.tar.gz"
   sha256 "b9e04bfbeb45ceee9b6107aa5db671c53683a992082ed2828295e83dc84a8486"
 
   # This patch will be integrated upstream in 0.1.3, this is due to malloc.h being already in stdlib on OSX

@@ -1,7 +1,7 @@
 class Cgal < Formula
   desc "CGAL: Computational Geometry Algorithm Library"
   homepage "http://www.cgal.org/"
-  url "https://gforge.inria.fr/frs/download.php/file/35138/CGAL-4.6.3.tar.gz"
+  url "https://web.archive.org/web/20170318012431/https://gforge.inria.fr/frs/download.php/file/35138/CGAL-4.6.3.tar.gz"
   sha256 "f90fc9d319a0bdb66b09570a8a0399671c25caeb5db1dc8c555f876d795c74ff"
 
   bottle do

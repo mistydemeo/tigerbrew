@@ -1,7 +1,7 @@
 class Caudec < Formula
   desc "Covert audio files from one format to another"
   homepage "http://caudec.net"
-  url "http://caudec.net/downloads/caudec-1.7.5.tar.gz"
+  url "https://web.archive.org/web/20150803012222/http://caudec.net/downloads/caudec-1.7.5.tar.gz"
   sha256 "5d1f5ab3286bb748bd29cbf45df2ad2faf5ed86070f90deccf71c60be832f3d5"
   bottle do
     sha1 "e225732d654439421126d0c4192a0a778dc5c031" => :yosemite
