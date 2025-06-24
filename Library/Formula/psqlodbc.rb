@@ -3,7 +3,7 @@ class Psqlodbc < Formula
   homepage "https://odbc.postgresql.org"
 
   stable do
-    url "https://ftp.postgresql.org/pub/odbc/versions/src/psqlodbc-09.03.0400.tar.gz"
+  url "https://web.archive.org/web/20151004141001/https://ftp.postgresql.org/pub/odbc/versions/src/psqlodbc-09.03.0400.tar.gz"
     sha256 "de77dfa89dba0a159afc57b2e312ca6e9075dd92b761c7cc700c0450ba02b56b"
 
     # fixes error "conflicting types for '__builtin___strlcat_chk'"
