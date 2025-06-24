@@ -1,7 +1,7 @@
 class SwishE < Formula
   desc "System for indexing collections of web pages"
   homepage "http://swish-e.org/"
-  url "http://swish-e.org/distribution/swish-e-2.4.7.tar.gz"
+  url "https://web.archive.org/web/20160409061831/http://swish-e.org/distribution/swish-e-2.4.7.tar.gz"
   sha256 "5ddd541ff8ecb3c78ad6ca76c79e620f457fac9f7d0721ad87e9fa22fe997962"
 
   bottle do

@@ -3,7 +3,7 @@ class Sslh < Formula
   homepage "http://www.rutschle.net/tech/sslh.shtml"
 
   stable do
-    url "http://www.rutschle.net/tech/sslh-v1.17.tar.gz"
+  url "https://web.archive.org/web/20160310111027/https://www.rutschle.net/tech/sslh-v1.17.tar.gz"
     sha256 "4f3589ed36d8a21581268d53055240eee5e5adf02894a2ca7a6c9022f24b582a"
 
     # fixes `make install`, fixed in HEAD
