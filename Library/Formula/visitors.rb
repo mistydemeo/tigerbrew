@@ -1,7 +1,7 @@
 class Visitors < Formula
   desc "eb server log analyzer"
   homepage "http://www.hping.org/visitors/"
-  url "http://www.hping.org/visitors/visitors-0.7.tar.gz"
+  url "https://web.archive.org/web/20220420184352/https://www.hping.org/visitors/visitors-0.7.tar.gz"
   sha256 "d2149e33ffe96b1f52b0587cff65973b0bc0b24ec43cdf072a782c1bd52148ab"
 
   bottle do

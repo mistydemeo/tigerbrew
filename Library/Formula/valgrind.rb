@@ -3,7 +3,7 @@ class Valgrind < Formula
   homepage "http://www.valgrind.org/"
 
   stable do
-    url "http://valgrind.org/downloads/valgrind-3.11.0.tar.bz2"
+  url "https://web.archive.org/web/20160506105723/https://valgrind.org/downloads/valgrind-3.11.0.tar.bz2"
     sha256 "6c396271a8c1ddd5a6fb9abe714ea1e8a86fce85b30ab26b4266aeb4c2413b42"
   end
 
