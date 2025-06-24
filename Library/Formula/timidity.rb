@@ -4,11 +4,6 @@ class Timidity < Formula
   url "https://downloads.sourceforge.net/project/timidity/TiMidity++/TiMidity++-2.14.0/TiMidity++-2.14.0.tar.bz2"
   sha256 "f97fb643f049e9c2e5ef5b034ea9eeb582f0175dce37bc5df843cc85090f6476"
 
-  bottle do
-    sha1 "6f8e207599cc1278886b9887fbf8b6d1242bccca" => :yosemite
-    sha1 "1fa019d1b1bc5946685eb7abfcd37ccbfaaddb7a" => :mavericks
-    sha1 "033373c8751c27d9ad96b0eee2be2628e9b559ce" => :mountain_lion
-  end
 
   option "without-darwin", "Build without Darwin CoreAudio support"
   option "without-freepats", "Build without the Freepats instrument patches from http://freepats.zenvoid.org/"

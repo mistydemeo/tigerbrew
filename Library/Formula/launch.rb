@@ -21,13 +21,6 @@ class Launch < Formula
     end
   end
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "a09175831e58a463d93cd455cabdfb44540ee05c97efe394a940c64a689c644b" => :yosemite
-    sha256 "b6509fcd6b4026395974124b4445d005d26728582013afb51e345d7bf0379570" => :mavericks
-    sha256 "f60d39c5fa69188415811aee32405fbd4d730e1da3326c2f9a6d281c5cec2013" => :mountain_lion
-  end
 
   depends_on :xcode => :build
 

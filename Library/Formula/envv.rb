@@ -4,12 +4,6 @@ class Envv < Formula
   url "https://github.com/jakewendt/envv/archive/v1.7.tar.gz"
   sha256 "1db05b46904e0cc4d777edf3ea14665f6157ade0567359e28663b5b00f6fa59a"
 
-  bottle do
-    cellar :any
-    sha1 "f403ddfed11541ee58575fc089b947ba047471f7" => :yosemite
-    sha1 "cfb8db8045fa214b29a5bd37dfcb84f6c92c5338" => :mavericks
-    sha1 "a6ffa7d40799a58a4ad6643d93083194a6b2c090" => :mountain_lion
-  end
 
   def install
     system "make"

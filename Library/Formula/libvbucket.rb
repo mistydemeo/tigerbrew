@@ -4,13 +4,6 @@ class Libvbucket < Formula
   url "https://s3.amazonaws.com/packages.couchbase.com/clients/c/libvbucket-1.8.0.4.tar.gz"
   sha256 "398ba491d434fc109fd64f38678916e1aa19c522abc8c090dbe4e74a2a2ea38d"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "49e1c03cd079d33ce4d2d8e02a7478b9a27ba208" => :yosemite
-    sha1 "1d90ee40664832cab081daac8ed557cff3074bd6" => :mavericks
-    sha1 "4de710a362522b6e87a19f7d1d57146b5a9712ce" => :mountain_lion
-  end
 
   def install
     system "./configure", "--disable-debug",

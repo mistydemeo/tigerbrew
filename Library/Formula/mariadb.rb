@@ -4,12 +4,6 @@ class Mariadb < Formula
   url "http://archive.mariadb.org/mariadb-10.0.21/source/mariadb-10.0.21.tar.gz"
   sha256 "4b9a32e15ceadefdb1057a02eb3e0addf702b75aef631a3c9194b832ecfa3545"
 
-  bottle do
-    revision 1
-    sha256 "56c8d14b15028b642705bf07d52be067b899c1431a71c67c4329d40a89ac4f31" => :el_capitan
-    sha256 "4e762c7031ed3d1b2379933a000da2d28f6fdb25bcfa502c4b63a57cd9af3827" => :yosemite
-    sha256 "e5e7570fd78781c7f77c73db91d8246091bc6e9e074cd52df59d7a42c8d6db43" => :mavericks
-  end
 
   devel do
     url "http://archive.mariadb.org/mariadb-10.1.7/source/mariadb-10.1.7.tar.gz"

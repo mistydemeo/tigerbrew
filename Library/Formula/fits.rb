@@ -5,12 +5,6 @@ class Fits < Formula
   version "0.8.6-1"
   sha256 "d45f67a2606aaa0fdcbbade576f70f1590916b043fec28dcfdef1a8242fd4040"
 
-  bottle do
-    cellar :any
-    sha256 "cbd107b9147e58be56405d04b83e7b58b2a61210f8713f32ef0aa12cc0cb9192" => :yosemite
-    sha256 "81b380fb42b2f057f80842a723a30bee313ca6c7f70a9f007a206c63064ca665" => :mavericks
-    sha256 "be677363eb1d07b255dd6d931b372411011576d97269f75c52dbb72a716ea919" => :mountain_lion
-  end
 
   # provided jars may not be compatible with installed java,
   # but works when built from source

@@ -6,12 +6,6 @@ class Pgbadger < Formula
 
   head "https://github.com/dalibo/pgbadger.git"
 
-  bottle do
-    cellar :any
-    sha256 "588d67e7a2ceee5a2465e2d28d4087d1c51d25593b1ae15f728d6b260628cc9e" => :yosemite
-    sha256 "b24b5ef55b6b26c3e51a184488317cbc0e303c460ac068e5336181f24652aa6f" => :mavericks
-    sha256 "3754aa6ed54fbfe21b48ba5dc528bd1ffa44256c464a02d1c68f3fd377798258" => :mountain_lion
-  end
 
   def install
     system "perl", "Makefile.PL", "DESTDIR=#{buildpath}"

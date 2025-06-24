@@ -15,12 +15,6 @@ class Phantomjs < Formula
     end
   end
 
-  bottle do
-    cellar :any
-    sha1 "f9dd71edb662479e0f832379368d4cd4878f940e" => :yosemite
-    sha1 "817ab92d4bfcd5496cf1c59173d48976610e5f70" => :mavericks
-    sha1 "887a96e55f67a3d350bc40f910926286c6cea240" => :mountain_lion
-  end
 
   head "https://github.com/ariya/phantomjs.git"
 

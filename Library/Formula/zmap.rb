@@ -6,12 +6,6 @@ class Zmap < Formula
 
   head "https://github.com/zmap/zmap.git"
 
-  bottle do
-    cellar :any
-    sha256 "4bec1849985c6754abe0facfb20a0d847470bc6f66623e98104176b45932d42a" => :yosemite
-    sha256 "e543e77553615624b232d1feac4dbe20c3eb24d0403f6e679c9a704ce21da33b" => :mavericks
-    sha256 "85fff9d320b123e6637980f4777e89b5fb7957dd5c75154d2c8aa2f3505aa471" => :mountain_lion
-  end
 
   depends_on "cmake" => :build
   depends_on "gengetopt" => :build

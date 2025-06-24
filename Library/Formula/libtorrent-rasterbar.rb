@@ -5,12 +5,6 @@ class LibtorrentRasterbar < Formula
   mirror "https://mirrors.kernel.org/debian/pool/main/libt/libtorrent-rasterbar/libtorrent-rasterbar_1.0.6.orig.tar.gz"
   sha256 "c97de804b77f44591801631aca3869567671df2d3e2afe7f5453d8db2478fd61"
 
-  bottle do
-    cellar :any
-    sha256 "ffffb9a24e44a90e9f1cc91d272ac82fef5f9f2df0fd11e9c257951f00de916e" => :yosemite
-    sha256 "5acb2f68de06a26e26f79c56c79933afdfb1dd8df6d98c365dc7827405e44d61" => :mavericks
-    sha256 "a8e66623af264107d46ce7b32bbec075fa5d5a93767183311675bb7f83f3b379" => :mountain_lion
-  end
 
   head do
     url "https://github.com/arvidn/libtorrent.git"

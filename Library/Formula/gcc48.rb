@@ -28,9 +28,6 @@ class Gcc48 < Formula
 
   head "svn://gcc.gnu.org/svn/gcc/branches/gcc-4_8-branch"
 
-  bottle do
-  end
-
   # Fixes build with Xcode 7.
   # error: non-local symbol required in directive
   #      .no_dead_strip L_OBJC_Module

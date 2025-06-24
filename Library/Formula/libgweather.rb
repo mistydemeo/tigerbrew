@@ -4,11 +4,6 @@ class Libgweather < Formula
   url "https://download.gnome.org/sources/libgweather/3.18/libgweather-3.18.0.tar.xz"
   sha256 "8f4fda67f48c776f2bf955d384de4cc842aacb8d9b2ad87b42d83d0dc5a1cb1f"
 
-  bottle do
-    sha256 "1e1e920043ffd690905aad4c3dffbef5303a8c9bdf75e88b8c59508c221318ed" => :el_capitan
-    sha256 "759601b2b137e77b1b09b6030cbd183cbb711004bb84b814167764d70453f51f" => :yosemite
-    sha256 "2f53f88e7802d98b78b4ce8e267c9462f28dce08ffc4818d5091986000bc0f0f" => :mavericks
-  end
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build

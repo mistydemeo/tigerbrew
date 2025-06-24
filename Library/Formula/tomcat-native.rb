@@ -5,13 +5,6 @@ class TomcatNative < Formula
   mirror "https://archive.apache.org/dist/tomcat/tomcat-connectors/native/1.1.33/source/tomcat-native-1.1.33-src.tar.gz"
   sha256 "523dde7393c57307eedf4972ebbe19a9e9af6f7699e3b1ef6dabd7a11677866e"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "8bf7506bff79aba8825481af4587bc0eebc2595b1993672806a0494fff0b39d3" => :yosemite
-    sha256 "d5b76b3e6ae4a144a7553ae2533500ce9f4d1810d42a834336e8c10dcb4f97f8" => :mavericks
-    sha256 "04ec93175cdc5da0d6b7459eab624e82fb5af54ec1f017409c0b1b08d45d5007" => :mountain_lion
-  end
 
   option "with-apr", "Include APR support via Homebrew"
 

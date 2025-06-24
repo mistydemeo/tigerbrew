@@ -7,12 +7,6 @@ class Apib < Formula
 
   head "https://github.com/apigee/apib.git"
 
-  bottle do
-    cellar :any
-    sha1 "ffdea23d6f3e9627d3d99ec931d29f1e93f7dd9f" => :yosemite
-    sha1 "d7443be34f3d7b9347c26bfdaae5c46eab41e3c8" => :mavericks
-    sha1 "0952c22383ab1f4da194d66b823dd513a3f30ac8" => :mountain_lion
-  end
 
   depends_on :apr => :build
   depends_on "openssl"

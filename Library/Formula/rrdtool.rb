@@ -4,11 +4,6 @@ class Rrdtool < Formula
   url "https://github.com/oetiker/rrdtool-1.x/releases/download/v1.5.4/rrdtool-1.5.4.tar.gz"
   sha256 "3feea3da87c02128a27083f1c7b2cb797ef673e946564c0ce008c1c25a5c3f99"
 
-  bottle do
-    sha256 "e434a767377fb30f603947e2a5d934de6b533068c457b8c1e84488942ec0eac1" => :el_capitan
-    sha256 "e73f246edc6c23bc4be3185e4f25036e9fbac7bc2cfe4e47caf5edcd46d92c1d" => :yosemite
-    sha256 "0ab32d64d87aedad34d331aa4ec8fe02431ce051d6de361de6fd5a0877f00960" => :mavericks
-  end
 
   head do
     url "https://github.com/oetiker/rrdtool-1.x.git"

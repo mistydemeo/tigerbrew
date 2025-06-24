@@ -4,12 +4,6 @@ class Pla < Formula
   url "http://www.arpalert.org/src/pla-1.2.tar.gz"
   sha256 "c2f1ce50b04032abf7f88ac07648ea40bed2443e86e9f28f104d341965f52b9c"
 
-  bottle do
-    cellar :any
-    sha256 "308920e8bf8642826cd973eaa63e22f0fc3dec43a0152485d358ba575638291f" => :yosemite
-    sha256 "df4b500589672dc1c415866b7da4c678621858f48cbac2cab5765c2b4fb1857d" => :mavericks
-    sha256 "81969ccdf4fe754600e348d7aa34243ccf86d4ee4bcaf85b12fa5b5df99d9ec7" => :mountain_lion
-  end
 
   depends_on "cairo"
   depends_on "pkg-config" => :build

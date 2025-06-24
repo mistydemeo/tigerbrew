@@ -4,13 +4,6 @@ class Fsharp < Formula
   url "https://github.com/fsharp/fsharp.git", :tag => "3.1.2.4",
                                               :revision => "8d02a54a75de362d6b649dcaaacfefe6db9caf41"
 
-  bottle do
-    cellar :any_skip_relocation
-    revision 1
-    sha256 "97589b3e7d5ffa745bca99bd9af8b22bc235201533b4a0eaf837735d58ef322b" => :el_capitan
-    sha256 "dcbb1135359e72ffdb76ce40a5b75bcea3e78083f56eb01c56186d007f37a3ce" => :yosemite
-    sha256 "3d2ccce2f75a68cef19427407b4dc4bb4865bcfe1e7843810013f6fea07728a7" => :mavericks
-  end
 
   depends_on "automake" => :build
   depends_on "autoconf" => :build

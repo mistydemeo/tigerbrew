@@ -5,11 +5,6 @@ class BaculaFd < Formula
   sha256 "1457849eb33011b43371801b62ffa13d29bebe51be8d5a36da563b87bb094a49"
   revision 1
 
-  bottle do
-    sha1 "aa312ee016437c22b7e4955c67defa51c7703540" => :yosemite
-    sha1 "400280627f03404732bf3db7a5612bfab5fe3876" => :mavericks
-    sha1 "9ac0bc82522ce93b349a71d2f0cfeac4d6501545" => :mountain_lion
-  end
 
   depends_on "readline"
   depends_on "openssl"

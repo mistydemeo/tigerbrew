@@ -4,13 +4,6 @@ class Ghc < Formula
   url "https://downloads.haskell.org/~ghc/7.10.2/ghc-7.10.2-src.tar.xz"
   sha256 "54cd73755b784d78e2f13d5eb161bfa38d3efee9e8a56f7eb6cd9f2d6e2615f5"
 
-  bottle do
-    revision 1
-    sha256 "1ce1a67a1bf09dabf97f105a536b1ab0a0b59b3bfd1e9cdd288aaae500bc79c3" => :el_capitan
-    sha256 "cc097abdfd1d392ffe6f8193627168279441fb868555823ac5aa75c41f2d9e74" => :yosemite
-    sha256 "3688f280ef8e85f1ff681ed03cf111a6cd28d58977fcdf7bed5a7ac2e61f7a01" => :mavericks
-    sha256 "b94cb5912e23a86a475a10114bf14da05fcbbb6b5b85584998f566fc64c01461" => :mountain_lion
-  end
 
   option "with-tests", "Verify the build using the testsuite."
   deprecated_option "tests" => "with-tests"

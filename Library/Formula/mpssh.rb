@@ -5,13 +5,6 @@ class Mpssh < Formula
   sha256 "510e11c3e177a31c1052c8b4ec06357c147648c86411ac3ed4ac814d0d927f2f"
   head "https://github.com/ndenev/mpssh.git"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "e5ac485861dfca0be2bb1ca2eb5826b5ca5977c0d2abb12dc58de011c18046f1" => :el_capitan
-    sha1 "3f673d4d3e00110be048b3a18c876ec8e9ccab2f" => :yosemite
-    sha1 "5ad290e9a62712e43a2b624c2d9e73b1b2d445e7" => :mavericks
-    sha1 "86902eb4b59dbf70f41fc8a7c9dabc3b30e5e140" => :mountain_lion
-  end
 
   stable do
     patch do

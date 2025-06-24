@@ -4,12 +4,6 @@ class Scriptcs < Formula
   url "https://github.com/scriptcs/scriptcs/archive/v0.15.0.tar.gz"
   sha256 "658d4ef2c23253ba1d2717c947d2985cb506ce69425280ee8e62cc50d15d6803"
 
-  bottle do
-    cellar :any
-    sha256 "dfead67e3f9fbdb499b480eb2b29d651010b1815ef5fe0425affd4ce07295739" => :yosemite
-    sha256 "eec5baf497fc37444fc37adf7c7c761011bb50059f21ccaf10620f0887e759f6" => :mavericks
-    sha256 "206b8fd283ab15e49c91941c2dad77950adb5a9642bb8563a530f4a79d2ccaf3" => :mountain_lion
-  end
 
   depends_on "mono" => :recommended
 

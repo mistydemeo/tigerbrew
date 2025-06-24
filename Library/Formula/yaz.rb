@@ -4,12 +4,6 @@ class Yaz < Formula
   url "http://ftp.indexdata.dk/pub/yaz/yaz-5.14.4.tar.gz"
   sha256 "0238e2fd09a5060880c3447528c68adeb56c4444d67078033c0f3e3cdeda573b"
 
-  bottle do
-    cellar :any
-    sha256 "d873eec6aae920b48c3f6c86ffb0e6bb1b8b24f23241107cfc194deef76f5fe7" => :yosemite
-    sha256 "4c5e7d13920ea1ce514f8ff2920936dff9aab883fe962056a204086d09f9c7aa" => :mavericks
-    sha256 "cff5a0ffe4c60545203c6b4f7b7642a58c787552ef35baced12cdf73d5fa6df6" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "icu4c" => :recommended

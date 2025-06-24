@@ -16,10 +16,6 @@ class Sfml < Formula
 
   head "https://github.com/SFML/SFML.git"
 
-  bottle do
-    cellar :any
-  end
-
   # SFML 2.x requires 10.5; it appears to be a substantial rewrite from 1.x,
   # so don't bother trying to support SFML 1.6 for 10.4
   depends_on :macos => :leopard

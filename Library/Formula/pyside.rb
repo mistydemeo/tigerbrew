@@ -8,11 +8,6 @@ class Pyside < Formula
 
   head "https://github.com/PySide/PySide.git"
 
-  bottle do
-    sha256 "d1f7a38b75e85ebdbb73d15ecd4b2154b236c80a790f021c9f70f95bc839d926" => :el_capitan
-    sha256 "8c2463514cd2133b9237143ceb2d73e64f96ff162c5c302b28f894132ad88490" => :yosemite
-    sha256 "fbc427b84b145fe0fa0a2a52e246f673e763da2b1eeec8deda872571602bb7b1" => :mavericks
-  end
 
   # don't use depends_on :python because then bottles install Homebrew's python
   option "without-python", "Build without python 2 support"

@@ -6,13 +6,6 @@ class Liblacewing < Formula
   sha256 "c24370f82a05ddadffbc6e79aaef4a307de926e9e4def18fb2775d48e4804f5c"
   revision 1
 
-  bottle do
-    cellar :any
-    revision 2
-    sha1 "9b3c6627a900002583cd2d179997f507c23e2967" => :yosemite
-    sha1 "13c32999ea5cdb9e5c231cd3854d35ebb5bb82d2" => :mavericks
-    sha1 "dd1d9ee994fe2a4114063a382712c341591da3f5" => :mountain_lion
-  end
 
   depends_on "openssl"
 

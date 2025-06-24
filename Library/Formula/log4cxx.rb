@@ -4,12 +4,6 @@ class Log4cxx < Formula
   url "https://www.apache.org/dyn/closer.cgi?path=logging/log4cxx/0.10.0/apache-log4cxx-0.10.0.tar.gz"
   sha256 "0de0396220a9566a580166e66b39674cb40efd2176f52ad2c65486c99c920c8c"
 
-  bottle do
-    cellar :any
-    sha256 "803d857c115430068d91887a218159dd728b87c94c8a819807225817ff9f2ecb" => :yosemite
-    sha256 "93b74be0ecb9bdb32ab803fbae0836ad58387a9ff1ba9346334e734596da7b6d" => :mavericks
-    sha256 "6b07acbb1e77d8d7edc7e111f57250b9d05c9b9c8aa6f1363f919940695aa1f9" => :mountain_lion
-  end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build

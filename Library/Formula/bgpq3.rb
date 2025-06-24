@@ -5,12 +5,6 @@ class Bgpq3 < Formula
   sha256 "839da59b153b2c748ca021d742cb9da248681e323f380e614ac546b796fbe71b"
   head "https://github.com/snar/bgpq3.git"
 
-  bottle do
-    cellar :any
-    sha256 "f0be355cc0ce42364f31d1a0190d4239d0a05ee3545d166ec4630c305af23dd0" => :yosemite
-    sha256 "66251ef2771eef19ea08c52961d142f787a4b0184ad73905a5f80d3191700306" => :mavericks
-    sha256 "e4c36bd2ac02efee5c2f74bbf4c207e552d95069773713e3b25c27493a23ebd3" => :mountain_lion
-  end
 
   devel do
     url "https://github.com/snar/bgpq3/archive/0.1.32-rc5.tar.gz"

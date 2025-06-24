@@ -6,11 +6,6 @@ class Mu < Formula
 
   head "https://github.com/djcb/mu.git"
 
-  bottle do
-    sha256 "45184fd8369994f4112191818b7a801e9c599fe4baf7b14fcc59f805fa04b8bf" => :el_capitan
-    sha256 "36ee1adf0588fa049373a4cd6f2e818038289c4e2d754225711a1d094ef50ee2" => :yosemite
-    sha256 "317f76b6a49b560b999caf7a3e31b72bced89c0b756a173a5d6abcd10735bcc7" => :mavericks
-  end
 
   option "with-emacs", "Build with Emacs support (requires Emacs 23 or higher)"
 

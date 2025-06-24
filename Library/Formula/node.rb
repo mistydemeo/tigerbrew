@@ -5,11 +5,6 @@ class Node < Formula
   sha256 "6a610935ff52de713cf2af6a26002322e24fd7933a444436f0817a2b84e15a58"
   head "https://github.com/nodejs/node.git"
 
-  bottle do
-    sha256 "ceb4a1721a9d312e9b3853d0cb4165dfa8b3a1d08e01620e56ac841092108c5c" => :el_capitan
-    sha256 "4c6b805490069a6e6b9956c85c0713e5fc666878f7e87d76b69279b61cff64ac" => :yosemite
-    sha256 "e082904a9b900ff07d3bb633a125542e2cedc4de854def6ec7683e7d2d976d51" => :mavericks
-  end
 
   option "with-debug", "Build with debugger hooks"
   option "without-npm", "npm will not be installed"

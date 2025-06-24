@@ -4,12 +4,6 @@ class ExtractUrl < Formula
   url "https://github.com/m3m0ryh0l3/extracturl/archive/v1.6.tar.gz"
   sha256 "2f8fb4c361a02ee0053d2e1791d283e9b202297e4b861d7ff676ac00438ddcaf"
 
-  bottle do
-    cellar :any
-    sha256 "76b29261c92fd1d0b0575f91c0dec7d0142465097593f96882fa34be9e48b90f" => :yosemite
-    sha256 "55c1a2bd5b6f71eadaf2eba18623268b87e7019a25dd670077f90cd7ccbd032a" => :mavericks
-    sha256 "2bfe029ac91f5cfa70440ed9b65f7996fd7e199d5f286bd4c5958757b79d0909" => :mountain_lion
-  end
 
   resource "MIME::Parser" do
     url "https://cpan.metacpan.org/authors/id/D/DS/DSKOLL/MIME-tools-5.506.tar.gz"

@@ -15,12 +15,6 @@ class Csfml < Formula
 
   head "https://github.com/SFML/CSFML.git"
 
-  bottle do
-    cellar :any
-    sha256 "0f080fd2c809a1c22ba10aee92ccc34b201458e98de3b8c973cdf9fa99d8cf3e" => :yosemite
-    sha256 "32e3cd01b497a73fb7d918841e4df0e980811270d92626d6399e47fae8291ea6" => :mavericks
-    sha256 "afbda33ded196a5dd39ecc68627e6fb6db156ec7a67f71fb16a6d6cb4cd40531" => :mountain_lion
-  end
 
   # SFML 2.x requires 10.5; it appears to be a substantial rewrite from 1.x,
   # so don't bother trying to support SFML 1.6

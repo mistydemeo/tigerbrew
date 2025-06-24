@@ -32,11 +32,6 @@ class Xulrunner < Formula
     depends_on MaximumMacOSRequirement => :mavericks
   end
 
-  bottle do
-    cellar :any
-    sha1 "222b1eaabea7a2aaa4712682c9580ed70f78ceb8" => :mavericks
-    sha1 "3eb54b046978536c2161a3961e0e50a624223a0d" => :mountain_lion
-  end
 
   head do
     url "https://ftp.mozilla.org/pub/mozilla.org/firefox/bundles/mozilla-central.hg",

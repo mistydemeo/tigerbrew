@@ -5,12 +5,6 @@ class Par < Formula
   version "1.52"
   sha256 "33dcdae905f4b4267b4dc1f3efb032d79705ca8d2122e17efdecfd8162067082"
 
-  bottle do
-    cellar :any
-    sha1 "ae7b305c39ebd6f752f74618918445b1e64ebd62" => :yosemite
-    sha1 "2ff8b8dad47f68a189bd8c6efbbb3432143e195b" => :mavericks
-    sha1 "9e4409e4e71a8f6b45ca1e38e53b257d69a3decd" => :mountain_lion
-  end
 
   conflicts_with "rancid", :because => "both install `par` binaries"
 

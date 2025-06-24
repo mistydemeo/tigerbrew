@@ -4,11 +4,6 @@ class Gtkmm3 < Formula
   url "https://download.gnome.org/sources/gtkmm/3.16/gtkmm-3.16.0.tar.xz"
   sha256 "9b8d4af5e1bb64e52b53bc8ef471ef43e1b9d11a829f16ef54c3a92985b0dd0c"
 
-  bottle do
-    sha256 "a07b50d5f0475e3b785400c90ab17912fb036f6c5e04a07f4c63bfb7791bef34" => :yosemite
-    sha256 "b84fc730de0e85f86240c163d74b42ae102d48f2ad86293993b44fa6d6446f6a" => :mavericks
-    sha256 "bd7fdbe8a9da123648398405e4421f9ec0b205b6d9f0850b21400dd7d387a7d3" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "gtk+3"

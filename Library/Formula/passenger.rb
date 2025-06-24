@@ -5,12 +5,6 @@ class Passenger < Formula
   sha256 "a5b35780beb7ecd39d18375acab3e4fa1a2e104b7a324f41a1f89c99e7b8b04c"
   head "https://github.com/phusion/passenger.git"
 
-  bottle do
-    cellar :any
-    sha256 "8a3559b46c71a6c998d81ac89b62baec7cabefbb39b21550ba0c4e4ae4bf174b" => :el_capitan
-    sha256 "503be746c0521813e11ab0533932a50c8ac6812b57b1206d959907904360d8b3" => :yosemite
-    sha256 "86d41ece182c24a5466afd481fd9a3234ecd6d4c3c90faaf38b959ebf0e807d7" => :mavericks
-  end
 
   depends_on "pcre"
   depends_on "openssl"

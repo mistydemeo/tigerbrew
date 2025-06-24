@@ -6,12 +6,6 @@ class Fibjs < Formula
 
   head "https://github.com/xicilion/fibjs.git"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "90478eefe0641005d80c50be08d8ea39d8819a3888e6af78a9b7bf15fe6ea50d" => :el_capitan
-    sha256 "4e2f954c4f7fb7bbaba8625c4694532ea1f40d53d5a98e42900111e7eb127b0a" => :yosemite
-    sha256 "5c5947ed6acb5ef82e10dc29ec758cf85e3711afdb617f846ca69c6319584f55" => :mavericks
-  end
 
   depends_on "cmake" => :build
 

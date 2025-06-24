@@ -9,12 +9,6 @@ class Vault < Formula
 
   head "https://github.com/hashicorp/vault.git"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "e8591e186a3eba4f963821ff8c90ee24597cf937a2ed999d22f0a733487aef82" => :el_capitan
-    sha256 "6ec4ce0956d895329e34a84483d61a49bf322d0ad9d65752a4c3f1f2cde38a25" => :yosemite
-    sha256 "83949323d8a0aa09528c17d9326d77138c8c9d0f51454b34ec7cde79627a7913" => :mavericks
-  end
 
   depends_on "go" => :build
 

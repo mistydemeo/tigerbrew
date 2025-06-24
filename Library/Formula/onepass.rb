@@ -6,12 +6,6 @@ class Onepass < Formula
   head "https://github.com/georgebrock/1pass.git"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "164750979c6f70440988c6ae79fa2ca6ff1733e280ba77ef98814c1f3fd32413" => :yosemite
-    sha256 "131288eb9f84f72e215e3c420f5daaa04692e57b2f686a1b91225d4e3737b90b" => :mavericks
-    sha256 "3b05aa6c3f5511a46374b46cb93708254ad5edaf87a92b8f9a01c83cc48bfb20" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "openssl" # For M2Crypto

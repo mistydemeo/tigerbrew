@@ -5,12 +5,6 @@ class Vice < Formula
   sha256 "ff8b8d5f0f497d1f8e75b95bbc4204993a789284a08a8a59ba727ad81dcace10"
   revision 3
 
-  bottle do
-    cellar :any
-    sha256 "b64f33472ea5655c1aac3795b79d99b14738c28642c0cf21d9708441d02323ef" => :yosemite
-    sha256 "05446f9614d5ee6170cd2d323ad24289a0312ac42a5f2ec575200036513731b1" => :mavericks
-    sha256 "de32b3004dbc9a1dad21a546c983ba55d3559eae78f898a54be96c8f2c278b3b" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on "jpeg"

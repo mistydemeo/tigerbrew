@@ -7,12 +7,6 @@ class Caddy < Formula
   sha256 "3e322497466f1706c85a214095e645b2d4340ce83961ebd370178fbf840253bd"
   head "https://github.com/mholt/caddy.git"
 
-  bottle do
-    cellar :any
-    sha256 "bb91e6fdf8214ced695a79d8a4b1c1bf30612f24cb46119f8eaf9479edbe9da8" => :yosemite
-    sha256 "638006bfc8db6721e692be399d9250dcc01194e43765e2ef5aeed7c4f00c3f89" => :mavericks
-    sha256 "6a89643de7a9f61435e9a27838f095d0fa1616ef11b9fcfafb0d94980921e763" => :mountain_lion
-  end
 
   depends_on "go" => :build
 

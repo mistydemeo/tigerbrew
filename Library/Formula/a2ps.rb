@@ -5,12 +5,6 @@ class A2ps < Formula
   mirror "https://ftp.gnu.org/gnu/a2ps/a2ps-4.14.tar.gz"
   sha256 "f3ae8d3d4564a41b6e2a21f237d2f2b104f48108591e8b83497500182a3ab3a4"
 
-  bottle do
-    revision 1
-    sha256 "6129f040daef1e8b85903cf7d8441381229223070832ed914faf11fc5f819a11" => :yosemite
-    sha256 "51c3ad31ff624b50d71e146cef6da8266dbc73a771c2773016b1199211f71b72" => :mavericks
-    sha256 "465f3dca5424aea3d042f759809f59efc6e9605d6fd9dec3e880d0924713574a" => :mountain_lion
-  end
 
   # Software was last updated in 2007, so take MacPorts patches to get
   # it working on 10.6. See:

@@ -5,11 +5,6 @@ class Verilator < Formula
   mirror "https://mirrors.kernel.org/debian/pool/main/v/verilator/verilator_3.874.orig.tar.gz"
   sha256 "d20086626fdf6346d309e435881600c2d8bc8da8b3106e22d4ca4a70b98d0b1c"
 
-  bottle do
-    sha256 "d2259dedaf99925c3290121c41344534af65ff1ba525796f132f43afdef02d4b" => :yosemite
-    sha256 "f2fd51fae45919a7e0ef8fe4da8eb1b8672eb422cf36e0107023d899a5747c83" => :mavericks
-    sha256 "8e0f765e2a17c33bcb84232bbb1eef736bb453f40e41dc34f337a840c3118d5c" => :mountain_lion
-  end
 
   head do
     url "http://git.veripool.org/git/verilator", :using => :git

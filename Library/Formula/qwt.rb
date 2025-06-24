@@ -4,11 +4,6 @@ class Qwt < Formula
   url "https://downloads.sourceforge.net/project/qwt/qwt/6.1.2/qwt-6.1.2.tar.bz2"
   sha256 "2b08f18d1d3970e7c3c6096d850f17aea6b54459389731d3ce715d193e243d0c"
 
-  bottle do
-    sha1 "a2882aaaff55c53881e82a97181d907e6d6edc46" => :yosemite
-    sha1 "02f9e3920fa64ff44393aa339a784e93e786fc8b" => :mavericks
-    sha1 "12f8a7d2a4cd125918d40f11db1dcbbfd424cec2" => :mountain_lion
-  end
 
   option "with-qwtmathml", "Build the qwtmathml library"
   option "without-plugin", "Skip building the Qt Designer plugin"

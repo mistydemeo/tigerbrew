@@ -5,12 +5,6 @@ class Elinks < Formula
   sha256 "456db6f704c591b1298b0cd80105f459ff8a1fc07a0ec1156a36c4da6f898979"
   revision 2
 
-  bottle do
-    revision 1
-    sha1 "97954464d63684d343152aa3dbb7bd5384d8e56d" => :mavericks
-    sha1 "882e21d742e1f373b9403ef932bddc855430948e" => :mountain_lion
-    sha1 "ce8f6c3521d89ed3c0e3f09813934154ec6b4bcb" => :lion
-  end
 
   devel do
     url "http://elinks.cz/download/elinks-0.12pre6.tar.bz2"

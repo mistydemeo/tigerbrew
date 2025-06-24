@@ -6,12 +6,6 @@ class Wemux < Formula
 
   head "https://github.com/zolrath/wemux.git"
 
-  bottle do
-    cellar :any
-    sha1 "519923d54faac98ebfc0772354a0c605e2566519" => :mavericks
-    sha1 "215e25340fc5fee5cd838668f928b530ad71a56f" => :mountain_lion
-    sha1 "01222b27c6a031f3a0ac1e01079b48664cc0c3af" => :lion
-  end
 
   depends_on "tmux"
 

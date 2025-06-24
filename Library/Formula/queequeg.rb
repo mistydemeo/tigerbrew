@@ -4,12 +4,6 @@ class Queequeg < Formula
   url "https://downloads.sourceforge.net/project/queequeg/queequeg/queequeg-0.91/queequeg-0.91.tar.gz"
   sha256 "44e2f2bb8b68d08b7ee95ece24cefeeea8ec6ff9150851922015b73fc8908136"
 
-  bottle do
-    cellar :any
-    sha1 "865d487cdd7f447eee5cc102b2d5f79efdc1fb9e" => :yosemite
-    sha1 "c088cb0e9a0ddc16c113fc8ff41446376d7f755c" => :mavericks
-    sha1 "8cc2f12a1c395d8e1693f5ed6b37b94307968541" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "wordnet"

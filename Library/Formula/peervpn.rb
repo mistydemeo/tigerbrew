@@ -5,11 +5,6 @@ class Peervpn < Formula
   version "0.041"
   sha256 "94a7b649a973c1081d3bd9499bd7410b00b2afc5b4fd4341b1ccf2ce13ad8f52"
 
-  bottle do
-    cellar :any
-    sha1 "b560c712976a84dfc0b84aec277becf0ab2aa930" => :mavericks
-    sha1 "7af025a1bf74dcbd992f988d3e3ef9978445d860" => :mountain_lion
-  end
 
   depends_on "openssl"
   depends_on :tuntap

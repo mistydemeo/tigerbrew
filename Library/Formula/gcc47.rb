@@ -28,9 +28,6 @@ class Gcc47 < Formula
 
   head "svn://gcc.gnu.org/svn/gcc/branches/gcc-4_7-branch"
 
-  bottle do
-  end
-
   # Fixes build with Xcode 7.
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
   patch do

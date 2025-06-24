@@ -5,12 +5,6 @@ class Polarssl < Formula
   sha256 "b61b5fe6aa33ed365289478ac48f1496b97eef0fb813295e534e0c2bd435dcfc"
   head "https://github.com/ARMmbed/mbedtls.git"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "5e0c1b86cd38c7c59f0da2e9a7ffbbc775aef79f11d183f3a3315f912b247521" => :yosemite
-    sha256 "9733d55faba83d4b18c0ed5760cfe03824577545a9215d098d33f43e70d93d1d" => :mavericks
-    sha256 "77c87bc196863df7628258afdb8b0103f71254af9b3d27e3725b31aca0217205" => :mountain_lion
-  end
 
   depends_on "cmake" => :build
 

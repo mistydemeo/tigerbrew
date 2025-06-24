@@ -11,11 +11,6 @@ class Hamsterdb < Formula
     depends_on "libtool" => :build
   end
 
-  bottle do
-    sha256 "27151089e42c383b22ddf599b0d9f42498e8b30564b8306f80ceab16ea79741f" => :yosemite
-    sha256 "ae81107767d2954c978573edc85e0b50b84ba1b829d016d5ca898ce64fdd1046" => :mavericks
-    sha256 "5c2645a8d1f51613bfa0aa05f1045836f5b0117d674af297878ca5e78bb136a6" => :mountain_lion
-  end
 
   option "without-java", "Do not build the Java wrapper"
   option "without-remote", "Disable access to remote databases"

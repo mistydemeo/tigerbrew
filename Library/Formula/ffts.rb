@@ -5,12 +5,6 @@ class Ffts < Formula
   url "http://anthonix.com/ffts/releases/ffts-0.7.tar.gz"
   sha256 "6362e498e5aa241661cfe9060153076b78e300a5d3c365997ba6ac2f637df3ff"
 
-  bottle do
-    cellar :any
-    sha1 "aa66ec913d790d6ea76a5bb9680150f8cb55e84c" => :yosemite
-    sha1 "b2cbeeb8dfae98c1dfbaea17aae5ee85d904afae" => :mavericks
-    sha1 "3c550705b80ef08b2bfa0195d417d654e3228175" => :mountain_lion
-  end
 
   def install
     system "./configure", "--disable-dependency-tracking",

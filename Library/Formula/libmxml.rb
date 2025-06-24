@@ -6,12 +6,6 @@ class Libmxml < Formula
 
   head "http://svn.msweet.org/mxml/"
 
-  bottle do
-    cellar :any
-    sha1 "e1c87b1b1ec3e362656f7e5d9c14c99dec182ab8" => :yosemite
-    sha1 "5d8a8bd17997790bb48c6142750ef9d2539d674b" => :mavericks
-    sha1 "2f99f449b8730e5fc9e340671ca9ff2e6095c8f9" => :mountain_lion
-  end
 
   depends_on :xcode => :build # for docsetutil
 

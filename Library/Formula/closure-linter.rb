@@ -6,12 +6,6 @@ class ClosureLinter < Formula
 
   head "https://github.com/google/closure-linter.git"
 
-  bottle do
-    cellar :any
-    sha256 "1fba2b6ce208cc1944ecb7aaf1e4998f439f248234f51854523b04be96babb8d" => :yosemite
-    sha256 "a5f04eab15b5496bc5309b420552a2f13392606bab465beaf0cce27119557b61" => :mavericks
-    sha256 "beaed6105607c8d7096707904aa6b1d51dfe3f119d709ddb6d0dba93691323bb" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
 

@@ -10,11 +10,6 @@ class Cless < Formula
 
   revision 1
 
-  bottle do
-    sha256 "49b15946ec65f85e5b94333485ba8a8eee1b7ec6d2f53c4619d894c9aaf3e6a8" => :yosemite
-    sha256 "aaa095676d987a4cdfb613ddf4be28fd8ae1eaf4788f85b045fa5711cfecdffb" => :mavericks
-    sha256 "8dcb4a2e9c72d22ab96eee8f18ce4f63bd5f28dea6ef586de82865c94cb2fd8a" => :mountain_lion
-  end
 
   depends_on "ghc" => :build
   depends_on "cabal-install" => :build

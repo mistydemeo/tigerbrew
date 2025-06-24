@@ -6,12 +6,6 @@ class Puddletag < Formula
 
   head "https://github.com/keithgg/puddletag.git"
 
-  bottle do
-    cellar :any
-    sha256 "a68e0d8951475db3151e8bbd91a66028200ea2bd18363fcd37a6d9191e693633" => :yosemite
-    sha256 "64fbfbe641417db9cf8544360628c15894e633a48b81765033f0f2f404876419" => :mavericks
-    sha256 "c5ff96058a4f5262822327108318549a76beeaef4c39715944a22b30bdd19280" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "pyqt"

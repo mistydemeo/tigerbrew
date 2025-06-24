@@ -12,12 +12,6 @@ class Sleuthkit < Formula
       sha256 "f9419d6665a89df5625487dd50c16c12d1680477797917f8ec9182db55df4f7f"
     end
   end
-  bottle do
-    cellar :any
-    sha256 "25eed50da3aee6f63efa5adaf5d8915fe5ca33301fd415d47ed73ddbe6ab398a" => :yosemite
-    sha256 "085a2b13ad2b6912cd2902be007c31feb299d617a9255f53e89a7994eb036a4e" => :mavericks
-    sha256 "abe6fee63395ae2a7f81179d993d9f114bef6633f3845af52541fc79a58321ae" => :mountain_lion
-  end
 
   head do
     url "https://github.com/sleuthkit/sleuthkit.git"

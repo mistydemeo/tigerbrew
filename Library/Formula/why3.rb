@@ -4,11 +4,6 @@ class Why3 < Formula
   url "https://gforge.inria.fr/frs/download.php/file/34797/why3-0.86.1.tar.gz"
   sha256 "a7ada8bec9b6717257f2932d8b42e5e3f2dd63800f5e9a3f4004229b0efe3389"
 
-  bottle do
-    sha256 "5926aee231e7ad43b3a3e726cc762c6e350b2a74bcc2607eb94cd6434f4fa392" => :yosemite
-    sha256 "51ed66ee88d9960a8e3eb91c7ad8c0b4809a80f5cb373aea2f934fbc7701820e" => :mavericks
-    sha256 "de28011d0e63a111acce1061aa8589e11dfd63d05f614b8e49c0e0a6bb03d221" => :mountain_lion
-  end
 
   depends_on "menhir"
   depends_on "ocaml"

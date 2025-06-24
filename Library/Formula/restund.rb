@@ -4,12 +4,6 @@ class Restund < Formula
   url "http://www.creytiv.com/pub/restund-0.4.11.tar.gz"
   sha256 "d4630dfb8777f12cc48ed118da0ea6445bc60e94ff916ab0ca5d436c74bdc2d7"
 
-  bottle do
-    cellar :any
-    sha1 "ca362fc05e313ac4c2fc5fc761b3c502ff6c7ab9" => :yosemite
-    sha1 "249056f251265110831e938cbb82cedbf294ec65" => :mavericks
-    sha1 "ba868c60ec50840299ae1ae92e98e270ae9956e5" => :mountain_lion
-  end
 
   depends_on "libre"
 

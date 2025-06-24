@@ -21,12 +21,6 @@ class Libswiften < Formula
     end
   end
 
-  bottle do
-    revision 3
-    sha256 "b9c79e101fa96c7e53b505ee7afaa511ab3f81735d2440b6b810a85ec4b36614" => :yosemite
-    sha256 "1d69b8e63b9e41280d24c23d3f611e03c5798bb165abeed4bc0bf06acbf027a5" => :mavericks
-    sha256 "6981efb6cbb1db7fc011ea12f05d4bb1593f04b49128cd406f2cd69ae869d273" => :mountain_lion
-  end
 
   head do
     url "git://swift.im/swift"

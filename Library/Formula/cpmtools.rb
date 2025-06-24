@@ -4,11 +4,6 @@ class Cpmtools < Formula
   url "http://www.moria.de/~michael/cpmtools/files/cpmtools-2.20.tar.gz"
   sha256 "d8c7e78a9750994124f3aab6e461da8fa0021acc7dbad76eafbac8b0ed8279d3"
 
-  bottle do
-    sha1 "a437721156fa15a612e823e4f1ee0fdbfe2d0ed7" => :yosemite
-    sha1 "43ea7f0a371628133d4c46e249c32f0a619ad45f" => :mavericks
-    sha1 "537d26d243827c8d1506305fce70e9eab7604eaa" => :mountain_lion
-  end
 
   def install
     system "./configure", "--prefix=#{prefix}"

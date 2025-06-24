@@ -6,12 +6,6 @@ class JsonFortran < Formula
 
   head "https://github.com/jacobwilliams/json-fortran.git"
 
-  bottle do
-    cellar :any
-    sha256 "bb9cbce17fa229548bb63d71c4905a669ddeca4c4d18553e5a2d9fb5da6a29a5" => :yosemite
-    sha256 "2bedbab56f3f1e042423732ae20e69318e26a42143f66461148794f1913db03c" => :mavericks
-    sha256 "0c2ec996d2fe95095a66cfe2aa6f4de7b995edf729494b02b3bc251b9007d8f4" => :mountain_lion
-  end
 
   option "with-unicode-support", "Build json-fortran to support unicode text in json objects and files"
   option "without-test", "Skip running build-time tests (not recommended)"

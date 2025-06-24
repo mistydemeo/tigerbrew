@@ -5,12 +5,6 @@ class Ffms2 < Formula
   mirror "https://mirrors.kernel.org/debian/pool/main/f/ffms2/ffms2_2.21.orig.tar.gz"
   sha256 "c2c23ce2254e293376f786aafc20a345f4dc970f5b2efef3fa38e40d7d510202"
 
-  bottle do
-    cellar :any
-    sha256 "b48b3b7b10eb88a08a5556f40a71deb0ac10d62e89a681b3d9577ad32229023e" => :yosemite
-    sha256 "857d0e62a8120ef2fd00327862f7a6b8afb8755082e14f2ac5d600c84b6819d7" => :mavericks
-    sha256 "cf9039480a3baf42907ed3082f5e6bd9b7183ab2a615908aceaf8e5e54204f52" => :mountain_lion
-  end
 
   head do
     url "https://github.com/FFMS/ffms2.git"

@@ -6,12 +6,6 @@ class Clib < Formula
 
   head "https://github.com/clibs/clib.git"
 
-  bottle do
-    cellar :any
-    sha1 "f9d8fc54ec746beb253186b1cb8c30eee5f945d6" => :yosemite
-    sha1 "82d7f283b9c85566f3e1a7337ec998cc11406c66" => :mavericks
-    sha1 "602d091a1490a683a0e07e71df7c26ecf430e353" => :mountain_lion
-  end
 
   def install
     ENV["PREFIX"] = prefix

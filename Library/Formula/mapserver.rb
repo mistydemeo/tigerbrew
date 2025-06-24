@@ -4,12 +4,6 @@ class Mapserver < Formula
   url "http://download.osgeo.org/mapserver/mapserver-6.2.2.tar.gz"
   sha256 "79b81286dde030704f59a668a19e5b01af27bb35d05b3daf91cefe06ca29ffd9"
 
-  bottle do
-    cellar :any
-    sha256 "8bfa96a50ee83117bd929afc4ed1c6ce3e9e82a7e6da6328e4ca500c4fbb096d" => :yosemite
-    sha256 "7ed6da72cbb724c1dfe92cc701bf292ddac02788dc7976f7a81e5e367b472262" => :mavericks
-    sha256 "28b3fbf520436359a81d6b0a6875c30cb6f8bdb147ebc14f5860f7cf2c61ad47" => :mountain_lion
-  end
 
   option "with-fastcgi", "Build with fastcgi support"
   option "with-geos", "Build support for GEOS spatial operations"

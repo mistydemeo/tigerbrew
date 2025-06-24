@@ -6,11 +6,6 @@ class Mpich < Formula
   sha256 "f68b5330e94306c00ca5a1c0e8e275c7f53517d01d6c524d51ce9359d240466b"
   revision 1
 
-  bottle do
-    sha256 "52f8f331dbb01514fca1d7921c38c6cab2dd77b06ee6a0c42e608d0719041aeb" => :yosemite
-    sha256 "2d99e877646cc27a13dd4b901050d1e1f5a716f2b2c775cbeaec263886a2d12d" => :mavericks
-    sha256 "56070798b3958bced4b32c3ef3c21f21b07df5e0f14389645d4ba03119d09a78" => :mountain_lion
-  end
 
   devel do
     url "https://www.mpich.org/static/downloads/3.2b4/mpich-3.2b4.tar.gz"

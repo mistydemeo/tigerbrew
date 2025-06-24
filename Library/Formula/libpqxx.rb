@@ -4,14 +4,6 @@ class Libpqxx < Formula
   url "http://pqxx.org/download/software/libpqxx/libpqxx-4.0.1.tar.gz"
   sha256 "097ceda2797761ce517faa5bee186c883df1c407cb2aada613a16773afeedc38"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "5bda2a641ddb2774efa2355612181d6cbdaae5dd665eeac656ff4d42b90cfbdb" => :el_capitan
-    sha1 "dfd78c4be99cf1b24cd99fa01a8dcb97afb18557" => :yosemite
-    sha1 "730d222c2c3329f894edc25df8052d0e6ad8f460" => :mavericks
-    sha1 "3061cee2fd2c387febcbf02a08820d56b8abbda7" => :mountain_lion
-  end
 
   depends_on "pkg-config" => :build
   depends_on :postgresql

@@ -4,11 +4,6 @@ class GstValidate < Formula
   url "http://gstreamer.freedesktop.org/src/gst-validate/gst-validate-1.6.0.tar.xz"
   sha256 "3baef8c7b5363293c20314a30afd54629849fc597669991fdcf92303602dafee"
 
-  bottle do
-    sha256 "338d8f489811e92491ad6d86a96c76ac6056b6e178bb5caa412f73feff9b7d8f" => :el_capitan
-    sha256 "46a75949ef97e6cfa1e1996886ebd34e1446752600e9308ce904ead70386ac19" => :yosemite
-    sha256 "8d11ac9dc97c9f85f941ad6d684b3e2640795f02d02338562dd5e9a9da7f23f2" => :mavericks
-  end
 
   head do
     url "git://anongit.freedesktop.org/gstreamer/gst-devtools"

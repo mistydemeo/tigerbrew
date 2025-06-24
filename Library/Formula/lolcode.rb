@@ -2,12 +2,6 @@ class Lolcode < Formula
   desc "LOLCODE interpreter"
   homepage "http://lolcode.org"
   head "https://github.com/justinmeza/lolcode.git"
-  bottle do
-    cellar :any
-    sha1 "3adaf4e185615a450be5102252c54ea881fe6195" => :yosemite
-    sha1 "ac8426fbea700357f25e98911fdd8d748769ae1e" => :mavericks
-    sha1 "28d703003ff61e29c2f6c9f9bee09e758aa1a00a" => :mountain_lion
-  end
 
   # note: 0.10.* releases are stable versions, 0.11.* are dev ones
   url "https://github.com/justinmeza/lci/archive/v0.11.2.tar.gz"

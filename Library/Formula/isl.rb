@@ -10,10 +10,6 @@ class Isl < Formula
   url "https://libisl.sourceforge.io/isl-0.27.tar.xz"
   sha256 "6d8babb59e7b672e8cb7870e874f3f7b813b6e00e6af3f8b04f7579965643d5c"
 
-  bottle do
-    cellar :any
-    sha256 "90a210935291327e174b4f602c0fb1929fecb27024a0bec0b15531adcc98d5ea" => :tiger_altivec
-  end
 
   head do
     url "https://repo.or.cz/r/isl.git"

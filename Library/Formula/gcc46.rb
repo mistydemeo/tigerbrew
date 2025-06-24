@@ -25,11 +25,6 @@ class Gcc46 < Formula
   mirror "https://ftp.gnu.org/gnu/gcc/gcc-4.6.4/gcc-4.6.4.tar.bz2"
   sha256 "35af16afa0b67af9b8eb15cafb76d2bc5f568540552522f5dc2c88dd45d977e8"
 
-  bottle do
-    sha256 "23cb970d350f9096b17ad0a04c875d0c54ee71a0f22709e72bcf34e100412dfc" => :yosemite
-    sha256 "51a8a0efb2868c517258d2a504c45217fed8a10631ba724da437adb39064a632" => :mavericks
-    sha256 "8033c9313bf08a7bc825aca65c884027a877052b77418d9fcf1006dd27ac2287" => :mountain_lion
-  end
 
   if MacOS.version >= :el_capitan
     # Fixes build with Xcode 7.

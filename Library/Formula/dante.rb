@@ -7,12 +7,6 @@ class Dante < Formula
 
   depends_on "miniupnpc" => :optional
 
-  bottle do
-    cellar :any
-    sha1 "2d75acdb4024c23ea3834eb2f5e95813f93c8b94" => :yosemite
-    sha1 "7f078e852cc57c0265ce8b334b2aa1111397fd76" => :mavericks
-    sha1 "d09ccfb1ad49ec06acd1200f43716eb79d71618d" => :mountain_lion
-  end
 
   def install
     system "./configure", "--disable-debug",

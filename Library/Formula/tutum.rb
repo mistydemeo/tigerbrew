@@ -4,13 +4,6 @@ class Tutum < Formula
   url "https://pypi.python.org/packages/source/t/tutum/tutum-0.16.21.tar.gz"
   sha256 "0804d5b6bcbd3aef26b74033bfda9ad33deb23547b176b7ef0ee4272f425503d"
 
-  bottle do
-    cellar :any
-    sha256 "9573fdf00d0cd1a24234b51b22e2338dfa146358feae878f46806b1d73abbf3e" => :el_capitan
-    sha256 "846d783c2bff3b072e234a80ac5e2f3356f710d335347625db98e4dfa994c8c8" => :yosemite
-    sha256 "93e7d17c6a48fc482b3f576ce8e1365a7ecb2db64d52fe47e020d804d888ebea" => :mavericks
-    sha256 "6bc5c01ec58a7045634b6116696cdbbdd5c452f5761a6fabba880f2c7b9c81d4" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "libyaml"

@@ -17,13 +17,6 @@ class DockerCompose < Formula
     end
   end
 
-  bottle do
-    cellar :any
-    revision 1
-    sha256 "4d7c22ead5c3f11ab69b6b11f2592730c93e46d758a314c37a414591edce9271" => :el_capitan
-    sha256 "d191a2c85ee7856fd43ca76b42dea22d3365e07aafc9d72eb7147dc0d5a94a41" => :yosemite
-    sha256 "281f74269ab30d37c7fcbabce41a07b49c370f2db4a778c8d06249c19aac1499" => :mavericks
-  end
 
   head do
     url "https://github.com/docker/compose.git"

@@ -8,12 +8,6 @@ class Scw < Formula
 
   head "https://github.com/scaleway/scaleway-cli.git"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "9b624f888883b83a2a35bcfbe3508750263ca5b7ad9990c02b86461c9a5c62ca" => :el_capitan
-    sha256 "392070a27d07cae3415bc88a844ae2dd3440d2a43e2b300eb869d6ecab1a7528" => :yosemite
-    sha256 "0248f1f11ad819b2eeee27c269c27fede09f23ed7f46b1683453e5ef6589fc54" => :mavericks
-  end
 
   depends_on "go" => :build
 

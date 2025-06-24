@@ -4,13 +4,6 @@ class Libmodplug < Formula
   url "https://downloads.sourceforge.net/modplug-xmms/libmodplug/0.8.8.5/libmodplug-0.8.8.5.tar.gz"
   sha256 "77462d12ee99476c8645cb5511363e3906b88b33a6b54362b4dbc0f39aa2daad"
 
-  bottle do
-    cellar :any
-    revision 1
-    sha1 "0901d9ad6b88c87cffaf2e9f7c2e38159f0c4c68" => :yosemite
-    sha1 "82462ed1591281bc461165071b7479417c9f3493" => :mavericks
-    sha1 "ecddcd3abd6d223334c2404f14f1f79eb93b08ba" => :mountain_lion
-  end
 
   def install
     system "./configure", "--disable-debug",

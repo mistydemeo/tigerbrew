@@ -26,8 +26,6 @@ class Gcc7 < Formula
   sha256 "b81946e7f01f90528a1f7352ab08cc602b9ccc05d4e44da4bd501c5a189ee661"
   revision 1
 
-  bottle do
-  end
 
   option "with-nls", "Build with native language support (localization)"
   option "with-jit", "Build just-in-time compiler"

@@ -9,12 +9,6 @@ class Wellington < Formula
     sha256 "108e5626dad9494a1de7d6241a2f96c6fa5bd774133a00c301d42abd1089f3e2"
   end
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "1d2aed7822f39cd64bc6dc789f78b6f23e85fff0eedefc0b5950e41a5d567db6" => :el_capitan
-    sha256 "9d3f392f5df514a09ee92652974b91d14f94f2e83aec0536a4abff61f4a3aa97" => :yosemite
-    sha256 "44a40c37b072ddaed80efa4bcd4752ce85d8d73c70fdb8bb674997172d74cbf3" => :mavericks
-  end
 
   devel do
     url "https://github.com/wellington/wellington/archive/v1.0.0-beta1.tar.gz"

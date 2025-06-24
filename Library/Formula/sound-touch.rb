@@ -4,12 +4,6 @@ class SoundTouch < Formula
   url "http://www.surina.net/soundtouch/soundtouch-1.9.1.tar.gz"
   sha256 "7d22e09e5e0a5bb8669da4f97ec1d6ee324aa3e7515db7fa2554d08f5259aecd"
 
-  bottle do
-    cellar :any
-    sha256 "ec3cebf59b93b32cfce7e257e4dbf29f69902e968c357e42c5af6bac7c501ca9" => :el_capitan
-    sha256 "f0825880145526db97129bb02690a5823e69f008bb83713fed7b79a9fabc1636" => :yosemite
-    sha256 "75ae537da4d561053c0b974dfe77da16fafc72bafbc47b84e393d142afd5be73" => :mavericks
-  end
 
   option "with-integer-samples", "Build using integer samples? (default is float)"
   option :universal

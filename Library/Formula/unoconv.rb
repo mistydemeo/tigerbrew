@@ -5,12 +5,6 @@ class Unoconv < Formula
   sha256 "56abbec55632b19dcaff7d506ad6e2fd86f53afff412e622cc1e162afb1263fa"
   head "https://github.com/dagwieers/unoconv.git"
 
-  bottle do
-    cellar :any
-    sha256 "82e4120b114a941e5a099ca5ca3df12270f66795d8292a95d4164bcd3199edac" => :yosemite
-    sha256 "db9fc7afd8681160e90f2e3de016e92bffe9d4d541cd70b50abe85b3c987f7d1" => :mavericks
-    sha256 "ae47973f02b31408afac680814bfb26002714faded753a9c753c3ab28977572b" => :mountain_lion
-  end
 
   depends_on :python if MacOS.version <= :snow_leopard
 

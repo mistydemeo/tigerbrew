@@ -5,12 +5,6 @@ class OpenalSoft < Formula
   sha256 "2f3dcd313fe26391284fbf8596863723f99c65d6c6846dccb48e79cadaf40d5f"
   revision 1
 
-  bottle do
-    cellar :any
-    sha256 "500f9689c526d26ffb39fafd03ade82f2e913b59c3c29ccc4698f3579db1eab8" => :yosemite
-    sha256 "ecd9497afe87e2fdba9cb7d18efbc81548a06f0972f2a7a9ceda0056f97f5112" => :mavericks
-    sha256 "e5e9b16266db4532c9387e4d87e5839cb1c6545065bc3b911ee8890fa5446e2f" => :mountain_lion
-  end
 
   # static asserts try to use __COUNTER__, not defined in GCC 4.2
   # These upstream commits will be included in the next release.

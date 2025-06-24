@@ -7,12 +7,6 @@ class ScmManager < Formula
 
   depends_on :java => "1.6+"
 
-  bottle do
-    cellar :any
-    sha256 "cb4f58a1ec6c26ee09534d8b6d42c28a21fb461b1d7e4a8ac1a4793d0a0fecf9" => :yosemite
-    sha256 "142969086cc96c7300bd92b4cc28063a57e9f014aafbcf45360fee5bae0fba1c" => :mavericks
-    sha256 "979071c94926cda759b8270d4d51b0e54c9d70ce4b078864d041b9c926093919" => :mountain_lion
-  end
 
   resource "client" do
     url "https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/clients/scm-cli-client/1.46/scm-cli-client-1.46-jar-with-dependencies.jar"

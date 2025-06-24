@@ -4,12 +4,6 @@ class Gocr < Formula
   url "http://www-e.uni-magdeburg.de/jschulen/ocr/gocr-0.50.tar.gz"
   sha256 "bc261244f887419cba6d962ec1ad58eefd77176885093c4a43061e7fd565f5b5"
 
-  bottle do
-    cellar :any
-    sha1 "f230e6056541648f1e0c0a869fbb4a5e1715822d" => :mavericks
-    sha1 "2f07d5b621f299c7faaa992127fc106637a4e90c" => :mountain_lion
-    sha1 "7137e18511cfd756baa7d19e81ce33cd5bdbf8c5" => :lion
-  end
 
   option "with-lib", "Install library and headers"
 

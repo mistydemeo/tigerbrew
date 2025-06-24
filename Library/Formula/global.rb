@@ -5,11 +5,6 @@ class Global < Formula
   mirror "https://ftp.gnu.org/gnu/global/global-6.5.1.tar.gz"
   sha256 "0e9d5227d400e8cb2ffa1732d98b8735d58d4bf8476c2845365770fdd5b264f8"
 
-  bottle do
-    sha256 "2c15f88285fc7eeb875e73808eac0f577335c7cf1c1727020909c48381aea623" => :el_capitan
-    sha256 "20b49507cf026b517f1b0a855f0cbf804ae16a20f2fe5073f2b1b957e95514ec" => :yosemite
-    sha256 "0b132bd00315344cf41234882274d50b2a36fe97647d05cc805571c05ddaf314" => :mavericks
-  end
 
   head do
     url ":pserver:anonymous:@cvs.savannah.gnu.org:/sources/global", :using => :cvs
