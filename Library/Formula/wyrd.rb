@@ -1,7 +1,7 @@
 class Wyrd < Formula
   desc "Ncurses-based front-end for remind"
   homepage "http://pessimization.com/software/wyrd/"
-  url "http://pessimization.com/software/wyrd/wyrd-1.4.6.tar.gz"
+  url "https://web.archive.org/web/20140624173034/http://pessimization.com/software/wyrd/wyrd-1.4.6.tar.gz"
   sha256 "b2b51d6fb38f8b8b3ec30ee72093f791ba9b6fe35418191bc2011d2c8079997e"
 
   bottle do
