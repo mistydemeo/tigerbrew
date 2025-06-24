@@ -1,7 +1,7 @@
 class Xa < Formula
   desc "6502 cross assembler"
   homepage "http://www.floodgap.com/retrotech/xa/"
-  url "http://www.floodgap.com/retrotech/xa/dists/xa-2.3.7.tar.gz"
+  url "https://web.archive.org/web/20160829165236/http://www.floodgap.com/retrotech/xa/dists/xa-2.3.7.tar.gz"
   sha256 "34e792c159584153f5b5a246ae5d2142dfc92a20b673ea8c9e04584bde594442"
 
   bottle do
