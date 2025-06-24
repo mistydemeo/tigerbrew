@@ -1,7 +1,7 @@
 class Dnsmap < Formula
   desc "Passive DNS network mapper (a.k.a. subdomains bruteforcer)"
   homepage "https://code.google.com/p/dnsmap/"
-  url "https://dnsmap.googlecode.com/files/dnsmap-0.30.tar.gz"
+  url "https://web.archive.org/web/20160208212819/https://dnsmap.googlecode.com/files/dnsmap-0.30.tar.gz"
   sha256 "fcf03a7b269b51121920ac49f7d450241306cfff23c76f3da94b03792f6becbc"
 
   def install

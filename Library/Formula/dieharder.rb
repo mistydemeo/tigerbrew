@@ -1,7 +1,7 @@
 class Dieharder < Formula
   desc "Random number test suite"
   homepage "https://www.phy.duke.edu/~rgb/General/dieharder.php"
-  url "https://www.phy.duke.edu/~rgb/General/dieharder/dieharder-3.31.1.tgz"
+  url "https://web.archive.org/web/20250517215916/https://webhome.phy.duke.edu/~rgb/General/dieharder/dieharder-3.31.1.tgz"
   sha256 "6cff0ff8394c553549ac7433359ccfc955fb26794260314620dfa5e4cd4b727f"
 
   bottle do

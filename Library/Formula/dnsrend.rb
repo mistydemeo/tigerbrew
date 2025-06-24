@@ -1,7 +1,7 @@
 class Dnsrend < Formula
   desc "DNS message dissector"
   homepage "http://romana.now.ie/dnsrend"
-  url "http://romana.now.ie/software/dnsrend-0.08.tar.gz"
+  url "https://web.archive.org/web/20160305185927/https://romana.now.ie/software/dnsrend-0.08.tar.gz"
   sha256 "32fa6965f68e7090af7e4a9a06de53d12f40397f644a76cf97b6b4cb138da93a"
 
   bottle do
