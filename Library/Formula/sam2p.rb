@@ -1,7 +1,7 @@
 class Sam2p < Formula
   desc "Convert raster images to EPS, PDF, and other formats"
   homepage "https://code.google.com/p/sam2p/"
-  url "https://sam2p.googlecode.com/files/sam2p-0.49.2.tar.gz"
+  url "https://web.archive.org/web/20160524062352/https://sam2p.googlecode.com/files/sam2p-0.49.2.tar.gz"
   sha256 "0e75d94bed380f8d8bd629f7797a0ca533b5d0b40eba2dab339146dedc1f79bf"
 
   fails_with :clang do
