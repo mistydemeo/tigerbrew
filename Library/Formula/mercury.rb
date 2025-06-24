@@ -1,7 +1,7 @@
 class Mercury < Formula
   desc "Logic/functional programming language"
   homepage "http://mercurylang.org/"
-  url "http://dl.mercurylang.org/release/mercury-srcdist-14.01.1.tar.gz"
+  url "https://web.archive.org/web/20190926162313/http://dl.mercurylang.org/release/mercury-srcdist-14.01.1.tar.gz"
   sha256 "98f7cbde7a7425365400feef3e69f1d6a848b25dc56ba959050523d546c4e88b"
 
   bottle do
