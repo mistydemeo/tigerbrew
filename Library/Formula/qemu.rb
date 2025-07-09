@@ -12,7 +12,12 @@ class Qemu < Formula
   depends_on "libutil" if MacOS.version < :leopard
   depends_on "pixman"
   depends_on "vde" => :optional
-  depends_on "sdl" => :optional
+  if MacOS.version < :leopard
+    # Enable the SDL UI by default on OS X versions older than 10.5 because the Cocoa UI (which is otherwise enabled by default) is unavailable on these OS X versions.
+    depends_on "sdl" => :recommended
+  else
+    depends_on "sdl" => :optional
+  end
   depends_on "gtk+" => :optional
   depends_on "libssh2" => :optional
 
@@ -51,7 +56,7 @@ class Qemu < Formula
       --disable-vnc-tls
     ]
 
-    # Cocoa UI uses features that require 10.5 or newer
+    # The Cocoa UI uses features that require OS X 10.5 or newer, so we only enable it by default on those OS X versions.
     if MacOS.version > :tiger
       args << "--enable-cocoa"
     else
