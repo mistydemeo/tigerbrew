@@ -1,8 +1,8 @@
 class Perl < Formula
   desc "Highly capable, feature-rich programming language"
   homepage "https://www.perl.org/"
-  url "https://www.cpan.org/src/5.0/perl-5.40.2.tar.gz"
-  sha256 "10d4647cfbb543a7f9ae3e5f6851ec49305232ea7621aed24c7cfbb0bef4b70d"
+  url "https://www.cpan.org/src/5.0/perl-5.42.0.tar.gz"
+  sha256 "e093ef184d7f9a1b9797e2465296f55510adb6dab8842b0c3ed53329663096dc"
   license any_of: ["Artistic-1.0-Perl", "GPL-1.0-or-later"]
 
   head "https://perl5.git.perl.org/perl.git", :branch => "blead"
@@ -14,15 +14,12 @@ class Perl < Formula
   # https://github.com/Perl/perl5/pull/21023
   # lib/ExtUtils/MM_Darwin.pm: Unbreak Perl build
   # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/444/files
-  # t/04-xs-rpath-darwin.t: Need Darwin 9 minimum
-  # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/446
   patch :p0, :DATA
 
   option "with-dtrace", "Build with DTrace probes" if MacOS.version >= :leopard
   option "with-tests", "Build and run the test suite"
 
   bottle do
-    sha256 "464baee6f28ba0767b3a4b6376065d42a62ba90bee85de2b9900a1c843314a2e" => :tiger_altivec
   end
 
   def install
@@ -106,19 +103,3 @@ __END__
    $self->SUPER::compile(@_);
  }
  
---- cpan/ExtUtils-MakeMaker/t/04-xs-rpath-darwin.t
-+++ cpan/ExtUtils-MakeMaker/t/04-xs-rpath-darwin.t
-@@ -14,9 +14,13 @@ BEGIN {
-     chdir 't' or die "chdir(t): $!\n";
-     unshift @INC, 'lib/';
-     use Test::More;
-+    my ($osmajmin) = $Config{osvers} =~ /^(\d+\.\d+)/;
-     if( $^O ne "darwin" ) {
-         plan skip_all => 'Not darwin platform';
-     }
-+    elsif ($^O eq 'darwin' && $osmajmin < 9) {
-+	plan skip_all => 'For OS X Leopard and newer'
-+    }
-     else {
-         plan skip_all => 'Dynaloading not enabled'
-             if !$Config{usedl} or $Config{usedl} ne 'define';
