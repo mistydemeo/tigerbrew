@@ -43,7 +43,11 @@ class Mtr < Formula
     mtr requires root privileges so you will need to run `sudo mtr`.
     You should be certain that you trust any software you grant root privileges.
 
-    Use something other than Terminal.app on Tiger for braille output.
+    Braille output requires your shell's locale to be set to UTF-8.
+    By default locale is set to C in Terminal on Tiger because $LANG is not set in.
+    Check the output of the 'locale' command and 'export LANG=en_GB.UTF-8' before
+    running mtr, if $LANG is set to C. See the output of 'locale -a' for a list
+    of supported locales, and substitue en_GB with your desired locale.
     EOS
   end
 end
