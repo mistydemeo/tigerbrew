@@ -1,12 +1,11 @@
 class Subversion < Formula
   desc "Version control system designed to be a better CVS"
   homepage "https://subversion.apache.org/"
-  url "https://dlcdn.apache.org/subversion/subversion-1.14.2.tar.bz2"
-  mirror "https://archive.apache.org/dist/subversion/subversion-1.14.2.tar.bz2"
-  sha256 "c9130e8d0b75728a66f0e7038fc77052e671830d785b5616aad53b4810d3cc28"
+  url "https://dlcdn.apache.org/subversion/subversion-1.14.5.tar.bz2"
+  mirror "https://archive.apache.org/dist/subversion/subversion-1.14.5.tar.bz2"
+  sha256 "e78a29e7766b8b7b354497d08f71a55641abc53675ce1875584781aae35644a1"
 
   bottle do
-    sha256 "e2805b0c925cfbc666042419b699a9136e19e4e19e3d55241e1f1bf7d83e4dfa" => :tiger_altivec
   end
 
   deprecated_option "java" => "with-java"
@@ -48,7 +47,7 @@ class Subversion < Formula
 
   # For Serf
   depends_on "scons" => :build
-  depends_on "openssl"
+  depends_on "openssl3"
 
   # Other optional dependencies
   depends_on "gpg-agent" => :optional
@@ -83,7 +82,7 @@ class Subversion < Formula
       # scons ignores our compiler and flags unless explicitly passed
       args = %W[PREFIX=#{serf_prefix} GSSAPI=/usr CC=#{ENV.cc}
                 CFLAGS=#{ENV.cflags} LINKFLAGS=#{ENV.ldflags}
-                OPENSSL=#{Formula["openssl"].opt_prefix}]
+                OPENSSL=#{Formula["openssl3"].opt_prefix}]
 
       if MacOS.version <= :leopard || !MacOS::CLT.installed?
         args << "APR=#{Formula['apr'].opt_prefix}"
