@@ -82,6 +82,7 @@ class Git < Formula
     ENV["PERL_PATH"] = which "perl"
     ENV["CURLDIR"] = Formula["curl"].opt_prefix
     ENV["NO_APPLE_COMMON_CRYPTO"] = "1" if MacOS.version < :leopard
+    ENV["NO_TCLTK"] = "1" if MacOS.version <:snow_leopard # Needs Tcl-Tk 8.5 or newer with Aqua support
     ENV.append "CFLAGS", "-std=gnu99"
 
     perl_version = /\d\.\d+/.match(`perl --version`)
