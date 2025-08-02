@@ -65,6 +65,12 @@ class TclTk < Formula
           args << "--without-x"
         end
 
+        # Tk Aqua build fix on 10.6 & unbreak the ability to run the test suite on < 10.8
+        # https://core.tcl-lang.org/tk/tktview/c789692418
+        # https://core.tcl-lang.org/tk/tktview/044f2bc55b
+        # Need to use this way to patch a resource as the usual method doesn't work on resources
+        system "patch", "-p0", "-i", "#{HOMEBREW_PREFIX}/Library/Formula/tcl-tk.rb"
+
         cd "unix" do
           system "./configure", *args
           system "make", "TK_LIBRARY=#{lib}"
@@ -89,3 +95,31 @@ class TclTk < Formula
     assert_equal "honk", pipe_output("#{bin}/tclsh", "puts honk\n").chomp
   end
 end
+__END__
+--- macosx/tkMacOSXWindowEvent.c.orig	2025-07-26 14:20:28.000000000 +0100
++++ macosx/tkMacOSXWindowEvent.c	2025-07-26 14:24:11.000000000 +0100
+@@ -977,8 +977,11 @@
+ 	self.layer = [CALayer layer];
+ 	self.wantsLayer = YES;
+ 	self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
+-	self.layer.contentsGravity = self.layer.contentsAreFlipped ?
+-	    kCAGravityTopLeft : kCAGravityBottomLeft;
++	if (self.layer.contentsAreFlipped) {
++	    self.layer.contentsGravity = kCAGravityTopLeft;
++	} else {
++	    self.layer.contentsGravity = kCAGravityBottomLeft;
++	}
+ 
+ 	/*
+ 	 * Nothing gets drawn at all if the layer does not have a delegate.
+--- macosx/tkMacOSXTest.c.orig	2025-07-26 15:14:47.000000000 +0100
++++ macosx/tkMacOSXTest.c	2025-07-26 15:15:42.000000000 +0100
+@@ -88,7 +88,7 @@
+     TCL_UNUSED(void *),		/* Not used. */
+     TCL_UNUSED(Tcl_Interp *),			/* Not used. */
+     TCL_UNUSED(int),				/* Not used. */
+-    TCL_UNUSED(Tcl_Obj *const *)			/* Not used. */
++    TCL_UNUSED(Tcl_Obj *const *))			/* Not used. */
+ {
+     Debugger();
+     return TCL_OK;
