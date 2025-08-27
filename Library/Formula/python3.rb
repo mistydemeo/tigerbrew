@@ -1,12 +1,10 @@
 class Python3 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.10.16/Python-3.10.16.tar.xz"
-  sha256 "bfb249609990220491a1b92850a07135ed0831e41738cf681d63cf01b2a8fbd1"
-  revision 1
+  url "https://www.python.org/ftp/python/3.10.18/Python-3.10.18.tar.xz"
+  sha256 "ae665bc678abd9ab6a6e1573d2481625a53719bc517e9a634ed2b9fefae3817f"
 
   bottle do
-    sha256 "b8eeade36982597e63e53093427fbaa9a06a8f7a23addf814b058f3edb818710" => :tiger_altivec
   end
 
   option :universal
