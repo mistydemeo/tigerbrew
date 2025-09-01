@@ -20,6 +20,8 @@ class Libiconv < Formula
 
   patch :DATA
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     ENV.deparallelize
     system "./configure", "--disable-debug",
@@ -29,7 +31,7 @@ class Libiconv < Formula
                           "--enable-static",
                           "--docdir=#{doc}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

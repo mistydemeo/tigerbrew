@@ -13,6 +13,7 @@ class Gettext < Formula
 
   option :universal
   option 'with-examples', 'Keep example files'
+  option "with-tests", "Build and run the test suite"
 
   # Fix lang-python-* failures when a traditional French locale
   # https://git.savannah.gnu.org/gitweb/?p=gettext.git;a=patch;h=3c7e67be7d4dab9df362ab19f4f5fa3b9ca0836b
@@ -42,7 +43,7 @@ class Gettext < Formula
                           "--without-cvs",
                           "--without-xz"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     ENV.deparallelize # install doesn't support multiple make jobs
     system "make", "install"
   end
