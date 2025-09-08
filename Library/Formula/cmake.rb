@@ -17,6 +17,7 @@ class Cmake < Formula
   depends_on "curl"
   depends_on "expat"
   depends_on "libarchive"
+  depends_on "libuv" if MacOS.version >= :leopard
   depends_on :python => :build if MacOS.version <= :snow_leopard && build.with?("docs")
   depends_on "rhash"
   depends_on "xz" => :build
