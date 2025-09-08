@@ -7,10 +7,6 @@ class Libuv < Formula
 
   bottle do
     cellar :any
-    sha256 "85f20d13e5df5250b6acc30b89032b2d1994ae6c58e654450aa45a4b3858023d" => :el_capitan
-    sha256 "601d405156f24be8dfb069a0df726b00f310f99a1e72ccc7083453b8826b636a" => :yosemite
-    sha256 "ef03b634cb3eb23aad3e8ff6021a5681d8f37451e0b7365aeca487c946b75a49" => :mavericks
-    sha256 "0f5d4b86eb35d5c3477d2c8221b6d8653646aa98d7e5220010f7878692e3ddf7" => :mountain_lion
   end
 
   option "without-docs", "Don't build and install documentation"
@@ -121,7 +117,7 @@ class Libuv < Formula
         return 0;
       }
     EOS
-    system ENV.cc, "test.c", "-luv", "-o", "test"
+    system ENV.cc, "test.c", "-L#{lib}", "-luv", "-o", "test"
     system "./test"
   end
 end
