@@ -11,6 +11,8 @@ class Gnupg < Formula
     sha256 "8d310b2e00d3dc8d9ba83eac61dc30b6908b4a11bceb2e3a15074ec94d9f3861" => :tiger_altivec
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "curl" if MacOS.version <= :mavericks
 
   def install
@@ -19,7 +21,7 @@ class Gnupg < Formula
                           "--program-suffix=1",
                           "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
 
     # we need to create these directories because the install target has the
     # dependency order wrong

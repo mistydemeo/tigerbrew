@@ -21,6 +21,7 @@ class Libpng < Formula
   keg_only :provided_pre_mountain_lion
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   def install
     ENV.universal_binary if build.universal?
@@ -29,7 +30,7 @@ class Libpng < Formula
                           "--with-zlib-prefix=#{Formula["zlib"].opt_prefix}",
                           "--prefix=#{prefix}"
     system "make"
-    system "make", "test"
+    system "make", "test" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

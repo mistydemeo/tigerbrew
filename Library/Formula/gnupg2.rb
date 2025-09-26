@@ -10,6 +10,8 @@ class Gnupg2 < Formula
   bottle do
   end
 
+  option "with-tests", "Build and run the test suite"
+
   # Unbreak --enable-gpg-is-gpg2
   # https://lists.gnupg.org/pipermail/gnupg-devel/2024-November/035673.html
   patch :DATA
@@ -56,7 +58,7 @@ class Gnupg2 < Formula
     # gpg2 doesn't exist in the build env, gpgconf is queried when running the openpgp test suite
     # which returns gpg2 and things break there.
     buildpath.install_symlink "bin/gpg" => "bin/gpg2"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
 
     # Configure scdaemon as recommended by upstream developers
