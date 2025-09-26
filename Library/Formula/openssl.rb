@@ -7,7 +7,8 @@ class Openssl < Formula
   revision 1
 
   option :universal
-  option "without-test", "Skip build-time tests (not recommended)"
+  deprecated_option "without-test" => "without-tests"
+  option "with-tests", "Build and run the test suite"
 
   # Need a minimum of Perl 5.10 for Configure script and Test::More 0.96 for testsuite
   depends_on "perl" => :build
@@ -94,7 +95,7 @@ class Openssl < Formula
       system "perl", "./Configure", *(configure_args + arch_args[arch])
       system "make", "depend"
       system "make"
-      system "make", "test" if build.with?("test")
+      system "make", "test" if build.with?("tests") || build.bottle?
 
       if build.universal?
         cp "include/openssl/opensslconf.h", dir

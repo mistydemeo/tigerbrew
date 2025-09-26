@@ -16,6 +16,7 @@ class Gmp4 < Formula
   keg_only "Conflicts with gmp in main repository."
 
   option "with-32-bit"
+  option "with-tests", "Build and run the test suite"
 
   deprecated_option "32-bit" => "with-32-bit"
 
@@ -38,7 +39,7 @@ class Gmp4 < Formula
 
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     ENV.deparallelize # Doesn't install in parallel on 8-core Mac Pro
     system "make", "install"
   end

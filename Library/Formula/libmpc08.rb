@@ -11,6 +11,8 @@ class Libmpc08 < Formula
 
   keg_only "Conflicts with libmpc in main repository."
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "gmp4"
   depends_on "mpfr2"
 
@@ -24,7 +26,7 @@ class Libmpc08 < Formula
 
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

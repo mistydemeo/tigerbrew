@@ -12,6 +12,7 @@ class Mpfr2 < Formula
   end
 
   option "with-32-bit"
+  option "with-tests", "Build and run the test suite"
 
   deprecated_option "32-bit" => "with-32-bit"
 
@@ -48,7 +49,7 @@ class Mpfr2 < Formula
 
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 end
