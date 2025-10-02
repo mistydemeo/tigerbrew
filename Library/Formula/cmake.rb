@@ -11,6 +11,11 @@ class Cmake < Formula
     sha256 "fbb1622baca1437c0c66a7e5a88b91efca485495e008efb04316e746bc76017d" => :tiger_altivec
   end
 
+  # curl 8.16.0 introduced an API change related to proxy handling.
+  # https://github.com/curl/curl/pull/18054
+  # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/11134
+  patch :p0, :DATA
+
   option "without-docs", "Don't build man pages"
   option "with-completion", "Install Bash completion (Has potential problems with system bash)"
 
@@ -181,3 +186,15 @@ class Cmake < Formula
     system "#{bin}/cmake", "."
   end
 end
+__END__
+--- Source/CTest/cmCTestCurl.h.orig	2025-10-02 20:33:39.000000000 +0100
++++ Source/CTest/cmCTestCurl.h	2025-10-02 20:34:09.000000000 +0100
+@@ -42,7 +42,7 @@
+   std::vector<std::string> HttpHeaders;
+   std::string HTTPProxyAuth;
+   std::string HTTPProxy;
+-  curl_proxytype HTTPProxyType;
++  long HTTPProxyType;
+   bool VerifyHostOff;
+   bool VerifyPeerOff;
+   bool UseHttp10;
