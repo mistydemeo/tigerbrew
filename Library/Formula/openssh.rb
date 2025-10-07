@@ -14,7 +14,7 @@ class Openssh < Formula
   # https://archive.is/hSB6d#10%25
 
   # clock_gettime(3) showed up in Sierra
-  # https://marc.info/?l=openssh-unix-dev&m=175935977710302&w=2
+  # https://github.com/openssh/openssh-portable/commit/52411f15353257e9ec883fc044b7a56b6fca242d.patch
   patch :DATA
 
   depends_on "pkg-config" => :build
