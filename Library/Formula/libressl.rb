@@ -1,8 +1,8 @@
 class Libressl < Formula
   desc "Version of the SSL/TLS protocol forked from OpenSSL"
   homepage "http://www.libressl.org/"
-  url "https://cdn.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.0.0.tar.gz"
-  sha256 "4d841955f0acc3dfc71d0e3dd35f283af461222350e26843fea9731c0246a1e4"
+  url "https://cdn.openbsd.org/pub/OpenBSD/LibreSSL/libressl-4.2.0.tar.gz"
+  sha256 "0f7dba44d7cb8df8d53f2cfbf1955254bc128e0089595f1aba2facfaee8408b2"
 
   head do
     url "https://github.com/libressl-portable/portable.git"
@@ -13,7 +13,6 @@ class Libressl < Formula
   end
 
   bottle do
-    sha256 "799aa0abc751239e60eadeaca256d8fa3d208a992090572ec4c5c06d1d59de50" => :tiger_altivec
   end
 
   keg_only "LibreSSL is not linked to prevent conflict with the system OpenSSL."
@@ -51,8 +50,8 @@ class Libressl < Formula
   end
 
   def caveats; <<-EOS.undent
-    A CA file has been bootstrapped using certificates from the system
-    keychain. To add additional certificates, place .pem files in
+    curl's CA bundle is currently being used for trusted root CAs.
+    To add additional certificates, place .pem files in
       #{etc}/libressl/certs
 
     and run
