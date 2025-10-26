@@ -11,7 +11,9 @@ class W3m < Formula
     build 2334
   end
 
-  patch :DATA
+  # Support building against bdw-gc 7.2 & up
+  # OpenSSL is not built with RAND_egd support
+  patch :p0, :DATA
 
   def install
     system "./configure", "--prefix=#{prefix}", "--disable-image"
@@ -23,10 +25,8 @@ class W3m < Formula
 end
 
 __END__
-diff --git a/main.c b/main.c
-index b421943..865c744 100644
---- a/main.c
-+++ b/main.c
+--- main.c.orig	2011-01-04 09:42:19.000000000 +0000
++++ main.c	2025-10-26 23:33:57.000000000 +0000
 @@ -833,7 +833,12 @@ main(int argc, char **argv, char **envp)
      mySignal(SIGPIPE, SigPipe);
  #endif
@@ -40,3 +40,15 @@ index b421943..865c744 100644
      err_msg = Strnew();
      if (load_argc == 0) {
  	/* no URL specified */
+--- config.h.in.orig	2025-10-26 23:24:22.000000000 +0000
++++ config.h.in	2025-10-26 23:24:54.000000000 +0000
+@@ -84,7 +84,6 @@
+ #undef INET6
+ #undef HAVE_SOCKLEN_T
+ #undef HAVE_OLD_SS_FAMILY
+-#define USE_EGD
+ #define ENABLE_REMOVE_TRAILINGSPACES
+ #undef MENU_THIN_FRAME
+ #undef USE_RAW_SCROLL
+     mySignal(SIGPIPE, SigPipe);
+ #endif
