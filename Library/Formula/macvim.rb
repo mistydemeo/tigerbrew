@@ -19,8 +19,13 @@ class Macvim < Formula
   version "7.4-80"
   sha256 "b07e0fe35e22f30ad2be5f9700e0fca9d3f4a1e91c68b0fdd607f0f732912923"
 
-
   head "https://github.com/macvim-dev/macvim.git"
+
+  # Use icon from older build otherwise app in the dock has a blank icon on Tiger.
+  resource "compatible-icon" do
+    url "https://raw.githubusercontent.com/macvim-dev/macvim/refs/tags/snapshot-70/src/MacVim/icons/MacVim.icns"
+    sha256 "1c0b2eaf7f369f958e0b9b81a02a7b8a0798f5d15007468a97abebd626950396"
+  end
 
   option "with-custom-icons", "Try to generate custom document icons"
   option "with-override-system-vim", "Override system vim"
@@ -50,6 +55,9 @@ class Macvim < Formula
 
     # If building for 10.7 or up, make sure that CC is set to "clang".
     ENV.clang if MacOS.version >= :lion
+
+    # Overwrite the supplied MacVim.icns with the version from older build.
+    (buildpath/"src/MacVim/icons/").install resource("compatible-icon")
 
     args = %W[
       --with-features=huge
