@@ -1,30 +1,34 @@
 class Ejabberd < Formula
   desc "XMPP application server"
   homepage "https://www.ejabberd.im"
-  url "https://www.process-one.net/downloads/ejabberd/15.07/ejabberd-15.07.tgz"
-  sha256 "87d5001521cbb779b84bc74879e032e2514d9a651e24c4e40cce0907ab405bd1"
-
-  head "https://github.com/processone/ejabberd.git"
-
-  bottle do
-    sha256 "4001c8bf43972697862ead67f944177c6a6b771c96a4d6de75f68694ed7aa620" => :el_capitan
-    sha256 "592a3412890d52da9d8a9f43a288dca8eab233dcd0c59d17d4bd8f89b7b4567b" => :yosemite
-    sha256 "17b97c88ea724e8816c445a944ad71a9be141cf9afe8e4f168dd271ea2bd8448" => :mavericks
-    sha256 "f53c7307acaee6aafa813785ede998900c0c32db2d0f28dfb5dd51c45b6f5366" => :mountain_lion
-  end
+  url "https://github.com/processone/ejabberd/archive/refs/tags/16.12.tar.gz"
+  sha256 "a7eeb9fe49ef141daab1be01838a7612dff9194a28c3dfc922cc691bb8c9b532"
 
   option "32-bit"
 
-  depends_on "openssl"
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "rebar" => :build
+
   depends_on "erlang"
   depends_on "libyaml"
+  depends_on "openssl3"
+
   # for CAPTCHA challenges
   depends_on "imagemagick" => :optional
+
+  resource "p1_pam" do
+    url "https://github.com/processone/epam/archive/refs/tags/1.0.0.zip"
+    sha256 "6704010b14034881d8c60f52d1a82d8125f20cdf1e52a7113c838f1db6be7e81"
+  end
 
   def install
     ENV["TARGET_DIR"] = ENV["DESTDIR"] = "#{lib}/ejabberd/erlang/lib/ejabberd-#{version}"
     ENV["MAN_DIR"] = man
     ENV["SBIN_DIR"] = sbin
+    mkdir_p("deps/p1_pam")
+    resource("p1_pam").verify_download_integrity(resource("p1_pam").fetch)
+    resource("p1_pam").unpack("#{buildpath}/deps/p1_pam")
 
     if build.build_32_bit?
       ENV.append %w[CFLAGS LDFLAGS], "-arch #{Hardware::CPU.arch_32_bit}"
@@ -38,7 +42,22 @@ class Ejabberd < Formula
             "--enable-odbc",
             "--enable-pam"]
 
+    # lager 3.2.1 uses the git protocol to try and clone its dependency
+    # By 3.2.3 they switched to HTTPS, switch to the most recent minor release.
+    inreplace "rebar.config", 'lager", {tag, "3.2.1', 'lager", {tag, "3.2.4'
+
+    system "autoupdate"
+    system "./autogen.sh"
     system "./configure", *args
+
+    # Before Snow Leopard, the pam header files were in /usr/include/pam instead of /usr/include/security.
+    # https://trac.macports.org/ticket/26127
+    if MacOS.version < :snow_leopard
+      inreplace "deps/p1_pam/configure", "security/pam_appl.h", "pam/pam_appl.h"
+      inreplace "deps/p1_pam/configure.ac", "security/pam_appl.h", "pam/pam_appl.h"
+      inreplace "deps/p1_pam/c_src/epam.c", "security/pam_appl.h", "pam/pam_appl.h"
+    end
+
     system "make"
     system "make", "install"
 

@@ -24,29 +24,20 @@ class Gcc48 < Formula
   url "https://ftpmirror.gnu.org/gcc/gcc-4.8.5/gcc-4.8.5.tar.bz2"
   mirror "https://ftp.gnu.org/gnu/gcc/gcc-4.8.5/gcc-4.8.5.tar.bz2"
   sha256 "22fb1e7e0f68a63cee631d85b20461d1ea6bda162f03096350e38c8d427ecf23"
+  revision 1
 
   head "svn://gcc.gnu.org/svn/gcc/branches/gcc-4_8-branch"
 
   bottle do
-    rebuild 1
-    sha256 "8cf53c3b1f03049538b9f78ea1ffe7ebf21fcc99a3b4147e4ede8defefc4cef4" => :el_capitan
-    sha256 "ae30faa242deae02d46bc92a318e0f0b8f6f0754521fec2225c2fb0403022e31" => :yosemite
-    sha256 "0bc974cb0c23ed4ca3536eb2b5e7f11e692a5e6246d99b82ad74880685f42736" => :mavericks
   end
 
-  if MacOS.version >= :yosemite
-    # Fixes build on El Capitan
-    # https://trac.macports.org/ticket/48471
-    patch :p0 do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/dcfc5a2e6/gcc48/define_non_standard_clang_macros.patch"
-      sha256 "e727383c9186fdc36f804c69ad550f5cfd2b996e37083be94c0c9aa8fde226ee"
-    end
-    # Fixes build with Xcode 7.
-    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
-    patch do
-      url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
-      sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
-    end
+  # Fixes build with Xcode 7.
+  # error: non-local symbol required in directive
+  #      .no_dead_strip L_OBJC_Module
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
+  patch do
+    url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
+    sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
   end
 
   option "without-fortran", "Build without the gfortran compiler"
@@ -74,8 +65,6 @@ class Gcc48 < Formula
   # PPC asm that comes in libitm
   depends_on "cctools" => :build if MacOS.version < :leopard
 
-  fails_with :gcc_4_0
-
   # The bottles are built on systems with the CLT installed, and do not work
   # out of the box on Xcode-only systems due to an incorrect sysroot.
   def pour_bottle?
@@ -86,6 +75,11 @@ class Gcc48 < Formula
   cxxstdlib_check :skip
 
   def install
+    # GCC Bug 25127 for PowerPC
+    # https://gcc.gnu.org/bugzilla//show_bug.cgi?id=25127
+    # ../../../libgcc/unwind.inc: In function '_Unwind_RaiseException':
+    # ../../../libgcc/unwind.inc:136:1: internal compiler error: in rs6000_emit_prologue, at config/rs6000/rs6000.c:23215
+    ENV.no_optimization
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
 
@@ -125,21 +119,9 @@ class Gcc48 < Formula
       "--with-cloog=#{Formula["cloog018"].opt_prefix}",
       "--with-isl=#{Formula["isl011"].opt_prefix}",
       "--with-system-zlib",
-      "--enable-libstdcxx-time=yes",
-      "--enable-stage1-checking",
-      "--enable-checking=release",
-      "--enable-lto",
-      # A no-op unless --HEAD is built because in head warnings will
-      # raise errors. But still a good idea to include.
-      "--disable-werror",
-      "--with-pkgversion=Homebrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/Homebrew/homebrew-versions/issues",
+      "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
+      "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
     ]
-
-    # Use 'bootstrap-debug' build configuration to force stripping of object
-    # files prior to comparison during bootstrap (broken by Xcode 6.3).
-    # This causes bottle errors for gcc48 on Mountain Lion, so scope it to 10.10.
-    args << "--with-build-config=bootstrap-debug" if MacOS.version >= :yosemite
 
     # "Building GCC with plugin support requires a host that supports
     # -fPIC, -shared, -ldl and -rdynamic."
@@ -160,6 +142,12 @@ class Gcc48 < Formula
     else
       args << "--enable-multilib"
     end
+
+    # clang on Yosemite generates binaries containing different CIE versions
+    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=65733
+    # Use 'bootstrap-debug' build configuration to force stripping of object
+    # files prior to comparison during bootstrap (broken by Xcode 6.3).
+    args << "--with-build-config=bootstrap-debug" if MacOS.version == :yosemite && ENV.compiler == :clang && MacOS.clang_build_version <= 700
 
     # Ensure correct install names when linking against libgcc_s;
     # see discussion in https://github.com/Homebrew/homebrew/pull/34303
@@ -232,5 +220,30 @@ class Gcc48 < Formula
     EOS
     system bin/"gcc-4.8", "-o", "hello-c", "hello-c.c"
     assert_equal "Hello, world!\n", `./hello-c`
+
+    (testpath/"hello-cc.cc").write <<-EOS.undent
+      #include <iostream>
+      int main()
+      {
+        std::cout << "Hello, world!" << std::endl;
+        return 0;
+      }
+    EOS
+    system "#{bin}/g++-4.8", "-o", "hello-cc", "hello-cc.cc"
+    assert_equal "Hello, world!\n", `./hello-cc`
+
+    (testpath/"test.f90").write <<-EOS.undent
+      integer,parameter::m=10000
+      real::a(m), b(m)
+      real::fact=0.5
+
+      do concurrent (i=1:m)
+        a(i) = a(i) + fact*b(i)
+      end do
+      write(*,"(A)") "Done"
+      end
+    EOS
+    system "#{bin}/gfortran-4.8", "-o", "test", "test.f90" if build.with? "fortran"
+    assert_equal "Done\n", `./test` if build.with? "fortran"
   end
 end

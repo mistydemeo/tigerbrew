@@ -1,11 +1,10 @@
 class Python3 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.10.14/Python-3.10.14.tar.xz"
-  sha256 "9c50481faa8c2832329ba0fc8868d0a606a680fc4f60ec48d26ce8e076751fda"
+  url "https://www.python.org/ftp/python/3.10.18/Python-3.10.18.tar.xz"
+  sha256 "ae665bc678abd9ab6a6e1573d2481625a53719bc517e9a634ed2b9fefae3817f"
 
   bottle do
-    sha256 "eaebc29ef8cd0b64b4032694e68c7f8b95352cc790f457c9fd5a3d4bb76f93ab" => :tiger_altivec
   end
 
   option :universal
@@ -14,18 +13,21 @@ class Python3 < Formula
   depends_on "readline" => :recommended
   depends_on "sqlite"
   depends_on "gdbm" => :recommended
+  depends_on "gettext"
   depends_on "openssl3"
   depends_on "bzip2"
   depends_on "xz" => :recommended # for the lzma module added in 3.3
   depends_on "tcl-tk"
   depends_on :x11 if Tab.for_name("tcl-tk").with?("x11")
+  depends_on "zlib"
+  depends_on "libffi"
 
   skip_clean "bin/pip3", "bin/pip-3.4", "bin/pip-3.5", "bin/pip-3.6", "bin/pip-3.7", "bin/pip-3.10"
   skip_clean "bin/easy_install3", "bin/easy_install-3.4", "bin/easy_install-3.5", "bin/easy_install-3.6", "bin/easy_install-3.7", "bin/easy_install-3.10"
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/4d/5b/dc575711b6b8f2f866131a40d053e30e962e633b332acf7cd2c24843d83d/setuptools-69.2.0.tar.gz"
-    sha256 "0ff4183f8f42cd8fa3acea16c45205521a4ef28f73c6391d8a25e92893134f2e"
+    url "https://files.pythonhosted.org/packages/43/54/292f26c208734e9a7f067aea4a7e282c080750c4546559b58e2e45413ca0/setuptools-75.6.0.tar.gz"
+    sha256 "8199222558df7c86216af4f84c30e9b34a61d8ba19366cc914424cdbd28252f6"
   end
 
   resource "pip" do
@@ -34,8 +36,8 @@ class Python3 < Formula
   end
 
   resource "wheel" do
-    url "https://files.pythonhosted.org/packages/b8/d6/ac9cd92ea2ad502ff7c1ab683806a9deb34711a1e2bd8a59814e8fc27e69/wheel-0.43.0.tar.gz"
-    sha256 "465ef92c69fa5c5da2d1cf8ac40559a8c940886afcef87dcf14b9470862f1d85"
+    url "https://files.pythonhosted.org/packages/8a/98/2d9906746cdc6a6ef809ae6338005b3f21bb568bea3165cfc6a243fdc25c/wheel-0.45.1.tar.gz"
+    sha256 "661e1abd9198507b1409a20c02106d9670b2576e916d58f520316666abca6729"
   end
 
   # Homebrew's tcl-tk is built in a standard unix fashion (due to link errors)
@@ -44,6 +46,9 @@ class Python3 < Formula
   # Add Support for OS X before 10.6
   # from macports/lang/python310/files/patch-threadid-older-systems.diff
   # and macports/lang/python310/files/patch-no-copyfile-on-Tiger.diff
+  # Avoid Apple LLVM 4.2 for atomic operations
+  # https://bugs.python.org/issue24844
+  # macports/lang/python310/files/patch-configure-xcode4bug.diff
   patch :p0, :DATA
 
   # setuptools remembers the build flags python is built with and uses them to
@@ -70,9 +75,8 @@ class Python3 < Formula
       --enable-loadable-sqlite-extensions
       --without-ensurepip
       --with-openssl=#{Formula["openssl3"].opt_prefix}
+      --with-system-ffi
     ]
-
-    args << "--without-gcc" if ENV.compiler == :clang
 
     cflags   = []
     ldflags  = []
@@ -327,7 +331,11 @@ class Python3 < Formula
     # and it can occur that building sqlite silently fails if OSX's sqlite is used.
     system "#{bin}/python#{xy}", "-c", "import sqlite3"
     # Check if some other modules import. Then the linked libs are working.
-    system "#{bin}/python#{xy}", "-c", "import tkinter; root = tkinter.Tk()"
+    # Does not invoke X11 on Tiger and fails, so skip it.
+    system "#{bin}/python#{xy}", "-c", "import tkinter; root = tkinter.Tk()" if MacOS.version >= :leopard
+    # Check FFI support is ok as the build of Python will still succeed with a disabled
+    # module which failed to build, only to find out later when something tries to use it.
+    system "#{bin}/python#{xy}", "-c", "import ctypes"
     system bin/"pip3", "list"
   end
 end
@@ -489,4 +497,31 @@ __END__
 +@unittest.skipIf(not MACOS or not hasattr(posix, "_fcopyfile"), 'macOS with posix._fcopyfile only')
  class TestZeroCopyMACOS(_ZeroCopyFileTest, unittest.TestCase):
      PATCHPOINT = "posix._fcopyfile"
+ 
+--- configure.orig
++++ configure
+@@ -17359,6 +17359,24 @@
+     int main(void) {
+       __atomic_store_n(&val, 1, __ATOMIC_SEQ_CST);
+       (void)__atomic_load_n(&val, __ATOMIC_SEQ_CST);
++
++      /* https://bugs.python.org/issue24844 */
++      #define VERSION_CHECK(cc_major, cc_minor, req_major, req_minor) \
++          ((cc_major) > (req_major) || \
++          (cc_major) == (req_major) && (cc_minor) >= (req_minor))
++      #if defined(__clang__)
++          #if defined(__apple_build_version__)
++              // either one test or the other should work
++              // #if __apple_build_version__ < 5000000
++              #if !VERSION_CHECK(__clang_major__, __clang_minor__, 5, 0)
++                  #error
++              #endif
++          // not sure if this is 3.3 or 3.4
++          #elif !VERSION_CHECK(__clang_major__, __clang_minor__, 3, 3)
++              #error
++          #endif
++      #endif
++
+       return 0;
+     }
  

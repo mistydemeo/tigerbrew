@@ -1,7 +1,7 @@
 class Readosm < Formula
   desc "Extract valid data from an Open Street Map input file"
   homepage "https://www.gaia-gis.it/fossil/readosm/index"
-  url "https://www.gaia-gis.it/gaia-sins/readosm-1.0.0e.tar.gz"
+  url "https://web.archive.org/web/20160809133239/https://www.gaia-gis.it/gaia-sins/readosm-1.0.0e.tar.gz"
   sha256 "1fd839e05b411db6ba1ca6199bf3334ab9425550a58e129c07ad3c6d39299acf"
 
   bottle do

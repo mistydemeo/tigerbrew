@@ -1,14 +1,13 @@
 class Libvorbis < Formula
   desc "Vorbis General Audio Compression Codec"
   homepage "http://vorbis.com"
-  url "http://downloads.xiph.org/releases/vorbis/libvorbis-1.3.5.tar.xz"
-  sha256 "54f94a9527ff0a88477be0a71c0bab09a4c3febe0ed878b24824906cd4b0e1d1"
+  url "https://downloads.xiph.org/releases/vorbis/libvorbis-1.3.7.tar.xz"
+  mirror "https://ftp.osuosl.org/pub/xiph/releases/vorbis/libvorbis-1.3.7.tar.xz"
+  sha256 "b33cc4934322bcbf6efcbacf49e3ca01aadbea4114ec9589d1b1e9d20f72954b"
+  license "BSD-3-Clause"
 
   bottle do
-    cellar :any
-    sha256 "66931f70d90c73980e99d37641c714d152d890e345e2adb60b11e77de2828afe" => :tiger_altivec
-    sha256 "451cecb555c4adb44678482b097c4ce02675d3e30789ae3f50e400592681fbbf" => :leopard_g3
-    sha256 "d5fc576ca9cbbae385155b13eb90dbaccd600c78b197944c504c1e29c9decae2" => :leopard_altivec
+    sha256 "8bce5dd06c4df02f1ddab00527d818d7d4b680321e836327858677cbccf45f7c" => :tiger_altivec
   end
 
   head do

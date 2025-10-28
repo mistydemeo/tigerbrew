@@ -1,8 +1,18 @@
 class Flac < Formula
   desc "Free lossless audio codec"
   homepage "https://xiph.org/flac/"
-  url "http://downloads.xiph.org/releases/flac/flac-1.3.1.tar.xz"
-  sha256 "4773c0099dba767d963fd92143263be338c48702172e8754b9bc5103efe1c56c"
+  url "https://downloads.xiph.org/releases/flac/flac-1.4.3.tar.xz"
+  mirror "https://ftp.osuosl.org/pub/xiph/releases/flac/flac-1.4.3.tar.xz"
+  sha256 "6c58e69cd22348f441b861092b825e591d0b822e106de6eb0ee4d05d27205b70"
+  license all_of: [
+    "BSD-3-Clause",
+    "GPL-2.0-or-later",
+    "ISC",
+    "LGPL-2.0-or-later",
+    "LGPL-2.1-or-later",
+    :public_domain,
+    any_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"],
+  ]
 
   head do
     url "https://git.xiph.org/flac.git"
@@ -12,20 +22,11 @@ class Flac < Formula
   end
 
   bottle do
-    cellar :any
-    sha256 "993da436abd03400977ec266a2747a955595a6418462b8fb328661ff83b41f9e" => :leopard_g3
-    sha256 "eebc1cd5a2204c9d223c476e5148ada3663ba58ffe5caa6faeaa24eb2d6a5cc8" => :leopard_altivec
+    sha256 "6b6d60c8d9d3db7c35432f8e7373f4bd0d23b5216cd83eb52f69d56ddf04acd5" => :tiger_altivec
   end
-
-  option :universal
 
   depends_on "pkg-config" => :build
-  depends_on "libogg" => :optional
-
-  fails_with :llvm do
-    build 2326
-    cause "Undefined symbols when linking"
-  end
+  depends_on "libogg"
 
   fails_with :clang do
     build 500
@@ -33,31 +34,16 @@ class Flac < Formula
   end
 
   def install
-    ENV.universal_binary if build.universal?
-
-    ENV.append "CFLAGS", "-std=gnu89"
-
     args = %W[
       --disable-dependency-tracking
       --disable-debug
       --prefix=#{prefix}
       --mandir=#{man}
-      --enable-sse
       --enable-static
     ]
 
-    args << "--disable-asm-optimizations" if build.universal? || Hardware.is_32_bit?
-    args << "--without-ogg" if build.without? "libogg"
-
     system "./autogen.sh" if build.head?
     system "./configure", *args
-
-    ENV["OBJ_FORMAT"] = "macho"
-
-    # adds universal flags to the generated libtool script
-    inreplace "libtool" do |s|
-      s.gsub! ":$verstring\"", ":$verstring -arch #{Hardware::CPU.arch_32_bit} -arch #{Hardware::CPU.arch_64_bit}\""
-    end
 
     system "make", "install"
   end

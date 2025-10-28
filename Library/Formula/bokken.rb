@@ -1,7 +1,7 @@
 class Bokken < Formula
   desc "GUI for the Pyew and Radare projects"
   homepage "https://inguma.eu/projects/bokken"
-  url "https://inguma.eu/attachments/download/197/bokken-1.6.tar.gz"
+  url "https://web.archive.org/web/20140621065153/https://inguma.eu/attachments/download/197/bokken-1.6.tar.gz"
   sha256 "4770602585b3e77b2977a8a6906c91ae0d64373eae328f42688106224c8bbc12"
 
   bottle do

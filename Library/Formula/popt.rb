@@ -10,6 +10,18 @@ class Popt < Formula
 
   option :universal
 
+  # Undefined symbols for architecture x86_64:
+  # "_alignof", referenced from:
+  #     _poptSaveLongLong in popt.o
+  #     _poptSaveLong in popt.o
+  #     _poptSaveInt in popt.o
+  #     _poptSaveShort in popt.o
+  # ld: symbol(s) not found for architecture x86_64
+  fails_with :clang do
+    build 500
+    cause "alignof() undefined"
+  end
+
   def install
     ENV.universal_binary if build.universal?
     system "./configure", "--disable-debug", "--disable-dependency-tracking",

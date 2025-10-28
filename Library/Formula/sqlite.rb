@@ -1,31 +1,24 @@
 class Sqlite < Formula
   desc "Command-line interface for SQLite"
   homepage "https://sqlite.org/"
-  url "https://www.sqlite.org/2023/sqlite-autoconf-3440200.tar.gz"
-  version "3.44.2"
-  sha256 "1c6719a148bc41cf0f2bbbe3926d7ce3f5ca09d878f1246fcc20767b175bb407"
+  url "https://www.sqlite.org/2025/sqlite-autoconf-3500400.tar.gz"
+  version "3.50.4"
+  sha256 "a3db587a1b92ee5ddac2f66b3edb41b26f9c867275782d46c3a088977d6a5b18"
 
   bottle do
-    sha256 "ac011e4f98d55b4c15f63c1a03bc5f82d0bb76b49d9f63104144bf05700ea842" => :tiger_altivec
   end
 
   keg_only :provided_by_osx, "OS X provides an older sqlite3."
 
   option :universal
   option "with-docs", "Install HTML documentation"
-  option "without-rtree", "Disable the R*Tree index module"
-  option "with-fts", "Enable the FTS3 module"
-  option "with-fts5", "Enable the FTS5 module (experimental)"
   option "with-secure-delete", "Defaults secure_delete to on"
-  option "with-unlock-notify", "Enable the unlock notification feature"
   option "with-icu4c", "Enable the ICU module"
   option "with-functions", "Enable more math and string functions for SQL queries"
-  option "with-dbstat", "Enable the 'dbstat' virtual table"
-  option "with-json1", "Enable the JSON1 extension"
-  option "with-session", "Enable the session extension"
 
   depends_on "readline" => :recommended
   depends_on "icu4c" => :optional
+  depends_on "zlib"
 
   resource "functions" do
     url "https://www.sqlite.org/contrib/download/extension-functions.c?get=25", :using  => :nounzip
@@ -34,9 +27,9 @@ class Sqlite < Formula
   end
 
   resource "docs" do
-    url "https://www.sqlite.org/2023/sqlite-doc-3440200.zip"
-    version "3.44.2"
-    sha256 "62e51962552fb204ef0a541d51f8f721499d1a3fffae6e86558d251c96084fcf"
+    url "https://www.sqlite.org/2025/sqlite-doc-3500400.zip"
+    version "3.50.4"
+    sha256 "f8a03cf461500310c7a785c9d6f86121ac9465601982cdcac6de0c5987dbfc2f"
   end
 
   def install
@@ -46,18 +39,31 @@ class Sqlite < Formula
     # Need to allow -w when building with extensions
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
 
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_COLUMN_METADATA=1"
-    # Default value of MAX_VARIABLE_NUMBER is 999 which is too low for many
-    # applications. Set to 250000 (Same value used in Debian and Ubuntu).
-    ENV.append "CPPFLAGS", "-DSQLITE_MAX_VARIABLE_NUMBER=250000"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_RTREE=1" if build.with? "rtree"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_FTS3=1 -DSQLITE_ENABLE_FTS3_PARENTHESIS=1" if build.with? "fts"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_FTS5=1" if build.with? "fts5"
-    ENV.append "CPPFLAGS", "-DSQLITE_SECURE_DELETE=1" if build.with? "secure-delete"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_UNLOCK_NOTIFY=1" if build.with? "unlock-notify"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_DBSTAT_VTAB=1" if build.with? "dbstat"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_JSON1=1" if build.with? "json1"
-    ENV.append "CPPFLAGS", "-DSQLITE_ENABLE_PREUPDATE_HOOK=1 -DSQLITE_ENABLE_SESSION=1" if build.with? "session"
+    # See https://sqlite.org/compile.html for description of these compile-time options
+    # Default synchronous settings obtained from https://avi.im/blag/2025/sqlite-fsync/
+    # Default value of MAX_VARIABLE_NUMBER for SQLite versions prior to 3.32.0 was 999
+    # which is too low for many applications. It was changed to 32766 for SQLite versions after 3.32.0.
+    # Retain the setting of 250000 (Same value used in Debian and Ubuntu) to not cause problems for users.
+    ENV.append "CPPFLAGS", %w[
+      -DSQLITE_DEFAULT_SYNCHRONOUS=3
+      -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=2
+      -DSQLITE_ENABLE_API_ARMOR
+      -DSQLITE_ENABLE_COLUMN_METADATA
+      -DSQLITE_ENABLE_DBSTAT_VTAB
+      -DSQLITE_ENABLE_FTS3
+      -DSQLITE_ENABLE_FTS3_PARENTHESIS
+      -DSQLITE_ENABLE_FTS5
+      -DSQLITE_ENABLE_MEMORY_MANAGEMENT
+      -DSQLITE_ENABLE_PREUPDATE_HOOK
+      -DSQLITE_ENABLE_RTREE
+      -DSQLITE_ENABLE_SESSION
+      -DSQLITE_ENABLE_STAT4
+      -DSQLITE_ENABLE_UNLOCK_NOTIFY
+      -DSQLITE_MAX_VARIABLE_NUMBER=250000
+      -DSQLITE_USE_URI
+    ].join(" ")
+
+    ENV.append "CPPFLAGS", "-DSQLITE_SECURE_DELETE" if build.with? "secure-delete"
 
     if build.with? "icu4c"
       icu4c = Formula["icu4c"]
@@ -70,7 +76,7 @@ class Sqlite < Formula
 
     ENV.universal_binary if build.universal?
 
-    system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking", "--enable-dynamic-extensions"
+    system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking"
     system "make", "install"
 
     if build.with? "functions"

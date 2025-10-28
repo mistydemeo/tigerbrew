@@ -14,11 +14,11 @@ then
   # PPC-only 10.4 build
   if [[ "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
-    ruby_URL="http://archive.org/download/tigerbrew/portable-ruby-2.3.3.tiger_g3.bottle.tar.gz"
+    ruby_URL="http://squirreljme.cc:82/portable-ruby-2.3.3.tiger_g3.bottle.tar.gz"
     ruby_SHA="162bed8c95fb30d4580ebc7dfadbb9d699171edbd7b60d8259de7f4cfc55cc32"
   # Intel-only 10.4 build
   else
-    ruby_URL="http://archive.org/download/tigerbrew/portable-ruby-2.3.3.tiger_i386.bottle.tar.gz"
+    ruby_URL="http://squirreljme.cc:82/portable-ruby-2.3.3.tiger_i386.bottle.tar.gz"
     ruby_SHA="7f4f13348d583bc9e8594d2b094c6b0140ce0a32a226a145b8b7f9993fca8c28"
   fi
 
@@ -26,11 +26,11 @@ then
   # PPC-only 10.4 build
   if [[ "$HOMEBREW_PROCESSOR" != "Intel" ]]
   then
-    curl_URL="http://archive.org/download/tigerbrew/portable-curl-7.58.0-1.tiger_g3.bottle.tar.gz"
+    curl_URL="http://squirreljme.cc:82/portable-curl-7.58.0-1.tiger_g3.bottle.tar.gz"
     curl_SHA="93f18319a239905f5e8b5443825548bc870a639d8019b9e2d0c84c33d84794fe"
   # Intel-only 10.4 build
   else
-    curl_URL="http://archive.org/download/tigerbrew/portable-curl-7.58.0-1.tiger_i386.bottle.tar.gz"
+    curl_URL="http://squirreljme.cc:82/portable-curl-7.58.0-1.tiger_i386.bottle.tar.gz"
     curl_SHA="0dbcffe698aa47189bb1d5d3b0ef284e2255b75f10284d57927091c9846e7d43"
   fi
 elif [[ -n "$HOMEBREW_LINUX" ]]

@@ -1,7 +1,7 @@
 class Eet < Formula
   desc "Library for writing arbitrary chunks of data to a file using compression"
   homepage "https://docs.enlightenment.org/auto/eet/eet_main.html"
-  url "https://download.enlightenment.org/releases/eet-1.7.10.tar.gz"
+  url "https://web.archive.org/web/20150401042413/https://download.enlightenment.org/releases/eet-1.7.10.tar.gz"
   sha256 "c424821eb8ba09884d3011207b1ecec826bc45a36969cd4978b78f298daae1ee"
   revision 1
 

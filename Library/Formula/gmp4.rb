@@ -10,23 +10,15 @@ class Gmp4 < Formula
 
   bottle do
     cellar :any
-    revision 1
-    sha256 "5c5d632ea58479fba37a0844d0b9a4fd1e865e809286ada95d5484d72ab50a78" => :el_capitan
-    sha256 "932a2d0987dd26bbc3cb54b7d38d4cf6b0e5a4bd46fef8442b79b75f067abf6e" => :yosemite
-    sha256 "b7012c46ac9e5b5aa1004184e85a2e99fc047d9f92f1e8b82699ba1f1ea1f7bf" => :mavericks
+    sha256 "80fab08e90d3e536b21d0826580d9f78f0e8542f7f08d5cde866307fcf187db1" => :tiger_altivec
   end
 
   keg_only "Conflicts with gmp in main repository."
 
   option "with-32-bit"
-  option "without-check", "Do not run `make check` to verify libraries"
+  option "with-tests", "Build and run the test suite"
 
   deprecated_option "32-bit" => "with-32-bit"
-  deprecated_option "skip-check" => "without-check"
-
-  fails_with :gcc_4_0 do
-    cause "Reports of problems using gcc 4.0 on Leopard: https://github.com/mxcl/homebrew/issues/issue/2302"
-  end
 
   # Patches gmp.h to remove the __need_size_t define, which
   # was preventing libc++ builds from getting the ptrdiff_t type
@@ -47,12 +39,9 @@ class Gmp4 < Formula
 
     system "./configure", *args
     system "make"
+    system "make", "check" if build.with?("tests") || build.bottle?
     ENV.deparallelize # Doesn't install in parallel on 8-core Mac Pro
     system "make", "install"
-
-    # Different compilers and options can cause tests to fail even
-    # if everything compiles, so yes, we want to do this step.
-    system "make", "check" if build.with? "check"
   end
 
   test do

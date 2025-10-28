@@ -3,12 +3,18 @@ class Cmake < Formula
   homepage "http://www.cmake.org/"
   url "https://cmake.org/files/v3.9/cmake-3.9.6.tar.gz"
   sha256 "7410851a783a41b521214ad987bb534a7e4a65e059651a2514e6ebfc8f46b218"
+  revision 1
 
   head "https://cmake.org/cmake.git"
 
   bottle do
-    sha256 "7ed83fa411209917e876cd0a1396593ee78af1201e4ec952ab32884cf00e0c50" => :tiger_altivec
+    sha256 "fbb1622baca1437c0c66a7e5a88b91efca485495e008efb04316e746bc76017d" => :tiger_altivec
   end
+
+  # curl 8.16.0 introduced an API change related to proxy handling.
+  # https://github.com/curl/curl/pull/18054
+  # https://gitlab.kitware.com/cmake/cmake/-/merge_requests/11134
+  patch :p0, :DATA
 
   option "without-docs", "Don't build man pages"
   option "with-completion", "Install Bash completion (Has potential problems with system bash)"
@@ -16,6 +22,7 @@ class Cmake < Formula
   depends_on "curl"
   depends_on "expat"
   depends_on "libarchive"
+  depends_on "libuv" if MacOS.version >= :leopard
   depends_on :python => :build if MacOS.version <= :snow_leopard && build.with?("docs")
   depends_on "rhash"
   depends_on "xz" => :build
@@ -179,3 +186,15 @@ class Cmake < Formula
     system "#{bin}/cmake", "."
   end
 end
+__END__
+--- Source/CTest/cmCTestCurl.h.orig	2025-10-02 20:33:39.000000000 +0100
++++ Source/CTest/cmCTestCurl.h	2025-10-02 20:34:09.000000000 +0100
+@@ -42,7 +42,7 @@
+   std::vector<std::string> HttpHeaders;
+   std::string HTTPProxyAuth;
+   std::string HTTPProxy;
+-  curl_proxytype HTTPProxyType;
++  long HTTPProxyType;
+   bool VerifyHostOff;
+   bool VerifyPeerOff;
+   bool UseHttp10;

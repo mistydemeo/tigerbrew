@@ -1,17 +1,13 @@
 class CAres < Formula
   desc "Asynchronous DNS library"
   homepage "http://c-ares.haxx.se/"
-  url "http://c-ares.haxx.se/download/c-ares-1.10.0.tar.gz"
-  mirror "https://github.com/bagder/c-ares/archive/cares-1_10_0.tar.gz"
-  sha256 "3d701674615d1158e56a59aaede7891f2dde3da0f46a6d3c684e0ae70f52d3db"
+  url "https://c-ares.org/download/c-ares-1.27.0.tar.gz"
+  mirror "https://github.com/c-ares/c-ares/releases/download/cares-1_27_0/c-ares-1.27.0.tar.gz"
+  sha256 "0a72be66959955c43e2af2fbd03418e82a2bd5464604ec9a62147e37aceb420b"
   head "https://github.com/bagder/c-ares.git"
 
   bottle do
-    cellar :any
-    sha256 "68d6374d5665448f947c8cfb2090171c0c865e239a786139f108979138d03a68" => :el_capitan
-    sha1 "aa711a345bac4780f2e7737c212c1fb5f7862de8" => :yosemite
-    sha1 "c6851c662552524fa92e341869a23ea72dbc4375" => :mavericks
-    sha1 "27494a19ac612daedeb55356e911328771f94b19" => :mountain_lion
+    sha256 "8fd582e129e7a3d1bbbb6df8c4d7dcb3189ba7ce8406ef96091dfa8cb90de478" => :tiger_altivec
   end
 
   def install

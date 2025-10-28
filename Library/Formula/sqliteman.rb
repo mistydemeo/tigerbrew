@@ -1,6 +1,6 @@
 class Sqliteman < Formula
   desc "GUI tool for Sqlite3"
-  homepage "http://www.sqliteman.com/"
+  homepage "https://web.archive.org/web/20140625111343/http://sqliteman.com/"
   url "https://downloads.sourceforge.net/project/sqliteman/sqliteman/1.2.2/sqliteman-1.2.2.tar.bz2"
   sha256 "2f3281f67af464c114acd0a65f05b51672e9f5b39dd52bd2570157e8f274b10f"
 

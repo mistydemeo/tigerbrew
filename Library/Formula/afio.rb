@@ -1,7 +1,7 @@
 class Afio < Formula
   desc "Creates cpio-format archives"
   homepage "http://members.chello.nl/~k.holtman/afio.html"
-  url "http://members.chello.nl/~k.holtman/afio-2.5.1.tgz"
+  url "https://web.archive.org/web/20150801211443/http://members.chello.nl/~k.holtman/afio-2.5.1.tgz"
   sha256 "363457a5d6ee422d9b704ef56d26369ca5ee671d7209cfe799cab6e30bf2b99a"
 
   bottle do

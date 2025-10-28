@@ -1,7 +1,7 @@
 class ArpSk < Formula
   desc "ARP traffic generation tool"
   homepage "http://sid.rstack.org/arp-sk/"
-  url "http://sid.rstack.org/arp-sk/files/arp-sk-0.0.16.tgz"
+  url "https://web.archive.org/web/20150802042005/http://sid.rstack.org/arp-sk/files/arp-sk-0.0.16.tgz"
   sha256 "6e1c98ff5396dd2d1c95a0d8f08f85e51cf05b1ed85ea7b5bcf73c4ca5d301dd"
 
   depends_on "libnet"

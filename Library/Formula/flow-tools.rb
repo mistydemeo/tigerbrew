@@ -1,7 +1,7 @@
 class FlowTools < Formula
   desc "Collect, send, process, and generate NetFlow data reports"
   homepage "https://code.google.com/p/flow-tools/"
-  url "https://flow-tools.googlecode.com/files/flow-tools-0.68.5.1.tar.bz2"
+  url "https://web.archive.org/web/20160102010657/https://flow-tools.googlecode.com/files/flow-tools-0.68.5.1.tar.bz2"
   sha256 "80bbd3791b59198f0d20184761d96ba500386b0a71ea613c214a50aa017a1f67"
 
   bottle do

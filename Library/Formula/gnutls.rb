@@ -5,9 +5,10 @@ class Gnutls < Formula
   url "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.7/gnutls-3.7.10.tar.xz"
   mirror "http://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnutls/v3.7/gnutls-3.7.10.tar.xz"
   sha256 "b6e4e8bac3a950a3a1b7bdb0904979d4ab420a81e74de8636dd50b467d36f5a9"
+  revision 1
 
   bottle do
-    cellar :any
+    sha256 "e73772d9c5c7f5d7b03bb30e0e82778d8f90b6b687d1f1d7c51561ef3f001cf4" => :tiger_altivec
   end
 
   # Need a C11/C++11 compiler

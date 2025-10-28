@@ -1,7 +1,7 @@
 class Rarian < Formula
   desc "Documentation metadata library"
   homepage "http://rarian.freedesktop.org/"
-  url "http://rarian.freedesktop.org/Releases/rarian-0.8.1.tar.bz2"
+  url "https://web.archive.org/web/20160411073220/https://rarian.freedesktop.org/Releases/rarian-0.8.1.tar.bz2"
   sha256 "aafe886d46e467eb3414e91fa9e42955bd4b618c3e19c42c773026b205a84577"
 
   bottle do

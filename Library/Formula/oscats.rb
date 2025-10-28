@@ -1,7 +1,7 @@
 class Oscats < Formula
   desc "Computerized adaptive testing system"
   homepage "https://code.google.com/p/oscats/"
-  url "https://oscats.googlecode.com/files/oscats-0.6.tar.gz"
+  url "https://web.archive.org/web/20160803193550/https://oscats.googlecode.com/files/oscats-0.6.tar.gz"
   sha256 "2f7c88cdab6a2106085f7a3e5b1073c74f7d633728c76bd73efba5dc5657a604"
 
   depends_on "pkg-config" => :build

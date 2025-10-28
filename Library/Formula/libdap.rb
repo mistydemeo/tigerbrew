@@ -1,7 +1,7 @@
 class Libdap < Formula
   desc "Framework for scientific data networking"
   homepage "http://www.opendap.org"
-  url "http://www.opendap.org/pub/source/libdap-3.12.1.tar.gz"
+  url "https://web.archive.org/web/20140815100646/http://www.opendap.org/pub/source/libdap-3.12.1.tar.gz"
   sha256 "10926129fefa9cb7050a7e501f3dc5c75b63709196b2c9e1e158b28b2dc098f2"
   revision 1
 

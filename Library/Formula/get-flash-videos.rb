@@ -1,7 +1,7 @@
 class GetFlashVideos < Formula
   desc "Download or play videos from various Flash-based websites"
   homepage "https://github.com/monsieurvideo/get-flash-videos"
-  url "https://get-flash-videos.googlecode.com/files/combined-get_flash_videos-1.24", :using => :nounzip
+  url "https://web.archive.org/web/20160113214146/https://get-flash-videos.googlecode.com/files/combined-get_flash_videos-1.24"
   version "1.24"
   sha256 "e41da715f817bfa1a65ae82cc4f5a82268b6e72a7f4d90ffabf89b3a522cbb91"
 

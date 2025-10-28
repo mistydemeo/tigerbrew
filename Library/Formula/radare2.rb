@@ -1,61 +1,135 @@
 class Radare2 < Formula
   desc "Reverse engineering framework"
-  homepage "http://radare.org"
-
-  stable do
-    url "http://radare.org/get/radare2-0.9.9.tar.xz"
-    sha256 "024adba5255f12e58c2c1a5e2263fada75aad6e71b082461dea4a2b94b29df32"
-
-    resource "bindings" do
-      url "http://radare.org/get/radare2-bindings-0.9.9.tar.xz"
-      sha256 "817939698cc4534498226c28938288b7b4a7b6216dc6d7ddde72b0f94d987b14"
-    end
-  end
+  homepage "https://radare.org"
+  url "https://github.com/radareorg/radare2/archive/refs/tags/5.9.0.tar.gz"
+  sha256 "f3280abd5ec70d58f9fd3853071670cfbb1e155d58e884aa43231f6ae10e0b59"
+  license "LGPL-3.0-only"
+  head "https://github.com/radareorg/radare2.git", branch: "master"
 
   bottle do
-    sha256 "216089159f3156a4a0ca935c9e29ffb12c0b83afbc98c7ef2b1f0b380edc61a7" => :el_capitan
-    sha256 "afb41a571a92455db1a56e7a62d90e5390187bd0fb69df341c42883fad7f3ccf" => :yosemite
-    sha256 "a55fa925ab269d44243f4cb95e7251e1eb86add65532ccd7b355f51af27bd9bf" => :mavericks
-    sha256 "6445c5acd96375099ed12e47854acd5e1db4354c20e0447caa8b87bb84b147fd" => :mountain_lion
   end
 
-  head do
-    url "https://github.com/radare/radare2.git"
-
-    resource "bindings" do
-      url "https://github.com/radare/radare2-bindings.git"
-    end
-  end
+  # Fix Darwin/PowerPC support
+  patch :p0, :DATA
 
   depends_on "pkg-config" => :build
-  depends_on "valabind" => :build
-  depends_on "swig" => :build
-  depends_on "gobject-introspection" => :build
-  depends_on "libewf"
-  depends_on "libmagic"
-  depends_on "gmp"
-  depends_on "lua51" # It seems to latch onto Lua51 rather than Lua. Enquire this upstream.
-  depends_on "openssl"
-
-  # https://github.com/radare/radare2/issues/3019
-  # Also fixes dylib naming issue with https://github.com/radare/radare2/commit/a497a6cf5b19da8bb857803e582a3afb3d4af673
-  patch do
-    url "https://gist.githubusercontent.com/sparkhom/d4584cfefb58243995e8/raw/cb62b0e45d62832efb0db037de5a63cfa895bfa0/radare2-0.9.9-homebrew.patch"
-    sha256 "9b032de6e31ffeb302384a3fed284fee8a14b7b452405789419e78a15cb83145"
-  end
+  depends_on "capstone"
+  depends_on "make" => :build
+  depends_on "git" => :build
+  depends_on "ld64" => :build
+  depends_on "lz4"
+  depends_on "openssl3"
+  depends_on "xxhash"
 
   def install
-    # Build Radare2 before bindings, otherwise compile = nope.
-    system "./configure", "--prefix=#{prefix}", "--with-openssl"
-    system "make"
-    system "make", "install"
+    system "./configure", "--prefix=#{prefix}", "--with-ssl", "--with-syscapstone", "--with-syslz4", "--with-sysxxhash"
+    system "gmake"
+    system "gmake", "install"
+  end
 
-    resource("bindings").stage do
-      ENV.append_path "PKG_CONFIG_PATH", "#{lib}/pkgconfig"
-
-      system "./configure", "--prefix=#{prefix}"
-      system "make"
-      system "make", "install", "DESTDIR=#{prefix}"
-    end
+  test do
+    assert_match "radare2 #{version}", shell_output("#{bin}/r2 -v")
   end
 end
+__END__
+--- libr/arch/p/bpf/plugin.c.orig	2024-04-01 15:32:40.000000000 +0100
++++ libr/arch/p/bpf/plugin.c	2024-04-01 15:32:56.000000000 +0100
+@@ -613,7 +613,7 @@
+ static bool parse_instruction(RBpfSockFilter *f, BPFAsmParser *p, ut64 pc) {
+ 	const char *mnemonic_tok = token_next (p);
+ 	PARSE_NEED_TOKEN (mnemonic_tok);
+-	int mlen = strnlen (mnemonic_tok, 5);
++	int mlen = r_str_nlen (mnemonic_tok, 5);
+ 	if (mlen < 2 || mlen > 4) {
+ 		R_LOG_ERROR ("invalid mnemonic");
+ 	}
+--- libr/debug/p/native/xnu/xnu_threads.c.orig	2024-04-01 16:03:08.000000000 +0100
++++ libr/debug/p/native/xnu/xnu_threads.c	2024-04-01 16:13:17.000000000 +0100
+@@ -140,7 +140,7 @@
+ # ifndef PPC_DEBUG_STATE32
+ # define PPC_DEBUG_STATE32 1
+ # endif
+-	ppc_debug_state_t *regs;
++	//ppc_debug_state_t *regs;
+ 	//thread->flavor = PPC_DEBUG_STATE32;
+ 	//thread->count  = R_MIN (thread->count, sizeof (regs->uds.ds32));
+ 	return false;
+@@ -264,6 +264,7 @@
+ 				     sizeof (x86_thread_state64_t) :
+ 				     sizeof (x86_thread_state32_t);
+ #endif
++#if !__POWERPC__
+ 	rc = thread_get_state (thread->port, thread->flavor,
+ 			       (thread_state_t)regs, &thread->count);
+ 
+@@ -279,6 +280,7 @@
+ 		if (rc != KERN_SUCCESS) {
+ 			R_LOG_WARN ("failed to convert %d", rc);
+ 		}
++#endif
+ #if  __arm64e__
+ 		else {
+ 			if (dbg->bits == R_SYS_BITS_64) {
+@@ -286,7 +288,9 @@
+ 			}
+ 		}
+ #endif
++#if !__POWERPC__
+ 	}
++#endif
+ 	if (rc != KERN_SUCCESS) {
+ 		r_sys_perror (__FUNCTION__);
+ 		thread->count = 0;
+--- libr/debug/p/native/xnu/xnu_debug.c.orig	2024-04-01 16:19:17.000000000 +0100
++++ libr/debug/p/native/xnu/xnu_debug.c	2024-04-01 16:23:16.000000000 +0100
+@@ -479,8 +479,8 @@
+ 		size_t buf_size = R_MIN (size, th->state_size);
+ 		memcpy (th->state, buf, buf_size);
+ #endif
+-#endif
+ 		}
++#endif
+ 		ret = xnu_thread_set_gpr (dbg, th);
+ 		break;
+ 	}
+--- libr/core/cmd_anal.inc.c.orig	2024-04-01 18:46:33.000000000 +0100
++++ libr/core/cmd_anal.inc.c	2024-04-01 18:47:28.000000000 +0100
+@@ -8532,7 +8532,7 @@
+ 					envp[i] = arg;
+ 				}
+ 				envp[i] = 0;
+-#if R2__UNIX__
++#if R2__UNIX__ && !__POWERPC__
+ 				if (strstr (input, "$env")) {
+ 					extern char **environ;
+ 					cmd_debug_stack_init (core, argc, argv, environ);
+--- libr/util/file.c.orig	2024-04-01 23:23:50.000000000 +0100
++++ libr/util/file.c	2024-04-01 23:34:04.000000000 +0100
+@@ -227,6 +227,10 @@
+ 
+ R_API char *r_file_abspath_rel(const char *cwd, const char *file) {
+ 	char *ret = NULL;
++	char *abspath = NULL;
++	#if !defined(_POSIX_VERSION) || _POSIX_VERSION < 200809L
++ 	char resolved_path[PATH_MAX] = { 0 };
++	#endif
+ 	if (!file || !*file || !strcmp (file, ".") || !strcmp (file, "./")) {
+ 		return r_sys_getdir ();
+ 	}
+@@ -267,7 +271,15 @@
+ 		ret = strdup (file);
+ 	}
+ #if R2__UNIX__ && !__wasi__
+-	char *abspath = realpath (ret, NULL);
++	#if !defined(_POSIX_VERSION) || _POSIX_VERSION < 200809L
++ 	/* variable path length not supported by glibc < 2.3, Solaris < 11, Mac OS X < 10.5 */
++ 	errno = 0;
++ 	if ((abspath = realpath(ret, resolved_path)) != NULL) {
++ 		abspath = strdup(abspath);
++        }
++	#else
++	abspath = realpath (ret, NULL);
++	#endif
+ 	if (abspath) {
+ 		free (ret);
+ 		ret = abspath;

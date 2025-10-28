@@ -1,7 +1,7 @@
 class Libusrsctp < Formula
   desc "User-land SCTP stack"
   homepage "http://sctp.fh-muenster.de/sctp-user-land-stack.html"
-  url "http://sctp.fh-muenster.de/download/libusrsctp-0.9.1.tar.gz"
+  url "https://web.archive.org/web/20140408053209/http://sctp.fh-muenster.de/download/libusrsctp-0.9.1.tar.gz"
   sha256 "63a3abe5f1cb7ddde36cba09d32579b05a98badb06ff88fca87d024925c3ff16"
 
   bottle do

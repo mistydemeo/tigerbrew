@@ -1,11 +1,13 @@
 class Lua < Formula
   desc "Powerful, lightweight programming language"
   homepage "http://www.lua.org/"
-  url "https://www.lua.org/ftp/lua-5.4.6.tar.gz"
-  sha256 "7d5ea1b9cb6aa0b59ca3dde1c6adcb57ef83a1ba8e5432c0ecd06bf439b3ad88"
+  url "https://www.lua.org/ftp/lua-5.4.7.tar.gz"
+  sha256 "9fbf5e28ef86c69858f6d3d34eccc32e911c1a28b4120ff3e84aaa70cfbf1e30"
+  license "MIT"
 
   bottle do
-    sha256 "6d008ebd444353cc4e9ef0763443be420380e6e85933415b1ac1c616ba720347" => :tiger_altivec
+    cellar :any_skip_relocation
+    sha256 "2930c247bd260cc41072a170ab6816e063a927bcffa0fc0149953e4bf740d808" => :tiger_altivec
   end
 
   option :universal
@@ -18,14 +20,14 @@ class Lua < Formula
   # See http://lua-users.org/wiki/LuaPowerPatches
   if build.with? "completion"
     patch do
-      url "http://lua-users.org/files/wiki_insecure/B4rtzUB3/5.4/lua-5.4.3-advanced_readline.patch"
+      url "http://lua-users.org/files/wiki_insecure/power_patches/5.4/lua-5.4.3-advanced_readline.patch"
       sha256 "a2ec8af0a9f5111c9caf698ce5c3b83b1ba5d8a0c15daac4f9776e1d21c62fa5"
     end
   end
 
   resource "luarocks" do
-    url "https://luarocks.org/releases/luarocks-3.9.2.tar.gz"
-    sha256 "bca6e4ecc02c203e070acdb5f586045d45c078896f6236eb46aa33ccd9b94edb"
+    url "https://luarocks.org/releases/luarocks-3.11.1.tar.gz"
+    sha256 "c3fb3d960dffb2b2fe9de7e3cb004dc4d0b34bb3d342578af84f84325c669102"
   end
 
   def install
@@ -77,8 +79,8 @@ class Lua < Formula
   end
 
   def pc_file; <<-EOS.undent
-    V= 5.4
-    R= 5.4.6
+    V= #{version.major_minor}
+    R= #{version}
     prefix=#{HOMEBREW_PREFIX}
     INSTALL_BIN= ${prefix}/bin
     INSTALL_INC= ${prefix}/include
@@ -92,7 +94,7 @@ class Lua < Formula
 
     Name: Lua
     Description: An Extensible Extension Language
-    Version: 5.4.6
+    Version: #{version}
     Requires:
     Libs: -L${libdir} -llua -lm
     Cflags: -I${includedir}

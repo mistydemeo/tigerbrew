@@ -1,19 +1,25 @@
 class Perl < Formula
   desc "Highly capable, feature-rich programming language"
   homepage "https://www.perl.org/"
-  url "https://www.cpan.org/src/5.0/perl-5.40.0.tar.gz"
-  sha256 "c740348f357396327a9795d3e8323bafd0fe8a5c7835fc1cbaba0cc8dfe7161f"
+  url "https://www.cpan.org/src/5.0/perl-5.42.0.tar.gz"
+  sha256 "e093ef184d7f9a1b9797e2465296f55510adb6dab8842b0c3ed53329663096dc"
+  license any_of: ["Artistic-1.0-Perl", "GPL-1.0-or-later"]
 
   head "https://perl5.git.perl.org/perl.git", :branch => "blead"
 
   keg_only :provided_by_osx,
     "OS X ships Perl and overriding that can cause unintended issues"
 
+  # Unbreak Perl build on legacy Darwin systems
+  # https://github.com/Perl/perl5/pull/21023
+  # lib/ExtUtils/MM_Darwin.pm: Unbreak Perl build
+  # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/444/files
+  patch :p0, :DATA
+
   option "with-dtrace", "Build with DTrace probes" if MacOS.version >= :leopard
   option "with-tests", "Build and run the test suite"
 
   bottle do
-    sha256 "0743dbdaa87cc72cc5f206ade56c68d4f5e2ebacad8f047872b8c3827bfa724c" => :tiger_altivec
   end
 
   def install
@@ -51,15 +57,6 @@ class Perl < Formula
     system "#{bin}/perl", "test.pl"
   end
 
-  # Unbreak Perl build on legacy Darwin systems
-  # https://github.com/Perl/perl5/pull/21023
-  # lib/ExtUtils/MM_Darwin.pm: Unbreak Perl build
-  # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/444/files
-  # t/04-xs-rpath-darwin.t: Need Darwin 9 minimum
-  # https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker/pull/446
-  # -rpath wont work when targeting 10.3 on 10.5
-  # https://github.com/Perl/perl5/pull/21367
-  patch :p0, :DATA
 end
 __END__
 --- cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Darwin.pm.orig	2023-03-02 11:53:45.000000000 +0000
@@ -106,19 +103,3 @@ __END__
    $self->SUPER::compile(@_);
  }
  
---- cpan/ExtUtils-MakeMaker/t/04-xs-rpath-darwin.t
-+++ cpan/ExtUtils-MakeMaker/t/04-xs-rpath-darwin.t
-@@ -14,9 +14,13 @@ BEGIN {
-     chdir 't' or die "chdir(t): $!\n";
-     unshift @INC, 'lib/';
-     use Test::More;
-+    my ($osmajmin) = $Config{osvers} =~ /^(\d+\.\d+)/;
-     if( $^O ne "darwin" ) {
-         plan skip_all => 'Not darwin platform';
-     }
-+    elsif ($^O eq 'darwin' && $osmajmin < 9) {
-+	plan skip_all => 'For OS X Leopard and newer'
-+    }
-     else {
-         plan skip_all => 'Dynaloading not enabled'
-             if !$Config{usedl} or $Config{usedl} ne 'define';

@@ -5,25 +5,37 @@ class Gnupg < Formula
   mirror "https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-1.4.23.tar.bz2"
   mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnupg/gnupg-1.4.23.tar.bz2"
   sha256 "c9462f17e651b6507848c08c430c791287cd75491f8b5a8b50c6ed46b12678ba"
+  revision 1
 
   bottle do
-    sha256 "fd396c1c07756a84e164e07e9770ddf5c6593dfdec9c0838ca52791f13ba112c" => :tiger_altivec
+    sha256 "8d310b2e00d3dc8d9ba83eac61dc30b6908b4a11bceb2e3a15074ec94d9f3861" => :tiger_altivec
   end
+
+  option "with-tests", "Build and run the test suite"
 
   depends_on "curl" if MacOS.version <= :mavericks
 
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
-                          "--prefix=#{prefix}",
-                          "--disable-asm"
+                          "--program-suffix=1",
+                          "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
 
     # we need to create these directories because the install target has the
     # dependency order wrong
     [bin, libexec/"gnupg"].each(&:mkpath)
     system "make", "install"
+
+    # https://lists.gnupg.org/pipermail/gnupg-devel/2016-August/031533.html
+    inreplace bin/"gpg-zip1", "GPG=gpg", "GPG=gpg1"
+  end
+
+  def caveats; <<~EOS
+    Tools from this formula are now installed with a 1 suffix,
+    so gpg is now gpg1 for referring to GnuPG 1.4.x version.
+    EOS
   end
 
   test do
@@ -36,9 +48,9 @@ class Gnupg < Formula
       Name-Email: test@example.com
       Expire-Date: 0
     EOS
-    system bin/"gpg", "--batch", "--gen-key", "gen-key-script"
+    system bin/"gpg1", "--batch", "--gen-key", "gen-key-script"
     (testpath/"test.txt").write ("Hello World!")
-    system bin/"gpg", "--armor", "--sign", "test.txt"
-    system bin/"gpg", "--verify", "test.txt.asc"
+    system bin/"gpg1", "--armor", "--sign", "test.txt"
+    system bin/"gpg1", "--verify", "test.txt.asc"
   end
 end

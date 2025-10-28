@@ -1,7 +1,7 @@
 class IkeScan < Formula
   desc "Discover and fingerprint IKE hosts"
   homepage "http://www.nta-monitor.com/tools-resources/security-tools/ike-scan"
-  url "http://www.nta-monitor.com/tools/ike-scan/download/ike-scan-1.9.tar.gz"
+  url "https://web.archive.org/web/20110925140715/http://www.nta-monitor.com/tools/ike-scan/download/ike-scan-1.9.tar.gz"
   sha256 "05d15c7172034935d1e46b01dacf1101a293ae0d06c0e14025a4507656f1a7b6"
   revision 1
 

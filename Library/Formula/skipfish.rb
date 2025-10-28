@@ -1,7 +1,7 @@
 class Skipfish < Formula
   desc "Web application security scanner"
   homepage "https://code.google.com/p/skipfish/"
-  url "https://skipfish.googlecode.com/files/skipfish-2.10b.tgz"
+  url "https://web.archive.org/web/20160603142927/https://skipfish.googlecode.com/files/skipfish-2.10b.tgz"
   sha256 "1a4fbc9d013f1f9b970946ea7228d943266127b7f4100c994ad26c82c5352a9e"
   revision 1
 

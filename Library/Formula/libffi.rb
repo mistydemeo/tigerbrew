@@ -1,8 +1,8 @@
 class Libffi < Formula
   desc "Portable Foreign Function Interface library"
   homepage "https://sourceware.org/libffi/"
-  url "https://github.com/libffi/libffi/releases/download/v3.4.4/libffi-3.4.4.tar.gz"
-  sha256 "d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676"
+  url "https://github.com/libffi/libffi/releases/download/v3.4.7/libffi-3.4.7.tar.gz"
+  sha256 "138607dee268bdecf374adf9144c00e839e38541f75f24a1fcf18b78fda48b2d"
 
   head do
     url "https://github.com/atgreen/libffi.git"
@@ -11,21 +11,23 @@ class Libffi < Formula
     depends_on "libtool" => :build
   end
 
+  # Unknown pseudo-op: .balign
+  depends_on "cctools" => :build if MacOS.version == :tiger && Hardware::CPU.intel?
+
   bottle do
-    sha256 "f73c477afbca66cf30dd489efa3177fa89ace748e11bd1fd1b6395eeb18a969e" => :tiger_altivec
+    cellar :any
+    sha256 "cb9bfdf6e58aa3ea1cd06f480c82cb7b151feff44252877d161644936f5008f0" => :tiger_altivec
   end
 
   keg_only :provided_by_osx, "Some formulae require a newer version of libffi." if MacOS.version > :tiger
 
-  # i386 build fix
-  patch do
-    url "https://github.com/libffi/libffi/commit/e70dd1aa240159bd2050cb1eafffb49cdc1d8b22.diff"
-    sha256 "f8716ba642b979756958cdae1cd6a673449fafca7cb695c12cd85a47ab3e4eaf"
+  fails_with :gcc_4_0 if MacOS.version == :tiger && Hardware::CPU.intel? do
+    cause "Chokes on comments in src/x86/sysv.S"
   end
 
   def install
     ENV.deparallelize # https://github.com/Homebrew/homebrew/pull/19267
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
     system "./autogen.sh" if build.head?
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"

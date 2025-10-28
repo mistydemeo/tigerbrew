@@ -1,7 +1,7 @@
 class Namebench < Formula
   desc "DNS benchmark utility"
   homepage "https://code.google.com/p/namebench/"
-  url "https://namebench.googlecode.com/files/namebench-1.3.1-source.tgz"
+  url "https://web.archive.org/web/20160206013628/https://namebench.googlecode.com/files/namebench-1.3.1-source.tgz"
   sha256 "30ccf9e870c1174c6bf02fca488f62bba280203a0b1e8e4d26f3756e1a5b9425"
 
   option "no-third-party", "Do not install bundled third-party modules"

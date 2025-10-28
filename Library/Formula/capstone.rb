@@ -1,36 +1,37 @@
 class Capstone < Formula
   desc "Multi-platform, multi-architecture disassembly framework"
-  homepage "http://capstone-engine.org"
-  url "http://capstone-engine.org/download/3.0.4/capstone-3.0.4.tgz"
-  sha256 "3e88abdf6899d11897f2e064619edcc731cc8e97e9d4db86495702551bb3ae7f"
+  homepage "https://www.capstone-engine.org/"
+  url "https://github.com/capstone-engine/capstone/archive/refs/tags/5.0.3.tar.gz"
+  sha256 "3970c63ca1f8755f2c8e69b41432b710ff634f1b45ee4e5351defec4ec8e1753"
+  license "BSD-3-Clause"
+  head "https://github.com/capstone-engine/capstone.git", branch: "next"
 
   bottle do
     cellar :any
-    sha256 "3aa8d8b679cc5261a3fbf44b191c61480cdb34576f71b769e63d68c5e27c19b1" => :el_capitan
-    sha256 "5bbd8f7d9e0ae0d3b23c7d478fdb02476e8cee847577576d543bf98649985975" => :yosemite
-    sha256 "0cfd7478b21360ffea1aac61ec64eeae612bce247a681b0205ffd14790f8f7dc" => :mavericks
-    sha256 "585042b1452fbeda9efd07da4b8400d56d166afd5e5f1120da20975e41001e88" => :mountain_lion
+    sha256 "009d483c0a578917986d26bfb08a77b9a350c2dd3ac36842fdbfa8a93c881eca" => :tiger_altivec
   end
 
+  # error: #pragma GCC diagnostic not allowed inside functions
+  fails_with :gcc if MacOS.version < :leopard
+
+  # Fix OS detection
+  patch :p0, :DATA
+
+  depends_on "make"
+
   def install
-    # Capstone's Make script ignores the prefix env and was installing
-    # in /usr/local directly. So just inreplace the prefix for less pain.
-    # https://github.com/aquynh/capstone/issues/228
-    inreplace "make.sh", "export PREFIX=/usr/local", "export PREFIX=#{prefix}"
-
+    # ENV.no_optimization
     ENV["HOMEBREW_CAPSTONE"] = "1"
+    ENV["PREFIX"] = prefix
+    ENV["MAKE"] = "gmake"
+    ENV["LIBARCHS"] = "ppc" if Hardware::CPU.type == :ppc
+    ENV["LIBARCHS"] = "i386" if Hardware::CPU.type == :intel
     system "./make.sh"
-    system "./make.sh", "install"
-
-    # As per the above inreplace, the pkgconfig file needs fixing as well.
-    inreplace lib/"pkgconfig/capstone.pc" do |s|
-      s.gsub! "/usr/lib", lib
-      s.gsub! "/usr/include/capstone", "#{include}/capstone"
-    end
+    system "gmake", "install", "PREFIX=#{prefix}"
   end
 
   test do
-    # code comes from http://www.capstone-engine.org/lang_c.html
+    # code comes from https://www.capstone-engine.org/lang_c.html
     (testpath/"test.c").write <<-EOS.undent
       #include <stdio.h>
       #include <inttypes.h>
@@ -61,3 +62,15 @@ class Capstone < Formula
     system "./test"
   end
 end
+__END__
+--- Makefile.orig	2024-02-03 01:12:02.000000000 +0000
++++ Makefile	2024-02-03 01:18:32.000000000 +0000
+@@ -344,7 +344,7 @@
+ API_MAJOR=$(shell echo `grep -e CS_API_MAJOR include/capstone/capstone.h | grep -v = | awk '{print $$3}'` | awk '{print $$1}')
+ VERSION_EXT =
+ 
+-IS_APPLE := $(shell $(CC) -dM -E - < /dev/null 2> /dev/null | grep __apple_build_version__ | wc -l | tr -d " ")
++IS_APPLE := $(shell $(CC) -dM -E - < /dev/null 2> /dev/null | grep __APPLE__ | wc -l | tr -d " ")
+ ifeq ($(IS_APPLE),1)
+ # on MacOS, do not build in Universal format by default
+ MACOS_UNIVERSAL ?= no

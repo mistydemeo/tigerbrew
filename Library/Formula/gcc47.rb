@@ -24,22 +24,18 @@ class Gcc47 < Formula
   url "https://ftpmirror.gnu.org/gcc/gcc-4.7.4/gcc-4.7.4.tar.bz2"
   mirror "https://ftp.gnu.org/gnu/gcc/gcc-4.7.4/gcc-4.7.4.tar.bz2"
   sha256 "92e61c6dc3a0a449e62d72a38185fda550168a86702dea07125ebd3ec3996282"
+  revision 1
 
   head "svn://gcc.gnu.org/svn/gcc/branches/gcc-4_7-branch"
 
   bottle do
-    sha256 "de527788a6fedea2173e340fee47324478e8956ef31868d376c7ac561a8f2952" => :yosemite
-    sha256 "b418cec1d503d859e99cb13928a2df8434a9037524f898fe095ea35f615d87f2" => :mavericks
-    sha256 "fe211028f9a219f48d127bc946d5f7046b7b6e7f792fd4cd63c1deb393484db3" => :mountain_lion
   end
 
-  if MacOS.version >= :el_capitan
-    # Fixes build with Xcode 7.
-    # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
-    patch do
-      url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
-      sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
-    end
+  # Fixes build with Xcode 7.
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66523
+  patch do
+    url "https://gcc.gnu.org/bugzilla/attachment.cgi?id=35773"
+    sha256 "db4966ade190fff4ed39976be8d13e84839098711713eff1d08920d37a58f5ec"
   end
 
   option "with-fortran", "Build the gfortran compiler"
@@ -78,12 +74,15 @@ class Gcc47 < Formula
   cxxstdlib_check :skip
 
   # Fix 10.10 issues: https://gcc.gnu.org/viewcvs/gcc?view=revision&revision=215251
-  patch :p0 do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/7293b7d3/gcc47/patch-10.10.diff"
-    sha256 "61e5d0f18db59220cbd99717e9b644c1d0f3502b09ada746b60850cacda07328"
-  end
+  patch :DATA
 
   def install
+    # GCC Bug 25127 for PowerPC
+    # https://gcc.gnu.org/bugzilla//show_bug.cgi?id=25127
+    # ../../../libgcc/unwind.inc: In function '_Unwind_RaiseException':
+    # ../../../libgcc/unwind.inc:136:1: internal compiler error: in rs6000_emit_prologue, at config/rs6000/rs6000.c:19445
+    # "internal compiler error: Bus error" on Leopard
+    ENV.no_optimization
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
 
@@ -122,15 +121,8 @@ class Gcc47 < Formula
       # don't wander around telling little children there is no Santa
       # Claus.
       "--enable-version-specific-runtime-libs",
-      "--enable-libstdcxx-time=yes",
-      "--enable-stage1-checking",
-      "--enable-checking=release",
-      "--enable-lto",
-      # A no-op unless --HEAD is built because in head warnings will
-      # raise errors. But still a good idea to include.
-      "--disable-werror",
-      "--with-pkgversion=Homebrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/Homebrew/homebrew-versions/issues",
+      "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
+      "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
     ]
 
     # "Building GCC with plugin support requires a host that supports
@@ -221,5 +213,176 @@ class Gcc47 < Formula
     EOS
     system bin/"gcc-4.7", "-o", "hello-c", "hello-c.c"
     assert_equal "Hello, world!\n", `./hello-c`
+
+    (testpath/"hello-cc.cc").write <<-EOS.undent
+      #include <iostream>
+      int main()
+      {
+        std::cout << "Hello, world!" << std::endl;
+        return 0;
+      }
+    EOS
+    system "#{bin}/g++-4.7", "-o", "hello-cc", "hello-cc.cc"
+    assert_equal "Hello, world!\n", `./hello-cc`
+
+    (testpath/"test.f90").write <<-EOS.undent
+      integer,parameter::m=10000
+      real::a(m), b(m)
+      real::fact=0.5
+
+      do concurrent (i=1:m)
+        a(i) = a(i) + fact*b(i)
+      end do
+      write(*,"(A)") "Done"
+      end
+    EOS
+    system "#{bin}/gfortran-4.7", "-o", "test", "test.f90" if build.with? "fortran"
+    assert_equal "Done\n", `./test` if build.with? "fortran"
   end
 end
+__END__
+--- a/gcc/config/darwin-c.c
++++ b/gcc/config/darwin-c.c
+@@ -571,21 +571,34 @@ find_subframework_header (cpp_reader *pfile, const char *header, cpp_dir **dirp)
+ }
+ 
+ /* Return the value of darwin_macosx_version_min suitable for the
+-   __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ macro,
+-   so '10.4.2' becomes 1040.  The lowest digit is always zero.
++   __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ macro, so '10.4.2'
++   becomes 1040 and '10.10.0' becomes 101000.  The lowest digit is
++   always zero, as is the second lowest for '10.10.x' and above.
+    Print a warning if the version number can't be understood.  */
+ static const char *
+ version_as_macro (void)
+ {
+-  static char result[] = "1000";
++  static char result[7] = "1000";
++  int minorDigitIdx;
+ 
+   if (strncmp (darwin_macosx_version_min, "10.", 3) != 0)
+     goto fail;
+   if (! ISDIGIT (darwin_macosx_version_min[3]))
+     goto fail;
+-  result[2] = darwin_macosx_version_min[3];
+-  if (darwin_macosx_version_min[4] != '\0'
+-      && darwin_macosx_version_min[4] != '.')
++
++  minorDigitIdx = 3;
++  result[2] = darwin_macosx_version_min[minorDigitIdx++];
++  if (ISDIGIT (darwin_macosx_version_min[minorDigitIdx]))
++  {
++    /* Starting with OS X 10.10, the macro ends '00' rather than '0',
++       i.e. 10.10.x becomes 101000 rather than 10100.  */
++    result[3] = darwin_macosx_version_min[minorDigitIdx++];
++    result[4] = '0';
++    result[5] = '0';
++    result[6] = '\0';
++  }
++  if (darwin_macosx_version_min[minorDigitIdx] != '\0'
++      && darwin_macosx_version_min[minorDigitIdx] != '.')
+     goto fail;
+ 
+   return result;
+--- a/gcc/config/darwin-driver.c
++++ b/gcc/config/darwin-driver.c
+@@ -29,8 +29,8 @@ along with GCC; see the file COPYING3.  If not see
+ #include <sys/sysctl.h>
+ #include "xregex.h"
+ 
+-static bool
+-darwin_find_version_from_kernel (char *new_flag)
++static char *
++darwin_find_version_from_kernel (void)
+ {
+   char osversion[32];
+   size_t osversion_len = sizeof (osversion) - 1;
+@@ -39,6 +39,7 @@ darwin_find_version_from_kernel (char *new_flag)
+   char minor_vers[6];
+   char * version_p;
+   char * version_pend;
++  char * new_flag;
+ 
+   /* Determine the version of the running OS.  If we can't, warn user,
+      and do nothing.  */
+@@ -46,7 +47,7 @@ darwin_find_version_from_kernel (char *new_flag)
+ 	      &osversion_len, NULL, 0) == -1)
+     {
+       warning (0, "sysctl for kern.osversion failed: %m");
+-      return false;
++      return NULL;
+     }
+ 
+   /* Try to parse the first two parts of the OS version number.  Warn
+@@ -57,8 +58,6 @@ darwin_find_version_from_kernel (char *new_flag)
+   version_p = osversion + 1;
+   if (ISDIGIT (*version_p))
+     major_vers = major_vers * 10 + (*version_p++ - '0');
+-  if (major_vers > 4 + 9)
+-    goto parse_failed;
+   if (*version_p++ != '.')
+     goto parse_failed;
+   version_pend = strchr(version_p, '.');
+@@ -74,17 +73,16 @@ darwin_find_version_from_kernel (char *new_flag)
+   if (major_vers - 4 <= 4)
+     /* On 10.4 and earlier, the old linker is used which does not
+        support three-component system versions.  */
+-    sprintf (new_flag, "10.%d", major_vers - 4);
++    asprintf (&new_flag, "10.%d", major_vers - 4);
+   else
+-    sprintf (new_flag, "10.%d.%s", major_vers - 4,
+-	     minor_vers);
++    asprintf (&new_flag, "10.%d.%s", major_vers - 4, minor_vers);
+ 
+-  return true;
++  return new_flag;
+ 
+  parse_failed:
+   warning (0, "couldn%'t understand kern.osversion %q.*s",
+ 	   (int) osversion_len, osversion);
+-  return false;
++  return NULL;
+ }
+ 
+ #endif
+@@ -105,7 +103,7 @@ darwin_default_min_version (unsigned int *decoded_options_count,
+   const unsigned int argc = *decoded_options_count;
+   struct cl_decoded_option *const argv = *decoded_options;
+   unsigned int i;
+-  static char new_flag[sizeof ("10.0.0") + 6];
++  const char *new_flag;
+ 
+   /* If the command-line is empty, just return.  */
+   if (argc <= 1)
+@@ -142,16 +140,16 @@ darwin_default_min_version (unsigned int *decoded_options_count,
+ 
+ #ifndef CROSS_DIRECTORY_STRUCTURE
+ 
+- /* Try to find the version from the kernel, if we fail - we print a message 
+-    and give up.  */
+- if (!darwin_find_version_from_kernel (new_flag))
+-   return;
++  /* Try to find the version from the kernel, if we fail - we print a message 
++     and give up.  */
++  new_flag = darwin_find_version_from_kernel ();
++  if (!new_flag)
++    return;
+ 
+ #else
+ 
+- /* For cross-compilers, default to the target OS version. */
+-
+- strncpy (new_flag, DEF_MIN_OSX_VERSION, sizeof (new_flag));
++  /* For cross-compilers, default to the target OS version. */
++  new_flag = DEF_MIN_OSX_VERSION;
+ 
+ #endif /* CROSS_DIRECTORY_STRUCTURE */
+ 
+@@ -165,7 +163,6 @@ darwin_default_min_version (unsigned int *decoded_options_count,
+   memcpy (*decoded_options + 2, argv + 1,
+ 	  (argc - 1) * sizeof (struct cl_decoded_option));
+   return;
+-  
+ }
+ 
+ /* Translate -filelist and -framework options in *DECODED_OPTIONS

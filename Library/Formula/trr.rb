@@ -1,7 +1,7 @@
 class Trr < Formula
   desc "Type training program for emacs users"
   homepage "https://code.google.com/p/trr22/"
-  url "https://trr22.googlecode.com/files/trr22_0.99-5.tar.gz"
+  url "https://web.archive.org/web/20160512094720/https://trr22.googlecode.com/files/trr22_0.99-5.tar.gz"
   version "22.0.99.5"
   sha256 "6bac2f947839cebde626cdaab0c0879de8f6f6e40bfd7a14ccdfe1a035a3bcc6"
   revision 1

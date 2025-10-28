@@ -9,6 +9,8 @@ class PkgConfig < Formula
     sha256 "1b438cc6b776c001c6a45b94f12861a3a5a98fc4ea2ee6069a6a011051188aff" => :tiger_altivec
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     pc_path = %W[
       #{HOMEBREW_PREFIX}/lib/pkgconfig
@@ -25,7 +27,7 @@ class PkgConfig < Formula
                           "--with-internal-glib",
                           "--with-pc-path=#{pc_path}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

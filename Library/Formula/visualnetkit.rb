@@ -1,7 +1,7 @@
 class Visualnetkit < Formula
   desc "Graphical environment to configure and manage Netkit lab"
   homepage "https://code.google.com/p/visual-netkit/"
-  url "https://visual-netkit.googlecode.com/files/visualnetkit-1.4.tar.bz"
+  url "https://web.archive.org/web/20160420103948/https://visual-netkit.googlecode.com/files/visualnetkit-1.4.tar.bz"
   version "1.4"
   sha256 "d1b02b253520a337ced5c450a0cd68e76aef289fa9d2777470455c0edfec5ce7"
 

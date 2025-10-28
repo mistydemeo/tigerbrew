@@ -1,7 +1,7 @@
 class MobileShell < Formula
   desc "Remote terminal application"
   homepage "https://mosh.mit.edu/"
-  url "https://mosh.mit.edu/mosh-1.2.5.tar.gz"
+  url "https://web.archive.org/web/20190722130937/https://mosh.org/mosh-1.2.5.tar.gz"
   sha256 "1af809e5d747c333a852fbf7acdbf4d354dc4bbc2839e3afe5cf798190074be3"
 
   bottle do

@@ -1,7 +1,7 @@
 class Olsrd < Formula
   desc "Implementation of the optimized link state routing protocol"
   homepage "http://www.olsr.org"
-  url "http://www.olsr.org/releases/0.9/olsrd-0.9.0.2.tar.bz2"
+  url "https://web.archive.org/web/20151009102948/http://www.olsr.org/releases/0.9/olsrd-0.9.0.2.tar.bz2"
   sha256 "cc464b29c7740354d815d5faa753fd27c0677d71e8eb42e78abc382996892845"
 
   bottle do

@@ -1,7 +1,7 @@
 class Librem < Formula
   desc "Toolkit library for real-time audio and video processing"
   homepage "http://www.creytiv.com"
-  url "http://www.creytiv.com/pub/rem-0.4.6.tar.gz"
+  url "https://web.archive.org/web/20150802170718/http://www.creytiv.com/pub/rem-0.4.6.tar.gz"
   sha256 "7ce86f1eb8a3ba8cb14c490b80abe4d2389de306f385bfbb8c601c8b6ff2f865"
 
   bottle do

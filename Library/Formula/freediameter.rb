@@ -1,7 +1,7 @@
 class Freediameter < Formula
   desc "Open source Diameter (Authentication) protocol implementation"
   homepage "http://www.freediameter.net"
-  url "http://www.freediameter.net/hg/freeDiameter/archive/1.2.0.tar.gz"
+  url "https://web.archive.org/web/20221006024529/http://www.freediameter.net/hg/freeDiameter/archive/1.2.0.tar.gz"
   sha256 "0601a7f559af6596dff8e18f5c9b17bc66de50d8e05640aa64a3403a841cb228"
   revision 2
 

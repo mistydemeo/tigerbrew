@@ -1,12 +1,12 @@
 class TclTk < Formula
   desc "Tool Command Language"
   homepage "https://www.tcl.tk/"
-  url "http://prdownloads.sourceforge.net/tcl/tcl8.6.13-src.tar.gz"
-  version "8.6.13"
-  sha256 "43a1fae7412f61ff11de2cfd05d28cfc3a73762f354a417c62370a54e2caf066"
+  url "http://prdownloads.sourceforge.net/tcl/tcl8.6.16-src.tar.gz"
+  version "8.6.16"
+  sha256 "91cb8fa61771c63c262efb553059b7c7ad6757afa5857af6265e4b0bdc2a14a5"
 
   bottle do
-    sha256 "6c1a82cf1a22895eaccac3cd42dd7efcf5b6eb9d79e10826ea656bf063db4629" => :tiger_altivec
+    sha256 "19009ca7d37ad310840cba54d856759657ac9fedb06bdd962eb9614a7bef13db" => :tiger_altivec
   end
 
   keg_only :provided_by_osx,
@@ -24,14 +24,14 @@ class TclTk < Formula
   depends_on "zlib"
 
   resource "tk" do
-    url "http://prdownloads.sourceforge.net/tcl/tk8.6.13-src.tar.gz"
-    version "8.6.13"
-    sha256 "2e65fa069a23365440a3c56c556b8673b5e32a283800d8d9b257e3f584ce0675"
+    url "http://prdownloads.sourceforge.net/tcl/tk8.6.16-src.tar.gz"
+    version "8.6.16"
+    sha256 "be9f94d3575d4b3099d84bc3c10de8994df2d7aa405208173c709cc404a7e5fe"
   end
 
   resource "tcllib" do
-    url "https://downloads.sourceforge.net/project/tcllib/tcllib/1.21/tcllib-1.21.tar.xz"
-    sha256 "10c7749e30fdd6092251930e8a1aa289b193a3b7f1abf17fee1d4fa89814762f"
+    url "https://downloads.sourceforge.net/project/tcllib/tcllib/2.0/tcllib-2.0.tar.xz"
+    sha256 "642c2c679c9017ab6fded03324e4ce9b5f4292473b62520e82aacebb63c0ce20"
   end
 
   def install
@@ -65,6 +65,12 @@ class TclTk < Formula
           args << "--without-x"
         end
 
+        # Tk Aqua build fix on 10.6 & unbreak the ability to run the test suite on < 10.8
+        # https://core.tcl-lang.org/tk/tktview/c789692418
+        # https://core.tcl-lang.org/tk/tktview/044f2bc55b
+        # Need to use this way to patch a resource as the usual method doesn't work on resources
+        system "patch", "-p0", "-i", "#{HOMEBREW_PREFIX}/Library/Formula/tcl-tk.rb"
+
         cd "unix" do
           system "./configure", *args
           system "make", "TK_LIBRARY=#{lib}"
@@ -89,3 +95,31 @@ class TclTk < Formula
     assert_equal "honk", pipe_output("#{bin}/tclsh", "puts honk\n").chomp
   end
 end
+__END__
+--- macosx/tkMacOSXWindowEvent.c.orig	2025-07-26 14:20:28.000000000 +0100
++++ macosx/tkMacOSXWindowEvent.c	2025-07-26 14:24:11.000000000 +0100
+@@ -977,8 +977,11 @@
+ 	self.layer = [CALayer layer];
+ 	self.wantsLayer = YES;
+ 	self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
+-	self.layer.contentsGravity = self.layer.contentsAreFlipped ?
+-	    kCAGravityTopLeft : kCAGravityBottomLeft;
++	if (self.layer.contentsAreFlipped) {
++	    self.layer.contentsGravity = kCAGravityTopLeft;
++	} else {
++	    self.layer.contentsGravity = kCAGravityBottomLeft;
++	}
+ 
+ 	/*
+ 	 * Nothing gets drawn at all if the layer does not have a delegate.
+--- macosx/tkMacOSXTest.c.orig	2025-07-26 15:14:47.000000000 +0100
++++ macosx/tkMacOSXTest.c	2025-07-26 15:15:42.000000000 +0100
+@@ -88,7 +88,7 @@
+     TCL_UNUSED(void *),		/* Not used. */
+     TCL_UNUSED(Tcl_Interp *),			/* Not used. */
+     TCL_UNUSED(int),				/* Not used. */
+-    TCL_UNUSED(Tcl_Obj *const *)			/* Not used. */
++    TCL_UNUSED(Tcl_Obj *const *))			/* Not used. */
+ {
+     Debugger();
+     return TCL_OK;

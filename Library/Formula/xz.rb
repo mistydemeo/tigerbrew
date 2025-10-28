@@ -3,15 +3,20 @@
 class Xz < Formula
   desc "General-purpose data compression with high compression ratio"
   homepage "http://tukaani.org/xz/"
-  url "https://fossies.org/linux/misc/xz-5.4.7.tar.gz"
-  mirror "https://github.com/tukaani-project/xz/releases/download/v5.6.2/xz-5.6.2.tar.gz"
-  sha256 "8db6664c48ca07908b92baedcfe7f3ba23f49ef2476864518ab5db6723836e71"
+  url "https://downloads.sourceforge.net/project/lzmautils/xz-5.8.1.tar.gz"
+  mirror "https://github.com/tukaani-project/xz/releases/download/v5.8.1/xz-5.8.1.tar.gz"
+  sha256 "507825b599356c10dca1cd720c9d0d0c9d5400b9de300af00e4d1ea150795543"
+  license all_of: [
+    "0BSD",
+    "GPL-2.0-or-later",
+  ]
 
   bottle do
-    sha256 "adbf7a74ab4205a88c3950514c1c9deb793a109a24a0ce1a0e6b8180a54cb338" => :tiger_altivec
+    sha256 "ad6afb1a7fe157b8367fb38b6a3499758ed8e586bc8d49d971f942657548ca9f" => :tiger_altivec
   end
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   def install
     ENV.universal_binary if build.universal?
@@ -19,6 +24,7 @@ class Xz < Formula
                           "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

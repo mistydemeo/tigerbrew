@@ -56,7 +56,7 @@ end
 class Hyperestraier < Formula
   desc "Full-text search system for communities"
   homepage "http://fallabs.com/hyperestraier/index.html"
-  url "http://fallabs.com/hyperestraier/hyperestraier-1.4.13.tar.gz"
+  url "https://web.archive.org/web/20160326194449/http://fallabs.com/hyperestraier/hyperestraier-1.4.13.tar.gz"
   sha256 "496f21190fa0e0d8c29da4fd22cf5a2ce0c4a1d0bd34ef70f9ec66ff5fbf63e2"
 
   depends_on "qdbm"

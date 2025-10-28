@@ -1,31 +1,10 @@
 class Nmap < Formula
   desc "Port scanning utility for large networks"
   homepage "https://nmap.org/"
+  url "https://nmap.org/dist/nmap-7.95.tar.bz2"
+  sha256 "e14ab530e47b5afd88f1c8a2bac7f89cd8fe6b478e22d255c5b9bddb7a1c5778"
   license :cannot_represent
   head "https://svn.nmap.org/nmap/"
-
-  # TODO: Remove stable block in next release.
-  stable do
-    url "https://nmap.org/dist/nmap-7.94.tar.bz2"
-    sha256 "d71be189eec43d7e099bac8571509d316c4577ca79491832ac3e1217bc8f92cc"
-
-    # Fix build with Lua 5.4. Remove in next release.
-    patch do
-      url "https://github.com/nmap/nmap/commit/b9263f056ab3acd666d25af84d399410560d48ac.patch?full_index=1"
-      sha256 "088d426dc168b78ee4e0450d6b357deef13e0e896b8988164ba2bb8fd8b8767c"
-    end
-
-    # Backport pcre2 support. Remove in next release.
-    patch :DATA # https://github.com/nmap/nmap/commit/85f38cb858065d4b0e384730258494e8639887db
-    patch do
-      url "https://github.com/nmap/nmap/commit/828ab48764b82d0226e860c73c5dac5b11f77385.patch?full_index=1"
-      sha256 "3b5febc6c10acc59bff1c43e252d221b9c9be0cd4d866294f91f40a5d008eff0"
-    end
-    patch do
-      url "https://github.com/nmap/nmap/commit/d131a096a869195be36ef7d4fa36739373346cb2.patch?full_index=1"
-      sha256 "5acbcae9f3ef33b9fe38005c0b3c0df4154fb2ae6e0bc38a915f45d473f71c66"
-    end
-  end
 
   bottle do
   end
@@ -66,7 +45,7 @@ class Nmap < Formula
     ]
 
     # cpp-precomp support was exclusive to Apple's compilers
-    # Remove in next release. https://github.com/nmap/nmap/pull/2777
+    # https://github.com/nmap/nmap/pull/2777
     system "sed -i -e '/needs_cpp_precomp=yes/d' configure"
     system "sed -i -e '/needs_cpp_precomp=yes/d' nping/configure"
 

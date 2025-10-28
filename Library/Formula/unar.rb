@@ -1,7 +1,7 @@
 class Unar < Formula
   desc "RAR archive command-line tools"
   homepage "http://unarchiver.c3.cx/commandline"
-  url "https://wakaba.c3.cx/releases/TheUnarchiver/unar1.8.1_src.zip"
+  url "https://web.archive.org/web/20150914203105/https://wakaba.c3.cx/releases/TheUnarchiver/unar1.8.1_src.zip"
   version "1.8.1"
   sha256 "67ccb1c780150840f38de63b8e7047717ef4c71b7574d9ef57bd9d9c93255709"
 

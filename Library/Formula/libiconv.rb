@@ -1,12 +1,14 @@
 class Libiconv < Formula
   desc "Conversion library"
   homepage "https://www.gnu.org/software/libiconv/"
-  url "https://ftpmirror.gnu.org/libiconv/libiconv-1.17.tar.gz"
-  mirror "https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz"
-  sha256 "8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313"
+  url "https://ftpmirror.gnu.org/libiconv/libiconv-1.18.tar.gz"
+  mirror "https://ftp.gnu.org/gnu/libiconv/libiconv-1.18.tar.gz"
+  sha256 "3b08f5f4f9b4eb82f151a7040bfd6fe6c6fb922efe4b1659c66ea933276965e8"
+  license all_of: ["GPL-3.0-or-later", "LGPL-2.0-or-later"]
 
   bottle do
-    sha256 "533c88e9e63c7f9b98919951d1aae09a0ac385919cb53957b78ee0eb65f615fc" => :tiger_altivec
+    cellar :any
+    sha256 "023ae3e3fa34684bde82a94cf9e4b944b691040be3f8c58896e53be70114a318" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
@@ -18,6 +20,8 @@ class Libiconv < Formula
 
   patch :DATA
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     ENV.deparallelize
     system "./configure", "--disable-debug",
@@ -26,7 +30,8 @@ class Libiconv < Formula
                           "--enable-extra-encodings",
                           "--enable-static",
                           "--docdir=#{doc}"
-    system "make", "-f", "Makefile.devel", "CFLAGS=#{ENV.cflags}", "CC=#{ENV.cc}"
+    system "make"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

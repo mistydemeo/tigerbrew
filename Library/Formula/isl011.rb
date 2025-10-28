@@ -2,19 +2,17 @@ class Isl011 < Formula
   desc "Integer Set Library for the polyhedral model"
   homepage "https://libisl.sourceforge.io"
   # Track gcc infrastructure releases.
-  url "https://libisl.sourceforge.io/isl-0.11.1.tar.bz2"
-  mirror "https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.11.1.tar.bz2"
-  sha256 "095f4b54c88ca13a80d2b025d9c551f89ea7ba6f6201d701960bfe5c1466a98d"
+  url "https://libisl.sourceforge.io/isl-0.11.2.tar.bz2"
+  sha256 "e6d83347d254449577299ec86ffefd79361dc51f6de7480723c9c43b075cdc23"
 
   bottle do
     cellar :any
-    revision 1
-    sha256 "13e867965cd3a068d7261b4f07cb9835f8f3e4661f27d151318a3b04fccacbd0" => :el_capitan
-    sha256 "6d59cb6e7fc0aa67ff5a0734d00aaf712f424dcd6094f29b0dbbfa5d5f205a98" => :yosemite
-    sha256 "d747feae5b551c03d783886fd3aa58a86ce04a73753d1d8347b196f953d54ddd" => :mavericks
+    sha256 "dd70c4834b102c27c19989db5ebbaf0bc9be361b94c3a9a6fd713cbb317c28a8" => :tiger_altivec
   end
 
   keg_only "Conflicts with isl in main repository."
+
+  option "with-tests", "Build and run the test suite"
 
   depends_on "gmp4"
 
@@ -24,6 +22,7 @@ class Isl011 < Formula
                           "--prefix=#{prefix}",
                           "--with-gmp=system",
                           "--with-gmp-prefix=#{Formula["gmp4"].opt_prefix}"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
     (share/"gdb/auto-load").install Dir["#{lib}/*-gdb.py"]
   end

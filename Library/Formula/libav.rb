@@ -1,7 +1,7 @@
 class Libav < Formula
   desc "Audio and video processing tools"
   homepage "https://libav.org/"
-  url "https://libav.org/releases/libav-11.4.tar.xz"
+  url "https://web.archive.org/web/20221204024951/https://libav.org/releases/libav-11.4.tar.xz"
   sha256 "0b7dabc2605f3a254ee410bb4b1a857945696aab495fe21b34c3b6544ff5d525"
   revision 1
 

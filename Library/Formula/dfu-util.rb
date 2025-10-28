@@ -3,15 +3,12 @@ class DfuUtil < Formula
   homepage "http://dfu-util.sourceforge.net/"
   # Upstream moved, no releases yet, using debian mirror until then.
   # (see #34047 and #39181)
-  url "http://ftp.de.debian.org/debian/pool/main/d/dfu-util/dfu-util_0.8.orig.tar.gz"
-  sha256 "55cbde9be12a212bd84bce9d1e63941d9a16139ed0d4912401367eba1502f058"
+  url "https://prdownloads.sourceforge.net/project/dfu-util/dfu-util-0.11.tar.gz"
+  sha256 "b4b53ba21a82ef7e3d4c47df2952adf5fa494f499b6b0b57c58c5d04ae8ff19e"
 
   bottle do
     cellar :any
-    sha256 "91eb66e5c5b113995ced22a67a2ab8bffb1d21f6f17d4d8c97564e86af43d768" => :el_capitan
-    sha1 "285f3043fe09291b4485fe3c4dac36025489bca8" => :yosemite
-    sha1 "ed8be24bc65f7fc2791c42311be08f67649b6e23" => :mavericks
-    sha1 "cd533314e4700a3d746330b12aa08407f693d7a4" => :mountain_lion
+    sha256 "4a6b75f9ecedd3230aedb0aabcd1545e7407180b11a0e7597c5ad57109b41170" => :tiger_altivec
   end
 
   head do

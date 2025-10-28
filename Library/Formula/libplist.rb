@@ -1,7 +1,7 @@
 class Libplist < Formula
   desc "Library for Apple Binary- and XML-Property Lists"
   homepage "http://www.libimobiledevice.org"
-  url "http://www.libimobiledevice.org/downloads/libplist-1.12.tar.bz2"
+  url "https://web.archive.org/web/20160305024510/https://libimobiledevice.org/downloads/libplist-1.12.tar.bz2"
   sha256 "0effdedcb3de128c4930d8c03a3854c74c426c16728b8ab5f0a5b6bdc0b644be"
 
   bottle do
@@ -27,7 +27,7 @@ class Libplist < Formula
   depends_on :python => :optional
 
   resource "cython" do
-    url "http://cython.org/release/Cython-0.21.tar.gz"
+    url "https://web.archive.org/web/20150921100327/http://cython.org/release/Cython-0.21.tar.gz"
     sha256 "0cd5787fb3f1eaf8326b21bdfcb90aabd3eca7c214c5b7b503fbb82da97bbaa0"
   end
 

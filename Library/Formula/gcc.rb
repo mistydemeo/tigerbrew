@@ -21,37 +21,59 @@ class Gcc < Formula
 
   desc "GNU compiler collection"
   homepage "https://gcc.gnu.org"
-  url "https://ftp.gnu.org/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.xz"
-  mirror "https://ftpmirror.gnu.org/gcc/gcc-7.5.0/gcc-7.5.0.tar.xz"
-  sha256 "b81946e7f01f90528a1f7352ab08cc602b9ccc05d4e44da4bd501c5a189ee661"
+  url "https://ftp.gnu.org/gnu/gcc/gcc-14.2.0/gcc-14.2.0.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gcc/gcc-14.2.0/gcc-14.2.0.tar.xz"
+  sha256 "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9"
 
   bottle do
-    sha256 "b97ce2a43d3d6797d37a09f640e6b42585dfca298e38f83e580e3d67ab08b47e" => :tiger_altivec
+    sha256 "3fe35fc0c089cd1b15e48fa0ab9de4c32d6ea0e2219802316a0e09ffba71011a" => :tiger_altivec
   end
 
   option "with-nls", "Build with native language support (localization)"
-  option "with-jit", "Build just-in-time compiler"
   # enabling multilib on a host that can't run 64-bit results in build failures
   option "without-multilib", "Build without multilib support" if MacOS.prefer_64_bit?
+  # JIT fails to build on i386, or any platform for Tiger
+  if !(Hardware::CPU.type == :intel && !MacOS.prefer_64_bit?) || MacOS.version > :leopard
+    option "with-jit", "Build just-in-time compiler"
+  end
 
+  # System texinfo is too old
+  depends_on "texinfo" => :build
   depends_on "gmp"
   depends_on "libmpc"
   depends_on "mpfr"
   depends_on "isl"
+  # System zlib is missing crc32_combine on Tiger
+  depends_on "zlib"
 
   if MacOS.version < :leopard
     # The as that comes with Tiger isn't capable of dealing with the
     # PPC asm that comes in libitm
-    depends_on "cctools" => :build
+    depends_on "cctools"
+    # GCC invokes ld with flags the system ld doesn't have
+    depends_on "ld64"
   end
 
-  # Bug 21514 - [DR 488] templates and anonymous enum - fixed in 4.0.2
-  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=21514
+  # Needs a newer tigerbrew-provided GCC to build
   fails_with :gcc_4_0
+  fails_with :gcc
   fails_with :llvm
 
   # GCC bootstraps itself, so it is OK to have an incompatible C++ stdlib
   cxxstdlib_check :skip
+
+  # Applied upstream: https://github.com/gcc-mirror/gcc/commit/1cfe4a4d0d4447b364815d5e5c889deb2e533669
+  # Can remove in a later version.
+  patch :p0 do
+    url "https://github.com/macports/macports-ports/raw/b5a5b6679f59dcad1b21f66bb01e3f8a3a377b4b/lang/gcc14/files/darwin-ppc-fpu.patch"
+    sha256 "7f14356f2e9efdf46503ca1156302c9b294db52569f4d56073267142b6d2ee71"
+  end
+
+  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=117834
+  patch :p0 do
+    url "https://github.com/macports/macports-ports/raw/b5a5b6679f59dcad1b21f66bb01e3f8a3a377b4b/lang/gcc14/files/darwin8-define-PTHREAD_RWLOCK_INITIALIZER.patch"
+    sha256 "57ffac38f4d5eb4d92634d9e7c339f961e3eb908d13a944d622bfc6915a4f435"
+  end
 
   # The bottles are built on systems with the CLT installed, and do not work
   # out of the box on Xcode-only systems due to an incorrect sysroot.
@@ -60,37 +82,22 @@ class Gcc < Formula
   end
 
   def version_suffix
-    version.to_s.slice(/\d/)
-  end
-
-  # Fix for libgccjit.so linkage on Darwin
-  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64089
-  patch :DATA
-
-  # Fix an Intel-only build failure on 10.4
-  # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64184
-  patch do
-    url "https://gist.githubusercontent.com/mistydemeo/9c5b8dadd892ba3197a9cb431295cc83/raw/582d1ba135511272f7262f51a3f83c9099cd891d/sysdep-unix-tiger-intel.patch"
-    sha256 "17afaf7daec1dd207cb8d06a7e026332637b11e83c3ad552b4cd32827f16c1d8"
+    version.to_s.slice(/\d\d/)
   end
 
   def install
-    # GCC will suffer build errors if forced to use a particular linker.
-    ENV.delete "LD"
-    # GCC Bug 25127
+    # GCC Bug 25127 for PowerPC
     # https://gcc.gnu.org/bugzilla//show_bug.cgi?id=25127
     # ../../../libgcc/unwind.inc: In function '_Unwind_RaiseException':
     # ../../../libgcc/unwind.inc:136:1: internal compiler error: in rs6000_emit_prologue, at config/rs6000/rs6000.c:26535
-    ENV.no_optimization if Hardware::CPU.type == :ppc
+    # GCC 7 fails to install on 10.6 x86_64 at stage3
+    # https://github.com/mistydemeo/tigerbrew/issues/554
+    ENV.no_optimization
 
     # Otherwise libstdc++ will be incorrectly tagged with cpusubtype 10 (G4e)
     # https://github.com/mistydemeo/tigerbrew/issues/538
     if Hardware::CPU.family == :g3 || ARGV.bottle_arch == :g3
       ENV.append_to_cflags "-force_cpusubtype_ALL"
-    end
-
-    if MacOS.version < :leopard
-      ENV["AS"] = ENV["AS_FOR_TARGET"] = "#{Formula["cctools"].bin}/as"
     end
 
     # We avoiding building:
@@ -137,9 +144,38 @@ class Gcc < Formula
 
     args << "--enable-host-shared" if build.with?("jit")
 
-    # Ensure correct install names when linking against libgcc_s;
-    # see discussion in https://github.com/Homebrew/homebrew/pull/34303
-    inreplace "libgcc/config/t-slibgcc-darwin", "@shlib_slibdir@", "#{HOMEBREW_PREFIX}/lib/gcc/#{version_suffix}"
+    # These two flags are required for zlib to be found in the last stage
+    inreplace "gcc/Makefile.in" do |s|
+      s.change_make_var! "ZLIB", "-L#{Formula["zlib"].opt_lib} -lz"
+      s.change_make_var! "ZLIBINC", "-I#{Formula["zlib"].opt_include}"
+    end
+
+    if MacOS.version < :leopard
+      # We need to use a newer as to build, but we also want the compiler
+      # to use it at runtime
+      ENV["AS"] = ENV["AS_FOR_TARGET"] = "#{Formula["cctools"].bin}/as"
+      # Following Macports on which tools to specify both in the environment
+      # and as configure args
+      args << "--with-as=#{Formula["cctools"].bin}/as"
+      # We'll also configure the compiler to use the rest of the newer cctools
+      ENV["AR_FOR_TARGET"] = "#{Formula["cctools"].bin}/ar"
+      args << "--with-ar=#{Formula["cctools"].bin}/ar"
+      ENV["NM_FOR_TARGET"] = "#{Formula["cctools"].bin}/nm"
+      ENV["RANLIB_FOR_TARGET"] = "#{Formula["cctools"].bin}/ranlib"
+      ENV["STRIP_FOR_TARGET"] = "#{Formula["cctools"].bin}/strip"
+
+      # We need ld both for the build and for the end result compiler to use
+      # Note that unlike the above, which are more nice-to-haves, gcc-14
+      # will actually fail to use the system ld on Tiger.
+      ENV.ld64
+      ENV["LD_FOR_TARGET"] = ENV["LD"]
+      args << "--with-ld=#{ENV["LD"]}"
+
+      # Avoids the need for the ttyname_r patch
+      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=117857
+      # https://github.com/mistydemeo/tigerbrew/pull/1286#issuecomment-2664224824
+      ENV.append_to_cflags "-D__DARWIN_UNIX03"
+    end
 
     mkdir "build" do
       unless MacOS::CLT.installed?
@@ -221,37 +257,3 @@ class Gcc < Formula
     assert_equal "Done\n", `./test`
   end
 end
-__END__
-diff --git a/gcc/jit/Make-lang.in b/gcc/jit/Make-lang.in
-index 44d0750..4df2a9c 100644
---- a/gcc/jit/Make-lang.in
-+++ b/gcc/jit/Make-lang.in
-@@ -85,8 +85,7 @@ $(LIBGCCJIT_FILENAME): $(jit_OBJS) \
-	     $(jit_OBJS) libbackend.a libcommon-target.a libcommon.a \
-	     $(CPPLIB) $(LIBDECNUMBER) $(LIBS) $(BACKENDLIBS) \
-	     $(EXTRA_GCC_OBJS) \
--	     -Wl,--version-script=$(srcdir)/jit/libgccjit.map \
--	     -Wl,-soname,$(LIBGCCJIT_SONAME)
-+	     -Wl,-install_name,$(LIBGCCJIT_SONAME)
-
- $(LIBGCCJIT_SONAME_SYMLINK): $(LIBGCCJIT_FILENAME)
-	ln -sf $(LIBGCCJIT_FILENAME) $(LIBGCCJIT_SONAME_SYMLINK)
-diff --git a/gcc/jit/jit-playback.c b/gcc/jit/jit-playback.c
-index 925fa86..01cfd4b 100644
---- a/gcc/jit/jit-playback.c
-+++ b/gcc/jit/jit-playback.c
-@@ -2416,6 +2416,15 @@ invoke_driver (const char *ctxt_progname,
-      time.  */
-   ADD_ARG ("-fno-use-linker-plugin");
-
-+#if defined (DARWIN_X86) || defined (DARWIN_PPC)
-+  /* OS X's linker defaults to treating undefined symbols as errors.
-+     If the context has any imported functions or globals they will be
-+     undefined until the .so is dynamically-linked into the process.
-+     Ensure that the driver passes in "-undefined dynamic_lookup" to the
-+     linker.  */
-+  ADD_ARG ("-Wl,-undefined,dynamic_lookup");
-+#endif
-+
-   /* pex argv arrays are NULL-terminated.  */
-   argvec.safe_push (NULL);

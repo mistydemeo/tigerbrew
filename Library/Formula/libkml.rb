@@ -3,7 +3,7 @@ class Libkml < Formula
   homepage "https://code.google.com/p/libkml/"
 
   stable do
-    url "https://libkml.googlecode.com/files/libkml-1.2.0.tar.gz"
+  url "https://web.archive.org/web/20160316033814/https://libkml.googlecode.com/files/libkml-1.2.0.tar.gz"
     sha256 "fae9085e4cd9f0d4ae0d0626be7acf4ad5cbb37991b9d886df29daf72df37cbc"
 
     # Correct an issue where internal third-party libs (libminizip and liburiparser)

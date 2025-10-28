@@ -1,64 +1,52 @@
 class Gnupg2 < Formula
   desc "GNU Privacy Guard: a free PGP replacement"
   homepage "https://www.gnupg.org/"
-  url "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.0.29.tar.bz2"
-  mirror "ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-2.0.29.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnupg/gnupg-2.0.29.tar.bz2"
-  sha256 "68ed6b386ba78425b05a60e8ee22785ff0fef190bdc6f1c612f19a58819d4ac9"
+  url "https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.4.7.tar.bz2"
+  mirror "ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-2.4.7.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnupg/gnupg-2.4.7.tar.bz2"
+  sha256 "7b24706e4da7e0e3b06ca068231027401f238102c41c909631349dcc3b85eb46"
+  license "GPL-3.0-or-later"
 
   bottle do
-    sha256 "76d5ab157d1ee5dc047b972ae8082fcc21981d2bc2e0ba2c888a65f9bd384da3" => :el_capitan
-    sha256 "506b7545cfd1ed03df482c3e8d8e3ad496401e92a8cdadd4c46a29954c2708ab" => :yosemite
-    sha256 "d3163fd4191af0de8431bfa0a2ff0789d86a1e55b3e5b8c6742704a3acd8bb44" => :mavericks
-    sha256 "fe5fb8a7c9f335dd674a238b0f988efae71aa1cd2fc9e1e2b12a644f3366d954" => :mountain_lion
   end
 
-  # /usr/bin/ld: multiple definitions of symbol _memrchr
-  # https://github.com/mistydemeo/tigerbrew/issues/107
-  depends_on :ld64
+  option "with-tests", "Build and run the test suite"
+
+  # Unbreak --enable-gpg-is-gpg2
+  # https://lists.gnupg.org/pipermail/gnupg-devel/2024-November/035673.html
+  patch :DATA
+
+  depends_on "pkg-config" => :build
   depends_on "libgpg-error"
   depends_on "libgcrypt"
   depends_on "libksba"
   depends_on "libassuan"
   depends_on "pinentry"
-  depends_on "pth"
-  depends_on "gpg-agent"
-  depends_on "curl" if MacOS.version <= :mavericks
-  depends_on "dirmngr" => :recommended
+  depends_on "npth"
   depends_on "libusb-compat" => :recommended
-  depends_on "readline" => :optional
+  depends_on "readline" => :recommended
+  depends_on "bzip2"
+  depends_on "gettext"
+  depends_on "libiconv"
+  depends_on "sqlite"
+  depends_on "zlib"
+
+  # https://github.com/mistydemeo/tigerbrew/pull/1216#issuecomment-2664287991
+  fails_with :gcc_4_0
+  fails_with :gcc
+  fails_with :llvm
 
   def install
-    # Adjust package name to fit our scheme of packaging both gnupg 1.x and
-    # 2.x, and gpg-agent separately, and adjust tests to fit this scheme
-    inreplace "configure" do |s|
-      s.gsub! "PACKAGE_NAME='gnupg'", "PACKAGE_NAME='gnupg2'"
-      s.gsub! "PACKAGE_TARNAME='gnupg'", "PACKAGE_TARNAME='gnupg2'"
-    end
-    inreplace "tests/openpgp/Makefile.in" do |s|
-      s.gsub! "required_pgms = ../../g10/gpg2 ../../agent/gpg-agent",
-              "required_pgms = ../../g10/gpg2"
-      s.gsub! "../../agent/gpg-agent --quiet --daemon sh",
-              "gpg-agent --quiet --daemon sh"
-    end
-    inreplace "tools/gpgkey2ssh.c", "gpg --list-keys", "gpg2 --list-keys"
-
-    (var/"run").mkpath
-
-    ENV.append "LDFLAGS", "-lresolv"
-
-    ENV["gl_cv_absolute_stdint_h"] = "#{MacOS.sdk_path}/usr/include/stdint.h"
-
-    agent = Formula["gpg-agent"].opt_prefix
+    # sysutils.c:1201: error: void value not ignored as it ought to be
+    ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version == :tiger
 
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
       --sbindir=#{bin}
-      --enable-symcryptrun
-      --disable-agent
-      --with-agent-pgm=#{agent}/bin/gpg-agent
-      --with-protect-tool-pgm=#{agent}/libexec/gpg-protect-tool
+      --with-pinentry-pgm=#{Formula["pinentry"].opt_bin}/pinentry
+      --disable-ldap
+      --enable-gpg-is-gpg2
     ]
 
     if build.with? "readline"
@@ -67,15 +55,401 @@ class Gnupg2 < Formula
 
     system "./configure", *args
     system "make"
-    system "make", "check"
+    # gpg2 doesn't exist in the build env, gpgconf is queried when running the openpgp test suite
+    # which returns gpg2 and things break there.
+    buildpath.install_symlink "bin/gpg" => "bin/gpg2"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
 
-    # Conflicts with a manpage from the 1.x formula, and
-    # gpg-zip isn't installed by this formula anyway
-    rm_f man1/"gpg-zip.1"
+    # Configure scdaemon as recommended by upstream developers
+    # https://dev.gnupg.org/T5415#145864
+    # write to buildpath then install to ensure existing files are not clobbered
+    (buildpath/"scdaemon.conf").write <<~CONF
+      disable-ccid
+    CONF
+    etc.install "scdaemon.conf"
+  end
+
+  def post_install
+    (var/"run").mkpath
+    quiet_system "killall", "gpg-agent"
   end
 
   test do
-    system "#{bin}/gpgconf"
+    (testpath/"batch.gpg").write <<~GPG
+      Key-Type: RSA
+      Key-Length: 2048
+      Subkey-Type: RSA
+      Subkey-Length: 2048
+      Name-Real: Testing
+      Name-Email: testing@foo.bar
+      Expire-Date: 1d
+      %no-protection
+      %commit
+    GPG
+
+    begin
+      system bin/"gpg2", "--batch", "--gen-key", "batch.gpg"
+      (testpath/"test.txt").write "Hello World!"
+      system bin/"gpg2", "--detach-sign", "test.txt"
+      system bin/"gpg2", "--verify", "test.txt.sig"
+    ensure
+      system bin/"gpgconf", "--kill", "gpg-agent"
+    end
   end
 end
+__END__
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -79,14 +79,13 @@ YAT2M_OPTIONS = -I $(srcdir) \
+ myman_sources = gnupg7.texi gpg.texi gpgsm.texi gpg-agent.texi \
+ 	        dirmngr.texi scdaemon.texi tools.texi wks.texi \
+                 gpg-card.texi
+-myman_pages   = gpg.1 gpgv.1 gpgsm.1 gpg-agent.1 dirmngr.8 scdaemon.1 \
++myman_pages   = gpgsm.1 gpg-agent.1 dirmngr.8 scdaemon.1 \
+                 watchgnupg.1 gpgconf.1 addgnupghome.8 gpg-preset-passphrase.1 \
+ 		gpg-connect-agent.1 gpgparsemail.1 gpgtar.1 gpg-mail-tube.1 \
+ 		applygnupgdefaults.8 gpg-wks-client.1 gpg-wks-server.1 \
+ 		dirmngr-client.1 gpg-card.1 gpg-check-pattern.1
+ myhtmlman_pages = \
+-                gpg.1.html gpgv.1.html gpgsm.1.html \
+-                gpg-agent.1.html dirmngr.8.html scdaemon.1.html \
++                gpgsm.1.html gpg-agent.1.html dirmngr.8.html scdaemon.1.html \
+                 watchgnupg.1.html gpgconf.1.html addgnupghome.8.html \
+                 gpg-preset-passphrase.1.html \
+ 		gpg-connect-agent.1.html gpgparsemail.1.html \
+@@ -95,7 +94,15 @@ myhtmlman_pages = \
+                 gpg-wks-server.1.html \
+ 		dirmngr-client.1.html gpg-card.1.html gpg-check-pattern.1.html
+ 
+-man_MANS = $(myman_pages) gnupg.7 gnupg.7.html
++if USE_GPG2_HACK
++myman_pages += gpg2.1 gpgv2.1
++myhtmlman_pages += gpg2.1.html gpgv2.1.html
++else
++myman_pages += gpg.1 gpgv.1
++myhtmlman_pages += gpg.1.html gpgv.1.html
++endif
++
++man_MANS = $(myman_pages) gnupg.7
+ 
+ watchgnupg_SOURCE = gnupg.texi
+ 
+
+--- a/doc/Makefile.in.orig	2025-02-12 20:33:49.000000000 +0000
++++ b/doc/Makefile.in	2025-02-12 20:37:22.000000000 +0000
+@@ -1,7 +1,7 @@
+-# Makefile.in generated by automake 1.16.3 from Makefile.am.
++# Makefile.in generated by automake 1.17 from Makefile.am.
+ # @configure_input@
+ 
+-# Copyright (C) 1994-2020 Free Software Foundation, Inc.
++# Copyright (C) 1994-2024 Free Software Foundation, Inc.
+ 
+ # This Makefile.in is free software; the Free Software Foundation
+ # gives unlimited permission to copy and/or distribute it,
+@@ -105,6 +105,8 @@
+   test $$has_opt = yes
+ am__make_dryrun = (target_option=n; $(am__make_running_with_option))
+ am__make_keepgoing = (target_option=k; $(am__make_running_with_option))
++am__rm_f = rm -f $(am__rm_f_notfound)
++am__rm_rf = rm -rf $(am__rm_f_notfound)
+ pkgdatadir = $(datadir)/@PACKAGE@
+ pkgincludedir = $(includedir)/@PACKAGE@
+ pkglibdir = $(libdir)/@PACKAGE@
+@@ -141,6 +143,10 @@
+ @GNUPG_DIRMNGR_PGM_TRUE@am__append_6 = -DGNUPG_DEFAULT_DIRMNGR="\"@GNUPG_DIRMNGR_PGM@\""
+ @GNUPG_PROTECT_TOOL_PGM_TRUE@am__append_7 = -DGNUPG_DEFAULT_PROTECT_TOOL="\"@GNUPG_PROTECT_TOOL_PGM@\""
+ @GNUPG_DIRMNGR_LDAP_PGM_TRUE@am__append_8 = -DGNUPG_DEFAULT_DIRMNGR_LDAP="\"@GNUPG_DIRMNGR_LDAP_PGM@\""
++@USE_GPG2_HACK_TRUE@am__append_9 = gpg2.1 gpgv2.1
++@USE_GPG2_HACK_TRUE@am__append_10 = gpg2.1.html gpgv2.1.html
++@USE_GPG2_HACK_FALSE@am__append_11 = gpg.1 gpgv.1
++@USE_GPG2_HACK_FALSE@am__append_12 = gpg.1.html gpgv.1.html
+ subdir = doc
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+ am__aclocal_m4_deps = $(top_srcdir)/m4/autobuild.m4 \
+@@ -224,8 +230,7 @@
+   esac
+ am__installdirs = "$(DESTDIR)$(infodir)" "$(DESTDIR)$(man1dir)" \
+ 	"$(DESTDIR)$(man7dir)" "$(DESTDIR)$(man8dir)" \
+-	"$(DESTDIR)$(manhdir)" "$(DESTDIR)$(pkgdatadir)" \
+-	"$(DESTDIR)$(docdir)"
++	"$(DESTDIR)$(pkgdatadir)" "$(DESTDIR)$(docdir)"
+ am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+ am__vpath_adj = case $$p in \
+     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+@@ -248,15 +253,13 @@
+   sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
+   sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
+ am__uninstall_files_from_dir = { \
+-  test -z "$$files" \
+-    || { test ! -d "$$dir" && test ! -f "$$dir" && test ! -r "$$dir"; } \
+-    || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
+-         $(am__cd) "$$dir" && rm -f $$files; }; \
++  { test ! -d "$$dir" && test ! -f "$$dir" && test ! -r "$$dir"; } \
++  || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
++       $(am__cd) "$$dir" && echo $$files | $(am__xargs_n) 40 $(am__rm_f); }; \
+   }
+ man1dir = $(mandir)/man1
+ man7dir = $(mandir)/man7
+ man8dir = $(mandir)/man8
+-manhdir = $(mandir)/manh
+ NROFF = nroff
+ MANS = $(man_MANS)
+ DATA = $(dist_pkgdata_DATA) $(nobase_dist_doc_DATA)
+@@ -287,6 +290,8 @@
+ CFLAGS = @CFLAGS@
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
++CSCOPE = @CSCOPE@
++CTAGS = @CTAGS@
+ CYGPATH_W = @CYGPATH_W@
+ DEFS = @DEFS@
+ DEPDIR = @DEPDIR@
+@@ -295,8 +300,8 @@
+ ECHO_C = @ECHO_C@
+ ECHO_N = @ECHO_N@
+ ECHO_T = @ECHO_T@
+-EGREP = @EGREP@
+ ENCFS = @ENCFS@
++ETAGS = @ETAGS@
+ EXEEXT = @EXEEXT@
+ FUSERMOUNT = @FUSERMOUNT@
+ GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
+@@ -317,7 +322,6 @@
+ GPG_ERROR_LIBS = @GPG_ERROR_LIBS@
+ GPG_ERROR_MT_CFLAGS = @GPG_ERROR_MT_CFLAGS@
+ GPG_ERROR_MT_LIBS = @GPG_ERROR_MT_LIBS@
+-GREP = @GREP@
+ HAVE_LIBTSS = @HAVE_LIBTSS@
+ INSTALL = @INSTALL@
+ INSTALL_DATA = @INSTALL_DATA@
+@@ -413,8 +417,10 @@
+ am__include = @am__include@
+ am__leading_dot = @am__leading_dot@
+ am__quote = @am__quote@
++am__rm_f_notfound = @am__rm_f_notfound@
+ am__tar = @am__tar@
+ am__untar = @am__untar@
++am__xargs_n = @am__xargs_n@
+ bindir = @bindir@
+ build = @build@
+ build_alias = @build_alias@
+@@ -521,24 +527,21 @@
+ 	        dirmngr.texi scdaemon.texi tools.texi wks.texi \
+                 gpg-card.texi
+ 
+-myman_pages = gpg.1 gpgv.1 gpgsm.1 gpg-agent.1 dirmngr.8 scdaemon.1 \
+-                watchgnupg.1 gpgconf.1 addgnupghome.8 gpg-preset-passphrase.1 \
+-		gpg-connect-agent.1 gpgparsemail.1 gpgtar.1 gpg-mail-tube.1 \
+-		applygnupgdefaults.8 gpg-wks-client.1 gpg-wks-server.1 \
+-		dirmngr-client.1 gpg-card.1 gpg-check-pattern.1
+-
+-myhtmlman_pages = \
+-                gpg.1.html gpgv.1.html gpgsm.1.html \
+-                gpg-agent.1.html dirmngr.8.html scdaemon.1.html \
+-                watchgnupg.1.html gpgconf.1.html addgnupghome.8.html \
+-                gpg-preset-passphrase.1.html \
+-		gpg-connect-agent.1.html gpgparsemail.1.html \
+-                gpgtar.1.html gpg-mail-tube.1.html \
+-		applygnupgdefaults.8.html gpg-wks-client.1.html \
+-                gpg-wks-server.1.html \
+-		dirmngr-client.1.html gpg-card.1.html gpg-check-pattern.1.html
+-
+-man_MANS = $(myman_pages) gnupg.7 gnupg.7.html
++myman_pages = gpgsm.1 gpg-agent.1 dirmngr.8 scdaemon.1 watchgnupg.1 \
++	gpgconf.1 addgnupghome.8 gpg-preset-passphrase.1 \
++	gpg-connect-agent.1 gpgparsemail.1 gpgtar.1 gpg-mail-tube.1 \
++	applygnupgdefaults.8 gpg-wks-client.1 gpg-wks-server.1 \
++	dirmngr-client.1 gpg-card.1 gpg-check-pattern.1 \
++	$(am__append_9) $(am__append_11)
++myhtmlman_pages = gpgsm.1.html gpg-agent.1.html dirmngr.8.html \
++	scdaemon.1.html watchgnupg.1.html gpgconf.1.html \
++	addgnupghome.8.html gpg-preset-passphrase.1.html \
++	gpg-connect-agent.1.html gpgparsemail.1.html gpgtar.1.html \
++	gpg-mail-tube.1.html applygnupgdefaults.8.html \
++	gpg-wks-client.1.html gpg-wks-server.1.html \
++	dirmngr-client.1.html gpg-card.1.html gpg-check-pattern.1.html \
++	$(am__append_10) $(am__append_12)
++man_MANS = $(myman_pages) gnupg.7
+ watchgnupg_SOURCE = gnupg.texi
+ CLEANFILES = yat2m mkdefsinc defs.inc
+ DISTCLEANFILES = gnupg.tmp gnupg.ops yat2m-stamp.tmp yat2m-stamp \
+@@ -605,13 +608,13 @@
+ .texi.dvi:
+ 	$(AM_V_TEXI2DVI)TEXINPUTS="$(am__TEXINFO_TEX_DIR)$(PATH_SEPARATOR)$$TEXINPUTS" \
+ 	MAKEINFO='$(MAKEINFO) $(AM_MAKEINFOFLAGS) $(MAKEINFOFLAGS) -I $(srcdir)' \
+-	$(TEXI2DVI) $(AM_V_texinfo) --build-dir=$(@:.dvi=.t2d) -o $@ $(AM_V_texidevnull) \
++	$(TEXI2DVI) $(AM_TEXI2FLAGS) -I $(srcdir) $(AM_V_texinfo) --build-dir=$(@:.dvi=.t2d) -o $@ $(AM_V_texidevnull) \
+ 	$<
+ 
+ .texi.pdf:
+ 	$(AM_V_TEXI2PDF)TEXINPUTS="$(am__TEXINFO_TEX_DIR)$(PATH_SEPARATOR)$$TEXINPUTS" \
+ 	MAKEINFO='$(MAKEINFO) $(AM_MAKEINFOFLAGS) $(MAKEINFOFLAGS) -I $(srcdir)' \
+-	$(TEXI2PDF) $(AM_V_texinfo) --build-dir=$(@:.pdf=.t2p) -o $@ $(AM_V_texidevnull) \
++	$(TEXI2PDF) $(AM_TEXI2FLAGS) -I $(srcdir) $(AM_V_texinfo) --build-dir=$(@:.pdf=.t2p) -o $@ $(AM_V_texidevnull) \
+ 	$<
+ 
+ .texi.html:
+@@ -708,11 +711,10 @@
+ 	done
+ 
+ mostlyclean-aminfo:
+-	-rm -rf gnupg.t2d gnupg.t2p
++	-$(am__rm_rf) gnupg.t2d gnupg.t2p
+ 
+ clean-aminfo:
+-	-test -z "gnupg.dvi gnupg.pdf gnupg.ps gnupg.html" \
+-	|| rm -rf gnupg.dvi gnupg.pdf gnupg.ps gnupg.html
++	-$(am__rm_rf) gnupg.dvi gnupg.pdf gnupg.ps gnupg.html
+ 
+ maintainer-clean-aminfo:
+ 	@list='$(INFO_DEPS)'; for i in $$list; do \
+@@ -849,49 +851,6 @@
+ 	} | sed -e 's,.*/,,;h;s,.*\.,,;s,^[^8][0-9a-z]*$$,8,;x' \
+ 	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,'`; \
+ 	dir='$(DESTDIR)$(man8dir)'; $(am__uninstall_files_from_dir)
+-install-manh: $(man_MANS)
+-	@$(NORMAL_INSTALL)
+-	@list1=''; \
+-	list2='$(man_MANS)'; \
+-	test -n "$(manhdir)" \
+-	  && test -n "`echo $$list1$$list2`" \
+-	  || exit 0; \
+-	echo " $(MKDIR_P) '$(DESTDIR)$(manhdir)'"; \
+-	$(MKDIR_P) "$(DESTDIR)$(manhdir)" || exit 1; \
+-	{ for i in $$list1; do echo "$$i"; done;  \
+-	if test -n "$$list2"; then \
+-	  for i in $$list2; do echo "$$i"; done \
+-	    | sed -n '/\.h[a-z]*$$/p'; \
+-	fi; \
+-	} | while read p; do \
+-	  if test -f $$p; then d=; else d="$(srcdir)/"; fi; \
+-	  echo "$$d$$p"; echo "$$p"; \
+-	done | \
+-	sed -e 'n;s,.*/,,;p;h;s,.*\.,,;s,^[^h][0-9a-z]*$$,h,;x' \
+-	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,' | \
+-	sed 'N;N;s,\n, ,g' | { \
+-	list=; while read file base inst; do \
+-	  if test "$$base" = "$$inst"; then list="$$list $$file"; else \
+-	    echo " $(INSTALL_DATA) '$$file' '$(DESTDIR)$(manhdir)/$$inst'"; \
+-	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(manhdir)/$$inst" || exit $$?; \
+-	  fi; \
+-	done; \
+-	for i in $$list; do echo "$$i"; done | $(am__base_list) | \
+-	while read files; do \
+-	  test -z "$$files" || { \
+-	    echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(manhdir)'"; \
+-	    $(INSTALL_DATA) $$files "$(DESTDIR)$(manhdir)" || exit $$?; }; \
+-	done; }
+-
+-uninstall-manh:
+-	@$(NORMAL_UNINSTALL)
+-	@list=''; test -n "$(manhdir)" || exit 0; \
+-	files=`{ for i in $$list; do echo "$$i"; done; \
+-	l2='$(man_MANS)'; for i in $$l2; do echo "$$i"; done | \
+-	  sed -n '/\.h[a-z]*$$/p'; \
+-	} | sed -e 's,.*/,,;h;s,.*\.,,;s,^[^h][0-9a-z]*$$,h,;x' \
+-	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,'`; \
+-	dir='$(DESTDIR)$(manhdir)'; $(am__uninstall_files_from_dir)
+ install-dist_pkgdataDATA: $(dist_pkgdata_DATA)
+ 	@$(NORMAL_INSTALL)
+ 	@list='$(dist_pkgdata_DATA)'; test -n "$(pkgdatadir)" || list=; \
+@@ -943,7 +902,6 @@
+ 
+ cscope cscopelist:
+ 
+-
+ distdir: $(BUILT_SOURCES)
+ 	$(MAKE) $(AM_MAKEFLAGS) distdir-am
+ 
+@@ -985,7 +943,7 @@
+ 	$(MAKE) $(AM_MAKEFLAGS) check-am
+ all-am: Makefile $(INFO_DEPS) $(MANS) $(DATA)
+ installdirs:
+-	for dir in "$(DESTDIR)$(infodir)" "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(man7dir)" "$(DESTDIR)$(man8dir)" "$(DESTDIR)$(manhdir)" "$(DESTDIR)$(pkgdatadir)" "$(DESTDIR)$(docdir)"; do \
++	for dir in "$(DESTDIR)$(infodir)" "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(man7dir)" "$(DESTDIR)$(man8dir)" "$(DESTDIR)$(pkgdatadir)" "$(DESTDIR)$(docdir)"; do \
+ 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
+ 	done
+ install: $(BUILT_SOURCES)
+@@ -1012,17 +970,17 @@
+ mostlyclean-generic:
+ 
+ clean-generic:
+-	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
++	-$(am__rm_f) $(CLEANFILES)
+ 
+ distclean-generic:
+-	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+-	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+-	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
++	-$(am__rm_f) $(CONFIG_CLEAN_FILES)
++	-test . = "$(srcdir)" || $(am__rm_f) $(CONFIG_CLEAN_VPATH_FILES)
++	-$(am__rm_f) $(DISTCLEANFILES)
+ 
+ maintainer-clean-generic:
+ 	@echo "This command is intended for maintainers to use"
+ 	@echo "it deletes files that may require special tools to rebuild."
+-	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
++	-$(am__rm_f) $(BUILT_SOURCES)
+ clean: clean-am
+ 
+ clean-am: clean-aminfo clean-generic mostlyclean-am
+@@ -1127,7 +1085,7 @@
+ 	    install-info --info-dir="$(DESTDIR)$(infodir)" "$(DESTDIR)$(infodir)/$$relfile" || :;\
+ 	  done; \
+ 	else : ; fi
+-install-man: install-man1 install-man7 install-man8 install-manh
++install-man: install-man1 install-man7 install-man8
+ 
+ install-pdf: install-pdf-am
+ 
+@@ -1184,8 +1142,7 @@
+ 	uninstall-html-am uninstall-info-am uninstall-man \
+ 	uninstall-nobase_dist_docDATA uninstall-pdf-am uninstall-ps-am
+ 
+-uninstall-man: uninstall-man1 uninstall-man7 uninstall-man8 \
+-	uninstall-manh
++uninstall-man: uninstall-man1 uninstall-man7 uninstall-man8
+ 
+ .MAKE: all check install install-am install-exec install-strip
+ 
+@@ -1196,17 +1153,16 @@
+ 	install-dist_pkgdataDATA install-dvi install-dvi-am \
+ 	install-exec install-exec-am install-html install-html-am \
+ 	install-info install-info-am install-man install-man1 \
+-	install-man7 install-man8 install-manh \
+-	install-nobase_dist_docDATA install-pdf install-pdf-am \
+-	install-ps install-ps-am install-strip installcheck \
+-	installcheck-am installdirs maintainer-clean \
+-	maintainer-clean-aminfo maintainer-clean-generic mostlyclean \
+-	mostlyclean-aminfo mostlyclean-generic pdf pdf-am ps ps-am \
+-	tags-am uninstall uninstall-am uninstall-dist_pkgdataDATA \
+-	uninstall-dvi-am uninstall-html-am uninstall-info-am \
+-	uninstall-man uninstall-man1 uninstall-man7 uninstall-man8 \
+-	uninstall-manh uninstall-nobase_dist_docDATA uninstall-pdf-am \
+-	uninstall-ps-am
++	install-man7 install-man8 install-nobase_dist_docDATA \
++	install-pdf install-pdf-am install-ps install-ps-am \
++	install-strip installcheck installcheck-am installdirs \
++	maintainer-clean maintainer-clean-aminfo \
++	maintainer-clean-generic mostlyclean mostlyclean-aminfo \
++	mostlyclean-generic pdf pdf-am ps ps-am tags-am uninstall \
++	uninstall-am uninstall-dist_pkgdataDATA uninstall-dvi-am \
++	uninstall-html-am uninstall-info-am uninstall-man \
++	uninstall-man1 uninstall-man7 uninstall-man8 \
++	uninstall-nobase_dist_docDATA uninstall-pdf-am uninstall-ps-am
+ 
+ .PRECIOUS: Makefile
+ 
+@@ -1309,3 +1265,10 @@
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+ .NOEXPORT:
++
++# Tell GNU make to disable its built-in pattern rules.
++%:: %,v
++%:: RCS/%,v
++%:: RCS/%
++%:: s.%
++%:: SCCS/s.%

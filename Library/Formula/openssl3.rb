@@ -1,16 +1,18 @@
 class Openssl3 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-3.1.4.tar.gz"
-  mirror "https://www.mirrorservice.org/sites/ftp.openssl.org/source/openssl-3.1.4.tar.gz"
-  sha256 "840af5366ab9b522bde525826be3ef0fb0af81c6a9ebd84caa600fea1731eee3"
+  url "https://www.openssl.org/source/openssl-3.5.0.tar.gz"
+  mirror "https://github.com/openssl/openssl/releases/download/openssl-3.5.0/openssl-3.5.0.tar.gz"
+  sha256 "344d0a79f1a9b08029b0744e2cc401a43f9c90acd1044d09a530b4885a8e9fc0"
   license "Apache-2.0"
 
   bottle do
-    sha256 "f0dbfc6129c4ed9e94b19940052615049bcaebcea5e22d98a233eaeb2e153838" => :tiger_altivec
+    sha256 "838d8dd5f7cc4dc234e34de381f89e7738391c59ae14da3d44e5c3259204f890" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
+
+  option "with-tests", "Build and run the test suite"
 
   depends_on "curl-ca-bundle"
   depends_on "perl"
@@ -19,35 +21,55 @@ class Openssl3 < Formula
   # SSLv3 & zlib are off by default with 1.1.0 but this may not
   # be obvious to everyone, so explicitly state it for now to
   # help debug inevitable breakage.
+  # makedepend slows down the build considerably.
   def configure_args
     args = %W[
       --prefix=#{prefix}
       --openssldir=#{openssldir}
       --libdir=#{lib}
+      no-makedepend
       no-ssl3
       no-ssl3-method
       no-zlib
     ]
-    args << "no-asm" if MacOS.version == :tiger
+    # as(1) on Tiger/Intel does not support specifying an alignment value for .comm directive.
+    # .comm      _OPENSSL_ia32cap_P,16,2
+    # fails with "Rest of line ignored. 1st junk character valued 44 (,)."
+    args << "no-asm" if MacOS.version == :tiger && Hardware::CPU.intel?
     # No {get,make,set}context support before Leopard
     args << "no-async" if MacOS.version == :tiger
     if Hardware::CPU.ppc?
       args << "darwin-ppc-cc"
     elsif Hardware::CPU.intel?
-      args << (Hardware::CPU.is_64_bit? ? "darwin64-x86_64-cc" : "darwin-i386-cc")
+      args << (Hardware::CPU.is_64_bit? && MacOS.version > :leopard ? "darwin64-x86_64-cc" : "darwin-i386-cc")
     end
+    # 01-test_sanity.t fails test_sanity_sleep when on a G5, nanosleep(2) is the suspect.
+    # Switch to using usleep(3) as a workaround.
+    # https://github.com/openssl/openssl/issues/27317
+    args << "-DOPENSSL_USE_USLEEP" if MacOS.version == :leopard && Hardware::CPU.family == :g5
     args
   end
 
   def install
+    # The build itself tries to set optimisation flags between none & -O3 by default.
+    ENV.no_optimization
     # Build breaks passing -w
     ENV.enable_warnings if ENV.compiler == :gcc_4_0
 
     # Leopard and newer have the crypto framework
     ENV.append_to_cflags "-DOPENSSL_NO_APPLE_CRYPTO_RANDOM" if MacOS.version == :tiger
 
-    # This could interfere with how we expect OpenSSL to build.
-    ENV.delete("OPENSSL_LOCAL_CONFIG_DIR")
+    # Use timegm()
+    # crypto/asn1/a_time.c: In function 'ossl_asn1_string_to_time_t':
+    # crypto/asn1/a_time.c:659: error: invalid operands to binary -
+    # https://github.com/openssl/openssl/commit/0176fc78d090210cd7e231a7c2c4564464509506
+    ENV.append_to_cflags "-DUSE_TIMEGM" if MacOS.version == :tiger
+
+    # Match Tiger/PowerPC behaviour on Intel builds since toolchain is unable to cope
+    # ld: common symbols not allowed with MH_DYLIB output format with the -multi_module option
+    if Hardware::CPU.intel? && MacOS.version == :tiger
+      ENV.append_to_cflags "-fno-common"
+    end
 
     # This ensures where Homebrew's Perl is needed the Cellar path isn't
     # hardcoded into OpenSSL's scripts, causing them to break every Perl update.
@@ -57,8 +79,9 @@ class Openssl3 < Formula
     openssldir.mkpath
     system "perl", "./Configure", *(configure_args)
     system "make"
-    system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
-    system "make", "test"
+    # Save time by skipping on the full HTML documentation set using the install target & only install man pages.
+    system "make", "install_sw", "install_ssldirs", "install_man_docs", "MANDIR=#{man}", "MANSUFFIX=ssl"
+    system "make", "test" if build.with?("tests") || build.bottle?
   end
 
   def openssldir

@@ -1,12 +1,12 @@
 class Libgcrypt < Formula
   desc "Cryptographic library based on the code from GnuPG"
   homepage "https://gnupg.org/software/libgcrypt/"
-  url "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.10.3.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.10.3.tar.bz2"
-  sha256 "8b0870897ac5ac67ded568dcfadf45969cfa8a6beb0fd60af2a9eadc2a3272aa"
+  url "https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2"
+  sha256 "09120c9867ce7f2081d6aaa1775386b98c2f2f246135761aae47d81f58685b9c"
 
   bottle do
-    sha256 "abcc0e5925887190d6150f9d2f395f875c4f072484be1b4729bf9860e228188a" => :tiger_altivec
+    sha256 "0be1a5ea950a597a52158c45c2a5e36d07d2da56f863f5d2d89b2e7f7c1ecfc0" => :tiger_altivec
   end
 
   # Availability.h appeared in Leopard

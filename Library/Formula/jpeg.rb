@@ -1,11 +1,12 @@
 class Jpeg < Formula
   desc "JPEG image manipulation library"
   homepage "http://www.ijg.org"
-  url "http://www.ijg.org/files/jpegsrc.v9e.tar.gz"
-  sha256 "4077d6a6a75aeb01884f708919d25934c93305e49f7e3f36db9129320e6f4f3d"
+  url "http://www.ijg.org/files/jpegsrc.v9f.tar.gz"
+  sha256 "04705c110cb2469caa79fb71fba3d7bf834914706e9641a4589485c1f832565b"
 
   bottle do
-    sha256 "fa53681fb9e9c318b341868952b478627e09b422dd3a3ec471869d8af434c6f1" => :tiger_altivec
+    cellar :any
+    sha256 "5790906a1aeb4a3610ee3b1fdb9f04dd597b8964869e5cdca8f034f9fb3cffd4" => :tiger_altivec
   end
 
   option :universal

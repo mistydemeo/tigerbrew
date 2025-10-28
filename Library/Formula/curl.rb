@@ -1,12 +1,13 @@
 class Curl < Formula
   desc "Get a file from an HTTP, HTTPS or FTP server"
   homepage "https://curl.haxx.se/"
-  url "https://curl.se/download/curl-8.8.0.tar.xz"
-  sha256 "0f58bb95fc330c8a46eeb3df5701b0d90c9d9bfcc42bd1cd08791d12551d4400"
+  url "https://curl.se/download/curl-8.16.0.tar.bz2"
+  mirror "https://github.com/curl/curl/releases/download/curl-8_16_0/curl-8.16.0.tar.bz2"
+  sha256 "9459180ab4933b30d0778ddd71c91fe2911fab731c46e59b3f4c8385b1596c91"
+  license "curl"
 
   bottle do
     cellar :any
-    sha256 "d798c40a4bf32610d49cf5339bd60b9e40db82172bb7b6b895a7e2f1d8ca9807" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
@@ -31,6 +32,7 @@ class Curl < Formula
   depends_on "c-ares" => :optional
   depends_on "libressl" => :optional
   depends_on "libnghttp2"
+  depends_on "libpsl"
   depends_on "zlib"
 
   def install
@@ -64,10 +66,6 @@ class Curl < Formula
     else
       args << "--disable-ares"
     end
-
-    # Tiger/Leopard ship with a horrendously outdated set of certs,
-    # breaking any software that relies on curl, e.g. git
-    args << "--with-ca-bundle=#{HOMEBREW_PREFIX}/share/ca-bundle.crt"
 
     system "./configure", *args
     system "make", "install"
