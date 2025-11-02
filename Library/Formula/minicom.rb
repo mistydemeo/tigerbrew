@@ -1,10 +1,12 @@
 class Minicom < Formula
   desc "Menu-driven communications program"
   homepage "https://salsa.debian.org/minicom-team/minicom"
-  url "https://salsa.debian.org/minicom-team/minicom/-/archive/2.8/minicom-2.8.tar.bz2"
-  sha256 "38cea30913a20349326ff3f1763ee1512b7b41601c24f065f365e18e9db0beba"
+  url "https://salsa.debian.org/minicom-team/minicom/-/archive/2.10/minicom-2.10.tar.bz2"
+  sha256 "90e7ce2856b3eaaa3f452354d17981c49d32c426a255b6f0d3063a227c101538"
 
   # no-format-truncation showed up in GCC 7.x
+  # Revert to using strncpy(3), _Static_assert() is a C11 feature.
+  # https://salsa.debian.org/minicom-team/minicom/-/commit/01d1bfdd83e407042cc401ea4477a9e30adc830b
   patch :p0, :DATA
 
   def install
@@ -50,3 +52,29 @@ __END__
  fi
  
  # this is a hack, if we need getopt_long we also need getopt
+--- src/dial.c.orig	2025-11-02 18:28:07.000000000 +0000
++++ src/dial.c	2025-11-02 18:29:42.000000000 +0000
+@@ -754,9 +754,7 @@
+     return 1;
+ 
+   memcpy(d->username, v1.username, sizeof(v1) - offsetof(struct v1_dialent, username));
+-  _Static_assert(sizeof(d->name) >= sizeof(v1.name), "Size mismatch");
+-  v1.name[sizeof(v1.name) - 1] = 0;
+-  strcpy(d->name, v1.name);
++  strncpy(d->name, v1.name, sizeof(d->name));
+   d->name[sizeof(d->name) - 1] = '\0';
+   strncpy(d->number, v1.number, sizeof(d->number));
+   d->number[sizeof(d->number) - 1] = '\0';
+--- src/updown.c.orig	2025-11-02 18:28:17.000000000 +0000
++++ src/updown.c	2025-11-02 18:31:44.000000000 +0000
+@@ -384,8 +384,8 @@
+             trim (trimbuf, buf, sizeof(trimbuf));
+             do_log("%s", trimbuf);
+           } else if (!strncmp (buffirst, "Bytes", 5)) {
+-            _Static_assert(sizeof(xfrstr) >= sizeof(buf), "String sizes");
+-            strcpy(xfrstr, buf);
++            strncpy (xfrstr, buf, sizeof(xfrstr));
++            xfrstr[sizeof(xfrstr) - 1] = '\0';
+           }
+           buffirst[0] = 0;
+           trimbuf[0] = 0;
