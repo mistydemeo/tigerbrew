@@ -4,9 +4,9 @@ class Libusb < Formula
   url "https://github.com/libusb/libusb/releases/download/v1.0.23/libusb-1.0.23.tar.bz2"
   sha256 "db11c06e958a82dac52cf3c65cb4dd2c3f339c8a988665110e0d24d19312ad8d"
   license "LGPL-2.1-or-later"
+  revision 1
 
   bottle do
-    sha256 "73b540f092915bee23b2afd8735ccc94b3fa150efbcdd7921f7ef3d4da9984e1" => :tiger_altivec
   end
 
   # USB 3.0 support showed up in 10.8's IOKit
@@ -21,6 +21,10 @@ class Libusb < Formula
   end
 
   def install
+    # ld: common symbols not allowed with MH_DYLIB output format with the -multi_module option
+    # libusb-1.0.a(libusb_1_0_la-core.o) private external definition of common _active_contexts_list (size 8)
+    ENV.append_to_cflags "-fno-common"
+
     args = %W[--disable-dependency-tracking --prefix=#{prefix}]
 
     system "./autogen.sh" if build.head?
