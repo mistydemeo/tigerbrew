@@ -9,6 +9,7 @@ class Gawk < Formula
   end
 
   # spawn.h containing posix_spawnattr_* functions showed up in Leopard
+  # MAP_ANONYMOUS is not defined on Snow Leopard
   patch :p0, :DATA
 
   depends_on "mpfr"
@@ -41,3 +42,16 @@ __END__
  	// This code is for macos
  	if (persist_file != NULL) {
  		const char *cp = getenv("GAWK_PMA_REINCARNATION");
+--- support/pma.c.orig	2025-11-16 00:19:56.000000000 +0000
++++ support/pma.c	2025-11-16 00:21:10.000000000 +0000
+@@ -345,6 +345,10 @@
+ #define MAP_NORESERVE 0
+ #endif /* MAP_NORESERVE */
+ 
++#ifndef MAP_ANONYMOUS
++#define MAP_ANONYMOUS MAP_ANON
++#endif /* MAP_ANONYMOUS */
++
+ #define MMAP(N) mmap(NULL, (N), PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0)
+ #define MUNMAP(A, N) do { if (0 != munmap((A), (N))) { ERR("munmap()" ERN); SERN; } } while (0)
+ static void * addrgap(off_t n) {  // find big gap in address space to map n bytes
