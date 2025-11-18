@@ -47,9 +47,9 @@ to see what would be cleaned up:
 To uninstall Tigerbrew, paste the command below in a terminal prompt.
 
 ```bash
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/d8aeae7efb14ed9e4f7934b4782f04d5305562cc/install)"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/d8aeae7efb14ed9e4f7934b4782f04d5305562cc/uninstall)"
 ```
-Download the [uninstall script](https://raw.githubusercontent.com/Homebrew/install/d8aeae7efb14ed9e4f7934b4782f04d5305562cc/install)
+Download the [uninstall script](https://raw.githubusercontent.com/Homebrew/install/d8aeae7efb14ed9e4f7934b4782f04d5305562cc/uninstall)
 and run `./uninstall --help` to view more uninstall options.
 
 <a name="uninstall-package"></a>
