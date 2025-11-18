@@ -9,12 +9,15 @@ class Zstd < Formula
     "MIT", # lib/dictBuilder/divsufsort.c
   ]
 
+  # 4.0 doesn't support -Wvla -Wc++-compat
+  # 4.2 doesn't support -Wvla
+  fails_with :gcc
+
   depends_on "make" => :build
-  depends_on "gcc" => :build # only tested with gcc-14, doesn't build with gcc4
 
   def install
     system "gmake", "clean"
-    system "gmake", "CC=gcc-14", "CXX=g++-14", "BACKTRACE=0"
+    system "gmake", "BACKTRACE=0"
     system "gmake", "install", "PREFIX=#{prefix}"
   end
 end
