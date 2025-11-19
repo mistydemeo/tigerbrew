@@ -9,34 +9,26 @@ class Zstd < Formula
     "MIT", # lib/dictBuilder/divsufsort.c
   ]
 
-  # 4.0 doesn't support -Wvla -Wc++-compat
-  # these are just enable diagnostic messages
-  # so remove them
+  # GCC 4.0 doesn't support -Wvla -Wc++-compat warnings
+  # -compatibility_version only allowed with -dynamiclib
+  # ld: common symbols not allowed with MH_DYLIB output format with the -multi_module option
   patch :p1, :DATA
 
   depends_on "make" => :build
-  depends_on "cctools" => :build
+  depends_on "lz4"
+  depends_on "xz"
+  depends_on "zlib"
 
   def install
-    ENV["AS"] = Formula["cctools"].bin/"as"
-    system "gmake", "BACKTRACE=0"
+    # libtool: unknown option character `w' in: -w
+    ENV.enable_warnings if ENV.compiler == :gcc_4_0
+
+    # as doesn't recognise --noexecstack
+    system "gmake", "ALREADY_APPENDED_NOEXECSTACK=1"
     system "gmake", "install", "PREFIX=#{prefix}"
   end
 end
 __END__
-diff --git a/lib/common/threading.c b/lib/common/threading.c
-index 25bb8b9..7f630fa 100644
---- a/lib/common/threading.c
-+++ b/lib/common/threading.c
-@@ -18,7 +18,7 @@
- #include "threading.h"
- 
- /* create fake symbol to avoid empty translation unit warning */
--int g_ZSTD_threading_useless_symbol;
-+int g_ZSTD_threading_useless_symbol = 0;
- 
- #if defined(ZSTD_MULTITHREAD) && defined(_WIN32)
- 
 diff --git a/lib/libzstd.mk b/lib/libzstd.mk
 index 91bd4ca..a7d13dc 100644
 --- a/lib/libzstd.mk
@@ -53,3 +45,23 @@ index 91bd4ca..a7d13dc 100644
  ASFLAGS  += $(DEBUGFLAGS) $(MOREFLAGS) $(CFLAGS)
  LDFLAGS  += $(MOREFLAGS)
 
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -79,7 +79,7 @@
+   SHARED_EXT = dylib
+   SHARED_EXT_MAJOR = $(LIBVER_MAJOR).$(SHARED_EXT)
+   SHARED_EXT_VER = $(LIBVER).$(SHARED_EXT)
+-  SONAME_FLAGS = -install_name $(LIBDIR)/libzstd.$(SHARED_EXT_MAJOR) -compatibility_version $(LIBVER_MAJOR) -current_version $(LIBVER)
++  SONAME_FLAGS = -install_name $(LIBDIR)/libzstd.$(SHARED_EXT_MAJOR) -compatibility_version $(LIBVER_MAJOR) -current_version $(LIBVER) -dynamiclib
+ else
+   ifeq ($(UNAME_TARGET_SYSTEM), AIX)
+     SONAME_FLAGS =
+@@ -144,7 +144,7 @@
+ LIBZSTD = libzstd.$(SHARED_EXT_VER)
+ .PHONY: $(LIBZSTD)  # must be run every time
+ $(LIBZSTD): CPPFLAGS += $(CPPFLAGS_DYNLIB)
+-$(LIBZSTD): CFLAGS   += -fPIC -fvisibility=hidden
++$(LIBZSTD): CFLAGS   += -fPIC -fvisibility=hidden -fno-common
+ $(LIBZSTD): LDFLAGS  += -shared $(LDFLAGS_DYNLIB)
+
+ ifndef BUILD_DIR
