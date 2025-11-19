@@ -19,7 +19,6 @@ class Zstd < Formula
 
   def install
     ENV["AS"] = Formula["cctools"].bin/"as"
-    system "gmake", "clean"
     system "gmake", "BACKTRACE=0"
     system "gmake", "install", "PREFIX=#{prefix}"
   end
