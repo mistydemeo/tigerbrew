@@ -27,6 +27,14 @@ class Zstd < Formula
     system "gmake", "ALREADY_APPENDED_NOEXECSTACK=1"
     system "gmake", "install", "PREFIX=#{prefix}"
   end
+
+  test do
+    data = "Hello, Tigerbrew"
+    assert_equal data, pipe_output("#{bin}/zstd -d", pipe_output("#{bin}/zstd", data))
+    ["xz", "lz4", "gzip"].each do |prog|
+      assert_equal data, pipe_output("#{prog} -d", pipe_output("#{bin}/zstd --format=#{prog}", data))
+    end
+  end
 end
 __END__
 diff --git a/lib/libzstd.mk b/lib/libzstd.mk
@@ -63,5 +71,5 @@ index 91bd4ca..a7d13dc 100644
 -$(LIBZSTD): CFLAGS   += -fPIC -fvisibility=hidden
 +$(LIBZSTD): CFLAGS   += -fPIC -fvisibility=hidden -fno-common
  $(LIBZSTD): LDFLAGS  += -shared $(LDFLAGS_DYNLIB)
-
+ 
  ifndef BUILD_DIR
