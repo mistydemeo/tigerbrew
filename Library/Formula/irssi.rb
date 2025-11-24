@@ -3,7 +3,7 @@ class Irssi < Formula
   homepage "http://irssi.org/"
   url "https://codeberg.org/irssi/irssi/releases/download/1.4.4/irssi-1.4.4.tar.xz"
   sha256 "fefe9ec8c7b1475449945c934a2360ab12693454892be47a6d288c63eb107ead"
-  revision 1
+  revision 2
 
   head do
     url "https://github.com/irssi/irssi.git"
@@ -14,7 +14,6 @@ class Irssi < Formula
   end
 
   bottle do
-    sha256 "9cd240467cb01ccd6ecda35bf7b216ea85ebbc1674f02c3a747c0a36c2b7f1db" => :tiger_altivec
   end
 
   # Fix crash on exit with Tiger.
