@@ -1,9 +1,8 @@
 class Irssi < Formula
   desc "Modular IRC client"
   homepage "http://irssi.org/"
-  url "https://codeberg.org/irssi/irssi/releases/download/1.4.4/irssi-1.4.4.tar.xz"
-  sha256 "fefe9ec8c7b1475449945c934a2360ab12693454892be47a6d288c63eb107ead"
-  revision 2
+  url "https://codeberg.org/irssi/irssi/releases/download/1.4.5/irssi-1.4.5.tar.xz"
+  sha256 "72a951cb0ad622785a8962801f005a3a412736c7e7e3ce152f176287c52fe062"
 
   head do
     url "https://github.com/irssi/irssi.git"
@@ -16,11 +15,9 @@ class Irssi < Formula
   bottle do
   end
 
-  # Fix crash on exit with Tiger.
-  # realpath(3) changed in POSIX.1-2008 however the signature is
-  # the same so we can use it without guarding to OS version.
-  # https://github.com/irssi/irssi/issues/1482
-  patch :p0, :DATA
+  # New pm_to_blib syntax in Perl 5.42
+  # https://github.com/irssi/irssi/issues/1573
+  patch :p1, :DATA
 
   option "with-dante", "Build with SOCKS support"
   option "without-perl", "Build without perl support"
@@ -33,11 +30,11 @@ class Irssi < Formula
   depends_on "perl" if build.with? "perl"
 
   if build.with? "perl"
-    # Bug building with Perl 5.37 & newer
-    # https://github.com/irssi/irssi/pull/1474
+    # Restore locale after loading Perl
+    # https://github.com/irssi/irssi/pull/1498
     patch do
-      url "https://patch-diff.githubusercontent.com/raw/irssi/irssi/pull/1474.patch"
-      sha256 "ca09a9e64f0fb304ed309addbf8dbbeba76e3309b403a274de4ce59302d51ee8"
+      url "https://codeberg.org/irssi/irssi/releases/download/1.4.5/perl-again.patch"
+      sha256 "df7433f0b0bd326613c36f3104b996f5fdbbe8c49f0449ca8700816b47d50e56"
     end
   end
 
@@ -73,36 +70,29 @@ class Irssi < Formula
   end
 
   test do
-    IO.popen("#{bin}/irssi --connect=irc.freenode.net", "w") do |pipe|
+    IO.popen("#{bin}/irssi --connect=irc.libera.chat", "w") do |pipe|
       pipe.puts "/quit\n"
       pipe.close_write
     end
+
+    # This is not how you'd use Perl with Irssi but it is enough to be
+    # sure the Perl element didn't fail to compile, which is needed
+    # because upstream treats Perl build failures as non-fatal.
+    # To debug a Perl problem copy the following test at the end of the install
+    # block to surface the relevant information from the build warnings.
+    ENV["PERL5LIB"] = lib/"perl5/site_perl"
+    system "perl", "-e", "use Irssi"
   end
 end
 __END__
---- src/lib-config/write.c.orig	2023-07-27 12:22:36.000000000 +0100
-+++ src/lib-config/write.c	2023-07-27 12:27:33.000000000 +0100
-@@ -312,16 +312,13 @@
- 
- 	base_name = fname != NULL ? fname : rec->fname;
- 
--	/* expand all symlinks; else we may replace a symlink with a regular file */
--	dest_name = realpath(base_name, NULL);
--
--	if (errno == EINVAL) {
--		/* variable path length not supported by glibc < 2.3, Solaris < 11 */
--		char resolved_path[PATH_MAX] = { 0 };
--		errno = 0;
--		if ((dest_name = realpath(base_name, resolved_path)) != NULL) {
--			dest_name = g_strdup(dest_name);
--		}
-+	/* expand all symlinks; else we may replace a symlink with a regular file.
-+	   Variable path length not supported by glibc < 2.3, Solaris < 11,
-+           Mac OS X < 10.5 */
-+	char resolved_path[PATH_MAX] = { 0 };
-+	errno = 0;
-+	if ((dest_name = realpath(base_name, resolved_path)) != NULL) {
-+		dest_name = g_strdup(dest_name);
- 	}
- 
- 	if (dest_name == NULL) {
+--- a/src/perl/Makefile_silent.pm
++++ b/src/perl/Makefile_silent.pm
+@@ -22,7 +22,7 @@ my $verb = $AM_DEFAULT_VERBOSITY;
+     }
+     sub pm_to_blib {
+ 	my $ret = shift->SUPER::pm_to_blib(@_);
+-	$ret =~ s{^(\t(?:- ?)?)(?:\$\(NOECHO\) ?)?(.*-e ['"]pm_to_blib(.*\\\n)*.*)$}{$1\$(PL_AM_V_BLIB)$2\$(PL_AM_V_BLIB_Hide)}mg;
++	$ret =~ s{^(\t(?:- ?)?)(?:\$\(NOECHO\) ?)?((?:\\\r?\n|.)*-e ['"]pm_to_blib(.*\\\n)*.*)$}{$1\$(PL_AM_V_BLIB)$2\$(PL_AM_V_BLIB_Hide)}mg;
+ 	$ret
+     }
+     sub post_constants {
