@@ -11,6 +11,8 @@ class Zlib < Formula
 
   keg_only :provided_by_osx
 
+  option :universal
+
   # http://zlib.net/zlib_how.html
   resource "test_artifact" do
     url "http://zlib.net/zpipe.c"
@@ -19,6 +21,7 @@ class Zlib < Formula
   end
 
   def install
+    ENV.universal_binary if build.universal?
     # The test in configure to see if shared library support is available
     # is done so by invoking gcc -w and then falls back to building just a
     # static library.
