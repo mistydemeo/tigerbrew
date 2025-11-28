@@ -1,8 +1,8 @@
 class Libpng < Formula
   desc "Library for manipulating PNG images"
   homepage "http://www.libpng.org/pub/png/libpng.html"
-  url "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.45/libpng-1.6.45.tar.xz"
-  sha256 "926485350139ffb51ef69760db35f78846c805fef3d59bfdcb2fba704663f370"
+  url "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.51/libpng-1.6.51.tar.xz"
+  sha256 "a050a892d3b4a7bb010c3a95c7301e49656d72a64f1fc709a90b8aded192bed2"
   license "libpng-2.0"
 
   head do
@@ -14,7 +14,6 @@ class Libpng < Formula
   end
 
   bottle do
-    sha256 "b176b2d5c285cdddffd2532b326e770c299aea3d05e13ccb1428bd0e428d7dfe" => :tiger_altivec
   end
 
   depends_on "zlib"
