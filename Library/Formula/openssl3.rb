@@ -1,13 +1,11 @@
 class Openssl3 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
   homepage "https://openssl.org/"
-  url "https://www.openssl.org/source/openssl-3.5.0.tar.gz"
-  mirror "https://github.com/openssl/openssl/releases/download/openssl-3.5.0/openssl-3.5.0.tar.gz"
-  sha256 "344d0a79f1a9b08029b0744e2cc401a43f9c90acd1044d09a530b4885a8e9fc0"
+  url "https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz"
+  sha256 "967311f84955316969bdb1d8d4b983718ef42338639c621ec4c34fddef355e99"
   license "Apache-2.0"
 
   bottle do
-    sha256 "838d8dd5f7cc4dc234e34de381f89e7738391c59ae14da3d44e5c3259204f890" => :tiger_altivec
   end
 
   keg_only :provided_by_osx
@@ -22,12 +20,14 @@ class Openssl3 < Formula
   # be obvious to everyone, so explicitly state it for now to
   # help debug inevitable breakage.
   # makedepend slows down the build considerably.
+  # disable QUIC since a test doesn't always pass https://github.com/openssl/openssl/issues/28721
   def configure_args
     args = %W[
       --prefix=#{prefix}
       --openssldir=#{openssldir}
       --libdir=#{lib}
       no-makedepend
+      no-quic
       no-ssl3
       no-ssl3-method
       no-zlib
