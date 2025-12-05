@@ -15,6 +15,11 @@ class GnuSed < Formula
 
   option "with-default-names", "Do not prepend 'g' to the binary"
 
+  patch :p1 do
+    url "https://gist.githubusercontent.com/matthewyang204/a86bb42070041f62d6338237346bac07/raw/550837bc37d1ca6b01007cc42e97955ebcc6ec74/0001-Patch-unneeded-pragma-GCC-diagnostics.patch"
+    sha256 "1417cafc13810235f782012dd6906ad7be76806ef683799903fd9ae3c744e9ca"
+  end
+  
   def install
     args = ["--prefix=#{prefix}", "--disable-dependency-tracking"]
     args << "--program-prefix=g" if build.without? "default-names"
