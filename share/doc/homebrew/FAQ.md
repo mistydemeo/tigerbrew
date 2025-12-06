@@ -44,10 +44,12 @@ to see what would be cleaned up:
 <a name="uninstall"></a>
 
 ### How do I uninstall Homebrew?
+Assuming you have Tigerbrew installed in `/usr/local`, along with `curl` from
+Tigerbrew. Otherwise substitute `/usr/local` for the prefix you are using.
 To uninstall Tigerbrew, paste the command below in a terminal prompt.
 
 ```bash
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/d8aeae7efb14ed9e4f7934b4782f04d5305562cc/uninstall)"
+/usr/local/Library/Homebrew/vendor/portable-ruby/current/bin/ruby -e "$(/usr/local/Library/Homebrew/vendor/portable-curl/current/bin/curl -fsSL https://raw.githubusercontent.com/Homebrew/install/d8aeae7efb14ed9e4f7934b4782f04d5305562cc/uninstall)"
 ```
 Download the [uninstall script](https://raw.githubusercontent.com/Homebrew/install/d8aeae7efb14ed9e4f7934b4782f04d5305562cc/uninstall)
 and run `./uninstall --help` to view more uninstall options.
