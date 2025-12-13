@@ -1,13 +1,12 @@
 class Expat < Formula
   desc "XML 1.0 parser"
-  url "https://github.com/libexpat/libexpat/releases/download/R_2_7_0/expat-2.7.0.tar.bz2"
-  sha256 "10f3e94896cd7f44de566cafa2e0e1f35e8df06d119b38d117c0e72d74a4b4b7"
+  url "https://github.com/libexpat/libexpat/releases/download/R_2_7_3/expat-2.7.3.tar.bz2"
+  sha256 "59c31441fec9a66205307749eccfee551055f2d792f329f18d97099e919a3b2f"
   license "MIT"
 
   head "https://github.com/libexpat/libexpat.git"
 
   bottle do
-    sha256 "6d321ffb4d4404cd527d10f5c75cfc9c952a881a7635ff374bb731cf9117e5fd" => :tiger_altivec
   end
 
   keg_only :provided_by_osx, "OS X includes Expat 1.5." if MacOS.version > :tiger
