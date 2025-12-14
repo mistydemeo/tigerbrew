@@ -1,13 +1,12 @@
 class Lua < Formula
   desc "Powerful, lightweight programming language"
   homepage "http://www.lua.org/"
-  url "https://www.lua.org/ftp/lua-5.4.7.tar.gz"
-  sha256 "9fbf5e28ef86c69858f6d3d34eccc32e911c1a28b4120ff3e84aaa70cfbf1e30"
+  url "https://www.lua.org/ftp/lua-5.4.8.tar.gz"
+  sha256 "4f18ddae154e793e46eeab727c59ef1c0c0c2b744e7b94219710d76f530629ae"
   license "MIT"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "2930c247bd260cc41072a170ab6816e063a927bcffa0fc0149953e4bf740d808" => :tiger_altivec
   end
 
   option :universal
@@ -26,8 +25,8 @@ class Lua < Formula
   end
 
   resource "luarocks" do
-    url "https://luarocks.org/releases/luarocks-3.11.1.tar.gz"
-    sha256 "c3fb3d960dffb2b2fe9de7e3cb004dc4d0b34bb3d342578af84f84325c669102"
+    url "https://luarocks.org/releases/luarocks-3.12.2.tar.gz"
+    sha256 "b0e0c85205841ddd7be485f53d6125766d18a81d226588d2366931e9a1484492"
   end
 
   def install
