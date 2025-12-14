@@ -1,12 +1,10 @@
 class Ldns < Formula
   desc "DNS library written in C"
   homepage "https://nlnetlabs.nl/projects/ldns/"
-  url "https://nlnetlabs.nl/downloads/ldns/ldns-1.8.3.tar.gz"
-  sha256 "c3f72dd1036b2907e3a56e6acf9dfb2e551256b3c1bbd9787942deeeb70e7860"
-  revision 1
+  url "https://nlnetlabs.nl/downloads/ldns/ldns-1.9.0.tar.gz"
+  sha256 "abaeed2858fbea84a4eb9833e19e7d23380cc0f3d9b6548b962be42276ffdcb3"
 
   bottle do
-    sha256 "a5b4184d89dc1d59c0d68f0bff6d3a4ee3913b0137bce0c06f7beb13133470ca" => :tiger_altivec
   end
 
   depends_on :python => :optional
