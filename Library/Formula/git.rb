@@ -1,8 +1,8 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.50.1.tar.xz"
-  sha256 "7e3e6c36decbd8f1eedd14d42db6674be03671c2204864befa2a41756c5c8fc4"
+  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.52.0.tar.xz"
+  sha256 "3cd8fee86f69a949cb610fee8cd9264e6873d07fa58411f6060b3d62729ed7c5"
   license "GPL-2.0-only"
   head "https://github.com/git/git.git", :shallow => false
 
@@ -10,13 +10,13 @@ class Git < Formula
   end
 
   resource "html" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.50.1.tar.xz"
-    sha256 "d15ccd1518b822e317d14b63de4444bb288909294f117cbbfa385c60ab739bca"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.52.0.tar.xz"
+    sha256 "e6efd0da47a15b6a59401c8c5c8944e4315b18a176b89bb57812778d6307be84"
   end
 
   resource "man" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.50.1.tar.xz"
-    sha256 "7dd86882bbc22bef8852924de96b9cb378aad8532089e301c82093da3e7c5478"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.52.0.tar.xz"
+    sha256 "23186deddb3083bbaa9eb947cde26a5c7322d7fdb75bb4b3d60795db38221ac5"
   end
 
   # Fix PowerPC build and support for OS X Tiger & Leopard
