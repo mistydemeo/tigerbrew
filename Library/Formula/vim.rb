@@ -2,15 +2,16 @@ class Vim < Formula
   desc "Vi \"workalike\" with many additional features"
   homepage "http://www.vim.org/"
   # *** Vim should be updated no more than once every 7 days ***
-  url "https://github.com/vim/vim/archive/refs/tags/v9.1.1076.tar.gz"
-  sha256 "cdaa9f3561bd36cb37bd3212642efdc0aa0c0a422487026a1043362484dba4e0"
-  version "9.1.1076"
+  url "https://github.com/vim/vim/archive/refs/tags/v9.1.2006.tar.gz"
+  sha256 "6e24c32f432614bfa0c66e43a18cb40f706dc47c96226fb96cd8b155a8a28549"
+  version "9.1.2006"
   head "https://github.com/vim/vim.git"
-  revision 1
 
   bottle do
-    sha256 "c515e77a41984fde7c0ad9ca21a0570b744b87a8004296b1c94239aacc2ceab4" => :tiger_altivec
   end
+
+  # TASK_DEFAULT_APPLICATION didn't show up until later OS X versions
+  patch :p0, :DATA
 
   # We only have special support for finding depends_on :python, but not yet for
   # :ruby, :perl etc., so we use the standard environment that leaves the
@@ -122,3 +123,22 @@ class Vim < Formula
     end
   end
 end
+__END__
+--- src/os_unix.c.orig	2025-12-21 20:02:52.000000000 +0000
++++ src/os_unix.c	2025-12-21 20:03:11.000000000 +0000
+@@ -3675,15 +3675,6 @@
+     signal_stack = alloc(get_signal_stack_size());
+     init_signal_stack();
+ #endif
+-
+-    /*
+-     * Inform the macOS scheduler that Vim renders UI, and so shouldn’t have its
+-     * threads’ quality of service classes clamped.
+-     */
+-#ifdef MACOS_X
+-    integer_t policy = TASK_DEFAULT_APPLICATION;
+-    task_policy_set(mach_task_self(), TASK_CATEGORY_POLICY, &policy, 1);
+-#endif
+ }
+ 
+ #if defined(EXITFREE)
