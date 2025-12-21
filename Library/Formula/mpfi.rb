@@ -8,12 +8,13 @@ class Mpfi < Formula
   depends_on "mpfr"
 
   option "32-bit"
+  option "with-tests", "Build and run the test suite"
 
   def install
     ENV.m32 if build.build_32_bit?
     system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

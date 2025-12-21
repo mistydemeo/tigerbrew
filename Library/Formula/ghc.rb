@@ -61,7 +61,7 @@ class Ghc < Formula
     resource("gmp").stage do
       system "./configure", "--prefix=#{gmp}", "--with-pic", "--disable-shared"
       system "make"
-      system "make", "check"
+      system "make", "check" if build.with?("tests") || build.bottle?
       ENV.deparallelize { system "make", "install" }
     end
 

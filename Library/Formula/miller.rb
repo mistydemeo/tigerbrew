@@ -19,12 +19,14 @@ class Miller < Formula
     depends_on "libtool" => :build
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "autoreconf", "-fvi" if build.head?
     system "./configure", "--prefix=#{prefix}", "--disable-silent-rules",
                           "--disable-dependency-tracking"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

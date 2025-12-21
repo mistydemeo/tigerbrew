@@ -11,6 +11,8 @@ class RiemannClient < Formula
     sha1 "9c3e0cf990883eec78f9cc51f42407cc80f832cc" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "pkg-config" => :build
@@ -23,7 +25,7 @@ class RiemannClient < Formula
     system "autoreconf", "-i"
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

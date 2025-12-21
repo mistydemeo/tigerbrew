@@ -11,6 +11,8 @@ class Bgpdump < Formula
     sha256 "762297d9b9ed36a37789e75d81ab6702fb63c3761b7c3ba00da999425be2f179" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "autoconf" => :build
 
   def install
@@ -20,7 +22,7 @@ class Bgpdump < Formula
                           "--disable-silent-rules",
                           "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

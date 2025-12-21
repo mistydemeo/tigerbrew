@@ -12,12 +12,14 @@ class Cppi < Formula
     sha256 "9924d9e02cf7b197d666ffc8e9a56a5d4e442a5fa8c598872c714c7a2dfb37f3" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

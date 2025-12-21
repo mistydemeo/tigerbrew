@@ -12,6 +12,7 @@ class Gmp < Formula
 
   option "32-bit"
   option :cxx11
+  option "with-tests", "Build and run the test suite"
 
   def arch_to_string_map
     @arch_map ||= {
@@ -43,7 +44,7 @@ class Gmp < Formula
 
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

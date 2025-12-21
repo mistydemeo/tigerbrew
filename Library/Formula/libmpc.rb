@@ -11,6 +11,8 @@ class Libmpc < Formula
     sha256 "91849971ef740d8abcf09becff9c7500afb861edc4f23db3373a36c1c8782185" => :tiger_altivec
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "gmp"
   depends_on "mpfr"
 
@@ -24,7 +26,7 @@ class Libmpc < Formula
 
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

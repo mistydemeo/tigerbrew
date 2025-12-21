@@ -11,6 +11,8 @@ class Qd < Formula
     sha256 "380ce7cce036b99f6d203cf1f2e7d2b8ae27a78f668d933a4579ba4c887e69d8" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on :fortran => :recommended
 
   def install
@@ -18,7 +20,7 @@ class Qd < Formula
     args << "--enable-fortran=no" if build.without? :fortran
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

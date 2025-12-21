@@ -11,6 +11,8 @@ class Stoken < Formula
     sha256 "5aa3a27ef13dfe8f3f48e055d8c88dbdb6d45f9f6fd1bdf55ce01d1320c69a91" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "gtk+3" => :optional
   if build.with? "gtk+3"
     depends_on "gnome-icon-theme"
@@ -28,7 +30,7 @@ class Stoken < Formula
     ]
 
     system "./configure", *args
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

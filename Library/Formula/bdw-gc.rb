@@ -17,6 +17,7 @@ class BdwGc < Formula
   end
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   depends_on "pkg-config" => :build
   depends_on "libatomic_ops"
@@ -30,7 +31,7 @@ class BdwGc < Formula
                           "--prefix=#{prefix}",
                           "--enable-cplusplus"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 end

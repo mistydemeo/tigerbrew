@@ -12,6 +12,8 @@ class Libxc < Formula
     sha256 "63b05a1fb40be747e31c0d7addf8d424df06d42dd028a907e92ea738d1b0e684" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on :fortran
 
   def install
@@ -21,7 +23,7 @@ class Libxc < Formula
                           "CC=#{ENV.cc}",
                           "CFLAGS=-pipe"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

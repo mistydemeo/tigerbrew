@@ -23,6 +23,7 @@ class Libmaxminddb < Formula
   depends_on "geoipupdate" => :optional
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   def install
     ENV.universal_binary if build.universal?
@@ -33,7 +34,7 @@ class Libmaxminddb < Formula
                           "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
     (share/"examples").install buildpath/"t/maxmind-db/test-data/GeoIP2-City-Test.mmdb"
   end

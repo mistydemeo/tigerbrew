@@ -11,12 +11,14 @@ class TokyoDystopia < Formula
     sha256 "a79ed3369dae255bff5344e0aa38039f65a8a25d9ef9f86c0068d49c3a4de009" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "tokyo-cabinet"
 
   def install
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

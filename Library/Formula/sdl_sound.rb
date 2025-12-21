@@ -21,6 +21,7 @@ class SdlSound < Formula
   end
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   depends_on "pkg-config" => :build
   depends_on "sdl"
@@ -43,7 +44,7 @@ class SdlSound < Formula
                           "--prefix=#{prefix}",
                           "--disable-sdltest"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 end

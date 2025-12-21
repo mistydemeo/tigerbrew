@@ -9,6 +9,7 @@ class P11Kit < Formula
   end
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   depends_on "pkg-config" => :build
   depends_on "libtasn1"
@@ -21,7 +22,7 @@ class P11Kit < Formula
                           "--prefix=#{prefix}",
                           "--disable-trust-module"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

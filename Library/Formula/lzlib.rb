@@ -12,12 +12,14 @@ class Lzlib < Formula
     sha256 "48d3952ffe00f886b514a07f241a8a94f8950b977e032f1cf52600db4c09eb76" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "./configure", "--prefix=#{prefix}",
                           "CC=#{ENV.cc}",
                           "CFLAGS=#{ENV.cflags}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 end

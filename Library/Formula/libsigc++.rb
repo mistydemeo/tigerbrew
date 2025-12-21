@@ -13,12 +13,13 @@ class Libsigcxx < Formula
   end
 
   option :cxx11
+  option "with-tests", "Build and run the test suite"
 
   def install
     ENV.cxx11 if build.cxx11?
     system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
   test do

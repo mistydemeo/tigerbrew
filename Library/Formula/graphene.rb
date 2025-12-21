@@ -10,6 +10,8 @@ class Graphene < Formula
     sha256 "8072477f15c69a336a63cb86c75610ab6e1b1d11eadb9b05244a4f565abf6b79" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "pkg-config" => :build
   depends_on "glib"
   depends_on "gobject-introspection"
@@ -20,7 +22,7 @@ class Graphene < Formula
                           "--disable-silent-rules",
                           "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

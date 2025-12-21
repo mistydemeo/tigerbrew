@@ -13,6 +13,8 @@ class Beecrypt < Formula
     sha256 "9baaefc4c2af1220ec4d8f8d3328f8d2107bd43a4c0499fc2402b647684d9b04" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "icu4c"
   depends_on "libtool" => :build
 
@@ -28,7 +30,7 @@ class Beecrypt < Formula
                           "--without-java",
                           "--without-python"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

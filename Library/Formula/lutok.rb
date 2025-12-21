@@ -12,6 +12,8 @@ class Lutok < Formula
     sha1 "2b408bab3440c0060810599e41a19cede6ce78f4" => :lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "pkg-config" => :build
   depends_on "lua"
 
@@ -21,7 +23,7 @@ class Lutok < Formula
                           "--prefix=#{prefix}"
     system "make"
     ENV.j1
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
     system "make", "installcheck"
   end
