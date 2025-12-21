@@ -1,8 +1,8 @@
 class Libxml2 < Formula
   desc "GNOME XML library"
   homepage "http://xmlsoft.org"
-  url "https://download.gnome.org/sources/libxml2/2.11/libxml2-2.11.8.tar.xz"
-  sha256 "53961af1721b72246180cd844b7ddae36ea8e1e4e27b683567990a1ee78b02c1"
+  url "https://download.gnome.org/sources/libxml2/2.11/libxml2-2.11.9.tar.xz"
+  sha256 "780157a1efdb57188ec474dca87acaee67a3a839c2525b2214d318228451809f"
 
   head do
     url "https://git.gnome.org/browse/libxml2", :using => :git
@@ -13,7 +13,6 @@ class Libxml2 < Formula
   end
 
   bottle do
-    sha256 "69550a566cdc2e31f81550b33d3470ff9d2c998dc34ac35ab807b555d91c44e8" => :tiger_altivec
   end
 
   depends_on "python" => :optional
