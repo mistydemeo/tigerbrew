@@ -31,6 +31,7 @@ class Wget < Formula
   depends_on "libunistring"
   depends_on "zlib"
   depends_on "gettext"
+  depends_on "libiconv"
   depends_on "libpsl"
 
   def install
