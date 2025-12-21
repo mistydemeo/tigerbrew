@@ -16,6 +16,7 @@ class Webp < Formula
   end
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   depends_on "giflib"
   depends_on "jpeg"
@@ -31,6 +32,7 @@ class Webp < Formula
                           "--enable-libwebpdemux",
                           "--enable-libwebpdecoder",
                           "--prefix=#{prefix}"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 
