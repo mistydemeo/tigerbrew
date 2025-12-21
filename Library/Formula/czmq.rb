@@ -22,6 +22,7 @@ class Czmq < Formula
   end
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   depends_on "pkg-config" => :build
   depends_on "libsodium" => :optional
@@ -41,7 +42,7 @@ class Czmq < Formula
     system "./autogen.sh" if build.head?
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
     rm Dir["#{bin}/*.gsl"]
 

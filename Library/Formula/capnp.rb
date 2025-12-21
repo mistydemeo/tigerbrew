@@ -12,6 +12,8 @@ class Capnp < Formula
     sha256 "9c11b6174a97e022be4ebe5e05435818234dedc11c194afe09bce81fbf8f9a50" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   needs :cxx11
   depends_on "cmake" => :build
 
@@ -20,7 +22,7 @@ class Capnp < Formula
 
     mkdir "build" do
       system "cmake", "..", *std_cmake_args
-      system "make", "check"
+      system "make", "check" if build.with?("tests") || build.bottle?
       system "make", "install"
     end
   end

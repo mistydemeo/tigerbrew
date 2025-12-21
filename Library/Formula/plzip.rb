@@ -11,6 +11,8 @@ class Plzip < Formula
     sha256 "7e8f6bbcb52876b808fc247a46e9f189b1e8a04f829717dc27979d1393f7a15a" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "lzlib"
 
   def install
@@ -18,7 +20,7 @@ class Plzip < Formula
                           "CXX=#{ENV.cxx}",
                           "CXXFLAGS=#{ENV.cflags}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "-j1", "install"
   end
 

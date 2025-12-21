@@ -10,12 +10,13 @@ class Libtasn1 < Formula
   end
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   def install
     ENV.universal_binary if build.universal?
     system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking",
                           "--disable-silent-rules"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

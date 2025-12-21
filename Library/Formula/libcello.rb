@@ -13,8 +13,10 @@ class Libcello < Formula
     sha1 "507985cc79584569e6c04dfb9b9772a97573b2a9" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install", "PREFIX=#{prefix}"
   end
 end

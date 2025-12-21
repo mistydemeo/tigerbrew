@@ -15,6 +15,7 @@ class Libkate < Formula
 
   option "with-docs", "Build documentation"
   option "with-examples", "Build example streams"
+  option "with-tests", "Build and run the test suite"
 
   depends_on "pkg-config" => :build
   depends_on "doxygen" => :build if build.with? "docs"
@@ -34,7 +35,7 @@ class Libkate < Formula
                           "--enable-shared",
                           "--enable-static",
                           "--prefix=#{prefix}"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

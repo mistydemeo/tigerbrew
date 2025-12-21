@@ -11,11 +11,13 @@ class Gauche < Formula
     sha256 "ffd47c0dcb63a508ae95adfc1e9c7825e75dd40fa10e46c68fcb8bd9b00637d5" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking",
                           "--enable-multibyte=utf-8"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

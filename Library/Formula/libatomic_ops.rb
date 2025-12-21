@@ -8,10 +8,12 @@ class LibatomicOps < Formula
     sha256 "f84912cc7945b0be19837621bac395d883ccd764c111431be32ce11fff4dbb05" => :tiger_altivec
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 end

@@ -16,11 +16,13 @@ class Sflowtool < Formula
     sha256 "45f6a0f96bdb6a1780694b9a4ef9bbd2fd719b9f7f3355c6af1427631b311d56"
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
     (prefix/"contrib").install resource("scripts")
   end

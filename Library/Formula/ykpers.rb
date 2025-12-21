@@ -13,6 +13,7 @@ class Ykpers < Formula
   end
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   depends_on "pkg-config" => :build
   depends_on "libyubikey"
@@ -26,7 +27,7 @@ class Ykpers < Formula
                           "--prefix=#{prefix}",
                           "--with-libyubikey-prefix=#{libyubikey_prefix}",
                           "--with-backend=osx"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

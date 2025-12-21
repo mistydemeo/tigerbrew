@@ -9,12 +9,14 @@ class Libsigsegv < Formula
     sha256 "1d36d10ca32bfbc8c3b66cdc52e7d0829d2d87d00927b0c0024b6a72a2abc297" => :tiger_altivec
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--enable-shared"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

@@ -10,6 +10,8 @@ class Nettle < Formula
     sha256 "1272ad455c11d0fe71d726782b94f1ba2dd4dc624eb420bf05118465d9abdc27" => :tiger_altivec
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "gmp"
   depends_on "openssl3"
 
@@ -25,7 +27,7 @@ class Nettle < Formula
     system "make"
     system "make", "install"
     # C++ tests which depend on GMP fail to build with GCC 4.0.1
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
   end
 
   test do

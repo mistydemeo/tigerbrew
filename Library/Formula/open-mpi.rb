@@ -21,8 +21,9 @@ class OpenMpi < Formula
   deprecated_option "disable-fortran" => "without-fortran"
   deprecated_option "enable-mpi-thread-multiple" => "with-mpi-thread-multiple"
 
-  option "with-mpi-thread-multiple", "Enable MPI_THREAD_MULTIPLE"
   option :cxx11
+  option "with-mpi-thread-multiple", "Enable MPI_THREAD_MULTIPLE"
+  option "with-tests", "Build and run the test suite"
 
   conflicts_with "mpich", :because => "both install mpi__ compiler wrappers"
   conflicts_with "lcdf-typetools", :because => "both install same set of binaries."
@@ -48,7 +49,7 @@ class OpenMpi < Formula
     system "./autogen.pl" if build.head?
     system "./configure", *args
     system "make", "all"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
 
     # If Fortran bindings were built, there will be stray `.mod` files

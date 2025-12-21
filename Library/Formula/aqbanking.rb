@@ -11,6 +11,8 @@ class Aqbanking < Formula
     sha1 "53b0094bae8278c3305925126749d3fa27b907af" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "gwenhywfar"
   depends_on "libxmlsec1"
   depends_on "libxslt"
@@ -27,7 +29,7 @@ class Aqbanking < Formula
                           "--prefix=#{prefix}",
                           "--enable-cli",
                           "--with-gwen-dir=#{HOMEBREW_PREFIX}"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

@@ -10,6 +10,8 @@ class Clisp < Formula
     sha256 "3882ebb56f162524f9fb88800fb2cc84ffc07d1306558d0a3741924cc33af30c" => :tiger_altivec
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "libsigsegv"
   depends_on "readline"
 
@@ -64,7 +66,7 @@ class Clisp < Formula
         EOS
       else
         # Considering the complexity of this package, a self-check is highly recommended.
-        system "make", "check"
+        system "make", "check" if build.with?("tests") || build.bottle?
       end
 
       system "make", "install"

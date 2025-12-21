@@ -11,6 +11,8 @@ class Ctl < Formula
     sha256 "84aaaa696f7ea8837d13a3a1e58d826978be781c01dd5a77fa20197f45b7d25b" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "cmake" => :build
   depends_on "libtiff"
   depends_on "ilmbase"
@@ -23,7 +25,7 @@ class Ctl < Formula
     mkdir "build" do
       system "cmake", "..", *std_cmake_args
       system "make"
-      system "make", "check"
+      system "make", "check" if build.with?("tests") || build.bottle?
       system "make", "install"
     end
   end

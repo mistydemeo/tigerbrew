@@ -13,11 +13,13 @@ class Gpp < Formula
     sha1 "6cce4a597e3c424471172be048a556e03a1afafc" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "./configure", "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}", "--mandir=#{man}"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 end

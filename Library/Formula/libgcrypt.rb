@@ -13,6 +13,7 @@ class Libgcrypt < Formula
   patch :p0, :DATA
 
   option :universal
+  option "with-tests", "Build and run the test suite"
 
   depends_on "libgpg-error"
 
@@ -39,7 +40,7 @@ class Libgcrypt < Formula
     # Parallel builds work, but only when run as separate steps
     system "make"
     system "make", "install"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
 
     # avoid triggering mandatory rebuilds of software that hard-codes this path
     inreplace bin/"libgcrypt-config", prefix, opt_prefix

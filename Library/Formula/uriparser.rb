@@ -19,6 +19,8 @@ class Uriparser < Formula
     sha256 "bc5812a35b617cc3bd430b52d2f2a76fe3fdea0ba92522fdc5385ad8ff5d05ba" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "pkg-config" => :build
   depends_on "cpptest"
 
@@ -29,7 +31,7 @@ class Uriparser < Formula
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--disable-doc"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

@@ -18,6 +18,8 @@ class DejaGnu < Formula
     depends_on "autoconf" => :build
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     ENV.j1 # Or fails on Mac Pro
     system "autoreconf", "-iv" if build.head?
@@ -26,7 +28,7 @@ class DejaGnu < Formula
                           "--prefix=#{prefix}",
                           "--mandir=#{man}"
     # DejaGnu has no compiled code, so go directly to "make check"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

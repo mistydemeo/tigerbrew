@@ -11,6 +11,7 @@ class Wslay < Formula
     sha1 "04cfebe7140b51febd90b99e2a398bca966759dc" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
   option "without-docs", "Don't generate or install documentation"
 
   head do
@@ -63,7 +64,7 @@ class Wslay < Formula
 
     system "autoreconf", "-fvi" if build.head?
     system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking", "--disable-silent-rules"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 end

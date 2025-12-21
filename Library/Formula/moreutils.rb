@@ -16,6 +16,7 @@ class Moreutils < Formula
   end
 
   option "without-parallel", "Build without the 'parallel' tool."
+  option "with-tests", "Build and run the test suite"
 
   depends_on "docbook-xsl" => :build
 
@@ -55,7 +56,7 @@ class Moreutils < Formula
       inreplace "Makefile", /^MANS=.*\Kparallel\.1/, ""
     end
     system "make", "all"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install", "PREFIX=#{prefix}"
     bin.env_script_all_files(libexec+"bin", :PERL5LIB => ENV["PERL5LIB"])
   end

@@ -26,6 +26,8 @@ class Isl018 < Formula
 
   keg_only "Conflicts with isl."
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "gmp"
 
   def install
@@ -35,7 +37,7 @@ class Isl018 < Formula
                           "--prefix=#{prefix}",
                           "--with-gmp=system",
                           "--with-gmp-prefix=#{Formula["gmp"].opt_prefix}"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
     (share/"gdb/auto-load").install Dir["#{lib}/*-gdb.py"]
   end

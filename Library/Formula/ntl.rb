@@ -11,6 +11,8 @@ class Ntl < Formula
     sha256 "dd1f71b5dd429df7cc7254a2b5c99ceb844ad2ba8cdc4e258fb22db4ccf68ec3" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "gmp" => :optional
 
   def install
@@ -20,7 +22,7 @@ class Ntl < Formula
     cd "src" do
       system "./configure", *args
       system "make"
-      system "make", "check"
+      system "make", "check" if build.with?("tests") || build.bottle?
       system "make", "install"
     end
   end

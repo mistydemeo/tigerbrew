@@ -9,11 +9,13 @@ class Lzip < Formula
     sha256 "42a1638e56181be320fb5cd752bc38c8222643a062ae4eafbd9065dee50af1dd" => :tiger_altivec
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "./configure", "--prefix=#{prefix}",
                           "CXX=#{ENV.cxx}",
                           "CXXFLAGS=#{ENV.cflags}"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     ENV.j1
     system "make", "install"
   end

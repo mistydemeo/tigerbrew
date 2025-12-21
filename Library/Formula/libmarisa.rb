@@ -12,9 +12,11 @@ class Libmarisa < Formula
     sha1 "a9a51d0e5c0ad1ceb8e857493cfce501c208e76d" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "./configure", "--prefix=#{prefix}"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

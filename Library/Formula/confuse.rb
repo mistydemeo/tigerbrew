@@ -10,6 +10,8 @@ class Confuse < Formula
     sha256 "cafa47896501ef96ea47c89128602f7f2c3fda786ff19fb52e0b77e2330ddf00" => :tiger_altivec
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "pkg-config" => :build
 
   def install
@@ -17,7 +19,7 @@ class Confuse < Formula
     ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version == :tiger
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

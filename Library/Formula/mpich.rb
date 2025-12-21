@@ -24,6 +24,8 @@ class Mpich < Formula
     depends_on "automake" => :build
     depends_on "libtool"  => :build
   end
+
+  option "with-tests", "Build and run the test suite"
   deprecated_option "disable-fortran" => "without-fortran"
 
   depends_on :fortran => :recommended
@@ -49,7 +51,7 @@ class Mpich < Formula
 
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

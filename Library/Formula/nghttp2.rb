@@ -22,6 +22,7 @@ class Nghttp2 < Formula
   option "with-examples", "Compile and install example programs"
   option "without-docs", "Don't build man pages"
   option "with-python3", "Build python3 bindings"
+  option "with-tests", "Build and run the test suite"
 
   depends_on :python => :build if MacOS.version <= :snow_leopard && build.with?("docs")
   depends_on :python3 => :optional
@@ -130,7 +131,7 @@ class Nghttp2 < Formula
     system "autoreconf", "-ivf" if build.head?
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
 
     # Currently this is not installed by the make install stage.
     if build.with? "docs"

@@ -8,12 +8,14 @@ class Lzo < Formula
     sha256 "425fd8959623501a81d361dd99029e34ea53025f2e4cab75c302c6840c9d4b58" => :tiger_altivec
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--enable-shared"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 end

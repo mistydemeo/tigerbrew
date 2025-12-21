@@ -20,6 +20,8 @@ class M4 < Formula
   # These patches can be dropped with next version upgrade
   patch :p0, :DATA
 
+  option "with-tests", "Build and run the test suite"
+
   # sigsegv.c: In function 'sigsegv_handler':
   # sigsegv.c:938: error: 'struct mcontext' has no member named '__ss'
   depends_on "libsigsegv" if MacOS.version == :tiger
@@ -44,7 +46,7 @@ class M4 < Formula
 
     system "./configure", *args
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 

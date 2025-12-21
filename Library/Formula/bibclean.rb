@@ -11,6 +11,8 @@ class Bibclean < Formula
     sha1 "3a0073569934c6d4cf831619842001e2e394679c" => :lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   def install
     ENV.deparallelize
 
@@ -42,7 +44,7 @@ class Bibclean < Formula
     end
 
     system "make", "all"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
 
     ENV.prepend_path "PATH", share+"bibclean"

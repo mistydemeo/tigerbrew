@@ -14,6 +14,8 @@ class Gpgme < Formula
     sha256 "6a28a7847a908c2ca93e88255acab792007bb7dbb4387ff897498d74f43650d5" => :mountain_lion
   end
 
+  option "with-tests", "Build and run the test suite"
+
   depends_on "gnupg2"
   depends_on "libgpg-error"
   depends_on "libassuan"
@@ -37,7 +39,7 @@ class Gpgme < Formula
                           "--prefix=#{prefix}",
                           "--enable-static"
     system "make"
-    system "make", "check"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 
