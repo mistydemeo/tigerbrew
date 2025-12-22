@@ -8,6 +8,7 @@ class Vim < Formula
   head "https://github.com/vim/vim.git"
 
   bottle do
+    sha256 "84db49cf309c829778b395992a60a8951f3e57885f84a09eee9bd0ad057cc3c4" => :tiger_g3
   end
 
   # TASK_DEFAULT_APPLICATION didn't show up until later OS X versions

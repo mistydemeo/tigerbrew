@@ -8,6 +8,7 @@ class Gmp < Formula
 
   bottle do
     sha256 "58d262db9d0ebd2035411014846a940432c8881a40953e9708059ba659ab1d7f" => :tiger_altivec
+    sha256 "f18b03e5574a64e003d67e483e97699c6dbd50737bc503d7923c4d0898e04b79" => :tiger_g3
   end
 
   option "32-bit"

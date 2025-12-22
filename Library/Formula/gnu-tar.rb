@@ -7,6 +7,7 @@ class GnuTar < Formula
 
   bottle do
     sha256 "f57c9b390419b477944bcbf7eaa18ae8bd2dc62007534679843e47cdde8143e1" => :tiger_altivec
+    sha256 "19369ada94a817e68129bde73cb365cdb46ae6ff47e9e23e8e7d7b19ec0aed07" => :tiger_g3
   end
 
   option "with-default-names", "Do not prepend 'g' to the binary"

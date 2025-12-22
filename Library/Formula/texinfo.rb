@@ -7,6 +7,7 @@ class Texinfo < Formula
 
   bottle do
     sha256 "0ed1b7cf30aa7236f562d23315f533649d15f6c01314f7a7720fe34660b7cefb" => :tiger_altivec
+    sha256 "2c4d48e82640da266a541b91bf199ba0138b2c11bd885ddf521bfdb470502a85" => :tiger_g3
   end
 
   keg_only :provided_by_osx, <<-EOS.undent

@@ -7,6 +7,7 @@ class Libunistring < Formula
 
   bottle do
     sha256 "a159d9e400668467437b69506d03dee24186daeaab57212e12f4ae2a2540ee3b" => :tiger_altivec
+    sha256 "c0dad18695671294f42167ba1ad917bb77fc8a84603eb1232569f54cb5f2e976" => :tiger_g3
   end
 
   def install

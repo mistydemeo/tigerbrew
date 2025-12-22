@@ -8,6 +8,7 @@ class Gdbm < Formula
   bottle do
     cellar :any
     sha256 "adfa78e136cc5c3cddf6b4d2b953a072eda010d22677d869ec7996d70cbb504f" => :tiger_altivec
+    sha256 "6b2d065ad4357ea0e02d2b368b2ced6d69a8817046d3d0a938094300899801b9" => :tiger_g3
   end
 
   option :universal

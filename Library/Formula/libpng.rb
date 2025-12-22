@@ -14,6 +14,8 @@ class Libpng < Formula
   end
 
   bottle do
+    cellar :any
+    sha256 "796bc1d681c2fd793c2ccef3659cc14f4487510e25102f277ade4440d9742793" => :tiger_g3
   end
 
   depends_on "zlib"

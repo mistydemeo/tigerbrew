@@ -6,6 +6,7 @@ class Fltk < Formula
 
   bottle do
     sha256 "532b32269354d7eccc453cf8ad52a7f953f08986b6d87988f3c81649db251d79" => :tiger_altivec
+    sha256 "fb764882aeb48abec67ba4056b63225775e50b3cd6bccdc74b9e92b9f0d4f156" => :tiger_g3
   end
 
   option :universal

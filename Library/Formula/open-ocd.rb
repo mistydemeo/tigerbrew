@@ -7,6 +7,7 @@ class OpenOcd < Formula
 
   bottle do
     sha256 "b98629423454d99b9997ab464b6a61dcf55e04effe3c8355060b148ad2e081f6" => :tiger_altivec
+    sha256 "11f318f4e6599995982eb34f393bcfa04144445d7384f55085ceccb3e56a9607" => :tiger_g3
   end
 
   # Switch from binary to hex constants to allow builds with GCC older than 4.3

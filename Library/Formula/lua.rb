@@ -7,6 +7,7 @@ class Lua < Formula
 
   bottle do
     cellar :any_skip_relocation
+    sha256 "9f455fc28df5ebab63d1f98b43f5a434db4ee178520bb3bdc77d3ea22c58cdb8" => :tiger_g3
   end
 
   option :universal

@@ -7,6 +7,7 @@ class TeensyLoaderCli < Formula
   bottle do
     cellar :any
     sha256 "ab07134993ff4026a4663a81ad0208bd3043a8b66952dbbb8f2cfa12cf9440b1" => :tiger_altivec
+    sha256 "5773c3abdf60117d400ddf00ba6ad47bc3bbd1c01f7394d0d7372640d87027f0" => :tiger_g3
   end
 
   depends_on "make"

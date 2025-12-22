@@ -4,6 +4,10 @@ class DyldHeaders < Formula
   url "https://github.com/apple-oss-distributions/dyld/archive/refs/tags/dyld-239.4.tar.gz"
   sha256 "3d21a00c6667442db73d6d6e4ad2ad517b6a51a5ecca26dd47368635ec81d3a4"
 
+  bottle do
+    sha256 "e7b4167aa358a0d55c4cb514c23ce7d7294ca1b4d69a4717da311b348eac68ab" => :tiger_g3
+  end
+
   keg_only :provided_by_osx
 
   # Use Tiger-style availability macros

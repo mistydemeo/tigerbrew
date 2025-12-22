@@ -5,6 +5,8 @@ class Libtiff < Formula
   sha256 "b92017489bdc1db3a4c97191aa4b75366673cb746de0dce5d7a749d5954681ba"
 
   bottle do
+    cellar :any
+    sha256 "82386e0a89d00e3ef3e03d681b05c5d6ff97561f97ceac8c47222a398254aad0" => :tiger_g3
   end
 
   option :universal

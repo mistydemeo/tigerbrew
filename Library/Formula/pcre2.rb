@@ -9,6 +9,7 @@ class Pcre2 < Formula
   bottle do
     cellar :any
     sha256 "0e24bffae57d9b29e89fd12d21476d08765a341c1ae7b5109ad478ad3f228e41" => :tiger_altivec
+    sha256 "55f16cf377865139f77c50b999bbf016f7ec8a24e933fbc5cf356cafee4dcb17" => :tiger_g3
   end
 
   option :universal

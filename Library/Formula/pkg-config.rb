@@ -7,6 +7,7 @@ class PkgConfig < Formula
 
   bottle do
     sha256 "1b438cc6b776c001c6a45b94f12861a3a5a98fc4ea2ee6069a6a011051188aff" => :tiger_altivec
+    sha256 "050112af9584144b2f6aff3a17637b815f4196f0001820352e3ffba0ecf661ba" => :tiger_g3
   end
 
   option "with-tests", "Build and run the test suite"

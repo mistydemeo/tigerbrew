@@ -16,6 +16,7 @@ class Openssl < Formula
 
   bottle do
     sha256 "49e329bab3ffca7c980950ff91457d2fb87990e73f033864fef8aa586870a1dd" => :tiger_altivec
+    sha256 "9a668e31a6e34314b29fe0833434daf2f309f5662c6142bf13ba550e4bf23260" => :tiger_g3
   end
 
   def arch_args

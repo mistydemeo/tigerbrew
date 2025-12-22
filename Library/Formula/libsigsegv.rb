@@ -7,6 +7,7 @@ class Libsigsegv < Formula
 
   bottle do
     sha256 "1d36d10ca32bfbc8c3b66cdc52e7d0829d2d87d00927b0c0024b6a72a2abc297" => :tiger_altivec
+    sha256 "a2f9e629177620d6267b50597a13e9146e649f90c3d92c1325b0dfb57510225b" => :tiger_g3
   end
 
   option "with-tests", "Build and run the test suite"

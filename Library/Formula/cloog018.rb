@@ -10,6 +10,7 @@ class Cloog018 < Formula
   bottle do
     cellar :any
     sha256 "f5f3f243e94fcfcc055b384fc2a95262335946a0a8387ba2a4147d4f0a322a38" => :tiger_altivec
+    sha256 "8f68ab9cc750ea06dcb222adb986f7254a9d142e060a4339d254c187adf61e74" => :tiger_g3
   end
 
   keg_only "Conflicts with cloog in main repository."

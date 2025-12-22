@@ -7,6 +7,7 @@ class TclTk < Formula
 
   bottle do
     sha256 "19009ca7d37ad310840cba54d856759657ac9fedb06bdd962eb9614a7bef13db" => :tiger_altivec
+    sha256 "19a3848959c59836009a3a97ffb0b61fb6c396e9fc797b79ec22db2565436b42" => :tiger_g3
   end
 
   keg_only :provided_by_osx,

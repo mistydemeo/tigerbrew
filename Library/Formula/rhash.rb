@@ -11,6 +11,7 @@ class Rhash < Formula
 
   bottle do
     sha256 "7881119273fd9797cc8425cab6236a9d924bd6aa33653b9ded1275f93dfab5b5" => :tiger_altivec
+    sha256 "b3a45784451c06ab0bde4e05c1ca300c242cf274f8bfb2fac47aa7bf198ba92d" => :tiger_g3
   end
 
   # wants to pass -install_name to the linker

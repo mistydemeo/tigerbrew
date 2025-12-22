@@ -7,6 +7,7 @@ class Libftdi < Formula
 
   bottle do
     sha256 "21f34f59a9661a68c5f15b7aa025e7650a0c0ccbed2857828166cb51d186d6cd" => :tiger_altivec
+    sha256 "2c2df047c1c2f383f3a381c52f9d8a4be72c7379b5b71c5f1789265c4c012bce" => :tiger_g3
   end
 
   depends_on "cmake" => :build

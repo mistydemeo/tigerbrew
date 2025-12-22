@@ -11,6 +11,7 @@ class Gmp4 < Formula
   bottle do
     cellar :any
     sha256 "80fab08e90d3e536b21d0826580d9f78f0e8542f7f08d5cde866307fcf187db1" => :tiger_altivec
+    sha256 "0609c62e2df6af2dbdf56d754ce1280ec5faae3b1f6ad26edb47fe36979b4852" => :tiger_g3
   end
 
   keg_only "Conflicts with gmp in main repository."

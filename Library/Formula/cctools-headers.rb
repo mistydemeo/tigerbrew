@@ -5,6 +5,10 @@ class CctoolsHeaders < Formula
   url "https://github.com/apple-oss-distributions/cctools/archive/refs/tags/cctools-855.tar.gz"
   sha256 "7c31652cefde324fd6dc6f4dabbcd936986430039410a65c98d4a7183695f6d7"
 
+  bottle do
+    sha256 "60e3f52f40533edaed95061cba0bc46637a9ed2bc6f5f8ced24b94cc02f325eb" => :tiger_g3
+  end
+
   keg_only :provided_by_osx
 
   resource "headers" do

@@ -9,6 +9,7 @@ class Cmake < Formula
 
   bottle do
     sha256 "fbb1622baca1437c0c66a7e5a88b91efca485495e008efb04316e746bc76017d" => :tiger_altivec
+    sha256 "f33502f42aff7c81fe4ea4992693d5cf754ac3c0ae5d98aee7b505d0d558c09c" => :tiger_g3
   end
 
   # curl 8.16.0 introduced an API change related to proxy handling.

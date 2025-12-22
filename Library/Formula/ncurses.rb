@@ -7,6 +7,7 @@ class Ncurses < Formula
 
   bottle do
     sha256 "4ec59b31309bbd20ee0d354a8eda5ff32f6a0607c9e2df5467b8b0b948323b70" => :tiger_altivec
+    sha256 "862fcc19fcf64f8fda2a711044341b3a59550fac7e24e55f02d8aa49b3e9d240" => :tiger_g3
   end
 
   keg_only :provided_by_osx
