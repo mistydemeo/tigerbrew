@@ -32,6 +32,7 @@ class Libtiff < Formula
     zlib = Formula["zlib"].opt_prefix
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
+                          "--disable-webp",
                           "--with-jpeg-include-dir=#{jpeg}/include",
                           "--with-jpeg-lib-dir=#{jpeg}/lib",
                           "--with-lzma-include-dir=#{xz}/include",
