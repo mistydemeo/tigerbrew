@@ -6,6 +6,7 @@ class Stlink < Formula
 
   bottle do
     cellar :any
+    sha256 "3e7284432576b03b20adb80e29c334a1f205e66b24b01ab6a82b6bc2907bc42b" => :tiger_g3
   end
 
   # Don't assume the compiler will default to C99
