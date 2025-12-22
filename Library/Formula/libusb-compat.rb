@@ -7,6 +7,7 @@ class LibusbCompat < Formula
   bottle do
     cellar :any
     sha256 "996c8b94dafaa5a6a973871fcdfeda28168d882552734daf130984a6cc2d6dc6" => :tiger_altivec
+    sha256 "a69e40ca9b1edbde0c1ad85408c97ea290e22a522687ae31a695cd382d12e744" => :tiger_g3
   end
 
   option :universal

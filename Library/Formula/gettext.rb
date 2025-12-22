@@ -7,6 +7,7 @@ class Gettext < Formula
 
   bottle do
     sha256 "c64bb31029e29599442653fe1e0f2216ae8fe144451a0541896f6e367df0018f" => :tiger_altivec
+    sha256 "44091bc5fdd66045a89f9888975bc7a8883f74424c4b9788dfdc2b4700938f08" => :tiger_g3
   end
 
   keg_only :shadowed_by_osx, "OS X provides the BSD gettext library and some software gets confused if both are in the library path."

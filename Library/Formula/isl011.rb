@@ -8,6 +8,7 @@ class Isl011 < Formula
   bottle do
     cellar :any
     sha256 "dd70c4834b102c27c19989db5ebbaf0bc9be361b94c3a9a6fd713cbb317c28a8" => :tiger_altivec
+    sha256 "f6a20e879d8da5783168bca62ccbc329504de092af7734a5939c41ed96c5ca75" => :tiger_g3
   end
 
   keg_only "Conflicts with isl in main repository."

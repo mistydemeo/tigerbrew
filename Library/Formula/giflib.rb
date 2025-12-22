@@ -5,6 +5,8 @@ class Giflib < Formula
   sha256 "be7ffbd057cadebe2aa144542fd90c6838c6a083b5e8a9048b8ee3b66b29d5fb"
 
   bottle do
+    cellar :any
+    sha256 "c978ba7b5446cfac9d3fdf5a9b65dfa0a54553b662370c3a58f183507dc3c04f" => :tiger_g3
   end
 
   option :universal

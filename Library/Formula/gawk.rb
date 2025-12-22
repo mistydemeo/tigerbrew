@@ -6,6 +6,7 @@ class Gawk < Formula
   sha256 "f8c3486509de705192138b00ef2c00bbbdd0e84c30d5c07d23fc73a9dc4cc9cc"
 
   bottle do
+    sha256 "65211cf52a893bdde1c31c6ff3dd3be0740e5dfd3d2c8a8898a3e6a451eb9596" => :tiger_g3
   end
 
   # spawn.h containing posix_spawnattr_* functions showed up in Leopard

@@ -12,6 +12,7 @@ class Ld64 < Formula
 
   bottle do
     sha256 "0806657065f790e10496585ae1c83f427bc4f96f5c044c52cf6454f5be725229" => :tiger_altivec
+    sha256 "f7c1fe4a79734a6439f0252d0f0bf92f9a01ca203bd3f4acceeb20b3d0be08c2" => :tiger_g3
   end
 
   resource "makefile" do

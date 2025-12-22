@@ -9,6 +9,7 @@ class Lz4 < Formula
   bottle do
     cellar :any
     sha256 "39bf410fcfb57c7a9f50e124cd0f457f62a90ef819eecb64d47361de55bb81af" => :tiger_altivec
+    sha256 "c0c2822cca6a8327e1ddd424fa5c481c858362b40c01b9eca24202a3015b8b16" => :tiger_g3
   end
 
   # -dynamiclib needs to be stated for a shared object to be generated.

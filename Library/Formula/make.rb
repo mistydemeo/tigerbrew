@@ -7,6 +7,7 @@ class Make < Formula
 
   bottle do
     sha256 "5093cd5a5970bd2e6cc71924da97099d49bedd0897f3b2a28bb4e7dcfcc30000" => :tiger_altivec
+    sha256 "5974e3e0d4f36c96ccafc1ca615f24c0db438a8b448b2884c5b69652f5897cba" => :tiger_g3
   end
 
   option "with-default-names", "Do not prepend 'g' to the binary"

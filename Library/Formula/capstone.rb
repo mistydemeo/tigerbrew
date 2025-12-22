@@ -9,6 +9,7 @@ class Capstone < Formula
   bottle do
     cellar :any
     sha256 "009d483c0a578917986d26bfb08a77b9a350c2dd3ac36842fdbfa8a93c881eca" => :tiger_altivec
+    sha256 "02f9a9eb65e16eef186973cbdf6f0a6a79afd45a7245993d1c6c4b12dee0bcc6" => :tiger_g3
   end
 
   # error: #pragma GCC diagnostic not allowed inside functions

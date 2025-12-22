@@ -7,6 +7,7 @@ class Bzip2 < Formula
 
   bottle do
     sha256 "10961df6b0aedb21c6758b8c4ef0706db649f2504a5c6f1ea53930c73463e362" => :tiger_altivec
+    sha256 "473be0f9c45e0e1e97ba53f2959cfd704636d1ca98c5915ad6659c606f10ca09" => :tiger_g3
   end
 
   keg_only :provided_by_osx

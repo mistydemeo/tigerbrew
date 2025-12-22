@@ -6,6 +6,7 @@ class Ddrescue < Formula
   sha256 "01a414327853b39fba2fd0ece30f7bee2e9d8c8e8eb314318524adf5a60039a3"
 
   bottle do
+    sha256 "d9f5aff0a3004017dc1612fb06b00350d8e0a10a0269a68fdecbece00d721abc" => :tiger_g3
   end
 
   option "with-tests", "Build and run the test suite"

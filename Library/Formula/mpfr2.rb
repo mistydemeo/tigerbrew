@@ -9,6 +9,7 @@ class Mpfr2 < Formula
 
   bottle do
     cellar :any
+    sha256 "67b8d6deb0889ac60f38e196416a430fa58e079e53563ee6645a694c246b5e63" => :tiger_g3
   end
 
   option "with-32-bit"

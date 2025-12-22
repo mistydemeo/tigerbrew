@@ -32,6 +32,7 @@ class Readline < Formula
   bottle do
     cellar :any
     sha256 "fc6c3af919e7da5a48916b4e916753059c9699dbcf07ffd1e47937200dbd4c32" => :tiger_altivec
+    sha256 "efc77aabf8281525847b025fdf3c1307bf406443453530ea5207d898a147c793" => :tiger_g3
   end
 
   keg_only :shadowed_by_osx, <<-EOS.undent

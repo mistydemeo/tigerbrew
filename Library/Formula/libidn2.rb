@@ -9,6 +9,7 @@ class Libidn2 < Formula
 
   bottle do
     sha256 "2167b418188a04eb36a539aaaeb8ff2b833422b0ce5b4b9de65e05263d415a82" => :tiger_altivec
+    sha256 "d51d83d007ec9d520848982261d81dcb9a9a8b51ce5f74050822caba662ed772" => :tiger_g3
   end
 
   head do

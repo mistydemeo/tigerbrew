@@ -9,6 +9,7 @@ class Libiconv < Formula
   bottle do
     cellar :any
     sha256 "023ae3e3fa34684bde82a94cf9e4b944b691040be3f8c58896e53be70114a318" => :tiger_altivec
+    sha256 "04507f2a433998dc78fa30ee8a6feab733d3e60cb1b89c89137f206d97e835e3" => :tiger_g3
   end
 
   keg_only :provided_by_osx

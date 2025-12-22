@@ -13,6 +13,7 @@ class Libxml2 < Formula
   end
 
   bottle do
+    sha256 "64bfb02565b476c808c95145a9ae52525425bb7cc824c3bed5ec6fed256fdb68" => :tiger_g3
   end
 
   depends_on "python" => :optional

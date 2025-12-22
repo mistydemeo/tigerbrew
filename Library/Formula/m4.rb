@@ -8,6 +8,7 @@ class M4 < Formula
 
   bottle do
     sha256 "fef063d036e02a3c6af9e3818b2ea25aaa1700b2146a1fa670c58729532b590d" => :tiger_altivec
+    sha256 "a158b4e4b222684545f0f3ec082df5c78398863d2bc2c5712f5d4bf840d8e40c" => :tiger_g3
   end
 
   keg_only :provided_by_osx

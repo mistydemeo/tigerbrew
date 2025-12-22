@@ -7,6 +7,7 @@ class Lzip < Formula
 
   bottle do
     sha256 "42a1638e56181be320fb5cd752bc38c8222643a062ae4eafbd9065dee50af1dd" => :tiger_altivec
+    sha256 "3fc70ec6bffae12c7510f21ec7ded6d2593125911f64ce5cc9d3cd43bdbc6000" => :tiger_g3
   end
 
   option "with-tests", "Build and run the test suite"

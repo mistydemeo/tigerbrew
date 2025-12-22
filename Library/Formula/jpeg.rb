@@ -7,6 +7,7 @@ class Jpeg < Formula
   bottle do
     cellar :any
     sha256 "5790906a1aeb4a3610ee3b1fdb9f04dd597b8964869e5cdca8f034f9fb3cffd4" => :tiger_altivec
+    sha256 "96f064475a7390dc52901fb3dd63ce5a1f9a9317edfbf32f12c613b485c74ee7" => :tiger_g3
   end
 
   option :universal

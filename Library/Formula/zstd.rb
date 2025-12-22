@@ -9,6 +9,11 @@ class Zstd < Formula
     "MIT", # lib/dictBuilder/divsufsort.c
   ]
 
+  bottle do
+    cellar :any
+    sha256 "62e611b9d7e61516e11361dd8d1f4e13a503b6cf6a8d6a5cb714dd360d88a48b" => :tiger_g3
+  end
+
   # GCC 4.0 doesn't support -Wvla -Wc++-compat warnings
   # -compatibility_version only allowed with -dynamiclib
   # ld: common symbols not allowed with MH_DYLIB output format with the -multi_module option

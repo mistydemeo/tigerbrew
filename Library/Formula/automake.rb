@@ -10,6 +10,7 @@ class Automake < Formula
     cellar :any_skip_relocation
 
     sha256 "06e547e2706ad22c0156ec2bb69d6102686590f42f7c0116e8589de7466e64ce" => :tiger_altivec
+    sha256 "2ec484a6d7fbad29bbff1b8f83287fc6ed444122b44c709adcbab8bc1008176b" => :tiger_g3
   end
 
   depends_on "autoconf" => :run

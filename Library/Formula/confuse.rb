@@ -8,6 +8,7 @@ class Confuse < Formula
   bottle do
     cellar :any
     sha256 "cafa47896501ef96ea47c89128602f7f2c3fda786ff19fb52e0b77e2330ddf00" => :tiger_altivec
+    sha256 "2455f6d628b6939560514f405414d01d0562e9ab020469fc4918c065592a1e92" => :tiger_g3
   end
 
   option "with-tests", "Build and run the test suite"

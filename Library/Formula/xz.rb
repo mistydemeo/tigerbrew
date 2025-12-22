@@ -13,6 +13,7 @@ class Xz < Formula
 
   bottle do
     sha256 "ad6afb1a7fe157b8367fb38b6a3499758ed8e586bc8d49d971f942657548ca9f" => :tiger_altivec
+    sha256 "f2dced096c310da5b0dfb22028a1bdb8a3fe620793e005725e7f454bc7e71fdf" => :tiger_g3
   end
 
   option :universal

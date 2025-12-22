@@ -29,6 +29,7 @@ class Gcc48 < Formula
   head "svn://gcc.gnu.org/svn/gcc/branches/gcc-4_8-branch"
 
   bottle do
+    sha256 "c224fedcf6f22d9c501949ef18d01ce537c918ecee358e65c6601d35205496cc" => :tiger_g3
   end
 
   # Fixes build with Xcode 7.

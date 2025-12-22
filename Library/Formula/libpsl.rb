@@ -8,6 +8,7 @@ class Libpsl < Formula
   bottle do
     cellar :any
     sha256 "cc326708975ab3088d1bf2a60e38376ca4280ffe613128cf6363affa15ab6b85" => :tiger_altivec
+    sha256 "efb75b6147aa29f88c4dab5919f09b5b249c98b8676302746ad32559bd083bf2" => :tiger_g3
   end
 
   depends_on "pkg-config" => :build

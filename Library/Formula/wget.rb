@@ -17,6 +17,7 @@ class Wget < Formula
 
   bottle do
     sha256 "a6cc31e4f05842b053fce81c677f41a25e5b56f6b04c67267f1d25b7354dec89" => :tiger_altivec
+    sha256 "1ec759b79ccd72ea8969999ead9a68d2de64d58464ad4c540d471568db14bdf1" => :tiger_g3
   end
 
   deprecated_option "enable-debug" => "with-debug"

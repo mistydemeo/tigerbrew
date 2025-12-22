@@ -7,6 +7,7 @@ class Libmpc08 < Formula
 
   bottle do
     cellar :any
+    sha256 "fefb74bd5fea450721e92024da3cdf167b2e1949252e36a27b64935d71665413" => :tiger_g3
   end
 
   keg_only "Conflicts with libmpc in main repository."

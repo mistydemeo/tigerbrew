@@ -5,6 +5,7 @@ class Ldns < Formula
   sha256 "abaeed2858fbea84a4eb9833e19e7d23380cc0f3d9b6548b962be42276ffdcb3"
 
   bottle do
+    sha256 "ac447eda4ca931a15249b876a3ba68c2de30089cebdbd41afbdd7ea26118cc68" => :tiger_g3
   end
 
   depends_on :python => :optional

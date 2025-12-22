@@ -17,6 +17,7 @@ class Libffi < Formula
   bottle do
     cellar :any
     sha256 "cb9bfdf6e58aa3ea1cd06f480c82cb7b151feff44252877d161644936f5008f0" => :tiger_altivec
+    sha256 "e842fdef05f63eec78d481cf6c142aee69ea87215136654ba3b9986e04c80125" => :tiger_g3
   end
 
   keg_only :provided_by_osx, "Some formulae require a newer version of libffi." if MacOS.version > :tiger
