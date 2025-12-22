@@ -7,6 +7,7 @@ class Libusb < Formula
   revision 1
 
   bottle do
+    sha256 "4a948607743f9459b6bdd264baf3787e33c6a454ca5f11971c309ef496bf625d" => :tiger_g3
   end
 
   # USB 3.0 support showed up in 10.8's IOKit
