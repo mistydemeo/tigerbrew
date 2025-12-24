@@ -12,6 +12,10 @@ class Radare2 < Formula
   # Fix Darwin/PowerPC support
   patch :p0, :DATA
 
+  # Need a compiler with C11 support
+  fails_with :gcc
+  fails_with :gcc_4_0
+
   depends_on "pkg-config" => :build
   depends_on "capstone"
   depends_on "make" => :build
