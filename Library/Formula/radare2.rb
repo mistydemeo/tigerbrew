@@ -15,6 +15,7 @@ class Radare2 < Formula
   # Need a compiler with C11 support
   fails_with :gcc
   fails_with :gcc_4_0
+  fails_with :llvm
 
   depends_on "pkg-config" => :build
   depends_on "capstone"
