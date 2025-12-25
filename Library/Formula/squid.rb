@@ -1,24 +1,29 @@
 class Squid < Formula
   desc "Advanced proxy caching server for HTTP, HTTPS, FTP, and Gopher"
-  homepage "http://www.squid-cache.org/"
-  url "http://www.squid-cache.org/Versions/v3/3.5/squid-3.5.7.tar.xz"
-  sha256 "ec6f861bddee007b1dd320667a26ddc9ff76847bbe4cbb59c0134588e65c8699"
+  homepage "https://www.squid-cache.org/"
+  url "https://github.com/squid-cache/squid/releases/download/SQUID_6_14/squid-6.14.tar.bz2"
+  sha256 "cdc6b6c1ed519836bebc03ef3a6ed3935c411b1152920b18a2210731d96fdf67"
+  license "GPL-2.0-or-later"
 
   bottle do
-    sha256 "86efd34595ad766563daca8e7138af030b7c3f5dab158813b5d31726fdce7d01" => :el_capitan
-    sha256 "ab7daa5dcdbe372d9318ecb396188ba5f9ebc79fd7cd2b49dbff4feabefa1db8" => :yosemite
-    sha256 "e2a7a7c0a090fbc042024417cf5f6337bedc7c5422bd428c72bc7b9e1b580ffe" => :mavericks
-    sha256 "56d053ba7a36ad5d930452156db61e66d08b3baba645db5598fcd611be78539d" => :mountain_lion
   end
 
-  depends_on "openssl"
+  # Needs a compiler with C++17 support
+  fails_with :gcc
+  fails_with :gcc_4_0
+  fails_with :llvm
+
+  depends_on "pkg-config" => :build
+  depends_on "cyrus-sasl"
+  depends_on "nettle"
+  depends_on "openssl3"
 
   def install
     # http://stackoverflow.com/questions/20910109/building-squid-cache-on-os-x-mavericks
     ENV.append "LDFLAGS",  "-lresolv"
 
     # For --disable-eui, see:
-    # http://squid-web-proxy-cache.1019090.n4.nabble.com/ERROR-ARP-MAC-EUI-operations-not-supported-on-this-operating-system-td4659335.html
+    # https://www.squid-cache.org/mail-archive/squid-users/201304/0040.html
     args = %W[
       --disable-debug
       --disable-dependency-tracking
@@ -27,10 +32,18 @@ class Squid < Formula
       --enable-ssl
       --enable-ssl-crtd
       --disable-eui
-      --enable-pf-transparent
       --with-included-ltdl
       --with-openssl
+      --without-gnutls
     ]
+
+    # Firewall changed in Snow Leopard
+    args << "--enable-ipfw-transparent" if MacOS.version <= :leopard
+    args << "--enable-pf-transparent" if MacOS.version >= :snow_leopard
+
+    # Missing functionality from ancient Kerberos library
+    args << "--without-mit-krb5" if MacOS.version < :leopard
+    args << "--without-heimdal-krb5" if MacOS.version < :leopard
 
     system "./configure", *args
     system "make", "install"
