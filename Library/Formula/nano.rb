@@ -5,10 +5,6 @@ class Nano < Formula
   sha256 "76f0dcb248f2e2f1251d4ecd20fd30fb400a360a3a37c6c340e0a52c2d1cdedf"
   license "GPL-3.0-or-later"
 
-  bottle do
-    sha256 "0e9baf657e025238b59d3e8f8da98835980c8f5c02ad2f2847469717032a4f0e" => :tiger_g3
-  end
-
   depends_on "pkg-config" => :build
   depends_on "gettext"
   depends_on "ncurses"
