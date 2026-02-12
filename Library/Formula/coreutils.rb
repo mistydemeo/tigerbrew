@@ -44,6 +44,7 @@ class Coreutils < Formula
     args = %W[
       --prefix=#{prefix}
       --program-prefix=g
+      --disable-year2038
     ]
     args << "--without-gmp" if build.without? "gmp"
     system "./configure", *args
