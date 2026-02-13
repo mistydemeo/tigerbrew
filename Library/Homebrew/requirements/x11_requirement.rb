@@ -5,7 +5,6 @@ class X11Requirement < Requirement
   attr_reader :min_version
 
   fatal true
-  cask "xquartz"
   download "https://xquartz.macosforge.org"
 
   env { ENV.x11 }
@@ -27,9 +26,23 @@ class X11Requirement < Requirement
   end
 
   def message
-    s = "XQuartz#{@min_version_string} is required to install this formula."
-    s += super
-    s
+    name = MacOS.version == :tiger ? "X11" : "XQuartz"
+
+    s = "#{name}#{@min_version_string} is required to install this formula."
+
+    if MacOS.version == :tiger
+      s += "You can install it using the X11 installer located in the"
+      s += "\"Optional Installs\" folder on your Mac OS X 10.4 DVD."
+    elsif MacOS.version == :leopard
+      s += "You can install it from the XQuartz website:"
+      s += "https://www.xquartz.org/releases/XQuartz-2.6.3.html"
+    elsif MacOS.version <= :mountain_lion
+      s += "You can install it from the XQuartz website:"
+      s += "https://www.xquartz.org/releases/XQuartz-2.7.11.html"
+    else
+      s += "You can install it from the XQuartz website:"
+      s += "https://www.xquartz.org/releases/index.html"
+    end
   end
 
   def <=>(other)
