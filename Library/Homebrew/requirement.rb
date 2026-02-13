@@ -9,16 +9,14 @@ require "build_environment"
 class Requirement
   include Dependable
 
-  attr_reader :tags, :name, :cask, :download, :default_formula
+  attr_reader :tags, :name, :download, :default_formula
   alias_method :option_name, :name
 
   def initialize(tags = [])
     @default_formula = self.class.default_formula
-    @cask ||= self.class.cask
     @download ||= self.class.download
     tags.each do |tag|
       next unless tag.is_a? Hash
-      @cask ||= tag[:cask]
       @download ||= tag[:download]
     end
     @tags = tags
@@ -29,14 +27,6 @@ class Requirement
   # The message to show when the requirement is not met.
   def message
     s = ""
-    if cask
-      s +=  <<-EOS.undent
-
-        You can install with Homebrew Cask:
-          brew install Caskroom/cask/#{cask}
-      EOS
-    end
-
     if download
       s += <<-EOS.undent
 
@@ -136,7 +126,7 @@ class Requirement
 
     attr_reader :env_proc
     attr_rw :fatal, :default_formula
-    attr_rw :cask, :download
+    attr_rw :download
     # build is deprecated, use `depends_on <requirement> => :build` instead
     attr_rw :build
 

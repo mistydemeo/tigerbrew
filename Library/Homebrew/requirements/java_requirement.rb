@@ -2,7 +2,6 @@ require "language/java"
 
 class JavaRequirement < Requirement
   fatal true
-  cask "java"
   download "http://www.oracle.com/technetwork/java/javase/downloads/index.html"
 
   satisfy(:build_env => false) { java_version }
