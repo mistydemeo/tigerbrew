@@ -1,25 +1,27 @@
 class Stlink < Formula
   desc "stm32 discovery line Linux programmer"
-  homepage "https://github.com/texane/stlink"
-  url "https://github.com/texane/stlink/archive/1.1.0.tar.gz"
-  sha256 "3ac4dfcf1da0da40a1b71a8789ff0f1e7d978ea0222158bebd2de916c550682c"
+  homepage "https://github.com/stlink-org/stlink"
+  url "https://github.com/stlink-org/stlink/archive/refs/tags/v1.7.0.zip"
+  sha256 "dd2fde56c701b9084f6c60c5d2549673150b596f06cffe1334f498013a97f0e1"
 
   bottle do
     cellar :any
-    sha256 "915897898e90e285a22526f3a0f34f39e21e089c01bb1b36d462620b50852a59" => :yosemite
-    sha256 "33e1c9519502439c02f2bbada029053269e0574d4351482e9729c9a30b5446d1" => :mavericks
-    sha256 "1d062d03fa7290e2047d78b6f2b710989fca9c4f7f1a701d65468d7c115aa9ef" => :mountain_lion
+    sha256 "3e7284432576b03b20adb80e29c334a1f205e66b24b01ab6a82b6bc2907bc42b" => :tiger_g3
   end
 
+  # Don't assume the compiler will default to C99
+  # Need to enable warnings otherwise libtool trips up, skip treating warnings as errors.
+  patch :p0, :DATA
+
+  depends_on "pkg-config" => :build
+  depends_on "cmake" => :build
   depends_on "libusb"
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "pkg-config" => :build
-
   def install
-    system "./autogen.sh"
-    system "./configure", "--prefix=#{prefix}"
+    # libtool: unknown option character `w' in: -w
+    ENV.enable_warnings if ENV.compiler == :gcc_4_0
+
+    system "cmake", ".", *std_cmake_args
     system "make"
     system "make", "install"
   end
@@ -28,3 +30,20 @@ class Stlink < Formula
     system "st-util", "-h"
   end
 end
+__END__
+--- cmake/modules/c_flags.cmake.orig	2025-11-11 20:19:40.000000000 +0000
++++ cmake/modules/c_flags.cmake	2025-11-11 20:19:53.000000000 +0000
+@@ -17,6 +17,7 @@
+     endif ()
+ endfunction()
+ 
++add_cflag_if_supported("-std=gnu99")
+ add_cflag_if_supported("-std=gnu11")
+ add_cflag_if_supported("-std=gnu18")
+ add_cflag_if_supported("-Wall")
+@@ -50,5 +51,4 @@
+     add_cflag_if_supported("-O0")
+ else ()
+     add_cflag_if_supported("-O2")
+-    add_cflag_if_supported("-Werror")
+ endif ()
