@@ -75,7 +75,6 @@ end
 
 class TeXRequirement < Requirement
   fatal true
-  cask "mactex"
   download "https://www.tug.org/mactex/"
 
   satisfy { which("tex") || which("latex") }
