@@ -127,7 +127,10 @@ if /darwin/i === RUBY_PLATFORM
     /Applications
     #{ENV["HOME"]}/Applications
   ].map do |p|
-    Pathname.new(p).children.select do |app|
+    path = Pathname.new(p)
+    next unless path.exist?
+
+    path.children.select do |app|
       app.resolved_path.to_s.start_with? HOMEBREW_CELLAR.to_s
     end
   end.flatten
