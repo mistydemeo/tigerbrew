@@ -44,9 +44,9 @@ class Coreutils < Formula
     args = %W[
       --prefix=#{prefix}
       --program-prefix=g
-      --disable-year2038
     ]
-    args << "--without-gmp" if build.without? "gmp"
+    args << "--without-libgmp" if build.without? "gmp"
+    args << "--disable-year2038" if MacOS.version < :snow_leopard
     system "./configure", *args
     system "make", "install"
 
