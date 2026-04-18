@@ -125,9 +125,11 @@ class Git < Formula
 
     system "gmake", "install", *args
 
-    if MacOS.version >= :lion
+    if MacOS.version >= :mavericks
     # Install the OS X keychain credential helper
     # Needs Security.framework from 10.7 or newer
+    # but we skip on 10.8 and prior due to build
+    # infra not coping with combining CFLAGS or LDFLAGS
     cd "contrib/credential/osxkeychain" do
       system "gmake", "CC=#{ENV.cc}",
                      "CFLAGS=#{ENV.cflags}",
