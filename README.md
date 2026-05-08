@@ -72,4 +72,3 @@ Code is under the [BSD 2 Clause (NetBSD) license][license].
 [license]:https://github.com/mistydemeo/tigerbrew/blob/master/LICENSE.txt
 [issues]:https://github.com/mistydemeo/tigerbrew/issues
 [prs]:https://github.com/mistydemeo/tigerbrew/pulls
-[tip]:https://www.gratipay.com/mistydemeo/
