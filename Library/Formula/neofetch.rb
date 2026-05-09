@@ -6,9 +6,9 @@ class Neofetch < Formula
   license "MIT"
   head "https://github.com/suparious/neofetch.git", branch: "master"
 
-  on_macos do
-    depends_on "screenresolution"
-  end
+  # on_macos do
+  #   depends_on "screenresolution"
+  # end
 
   def install
     inreplace "neofetch", "/usr/local", HOMEBREW_PREFIX
