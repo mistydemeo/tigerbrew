@@ -7,7 +7,6 @@ class Neofetch < Formula
   head "https://github.com/suparious/neofetch.git", branch: "master"
 
   def install
-    inreplace "neofetch", "/usr/local", HOMEBREW_PREFIX
     system "make", "install", "PREFIX=#{prefix}"
   end
 
