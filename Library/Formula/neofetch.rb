@@ -6,8 +6,15 @@ class Neofetch < Formula
   license "MIT"
   head "https://github.com/suparious/neofetch.git", branch: "master"
 
+  # Officially requires bash 3.2
+  depends_on "bash" if MacOS.version < :leopard
+
   def install
     system "make", "install", "PREFIX=#{prefix}"
+    if MacOS.version < :leopard
+      inreplace "neofetch", "#!/usr/bin/env bash",
+                            "#!#{Formula["bash"].opt_bin/"bash"}"
+    end
   end
 
   test do
