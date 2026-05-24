@@ -1,0 +1,71 @@
+#!/bin/sh
+set -eu
+
+print() {
+	printf "\033[1;34m==>\033[30m $1\e[0m\n"
+}
+
+TAR_VERSION="1.15"
+RUBY_VERSION="1.8.5-p115"
+CURL_VERSION="7.58.0"
+CURL="/tmp/$CURL_VERSION/bin/curl"
+CURL_FLAGS="fsSL"
+
+if [ "$(id -u)" -ne "0" ]; then
+	print "You must be root to run this script."
+	exit 1
+fi
+
+print "Installing tar..."
+cd /tmp
+curl -O ftp://ftp.gnu.org/gnu/tar/tar-"$TAR_VERSION".tar.gz
+tar xzf tar-"$TAR_VERSION".tar.gz
+cd tar-"$TAR_VERSION"
+printf "diff -Naur tar-1.15/rmt/rmt.c tar-1.15-patched/rmt/rmt.c
+--- tar-1.15/rmt/rmt.c  Mon Sep  6 09:49:41 2004
++++ tar-1.15-patched/rmt/rmt.c  Tue May 12 23:48:38 2020
+@@ -32,6 +32,7 @@
+    MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  */
+ 
+ #include \"system.h\"
++#include <locale.h>
+ #include <localedir.h>
+ #include <safe-read.h>
+ #include <full-write.h>
+diff -Naur tar-1.15/src/tar.c tar-1.15-patched/src/tar.c
+--- tar-1.15/src/tar.c  Sat Dec 18 15:01:07 2004
++++ tar-1.15-patched/src/tar.c  Tue May 12 23:49:06 2020
+@@ -37,6 +37,7 @@
+ #include \"common.h\"
+ 
+ #include <getdate.h>
++#include <locale.h>
+ #include <localedir.h>
+ #include <rmt.h>
+ #include <prepargs.h>
+" | patch -Np1 --ignore-whitespace -b
+./configure --prefix=/usr/local
+make
+make install
+
+print "Installing ruby..."
+cd /tmp
+curl -O http://cache.ruby-lang.org/pub/ruby/ruby-"$RUBY_VERSION".tar.gz
+/usr/local/bin/tar xzf ruby-"$RUBY_VERSION".tar.gz
+cd ruby-"$RUBY_VERSION"
+./configure --prefix=/usr
+make
+make DESTDIR=/System/Library/Frameworks/Ruby.framework/Versions/Current install
+[ ! -f /usr/local/bin/ruby ] && ln -s /System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby /usr/local/bin/ruby
+
+print "Bootstrapping curl..."
+cd /tmp
+curl -Lk https://archive.org/download/tigerbrew/portable-curl-"$CURL_VERSION".tiger_g3.bottle.tar.gz -o curl.tar.gz
+/usr/local/bin/tar xzf curl.tar.gz --strip 1
+
+print "Installing brew..."
+cd /usr/local
+$CURL -$CURL_FLAGS https://github.com/mistydemeo/tigerbrew/tarball/master | /usr/local/bin/tar xz -m --strip 1
+
+print "Fixing permissions for /usr/local..."
+for f in $(find /usr/local); do chmod g+rwx "$f" && chgrp admin "$f"; done
