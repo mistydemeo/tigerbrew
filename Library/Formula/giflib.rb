@@ -1,7 +1,7 @@
 class Giflib < Formula
   desc "GIF library using patented LZW algorithm"
   homepage "http://giflib.sourceforge.net/"
-  url "https://prdownloads.sourceforge.net/project/giflib/giflib-5.2.2.tar.gz"
+  url "https://prdownloads.sourceforge.net/project/giflib/giflib-5.x/giflib-5.2.2.tar.gz"
   sha256 "be7ffbd057cadebe2aa144542fd90c6838c6a083b5e8a9048b8ee3b66b29d5fb"
 
   bottle do
