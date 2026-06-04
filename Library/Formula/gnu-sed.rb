@@ -1,12 +1,11 @@
 class GnuSed < Formula
   desc "GNU implementation of the famous stream editor"
   homepage "https://www.gnu.org/software/sed/"
-  url "http://ftpmirror.gnu.org/sed/sed-4.9.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/sed/sed-4.9.tar.xz"
-  sha256 "6e226b732e1cd739464ad6862bd1a1aba42d7982922da7a53519631d24975181"
+  url "https://ftpmirror.gnu.org/sed/sed-4.10.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/sed/sed-4.10.tar.xz"
+  sha256 "b8e72182b2ec96a3574e2998c47b7aaa64cc20ce000d8e9ac313cc07cecf28c7"
 
   bottle do
-    sha256 "b22edf98fd285eecdb04ab8dfc92d9109f082d378f3e0b81c31143f410808ff0" => :tiger_altivec
   end
 
   conflicts_with "ssed", :because => "both install share/info/sed.info"
@@ -15,11 +14,6 @@ class GnuSed < Formula
 
   option "with-default-names", "Do not prepend 'g' to the binary"
 
-  patch :p1 do
-    url "https://gist.githubusercontent.com/matthewyang204/a86bb42070041f62d6338237346bac07/raw/550837bc37d1ca6b01007cc42e97955ebcc6ec74/0001-Patch-unneeded-pragma-GCC-diagnostics.patch"
-    sha256 "1417cafc13810235f782012dd6906ad7be76806ef683799903fd9ae3c744e9ca"
-  end
-  
   def install
     args = ["--prefix=#{prefix}", "--disable-dependency-tracking"]
     args << "--program-prefix=g" if build.without? "default-names"
@@ -49,6 +43,11 @@ class GnuSed < Formula
   end
 
   test do
-    system "#{bin}/gsed", "--version"
+    test_file = testpath/"test.txt"
+    test_file.write "Hello world!"
+    system bin/"gsed", "-i", "s/world/World/g", "test.txt"
+    assert_match "Hello World!", test_file.read
+    system opt_libexec/"gnubin/sed", "-i", "s/world/World/g", "test.txt"
+    assert_match "Hello World!", test_file.read
   end
 end
