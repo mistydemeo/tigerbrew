@@ -19,7 +19,7 @@ class Libpng < Formula
   end
 
   depends_on "zlib"
-  keg_only :provided_pre_mountain_lion
+  keg_only :provided_by_osx, "X11 includes libpng" if MacOS.version >= :leopard
 
   option :universal
   option "with-tests", "Build and run the test suite"
