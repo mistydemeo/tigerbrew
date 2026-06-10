@@ -1,8 +1,8 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.53.0.tar.xz"
-  sha256 "5818bd7d80b061bbbdfec8a433d609dc8818a05991f731ffc4a561e2ca18c653"
+  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.54.0.tar.xz"
+  sha256 "f689162364c10de79ef89aa8dbf48731eb057e34edbbd20aca510ce0154681a3"
   license "GPL-2.0-only"
   head "https://github.com/git/git.git", :shallow => false
 
@@ -10,13 +10,13 @@ class Git < Formula
   end
 
   resource "html" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.53.0.tar.xz"
-    sha256 "994b93cbf25a9c13f1206dcc1751f0559633d5152155e16fc025ab776af08e0d"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.54.0.tar.xz"
+    sha256 "7ff72bfdfed4f20563f34416cf27614fb9c35bfad590db0062f2a0a9636514e4"
   end
 
   resource "man" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.53.0.tar.xz"
-    sha256 "957ffe4409eeb90c7332bff4abee8d5169d28ef5c7c3bf08419f4239be13f77f"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.54.0.tar.xz"
+    sha256 "292062d18f3a215213ea8317ed22b94f02ad9572520b9293164d7db3eb888953"
   end
 
   # Fix PowerPC build and support for OS X Tiger & Leopard
@@ -229,9 +229,9 @@ __END__
  /* Not under GCC-alike or glibc or *BSD or newlib or <processor whitelist> or <os whitelist> */
  #elif defined(SHA1DC_ON_INTEL_LIKE_PROCESSOR)
  /*
---- config.mak.uname.orig	2024-04-30 21:58:33.000000000 +0100
-+++ config.mak.uname	2024-04-30 22:01:59.000000000 +0100
-@@ -128,6 +128,11 @@
+--- config.mak.uname.orig	2026-04-20 14:53:04.000000000 +0100
++++ config.mak.uname	2026-06-10 14:40:05.000000000 +0100
+@@ -129,6 +129,11 @@
  		OLD_ICONV = UnfortunatelyYes
  		NO_APPLE_COMMON_CRYPTO = YesPlease
          endif
@@ -243,25 +243,25 @@ __END__
          ifeq ($(shell expr "$(uname_R)" : '[15]\.'),2)
  		NO_STRLCPY = YesPlease
          endif
-@@ -146,8 +151,7 @@
+@@ -147,8 +152,7 @@
  	HAVE_BSD_SYSCTL = YesPlease
  	FREAD_READS_DIRECTORIES = UnfortunatelyYes
  	HAVE_NS_GET_EXECUTABLE_PATH = YesPlease
 -	CSPRNG_METHOD = arc4random
 -	USE_ENHANCED_BASIC_REGULAR_EXPRESSIONS = YesPlease
 +	CSPRNG_METHOD = openssl
+ 	HAVE_PLATFORM_PROCINFO = YesPlease
+ 	COMPAT_OBJS += compat/darwin/procinfo.o
  
- 	# Workaround for `gettext` being keg-only and not even being linked via
- 	# `brew link --force gettext`, should be obsolete as of
-@@ -173,6 +177,7 @@
-                 endif
+@@ -162,6 +166,7 @@
+ 		NEEDS_GOOD_LIBICONV = UnfortunatelyYes
          endif
  
 +	ifeq ($(shell test "`expr "$(uname_R)" : '\([0-9][0-9]*\)\.'`" -gt 13 && echo 1), 1)
  	# The builtin FSMonitor on MacOS builds upon Simple-IPC.  Both require
  	# Unix domain sockets and PThreads.
          ifndef NO_PTHREADS
-@@ -181,6 +186,7 @@
+@@ -170,6 +175,7 @@
  	FSMONITOR_OS_SETTINGS = darwin
          endif
          endif
