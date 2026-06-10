@@ -1,12 +1,11 @@
 class Openssl3 < Formula
   desc "Cryptography and SSL/TLS Toolkit"
   homepage "https://openssl.org/"
-  url "https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz"
-  sha256 "967311f84955316969bdb1d8d4b983718ef42338639c621ec4c34fddef355e99"
+  url "https://github.com/openssl/openssl/releases/download/openssl-3.5.7/openssl-3.5.7.tar.gz"
+  sha256 "a8c0d28a529ca480f9f36cf5792e2cd21984552a3c8e4aa11a24aa31aeac98e8"
   license "Apache-2.0"
 
   bottle do
-    sha256 "9fe56a7a89f70df7b1e5b3d34332db5e110df703c037e09dbc3f5cf37933e132" => :tiger_g3
   end
 
   keg_only :provided_by_osx
