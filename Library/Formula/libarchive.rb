@@ -1,14 +1,13 @@
 class Libarchive < Formula
   desc "Multi-format archive and compression library"
   homepage "http://www.libarchive.org"
-  url "http://www.libarchive.org/downloads/libarchive-3.8.4.tar.gz"
-  mirror "https://github.com/libarchive/libarchive/releases/download/v3.8.4/libarchive-3.8.4.tar.gz"
-  sha256 "b2c75b132a0ec43274d2867221befcb425034cd038e465afbfad09911abb1abb"
+  url "http://www.libarchive.org/downloads/libarchive-3.8.7.tar.gz"
+  mirror "https://github.com/libarchive/libarchive/releases/download/v3.8.7/libarchive-3.8.7.tar.gz"
+  sha256 "4b787cca6697a95c7725e45293c973c208cbdc71ae2279f30ef09f52472b9166"
   license "BSD-2-Clause"
 
   bottle do
     cellar :any
-    sha256 "168566fbaf9006c6be16bca6bd3b6733ca76c26e1bea507286f6f68c143e3cf6" => :tiger_g3
   end
 
   depends_on "bzip2"
