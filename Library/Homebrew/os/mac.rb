@@ -257,7 +257,18 @@ module OS
       "6.3.1" => { :clang => "6.1", :clang_build => 602 },
       "6.3.2" => { :clang => "6.1", :clang_build => 602 },
       "6.4"   => { :clang => "6.1", :clang_build => 602 },
-      "7.0"   => { :clang => "7.0", :clang_build => 700 }
+      "7.0"   => { :clang => "7.0", :clang_build => 700 },
+      "7.0.1" => { :clang => "7.0", :clang_build => 700 },
+      "7.1"   => { :clang => "7.0", :clang_build => 700 },
+      "7.1.1" => { :clang => "7.0", :clang_build => 700 },
+      "7.2"   => { :clang => "7.0", :clang_build => 700 },
+      "7.2.1" => { :clang => "7.0", :clang_build => 700 },
+      "7.3"   => { :clang => "7.3", :clang_build => 703 },
+      "7.3.1" => { :clang => "7.3", :clang_build => 703 },
+      "8.0"   => { :clang => "8.0", :clang_build => 800 },
+      "8.1"   => { :clang => "8.0", :clang_build => 800 },
+      "8.2"   => { :clang => "8.0", :clang_build => 800 },
+      "8.2.1" => { :clang => "8.0", :clang_build => 800 }
     }
 
     def compilers_standard?
