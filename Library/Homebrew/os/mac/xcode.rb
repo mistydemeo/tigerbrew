@@ -129,7 +129,9 @@ module OS
           when 60      then "6.0"
           when 61      then "6.1"
           when 70      then "7.0"
-          else "7.0"
+          when 73      then "7.3"
+          when 80      then "8.0"
+          else "8.0"
           end
         end
       end
