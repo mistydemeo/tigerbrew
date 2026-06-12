@@ -11,7 +11,8 @@ Tools available for your platform:
  10.7  | 4.6.3 | April 2013
  10.8  | 5.1.1 | April 2014
  10.9  | 6.2   | 6.2
- 10.10 | 6.4   | 6.4
+ 10.10 | 7.2   | 7.2
+ 10.11 | 8.2.1   | 8.2.1
 
 
 ## Compiler Version Database
