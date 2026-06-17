@@ -1,38 +1,30 @@
 class Ejabberd < Formula
   desc "XMPP application server"
   homepage "https://www.ejabberd.im"
-  url "https://github.com/processone/ejabberd/archive/refs/tags/16.12.tar.gz"
-  sha256 "a7eeb9fe49ef141daab1be01838a7612dff9194a28c3dfc922cc691bb8c9b532"
+  url "https://github.com/processone/ejabberd/archive/refs/tags/25.04.tar.gz"
+  sha256 "54beae3e7729fdaab1d578a9d59046f31d8ce31c851ae5aca9532821ff22cb45"
 
-  option "32-bit"
+  depends_on :macos => :snow_leopard
 
   depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "rebar" => :build
-
+  depends_on "rebar3" => :build
   depends_on "erlang"
-  depends_on "libyaml"
   depends_on "openssl3"
 
   # for CAPTCHA challenges
   depends_on "imagemagick" => :optional
 
-  resource "p1_pam" do
-    url "https://github.com/processone/epam/archive/refs/tags/1.0.0.zip"
-    sha256 "6704010b14034881d8c60f52d1a82d8125f20cdf1e52a7113c838f1db6be7e81"
+  resource "epam" do
+    url "https://github.com/processone/epam/archive/refs/tags/1.0.14.zip"
+    sha256 "e876d7c8fc26345419b42291b631d6ddd1f45db27eb6e8cdd8203fabd6436b99"
   end
 
   def install
-    ENV["TARGET_DIR"] = ENV["DESTDIR"] = "#{lib}/ejabberd/erlang/lib/ejabberd-#{version}"
-    ENV["MAN_DIR"] = man
-    ENV["SBIN_DIR"] = sbin
-    mkdir_p("deps/p1_pam")
-    resource("p1_pam").verify_download_integrity(resource("p1_pam").fetch)
-    resource("p1_pam").unpack("#{buildpath}/deps/p1_pam")
+    inreplace "Makefile.in", "DEPS:=$(sort $(shell QUIET=1 $(REBAR) $(LISTDEPS) | $(SED) -ne $(DEPSPATTERN) ))", "DEPS:=base64url cache_tab eimp epam ezlib fast_tls fast_xml fast_yaml idna jiffy jose luerl mqtree p1_acme p1_mysql p1_oauth2 p1_pgsql p1_utils pkix stringprep stun unicode_util_compat xmpp yconf"
 
-    if build.build_32_bit?
-      ENV.append %w[CFLAGS LDFLAGS], "-arch #{Hardware::CPU.arch_32_bit}"
-    end
+    mkdir_p("_build/default/lib/epam")
+    resource("epam").verify_download_integrity(resource("epam").fetch)
+    resource("epam").unpack("#{buildpath}/_build/default/lib/epam")
 
     args = ["--prefix=#{prefix}",
             "--sysconfdir=#{etc}",
@@ -42,62 +34,17 @@ class Ejabberd < Formula
             "--enable-odbc",
             "--enable-pam"]
 
-    # lager 3.2.1 uses the git protocol to try and clone its dependency
-    # By 3.2.3 they switched to HTTPS, switch to the most recent minor release.
-    inreplace "rebar.config", 'lager", {tag, "3.2.1', 'lager", {tag, "3.2.4'
-
-    system "autoupdate"
     system "./autogen.sh"
     system "./configure", *args
 
-    # Before Snow Leopard, the pam header files were in /usr/include/pam instead of /usr/include/security.
-    # https://trac.macports.org/ticket/26127
     if MacOS.version < :snow_leopard
-      inreplace "deps/p1_pam/configure", "security/pam_appl.h", "pam/pam_appl.h"
-      inreplace "deps/p1_pam/configure.ac", "security/pam_appl.h", "pam/pam_appl.h"
-      inreplace "deps/p1_pam/c_src/epam.c", "security/pam_appl.h", "pam/pam_appl.h"
+      inreplace "_build/default/lib/epam/configure", "security/pam_appl.h", "pam/pam_appl.h"
+      inreplace "_build/default/lib/epam/configure.ac", "security/pam_appl.h", "pam/pam_appl.h"
+      inreplace "_build/default/lib/epam/c_src/epam.c", "security/pam_appl.h", "pam/pam_appl.h"
     end
 
     system "make"
     system "make", "install"
 
-    (etc+"ejabberd").mkpath
-    (var+"lib/ejabberd").mkpath
-    (var+"spool/ejabberd").mkpath
-  end
-
-  def caveats; <<-EOS.undent
-    If you face nodedown problems, concat your machine name to:
-      /private/etc/hosts
-    after 'localhost'.
-    EOS
-  end
-
-  plist_options :manual => "#{HOMEBREW_PREFIX}/sbin/ejabberdctl start"
-
-  def plist; <<-EOS.undent
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-    <dict>
-      <key>EnvironmentVariables</key>
-      <dict>
-        <key>HOME</key>
-        <string>#{var}/lib/ejabberd</string>
-      </dict>
-      <key>Label</key>
-      <string>#{plist_name}</string>
-      <key>ProgramArguments</key>
-      <array>
-        <string>#{opt_sbin}/ejabberdctl</string>
-        <string>start</string>
-      </array>
-      <key>RunAtLoad</key>
-      <true/>
-      <key>WorkingDirectory</key>
-      <string>#{var}/lib/ejabberd</string>
-    </dict>
-    </plist>
-    EOS
   end
 end
