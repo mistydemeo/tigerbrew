@@ -11,6 +11,7 @@ class Qemu < Formula
   depends_on "glib"
   depends_on "libutil" if MacOS.version < :leopard
   depends_on "pixman"
+  depends_on "libutil" if MacOS.version < :leopard
   depends_on "vde" => :optional
   depends_on "sdl" => :optional
   depends_on "gtk+" => :optional
