@@ -1,13 +1,12 @@
 class AutoconfArchive < Formula
   desc "Collection of over 500 reusable autoconf macros"
   homepage "https://savannah.gnu.org/projects/autoconf-archive/"
-  url "http://ftpmirror.gnu.org/autoconf-archive/autoconf-archive-2023.02.20.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/autoconf-archive/autoconf-archive-2023.02.20.tar.xz"
-  sha256 "71d4048479ae28f1f5794619c3d72df9c01df49b1c628ef85fde37596dc31a33"
+  url "http://ftpmirror.gnu.org/autoconf-archive/autoconf-archive-2024.10.16.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/autoconf-archive/autoconf-archive-2024.10.16.tar.xz"
+  sha256 "7bcd5d001916f3a50ed7436f4f700e3d2b1bade3ed803219c592d62502a57363"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "85eb453571547a14341cf7d53cfe8361db15969e974c9ad5cc2f14c1c2447cbc" => :tiger_altivec
   end
 
   # autoconf-archive is useless without autoconf
