@@ -1,9 +1,9 @@
 class Libarchive < Formula
   desc "Multi-format archive and compression library"
   homepage "http://www.libarchive.org"
-  url "http://www.libarchive.org/downloads/libarchive-3.8.7.tar.gz"
-  mirror "https://github.com/libarchive/libarchive/releases/download/v3.8.7/libarchive-3.8.7.tar.gz"
-  sha256 "4b787cca6697a95c7725e45293c973c208cbdc71ae2279f30ef09f52472b9166"
+  url "http://www.libarchive.org/downloads/libarchive-3.8.8.tar.gz"
+  mirror "https://github.com/libarchive/libarchive/releases/download/v3.8.8/libarchive-3.8.8.tar.gz"
+  sha256 "038918ea315cdd446cc63acfe880d6011832bbe1711c887de5de5441b306c190"
   license "BSD-2-Clause"
 
   bottle do
@@ -18,6 +18,11 @@ class Libarchive < Formula
   keg_only :provided_by_osx
 
   def install
+    # GCC 4.2 blows up with any optimisation enabled.
+    # libarchive/archive_write_set_format_pax.c: In function ‘archive_write_pax_header’:
+    # libarchive/archive_write_set_format_pax.c:580: internal compiler error: Bus error
+    # https://github.com/libarchive/libarchive/issues/3189
+    ENV.O0 if ENV.compiler == :gcc
     system "./configure", "--prefix=#{prefix}",
                           "--without-lzo2",
                           "--without-nettle",
