@@ -319,6 +319,10 @@ module Superenv
     end
   end
 
+  def no_optimization
+      delete("HOMEBREW_OPTIMIZATION_LEVEL")
+  end
+
   # @private
   def noop(*_args); end
   noops = []
@@ -329,7 +333,7 @@ module Superenv
 
   # These methods provide functionality that has not yet been ported to
   # superenv.
-  noops.concat %w[gcc_4_0_1 minimal_optimization no_optimization enable_warnings]
+  noops.concat %w[gcc_4_0_1 minimal_optimization enable_warnings]
 
   noops.each { |m| alias_method m, :noop }
 end

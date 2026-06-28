@@ -202,7 +202,7 @@ class Cmd
 
     args << "-pipe"
     args << "-w" unless configure?
-    args << "-#{ENV["HOMEBREW_OPTIMIZATION_LEVEL"]}"
+    args << "-#{ENV["HOMEBREW_OPTIMIZATION_LEVEL"]}" unless ENV["HOMEBREW_OPTIMIZATION_LEVEL"].nil?
     args.concat(optflags)
     args.concat(archflags)
     args << "-std=#{@arg0}" if @arg0 =~ /c[89]9/
