@@ -1,9 +1,9 @@
 class CurlCaBundle < Formula
   homepage "http://curl.haxx.se/docs/caextract.html"
-  url "https://curl.se/ca/cacert-2026-05-14.pem",
+  url "https://curl.se/ca/cacert-2026-07-16.pem",
     :using => :nounzip
-  sha256 "86a1f3366afac7c6f8ae9f3c779ac221129328c43f0ab2b8817eb2f362a5025c"
-  version "2026-05-14"
+  sha256 "3ff344e30b9b1ed2971044eabb438a08f2e2245ddb5f8ab1a3ad8b63ab4eaf91"
+  version "2026-07-16"
 
   bottle do
     cellar :any
