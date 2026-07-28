@@ -87,6 +87,7 @@ module OS
             `#{path} -version 2>/dev/null` =~ /DevToolsCore-(\d+\.\d)/
             case $1
             when "515.0" then return "2.0"
+            when "762.0" then return "2.4.1"
             when "798.0" then return "2.5"
             end
           end
