@@ -6,6 +6,7 @@ class Zlib < Formula
 
   bottle do
     cellar :any
+    sha256 "c0be37a4890f6d025cbd21f215da11d9ccda8e6e0b20ee07ffd9801f09e2e2b4" => :tiger_g3
   end
 
   keg_only :provided_by_osx

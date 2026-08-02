@@ -5,6 +5,11 @@ class Coreutils < Formula
   mirror "https://ftpmirror.gnu.org/coreutils/coreutils-9.10.tar.xz"
   sha256 "16535a9adf0b10037364e2d612aad3d9f4eca3a344949ced74d12faf4bd51d25"
 
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "6a71698807f4a0829cd90a079f5e31eadddfd52bf733aec24cfd0977daab775b" => :tiger_g3
+  end
+
   head do
     url "https://git.savannah.gnu.org/git/coreutils.git"
 

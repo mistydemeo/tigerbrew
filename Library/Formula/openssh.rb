@@ -8,6 +8,7 @@ class Openssh < Formula
   license "SSH-OpenSSH"
 
   bottle do
+    sha256 "0c4e5dbe5372e84cb08c613c4ecd80e7d100e2561c3741addc27cd6b5fde01a3" => :tiger_g3
   end
 
   # Please don't resubmit the keychain patch option. It will never be accepted.

@@ -14,6 +14,8 @@ class Perl < Formula
   option "with-tests", "Build and run the test suite"
 
   bottle do
+    sha256 "b04753c734c9820d10189d0d654ecd6ff8d71d7fd0b102bc0dfe3f6e027da1ee" => :tiger_altivec
+    sha256 "0568a80419a494a124aa31b06aa2957a1de121e58e5c1efb5513c3cbe4f2da73" => :tiger_g3
   end
 
   def install
