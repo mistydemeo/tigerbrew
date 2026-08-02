@@ -8,6 +8,7 @@ class Utf8proc < Formula
   bottle do
     cellar :any
     sha256 "259035346607c349dac583c42df226ee6d3d84f32b9bfdbc564d304c3ccc7d3c" => :tiger_altivec
+    sha256 "9e4842805467fcdca79dda1e3d875d40e768d0630911a595b7d77f15d53e98eb" => :tiger_g3
   end
 
   # Unbreak build on legacy compilers which lack warnings for sign conversion & linking

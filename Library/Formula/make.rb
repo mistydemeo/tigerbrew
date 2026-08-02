@@ -6,6 +6,8 @@ class Make < Formula
   sha256 "dd16fb1d67bfab79a72f5e8390735c49e3e8e70b4945a15ab1f81ddb78658fb3"
 
   bottle do
+    sha256 "346e5af524d1cc82e8c8652e041adf17ac6497d64aa23aa3d3acfc3ddb202bdb" => :tiger_altivec
+    sha256 "ef925903332986fd7c5436557ba73b7b1d107df0827fa7b25969993dc75778ed" => :tiger_g3
   end
 
   option "with-default-names", "Do not prepend 'g' to the binary"
