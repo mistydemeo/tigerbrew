@@ -21,6 +21,13 @@ class Aria2 < Formula
   needs :cxx11
 
   def install
+    if MacOS.version > :tiger
+      # Specifying -std=c++11 (which is what ENV.cxx11 does) on 10.4.x with gcc-7 causes the build to fail.
+      # For some reason, omitting this flag allows aria2 to successfully build and run on OS X 10.4.x.
+      # TODO: Verify if this behaviour occurs with other versions of GCC that support C++11 (such as gcc-6 or gcc-5).
+      ENV.cxx11
+    end
+
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
