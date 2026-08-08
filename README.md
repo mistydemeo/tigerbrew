@@ -1,12 +1,20 @@
 Tigerbrew
 =========
 
-A little experimental fork of [Homebrew][homebrew] that adds support for PowerPC Macs, and Macs running Tiger (or Leopard).
+A little experimental fork of [Homebrew][homebrew] that adds support for PowerPC Macs, and Intel Macs running Tiger (or Leopard and Snow Leopard).
+
+Certs are now updated, if you have SSL issues just re-run the installer script below to install more recent certs as of October 2021.
 
 Installation
 ============
 
-You will first need the newest version of Xcode for your operating system installed. For Tiger that's [Xcode 2.5, available from Apple here](https://developer.apple.com/download/more/?=xcode%202.5). For Leopard, [Xcode 3.1.4, available from Apple here](https://developer.apple.com/download/more/?=xcode%203.1.4). Both downloads will require an Apple Developer account.
+You will first need the newest version of Xcode for your operating system installed. All downloads below will require an Apple Developer account.
+
+* For Tiger that's [Xcode 2.5, available from Apple here](https://developer.apple.com/download/more/?=xcode%202.5)
+* For Leopard 10.5 use [Xcode 3.1.4](https://developer.apple.com/services-account/download?path=/Developer_Tools/xcode_3.1.4_developer_tools/xcode314_2809_developerdvd.dmg).
+* Snow Leopard 10.6.8 use [Xcode 4.2](https://developer.apple.com/services-account/download?path=/Developer_Tools/xcode_4.2_for_snow_leopard/xcode_4.2_for_snow_leopard.dmg)
+
+A very useful website for finding Xcode releases is [Xcode Releases](https://xcodereleases.com/) which lists every version of Xcode releases, with working links and the version of OSX that supported that release.
 
 On the computer you're reading this on, control or right click this link and save it (the option will be something like "Save Link As" or "Download Linked File" depending on your browser) to disk:
 
