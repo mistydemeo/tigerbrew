@@ -14,6 +14,12 @@ class Make < Formula
 
   depends_on "guile" => :optional
 
+  # https://github.com/mistydemeo/tigerbrew/issues/1513
+  fails_with :gcc do
+    build 5553
+    cause "malloc errors"
+  end
+
   def install
     args = %W[
       --disable-dependency-tracking
