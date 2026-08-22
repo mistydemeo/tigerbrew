@@ -6,7 +6,7 @@ The preferred and supported method of installing specific versions of
 formulae is to use the
 [Homebrew-versions](https://github.com/Homebrew/homebrew-versions)
 tap.  If the version you’re looking for isn’t available, consider [opening a
-pull request](https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/share/doc/homebrew/How-To-Open-a-Homebrew-Pull-Request-(and-get-it-merged).md)!
+pull request](https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/share/doc/homebrew/How-To-Open-a-Homebrew-Pull-Request-(and-get-it-merged).md)!
 
 ### Installing directly from pull-requests
 

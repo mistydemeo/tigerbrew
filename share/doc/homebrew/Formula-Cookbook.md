@@ -68,7 +68,7 @@ Before contributing, make sure your package:
 
 Make sure you search thoroughly (all aliases!). We don’t want you to waste your time.
 
-Be sure to look over the [contributing guidelines](https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/CONTRIBUTING.md) as well.
+Be sure to look over the [contributing guidelines](https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/CONTRIBUTING.md) as well.
 
 
 ## Will we merge your formula?
@@ -77,9 +77,9 @@ Probably. But we have rules to keep the quality and goals of Tigerbrew intact: P
 
 ## Some Quick Examples Before You Get Started
 
-Formulae aren’t that complicated. [etl](https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/Library/Formula/etl.rb) is as simple as it gets.
+Formulae aren’t that complicated. [etl](https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/Library/Formula/etl.rb) is as simple as it gets.
 
-And then [Git](http://codeberg.org/mistydemeo/tigerbrew/src/branch/master/Library/Formula/git.rb) and [flac](http://codeberg.org/mistydemeo/tigerbrew/src/branch/master/Library/Formula/flac.rb) show more advanced functionality.
+And then [Git](http://codeberg.org/mistydemeo/tigerbrew/src/branch/main/Library/Formula/git.rb) and [flac](http://codeberg.org/mistydemeo/tigerbrew/src/branch/main/Library/Formula/flac.rb) show more advanced functionality.
 
 Refer to the [Formula class API documentation](http://www.rubydoc.info/github/Homebrew/homebrew/master/frames) which shows all the stuff you can use in a Formula.
 
@@ -268,7 +268,7 @@ class Foo < Formula
 end
 ```
 
-[jrnl](https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/Library/Formula/jrnl.rb) is an example of a formula that does this well. The end result means the user doesn't have to faff with `pip` or Python and can just run `jrnl`.
+[jrnl](https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/Library/Formula/jrnl.rb) is an example of a formula that does this well. The end result means the user doesn't have to faff with `pip` or Python and can just run `jrnl`.
 
 [homebrew-pypi-poet](https://github.com/tdsmith/homebrew-pypi-poet) can help you generate resource stanzas for the dependencies of your Python application.
 
@@ -304,7 +304,7 @@ The `test do` block automatically creates and changes to a temporary directory w
 
 We want tests that don't require any user input and test the basic functionality of the application. For example `foo build-foo input.foo` is a good test and (despite their widespread use) `foo --version` and `foo --help` are bad tests. However, a bad test is better than no test at all.
 
-See [cmake](https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/Library/Formula/cmake.rb) for an example of a formula with a good test. A basic `CMakeLists.txt` file is written CMake uses it to generate Makefiles. This test checks that CMake doesn't e.g. segfault during basic operation.
+See [cmake](https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/Library/Formula/cmake.rb) for an example of a formula with a good test. A basic `CMakeLists.txt` file is written CMake uses it to generate Makefiles. This test checks that CMake doesn't e.g. segfault during basic operation.
 
 ## Manuals
 
@@ -327,7 +327,7 @@ If you’re not sure about the name check the homepage, and check the Wikipedia 
 
 Where Tigerbrew already has a formula called `foo` we typically do not accept requests to replace that formula with something else also named `foo`. This is to avoid both confusing and surprising users’ expectation.
 
-When two formulae share an upstream name, e.g. [`AESCrypt`](https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/Library/Formula/aescrypt.rb) and [`AESCrypt`](https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/Library/Formula/aescrypt-packetizer.rb) the newer formula must typically adapt the name to avoid conflict with the current formula.
+When two formulae share an upstream name, e.g. [`AESCrypt`](https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/Library/Formula/aescrypt.rb) and [`AESCrypt`](https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/Library/Formula/aescrypt-packetizer.rb) the newer formula must typically adapt the name to avoid conflict with the current formula.
 
 If you’re *still* not sure, just commit. We’ll apply some arbitrary rule and make a decision ;)
 
@@ -383,7 +383,7 @@ Now you just need to push back to Codeberg.
 
 If you haven’t forked Tigerbrew yet, [go to the repo and hit the fork button](http://codeberg.org/mistydemeo/tigerbrew).
 
-If you have already forked Tigerbrew on Codeberg, then you can manually push (just make sure you have been pulling from the mistydemeo/tigerbrew master):
+If you have already forked Tigerbrew on Codeberg, then you can manually push (just make sure you have been pulling from the mistydemeo/tigerbrew repository):
 
     git push https://codeberg.org/myname/tigerbrew.git <what-you-called-your-branch>
 
@@ -393,7 +393,7 @@ Now, please open a Pull Request (on your Codeberg repo page) for new and updated
 *   Keep merge commits out of the request
 *   If you have any merge or mixup commits, please [squash](http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.html) them.
 
-If a commit touches multiple files, or isn’t one logical bug fix, or a file is touched in multiple commits, we’ll probably ask you to `rebase` and `squash` your commits. For this reason, you should avoid pushing to your `master` branch. Note, after rebase and/or squash, you'll need to push with `--force` to your remote.
+If a commit touches multiple files, or isn’t one logical bug fix, or a file is touched in multiple commits, we’ll probably ask you to `rebase` and `squash` your commits. For this reason, you should avoid pushing to your `main` branch. Note, after rebase and/or squash, you'll need to push with `--force` to your remote.
 
 
 # Overview of the Formula Install Process
@@ -558,7 +558,7 @@ If anything isn’t clear, you can usually figure it out with some `grep` and th
 
 ## Unstable versions (`HEAD`, `devel`)
 
-Formulae can specify alternate downloads for the upstream project’s `devel` release (unstable but not `trunk`) or `HEAD` (`master/trunk`).
+Formulae can specify alternate downloads for the upstream project’s `devel` release (unstable but not `trunk`) or `HEAD` (`main/trunk`).
 
 ### HEAD
 
@@ -873,7 +873,7 @@ end
 
 Option names should be prefixed with the words `with` or `without`. For example, an option to run a test suite should be named `--with-test` or `--with-check` rather than `--test`, and an option to enable a shared library `--with-shared` rather than `--shared` or `--enable-shared`.
 
-Note that options that aren’t ` build.with? ` or ` build.without? ` should be actively deprecated where possible. See [wget](https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/Library/Formula/wget.rb#L27-L31) for an example.
+Note that options that aren’t ` build.with? ` or ` build.without? ` should be actively deprecated where possible. See [wget](https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/Library/Formula/wget.rb#L27-L31) for an example.
 
 
 ## File level operations
@@ -982,12 +982,12 @@ If you have set `FC` to a custom Fortran compiler, you may additionally set `FCF
 When using Tigerbrew's own gfortran compiler, the standard `CFLAGS` are used and user-supplied values of `FCFLAGS` and `FFLAGS` are ignored for consistency and reproducibility reasons.
 
 
-# How to start over (reset to `master`)?
+# How to start over (reset to `main`)?
 
 Have you created a real mess in git which paralyzes you to create the commit you just want to push?
 Then you might consider start from scratch.
-Your changes will be discarded in favour of the `master` branch:
+Your changes will be discarded in favour of the `main` branch:
 
-`git checkout master`
+`git checkout main`
 
 `git reset --hard FETCH_HEAD`

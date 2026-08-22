@@ -126,7 +126,7 @@ module Homebrew
       safe_system "git", "config", "remote.origin.url", "https://codeberg.org/mistydemeo/tigerbrew.git"
       safe_system "git", "config", "remote.origin.fetch", "+refs/heads/*:refs/remotes/origin/*"
       safe_system "git", "fetch", "origin"
-      safe_system "git", "reset", "--hard", "origin/master"
+      safe_system "git", "reset", "--hard", "origin/main"
     end
 
     # GitHub to Codeberg migration
@@ -200,14 +200,14 @@ class Updater
       @stashed = true
     end
 
-    # The upstream repository's default branch may not be master;
+    # The upstream repository's default branch may not be main;
     # check refs/remotes/origin/HEAD to see what the default
-    # origin branch name is, and use that. If not set, fall back to "master".
+    # origin branch name is, and use that. If not set, fall back to "main".
     begin
       @upstream_branch = `git ls-remote --symref origin HEAD 2>/dev/null`
       @upstream_branch = @upstream_branch.split("\t")[0].sub('ref: refs/heads/', '')
     rescue ErrorDuringExecution
-      @upstream_branch = "master"
+      @upstream_branch = "main"
     end
 
     begin
@@ -237,7 +237,7 @@ class Updater
 
     @current_revision = read_current_revision
 
-    if @initial_branch != "master" && !@initial_branch.empty?
+    if @initial_branch != "main" && !@initial_branch.empty?
       safe_system "git", "checkout", @initial_branch, *quiet
     end
 

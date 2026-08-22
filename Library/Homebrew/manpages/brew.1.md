@@ -198,7 +198,7 @@ Note that these flags should only appear after a command.
     information on all installed formulae.
 
     See the docs for examples of using the JSON:
-    <https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/share/doc/homebrew/Querying-Brew.md>
+    <https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/share/doc/homebrew/Querying-Brew.md>
 
   * `install [--debug] [--env=<std|super>] [--ignore-dependencies] [--only-dependencies] [--cc=<compiler>] [--build-from-source|--force-bottle] [--devel|--HEAD]` <formula>:
     Install <formula>.
@@ -416,7 +416,7 @@ Note that these flags should only appear after a command.
     Pass `--installed` to get information on installed taps.
 
     See the docs for examples of using the JSON:
-    <https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/share/doc/homebrew/Querying-Brew.md>
+    <https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/share/doc/homebrew/Querying-Brew.md>
 
   * `tap-pin` <tap>:
     Pin <tap>, prioritizing its formulae over core when formula names are supplied
@@ -539,7 +539,7 @@ scripts that reside somewhere in the PATH, named `brew-<cmdname>` or
 to create your own commands without modifying Tigerbrews's internals.
 
 Instructions for creating your own commands can be found in the docs:
-<https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/share/doc/homebrew/External-Commands.md>
+<https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/share/doc/homebrew/External-Commands.md>
 
 ## SPECIFYING FORMULAE
 
@@ -556,7 +556,7 @@ can take several different forms:
 
   * An arbitrary URL:
     Tigerbrew can install formulae via URL, e.g.
-    `https://codeberg.org/mistydemeo/tigerbrew/raw/branch/master/Library/Formula/git.rb`.
+    `https://codeberg.org/mistydemeo/tigerbrew/raw/branch/main/Library/Formula/git.rb`.
     The formula file will be cached for later use.
 
 ## ENVIRONMENT
@@ -706,7 +706,7 @@ If your proxy requires authentication:
 
 ## SEE ALSO
 
-Tigerbrew Documentation: <https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/share/doc/homebrew/>
+Tigerbrew Documentation: <https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/share/doc/homebrew/>
 
 `git`(1), `git-log`(1)
 

@@ -82,7 +82,7 @@ including how to set this across reboots. If you’re pre-Mountain Lion,
 alternative](https://developer.apple.com/legacy/library/qa/qa1067/_index.html).
 
 ### How do I contribute to Tigerbrew?
-Read everything in https://codeberg.org/mistydemeo/tigerbrew/src/branch/master/CONTRIBUTING.md.
+Read everything in https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/CONTRIBUTING.md.
 
 ### Why do you compile everything?
 Tigerbrew is about **homebrewing**, it’s half the point that you can just

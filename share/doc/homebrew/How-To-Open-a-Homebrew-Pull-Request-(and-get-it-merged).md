@@ -9,9 +9,9 @@ To set up your own fork of the Homebrew repository:
 
 To make a new branch and submit it for review:
 
-1. Checkout the `master` branch with `git checkout master`
-2. Retrieve new changes to the `master` branch with `brew update` (which calls `git pull`)
-3. Create a new branch from the latest `master` branch with `git checkout -b YOUR_BRANCH_NAME origin/master`
+1. Checkout the `main` branch with `git checkout main`
+2. Retrieve new changes to the `main` branch with `brew update` (which calls `git pull`)
+3. Create a new branch from the latest `main` branch with `git checkout -b YOUR_BRANCH_NAME origin/main`
 4. Make your changes to any Homebrew formula with `brew edit` (following all the requirements in the [Formula Cookbook](Formula-Cookbook.md)). Run `brew audit ANY_CHANGED_FORMULA`, `brew tests` and `brew install ANY_CHANGED_FORMULA && brew test ANY_CHANGED_FORMULA` and ensure all of these pass without issue. If there's a `bottle do` block in the formula: don't remove it; we'll update it when we pull it.
 5. Make a separate commit for each changed formula with `git add` and `git commit`.
 6. Upload your new commits to the branch to your fork with `git push --set-upstream YOUR_USERNAME YOUR_BRANCH_NAME`
@@ -29,7 +29,7 @@ To make changes based on feedback:
 
 1. Checkout your branch again with `git checkout YOUR_BRANCH_NAME`
 2. Make any requested changes and commit them with `git add` and `git commit`
-3. Squash new commits into one commit per formula with `git rebase --interactive origin/master`
+3. Squash new commits into one commit per formula with `git rebase --interactive origin/main`
 4. Push to the fork's remote branch and the pull request with `git push --force`
 
 Once all feedback has been addressed and if it's a change we want to include (we include most changes) then we'll add your commit to Tigerbrew. Note it will not show up as "Merged" because of the way we include contributions.
