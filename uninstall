@@ -101,9 +101,9 @@ end
 gitignore = begin
   (HOMEBREW_REPOSITORY/".gitignore").read
 rescue Errno::ENOENT
-  `curl -fsSL https://raw.githubusercontent.com/Homebrew/homebrew/master/.gitignore`
+  `curl -fsSL https://codeberg.org/mistydemeo/tigerbrew/raw/branch/master/.gitignore`
 end
-abort "Failed to fetch Homebrew .gitignore!" if gitignore.empty?
+abort "Failed to fetch Tigerbrew .gitignore!" if gitignore.empty?
 
 $HOMEBREW_FILES = gitignore.split("\n").select { |line| line.start_with? "!" }.
   map { |line| line.chomp "/" }.map { |line| line.gsub %r{^!?/}, "" }.
