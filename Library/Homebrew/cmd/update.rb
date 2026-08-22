@@ -129,9 +129,9 @@ module Homebrew
       safe_system "git", "reset", "--hard", "origin/master"
     end
 
-    if `git remote show origin -n` =~ /Fetch URL: \S+mxcl\/homebrew/
-      safe_system "git", "remote", "set-url", "origin", "https://github.com/Homebrew/homebrew.git"
-      safe_system "git", "remote", "set-url", "--delete", "origin", ".*mxcl\/homebrew.*"
+    # GitHub to Codeberg migration
+    if `git remote show origin -n` =~ /Fetch URL: \S+github.com[\/:]mistydemeo\/tigerbrew/
+      safe_system "git", "remote", "set-url", "origin", "https://codeberg.org/mistydemeo/tigerbrew.git"
     end
   rescue Exception
     FileUtils.rm_rf ".git"
