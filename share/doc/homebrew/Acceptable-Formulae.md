@@ -1,6 +1,6 @@
 # Acceptable Formulae
 Some formulae should not go in
-[mistydemeo/tigerbrew](https://github.com/mistydemeo/tigerbrew). But there are
+[mistydemeo/tigerbrew](https://codeberg.org/mistydemeo/tigerbrew). But there are
 additional [Interesting Taps & Branches](Interesting-Taps-&-Branches.md) and anyone can start their
 own!
 
@@ -57,7 +57,7 @@ point it to the downloaded archive in order to avoid loading.
 
 ### We don’t like binary formulae
 Our policy is that formulae in the core repository
-([mistydemeo/tigerbrew](https://github.com/mistydemeo/tigerbrew)) must be built
+([mistydemeo/tigerbrew](https://codeberg.org/mistydemeo/tigerbrew)) must be built
 from source (or produce cross-platform binaries like e.g. Java). Binary-only
 formulae should go to [Homebrew/homebrew-binary](https://github.com/Homebrew/homebrew-binary).
 
