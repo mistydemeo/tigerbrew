@@ -204,8 +204,8 @@ class Updater
     # check refs/remotes/origin/HEAD to see what the default
     # origin branch name is, and use that. If not set, fall back to "master".
     begin
-      @upstream_branch = `git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null`
-      @upstream_branch = @upstream_branch.chomp.sub('refs/remotes/origin/', '')
+      @upstream_branch = `git ls-remote --symref origin HEAD 2>/dev/null`
+      @upstream_branch = @upstream_branch.split("\t")[0].sub('ref: refs/heads/', '')
     rescue ErrorDuringExecution
       @upstream_branch = "master"
     end
