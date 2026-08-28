@@ -1,8 +1,8 @@
 class Boost < Formula
   desc "Collection of portable C++ source libraries"
   homepage "http://www.boost.org"
-  url "https://downloads.sourceforge.net/project/boost/boost/1.58.0/boost_1_58_0.tar.bz2"
-  sha256 "fdfc204fc33ec79c99b9a74944c3e54bd78be4f7f15e260c0e2700a36dc7d3e5"
+  url "https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.bz2"
+  sha256 "7f6130bc3cf65f56a618888ce9d5ea704fa10b462be126ad053e80e553d6d8b7"
 
   head "https://github.com/boostorg/boost.git"
 
@@ -23,6 +23,9 @@ class Boost < Formula
   option :cxx11
 
   deprecated_option "with-icu" => "with-icu4c"
+
+    # something about boost's use of install_name does not seem to be compatible any more
+  patch :DATA
 
   if build.cxx11?
     depends_on "icu4c" => [:optional, "c++11"]
@@ -116,7 +119,8 @@ class Boost < Formula
     # Trunk starts using "clang++ -x c" to select C compiler which breaks C++11
     # handling using ENV.cxx11. Using "cxxflags" and "linkflags" still works.
     if build.cxx11?
-      args << "cxxflags=-std=c++11"
+      # This is cheating. Boost built using C++14 can be used both from C++11 and C++17 programs.
+      args << "cxxflags=-std=c++14"
       if ENV.compiler == :clang
         args << "cxxflags=-stdlib=libc++" << "linkflags=-stdlib=libc++"
       end
@@ -169,7 +173,23 @@ class Boost < Formula
         return 0;
       }
     EOS
-    system ENV.cxx, "test.cpp", "-std=c++1y", "-lboost_system", "-o", "test"
+    system ENV.cxx, "test.cpp", "-std=c++14", "-lboost_system", "-o", "test"
     system "./test"
   end
 end
+
+__END__
+diff --git a/tools/build/src/tools/darwin.jam b/tools/build/src/tools/darwin.jam
+index 57d9c75..8d703ae 100644
+--- a/tools/build/src/tools/darwin.jam
++++ b/tools/build/src/tools/darwin.jam
+@@ -609,7 +609,7 @@ rule link.dll ( targets * : sources * : properties * )
+ 
+ actions link.dll bind LIBRARIES
+ {
+-    "$(CONFIG_COMMAND)" -dynamiclib -Wl,-single_module -install_name "$(<:B)$(<:S)" -L"$(LINKPATH)" -o "$(<)" "$(>)" "$(LIBRARIES)" -l$(FINDLIBS-SA) -l$(FINDLIBS-ST) $(FRAMEWORK_PATH) -framework$(_)$(FRAMEWORK:D=:S=) $(OPTIONS) $(USER_OPTIONS)
++    "$(CONFIG_COMMAND)" -dynamiclib -Wl,-single_module -L"$(LINKPATH)" -o "$(<)" "$(>)" "$(LIBRARIES)" -l$(FINDLIBS-SA) -l$(FINDLIBS-ST) $(FRAMEWORK_PATH) -framework$(_)$(FRAMEWORK:D=:S=) $(OPTIONS) $(USER_OPTIONS)
+ }
+ 
+ # We use libtool instead of ar to support universal binary linking
+
