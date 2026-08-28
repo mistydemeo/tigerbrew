@@ -26,9 +26,6 @@ class Gcc45 < Formula
   sha256 "eef3f0456db8c3d992cbb51d5d32558190bc14f3bc19383dd93acc27acc6befc"
 
   bottle do
-    sha256 "16c2a3e56e2da8ec6b38b36c54112d7c56bc05f71168fb867f586cb190c5fef7" => :yosemite
-    sha256 "51b73412c9628a593e765105a098ed1500b04574145391f3f93972e54d5b1b05" => :mavericks
-    sha256 "06806e0a4aa703b0cacb4a3e10b4c8738d3d97535c6dd52796ec5a85eee0638d" => :mountain_lion
   end
 
   option "with-fortran", "Build the gfortran compiler"
@@ -82,6 +79,11 @@ class Gcc45 < Formula
   cxxstdlib_check :skip
 
   def install
+    # GCC Bug 25127 for PowerPC
+    # https://gcc.gnu.org/bugzilla//show_bug.cgi?id=25127
+    # ../../../libgcc/../gcc/unwind.inc: In function '_Unwind_RaiseException':
+    # ../../../libgcc/../gcc/unwind.inc:136:1: internal compiler error: in rs6000_emit_prologue, at config/rs6000/rs6000.c:20465
+    ENV.no_optimization
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
 
@@ -119,16 +121,8 @@ class Gcc45 < Formula
       # don't wander around telling little children there is no Santa
       # Claus.
       "--enable-version-specific-runtime-libs",
-      "--enable-libstdcxx-time=yes",
-      "--enable-stage1-checking",
-      "--enable-checking=release",
-      # GCC 4.5 does not properly support LTO on Darwin.
-      "--disable-lto",
-      # A no-op unless --HEAD is built because in head warnings will
-      # raise errors. But still a good idea to include.
-      "--disable-werror",
-      "--with-pkgversion=Homebrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/Homebrew/homebrew-versions/issues",
+      "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
+      "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
     ]
 
     # "Building GCC with plugin support requires a host that supports
@@ -222,5 +216,30 @@ class Gcc45 < Formula
     EOS
     system bin/"gcc-4.5", "-o", "hello-c", "hello-c.c"
     assert_equal "Hello, world!\n", `./hello-c`
+
+     (testpath/"hello-cc.cc").write <<-EOS.undent
+       #include <iostream>
+       int main()
+       {
+         std::cout << "Hello, world!" << std::endl;
+         return 0;
+       }
+     EOS
+     system "#{bin}/g++-4.5", "-o", "hello-cc", "hello-cc.cc"
+     assert_equal "Hello, world!\n", `./hello-cc`
+ 
+     (testpath/"test.f90").write <<-EOS.undent
+       integer,parameter::m=10000
+       real::a(m), b(m)
+       real::fact=0.5
+ 
+       do concurrent (i=1:m)
+         a(i) = a(i) + fact*b(i)
+       end do
+       write(*,"(A)") "Done"
+       end
+     EOS
+     system "#{bin}/gfortran-4.5", "-o", "test", "test.f90" if build.with? "fortran"
+     assert_equal "Done\n", `./test` if build.with? "fortran"
   end
 end
