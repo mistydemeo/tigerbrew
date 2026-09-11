@@ -1,14 +1,13 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "https://www.openssh.com/"
-  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.4p1.tar.gz"
-  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.4p1.tar.gz"
-  version "10.4p1"
-  sha256 "ef6026dd2aea8d56059638d5d3262902c892ceba9f88395835e0d06d3fb63238"
+  url "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.5p1.tar.gz"
+  mirror "https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.5p1.tar.gz"
+  version "10.5p1"
+  sha256 "d44d28a839ea9daf969cc69150fde59910b2b39361dad81a3bd6cbd19218db11"
   license "SSH-OpenSSH"
 
   bottle do
-    sha256 "0c4e5dbe5372e84cb08c613c4ecd80e7d100e2561c3741addc27cd6b5fde01a3" => :tiger_g3
   end
 
   # Please don't resubmit the keychain patch option. It will never be accepted.
