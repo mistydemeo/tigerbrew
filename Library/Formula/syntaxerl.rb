@@ -1,14 +1,15 @@
 class Syntaxerl < Formula
   homepage "https://github.com/ten0s/syntaxerl"
   desc "Syntax checker for Erlang code and config files"
-  url "https://github.com/ten0s/syntaxerl/archive/0.13.0.tar.gz"
-  sha256 "1788525472fea5b0139175abbfaeddcf7f94a875d42d5d3f0d4332f3803f1b11"
+  url "https://github.com/ten0s/syntaxerl/archive/0.15.0.tar.gz"
+  sha256 "61d2d58e87a7a5eab1f58c5857b1a9c84a091d18cd683385258c3c0d7256eb64"
 
   depends_on "erlang"
+  depends_on "rebar3" => :build
 
   def install
     system "make"
-    bin.install "syntaxerl"
+    bin.install "_build/default/bin/syntaxerl"
   end
 
   test do
