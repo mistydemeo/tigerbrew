@@ -12,10 +12,10 @@ end
 
 class AppleGcc42 < Formula
   homepage 'http://r.research.att.com/tools/'
-  url 'https://ia902307.us.archive.org/31/items/tigerbrew/gcc-42-5553-darwin8-all.tar.gz'
-  mirror 'http://r.research.att.com/gcc-42-5553-darwin8-all.tar.gz'
+  url 'https://archive.org/download/tigerbrew/gcc-42-5553-darwin8-all.tar.gz'
+  mirror 'https://mac.R-project.org/gcc-42-5553-darwin8-all.tar.gz'
   version '4.2.1-5553'
-  sha1 '0e529a2e4723e016e3d086d6ca3215d700931503'
+  sha256 '85f4a4be48ead22b016142504f955adc2da7aa1eb1e44590263ca52f8c8a598a'
 
   depends_on TigerOnly.new
 
