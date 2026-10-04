@@ -57,7 +57,7 @@ Merging is mainly useful when new work is being done. Please use `brew pull`
 (or `rebase`/`cherry-pick` contributions) rather than fill Homebrew's Git
 history up with noisy merge commits.
 
-Don’t `rebase` until you finally `push`. Once `master` is pushed, you can’t
+Don’t `rebase` until you finally `push`. Once `main` is pushed, you can’t
 `rebase` : **you’re a maintainer now!**
 
 Cherry-picking changes the date of the commit, which kind of sucks.

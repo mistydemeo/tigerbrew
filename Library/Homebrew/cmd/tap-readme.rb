@@ -21,7 +21,7 @@ module Homebrew
     ```
 
     ## Documentation
-    `brew help`, `man brew` or check [Tigerbrew's documentation](https://github.com/mistydemeo/tigerbrew/tree/master/share/doc/homebrew#readme).
+    `brew help`, `man brew` or check [Tigerbrew's documentation](https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/share/doc/homebrew#readme).
     EOS
 
     puts template if ARGV.verbose?

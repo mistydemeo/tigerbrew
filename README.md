@@ -10,7 +10,7 @@ You will first need the newest version of Xcode for your operating system instal
 
 On the computer you're reading this on, control or right click this link and save it (the option will be something like "Save Link As" or "Download Linked File" depending on your browser) to disk:
 
-<https://raw.github.com/mistydemeo/tigerbrew/go/install>
+<https://codeberg.org/mistydemeo/tigerbrew/raw/branch/go/install>
 
 Transfer it to your Tiger or Leopard machine along with Xcode.
 
@@ -43,9 +43,9 @@ Run these commands from your terminal. You must have git installed.
 
 ```
 cd `brew --repository`
-git remote set-url origin https://github.com/mistydemeo/tigerbrew.git
+git remote set-url origin https://codeberg.org/mistydemeo/tigerbrew.git
 git fetch origin
-git reset --hard origin/master
+git reset --hard origin/main
 ```
 
 ### How do I run `brew update`?
@@ -59,7 +59,7 @@ Many of the formulae in the repository have been tested, but there are still man
 Credits
 -------
 
-Homebrew is originally by [mxcl][mxcl], a splendid chap. This fork is by [mistydemeo](https://github.com/mistydemeo), incorporating some code originally written by @sceaga.
+Homebrew is originally by [mxcl][mxcl], a splendid chap. This fork is by [mistydemeo](https://codeberg.org/mistydemeo), incorporating some code originally written by @sceaga.
 
 License
 -------
@@ -68,7 +68,7 @@ Code is under the [BSD 2 Clause (NetBSD) license][license].
 [Homebrew]:http://brew.sh
 [wiki]:https://github.com/mistydemeo/tigerbrew/wiki
 [mxcl]:http://twitter.com/mxcl
-[formula]:https://github.com/mistydemeo/tigerbrew/tree/master/Library/Formula
-[license]:https://github.com/mistydemeo/tigerbrew/blob/master/LICENSE.txt
-[issues]:https://github.com/mistydemeo/tigerbrew/issues
-[prs]:https://github.com/mistydemeo/tigerbrew/pulls
+[formula]:https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/Library/Formula
+[license]:https://codeberg.org/mistydemeo/tigerbrew/raw/branch/main/LICENSE.txt
+[issues]:https://codeberg.org/mistydemeo/tigerbrew/issues
+[prs]:https://codeberg.org/mistydemeo/tigerbrew/pulls
