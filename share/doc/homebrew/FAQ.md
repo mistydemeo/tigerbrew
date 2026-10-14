@@ -49,9 +49,9 @@ Assuming you have Tigerbrew installed in `/usr/local`, otherwise substitute
 the command below in a terminal prompt.
 
 ```bash
-/usr/local/Library/Homebrew/vendor/portable-ruby/current/bin/ruby -e "$(/usr/local/Library/Homebrew/vendor/portable-curl/current/bin/curl -fsSL https://raw.githubusercontent.com/mistydemeo/tigerbrew/go/uninstall)"
+/usr/local/Library/Homebrew/vendor/portable-ruby/current/bin/ruby -e "$(/usr/local/Library/Homebrew/vendor/portable-curl/current/bin/curl -fsSL https://codeberg.org/mistydemeo/tigerbrew/raw/branch/go/uninstall)"
 ```
-Download the [uninstall script](https://raw.githubusercontent.com/mistydemeo/tigerbrew/go/uninstall)
+Download the [uninstall script](https://codeberg.org/mistydemeo/tigerbrew/raw/branch/go/uninstall)
 and run `./uninstall --help` to view more uninstall options.
 
 <a name="uninstall-package"></a>
@@ -82,7 +82,7 @@ including how to set this across reboots. If you’re pre-Mountain Lion,
 alternative](https://developer.apple.com/legacy/library/qa/qa1067/_index.html).
 
 ### How do I contribute to Tigerbrew?
-Read everything in https://github.com/mistydemeo/tigerbrew/blob/master/CONTRIBUTING.md.
+Read everything in https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/CONTRIBUTING.md.
 
 ### Why do you compile everything?
 Tigerbrew is about **homebrewing**, it’s half the point that you can just

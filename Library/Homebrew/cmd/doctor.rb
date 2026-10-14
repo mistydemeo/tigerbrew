@@ -929,7 +929,7 @@ class Checks
       Without a correctly configured origin, Tigerbrew won't update
       properly. You can solve this by adding the Tigerbrew remote:
         cd #{HOMEBREW_REPOSITORY}
-        git add remote origin https://github.com/mistydemeo/tigerbrew.git
+        git add remote origin https://codeberg.org/mistydemeo/tigerbrew.git
       EOS
     elsif origin !~ /mistydemeo\/tigerbrew(\.git)?$/ then <<-EOS.undent
       Suspicious git origin remote found.
@@ -940,7 +940,7 @@ class Checks
 
       Unless you have compelling reasons, consider setting the
       origin remote to point at the main repository, located at:
-        https://github.com/mistydemeo/tigerbrew.git
+        https://codeberg.org/mistydemeo/tigerbrew.git
       EOS
     end
   end

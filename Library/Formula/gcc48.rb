@@ -121,7 +121,7 @@ class Gcc48 < Formula
       "--with-isl=#{Formula["isl011"].opt_prefix}",
       "--with-system-zlib",
       "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
+      "--with-bugurl=https://codeberg.org/mistydemeo/tigerbrew/issues",
     ]
 
     # "Building GCC with plugin support requires a host that supports

@@ -118,7 +118,7 @@ class Gcc7 < Formula
       "--with-system-zlib",
       "--enable-checking=release",
       "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
+      "--with-bugurl=https://codeberg.org/mistydemeo/tigerbrew/issues",
     ]
 
     # "Building GCC with plugin support requires a host that supports

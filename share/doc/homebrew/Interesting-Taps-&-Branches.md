@@ -1,6 +1,6 @@
 # Interesting Taps & Branches
 A Tap is homebrew-speak for a git repository containing extra formulae.
-Tigerbrew has the capability to add (and remove) multiple taps to your local installation with the `brew tap` and `brew untap` command. Type `man brew` in your Terminal. The main repository https://github.com/mistydemeo/tigerbrew often called "mistydemeo/tigerbrew" is always built-in.
+Tigerbrew has the capability to add (and remove) multiple taps to your local installation with the `brew tap` and `brew untap` command. Type `man brew` in your Terminal. The main repository https://codeberg.org/mistydemeo/tigerbrew often called "mistydemeo/tigerbrew" is always built-in.
 
 ## Main Taps
 
@@ -50,7 +50,7 @@ Tigerbrew has the capability to add (and remove) multiple taps to your local ins
     - A Bundler-equivalent for installing project dependencies from Homebrew.
 
 
-`brew search` looks in these main taps and as well in [mistydemeo/tigerbrew](https://github.com/mistydemeo/tigerbrew). So don't worry about missing stuff. We will add other taps to the search as they become well maintained and popular.
+`brew search` looks in these main taps and as well in [mistydemeo/tigerbrew](https://codeberg.org/mistydemeo/tigerbrew). So don't worry about missing stuff. We will add other taps to the search as they become well maintained and popular.
 
 You can be added as a maintainer for one of the Homebrew organization taps and aid the project! If you are interested write to our list: homebrew@librelist.com. We want your help!
 
@@ -80,7 +80,7 @@ You can be added as a maintainer for one of the Homebrew organization taps and a
 
 ## Interesting Branches (aka forks)
 
-*   [mistydemeo/tigerbrew](https://github.com/mistydemeo/tigerbrew)
+*   [mistydemeo/tigerbrew](https://codeberg.org/mistydemeo/tigerbrew)
     - Experimental Tiger PowerPC version
 
 *   [homebrew/linuxbrew](https://github.com/Homebrew/linuxbrew)
