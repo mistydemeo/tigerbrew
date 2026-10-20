@@ -29,6 +29,9 @@ class Openssh < Formula
       --with-ssl-dir=#{Formula["openssl3"].opt_prefix}
       --with-zlib=#{Formula["zlib"].opt_prefix}
     ]
+    # Leopard renamed the privilege separation user to _sshd (Apple's own
+    # sshd uses it); "sshd" is only a DirectoryService alias there.
+    args << "--with-privsep-user=_sshd" if MacOS.version >= :leopard
 
     system "./configure", *args
     system "make"
@@ -41,10 +44,59 @@ class Openssh < Formula
     bin.install_symlink bin/"ssh" => "slogin"
   end
 
+  plist_options :startup => true
+
+  # Run sshd the same way Apple's com.openssh.sshd does: launchd owns the
+  # socket and starts one sshd -i per connection inside a fresh session.
+  # A long-running "sshd -D" under launchd breaks on Leopard: pam_launchd
+  # tears down the shared bootstrap namespace when the first login ends,
+  # so every later login fails in pam_open_session() and exits with 254.
+  def plist; <<-EOS.undent
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>Label</key>
+      <string>#{plist_name}</string>
+      <key>ProgramArguments</key>
+      <array>
+        <string>#{opt_sbin}/sshd</string>
+        <string>-i</string>
+        <string>-f</string>
+        <string>#{etc}/ssh/sshd_config</string>
+      </array>
+      <key>SessionCreate</key>
+      <true/>
+      <key>Sockets</key>
+      <dict>
+        <key>Listeners</key>
+        <dict>
+          <key>SockServiceName</key>
+          <string>ssh</string>
+        </dict>
+      </dict>
+      <key>StandardErrorPath</key>
+      <string>/dev/null</string>
+      <key>inetdCompatibility</key>
+      <dict>
+        <key>Wait</key>
+        <false/>
+      </dict>
+    </dict>
+    </plist>
+    EOS
+  end
+
   def caveats; <<-EOS.undent
     In order to be able to use sshd, you need to enable PAM support by stating
     UsePAM yes
     in your #{etc}/ssh/sshd_config
+
+    The launchd plist listens on port 22, so turn off Apple's sshd first
+    (Remote Login in Sharing preferences, or
+      sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist).
+    To keep existing known_hosts entries valid, list the old host key first:
+      HostKey /etc/ssh_host_rsa_key
     EOS
   end
 
