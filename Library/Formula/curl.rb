@@ -1,14 +1,13 @@
 class Curl < Formula
   desc "Get a file from an HTTP, HTTPS or FTP server"
   homepage "https://curl.haxx.se/"
-  url "https://curl.se/download/curl-8.21.0.tar.bz2"
-  mirror "https://github.com/curl/curl/releases/download/curl-8_21_0/curl-8.21.0.tar.bz2"
-  sha256 "ad6f2f94934b38e31e48272833c99b891d045b4565fe942a53fbd27bd3910e16"
+  url "https://curl.se/download/curl-8.23.0.tar.bz2"
+  mirror "https://github.com/curl/curl/releases/download/curl-8_23_0/curl-8.23.0.tar.bz2"
+  sha256 "95b22eb32bf6d1fa6e3e9463bdb61cece3efc56d86576a9b3cbd428246a6d854"
   license "curl"
 
   bottle do
     cellar :any
-    sha256 "393f6d1102dce1e816c6780814c8d67034b4971377d2d8fe60345e49bea6d0fd" => :tiger_g3
   end
 
   keg_only :provided_by_osx
