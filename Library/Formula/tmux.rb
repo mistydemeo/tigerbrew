@@ -1,13 +1,12 @@
 class Tmux < Formula
   desc "Terminal multiplexer"
   homepage "https://tmux.github.io/"
-  url "https://github.com/tmux/tmux/releases/download/3.7/tmux-3.7.tar.gz"
-  sha256 "2344f191501b8a73eb71dd6c5fd5dcf8c765f5066f34ab46f04b3013dc7bc1a5"
+  url "https://github.com/tmux/tmux/releases/download/3.8/tmux-3.8.tar.gz"
+  sha256 "e79c699c7e949dccd0a4a125e17b8d1261e311b16979dbc8eb34542f3966d82e"
   license "ISC"
 
   bottle do
     cellar :any
-    sha256 "cf9fc973a0bee30b7e0898cd6d1f511c73b50996fd9854fed475a6a686beb0c4" => :tiger_g3
   end
 
   head do
@@ -25,11 +24,14 @@ class Tmux < Formula
   def install
     system "sh", "autogen.sh" if build.head?
 
+    # jemalloc is needed for a calloc(3) bug in macOS 11 and up
+    # https://github.com/tmux/tmux/issues/5787
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
       --sysconfdir=#{etc}
       --enable-utf8proc
+      --disable-jemalloc
     ]
 
     ENV.append "LDFLAGS", "-lresolv"
