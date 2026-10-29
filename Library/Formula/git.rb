@@ -1,23 +1,22 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.54.0.tar.xz"
-  sha256 "f689162364c10de79ef89aa8dbf48731eb057e34edbbd20aca510ce0154681a3"
+  url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.56.0.tar.xz"
+  sha256 "26c56c296b38c0695b26fa95f475f1d01704d2d38e73465ca30b0b2f5dc789d3"
   license "GPL-2.0-only"
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
-    sha256 "a9c91321b2fd46efd82d7469975244267c1b9bffa56dcbb3d36cefb9abafe4fc" => :tiger_g3
   end
 
   resource "html" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.54.0.tar.xz"
-    sha256 "7ff72bfdfed4f20563f34416cf27614fb9c35bfad590db0062f2a0a9636514e4"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-2.56.0.tar.xz"
+    sha256 "c20a04cffce877e29ec532c5453f3fd2ce1f3daaf7f3b65d1f2fa73e95986d11"
   end
 
   resource "man" do
-    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.54.0.tar.xz"
-    sha256 "292062d18f3a215213ea8317ed22b94f02ad9572520b9293164d7db3eb888953"
+    url "https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-2.56.0.tar.xz"
+    sha256 "1f62a7fabaa36a0469c4d51fe247d12e7e246b890d2b8b49aec91df610f417c7"
   end
 
   # Fix PowerPC build and support for OS X Tiger & Leopard
@@ -85,6 +84,7 @@ class Git < Formula
     ENV["NO_APPLE_COMMON_CRYPTO"] = "1" if MacOS.version < :leopard
     ENV["NO_TCLTK"] = "1" if MacOS.version <:snow_leopard # Needs Tcl-Tk 8.5 or newer with Aqua support
     ENV.append "CFLAGS", "-std=gnu99"
+    ENV["NO_RUST"] = "1"
 
     perl_version = /\d\.\d+/.match(`perl --version`)
 
