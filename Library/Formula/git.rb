@@ -25,6 +25,7 @@ class Git < Formula
   # since newer implementations were based on AES cipher.
   # copyfile.h didn't show up until Leopard.
   # error: use of undeclared identifier 'O_RDONLY' & 'O_EXLOCK'
+  # __builtin_add_overflow is not available in Apple's clang before El Capitan.
   patch :p0, :DATA
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -305,3 +306,14 @@ __END__
  #include <Security/Security.h>
  
  #define ENCODING kCFStringEncodingUTF8
+--- git-compat-util.h.orig	2026-11-01 19:46:30.000000000 +0000
++++ git-compat-util.h	2026-11-01 19:47:38.000000000 +0000
+@@ -623,7 +623,7 @@
+  * Help Clang; GCC generates the same instructions for both variants on
+  * x64 and aarch64.
+  */
+-#ifdef __clang__
++#if defined(__clang__) && __has_builtin(__builtin_add_overflow)
+ #define st_add_overflow __builtin_add_overflow
+ #else
+ static inline bool st_add_overflow(size_t a, size_t b, size_t *out)
