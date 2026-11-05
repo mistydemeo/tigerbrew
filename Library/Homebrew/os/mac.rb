@@ -302,9 +302,14 @@ module OS
 
     def pkgutil_info(id)
       (@pkginfo ||= {}).fetch(id) do |key|
-        @pkginfo[key] = Utils.popen_read("/usr/sbin/pkgutil", "--pkg-info", key).strip
+        @pkginfo[key] = if File.exist?("/usr/sbin/pkgutil")
+          Utils.popen_read("/usr/sbin/pkgutil", "--pkg-info", key).strip
+        else
+          ""
+        end
       end
     end
+
 
     def mdfind_query(*ids)
       ids.map! { |id| "kMDItemCFBundleIdentifier == #{id}" }.join(" || ")
