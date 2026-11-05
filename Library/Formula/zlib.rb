@@ -1,12 +1,11 @@
 class Zlib < Formula
   desc "General-purpose lossless data-compression library"
   homepage "http://www.zlib.net/"
-  url "https://zlib.net/fossils/zlib-1.3.2.tar.gz"
-  sha256 "bb329a0a2cd0274d05519d61c667c062e06990d72e125ee2dfa8de64f0119d16"
+  url "https://zlib.net/fossils/zlib-1.4.tar.gz"
+  sha256 "02dd159783677a749c04adbdd02b55b8a2bcc7e054f51b76b549199a916ad584"
 
   bottle do
     cellar :any
-    sha256 "c0be37a4890f6d025cbd21f215da11d9ccda8e6e0b20ee07ffd9801f09e2e2b4" => :tiger_g3
   end
 
   keg_only :provided_by_osx
@@ -61,14 +60,16 @@ __END__
        SFLAGS="$SFLAGS -DHAS_vsnprintf_void"
 --- a/gzguts.h
 +++ b/gzguts.h
-@@ -92,8 +92,8 @@
+@@ -92,10 +92,10 @@
  #        define vsnprintf _vsnprintf
  #      endif
  #    endif
--#  elif !defined(__STDC_VERSION__) || __STDC_VERSION__-0 < 199901L
--/* Otherwise if C89/90, assume no C99 snprintf() or vsnprintf() */
-+#  elif (!defined(__STDC_VERSION__) || __STDC_VERSION__-0 < 199901L) && !defined(HAS_vsnprintf)
-+/* Otherwise if C89/90, assume no C99 snprintf() or vsnprintf() unless configure detected it */
+-#  elif (!defined(__STDC_VERSION__) || __STDC_VERSION__-0 < 199901L) && \
++#  elif (!defined(__STDC_VERSION__) || __STDC_VERSION__-0 < 199901L) && !defined(HAS_vsnprintf) && \
+         (!defined(__cplusplus) || __cplusplus < 201103L)
+ /* Otherwise if C89/90 (and not C++11 or later), assume no C99 snprintf() or
+-   vsnprintf() */
++   vsnprintf() unless configure detected it */
  #    ifndef NO_snprintf
  #      define NO_snprintf
  #    endif
