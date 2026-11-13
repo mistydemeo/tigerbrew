@@ -3,6 +3,7 @@ class Cabextract < Formula
   homepage "https://www.cabextract.org.uk/"
   url "https://www.cabextract.org.uk/cabextract-1.12.tar.gz"
   sha256 "8f39ad5f9c076b9c62c67dea4f8649e75dcc16899a2d8122ca32ba68262cb713"
+  license "GPL-3.0-or-later"
 
   bottle do
     cellar :any_skip_relocation
