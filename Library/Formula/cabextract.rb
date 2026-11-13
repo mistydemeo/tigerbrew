@@ -1,21 +1,23 @@
 class Cabextract < Formula
   desc "Extract files from Microsoft cabinet files"
-  homepage "http://www.cabextract.org.uk/"
-  url "http://www.cabextract.org.uk/cabextract-1.6.tar.gz"
-  sha256 "cee661b56555350d26943c5e127fc75dd290b7f75689d5ebc1f04957c4af55fb"
+  homepage "https://www.cabextract.org.uk/"
+  url "https://www.cabextract.org.uk/cabextract-1.12.tar.gz"
+  sha256 "8f39ad5f9c076b9c62c67dea4f8649e75dcc16899a2d8122ca32ba68262cb713"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "c0346331ea9ab80aabaf9a74e06ab2f00b0898859e129583e8509a26d2ff7270" => :el_capitan
-    sha256 "e86f3dda55d8cbba0602abacbf67d09a1b733d4fe6db761938f8a3416f1cf5a8" => :yosemite
-    sha256 "f71f87d6bbb877207ad984d8ad4bd68c7f50ae0305178583c968847cb57f6179" => :mavericks
-    sha256 "464d4ede11b2be5ecf25244193e901d9d08c1d0daf254204703e054405e41603" => :mountain_lion
   end
+
+  # Older mktemp(1) needs a template
+  patch :p0, :DATA
+
+  option "with-tests", "Build and run the test suite"
 
   def install
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}"
+    system "make", "check" if build.with?("tests") || build.bottle?
     system "make", "install"
   end
 
@@ -31,3 +33,15 @@ class Cabextract < Formula
     assert File.exist? "a"
   end
 end
+__END__
+--- test/testcase.in.orig	2026-11-13 00:11:33.000000000 +0000
++++ test/testcase.in	2026-11-13 00:11:49.000000000 +0000
+@@ -1,7 +1,7 @@
+ cabextract="@abs_top_builddir@/cabextract@EXEEXT@"
+ cd "@abs_srcdir@"
+ 
+-tmpdir=`mktemp -d`
++tmpdir=`mktemp -d -t tigerbrew`
+ status=$tmpdir/status
+ expected=$status.expected
+ actual=$status.actual
