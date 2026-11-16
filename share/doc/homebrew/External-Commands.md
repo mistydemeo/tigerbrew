@@ -117,4 +117,4 @@ These commands have been contributed by Tigerbrew users but are not included in 
 > ```
 
 ## SEE ALSO
-Tigerbrew Docs: <https://github.com/mistydemeo/tigerbrew/tree/master/share/doc/homebrew>
+Tigerbrew Docs: <https://codeberg.org/mistydemeo/tigerbrew/src/branch/main/share/doc/homebrew>

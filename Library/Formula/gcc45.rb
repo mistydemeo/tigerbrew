@@ -128,7 +128,7 @@ class Gcc45 < Formula
       # raise errors. But still a good idea to include.
       "--disable-werror",
       "--with-pkgversion=Homebrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/Homebrew/homebrew-versions/issues",
+      "--with-bugurl=https://codeberg.org/mistydemeo/tigerbrew/issues",
     ]
 
     # "Building GCC with plugin support requires a host that supports

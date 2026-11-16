@@ -61,7 +61,7 @@ module Homebrew
 
     ARGV.named.each do |arg|
       if arg.to_i > 0
-        url = "https://github.com/mistydemeo/tigerbrew/pull/#{arg}"
+        url = "https://codeberg.org/mistydemeo/tigerbrew/pull/#{arg}"
         issue = arg
       elsif (testing_match = arg.match %r{brew.sh/job/Homebrew.*Testing/(\d+)/})
         _, testing_job = *testing_match
