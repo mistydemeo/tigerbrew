@@ -1,22 +1,20 @@
 class Stunnel < Formula
   desc "SSL tunneling program"
   homepage "https://www.stunnel.org/"
-  url "https://www.stunnel.org/downloads/stunnel-5.23.tar.gz"
-  mirror "https://www.usenix.org.uk/mirrors/stunnel/stunnel-5.23.tar.gz"
-  sha256 "0fc4a702afd2e857bae8ad1f39c51546eb282c3d0ff4f4d55d62aece7328ddea"
+  url "https://www.stunnel.org/downloads/stunnel-5.82.tar.gz"
+  mirror "https://www.usenix.org.uk/mirrors/stunnel/stunnel-5.82.tar.gz"
+  sha256 "8e7438ccd6b3a2ab05182d0846e112a56a7f557ecdee40de07bf67820008bef7"
 
   bottle do
-    sha256 "a7c7556a6c17c2b5b131dcc8e5a66e3d7a7fdd5690bab34a009f359ffe59b9a2" => :el_capitan
-    sha256 "754cd51e26be1d898e0bfe861baef5eae6ad20c735f5b32356c0c95467b90dd0" => :yosemite
-    sha256 "fc4267fd40c4cae2f08283dd126a8c4daee78405b7574f196771fe0acfbcfccd" => :mavericks
-    sha256 "44c0bdbc5102a1259d4f4617d5a2c8b5c1043a0d4e32c2a1fc4767b09674c5cb" => :mountain_lion
   end
 
   # Please revision me whenever OpenSSL is updated
   # "Update OpenSSL shared libraries or rebuild stunnel"
-  depends_on "openssl"
+  depends_on "openssl3"
 
   def install
+    # error: void value not ignored as it ought to be
+    ENV.append_to_cflags "-D__DARWIN_UNIX03" if MacOS.version < :leopard
     system "./configure", "--disable-dependency-tracking",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}",
@@ -25,7 +23,7 @@ class Stunnel < Formula
                           "--mandir=#{man}",
                           "--disable-libwrap",
                           "--disable-systemd",
-                          "--with-ssl=#{Formula["openssl"].opt_prefix}"
+                          "--with-ssl=#{Formula["openssl3"].opt_prefix}"
     system "make", "install"
 
     # This programmatically recreates pem creation used in the tools Makefile
@@ -35,7 +33,7 @@ class Stunnel < Formula
                 openssl.cnf -out stunnel.pem -keyout stunnel.pem -sha256 -subj
                 /C=PL/ST=Mazovia\ Province/L=Warsaw/O=Stunnel\ Developers/OU=Provisional\ CA/CN=localhost/]
       system "dd", "if=/dev/urandom", "of=stunnel.rnd", "bs=256", "count=1"
-      system "#{Formula["openssl"].opt_bin}/openssl", *args
+      system "#{Formula["openssl3"].opt_bin}/openssl", *args
       chmod 0600, "stunnel.pem"
       (etc/"stunnel").install "stunnel.pem"
     end
