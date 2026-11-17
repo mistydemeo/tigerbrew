@@ -1,14 +1,13 @@
 class Autoconf < Formula
   desc "Automatic configure script builder"
   homepage "https://www.gnu.org/software/autoconf"
-  url "https://ftpmirror.gnu.org/autoconf/autoconf-2.72.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.xz"
-  sha256 "ba885c1319578d6c94d46e9b0dceb4014caafe2490e437a0dbca3f270a223f5a"
+  url "https://ftpmirror.gnu.org/autoconf/autoconf-2.73.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/autoconf/autoconf-2.73.tar.xz"
+  sha256 "9fd672b1c8425fac2fa67fa0477b990987268b90ff36d5f016dae57be0d6b52e"
 
+  # There are references to prefix in generated files,
+  # can't use any_skip_relocation
   bottle do
-    cellar :any_skip_relocation
-    sha256 "ef803264de782df052807bc4fdd57454d45fdad5502c029c55e91f34e3756bdc" => :tiger_altivec
-    sha256 "2b0e3519f085bb81068f61faee9d9b34dceff23f47cff37434e7441ccc1452fa" => :tiger_g3
   end
 
   # Bundled m4 is too old, also need new automake if running test suite.
