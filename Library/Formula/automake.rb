@@ -1,16 +1,14 @@
 class Automake < Formula
   desc "Tool for generating GNU Standards-compliant Makefiles"
   homepage "https://www.gnu.org/software/automake/"
-  url "http://ftpmirror.gnu.org/automake/automake-1.17.tar.xz"
-  mirror "https://ftp.gnu.org/gnu/automake/automake-1.17.tar.xz"
-  sha256 "8920c1fc411e13b90bf704ef9db6f29d540e76d232cb3b2c9f4dc4cc599bd990"
+  url "http://ftpmirror.gnu.org/automake/automake-1.20.tar.xz"
+  mirror "https://ftp.gnu.org/gnu/automake/automake-1.20.tar.xz"
+  sha256 "f6f34dad4cbe395715762b0710f7c511e39bd5cf777e6b95818ccbecf7714248"
   license "GPL-2.0-or-later"
 
+  # There are references to prefix in generated files,
+  # can't use any_skip_relocation
   bottle do
-    cellar :any_skip_relocation
-
-    sha256 "06e547e2706ad22c0156ec2bb69d6102686590f42f7c0116e8589de7466e64ce" => :tiger_altivec
-    sha256 "2ec484a6d7fbad29bbff1b8f83287fc6ed444122b44c709adcbab8bc1008176b" => :tiger_g3
   end
 
   depends_on "autoconf" => :run
