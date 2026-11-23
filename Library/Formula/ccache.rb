@@ -1,27 +1,17 @@
 class Ccache < Formula
   desc "Object-file caching compiler wrapper"
-  homepage "https://ccache.samba.org/"
-  url "https://samba.org/ftp/ccache/ccache-3.2.3.tar.bz2"
-  sha256 "b07165d4949d107d17f2f84b90b52953617bf1abbf249d5cc20636f43337c98c"
+  homepage "https://ccache.dev"
+  url "https://github.com/ccache/ccache/releases/download/v3.7.12/ccache-3.7.12.tar.gz"
+  sha256 "d2abe88d4c283ce960e233583061127b156ffb027c6da3cf10770fc0c7244194"
+  license "GPL-3.0-or-later"
 
   bottle do
-    sha256 "2ca210da714761dd4651ac84f5c8dbdb0caa62ac667526e2fcb0c39629a6569b" => :el_capitan
-    sha256 "0d2060ebd35b964a44fefbf728d5d40df0993d6b2ccd970a737aff37db7b6299" => :yosemite
-    sha256 "8de05f470558cc803f0f536c915b9f2a5b8ef47dc34709929d4c9a6f2e646630" => :mavericks
-    sha256 "215a131c1f10a74a5575ea5f5f9285a51929d62da6c5313a3e7ad0e30068d7e7" => :mountain_lion
   end
 
-  head do
-    url "https://github.com/jrosdahl/ccache.git"
-
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "libtool" => :build
-  end
+  depends_on "zlib"
 
   def install
-    system "./autogen.sh" if build.head?
-    system "./configure", "--prefix=#{prefix}", "--mandir=#{man}", "--with-bundled-zlib"
+    system "./configure", "--prefix=#{prefix}", "--mandir=#{man}"
     system "make"
     system "make", "install"
 
@@ -31,9 +21,20 @@ class Ccache < Formula
       clang
       clang++
       cc
-      gcc gcc2 gcc3 gcc-3.3 gcc-4.0 gcc-4.2 gcc-4.3 gcc-4.4 gcc-4.5 gcc-4.6 gcc-4.7 gcc-4.8 gcc-4.9 gcc-5
-      c++ c++3 c++-3.3 c++-4.0 c++-4.2 c++-4.3 c++-4.4 c++-4.5 c++-4.6 c++-4.7 c++-4.8 c++-4.9 c++-5
-      g++ g++2 g++3 g++-3.3 g++-4.0 g++-4.2 g++-4.3 g++-4.4 g++-4.5 g++-4.6 g++-4.7 g++-4.8 g++-4.9 g++-5
+      gcc gcc2 gcc3 gcc-3.3 gcc-4.0
+      gcc-4.2 gcc-4.3 gcc-4.4 gcc-4.5 gcc-4.6 gcc-4.7 gcc-4.8 gcc-4.9
+      gcc-5 gcc-6 gcc-7 gcc-8 gcc-9 gcc-10 gcc-11 gcc-12 gcc-13 gcc-14
+      gcc-15
+      c++ c++3 c++-3.3 c++-4.0
+      c++-4.2 c++-4.3 c++-4.4 c++-4.5 c++-4.6 c++-4.7 c++-4.8 c++-4.9
+      c++-5 c++-6 c++-7 c++-8 c++-9 c++-10 c++-11 c++-12 c++-13 c++-14
+      c++-15
+      g++ g++2 g++3 g++-3.3 g++-4.0
+      g++-4.2 g++-4.3 g++-4.4 g++-4.5 g++-4.6 g++-4.7 g++-4.8 g++-4.9
+      g++-5 g++-6 g++-7 g++-8 g++-9 g++-10 g++-11 g++-12 g++-13 g++-14
+      g++-15
+      i686-w64-mingw32-gcc i686-w64-mingw32-g++
+      x86_64-w64-mingw32-gcc x86_64-w64-mingw32-g++
     ].each do |prog|
       libexec.install_symlink bin/"ccache" => prog
     end
