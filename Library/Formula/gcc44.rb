@@ -26,8 +26,6 @@ class Gcc44 < Formula
   sha256 "5ff75116b8f763fa0fb5621af80fc6fb3ea0f1b1a57520874982f03f26cd607f"
 
   bottle do
-    sha256 "361c84608ef1ddaca2f9a3996aeface6bb08f4525388c563a09b8f20fcd40386" => :mavericks
-    sha256 "c5a7a27d0bfc30a3e6ecce048c786cefa7e3bb4038ad6ea3fdeeb3c6e6454bd1" => :mountain_lion
   end
 
   option "with-fortran", "Build the gfortran compiler"
@@ -71,6 +69,11 @@ class Gcc44 < Formula
   cxxstdlib_check :skip
 
   def install
+    # GCC Bug 25127 for PowerPC
+    # https://gcc.gnu.org/bugzilla//show_bug.cgi?id=25127
+    # ../../../libgcc/../gcc/unwind.inc: In function '_Unwind_Resume':
+    # ../../../libgcc/../gcc/unwind.inc:237: internal compiler error: in rs6000_emit_prologue, at config/rs6000/rs6000.c:16243
+    ENV.no_optimization
     # GCC will suffer build errors if forced to use a particular linker.
     ENV.delete "LD"
 
@@ -95,6 +98,7 @@ class Gcc44 < Formula
     args = [
       "--build=#{arch}-apple-darwin#{osmajor}",
       "--prefix=#{prefix}",
+      "--libdir=#{lib}/gcc/#{version_suffix}",
       "--mandir=#{man}",
       "--infodir=#{info}",
       "--enable-languages=#{languages.join(",")}",
@@ -106,20 +110,10 @@ class Gcc44 < Formula
       "--disable-ppl-version-check",
       "--with-cloog=#{Formula["cloog-ppl015"].opt_prefix}",
       "--with-system-zlib",
-      # This ensures lib, libexec, include are sandboxed so that they
-      # don't wander around telling little children there is no Santa
-      # Claus.
-      "--enable-version-specific-runtime-libs",
-      "--enable-libstdcxx-time=yes",
-      "--enable-stage1-checking",
-      "--enable-checking=release",
       # Multilib building is broken in GCC 4.4 on Darwin
       "--disable-multilib",
-      # A no-op unless --HEAD is built because in head warnings will
-      # raise errors. But still a good idea to include.
-      "--disable-werror",
-      "--with-pkgversion=Homebrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
-      "--with-bugurl=https://github.com/Homebrew/homebrew-versions/issues",
+      "--with-pkgversion=Tigerbrew #{name} #{pkg_version} #{build.used_options*" "}".strip,
+      "--with-bugurl=https://github.com/mistydemeo/tigerbrew/issues",
     ]
 
     args << "--disable-nls" if build.without? "nls"
@@ -127,6 +121,10 @@ class Gcc44 < Formula
     if build.with?("java") || build.with?("all-languages")
       args << "--with-ecj-jar=#{Formula["ecj"].opt_prefix}/share/java/ecj.jar"
     end
+
+    # Ensure correct install names when linking against libgcc_s;
+    # see discussion in https://github.com/Homebrew/homebrew/pull/34303
+    inreplace "libgcc/config/t-slibgcc-darwin", "@shlib_slibdir@", "#{HOMEBREW_PREFIX}/lib/gcc/#{version_suffix}"
 
     mkdir "build" do
       unless MacOS::CLT.installed?
@@ -166,10 +164,10 @@ class Gcc44 < Formula
     # Rename java properties
     if build.with?("java") || build.with?("all-languages")
       config_files = [
-        "#{lib}/logging.properties",
-        "#{lib}/security/classpath.security",
-        "#{lib}/i386/logging.properties",
-        "#{lib}/i386/security/classpath.security",
+        "#{lib}/gcc/#{version_suffix}/logging.properties",
+        "#{lib}/gcc/#{version_suffix}/security/classpath.security",
+        "#{lib}/gcc/#{version_suffix}/i386/logging.properties",
+        "#{lib}/gcc/#{version_suffix}/i386/security/classpath.security"
       ]
 
       config_files.each do |file|
@@ -196,5 +194,30 @@ class Gcc44 < Formula
     EOS
     system bin/"gcc-4.4", "-o", "hello-c", "hello-c.c"
     assert_equal "Hello, world!\n", `./hello-c`
+
+    (testpath/"hello-cc.cc").write <<-EOS.undent
+      #include <iostream>
+      int main()
+      {
+        std::cout << "Hello, world!" << std::endl;
+        return 0;
+      }
+    EOS
+    system "#{bin}/g++-4.4", "-o", "hello-cc", "hello-cc.cc"
+    assert_equal "Hello, world!\n", `./hello-cc`
+
+    (testpath/"test.f90").write <<-EOS.undent
+      integer,parameter::m=10000
+      real::a(m), b(m)
+      real::fact=0.5
+
+      do concurrent (i=1:m)
+        a(i) = a(i) + fact*b(i)
+      end do
+      write(*,"(A)") "Done"
+      end
+    EOS
+    system "#{bin}/gfortran-4.4", "-o", "test", "test.f90" if build.with? "fortran"
+    assert_equal "Done\n", `./test` if build.with? "fortran"
   end
 end
