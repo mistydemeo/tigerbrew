@@ -1,18 +1,19 @@
 class Pyqt < Formula
   desc "Python bindings for Qt"
   homepage "http://www.riverbankcomputing.co.uk/software/pyqt"
-  url "https://downloads.sf.net/project/pyqt/PyQt4/PyQt-4.11.3/PyQt-mac-gpl-4.11.3.tar.gz"
-  sha256 "8b8bb3a2ef8b7368710e0bc59d6e94e1f513f7dbf10a3aaa3154f7b848c88b4d"
-  revision 1
+  url "https://www.riverbankcomputing.com/static/Downloads/PyQt4/4.12.3/PyQt4_gpl_mac-4.12.3.tar.gz"
+  sha256 "293e4be7dd741db72b1265e062ea14332ba5532741314f64eb935d141570305f"
 
   bottle do
-    sha256 "45a0bd946b7eca2af72aa3e56bda87ad90ef54bda91f0aea05c0ea2d50d6e8c4" => :el_capitan
-    sha256 "6a5726eb3dff684c7052ea52db633f8c5333a947f97bdfab887e204b846abd7c" => :yosemite
-    sha256 "c0edd4c00b302e8e5baaa87b2c9d0e2037e93b42b0aec007dd24b80b4fbed847" => :mavericks
   end
 
-  option "without-python", "Build without python 2 support"
-  depends_on :python3 => :optional
+  # sip: Deprecation warning: the -B flag is deprecated
+  # Error: Unable to create the C++ code.
+  patch :p0, :DATA
+
+  option "without-python", "Build without python2 support"
+  depends_on :python => :recommended
+  depends_on :python3 => :recommended
 
   if build.without?("python3") && build.without?("python")
     odie "pyqt: --with-python3 must be specified when using --without-python"
@@ -92,3 +93,17 @@ class Pyqt < Formula
     end
   end
 end
+__END__
+--- configure-ng.py.orig	2018-08-31 08:40:05.000000000 +0100
++++ configure-ng.py	2025-02-06 11:44:40.000000000 +0000
+@@ -2220,8 +2220,8 @@
+     argv = [quote(target_config.sip), '-w', '-n', 'PyQt4.sip', '-f', sip_flags]
+ 
+     # Make sure any unknown Qt version gets treated as the latest Qt v4.
+-    argv.append('-B')
+-    argv.append('Qt_5_0_0')
++    # argv.append('-B')
++    # argv.append('Qt_5_0_0')
+ 
+     if no_timestamp:
+         argv.append('-T')
