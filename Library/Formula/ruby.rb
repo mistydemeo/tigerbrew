@@ -1,9 +1,8 @@
 class Ruby < Formula
   desc "Powerful, clean, object-oriented scripting language"
   homepage "https://www.ruby-lang.org/"
-  url "https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.1.tar.bz2"
-  sha256 "ccfb2d0a61e2a9c374d51e099b0d833b09241ee78fc17e1fe38e3b282160237c"
-  revision 1
+  url "https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.10.tar.bz2"
+  sha256 "6ea3ce7fd0064524ae06dbdcd99741c990901dfc9c66d8139a02f907d30b95a8"
 
   bottle do
   end
@@ -28,18 +27,7 @@ class Ruby < Formula
   depends_on :x11 if build.with? "tcltk"
 
   if true# MacOS.version <= :leopard
-    # fix for https://bugs.ruby-lang.org/issues/11054
-    patch do
-      url "https://github.com/ruby/ruby/commit/1c80c388d5bd48018c419a2ea3ed9f7b7514dfa3.patch?full_index=1"
-      sha256 "8ba0a24a36702d2cbc94aa73cb6f0b11793348b0158c11c8608e073c71601bb5"
-    end
-
-    # fix for https://bugs.ruby-lang.org/issues/13247
-    patch do
-      url "https://github.com/ruby/ruby/commit/9e1a9858c84142e32b1bc51b23fa06a025f98b46.patch?full_index=1"
-      sha256 "300f13461385804ddfb314d9b0880bb47ad4f53f48209681d193a800418c31e6"
-    end
-
+    # fix for ext/dbm/extconf.rb
     # fix for ext/fiddle/libffi-3.2.1/src/x86/win32.S
     # based on https://github.com/macports/macports-ports/blob/8964c98f0e33e4aaabc851d8b684f4c709edceef/devel/libffi/files/PR-44170.patch
     patch :DATA
@@ -213,6 +201,17 @@ class Ruby < Formula
   end
 end
 __END__
+--- a/ext/dbm/extconf.rb	2015-12-16 05:31:54.000000000 +0000
++++ b/ext/dbm/extconf.rb
+@@ -137,7 +137,7 @@ def headers.db_check2(db, hdr)
+     have_library("gdbm") or return false
+   end
+ 
+-  if !have_type("DBM", hdr, hsearch)
++  if !have_type("DBM", ["db.h", hdr], hsearch)
+     return false
+   end
+
 --- a/ext/fiddle/libffi-3.2.1/src/x86/win32.S	2017-04-04 11:14:27.000000000 +0200
 +++ b/ext/fiddle/libffi-3.2.1/src/x86/win32.S	2017-04-04 11:16:20.000000000 +0200
 @@ -528,7 +528,7 @@
