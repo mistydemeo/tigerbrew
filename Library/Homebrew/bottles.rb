@@ -25,8 +25,6 @@ end
 def bottle_tag
   if MacOS.version >= :lion
     MacOS.cat
-  elsif MacOS.version == :snow_leopard
-    Hardware::CPU.is_64_bit? ? :snow_leopard : :snow_leopard_32
   else
     # Return, e.g., :tiger_g3, :leopard_g5_64, :leopard_64 (which is Intel)
     if Hardware::CPU.type == :ppc
@@ -34,7 +32,14 @@ def bottle_tag
     else
       tag = MacOS.cat
     end
-    MacOS.prefer_64_bit? ? "#{tag}_64".to_sym : tag
+    # For backwards compatibility with older Snow Leopard bottles:
+    # :snow_leopard means 64-bit, and the rarely-used :snow_leopard_32
+    # means 32-bit.
+    if MacOS.version == :snow_leopard
+      MacOS.prefer_64_bit? ? tag : "#{tag}_32".to_sym
+    else
+      MacOS.prefer_64_bit? ? "#{tag}_64".to_sym : tag 
+    end
   end
 end
 
